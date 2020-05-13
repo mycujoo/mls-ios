@@ -47,7 +47,6 @@ class VideoProgressSlider: UIControl {
     }()
 
     private let thumbLayer = ThumbLayer()
-    private var previousLocation = CGPoint()
     
     var thumbTintColor = UIColor.white
     
@@ -88,21 +87,21 @@ class VideoProgressSlider: UIControl {
         addSubview(timeView)
         NSLayoutConstraint
             .activate(
-            [
-                timeView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                timeView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                timeView.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ]
+                [
+                    timeView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                    timeView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                    timeView.centerYAnchor.constraint(equalTo: centerYAnchor)
+                ]
         )
 
         addSubview(trackView)
         NSLayoutConstraint
             .activate(
-            [
-                trackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                trailingConstraintOfTrackView,
-                trackView.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ]
+                [
+                    trackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                    trailingConstraintOfTrackView,
+                    trackView.centerYAnchor.constraint(equalTo: centerYAnchor)
+                ]
         )
         
         thumbLayer.contentsScale = UIScreen.main.scale
@@ -125,41 +124,9 @@ class VideoProgressSlider: UIControl {
     }
     
     //MARK: - Touching
-    
-    private func bound(value: Double, toLowerValue lowerValue: Double, upperValue: Double) -> Double {
-        return min(max(value, lowerValue), upperValue)
-    }
-    
-    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        previousLocation = touch.location(in: self)
-        
-        if thumbLayer.frame.insetBy(dx: -20, dy: -20).contains(previousLocation) {
-            thumbLayer.isHighlighted = true
-        }
-        
-        return thumbLayer.isHighlighted
-    }
-    
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        let location = touch.location(in: self)
-        
-        let deltaLocation = Double(location.x - previousLocation.x)
-        let deltaValue = (maximumValue - minimumValue) * deltaLocation / Double(bounds.width - thumbWidth)
-        
-        previousLocation = location
-        
-        if thumbLayer.isHighlighted {
-            
-            _value += deltaValue
-            _value = bound(value: _value, toLowerValue: minimumValue, upperValue: maximumValue)
-            
-        }
-        
+        _value = Double(max(0, min(touch.location(in: self).x, bounds.width)) / bounds.width)
         sendActions(for: .valueChanged)
         return true
-    }
-    
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        thumbLayer.isHighlighted = false
     }
 }
