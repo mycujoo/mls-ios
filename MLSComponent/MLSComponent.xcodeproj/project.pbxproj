@@ -118,9 +118,9 @@
 		64BF508324698AC0002D1386 /* VideoProgressSlider */ = {
 			isa = PBXGroup;
 			children = (
-				64BF508424698AC0002D1386 /* VideoProgressSliderTrackLayer.swift */,
 				64BF508524698AC0002D1386 /* VideoProgressSlider.swift */,
 				64BF508624698AC0002D1386 /* VideoProgressSliderThumbLayer.swift */,
+				64BF508424698AC0002D1386 /* VideoProgressSliderTrackLayer.swift */,
 			);
 			path = VideoProgressSlider;
 			sourceTree = "<group>";

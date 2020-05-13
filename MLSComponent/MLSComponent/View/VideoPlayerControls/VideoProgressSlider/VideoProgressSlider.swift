@@ -121,13 +121,13 @@ class VideoProgressSlider: UIControl {
         CATransaction.commit()
     }
     
-    func position(forValue value: Double, withDelta delta: CGFloat = 0) -> Double {
+    private func position(forValue value: Double, withDelta delta: CGFloat = 0) -> Double {
         return Double(bounds.size.width - delta) * (value - minimumValue) / (maximumValue - minimumValue) + Double(delta / 2.0)
     }
     
     //MARK: - Touching
     
-    func bound(value: Double, toLowerValue lowerValue: Double, upperValue: Double) -> Double {
+    private func bound(value: Double, toLowerValue lowerValue: Double, upperValue: Double) -> Double {
         return min(max(value, lowerValue), upperValue)
     }
     
@@ -163,5 +163,4 @@ class VideoProgressSlider: UIControl {
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         thumbLayer.isHighlighted = false
     }
-    
 }
