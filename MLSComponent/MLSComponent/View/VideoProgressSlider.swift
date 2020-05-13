@@ -46,7 +46,20 @@ class VideoProgressSlider: UIControl {
         trackView.trailingAnchor.constraint(equalTo: leadingAnchor)
     }()
 
-    private let thumbLayer = ThumbLayer()
+    private let thumbView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = .white
+        view.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        view.layer.cornerRadius = 6
+        return view
+    }()
+
+    private lazy var centerXOfThumbView: NSLayoutConstraint = {
+        thumbView.centerXAnchor.constraint(equalTo: leadingAnchor)
+    }()
     
     var thumbTintColor = UIColor.white
     
@@ -103,26 +116,18 @@ class VideoProgressSlider: UIControl {
                     trackView.centerYAnchor.constraint(equalTo: centerYAnchor)
                 ]
         )
-        
-        thumbLayer.contentsScale = UIScreen.main.scale
-        thumbLayer.slider = self
-        layer.addSublayer(thumbLayer)
+
+        addSubview(thumbView)
+        centerXOfThumbView.isActive = true
+        thumbView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
     private func updateLayerFrames() {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        let thumbCenter = CGFloat(position(forValue: value, withDelta: thumbWidth))
-        thumbLayer.frame = CGRect(x: thumbCenter - thumbWidth / 2.0, y: (bounds.size.height - thumbWidth) / 2, width: thumbWidth, height: thumbWidth)
-        thumbLayer.setNeedsDisplay()
-        CATransaction.commit()
+        let thumbCenter = bounds.width * CGFloat(value)
         trailingConstraintOfTrackView.constant = thumbCenter
+        centerXOfThumbView.constant = thumbCenter
     }
-    
-    private func position(forValue value: Double, withDelta delta: CGFloat = 0) -> Double {
-        return Double(bounds.size.width - delta) * (value - minimumValue) / (maximumValue - minimumValue) + Double(delta / 2.0)
-    }
-    
+
     //MARK: - Touching
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         _value = Double(max(0, min(touch.location(in: self).x, bounds.width)) / bounds.width)
