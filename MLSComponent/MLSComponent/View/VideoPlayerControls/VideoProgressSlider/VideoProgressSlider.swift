@@ -9,27 +9,16 @@ class VideoProgressSlider: UIControl {
     //MARK: - Properties
     
     private var _value: Double = 0.0 {
-        didSet {
-            updateLayerFrames()
-        }
+        didSet { updateLayerFrames() }
     }
     
     var value: Double {
-        
-        get {
-            return _value
-        }
-        
+        get { _value }
         set {
-            
-            guard !isTracking else {
-                return
-            }
+            guard !isTracking else { return }
             _value = newValue
             updateLayerFrames()
-        
         }
-
     }
     
     private let minimumValue = 0.0
