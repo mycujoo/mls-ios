@@ -8,12 +8,61 @@ import AVKit
 
 public class VideoPlayerView: UIView  {
 
+    // MARK: - Player
+
     private var status: VideoPlayStatus = .pause
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
 
+    // MARK: - UI Components
+
     private var controlsView: VideoPlayerControls!
     private var activityIndicatorView: UIActivityIndicatorView?
+
+    private let playButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.0, *) {
+            button.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        }
+        return button
+    }()
+
+    private let currentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .footnote)
+        return label
+    }()
+
+    private let videoLengthLabel: UILabel! = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .footnote)
+        return label
+    }()
+
+    private let videoSlider: VideoProgressSlider = {
+        let slider = VideoProgressSlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        return slider
+    }()
+
+    private let fullscreenButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.0, *) {
+            button.setImage(UIImage(systemName: "shift.fill"), for: .normal)
+        }
+        return button
+    }()
+
+    private let controlsBackground: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .brown
+        return view
+    }()
 
     //MARK: - Init
 
