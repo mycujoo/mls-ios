@@ -230,24 +230,12 @@ public class VideoPlayerView: UIView  {
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         //this is when the player is ready and rendering frames
-        guard keyPath == "currentItem.loadedTimeRanges" else {
-            return
-        }
+        guard keyPath == "currentItem.loadedTimeRanges" else { return }
         activityIndicatorView?.stopAnimating()
-        guard let duration = player?.currentItem?.duration else {
-            return
-        }
+        guard let duration = player?.currentItem?.duration else { return }
         let seconds = CMTimeGetSeconds(duration)
 
-        guard !seconds.isNaN else {
-            return
-        }
-
-        if let range = player?.currentItem?.loadedTimeRanges.first {
-            let downloadSeconds = CMTimeGetSeconds(CMTimeRangeGetEnd(range.timeRangeValue))
-            videoSlider.downloadProgress = downloadSeconds / seconds
-        }
-
+        guard !seconds.isNaN else { return }
         let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
         let minutesText = String(format: "%02d", Int(seconds) / 60)
         videoLengthLabel.text = "\(minutesText):\(secondsText)"

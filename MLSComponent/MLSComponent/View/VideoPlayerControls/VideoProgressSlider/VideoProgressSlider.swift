@@ -32,12 +32,6 @@ class VideoProgressSlider: UIControl {
 
     }
     
-    var downloadProgress = 0.0 {
-        didSet {
-            updateDownloadProgress()
-        }
-    }
-    
     private let minimumValue = 0.0
     private let maximumValue = 1.0
     
@@ -53,14 +47,6 @@ class VideoProgressSlider: UIControl {
         
         let layer = TrackLayer()
         layer.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.4)
-        
-        return layer
-    }()
-
-    private let downloadProgressLayer: TrackLayer = {
-        
-        let layer = TrackLayer()
-        layer.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2)
         
         return layer
     }()
@@ -110,27 +96,9 @@ class VideoProgressSlider: UIControl {
         timeLayer.contentsScale = UIScreen.main.scale
         layer.addSublayer(timeLayer)
         
-        downloadProgressLayer.contentsScale = UIScreen.main.scale
-        layer.addSublayer(downloadProgressLayer)
-        
         thumbLayer.contentsScale = UIScreen.main.scale
         thumbLayer.slider = self
         layer.addSublayer(thumbLayer)
-        
-    }
-    
-    private func updateDownloadProgress() {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        
-        let downloadPosition = CGFloat(position(forValue: downloadProgress))
-        let fullBounds = bounds.insetBy(dx: 0.0, dy: trackHeight)
-        
-        downloadProgressLayer.frame = fullBounds
-        downloadProgressLayer.frame.size.width = downloadPosition
-        downloadProgressLayer.setNeedsDisplay()
-        
-        CATransaction.commit()
     }
     
     private func updateLayerFrames() {
