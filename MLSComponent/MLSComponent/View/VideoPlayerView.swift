@@ -16,7 +16,6 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - UI Components
 
-    private var controlsView: VideoPlayerControls!
     private var activityIndicatorView: UIActivityIndicatorView?
 
     private let playButton: UIButton = {
@@ -80,21 +79,19 @@ public class VideoPlayerView: UIView  {
         drawSelf()
     }
 
+    // MARK: - Layout
+
     private func drawSelf() {
 
-        let controls = VideoPlayerControls()
-        controls.translatesAutoresizingMaskIntoConstraints = false
-        controlsView = controls
-        controls.delegate = self
-        
-        addSubview(controls)
+        addSubview(controlsBackground)
+        drawControls(in: controlsBackground)
         NSLayoutConstraint
             .activate(
                 [
-                    controls.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-                    controls.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-                    controls.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-                    controls.heightAnchor.constraint(equalToConstant: 32)
+                    controlsBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+                    controlsBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+                    controlsBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+                    controlsBackground.heightAnchor.constraint(equalToConstant: 32)
                 ]
         )
         
@@ -117,9 +114,71 @@ public class VideoPlayerView: UIView  {
         super.layoutSubviews()
         
         playerLayer?.frame = bounds
-        controlsView.setNeedsLayout()
-        controlsView.layoutIfNeeded()
+//        controlsView.setNeedsLayout()
+//        controlsView.layoutIfNeeded()
         
+    }
+
+    private func drawControls(in view: UIView) {
+
+        view.addSubview(playButton)
+        view.addSubview(currentTimeLabel)
+        view.addSubview(videoLengthLabel)
+        view.addSubview(videoSlider)
+        view.addSubview(fullscreenButton)
+
+        NSLayoutConstraint
+            .activate(
+                [
+                    playButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+                    playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    playButton.widthAnchor.constraint(equalToConstant: 16),
+                    playButton.heightAnchor.constraint(equalToConstant: 16)
+                ]
+        )
+        playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+
+        NSLayoutConstraint
+            .activate(
+                [
+                    currentTimeLabel.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 8),
+                    currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    currentTimeLabel.widthAnchor.constraint(equalToConstant: 40)
+                ]
+        )
+
+        NSLayoutConstraint
+            .activate(
+                [
+                    videoSlider.leadingAnchor.constraint(equalTo: currentTimeLabel.trailingAnchor, constant: 8),
+                    videoSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    videoSlider.heightAnchor.constraint(equalToConstant: 16)
+                ]
+        )
+        videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
+
+        NSLayoutConstraint
+            .activate(
+                [
+                    videoLengthLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
+                    videoLengthLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    videoLengthLabel.widthAnchor.constraint(equalToConstant: 40)
+                ]
+        )
+
+        NSLayoutConstraint
+            .activate(
+                [
+                    fullscreenButton.leadingAnchor.constraint(equalTo: videoLengthLabel.trailingAnchor, constant: 8),
+                    fullscreenButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    fullscreenButton.widthAnchor.constraint(equalToConstant: 16),
+                    fullscreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+                ]
+        )
+        fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
+
+        layer.cornerRadius = 8.0
+        backgroundColor = .brown
     }
 
     //MARK: - Methods
@@ -136,7 +195,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
         
-        bringSubviewToFront(controlsView)
+        bringSubviewToFront(controlsBackground)
         activityIndicatorView?.startAnimating()
 
         trackTime()
@@ -153,13 +212,13 @@ public class VideoPlayerView: UIView  {
             let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
             let minutesString = String(format: "%02d", Int(seconds / 60))
 
-            self.controlsView.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+            self.currentTimeLabel.text = "\(minutesString):\(secondsString)"
 
             //lets move the slider thumb
             if let duration = self.player?.currentItem?.duration, duration.value != 0 {
                 let durationSeconds = CMTimeGetSeconds(duration)
 
-                self.controlsView.videoSlider.value = seconds / durationSeconds
+                self.videoSlider.value = seconds / durationSeconds
 
             }
             
@@ -186,18 +245,19 @@ public class VideoPlayerView: UIView  {
 
         if let range = player?.currentItem?.loadedTimeRanges.first {
             let downloadSeconds = CMTimeGetSeconds(CMTimeRangeGetEnd(range.timeRangeValue))
-            controlsView.videoSlider.downloadProgress = downloadSeconds / seconds
+            videoSlider.downloadProgress = downloadSeconds / seconds
         }
 
         let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
         let minutesText = String(format: "%02d", Int(seconds) / 60)
-        controlsView.videoLengthLabel.text = "\(minutesText):\(secondsText)"
+        videoLengthLabel.text = "\(minutesText):\(secondsText)"
     }
 }
 
-extension VideoPlayerView: VideoPlayerControlsDelegate {
+// MARK: - Actions
+extension VideoPlayerView {
 
-    public func playButtonTapped() {
+    @objc func playButtonTapped() {
 
         status.setOpposite()
         
@@ -206,12 +266,15 @@ extension VideoPlayerView: VideoPlayerControlsDelegate {
         } else {
             player?.pause()
         }
-        
-        controlsView.set(status: status)
-        
+        if #available(iOS 13.0, *) {
+            let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
+            playButton.setImage(image, for: .normal)
+        }
     }
 
-    public func timeSliderSlide(withValue value: Double) {
+    @objc func timeSliderSlide(_ sender: VideoProgressSlider) {
+
+        var value = sender.value
 
         guard let player = player, let duration = player.currentItem?.duration, duration.value != 0 else {
             return
@@ -219,7 +282,7 @@ extension VideoPlayerView: VideoPlayerControlsDelegate {
         
         let totalSeconds = CMTimeGetSeconds(duration)
         
-        let value = Float64(value) * totalSeconds
+        value = Float64(value) * totalSeconds
         
         let seekTime = CMTime(value: Int64(value), timescale: 1)
         
@@ -229,12 +292,7 @@ extension VideoPlayerView: VideoPlayerControlsDelegate {
         
     }
 
-    public func fullscreenButtonTapped() {
+    @objc func fullscreenButtonTapped() {
         print("need to be implemented")
-        controlsView.set(status: .pause)
-    }
-
-    public func showFullscreenVideo(_ url: URL) {
-        print("show full screen")
     }
 }
