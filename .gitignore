@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+
+# Xcode
+## User settings
+xcuserdata/
+
+## Builds
+builds/
+
+## Other
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+
+# Bundler
+bundler-vendor/
+
+# CocoaPods
+Pods/
+
+# Fastlane
+fastlane/report.xml
+fastlane/derived_data/
+fastlane/screenshots/
+fastlane/screenshots_raw/
+fastlane/screenshots_old/
+fastlane/test_output
+Preview.html
+
+# sed files
+*.swift-e
