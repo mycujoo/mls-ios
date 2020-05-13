@@ -152,7 +152,7 @@ public class VideoPlayerView: UIView  {
                 [
                     videoSlider.leadingAnchor.constraint(equalTo: currentTimeLabel.trailingAnchor, constant: 8),
                     videoSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    videoSlider.heightAnchor.constraint(equalToConstant: 16)
+                    videoSlider.heightAnchor.constraint(equalToConstant: 24)
                 ]
         )
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)

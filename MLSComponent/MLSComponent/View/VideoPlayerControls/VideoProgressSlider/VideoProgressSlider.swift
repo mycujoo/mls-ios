@@ -24,24 +24,28 @@ class VideoProgressSlider: UIControl {
     private let minimumValue = 0.0
     private let maximumValue = 1.0
 
-    
+    private let timeView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
+        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        return view
+    }()
 
-    private var trackLayer: TrackLayer = {
-       
-        let layer = TrackLayer()
-        layer.tintColor = UIColor.green.cgColor
-        
-        return layer
+    private let trackView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = .green
+        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        return view
     }()
-    
-    private let timeLayer: TrackLayer = {
-        
-        let layer = TrackLayer()
-        layer.tintColor = UIColor.blue.withAlphaComponent(0.5).cgColor
-        
-        return layer
+
+    private lazy var trailingConstraintOfTrackView: NSLayoutConstraint = {
+        trackView.trailingAnchor.constraint(equalTo: leadingAnchor)
     }()
-    
+
     private let thumbLayer = ThumbLayer()
     private var previousLocation = CGPoint()
     
@@ -80,12 +84,26 @@ class VideoProgressSlider: UIControl {
     }
     
     private func drawSelf() {
-        
-        trackLayer.contentsScale = UIScreen.main.scale
-        layer.addSublayer(trackLayer)
-        
-        timeLayer.contentsScale = UIScreen.main.scale
-        layer.addSublayer(timeLayer)
+
+        addSubview(timeView)
+        NSLayoutConstraint
+            .activate(
+            [
+                timeView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                timeView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                timeView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ]
+        )
+
+        addSubview(trackView)
+        NSLayoutConstraint
+            .activate(
+            [
+                trackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                trailingConstraintOfTrackView,
+                trackView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ]
+        )
         
         thumbLayer.contentsScale = UIScreen.main.scale
         thumbLayer.slider = self
@@ -95,21 +113,11 @@ class VideoProgressSlider: UIControl {
     private func updateLayerFrames() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        
         let thumbCenter = CGFloat(position(forValue: value, withDelta: thumbWidth))
-        let fullBounds = bounds.insetBy(dx: 0.0, dy: trackHeight)
-        
-        trackLayer.frame = fullBounds
-        trackLayer.frame.size.width = thumbCenter
-        trackLayer.setNeedsDisplay()
-        
-        timeLayer.frame = fullBounds
-        timeLayer.setNeedsDisplay()
-        
         thumbLayer.frame = CGRect(x: thumbCenter - thumbWidth / 2.0, y: (bounds.size.height - thumbWidth) / 2, width: thumbWidth, height: thumbWidth)
         thumbLayer.setNeedsDisplay()
-        
         CATransaction.commit()
+        trailingConstraintOfTrackView.constant = thumbCenter
     }
     
     private func position(forValue value: Double, withDelta delta: CGFloat = 0) -> Double {
