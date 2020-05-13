@@ -23,11 +23,13 @@ class VideoProgressSlider: UIControl {
     
     private let minimumValue = 0.0
     private let maximumValue = 1.0
+
     
+
     private var trackLayer: TrackLayer = {
        
         let layer = TrackLayer()
-        layer.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.1)
+        layer.tintColor = UIColor.green.cgColor
         
         return layer
     }()
@@ -35,7 +37,7 @@ class VideoProgressSlider: UIControl {
     private let timeLayer: TrackLayer = {
         
         let layer = TrackLayer()
-        layer.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.4)
+        layer.tintColor = UIColor.blue.withAlphaComponent(0.5).cgColor
         
         return layer
     }()
