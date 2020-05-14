@@ -69,6 +69,20 @@ class VideoProgressSlider: UIControl {
         }
     }
 
+    private let highlightView: UIView = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isUserInteractionEnabled = false
+        label.backgroundColor = .green
+        label.text = "highlight"
+        label.isHidden = true
+        return label
+    }()
+
+    private lazy var centerXConstraintOfHighlight: NSLayoutConstraint = {
+        highlightView.centerXAnchor.constraint(equalTo: leadingAnchor)
+    }()
+
     private var highlightsMoments: [CGFloat] = []
     
     //MARK: - Init
@@ -114,6 +128,10 @@ class VideoProgressSlider: UIControl {
         addSubview(thumbView)
         centerXOfThumbView.isActive = true
         thumbView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+
+        addSubview(highlightView)
+        highlightView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 16).isActive = true
+        centerXConstraintOfHighlight.isActive = true
     }
     
     private func updateLayerFrames() {
@@ -126,6 +144,18 @@ class VideoProgressSlider: UIControl {
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         _value = Double(max(0, min(touch.location(in: self).x, bounds.width)) / bounds.width)
         sendActions(for: .valueChanged)
+
+        let highlightValue = highlightsMoments.first { moment in
+            ((value - 0.1)...(value + 0.1)).contains(Double(moment))
+        }
+
+        if let highlightValue = highlightValue {
+            highlightView.isHidden = false
+            centerXConstraintOfHighlight.constant = bounds.width * CGFloat(highlightValue)
+        } else {
+            highlightView.isHidden = true
+        }
+
         return true
     }
 }
