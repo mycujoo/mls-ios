@@ -143,5 +143,7 @@ extension VideoProgressSlider {
         highlight.widthAnchor.constraint(equalToConstant: 4).isActive = true
 
         highlight.centerXAnchor.constraint(equalTo: leadingAnchor, constant: bounds.width * CGFloat(moment)).isActive = true
+
+        bringSubviewToFront(thumbView)
     }
 }
