@@ -68,6 +68,8 @@ class VideoProgressSlider: UIControl {
             updateLayerFrames()
         }
     }
+
+    private var highlightsMoments: [CGFloat] = []
     
     //MARK: - Init
     
@@ -130,6 +132,7 @@ class VideoProgressSlider: UIControl {
 
 extension VideoProgressSlider {
     func addHighlight(moment: Double, color: UIColor) {
+        highlightsMoments.append(CGFloat(moment))
         let highlight = UIView()
         highlight.isUserInteractionEnabled = false
         highlight.translatesAutoresizingMaskIntoConstraints = false
