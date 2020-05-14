@@ -131,6 +131,7 @@ class VideoProgressSlider: UIControl {
 extension VideoProgressSlider {
     func addHighlight(moment: Double, color: UIColor) {
         let highlight = UIView()
+        highlight.isUserInteractionEnabled = false
         highlight.translatesAutoresizingMaskIntoConstraints = false
         highlight.backgroundColor = color
         addSubview(highlight)
