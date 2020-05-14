@@ -108,6 +108,12 @@ public class VideoPlayerView: UIView  {
         )
 
         backgroundColor = .black
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.videoSlider.addHighlight(moment: 0.3, color: .red)
+            self.videoSlider.addHighlight(moment: 0.5, color: .black)
+            self.videoSlider.addHighlight(moment: 0.7, color: .white)
+        }
     }
 
     public override func layoutSubviews() {

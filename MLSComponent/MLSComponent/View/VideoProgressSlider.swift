@@ -63,14 +63,6 @@ class VideoProgressSlider: UIControl {
     
     var thumbTintColor = UIColor.white
     
-    private var thumbWidth: CGFloat {
-        return 8
-    }
-    
-    private var trackHeight: CGFloat {
-        return 6
-    }
-    
     override var frame: CGRect {
         didSet {
             updateLayerFrames()
@@ -133,5 +125,19 @@ class VideoProgressSlider: UIControl {
         _value = Double(max(0, min(touch.location(in: self).x, bounds.width)) / bounds.width)
         sendActions(for: .valueChanged)
         return true
+    }
+}
+
+extension VideoProgressSlider {
+    func addHighlight(moment: Double, color: UIColor) {
+        let highlight = UIView()
+        highlight.translatesAutoresizingMaskIntoConstraints = false
+        highlight.backgroundColor = color
+        addSubview(highlight)
+        highlight.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
+        highlight.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        highlight.widthAnchor.constraint(equalToConstant: 4).isActive = true
+
+        highlight.centerXAnchor.constraint(equalTo: leadingAnchor, constant: bounds.width * CGFloat(moment)).isActive = true
     }
 }
