@@ -23,6 +23,7 @@ class SingleLineOverlayView: UIView {
         label.topAnchor.constraint(equalTo: topAnchor).isActive = true
         label.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         label.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        backgroundColor = .green
     }
 
     required init?(coder: NSCoder) {

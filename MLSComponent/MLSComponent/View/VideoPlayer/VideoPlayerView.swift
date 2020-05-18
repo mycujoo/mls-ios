@@ -309,13 +309,34 @@ public extension VideoPlayerView {
         }
 
         overlayView.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.backgroundColor = .green
-
         addSubview(overlayView)
-        overlayView.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-        layoutIfNeeded()
 
-        overlayView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40).isActive = true
+        switch overlay.side {
+        case .topLeft:
+            overlayView.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+            let leading = overlayView.leadingAnchor.constraint(equalTo: leadingAnchor)
+            leading.isActive = true
+            layoutIfNeeded()
+            leading.constant = 40
+        case .bottomLeft:
+            overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -44).isActive = true
+            let leading = overlayView.leadingAnchor.constraint(equalTo: leadingAnchor)
+            leading.isActive = true
+            layoutIfNeeded()
+            leading.constant = 40
+        case .topRight:
+            overlayView.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+            let trailing = overlayView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            trailing.isActive = true
+            layoutIfNeeded()
+            trailing.constant = -40
+        case .bottomRight:
+            overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -44).isActive = true
+            let trailing = overlayView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            trailing.isActive = true
+            layoutIfNeeded()
+            trailing.constant = -40
+        }
         UIView.animate(withDuration: 0.3, animations: layoutIfNeeded, completion: nil)
     }
 }
