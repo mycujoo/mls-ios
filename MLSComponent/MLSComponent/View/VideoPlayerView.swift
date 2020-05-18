@@ -293,18 +293,18 @@ extension VideoPlayerView {
 
 // MARK: - Annotations
 public extension VideoPlayerView {
-    func showOverlay() {
-        let annotation = UIView()
-        annotation.translatesAutoresizingMaskIntoConstraints = false
-        annotation.backgroundColor = .green
-        annotation.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        annotation.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    func showOverlay(_ overlay: Overlay) {
+        let overlay = UIView()
+        overlay.translatesAutoresizingMaskIntoConstraints = false
+        overlay.backgroundColor = .green
+        overlay.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        overlay.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
-        addSubview(annotation)
-        annotation.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+        addSubview(overlay)
+        overlay.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
         layoutIfNeeded()
 
-        annotation.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40).isActive = true
+        overlay.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40).isActive = true
         UIView.animate(withDuration: 0.3, animations: layoutIfNeeded, completion: nil)
     }
 }
