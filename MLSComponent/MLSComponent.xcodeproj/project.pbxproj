@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		640C978024728946007AF61F /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640C977F24728946007AF61F /* Overlay.swift */; };
 		6477C4442469552A0033435D /* MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6477C43A2469552A0033435D /* MLSComponent.framework */; };
 		6477C4492469552A0033435D /* MLSComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477C4482469552A0033435D /* MLSComponentTests.swift */; };
 		6477C44B2469552A0033435D /* MLSComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6477C43D2469552A0033435D /* MLSComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		640C977F24728946007AF61F /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43D2469552A0033435D /* MLSComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSComponent.h; sourceTree = "<group>"; };
 		6477C43E2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		640C977E2472893C007AF61F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				640C977F24728946007AF61F /* Overlay.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6477C4302469552A0033435D = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +87,7 @@
 		6477C43C2469552A0033435D /* MLSComponent */ = {
 			isa = PBXGroup;
 			children = (
+				640C977E2472893C007AF61F /* Models */,
 				64BF507924697755002D1386 /* View */,
 				6477C43D2469552A0033435D /* MLSComponent.h */,
 				6477C43E2469552A0033435D /* Info.plist */,
@@ -219,6 +230,7 @@
 			files = (
 				64BF509624698AC0002D1386 /* VideoPlayStatus.swift in Sources */,
 				64BF509024698AC0002D1386 /* VideoProgressSlider.swift in Sources */,
+				640C978024728946007AF61F /* Overlay.swift in Sources */,
 				64BF509224698AC0002D1386 /* VideoPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
