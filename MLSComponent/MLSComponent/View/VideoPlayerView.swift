@@ -183,8 +183,8 @@ public class VideoPlayerView: UIView  {
         )
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
-        layer.cornerRadius = 8.0
-        backgroundColor = .brown
+        view.layer.cornerRadius = 8.0
+        view.backgroundColor = .brown
     }
 
     //MARK: - Methods
@@ -288,5 +288,23 @@ extension VideoPlayerView {
 
     @objc func fullscreenButtonTapped() {
         print("need to be implemented")
+    }
+}
+
+// MARK: - Annotations
+public extension VideoPlayerView {
+    func showOverlay() {
+        let annotation = UIView()
+        annotation.translatesAutoresizingMaskIntoConstraints = false
+        annotation.backgroundColor = .green
+        annotation.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        annotation.heightAnchor.constraint(equalToConstant: 20).isActive = true
+
+        addSubview(annotation)
+        annotation.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+        layoutIfNeeded()
+
+        annotation.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40).isActive = true
+        UIView.animate(withDuration: 0.3, animations: layoutIfNeeded, completion: nil)
     }
 }
