@@ -6,6 +6,12 @@ public struct Overlay: Equatable {
     let id: String
     let kind: Kind
     let side: Side
+
+    public init(id: String, kind: Kind, side: Side) {
+        self.id = id
+        self.kind = kind
+        self.side = side
+    }
 }
 
 public extension Overlay {
