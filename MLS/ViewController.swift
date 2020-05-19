@@ -33,6 +33,10 @@ class ViewController: UIViewController {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.videoPlayer.showOverlay(Overlay(id: "id", kind: .singleLineText("singleLineText"), side: .bottomRight))
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.videoPlayer.hideOverlay(with: "id")
+            }
         }
     }
 }

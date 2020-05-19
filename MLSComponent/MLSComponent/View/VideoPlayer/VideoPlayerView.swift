@@ -8,11 +8,12 @@ import AVKit
 
 public class VideoPlayerView: UIView  {
 
-    // MARK: - Player
+    // MARK: - Properties
 
     private var status: VideoPlayStatus = .pause
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
+    private var overlays: [Overlay: (NSLayoutConstraint, UIView)] = [:]
 
     // MARK: - UI Components
 
@@ -307,7 +308,6 @@ public extension VideoPlayerView {
         case .scoreBoard:
             overlayView = UIView()
         }
-
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(overlayView)
 
@@ -318,25 +318,50 @@ public extension VideoPlayerView {
             leading.isActive = true
             layoutIfNeeded()
             leading.constant = 40
+            overlays[overlay] = (leading, overlayView)
         case .bottomLeft:
             overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -44).isActive = true
             let leading = overlayView.leadingAnchor.constraint(equalTo: leadingAnchor)
             leading.isActive = true
             layoutIfNeeded()
             leading.constant = 40
+            overlays[overlay] = (leading, overlayView)
         case .topRight:
             overlayView.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
             let trailing = overlayView.trailingAnchor.constraint(equalTo: trailingAnchor)
             trailing.isActive = true
             layoutIfNeeded()
             trailing.constant = -40
+            overlays[overlay] = (trailing, overlayView)
         case .bottomRight:
             overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -44).isActive = true
             let trailing = overlayView.trailingAnchor.constraint(equalTo: trailingAnchor)
             trailing.isActive = true
             layoutIfNeeded()
             trailing.constant = -40
+            overlays[overlay] = (trailing, overlayView)
         }
         UIView.animate(withDuration: 0.3, animations: layoutIfNeeded, completion: nil)
+    }
+
+    func hideOverlay(with id: String) {
+        guard
+            let overlay = overlays.keys.first(where: { $0.id == id }),
+            let overlayView = overlays[overlay]?.1,
+            let constraint = overlays[overlay]?.0
+            else { return }
+
+        switch overlay.side {
+        case .topLeft:
+            constraint.constant = -overlayView.bounds.width
+        case .bottomLeft:
+            constraint.constant = -overlayView.bounds.width
+        case .topRight:
+            constraint.constant = overlayView.bounds.width
+        case .bottomRight:
+            constraint.constant = overlayView.bounds.width
+        }
+        UIView.animate(withDuration: 0.5, animations: layoutIfNeeded, completion: nil)
+        overlays.removeValue(forKey: overlay)
     }
 }

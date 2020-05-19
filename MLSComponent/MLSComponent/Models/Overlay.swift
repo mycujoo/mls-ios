@@ -2,7 +2,7 @@
 // Copyright © 2020 mycujoo. All rights reserved.
 //
 
-public struct Overlay: Equatable {
+public struct Overlay: Hashable {
     let id: String
     let kind: Kind
     let side: Side
@@ -15,7 +15,7 @@ public struct Overlay: Equatable {
 }
 
 public extension Overlay {
-    enum Kind: Equatable {
+    enum Kind: Hashable {
         case singleLineText(String)
         case doubleLineText(title: String, subTitle: String)
         case scoreBoard(leftScore: String, rightScore: String)
