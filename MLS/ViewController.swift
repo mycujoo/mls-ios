@@ -19,15 +19,18 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
 
         view.addSubview(videoPlayer)
-        NSLayoutConstraint
-            .activate(
-                [
-                    videoPlayer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                    videoPlayer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    videoPlayer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                    videoPlayer.heightAnchor.constraint(equalTo: videoPlayer.widthAnchor, multiplier: 9 / 16)
-                ]
-        )
+        videoPlayer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        videoPlayer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        videoPlayer.heightAnchor.constraint(equalTo: videoPlayer.widthAnchor, multiplier: 9 / 16).isActive = true
+        videoPlayer.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
+
+        let leading = videoPlayer.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        leading.priority = .defaultHigh
+        leading.isActive = true
+
+        let trailing = videoPlayer.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        trailing.priority = .defaultHigh
+        trailing.isActive = true
 
         videoPlayer.setup(withURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
 
