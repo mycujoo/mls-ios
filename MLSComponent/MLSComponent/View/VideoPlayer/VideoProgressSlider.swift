@@ -171,9 +171,19 @@ extension VideoProgressSlider {
         highlight.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
         highlight.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         highlight.widthAnchor.constraint(equalToConstant: 4).isActive = true
-
-        highlight.centerXAnchor.constraint(equalTo: leadingAnchor, constant: bounds.width * CGFloat(moment)).isActive = true
-
+        let minimumPossibleMultiplier: CGFloat = 0.001
+        let centerXOfView: CGFloat = 2
+        addConstraint(
+            NSLayoutConstraint(
+                item: highlight,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: self,
+                attribute: .centerX,
+                multiplier: max(minimumPossibleMultiplier, centerXOfView * CGFloat(moment)),
+                constant: 0
+            )
+        )
         bringSubviewToFront(thumbView)
     }
 }
