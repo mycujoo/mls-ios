@@ -14,6 +14,7 @@ public class VideoPlayerView: UIView  {
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
     private var overlays: [Overlay: (NSLayoutConstraint, UIView)] = [:]
+    private var isFullScreen = false
 
     // MARK: - UI Components
 
@@ -284,7 +285,9 @@ extension VideoPlayerView {
     }
 
     @objc func fullscreenButtonTapped() {
-        print("need to be implemented")
+        isFullScreen.toggle()
+        let newValue: UIInterfaceOrientation = isFullScreen ? .landscapeRight : .portrait
+        UIDevice.current.setValue(newValue.rawValue, forKey: "orientation")
     }
 }
 
