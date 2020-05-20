@@ -119,11 +119,7 @@ public class VideoPlayerView: UIView  {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
         playerLayer?.frame = bounds
-        //        controlsView.setNeedsLayout()
-        //        controlsView.layoutIfNeeded()
-        
     }
 
     private func drawControls(in view: UIView) {
@@ -361,7 +357,9 @@ public extension VideoPlayerView {
         case .bottomRight:
             constraint.constant = overlayView.bounds.width
         }
-        UIView.animate(withDuration: 0.5, animations: layoutIfNeeded, completion: nil)
-        overlays.removeValue(forKey: overlay)
+        UIView.animate(withDuration: 0.5, animations: layoutIfNeeded) { _ in
+            self.overlays.removeValue(forKey: overlay)
+            overlayView.removeFromSuperview()
+        }
     }
 }
