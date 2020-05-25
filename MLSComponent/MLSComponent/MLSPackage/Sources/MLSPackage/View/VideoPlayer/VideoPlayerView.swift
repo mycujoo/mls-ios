@@ -23,7 +23,7 @@ public class VideoPlayerView: UIView  {
     private let playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, *) {
             button.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
         return button
@@ -52,7 +52,7 @@ public class VideoPlayerView: UIView  {
     private let fullscreenButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, *) {
             button.setImage(UIImage(systemName: "shift.fill"), for: .normal)
         }
         return button
@@ -127,7 +127,6 @@ public class VideoPlayerView: UIView  {
         view.addSubview(currentTimeLabel)
         view.addSubview(videoLengthLabel)
         view.addSubview(videoSlider)
-        view.addSubview(fullscreenButton)
 
         NSLayoutConstraint
             .activate(
@@ -168,6 +167,8 @@ public class VideoPlayerView: UIView  {
                 ]
         )
 
+        #if os(iOS)
+        view.addSubview(fullscreenButton)
         NSLayoutConstraint
             .activate(
                 [
@@ -178,6 +179,9 @@ public class VideoPlayerView: UIView  {
                 ]
         )
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
+        #else
+        videoLengthLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
+        #endif
 
         view.layer.cornerRadius = 8.0
         view.backgroundColor = .brown
@@ -256,7 +260,7 @@ extension VideoPlayerView {
         } else {
             player?.pause()
         }
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, tvOS 13.0, *) {
             let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
             playButton.setImage(image, for: .normal)
         }
@@ -282,11 +286,13 @@ extension VideoPlayerView {
         
     }
 
+    #if os(iOS)
     @objc func fullscreenButtonTapped() {
         isFullScreen.toggle()
         let newValue: UIInterfaceOrientation = isFullScreen ? .landscapeRight : .portrait
         UIDevice.current.setValue(newValue.rawValue, forKey: "orientation")
     }
+    #endif
 }
 
 // MARK: - Annotations
