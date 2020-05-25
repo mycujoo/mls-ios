@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,8 +12,7 @@
 		6418F6E3246951060013A9EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E2246951060013A9EE /* Assets.xcassets */; };
 		6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E4246951060013A9EE /* LaunchScreen.storyboard */; };
 		6418F6F1246951070013A9EE /* MLSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6F0246951070013A9EE /* MLSTests.swift */; };
-		64A54E45246955C700D365FE /* MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64A54E44246955C700D365FE /* MLSComponent.framework */; };
-		64A54E46246955C700D365FE /* MLSComponent.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 64A54E44246955C700D365FE /* MLSComponent.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		643B5EAB247BE65D00A46A77 /* MLSPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 643B5EAA247BE65D00A46A77 /* MLSPackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,20 +24,6 @@
 			remoteInfo = MLS;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		64A54E47246955C700D365FE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				64A54E46246955C700D365FE /* MLSComponent.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6418F6D6246951050013A9EE /* MLS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64A54E45246955C700D365FE /* MLSComponent.framework in Frameworks */,
+				643B5EAB247BE65D00A46A77 /* MLSPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,13 +115,15 @@
 				6418F6D2246951050013A9EE /* Sources */,
 				6418F6D3246951050013A9EE /* Frameworks */,
 				6418F6D4246951050013A9EE /* Resources */,
-				64A54E47246955C700D365FE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MLS;
+			packageProductDependencies = (
+				643B5EAA247BE65D00A46A77 /* MLSPackage */,
+			);
 			productName = MLS;
 			productReference = 6418F6D6246951050013A9EE /* MLS.app */;
 			productType = "com.apple.product-type.application";
@@ -483,6 +470,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		643B5EAA247BE65D00A46A77 /* MLSPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MLSPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6418F6CE246951050013A9EE /* Project object */;
 }

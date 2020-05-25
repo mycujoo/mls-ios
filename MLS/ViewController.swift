@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import MLSComponent
+import MLSPackage
 
 class ViewController: UIViewController {
 
