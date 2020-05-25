@@ -23,9 +23,13 @@ public class VideoPlayerView: UIView  {
     private let playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        #if os(iOS)
         if #available(iOS 13.0, tvOS 13.0, *) {
             button.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
+        #else
+        button.setTitle("Play", for: .normal)
+        #endif
         return button
     }()
 
@@ -124,30 +128,26 @@ public class VideoPlayerView: UIView  {
 
     private func drawControls(in view: UIView) {
 
-        view.addSubview(playButton)
         view.addSubview(currentTimeLabel)
         view.addSubview(videoLengthLabel)
         view.addSubview(videoSlider)
 
-        NSLayoutConstraint
-            .activate(
-                [
-                    playButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-                    playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    playButton.widthAnchor.constraint(equalToConstant: 16),
-                    playButton.heightAnchor.constraint(equalToConstant: 16)
-                ]
-        )
+        #if os(iOS)
+        view.addSubview(playButton)
+        playButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
+        playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        playButton.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        playButton.widthAnchor.constraint(equalToConstant: 16).isActive = true
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+        #endif
 
-        NSLayoutConstraint
-            .activate(
-                [
-                    currentTimeLabel.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 8),
-                    currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    currentTimeLabel.widthAnchor.constraint(equalToConstant: 80)
-                ]
-        )
+        #if os(iOS)
+        currentTimeLabel.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 8).isActive = true
+        #else
+        currentTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
+        #endif
+        currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        currentTimeLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
 
         NSLayoutConstraint
             .activate(
