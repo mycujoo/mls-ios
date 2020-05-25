@@ -11,20 +11,9 @@
 		6418F6DE246951050013A9EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6DD246951050013A9EE /* ViewController.swift */; };
 		6418F6E3246951060013A9EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E2246951060013A9EE /* Assets.xcassets */; };
 		6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E4246951060013A9EE /* LaunchScreen.storyboard */; };
-		6418F6F1246951070013A9EE /* MLSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6F0246951070013A9EE /* MLSTests.swift */; };
 		643B5EB0247BE6B400A46A77 /* MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 643B5EAF247BE6B400A46A77 /* MLSComponent.framework */; };
 		643B5EB1247BE6B400A46A77 /* MLSComponent.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 643B5EAF247BE6B400A46A77 /* MLSComponent.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6418F6ED246951070013A9EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6418F6CE246951050013A9EE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6418F6D5246951050013A9EE;
-			remoteInfo = MLS;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		643B5EB2247BE6B400A46A77 /* Embed Frameworks */ = {
@@ -47,9 +36,6 @@
 		6418F6E2246951060013A9EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6418F6E5246951060013A9EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6418F6E7246951060013A9EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6418F6EC246951070013A9EE /* MLSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6418F6F0246951070013A9EE /* MLSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSTests.swift; sourceTree = "<group>"; };
-		6418F6F2246951070013A9EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		643B5EAF247BE6B400A46A77 /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64A54E44246955C700D365FE /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -63,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6418F6E9246951070013A9EE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				6418F6D8246951050013A9EE /* MLS */,
-				6418F6EF246951070013A9EE /* MLSTests */,
 				6418F6D7246951050013A9EE /* Products */,
 				64A54E43246955C700D365FE /* Frameworks */,
 			);
@@ -87,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				6418F6D6246951050013A9EE /* MLS.app */,
-				6418F6EC246951070013A9EE /* MLSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,15 +79,6 @@
 				6418F6E7246951060013A9EE /* Info.plist */,
 			);
 			path = MLS;
-			sourceTree = "<group>";
-		};
-		6418F6EF246951070013A9EE /* MLSTests */ = {
-			isa = PBXGroup;
-			children = (
-				6418F6F0246951070013A9EE /* MLSTests.swift */,
-				6418F6F2246951070013A9EE /* Info.plist */,
-			);
-			path = MLSTests;
 			sourceTree = "<group>";
 		};
 		64A54E43246955C700D365FE /* Frameworks */ = {
@@ -145,24 +113,6 @@
 			productReference = 6418F6D6246951050013A9EE /* MLS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6418F6EB246951070013A9EE /* MLSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6418F6F8246951070013A9EE /* Build configuration list for PBXNativeTarget "MLSTests" */;
-			buildPhases = (
-				6418F6E8246951070013A9EE /* Sources */,
-				6418F6E9246951070013A9EE /* Frameworks */,
-				6418F6EA246951070013A9EE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6418F6EE246951070013A9EE /* PBXTargetDependency */,
-			);
-			name = MLSTests;
-			productName = MLSTests;
-			productReference = 6418F6EC246951070013A9EE /* MLSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,10 +125,6 @@
 				TargetAttributes = {
 					6418F6D5246951050013A9EE = {
 						CreatedOnToolsVersion = 11.4.1;
-					};
-					6418F6EB246951070013A9EE = {
-						CreatedOnToolsVersion = 11.4.1;
-						TestTargetID = 6418F6D5246951050013A9EE;
 					};
 				};
 			};
@@ -196,7 +142,6 @@
 			projectRoot = "";
 			targets = (
 				6418F6D5246951050013A9EE /* MLS */,
-				6418F6EB246951070013A9EE /* MLSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -208,13 +153,6 @@
 			files = (
 				6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */,
 				6418F6E3246951060013A9EE /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6418F6EA246951070013A9EE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,23 +168,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6418F6E8246951070013A9EE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6418F6F1246951070013A9EE /* MLSTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6418F6EE246951070013A9EE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6418F6D5246951050013A9EE /* MLS */;
-			targetProxy = 6418F6ED246951070013A9EE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6418F6E4246951060013A9EE /* LaunchScreen.storyboard */ = {
@@ -412,50 +334,6 @@
 			};
 			name = Release;
 		};
-		6418F6F9246951070013A9EE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 57ZCK5ERE3;
-				INFOPLIST_FILE = MLSTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLS.app/MLS";
-			};
-			name = Debug;
-		};
-		6418F6FA246951070013A9EE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 57ZCK5ERE3;
-				INFOPLIST_FILE = MLSTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLS.app/MLS";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -473,15 +351,6 @@
 			buildConfigurations = (
 				6418F6F6246951070013A9EE /* Debug */,
 				6418F6F7246951070013A9EE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6418F6F8246951070013A9EE /* Build configuration list for PBXNativeTarget "MLSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6418F6F9246951070013A9EE /* Debug */,
-				6418F6FA246951070013A9EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
