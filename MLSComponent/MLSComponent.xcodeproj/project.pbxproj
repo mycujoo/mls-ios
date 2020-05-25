@@ -30,6 +30,7 @@
 /* Begin PBXFileReference section */
 		640C977F24728946007AF61F /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		640C97852472910D007AF61F /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
+		643B5EA9247BE4FD00A46A77 /* MLSPackage */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MLSPackage; path = MLSComponent/MLSPackage; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43D2469552A0033435D /* MLSComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSComponent.h; sourceTree = "<group>"; };
 		6477C43E2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		6477C4302469552A0033435D = {
 			isa = PBXGroup;
 			children = (
+				643B5EA9247BE4FD00A46A77 /* MLSPackage */,
 				6477C43C2469552A0033435D /* MLSComponent */,
 				6477C4472469552A0033435D /* MLSComponentTests */,
 				6477C43B2469552A0033435D /* Products */,
