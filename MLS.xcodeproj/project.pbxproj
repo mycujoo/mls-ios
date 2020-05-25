@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,7 @@
 		643B5EBE247BE93B00A46A77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EBD247BE93B00A46A77 /* Assets.xcassets */; };
 		643B5EC1247BE93B00A46A77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC0247BE93B00A46A77 /* Preview Assets.xcassets */; };
 		643B5EC4247BE93B00A46A77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC2247BE93B00A46A77 /* LaunchScreen.storyboard */; };
+		643B5ECA247BEB1400A46A77 /* MLSPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 643B5EC9247BEB1400A46A77 /* MLSPackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				643B5ECA247BEB1400A46A77 /* MLSPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +167,9 @@
 			dependencies = (
 			);
 			name = "MLS-tvOS";
+			packageProductDependencies = (
+				643B5EC9247BEB1400A46A77 /* MLSPackage */,
+			);
 			productName = "MLS-tvOS";
 			productReference = 643B5EB7247BE93900A46A77 /* MLS-tvOS.app */;
 			productType = "com.apple.product-type.application";
@@ -495,6 +500,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		643B5EC9247BEB1400A46A77 /* MLSPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MLSPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6418F6CE246951050013A9EE /* Project object */;
 }

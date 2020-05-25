@@ -33,6 +33,7 @@ public class VideoPlayerView: UIView  {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .footnote)
+        label.text = "00:00"
         return label
     }()
 
@@ -144,7 +145,7 @@ public class VideoPlayerView: UIView  {
                 [
                     currentTimeLabel.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 8),
                     currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    currentTimeLabel.widthAnchor.constraint(equalToConstant: 40)
+                    currentTimeLabel.widthAnchor.constraint(equalToConstant: 80)
                 ]
         )
 
@@ -163,7 +164,7 @@ public class VideoPlayerView: UIView  {
                 [
                     videoLengthLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
                     videoLengthLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    videoLengthLabel.widthAnchor.constraint(equalToConstant: 40)
+                    videoLengthLabel.widthAnchor.constraint(equalToConstant: 80)
                 ]
         )
 
