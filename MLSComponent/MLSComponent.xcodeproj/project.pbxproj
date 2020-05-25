@@ -3,18 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		640C978024728946007AF61F /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640C977F24728946007AF61F /* Overlay.swift */; };
-		640C97862472910D007AF61F /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640C97852472910D007AF61F /* SingleLineOverlayView.swift */; };
+		643B5EAE247BE6AC00A46A77 /* MLSPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 643B5EAD247BE6AC00A46A77 /* MLSPackage */; };
 		6477C4442469552A0033435D /* MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6477C43A2469552A0033435D /* MLSComponent.framework */; };
 		6477C4492469552A0033435D /* MLSComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477C4482469552A0033435D /* MLSComponentTests.swift */; };
 		6477C44B2469552A0033435D /* MLSComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6477C43D2469552A0033435D /* MLSComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		64BF509024698AC0002D1386 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BF508524698AC0002D1386 /* VideoProgressSlider.swift */; };
-		64BF509224698AC0002D1386 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BF508724698AC0002D1386 /* VideoPlayerView.swift */; };
-		64BF509624698AC0002D1386 /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BF508B24698AC0002D1386 /* VideoPlayStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,8 +24,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		640C977F24728946007AF61F /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
-		640C97852472910D007AF61F /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
 		643B5EA9247BE4FD00A46A77 /* MLSPackage */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MLSPackage; path = MLSComponent/MLSPackage; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43D2469552A0033435D /* MLSComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSComponent.h; sourceTree = "<group>"; };
@@ -37,9 +31,6 @@
 		6477C4432469552A0033435D /* MLSComponentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLSComponentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C4482469552A0033435D /* MLSComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSComponentTests.swift; sourceTree = "<group>"; };
 		6477C44A2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		64BF508524698AC0002D1386 /* VideoProgressSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoProgressSlider.swift; sourceTree = "<group>"; };
-		64BF508724698AC0002D1386 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		64BF508B24698AC0002D1386 /* VideoPlayStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				643B5EAE247BE6AC00A46A77 /* MLSPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,30 +53,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		640C977E2472893C007AF61F /* Models */ = {
+		643B5EAC247BE6AC00A46A77 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				640C977F24728946007AF61F /* Overlay.swift */,
 			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		640C978324728E9F007AF61F /* OverlayViews */ = {
-			isa = PBXGroup;
-			children = (
-				640C97852472910D007AF61F /* SingleLineOverlayView.swift */,
-			);
-			path = OverlayViews;
-			sourceTree = "<group>";
-		};
-		640C978424728EA5007AF61F /* VideoPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				64BF508724698AC0002D1386 /* VideoPlayerView.swift */,
-				64BF508524698AC0002D1386 /* VideoProgressSlider.swift */,
-				64BF508B24698AC0002D1386 /* VideoPlayStatus.swift */,
-			);
-			path = VideoPlayer;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6477C4302469552A0033435D = {
@@ -94,6 +67,7 @@
 				6477C43C2469552A0033435D /* MLSComponent */,
 				6477C4472469552A0033435D /* MLSComponentTests */,
 				6477C43B2469552A0033435D /* Products */,
+				643B5EAC247BE6AC00A46A77 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,8 +83,6 @@
 		6477C43C2469552A0033435D /* MLSComponent */ = {
 			isa = PBXGroup;
 			children = (
-				640C977E2472893C007AF61F /* Models */,
-				64BF507924697755002D1386 /* View */,
 				6477C43D2469552A0033435D /* MLSComponent.h */,
 				6477C43E2469552A0033435D /* Info.plist */,
 			);
@@ -124,15 +96,6 @@
 				6477C44A2469552A0033435D /* Info.plist */,
 			);
 			path = MLSComponentTests;
-			sourceTree = "<group>";
-		};
-		64BF507924697755002D1386 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				640C978424728EA5007AF61F /* VideoPlayer */,
-				640C978324728E9F007AF61F /* OverlayViews */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +127,7 @@
 			);
 			name = MLSComponent;
 			packageProductDependencies = (
+				643B5EAD247BE6AC00A46A77 /* MLSPackage */,
 			);
 			productName = MLSComponent;
 			productReference = 6477C43A2469552A0033435D /* MLSComponent.framework */;
@@ -249,11 +213,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64BF509624698AC0002D1386 /* VideoPlayStatus.swift in Sources */,
-				64BF509024698AC0002D1386 /* VideoProgressSlider.swift in Sources */,
-				640C978024728946007AF61F /* Overlay.swift in Sources */,
-				64BF509224698AC0002D1386 /* VideoPlayerView.swift in Sources */,
-				640C97862472910D007AF61F /* SingleLineOverlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,7 +413,6 @@
 		6477C4522469552A0033435D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57ZCK5ERE3;
 				INFOPLIST_FILE = MLSComponentTests/Info.plist;
@@ -473,7 +431,6 @@
 		6477C4532469552A0033435D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57ZCK5ERE3;
 				INFOPLIST_FILE = MLSComponentTests/Info.plist;
@@ -520,6 +477,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		643B5EAD247BE6AC00A46A77 /* MLSPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MLSPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6477C4312469552A0033435D /* Project object */;
 }
