@@ -47,13 +47,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
-extension ViewController {
-    override var preferredFocusedView: UIView? {
-        videoPlayer
-    }
-
-    override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        return [videoPlayer]
-    }
-}

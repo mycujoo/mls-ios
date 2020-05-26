@@ -10,7 +10,18 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
-    private var status: VideoPlayStatus = .pause
+    private var status: VideoPlayStatus = .pause {
+        didSet {
+            #if os(tvOS)
+            controlsBackground.isHidden = status.isPlaying
+            #endif
+            if status.isPlaying {
+                player?.play()
+            } else {
+                player?.pause()
+            }
+        }
+    }
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
     private var overlays: [Overlay: (NSLayoutConstraint, UIView)] = [:]
@@ -253,14 +264,7 @@ public class VideoPlayerView: UIView  {
 extension VideoPlayerView {
 
     @objc func playButtonTapped() {
-
         status.setOpposite()
-        
-        if status.isPlaying {
-            player?.play()
-        } else {
-            player?.pause()
-        }
         if #available(iOS 13.0, tvOS 13.0, *) {
             let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
             playButton.setImage(image, for: .normal)
@@ -380,7 +384,7 @@ public extension VideoPlayerView {
         case .playPause:
             playButtonTapped()
         case .select:
-            print("select")
+            playButtonTapped()
         default:
             break
         }
