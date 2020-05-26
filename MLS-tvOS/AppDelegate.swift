@@ -14,9 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
-//        let controller = AVPlayerViewController()
-//        controller.player = AVPlayer(url: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
-        window.rootViewController = ViewController()//controller//ViewController()
+        window.rootViewController = ViewController()
         self.window = window
         window.makeKeyAndVisible()
         return true
