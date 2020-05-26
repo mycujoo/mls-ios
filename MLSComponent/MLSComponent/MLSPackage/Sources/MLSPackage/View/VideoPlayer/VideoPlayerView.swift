@@ -371,3 +371,18 @@ public extension VideoPlayerView {
         }
     }
 }
+
+public extension VideoPlayerView {
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        guard let buttonPress = presses.first?.type else { return }
+
+        switch(buttonPress) {
+        case .playPause:
+            playButtonTapped()
+        case .select:
+            print("select")
+        default:
+            break
+        }
+    }
+}
