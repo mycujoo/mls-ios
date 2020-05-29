@@ -5,8 +5,9 @@
 import Foundation
 
 public enum Action: Equatable {
-    case show(Kind)
     case hide(by: ID)
+    case show(Kind)
+    case update(Kind)
 }
 
 public extension Action {
