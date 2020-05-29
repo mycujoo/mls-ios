@@ -83,7 +83,7 @@ class VideoProgressSlider: UIControl {
         highlightView.centerXAnchor.constraint(equalTo: leadingAnchor)
     }()
 
-    private var highlightsMoments: [CGFloat] = []
+    private var timelineMarkers: [CGFloat] = []
     
     //MARK: - Init
     
@@ -145,7 +145,7 @@ class VideoProgressSlider: UIControl {
         _value = Double(max(0, min(touch.location(in: self).x, bounds.width)) / bounds.width)
         sendActions(for: .valueChanged)
 
-        let highlightValue = highlightsMoments.first { moment in
+        let highlightValue = timelineMarkers.first { moment in
             ((value - 0.1)...(value + 0.1)).contains(Double(moment))
         }
 
@@ -161,8 +161,8 @@ class VideoProgressSlider: UIControl {
 }
 
 extension VideoProgressSlider {
-    func addHighlight(moment: Double, color: UIColor) {
-        highlightsMoments.append(CGFloat(moment))
+    func addTimelineMarker(moment: Double, color: UIColor) {
+        timelineMarkers.append(CGFloat(moment))
         let highlight = UIView()
         highlight.isUserInteractionEnabled = false
         highlight.translatesAutoresizingMaskIntoConstraints = false

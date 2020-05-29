@@ -127,9 +127,9 @@ public class VideoPlayerView: UIView  {
 
         backgroundColor = .black
         
-        videoSlider.addHighlight(moment: 0.3, color: .red)
-        videoSlider.addHighlight(moment: 0.5, color: .black)
-        videoSlider.addHighlight(moment: 0.7, color: .white)
+        videoSlider.addTimelineMarker(moment: 0.3, color: .red)
+        videoSlider.addTimelineMarker(moment: 0.5, color: .black)
+        videoSlider.addTimelineMarker(moment: 0.7, color: .white)
     }
 
     public override func layoutSubviews() {
