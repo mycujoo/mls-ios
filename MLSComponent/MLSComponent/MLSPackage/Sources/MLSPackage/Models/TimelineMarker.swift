@@ -2,7 +2,6 @@
 // Copyright © 2020 mycujoo. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 public struct TimelineMarker: Equatable {
@@ -11,7 +10,8 @@ public struct TimelineMarker: Equatable {
     let markerColor: UIColor
     let timestamp: TimeInterval
 
-    public init(kind: Kind, markerColor: UIColor, timestamp: TimeInterval) {
+    public init(id: String, kind: Kind, markerColor: UIColor, timestamp: TimeInterval) {
+        self.id = id
         self.kind = kind
         self.markerColor = markerColor
         self.timestamp = timestamp

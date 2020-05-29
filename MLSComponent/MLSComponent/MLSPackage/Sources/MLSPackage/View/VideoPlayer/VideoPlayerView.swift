@@ -311,10 +311,6 @@ public extension VideoPlayerView {
             let singleLineView = SingleLineOverlayView()
             singleLineView.render(state: .init(title: title))
             overlayView = singleLineView
-        case .doubleLineText:
-            overlayView = UIView()
-        case .scoreBoard:
-            overlayView = UIView()
         }
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(overlayView)

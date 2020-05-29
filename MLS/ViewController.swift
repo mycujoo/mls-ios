@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         videoPlayer.setup(withURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.videoPlayer.showOverlay(Overlay(id: "id", kind: .singleLineText("singleLineText"), side: .bottomRight))
+            self.videoPlayer.showOverlay(Overlay(id: "id", kind: .singleLineText("singleLineText"), side: .bottomRight, timestamp: 0))
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.videoPlayer.hideOverlay(with: "id")
