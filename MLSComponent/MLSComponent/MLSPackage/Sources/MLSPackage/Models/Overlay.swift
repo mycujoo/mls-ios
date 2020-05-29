@@ -17,8 +17,6 @@ public struct Overlay: Hashable {
 public extension Overlay {
     enum Kind: Hashable {
         case singleLineText(String)
-        case doubleLineText(title: String, subTitle: String)
-        case scoreBoard(leftScore: String, rightScore: String)
     }
 }
 
