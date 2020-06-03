@@ -87,12 +87,12 @@ public class VideoPlayerView: UIView  {
         player?.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
     }
 
-    public init() {
+    init() {
         super.init(frame: .zero)
         drawSelf()
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         drawSelf()
     }
@@ -201,7 +201,7 @@ public class VideoPlayerView: UIView  {
 
     //MARK: - Methods
 
-    public func setup(withURL url: URL) {
+    func setup(withURL url: URL) {
         player = AVPlayer(url: url)
         drawPlayer()
     }
@@ -301,7 +301,7 @@ extension VideoPlayerView {
 }
 
 // MARK: - Annotations
-public extension VideoPlayerView {
+extension VideoPlayerView {
     func showOverlay(_ overlay: Overlay) {
 
         let overlayView: UIView
