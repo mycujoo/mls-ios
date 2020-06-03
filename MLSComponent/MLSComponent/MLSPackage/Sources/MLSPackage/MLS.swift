@@ -19,17 +19,19 @@ public struct Event {
 }
 
 public class MLS {
-    public var publicKey: String
-    public var configuration: Configuration
+    public let publicKey: String
+    public let configuration: Configuration
 
     public init(publicKey: String, configuration: Configuration) {
         self.publicKey = publicKey
         self.configuration = configuration
     }
 
-    public func videoPlayerView(with event: Event) -> VideoPlayerView {
+    public func videoPlayerView(with event: Event? = nil) -> VideoPlayerView {
         let view = VideoPlayerView()
-        view.setup(withURL: event.streamURL)
+        if let streamURL = event?.streamURL {
+            view.playVideo(with: streamURL)
+        }
         // configuration attach
         return view
     }
