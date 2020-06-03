@@ -38,3 +38,9 @@ public class MLS {
         // server request
     }
 }
+
+public protocol PlayerDelegate: AnyObject {
+    func playerDidUpdatePlaying(player: VideoPlayerView)
+    func playerDidUpdateTime(player: VideoPlayerView)
+    func playerFinishedTheVideo(player: VideoPlayerView)
+}

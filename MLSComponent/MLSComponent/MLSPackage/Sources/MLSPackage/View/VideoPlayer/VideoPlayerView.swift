@@ -10,7 +10,7 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
-    private var status: VideoPlayStatus = .pause {
+    public var status: VideoPlayStatus = .pause {
         didSet {
             #if os(tvOS)
             controlsBackground.isHidden = status.isPlaying

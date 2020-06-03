@@ -2,7 +2,7 @@
 // Copyright © 2020 mycujoo. All rights reserved.
 //
 
-enum VideoPlayStatus {
+public enum VideoPlayStatus {
     
     case play
     case pause
@@ -15,5 +15,5 @@ enum VideoPlayStatus {
             self = .play
         }
     }
-    var isPlaying: Bool { self == .play }
+    public var isPlaying: Bool { self == .play }
 }
