@@ -386,3 +386,14 @@ public extension VideoPlayerView {
         }
     }
 }
+
+// MARK: - Interface
+extension VideoPlayerView {
+    public func play() {
+        player?.play()
+    }
+
+    public func pause() {
+        player?.pause()
+    }
+}
