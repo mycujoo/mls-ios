@@ -27,13 +27,13 @@ public class MLS {
         self.configuration = configuration
     }
 
-    public func videoPlayerView(with event: Event? = nil) -> VideoPlayerView {
-        let view = VideoPlayerView()
-        if let streamURL = event?.streamURL {
-            view.playVideo(with: streamURL)
+    public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
+        let player = VideoPlayer()
+        if let event = event {
+            player.playVideo(with: event)
         }
         // configuration attach
-        return view
+        return player
     }
 
     public func eventList(completionHandler: ([Event]) -> ()) {
