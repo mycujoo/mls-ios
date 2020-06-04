@@ -10,7 +10,7 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
-    public var status: VideoPlayStatus = .pause {
+    public var status: VideoPlayer.Status = .pause {
         didSet {
             #if os(tvOS)
             controlsBackground.isHidden = status.isPlaying
@@ -22,7 +22,6 @@ public class VideoPlayerView: UIView  {
             }
         }
     }
-    public var state: State = .idle
 
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
@@ -386,32 +385,5 @@ public extension VideoPlayerView {
         default:
             break
         }
-    }
-}
-
-// MARK: - Interface
-extension VideoPlayerView {
-    public func play() {
-        player?.play()
-    }
-
-    public func pause() {
-        player?.pause()
-    }
-}
-
-
-public extension VideoPlayerView {
-    enum State {
-        /// The player does not have any media to play
-        case idle
-        /// The player is not able to immediately play from its current position. This state typically occurs when more data needs to be loaded
-        case buffering
-        /// The player is able to immediately play from its current position.
-        case ready
-        /// The player has finished playing the media
-        case ended
-        /// Indicates that the player can no longer play.
-        case failed
     }
 }
