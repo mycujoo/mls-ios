@@ -7,7 +7,7 @@ import AVFoundation
 public class VideoPlayer {
 
     // MARK: - Public properties
-    public var state: State = .idle
+    public private(set) var state: State = .idle
     public weak var delegate: PlayerDelegate?
     public private(set) var view = VideoPlayerView()
 
@@ -18,7 +18,7 @@ public class VideoPlayer {
         }
     }
 
-    public var status: Status = .pause {
+    public private(set) var status: Status = .pause {
         didSet {
             switch status {
             case .play:
@@ -43,13 +43,9 @@ public extension VideoPlayer {
         self.event = event
     }
 
-    func play() {
-        status = .play
-    }
+    func play() { status = .play }
 
-    func pause() {
-        status = .pause
-    }
+    func pause() { status = .pause }
 
     func playVideo(with event: Event, isAutoStart: Bool = true) {
         self.event = event
