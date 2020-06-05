@@ -207,7 +207,7 @@ public class VideoPlayerView: UIView  {
 //        drawPlayer(with: player!)
     }
 
-    private func drawPlayer(with player: AVPlayer) {
+    func drawPlayer(with player: AVPlayer) {
 
         let playerLayer = AVPlayerLayer(player: player)
         self.playerLayer = playerLayer
@@ -218,7 +218,7 @@ public class VideoPlayerView: UIView  {
         activityIndicatorView?.startAnimating()
 
         trackTime()
-        player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+        //player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         
     }
 

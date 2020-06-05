@@ -38,10 +38,10 @@ public class MLS {
         self.configuration = configuration
     }
 
-    public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
+    public func videoPlayer(with event: Event? = nil, isAutoStart: Bool = true) -> VideoPlayer {
         let player = VideoPlayer()
         if let event = event {
-            player.playVideo(with: event)
+            player.playVideo(with: event, isAutoStart: isAutoStart)
         }
         // configuration attach
         return player

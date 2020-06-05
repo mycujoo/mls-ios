@@ -7,6 +7,7 @@ import AVFoundation
 public class VideoPlayer {
 
     // MARK: - Public properties
+    
     public private(set) var state: State = .idle
     public weak var delegate: PlayerDelegate?
     public private(set) var view = VideoPlayerView()
@@ -15,6 +16,7 @@ public class VideoPlayer {
         didSet {
             guard let stream = event?.stream else { return }
             player.replaceCurrentItem(with: AVPlayerItem(url: stream.urls.first))
+            view.drawPlayer(with: player)
         }
     }
 
@@ -32,7 +34,7 @@ public class VideoPlayer {
 
     // MARK: - Private properties
 
-    private var player = AVPlayer()
+    private let player = AVPlayer()
 }
 
 // MARK: - Public Methods

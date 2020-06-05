@@ -10,14 +10,20 @@ class ViewController: UIViewController {
     private lazy var mls = MLS(publicKey: "key", configuration: Configuration())
 
     lazy var videoPlayer: VideoPlayerView = {
-//        let player = mls.videoPlayerView(
-//            with: Event(id: "",
-//                        streamURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!
-//            )
-//        )
-//        player.translatesAutoresizingMaskIntoConstraints = false
-//        return player
-        fatalError()
+        let player = mls
+            .videoPlayer(
+                with: Event(
+                    id: "",
+                    stream: Stream(
+                        urls: .init(
+                            URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!
+                        )
+                    )
+                )
+        )
+            .view
+        player.translatesAutoresizingMaskIntoConstraints = false
+        return player
     }()
 
     override func viewDidLoad() {
@@ -39,14 +45,14 @@ class ViewController: UIViewController {
         trailing.priority = .defaultHigh
         trailing.isActive = true
 
-//        videoPlayer.setup(withURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            self.videoPlayer.showOverlay(Overlay(id: "id", kind: .singleLineText("singleLineText"), side: .bottomRight, timestamp: 0))
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                self.videoPlayer.hideOverlay(with: "id")
-//            }
-//        }
+        //        videoPlayer.setup(withURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
+        //
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        //            self.videoPlayer.showOverlay(Overlay(id: "id", kind: .singleLineText("singleLineText"), side: .bottomRight, timestamp: 0))
+        //
+        //            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        //                self.videoPlayer.hideOverlay(with: "id")
+        //            }
+        //        }
     }
 }
