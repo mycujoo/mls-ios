@@ -21,9 +21,9 @@ public struct Stream {
 
 public struct Event {
     public let id: AnyHashable
-    public let stream: Stream
+    public let stream: Stream?
 
-    public init(id: AnyHashable, stream: Stream) {
+    public init(id: AnyHashable, stream: Stream?) {
         self.id = id
         self.stream = stream
     }

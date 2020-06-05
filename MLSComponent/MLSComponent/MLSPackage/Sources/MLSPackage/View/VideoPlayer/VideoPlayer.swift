@@ -2,28 +2,58 @@
 // Copyright © 2020 mycujoo. All rights reserved.
 //
 
+import AVFoundation
+
 public class VideoPlayer {
 
     // MARK: - Public properties
-
-    public var status: Status = .pause
     public var state: State = .idle
     public weak var delegate: PlayerDelegate?
     public private(set) var view = VideoPlayerView()
+
+    public var event: Event? {
+        didSet {
+            guard let stream = event?.stream else { return }
+            player.replaceCurrentItem(with: AVPlayerItem(url: stream.urls.first))
+        }
+    }
+
+    public var status: Status = .pause {
+        didSet {
+            switch status {
+            case .play:
+                player.play()
+            case .pause:
+                player.pause()
+            }
+            delegate?.playerDidUpdatePlaying(player: self)
+        }
+    }
+
+    // MARK: - Private properties
+
+    private var player = AVPlayer()
 }
 
 // MARK: - Public Methods
 public extension VideoPlayer {
-    func play() {
 
+    convenience init(with event: Event?) {
+        self.init()
+        self.event = event
+    }
+
+    func play() {
+        status = .play
     }
 
     func pause() {
-
+        status = .pause
     }
 
-    func playVideo(with event: Event) {
-
+    func playVideo(with event: Event, isAutoStart: Bool = true) {
+        self.event = event
+        if isAutoStart { play() }
     }
 }
 
