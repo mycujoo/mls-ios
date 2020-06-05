@@ -16,14 +16,14 @@ public class VideoPlayerView: UIView  {
             controlsBackground.isHidden = status.isPlaying
             #endif
             if status.isPlaying {
-                player?.play()
+//                player?.play()
             } else {
-                player?.pause()
+//                player?.pause()
             }
         }
     }
 
-    private var player: AVPlayer?
+//    private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
     private var overlays: [Overlay: (NSLayoutConstraint, UIView)] = [:]
     private var isFullScreen = false
@@ -85,7 +85,7 @@ public class VideoPlayerView: UIView  {
     //MARK: - Init
 
     deinit {
-        player?.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
+//        player?.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
     }
 
     init() {
@@ -203,11 +203,11 @@ public class VideoPlayerView: UIView  {
     //MARK: - Methods
 
     public func playVideo(with url: URL) {
-        player = AVPlayer(url: url)
-        drawPlayer()
+//        player = AVPlayer(url: url)
+//        drawPlayer(with: player!)
     }
 
-    private func drawPlayer() {
+    private func drawPlayer(with player: AVPlayer) {
 
         let playerLayer = AVPlayerLayer(player: player)
         self.playerLayer = playerLayer
@@ -218,46 +218,46 @@ public class VideoPlayerView: UIView  {
         activityIndicatorView?.startAnimating()
 
         trackTime()
-        player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+        player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         
     }
 
     private func trackTime() {
 
-        let interval = CMTime(value: 1, timescale: 2)
-        player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
-            
-            let seconds = CMTimeGetSeconds(progressTime)
-            let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-            let minutesString = String(format: "%02d", Int(seconds / 60))
-
-            self.currentTimeLabel.text = "\(minutesString):\(secondsString)"
-
-            //lets move the slider thumb
-            if let duration = self.player?.currentItem?.duration, duration.value != 0 {
-                let durationSeconds = CMTimeGetSeconds(duration)
-
-                self.videoSlider.value = seconds / durationSeconds
-
-            }
-            
-        })
+//        let interval = CMTime(value: 1, timescale: 2)
+//        player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
+//
+//            let seconds = CMTimeGetSeconds(progressTime)
+//            let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
+//            let minutesString = String(format: "%02d", Int(seconds / 60))
+//
+//            self.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+//
+//            //lets move the slider thumb
+//            if let duration = self.player?.currentItem?.duration, duration.value != 0 {
+//                let durationSeconds = CMTimeGetSeconds(duration)
+//
+//                self.videoSlider.value = seconds / durationSeconds
+//
+//            }
+//
+//        })
     }
 
     //MARK: - KVO
 
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
-        //this is when the player is ready and rendering frames
-        guard keyPath == "currentItem.loadedTimeRanges" else { return }
-        activityIndicatorView?.stopAnimating()
-        guard let duration = player?.currentItem?.duration else { return }
-        let seconds = CMTimeGetSeconds(duration)
-
-        guard !seconds.isNaN else { return }
-        let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-        let minutesText = String(format: "%02d", Int(seconds) / 60)
-        videoLengthLabel.text = "\(minutesText):\(secondsText)"
+//        //this is when the player is ready and rendering frames
+//        guard keyPath == "currentItem.loadedTimeRanges" else { return }
+//        activityIndicatorView?.stopAnimating()
+//        guard let duration = player?.currentItem?.duration else { return }
+//        let seconds = CMTimeGetSeconds(duration)
+//
+//        guard !seconds.isNaN else { return }
+//        let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
+//        let minutesText = String(format: "%02d", Int(seconds) / 60)
+//        videoLengthLabel.text = "\(minutesText):\(secondsText)"
     }
 }
 
@@ -274,21 +274,21 @@ extension VideoPlayerView {
 
     @objc func timeSliderSlide(_ sender: VideoProgressSlider) {
 
-        var value = sender.value
-
-        guard let player = player, let duration = player.currentItem?.duration, duration.value != 0 else {
-            return
-        }
-        
-        let totalSeconds = CMTimeGetSeconds(duration)
-        
-        value = Float64(value) * totalSeconds
-        
-        let seekTime = CMTime(value: Int64(value), timescale: 1)
-        
-        player.seek(to: seekTime, completionHandler: { (completedSeek) in
-            //perhaps do something later here
-        })
+//        var value = sender.value
+//
+//        guard let player = player, let duration = player.currentItem?.duration, duration.value != 0 else {
+//            return
+//        }
+//
+//        let totalSeconds = CMTimeGetSeconds(duration)
+//
+//        value = Float64(value) * totalSeconds
+//
+//        let seekTime = CMTime(value: Int64(value), timescale: 1)
+//
+//        player.seek(to: seekTime, completionHandler: { (completedSeek) in
+//            //perhaps do something later here
+//        })
         
     }
 
