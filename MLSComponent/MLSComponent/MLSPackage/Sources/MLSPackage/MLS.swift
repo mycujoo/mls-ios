@@ -8,13 +8,24 @@ public struct Configuration {
     public init() { }
 }
 
+public struct Stream {
+
+    public let urls: NonEmptyArray<URL>
+
+    /// - Parameter urls: nonempty collection of URLs. Could be initialized with a single URL .init(streamURL)
+    /// or with multiple URLs separated by coma .init(streamURL, streamURL)
+    public init(urls: NonEmptyArray<URL>) {
+        self.urls = urls
+    }
+}
+
 public struct Event {
     public let id: AnyHashable
-    public let streamURL: URL
+    public let stream: Stream
 
-    public init(id: AnyHashable, streamURL: URL) {
+    public init(id: AnyHashable, stream: Stream) {
         self.id = id
-        self.streamURL = streamURL
+        self.stream = stream
     }
 }
 

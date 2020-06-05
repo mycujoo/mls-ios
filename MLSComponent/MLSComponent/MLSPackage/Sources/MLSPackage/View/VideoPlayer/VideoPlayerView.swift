@@ -265,7 +265,7 @@ public class VideoPlayerView: UIView  {
 extension VideoPlayerView {
 
     @objc func playButtonTapped() {
-        status.setOpposite()
+//        status.setOpposite()
         if #available(iOS 13.0, tvOS 13.0, *) {
             let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
             playButton.setImage(image, for: .normal)

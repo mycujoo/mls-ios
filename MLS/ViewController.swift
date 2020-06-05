@@ -10,13 +10,14 @@ class ViewController: UIViewController {
     private lazy var mls = MLS(publicKey: "key", configuration: Configuration())
 
     lazy var videoPlayer: VideoPlayerView = {
-        let player = mls.videoPlayerView(
-            with: Event(id: "",
-                        streamURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!
-            )
-        )
-        player.translatesAutoresizingMaskIntoConstraints = false
-        return player
+//        let player = mls.videoPlayerView(
+//            with: Event(id: "",
+//                        streamURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!
+//            )
+//        )
+//        player.translatesAutoresizingMaskIntoConstraints = false
+//        return player
+        fatalError()
     }()
 
     override func viewDidLoad() {
