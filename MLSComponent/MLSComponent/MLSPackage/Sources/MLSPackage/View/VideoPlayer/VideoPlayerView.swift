@@ -3,30 +3,16 @@
 //
 
 import UIKit
-import AVFoundation
 import AVKit
 
 public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
-//    public var status: VideoPlayer.Status = .pause {
-//        didSet {
-//            #if os(tvOS)
-//            controlsBackground.isHidden = status.isPlaying
-//            #endif
-//            if status.isPlaying {
-////                player?.play()
-//            } else {
-////                player?.pause()
-//            }
-//        }
-//    }
-
-//    private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
     private var overlays: [Overlay: (NSLayoutConstraint, UIView)] = [:]
     private var isFullScreen = false
+    private var onTimeSliderSlide: ((Double) -> ())?
 
     // MARK: - UI Components
 
@@ -218,7 +204,7 @@ public class VideoPlayerView: UIView  {
 // MARK: - Actions
 extension VideoPlayerView {
 
-    @objc func playButtonTapped() {
+    @objc private func playButtonTapped() {
 ////        status.setOpposite()
 //        if #available(iOS 13.0, tvOS 13.0, *) {
 //            let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
@@ -226,24 +212,12 @@ extension VideoPlayerView {
 //        }
     }
 
-    @objc func timeSliderSlide(_ sender: VideoProgressSlider) {
+    func onTimeSliderSlide(_ action: @escaping (Double) -> ()) {
+        onTimeSliderSlide = action
+    }
 
-//        var value = sender.value
-//
-//        guard let player = player, let duration = player.currentItem?.duration, duration.value != 0 else {
-//            return
-//        }
-//
-//        let totalSeconds = CMTimeGetSeconds(duration)
-//
-//        value = Float64(value) * totalSeconds
-//
-//        let seekTime = CMTime(value: Int64(value), timescale: 1)
-//
-//        player.seek(to: seekTime, completionHandler: { (completedSeek) in
-//            //perhaps do something later here
-//        })
-        
+    @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
+        onTimeSliderSlide?(sender.value)        
     }
 
     #if os(iOS)

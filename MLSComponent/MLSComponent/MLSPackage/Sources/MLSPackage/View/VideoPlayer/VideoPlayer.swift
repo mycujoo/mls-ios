@@ -44,6 +44,7 @@ public class VideoPlayer: NSObject {
         super.init()
         player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         timeObserver = trackTime(with: player)
+        view.onTimeSliderSlide(sliderUpdated)
     }
 
     deinit {
@@ -106,6 +107,13 @@ extension VideoPlayer {
                         self.view.videoSlider.value = seconds / durationSeconds
                     }
         }
+    }
+
+    private func sliderUpdated(with value: Double) {
+        guard let duration = player.currentItem?.duration, duration.value != 0 else { return }
+        let totalSeconds = CMTimeGetSeconds(duration)
+        let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
+        player.seek(to: seekTime, completionHandler: { _ in })
     }
 }
 
