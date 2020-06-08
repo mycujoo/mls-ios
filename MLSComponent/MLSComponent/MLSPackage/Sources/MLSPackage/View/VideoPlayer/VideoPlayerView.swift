@@ -12,18 +12,19 @@ public class VideoPlayerView: UIView  {
     private var playerLayer: AVPlayerLayer?
     private var overlays: [Overlay: (NSLayoutConstraint, UIView)] = [:]
     private var isFullScreen = false
-    private var onTimeSliderSlide: ((Double) -> ())?
+    private var onTimeSliderSlide: ((Double) -> Void)?
+    private var onPlayButtonTapped: (() -> Void)?
 
     // MARK: - UI Components
 
     var activityIndicatorView: UIActivityIndicatorView?
 
-    private let playButton: UIButton = {
+    let playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         #if os(iOS)
         if #available(iOS 13.0, tvOS 13.0, *) {
-            button.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            button.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         }
         #else
         button.setTitle("Play", for: .normal)
@@ -193,26 +194,22 @@ public class VideoPlayerView: UIView  {
         playerLayer.frame = bounds
         
         bringSubviewToFront(controlsBackground)
-        activityIndicatorView?.startAnimating()
-
-//        trackTime(with: player)
-        //player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
-        
+        activityIndicatorView?.startAnimating()        
     }
 }
 
 // MARK: - Actions
 extension VideoPlayerView {
 
-    @objc private func playButtonTapped() {
-////        status.setOpposite()
-//        if #available(iOS 13.0, tvOS 13.0, *) {
-//            let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
-//            playButton.setImage(image, for: .normal)
-//        }
+    func onPlayButtonTapped(_ action: @escaping () -> Void) {
+        onPlayButtonTapped = action
     }
 
-    func onTimeSliderSlide(_ action: @escaping (Double) -> ()) {
+    @objc private func playButtonTapped() {
+        onPlayButtonTapped?()
+    }
+
+    func onTimeSliderSlide(_ action: @escaping (Double) -> Void) {
         onTimeSliderSlide = action
     }
 
@@ -221,7 +218,7 @@ extension VideoPlayerView {
     }
 
     #if os(iOS)
-    @objc func fullscreenButtonTapped() {
+    @objc private func fullscreenButtonTapped() {
         isFullScreen.toggle()
         let newValue: UIInterfaceOrientation = isFullScreen ? .landscapeRight : .portrait
         UIDevice.current.setValue(newValue.rawValue, forKey: "orientation")

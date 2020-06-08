@@ -3,6 +3,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 public class VideoPlayer: NSObject {
 
@@ -45,6 +46,7 @@ public class VideoPlayer: NSObject {
         player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         timeObserver = trackTime(with: player)
         view.onTimeSliderSlide(sliderUpdated)
+        view.onPlayButtonTapped(playButtonTapped)
     }
 
     deinit {
@@ -114,6 +116,14 @@ extension VideoPlayer {
         let totalSeconds = CMTimeGetSeconds(duration)
         let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
         player.seek(to: seekTime, completionHandler: { _ in })
+    }
+
+    private func playButtonTapped() {
+        if #available(iOS 13.0, tvOS 13.0, *) {
+            status.toggle()
+            let image = status.isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill")
+            view.playButton.setImage(image, for: .normal)
+        }
     }
 }
 
