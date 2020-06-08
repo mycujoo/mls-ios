@@ -19,9 +19,7 @@ public class VideoPlayer {
             player.replaceCurrentItem(with: AVPlayerItem(url: stream.urls.first))
             view.drawPlayer(with: player)
 
-            if let timeObserver = timeObserver {
-                player.removeTimeObserver(timeObserver)
-            }
+            if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
             timeObserver = trackTime(with: player)
         }
     }
@@ -46,9 +44,7 @@ public class VideoPlayer {
     // MARK: - Methods
 
     deinit {
-        if let timeObserver = timeObserver {
-            player.removeTimeObserver(timeObserver)
-        }
+        if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
     }
 }
 
@@ -77,6 +73,7 @@ extension VideoPlayer {
                     let minutesString = String(format: "%02d", Int(seconds / 60))
 
                     self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+                    self.delegate?.playerDidUpdateTime(player: self)
 
                     //lets move the slider thumb
                     if let duration = player.currentItem?.duration, duration.value != 0 {
