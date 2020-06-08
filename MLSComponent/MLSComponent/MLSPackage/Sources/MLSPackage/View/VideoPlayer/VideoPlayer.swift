@@ -30,6 +30,10 @@ public class VideoPlayer: NSObject {
             case .pause:
                 player.pause()
             }
+            if #available(iOS 13.0, tvOS 13.0, *) {
+                let image = status.isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill")
+                view.playButton.setImage(image, for: .normal)
+            }
             delegate?.playerDidUpdatePlaying(player: self)
         }
     }
@@ -119,11 +123,7 @@ extension VideoPlayer {
     }
 
     private func playButtonTapped() {
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            status.toggle()
-            let image = status.isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill")
-            view.playButton.setImage(image, for: .normal)
-        }
+        status.toggle()
     }
 }
 
