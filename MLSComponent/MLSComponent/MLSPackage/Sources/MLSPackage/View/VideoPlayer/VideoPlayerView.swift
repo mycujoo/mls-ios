@@ -30,7 +30,7 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - UI Components
 
-    private var activityIndicatorView: UIActivityIndicatorView?
+    var activityIndicatorView: UIActivityIndicatorView?
 
     private let playButton: UIButton = {
         let button = UIButton()
@@ -53,10 +53,11 @@ public class VideoPlayerView: UIView  {
         return label
     }()
 
-    private let videoLengthLabel: UILabel! = {
+    let videoLengthLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .footnote)
+        label.text = "00:00"
         return label
     }()
 
@@ -83,10 +84,6 @@ public class VideoPlayerView: UIView  {
     }()
 
     //MARK: - Init
-
-    deinit {
-//        player?.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
-    }
 
     init() {
         super.init(frame: .zero)
@@ -202,11 +199,6 @@ public class VideoPlayerView: UIView  {
 
     //MARK: - Methods
 
-    public func playVideo(with url: URL) {
-//        player = AVPlayer(url: url)
-//        drawPlayer(with: player!)
-    }
-
     func drawPlayer(with player: AVPlayer) {
 
         let playerLayer = AVPlayerLayer(player: player)
@@ -220,42 +212,6 @@ public class VideoPlayerView: UIView  {
 //        trackTime(with: player)
         //player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         
-    }
-
-    private func trackTime(with player: AVPlayer) -> Any {
-        player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 2), queue: DispatchQueue.main, using: { (progressTime) in
-
-            let seconds = CMTimeGetSeconds(progressTime)
-            let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-            let minutesString = String(format: "%02d", Int(seconds / 60))
-
-            self.currentTimeLabel.text = "\(minutesString):\(secondsString)"
-
-            //lets move the slider thumb
-            if let duration = player.currentItem?.duration, duration.value != 0 {
-                let durationSeconds = CMTimeGetSeconds(duration)
-
-                self.videoSlider.value = seconds / durationSeconds
-
-            }
-
-        })
-    }
-
-    //MARK: - KVO
-
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-
-//        //this is when the player is ready and rendering frames
-//        guard keyPath == "currentItem.loadedTimeRanges" else { return }
-//        activityIndicatorView?.stopAnimating()
-//        guard let duration = player?.currentItem?.duration else { return }
-//        let seconds = CMTimeGetSeconds(duration)
-//
-//        guard !seconds.isNaN else { return }
-//        let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-//        let minutesText = String(format: "%02d", Int(seconds) / 60)
-//        videoLengthLabel.text = "\(minutesText):\(secondsText)"
     }
 }
 

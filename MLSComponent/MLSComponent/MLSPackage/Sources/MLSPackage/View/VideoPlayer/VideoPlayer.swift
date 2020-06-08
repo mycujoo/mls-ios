@@ -4,7 +4,7 @@
 
 import AVFoundation
 
-public class VideoPlayer {
+public class VideoPlayer: NSObject {
 
     // MARK: - Public properties
 
@@ -18,9 +18,6 @@ public class VideoPlayer {
 
             player.replaceCurrentItem(with: AVPlayerItem(url: stream.urls.first))
             view.drawPlayer(with: player)
-
-            if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
-            timeObserver = trackTime(with: player)
         }
     }
 
@@ -43,8 +40,36 @@ public class VideoPlayer {
 
     // MARK: - Methods
 
+    public override init() {
+        super.init()
+        player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+        timeObserver = trackTime(with: player)
+    }
+
     deinit {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
+        player.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
+    }
+    
+    //MARK: - KVO
+
+    public override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?,
+        change: [NSKeyValueChangeKey : Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
+
+        //this is when the player is ready and rendering frames
+        guard keyPath == "currentItem.loadedTimeRanges" else { return }
+        view.activityIndicatorView?.stopAnimating()
+        guard let duration = player.currentItem?.duration else { return }
+        let seconds = CMTimeGetSeconds(duration)
+
+        guard !seconds.isNaN else { return }
+        let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
+        let minutesText = String(format: "%02d", Int(seconds) / 60)
+        view.videoLengthLabel.text = "\(minutesText):\(secondsText)"
     }
 }
 
