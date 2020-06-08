@@ -10,18 +10,18 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
-    public var status: VideoPlayer.Status = .pause {
-        didSet {
-            #if os(tvOS)
-            controlsBackground.isHidden = status.isPlaying
-            #endif
-            if status.isPlaying {
-//                player?.play()
-            } else {
-//                player?.pause()
-            }
-        }
-    }
+//    public var status: VideoPlayer.Status = .pause {
+//        didSet {
+//            #if os(tvOS)
+//            controlsBackground.isHidden = status.isPlaying
+//            #endif
+//            if status.isPlaying {
+////                player?.play()
+//            } else {
+////                player?.pause()
+//            }
+//        }
+//    }
 
 //    private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
@@ -45,7 +45,7 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    private let currentTimeLabel: UILabel = {
+    let currentTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .footnote)
@@ -60,7 +60,7 @@ public class VideoPlayerView: UIView  {
         return label
     }()
 
-    private let videoSlider: VideoProgressSlider = {
+    let videoSlider: VideoProgressSlider = {
         let slider = VideoProgressSlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
@@ -217,31 +217,29 @@ public class VideoPlayerView: UIView  {
         bringSubviewToFront(controlsBackground)
         activityIndicatorView?.startAnimating()
 
-        trackTime()
+//        trackTime(with: player)
         //player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         
     }
 
-    private func trackTime() {
+    private func trackTime(with player: AVPlayer) -> Any {
+        player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 2), queue: DispatchQueue.main, using: { (progressTime) in
 
-//        let interval = CMTime(value: 1, timescale: 2)
-//        player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
-//
-//            let seconds = CMTimeGetSeconds(progressTime)
-//            let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-//            let minutesString = String(format: "%02d", Int(seconds / 60))
-//
-//            self.currentTimeLabel.text = "\(minutesString):\(secondsString)"
-//
-//            //lets move the slider thumb
-//            if let duration = self.player?.currentItem?.duration, duration.value != 0 {
-//                let durationSeconds = CMTimeGetSeconds(duration)
-//
-//                self.videoSlider.value = seconds / durationSeconds
-//
-//            }
-//
-//        })
+            let seconds = CMTimeGetSeconds(progressTime)
+            let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
+            let minutesString = String(format: "%02d", Int(seconds / 60))
+
+            self.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+
+            //lets move the slider thumb
+            if let duration = player.currentItem?.duration, duration.value != 0 {
+                let durationSeconds = CMTimeGetSeconds(duration)
+
+                self.videoSlider.value = seconds / durationSeconds
+
+            }
+
+        })
     }
 
     //MARK: - KVO
@@ -265,11 +263,11 @@ public class VideoPlayerView: UIView  {
 extension VideoPlayerView {
 
     @objc func playButtonTapped() {
-//        status.setOpposite()
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
-            playButton.setImage(image, for: .normal)
-        }
+////        status.setOpposite()
+//        if #available(iOS 13.0, tvOS 13.0, *) {
+//            let image = status.isPlaying ? UIImage(systemName: "pause.fill") :UIImage(systemName: "play.fill")
+//            playButton.setImage(image, for: .normal)
+//        }
     }
 
     @objc func timeSliderSlide(_ sender: VideoProgressSlider) {
