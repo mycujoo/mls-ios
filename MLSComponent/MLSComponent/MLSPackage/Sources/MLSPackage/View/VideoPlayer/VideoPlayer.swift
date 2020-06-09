@@ -9,9 +9,14 @@ public class VideoPlayer: NSObject {
 
     // MARK: - Public properties
 
-    public private(set) var state: State = .idle
     public weak var delegate: PlayerDelegate?
     public private(set) var view = VideoPlayerView()
+
+    public private(set) var state: State = .unknown {
+        didSet {
+            delegate?.playerDidUpdateState(player: self)
+        }
+    }
 
     public var event: Event? {
         didSet {
@@ -48,6 +53,7 @@ public class VideoPlayer: NSObject {
     public override init() {
         super.init()
         player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+        player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         timeObserver = trackTime(with: player)
         view.onTimeSliderSlide(sliderUpdated)
         view.onPlayButtonTapped(playButtonTapped)
@@ -56,6 +62,7 @@ public class VideoPlayer: NSObject {
     deinit {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
+        player.removeObserver(self, forKeyPath: "status")
     }
     
     //MARK: - KVO
@@ -66,9 +73,17 @@ public class VideoPlayer: NSObject {
         change: [NSKeyValueChangeKey : Any]?,
         context: UnsafeMutableRawPointer?
     ) {
+        switch keyPath {
+        case "currentItem.loadedTimeRanges":
+            handleNewLoadedTimeRanges()
+        case "status":
+            state = State(rawValue: player.status.rawValue) ?? .unknown
+        default:
+            break
+        }
+    }
 
-        //this is when the player is ready and rendering frames
-        guard keyPath == "currentItem.loadedTimeRanges" else { return }
+    private func handleNewLoadedTimeRanges() {
         view.activityIndicatorView?.stopAnimating()
         guard let duration = player.currentItem?.duration else { return }
         let seconds = CMTimeGetSeconds(duration)
@@ -107,10 +122,14 @@ extension VideoPlayer {
                     self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
                     self.delegate?.playerDidUpdateTime(player: self)
 
-                    //lets move the slider thumb
                     if let duration = player.currentItem?.duration, duration.value != 0 {
+
                         let durationSeconds = CMTimeGetSeconds(duration)
                         self.view.videoSlider.value = seconds / durationSeconds
+
+                        if durationSeconds <= seconds {
+                            self.state = .ended
+                        }
                     }
         }
     }
@@ -129,17 +148,15 @@ extension VideoPlayer {
 
 // MARK: - State
 public extension VideoPlayer {
-    enum State {
-        /// The player does not have any media to play
-        case idle
-        /// The player is not able to immediately play from its current position. This state typically occurs when more data needs to be loaded
-        case buffering
-        /// The player is able to immediately play from its current position.
-        case ready
+    enum State: Int {
+        /// Indicates that the status of the player is not yet known because it has not tried to load new media resources for playback.
+        case unknown = 0
+        /// Indicates that the player is ready to play AVPlayerItem instances.
+        case readyToPlay = 1
+        /// Indicates that the player can no longer play AVPlayerItem instances because of an error. The error is described by the value of the player's error property.
+        case failed = 2
         /// The player has finished playing the media
-        case ended
-        /// Indicates that the player can no longer play.
-        case failed
+        case ended = 3
     }
 }
 
@@ -147,4 +164,5 @@ public extension VideoPlayer {
 public protocol PlayerDelegate: AnyObject {
     func playerDidUpdatePlaying(player: VideoPlayer)
     func playerDidUpdateTime(player: VideoPlayer)
+    func playerDidUpdateState(player: VideoPlayer)
 }
