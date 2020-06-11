@@ -4,6 +4,8 @@
 
 import AVFoundation
 import UIKit
+import YouboraAVPlayerAdapter
+import YouboraLib
 
 public class VideoPlayer: NSObject {
 
@@ -47,6 +49,14 @@ public class VideoPlayer: NSObject {
 
     private let player = AVPlayer()
     private var timeObserver: Any?
+    private lazy var youboraPlugin: YBPlugin = {
+        let options = YBOptions()
+        options.accountCode = "mycujoo"
+        options.username = "mls"
+        let plugin = YBPlugin(options: options)
+        plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: player))
+        return plugin
+    }()
 
     // MARK: - Methods
 
@@ -57,6 +67,7 @@ public class VideoPlayer: NSObject {
         timeObserver = trackTime(with: player)
         view.onTimeSliderSlide(sliderUpdated)
         view.onPlayButtonTapped(playButtonTapped)
+        youboraPlugin.fireInit()
     }
 
     deinit {

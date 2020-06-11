@@ -8,7 +8,8 @@ target 'MLS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for MLS
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
 
    target 'MLSComponent' do
      project 'MLSComponent/MLSComponent.xcodeproj'
