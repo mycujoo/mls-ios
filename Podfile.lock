@@ -1,0 +1,24 @@
+PODS:
+  - YouboraAVPlayerAdapter (6.5.16):
+    - YouboraAVPlayerAdapter/Default (= 6.5.16)
+    - YouboraLib (~> 6.5.19)
+  - YouboraAVPlayerAdapter/Default (6.5.16):
+    - YouboraLib (~> 6.5.19)
+  - YouboraLib (6.5.27)
+
+DEPENDENCIES:
+  - YouboraAVPlayerAdapter
+  - YouboraLib
+
+SPEC REPOS:
+  trunk:
+    - YouboraAVPlayerAdapter
+    - YouboraLib
+
+SPEC CHECKSUMS:
+  YouboraAVPlayerAdapter: 4135690da2fc41e4abc442e6456014cc4b56e94b
+  YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
+
+PODFILE CHECKSUM: 860913df0588ea179a4adb3d0ca87eeefc456697
+
+COCOAPODS: 1.9.1
