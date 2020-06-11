@@ -11,6 +11,17 @@
 		6477C4442469552A0033435D /* MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6477C43A2469552A0033435D /* MLSComponent.framework */; };
 		6477C4492469552A0033435D /* MLSComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477C4482469552A0033435D /* MLSComponentTests.swift */; };
 		6477C44B2469552A0033435D /* MLSComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6477C43D2469552A0033435D /* MLSComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
+		6496C356249230B50099475D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
+		6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
+		6496C358249230B80099475D /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34A2492308D0099475D /* Overlay.swift */; };
+		6496C359249230B80099475D /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* TimelineMarker.swift */; };
+		6496C35A249230B80099475D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34C2492308D0099475D /* Action.swift */; };
+		6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
+		6496C35C249230BF0099475D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView.swift */; };
+		6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
+		6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
+		6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +42,17 @@
 		6477C4432469552A0033435D /* MLSComponentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLSComponentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C4482469552A0033435D /* MLSComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSComponentTests.swift; sourceTree = "<group>"; };
 		6477C44A2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
+		6496C3472492308D0099475D /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
+		6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonEmpty+RangeReplaceableCollection.swift"; sourceTree = "<group>"; };
+		6496C34A2492308D0099475D /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		6496C34B2492308D0099475D /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
+		6496C34C2492308D0099475D /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
+		6496C3512492308D0099475D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		6496C3522492308D0099475D /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		6496C3532492308D0099475D /* VideoProgressSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProgressSlider.swift; sourceTree = "<group>"; };
+		6496C3542492308D0099475D /* VideoPlayStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +105,9 @@
 		6477C43C2469552A0033435D /* MLSComponent */ = {
 			isa = PBXGroup;
 			children = (
+				6496C3452492308D0099475D /* Models */,
+				6496C34D2492308D0099475D /* View */,
+				6496C3442492308D0099475D /* MLS.swift */,
 				6477C43D2469552A0033435D /* MLSComponent.h */,
 				6477C43E2469552A0033435D /* Info.plist */,
 			);
@@ -96,6 +121,62 @@
 				6477C44A2469552A0033435D /* Info.plist */,
 			);
 			path = MLSComponentTests;
+			sourceTree = "<group>";
+		};
+		6496C3452492308D0099475D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6496C3462492308D0099475D /* NonEmpty */,
+				6496C3492492308D0099475D /* View */,
+				6496C34C2492308D0099475D /* Action.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6496C3462492308D0099475D /* NonEmpty */ = {
+			isa = PBXGroup;
+			children = (
+				6496C3472492308D0099475D /* NonEmpty.swift */,
+				6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */,
+			);
+			path = NonEmpty;
+			sourceTree = "<group>";
+		};
+		6496C3492492308D0099475D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6496C34A2492308D0099475D /* Overlay.swift */,
+				6496C34B2492308D0099475D /* TimelineMarker.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6496C34D2492308D0099475D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6496C34E2492308D0099475D /* OverlayViews */,
+				6496C3502492308D0099475D /* VideoPlayer */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6496C34E2492308D0099475D /* OverlayViews */ = {
+			isa = PBXGroup;
+			children = (
+				6496C34F2492308D0099475D /* SingleLineOverlayView.swift */,
+			);
+			path = OverlayViews;
+			sourceTree = "<group>";
+		};
+		6496C3502492308D0099475D /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				6496C3512492308D0099475D /* VideoPlayerView.swift */,
+				6496C3522492308D0099475D /* VideoPlayer.swift */,
+				6496C3532492308D0099475D /* VideoProgressSlider.swift */,
+				6496C3542492308D0099475D /* VideoPlayStatus.swift */,
+			);
+			path = VideoPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +294,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6496C3552492308D0099475D /* MLS.swift in Sources */,
+				6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */,
+				6496C35A249230B80099475D /* Action.swift in Sources */,
+				6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */,
+				6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
+				6496C359249230B80099475D /* TimelineMarker.swift in Sources */,
+				6496C358249230B80099475D /* Overlay.swift in Sources */,
+				6496C356249230B50099475D /* NonEmpty.swift in Sources */,
+				6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */,
+				6496C35C249230BF0099475D /* VideoPlayerView.swift in Sources */,
+				6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +505,7 @@
 		6477C4522469552A0033435D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57ZCK5ERE3;
 				INFOPLIST_FILE = MLSComponentTests/Info.plist;
@@ -431,6 +524,7 @@
 		6477C4532469552A0033435D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57ZCK5ERE3;
 				INFOPLIST_FILE = MLSComponentTests/Info.plist;
