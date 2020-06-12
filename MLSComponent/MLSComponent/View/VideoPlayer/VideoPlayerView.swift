@@ -61,7 +61,7 @@ public class VideoPlayerView: UIView  {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 13.0, tvOS 13.0, *) {
-            button.setImage(UIImage(systemName: "shift.fill"), for: .normal)
+            button.setImage(UIImage(systemName: "viewfinder"), for: .normal)
             button.tintColor = .white
         }
         return button
@@ -170,7 +170,6 @@ public class VideoPlayerView: UIView  {
                 [
                     fullscreenButton.leadingAnchor.constraint(equalTo: videoLengthLabel.trailingAnchor, constant: 8),
                     fullscreenButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    fullscreenButton.widthAnchor.constraint(equalToConstant: 16),
                     fullscreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
                 ]
         )
