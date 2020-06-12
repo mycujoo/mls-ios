@@ -45,6 +45,10 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    public var currentTime: Double {
+        (CMTimeGetSeconds(player.currentTime()) * 10).rounded() / 10
+    }
+
     // MARK: - Private properties
 
     private let player = AVPlayer()
@@ -116,6 +120,23 @@ public extension VideoPlayer {
     func playVideo(with event: Event, isAutoStart: Bool = true) {
         self.event = event
         if isAutoStart { play() }
+    }
+
+    func placePlayerView(in view: UIView) {
+        view.addSubview(self.view)
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        self.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.view.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 9 / 16).isActive = true
+        self.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
+
+        let leading = self.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        leading.priority = .defaultHigh
+        leading.isActive = true
+
+        let trailing = self.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        trailing.priority = .defaultHigh
+        trailing.isActive = true
     }
 }
 
