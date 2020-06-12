@@ -25,6 +25,7 @@ public class VideoPlayerView: UIView  {
         #if os(iOS)
         if #available(iOS 13.0, tvOS 13.0, *) {
             button.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            button.tintColor = .white
         }
         #else
         button.setTitle("Play", for: .normal)
@@ -35,16 +36,18 @@ public class VideoPlayerView: UIView  {
     let currentTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .footnote)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         label.text = "00:00"
+        label.textColor = .white
         return label
     }()
 
     let videoLengthLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .footnote)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         label.text = "00:00"
+        label.textColor = .white
         return label
     }()
 
@@ -59,6 +62,7 @@ public class VideoPlayerView: UIView  {
         button.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 13.0, tvOS 13.0, *) {
             button.setImage(UIImage(systemName: "shift.fill"), for: .normal)
+            button.tintColor = .white
         }
         return button
     }()
@@ -66,7 +70,6 @@ public class VideoPlayerView: UIView  {
     private let controlsBackground: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .brown
         return view
     }()
 
@@ -139,14 +142,14 @@ public class VideoPlayerView: UIView  {
         currentTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
         #endif
         currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        currentTimeLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        currentTimeLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
         NSLayoutConstraint
             .activate(
                 [
                     videoSlider.leadingAnchor.constraint(equalTo: currentTimeLabel.trailingAnchor, constant: 8),
                     videoSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    videoSlider.heightAnchor.constraint(equalToConstant: 24)
+                    videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
@@ -156,7 +159,7 @@ public class VideoPlayerView: UIView  {
                 [
                     videoLengthLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
                     videoLengthLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    videoLengthLabel.widthAnchor.constraint(equalToConstant: 80)
+                    videoLengthLabel.widthAnchor.constraint(equalToConstant: 40)
                 ]
         )
 
@@ -177,7 +180,7 @@ public class VideoPlayerView: UIView  {
         #endif
 
         view.layer.cornerRadius = 8.0
-        view.backgroundColor = .brown
+        view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
     }
 
     //MARK: - Methods

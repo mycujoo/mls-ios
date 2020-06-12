@@ -28,8 +28,9 @@ class VideoProgressSlider: UIControl {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
-        view.backgroundColor = UIColor.blue.withAlphaComponent(0.5)
-        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        view.heightAnchor.constraint(equalToConstant: 8).isActive = true
+        view.layer.cornerRadius = 4
         return view
     }()
 
@@ -37,8 +38,9 @@ class VideoProgressSlider: UIControl {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
-        view.backgroundColor = .green
-        view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        view.backgroundColor = UIColor.white
+        view.heightAnchor.constraint(equalToConstant: 8).isActive = true
+        view.layer.cornerRadius = 4
         return view
     }()
 
