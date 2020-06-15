@@ -122,6 +122,7 @@ public extension VideoPlayer {
         if isAutoStart { play() }
     }
 
+    #if os(iOS)
     func placePlayerView(in view: UIView) {
         view.addSubview(self.view)
         self.view.translatesAutoresizingMaskIntoConstraints = false
@@ -138,6 +139,7 @@ public extension VideoPlayer {
         trailing.priority = .defaultHigh
         trailing.isActive = true
     }
+    #endif
 }
 
 // MARK: - Private Methods
