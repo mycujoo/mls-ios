@@ -192,9 +192,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6477C4392469552A0033435D /* MLSComponent */ = {
+		6477C4392469552A0033435D /* MLSComponent-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6477C44E2469552A0033435D /* Build configuration list for PBXNativeTarget "MLSComponent" */;
+			buildConfigurationList = 6477C44E2469552A0033435D /* Build configuration list for PBXNativeTarget "MLSComponent-iOS" */;
 			buildPhases = (
 				AD43BF6E20789E8029BB70D0 /* [CP] Check Pods Manifest.lock */,
 				6477C4352469552A0033435D /* Headers */,
@@ -206,7 +206,7 @@
 			);
 			dependencies = (
 			);
-			name = MLSComponent;
+			name = "MLSComponent-iOS";
 			packageProductDependencies = (
 			);
 			productName = MLSComponent;
@@ -242,7 +242,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6477C4392469552A0033435D /* MLSComponent */,
+				6477C4392469552A0033435D /* MLSComponent-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -444,7 +444,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSComponent;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSComponent;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -473,7 +473,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSComponent;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSComponent;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -493,7 +493,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6477C44E2469552A0033435D /* Build configuration list for PBXNativeTarget "MLSComponent" */ = {
+		6477C44E2469552A0033435D /* Build configuration list for PBXNativeTarget "MLSComponent-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6477C44F2469552A0033435D /* Debug */,
