@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,6 @@
 		643B5EBE247BE93B00A46A77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EBD247BE93B00A46A77 /* Assets.xcassets */; };
 		643B5EC1247BE93B00A46A77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC0247BE93B00A46A77 /* Preview Assets.xcassets */; };
 		643B5EC4247BE93B00A46A77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC2247BE93B00A46A77 /* LaunchScreen.storyboard */; };
-		643B5ECA247BEB1400A46A77 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 643B5EC9247BEB1400A46A77 /* SwiftPackageProductDependency */; };
 		BC6587000495A85F2F0A2DD0 /* Pods_MLS_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114500BBF2AAB42076BD3C53 /* Pods_MLS_tvOS.framework */; };
 		D87DFBA323EE45A69A486FC7 /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FE723669435EF825E34893 /* Pods_MLS.framework */; };
 /* End PBXBuildFile section */
@@ -73,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				643B5ECA247BEB1400A46A77 /* BuildFile in Frameworks */,
 				BC6587000495A85F2F0A2DD0 /* Pods_MLS_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,7 +150,6 @@
 				5D0249105ABC18629B63ECDD /* Pods-MLS-tvOS.debug.xcconfig */,
 				5454E2ED36A568663747B579 /* Pods-MLS-tvOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -194,7 +191,6 @@
 			);
 			name = "MLS-tvOS";
 			packageProductDependencies = (
-				643B5EC9247BEB1400A46A77 /* SwiftPackageProductDependency */,
 			);
 			productName = "MLS-tvOS";
 			productReference = 643B5EB7247BE93900A46A77 /* MLS-tvOS.app */;
@@ -594,13 +590,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		643B5EC9247BEB1400A46A77 /* SwiftPackageProductDependency */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MLSPackage;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6418F6CE246951050013A9EE /* Project object */;
 }

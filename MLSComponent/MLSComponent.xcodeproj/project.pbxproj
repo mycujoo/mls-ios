@@ -3,13 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		643B5EAE247BE6AC00A46A77 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 643B5EAD247BE6AC00A46A77 /* SwiftPackageProductDependency */; };
-		6477C4442469552A0033435D /* MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6477C43A2469552A0033435D /* MLSComponent.framework */; };
-		6477C4492469552A0033435D /* MLSComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477C4482469552A0033435D /* MLSComponentTests.swift */; };
 		6477C44B2469552A0033435D /* MLSComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6477C43D2469552A0033435D /* MLSComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C356249230B50099475D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
@@ -25,27 +22,13 @@
 		E1637C9A72F79D5C3A541CE9 /* Pods_MLS_MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C19972D36323EF71E2E92E /* Pods_MLS_MLSComponent.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6477C4452469552A0033435D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6477C4312469552A0033435D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6477C4392469552A0033435D;
-			remoteInfo = MLSComponent;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		18C19972D36323EF71E2E92E /* Pods_MLS_MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS_MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5717EF4318A7EBF486517FFE /* Pods-MLS-MLSComponent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent.release.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent/Pods-MLS-MLSComponent.release.xcconfig"; sourceTree = "<group>"; };
 		60C8EFF5F6E3A9AA8A4A8A37 /* Pods-MLS-MLSComponent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent.debug.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent/Pods-MLS-MLSComponent.debug.xcconfig"; sourceTree = "<group>"; };
-		643B5EA9247BE4FD00A46A77 /* MLSPackage */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MLSPackage; path = MLSComponent/MLSPackage; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43D2469552A0033435D /* MLSComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSComponent.h; sourceTree = "<group>"; };
 		6477C43E2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6477C4432469552A0033435D /* MLSComponentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLSComponentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6477C4482469552A0033435D /* MLSComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSComponentTests.swift; sourceTree = "<group>"; };
-		6477C44A2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C3472492308D0099475D /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
 		6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonEmpty+RangeReplaceableCollection.swift"; sourceTree = "<group>"; };
@@ -64,16 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				643B5EAE247BE6AC00A46A77 /* BuildFile in Frameworks */,
 				E1637C9A72F79D5C3A541CE9 /* Pods_MLS_MLSComponent.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6477C4402469552A0033435D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6477C4442469552A0033435D /* MLSComponent.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,9 +75,7 @@
 		6477C4302469552A0033435D = {
 			isa = PBXGroup;
 			children = (
-				643B5EA9247BE4FD00A46A77 /* MLSPackage */,
 				6477C43C2469552A0033435D /* MLSComponent */,
-				6477C4472469552A0033435D /* MLSComponentTests */,
 				6477C43B2469552A0033435D /* Products */,
 				643B5EAC247BE6AC00A46A77 /* Frameworks */,
 				5C72109C5726478AF817F703 /* Pods */,
@@ -114,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				6477C43A2469552A0033435D /* MLSComponent.framework */,
-				6477C4432469552A0033435D /* MLSComponentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,15 +100,6 @@
 				6477C43E2469552A0033435D /* Info.plist */,
 			);
 			path = MLSComponent;
-			sourceTree = "<group>";
-		};
-		6477C4472469552A0033435D /* MLSComponentTests */ = {
-			isa = PBXGroup;
-			children = (
-				6477C4482469552A0033435D /* MLSComponentTests.swift */,
-				6477C44A2469552A0033435D /* Info.plist */,
-			);
-			path = MLSComponentTests;
 			sourceTree = "<group>";
 		};
 		6496C3452492308D0099475D /* Models */ = {
@@ -226,29 +188,10 @@
 			);
 			name = MLSComponent;
 			packageProductDependencies = (
-				643B5EAD247BE6AC00A46A77 /* SwiftPackageProductDependency */,
 			);
 			productName = MLSComponent;
 			productReference = 6477C43A2469552A0033435D /* MLSComponent.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		6477C4422469552A0033435D /* MLSComponentTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6477C4512469552A0033435D /* Build configuration list for PBXNativeTarget "MLSComponentTests" */;
-			buildPhases = (
-				6477C43F2469552A0033435D /* Sources */,
-				6477C4402469552A0033435D /* Frameworks */,
-				6477C4412469552A0033435D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6477C4462469552A0033435D /* PBXTargetDependency */,
-			);
-			name = MLSComponentTests;
-			productName = MLSComponentTests;
-			productReference = 6477C4432469552A0033435D /* MLSComponentTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -263,9 +206,6 @@
 					6477C4392469552A0033435D = {
 						CreatedOnToolsVersion = 11.4.1;
 						LastSwiftMigration = 1140;
-					};
-					6477C4422469552A0033435D = {
-						CreatedOnToolsVersion = 11.4.1;
 					};
 				};
 			};
@@ -283,20 +223,12 @@
 			projectRoot = "";
 			targets = (
 				6477C4392469552A0033435D /* MLSComponent */,
-				6477C4422469552A0033435D /* MLSComponentTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6477C4382469552A0033435D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6477C4412469552A0033435D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -349,23 +281,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6477C43F2469552A0033435D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6477C4492469552A0033435D /* MLSComponentTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6477C4462469552A0033435D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6477C4392469552A0033435D /* MLSComponent */;
-			targetProxy = 6477C4452469552A0033435D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6477C44C2469552A0033435D /* Debug */ = {
@@ -545,44 +461,6 @@
 			};
 			name = Release;
 		};
-		6477C4522469552A0033435D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 57ZCK5ERE3;
-				INFOPLIST_FILE = MLSComponentTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSComponentTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		6477C4532469552A0033435D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 57ZCK5ERE3;
-				INFOPLIST_FILE = MLSComponentTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSComponentTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -604,23 +482,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6477C4512469552A0033435D /* Build configuration list for PBXNativeTarget "MLSComponentTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6477C4522469552A0033435D /* Debug */,
-				6477C4532469552A0033435D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		643B5EAD247BE6AC00A46A77 /* SwiftPackageProductDependency */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MLSPackage;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6477C4312469552A0033435D /* Project object */;
 }
