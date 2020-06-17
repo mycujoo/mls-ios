@@ -1,4 +1,7 @@
 PODS:
+  - MLSComponent (0.0.1):
+    - YouboraAVPlayerAdapter
+    - YouboraLib
   - YouboraAVPlayerAdapter (6.5.17):
     - YouboraAVPlayerAdapter/Default (= 6.5.17)
     - YouboraLib (~> 6.5.19)
@@ -7,6 +10,7 @@ PODS:
   - YouboraLib (6.5.27)
 
 DEPENDENCIES:
+  - MLSComponent (from `MLSComponent`)
   - YouboraAVPlayerAdapter
   - YouboraLib
 
@@ -15,10 +19,15 @@ SPEC REPOS:
     - YouboraAVPlayerAdapter
     - YouboraLib
 
+EXTERNAL SOURCES:
+  MLSComponent:
+    :path: MLSComponent
+
 SPEC CHECKSUMS:
+  MLSComponent: 9b7270faedbb4570853d20b7b4745bd5e43cb56c
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: 7d87eb55e631d03ee59edae2d566af077d902824
+PODFILE CHECKSUM: 72414a9eba2dea60d28b4abc9432a9747d487234
 
 COCOAPODS: 1.9.1
