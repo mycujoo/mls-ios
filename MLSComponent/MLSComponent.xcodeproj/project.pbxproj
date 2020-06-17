@@ -93,11 +93,11 @@
 		6477C43C2469552A0033435D /* MLSComponent */ = {
 			isa = PBXGroup;
 			children = (
+				64FDE2FF249A175600E6510D /* Core */,
 				6496C3452492308D0099475D /* Models */,
 				6496C34D2492308D0099475D /* View */,
-				6496C3442492308D0099475D /* MLS.swift */,
-				6477C43D2469552A0033435D /* MLSComponent.h */,
 				6477C43E2469552A0033435D /* Info.plist */,
+				6477C43D2469552A0033435D /* MLSComponent.h */,
 			);
 			path = MLSComponent;
 			sourceTree = "<group>";
@@ -151,11 +151,19 @@
 			isa = PBXGroup;
 			children = (
 				6496C3512492308D0099475D /* VideoPlayerView.swift */,
-				6496C3522492308D0099475D /* VideoPlayer.swift */,
 				6496C3532492308D0099475D /* VideoProgressSlider.swift */,
 				6496C3542492308D0099475D /* VideoPlayStatus.swift */,
 			);
 			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		64FDE2FF249A175600E6510D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6496C3442492308D0099475D /* MLS.swift */,
+				6496C3522492308D0099475D /* VideoPlayer.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
