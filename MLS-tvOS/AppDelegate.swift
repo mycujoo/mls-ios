@@ -21,29 +21,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-import MLSPackage
+import MLSComponent
 class ViewController: UIViewController {
-    let videoPlayer: VideoPlayerView = {
-        let player = VideoPlayerView()
-        player.translatesAutoresizingMaskIntoConstraints = false
+
+    private lazy var mls = MLS(publicKey: "key", configuration: Configuration())
+
+    lazy var videoPlayer: VideoPlayer = {
+        let player = mls
+            .videoPlayer(
+                with: Event(
+                    id: "",
+                    stream: Stream(
+                        urls: .init(
+                            URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!
+                        )
+                    )
+                )
+        )
         return player
     }()
 
     override func loadView() {
-        view = videoPlayer
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        videoPlayer.setup(withURL: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.videoPlayer.showOverlay(Overlay(id: "id", kind: .singleLineText("singleLineText"), side: .bottomRight))
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.videoPlayer.hideOverlay(with: "id")
-            }
-        }
+        view = videoPlayer.view
     }
 }

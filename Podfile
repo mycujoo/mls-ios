@@ -20,7 +20,7 @@ target 'MLSComponent-iOS' do
 end
 
 target 'MLS-tvOS' do
-  platform :ios, '11.0'
+  platform :tvos, '11.0'
 
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
