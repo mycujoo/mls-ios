@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6477C44B2469552A0033435D /* MLSComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6477C43D2469552A0033435D /* MLSComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C356249230B50099475D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
 		6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
@@ -27,7 +26,6 @@
 		5717EF4318A7EBF486517FFE /* Pods-MLS-MLSComponent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent.release.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent/Pods-MLS-MLSComponent.release.xcconfig"; sourceTree = "<group>"; };
 		60C8EFF5F6E3A9AA8A4A8A37 /* Pods-MLS-MLSComponent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent.debug.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent/Pods-MLS-MLSComponent.debug.xcconfig"; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6477C43D2469552A0033435D /* MLSComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSComponent.h; sourceTree = "<group>"; };
 		6477C43E2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C3472492308D0099475D /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 			isa = PBXGroup;
 			children = (
 				64FDE301249A178800E6510D /* iOS */,
-				6477C43D2469552A0033435D /* MLSComponent.h */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -189,7 +186,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6477C44B2469552A0033435D /* MLSComponent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
