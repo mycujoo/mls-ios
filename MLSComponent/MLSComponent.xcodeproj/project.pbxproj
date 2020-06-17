@@ -132,10 +132,8 @@
 		6477C43C2469552A0033435D /* MLSComponent */ = {
 			isa = PBXGroup;
 			children = (
-				64FDE2FF249A175600E6510D /* Core */,
-				6496C3452492308D0099475D /* Models */,
+				64CACD51249A367100CEE111 /* Sources */,
 				64FDE300249A177C00E6510D /* Support Files */,
-				6496C34D2492308D0099475D /* View */,
 			);
 			path = MLSComponent;
 			sourceTree = "<group>";
@@ -193,6 +191,16 @@
 				6496C3542492308D0099475D /* VideoPlayStatus.swift */,
 			);
 			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		64CACD51249A367100CEE111 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				64FDE2FF249A175600E6510D /* Core */,
+				6496C3452492308D0099475D /* Models */,
+				6496C34D2492308D0099475D /* View */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		64FDE2FF249A175600E6510D /* Core */ = {
