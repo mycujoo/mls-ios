@@ -2,27 +2,34 @@ use_frameworks!
 inhibit_all_warnings!
 source 'https://cdn.cocoapods.org/'
 workspace 'MLS'
-platform :ios, '11.0'
+use_frameworks!
 
 target 'MLS' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+  platform :ios, '11.0'
 
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
 
-   target 'MLSComponent' do
-     project 'MLSComponent/MLSComponent.xcodeproj'
-     pod 'YouboraLib'
-     pod 'YouboraAVPlayerAdapter'
-   end
+end
 
+target 'MLSComponent-iOS' do
+  platform :ios, '11.0'
+  project 'MLSComponent/MLSComponent.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
 end
 
 target 'MLS-tvOS' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+  platform :ios, '11.0'
 
-  # Pods for MLS-tvOS
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
 
+end
+
+target 'MLSComponent-tvOS' do
+  platform :tvos, '11.0'
+  project 'MLSComponent/MLSComponent.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
 end

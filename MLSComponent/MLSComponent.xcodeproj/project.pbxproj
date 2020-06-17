@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21C6FCB6B38C27AD5527B154 /* Pods_MLSComponent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36776AC74E9AA84AAB240A5 /* Pods_MLSComponent_iOS.framework */; };
+		641C9180249A1C1A000E4E63 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView.swift */; };
+		641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
+		641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
+		641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C356249230B50099475D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
 		6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
@@ -18,11 +23,21 @@
 		6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
 		6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
 		6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
-		E1637C9A72F79D5C3A541CE9 /* Pods_MLS_MLSComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C19972D36323EF71E2E92E /* Pods_MLS_MLSComponent.framework */; };
+		64FDE310249A191400E6510D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
+		64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
+		64FDE312249A191800E6510D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
+		64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
+		64FDE314249A191B00E6510D /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34A2492308D0099475D /* Overlay.swift */; };
+		64FDE315249A191B00E6510D /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* TimelineMarker.swift */; };
+		64FDE316249A191B00E6510D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34C2492308D0099475D /* Action.swift */; };
+		9A2F2EC249092661AD1FC0F8 /* Pods_MLSComponent_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2063F8DD2F9DABEE033D3937 /* Pods_MLSComponent_tvOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		18C19972D36323EF71E2E92E /* Pods_MLS_MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS_MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07C45FE1B2B09284AA541BE2 /* Pods-MLS-MLSComponent-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent-iOS/Pods-MLS-MLSComponent-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		2063F8DD2F9DABEE033D3937 /* Pods_MLSComponent_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSComponent_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21FDF04616B812C306CAE80D /* Pods-MLSComponent-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSComponent-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSComponent-iOS/Pods-MLSComponent-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		44EE4F64ED5FED47B4E7C707 /* Pods-MLS-tvOS-MLSComponent-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS-MLSComponent-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS-MLSComponent-tvOS/Pods-MLS-tvOS-MLSComponent-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		5717EF4318A7EBF486517FFE /* Pods-MLS-MLSComponent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent.release.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent/Pods-MLS-MLSComponent.release.xcconfig"; sourceTree = "<group>"; };
 		60C8EFF5F6E3A9AA8A4A8A37 /* Pods-MLS-MLSComponent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent.debug.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent/Pods-MLS-MLSComponent.debug.xcconfig"; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +55,12 @@
 		6496C3542492308D0099475D /* VideoPlayStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayStatus.swift; sourceTree = "<group>"; };
 		64FDE308249A189000E6510D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64FDE30B249A189100E6510D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EE715761433DBD831D5547A /* Pods-MLSComponent-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSComponent-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSComponent-tvOS/Pods-MLSComponent-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		9675AC25CB402332BEED3460 /* Pods-MLSComponent-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSComponent-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSComponent-tvOS/Pods-MLSComponent-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		AC7A5CAA529D10C4F9A2FB43 /* Pods-MLS-tvOS-MLSComponent-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS-MLSComponent-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS-MLSComponent-tvOS/Pods-MLS-tvOS-MLSComponent-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B36776AC74E9AA84AAB240A5 /* Pods_MLSComponent_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSComponent_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB29785BF6970C0DFE2D3322 /* Pods-MLSComponent-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSComponent-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSComponent-iOS/Pods-MLSComponent-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		F0324C63EA1A593258D2A4E0 /* Pods-MLS-MLSComponent-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-MLSComponent-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLS-MLSComponent-iOS/Pods-MLS-MLSComponent-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1637C9A72F79D5C3A541CE9 /* Pods_MLS_MLSComponent.framework in Frameworks */,
+				21C6FCB6B38C27AD5527B154 /* Pods_MLSComponent_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2F2EC249092661AD1FC0F8 /* Pods_MLSComponent_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +88,14 @@
 			children = (
 				60C8EFF5F6E3A9AA8A4A8A37 /* Pods-MLS-MLSComponent.debug.xcconfig */,
 				5717EF4318A7EBF486517FFE /* Pods-MLS-MLSComponent.release.xcconfig */,
+				07C45FE1B2B09284AA541BE2 /* Pods-MLS-MLSComponent-iOS.debug.xcconfig */,
+				F0324C63EA1A593258D2A4E0 /* Pods-MLS-MLSComponent-iOS.release.xcconfig */,
+				AC7A5CAA529D10C4F9A2FB43 /* Pods-MLS-tvOS-MLSComponent-tvOS.debug.xcconfig */,
+				44EE4F64ED5FED47B4E7C707 /* Pods-MLS-tvOS-MLSComponent-tvOS.release.xcconfig */,
+				CB29785BF6970C0DFE2D3322 /* Pods-MLSComponent-iOS.debug.xcconfig */,
+				21FDF04616B812C306CAE80D /* Pods-MLSComponent-iOS.release.xcconfig */,
+				9675AC25CB402332BEED3460 /* Pods-MLSComponent-tvOS.debug.xcconfig */,
+				8EE715761433DBD831D5547A /* Pods-MLSComponent-tvOS.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../Pods;
@@ -74,7 +104,8 @@
 		643B5EAC247BE6AC00A46A77 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				18C19972D36323EF71E2E92E /* Pods_MLS_MLSComponent.framework */,
+				B36776AC74E9AA84AAB240A5 /* Pods_MLSComponent_iOS.framework */,
+				2063F8DD2F9DABEE033D3937 /* Pods_MLSComponent_tvOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -233,8 +264,6 @@
 			dependencies = (
 			);
 			name = "MLSComponent-iOS";
-			packageProductDependencies = (
-			);
 			productName = MLSComponent;
 			productReference = 6477C43A2469552A0033435D /* MLSComponent.framework */;
 			productType = "com.apple.product-type.framework";
@@ -243,6 +272,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64FDE30D249A189100E6510D /* Build configuration list for PBXNativeTarget "MLSComponent-tvOS" */;
 			buildPhases = (
+				9DAE6E9A5D492E9543A79279 /* [CP] Check Pods Manifest.lock */,
 				64FDE303249A189000E6510D /* Headers */,
 				64FDE304249A189000E6510D /* Sources */,
 				64FDE305249A189000E6510D /* Frameworks */,
@@ -313,6 +343,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9DAE6E9A5D492E9543A79279 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MLSComponent-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AD43BF6E20789E8029BB70D0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,7 +380,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MLS-MLSComponent-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-MLSComponent-iOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -360,6 +412,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64FDE315249A191B00E6510D /* TimelineMarker.swift in Sources */,
+				64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */,
+				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
+				64FDE312249A191800E6510D /* NonEmpty.swift in Sources */,
+				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
+				64FDE314249A191B00E6510D /* Overlay.swift in Sources */,
+				64FDE316249A191B00E6510D /* Action.swift in Sources */,
+				64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
+				641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */,
+				64FDE310249A191400E6510D /* MLS.swift in Sources */,
+				641C9180249A1C1A000E4E63 /* VideoPlayerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,7 +551,7 @@
 		};
 		6477C44F2469552A0033435D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60C8EFF5F6E3A9AA8A4A8A37 /* Pods-MLS-MLSComponent.debug.xcconfig */;
+			baseConfigurationReference = CB29785BF6970C0DFE2D3322 /* Pods-MLSComponent-iOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -517,7 +580,7 @@
 		};
 		6477C4502469552A0033435D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5717EF4318A7EBF486517FFE /* Pods-MLS-MLSComponent.release.xcconfig */;
+			baseConfigurationReference = 21FDF04616B812C306CAE80D /* Pods-MLSComponent-iOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -545,6 +608,7 @@
 		};
 		64FDE30E249A189100E6510D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9675AC25CB402332BEED3460 /* Pods-MLSComponent-tvOS.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -565,12 +629,13 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 13.4;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
 		64FDE30F249A189100E6510D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EE715761433DBD831D5547A /* Pods-MLSComponent-tvOS.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -591,7 +656,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 13.4;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
