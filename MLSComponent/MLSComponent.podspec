@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "git@github.com:mycujoo/mls-ios.git", :tag => "#{spec.name}-#{spec.version}" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.source_files  = "MLSComponent/MLSComponent/Sources/**/*.swift"
+  spec.source_files  = "MLSComponent/Sources/**/*.swift"
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

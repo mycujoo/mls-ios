@@ -24,7 +24,7 @@ EXTERNAL SOURCES:
     :path: MLSComponent
 
 SPEC CHECKSUMS:
-  MLSComponent: 9b7270faedbb4570853d20b7b4745bd5e43cb56c
+  MLSComponent: 7e32d01b4e8c94f5dabe78076ace8342bd6564cd
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
