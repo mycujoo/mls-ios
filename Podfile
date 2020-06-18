@@ -11,13 +11,15 @@ target 'MLSComponent-iOS' do
   project 'MLSComponent/MLSComponent.xcodeproj'
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
 end
 
 target 'MLSComponent-tvOS' do
   platform :tvos, '11.0'
   project 'MLSComponent/MLSComponent.xcodeproj'
   pod 'YouboraLib'
-  pod 'YouboraAVPlayerAdapter' 
+  pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
 end
 
 # // MARK: - Example projects

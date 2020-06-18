@@ -78,6 +78,7 @@ public class VideoPlayer: NSObject {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
         player.removeObserver(self, forKeyPath: "status")
+        youboraPlugin.fireStop()
     }
     
     //MARK: - KVO
