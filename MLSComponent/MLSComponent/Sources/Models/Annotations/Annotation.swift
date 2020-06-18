@@ -105,10 +105,107 @@ struct AnnotationActionShowTimelineMarker: Decodable {
 // MARK: - AnnotationActionShowOverlay
 
 
-struct AnnotationActionShowOverlay: Decodable {
+struct AnnotationActionShowOverlay {
+    struct Position: Decodable {
+        var top: Float?
+        var bottom: Float?
+        var vcenter: Float?
+        var right: Float?
+        var left: Float?
+        var hcenter: Float?
+    }
 
+    struct Size: Decodable {
+        var width: Float?
+        var height: Float?
+    }
+
+    enum AnimationinType {
+        case fadeIn, slideFromTop, slideFromBottom, slideFromLeft, slideFromRight, none, unsupported
+    }
+
+    enum AnimationoutType {
+        case fadeOut, slideToTop, slideToBottom, slideToLeft, slideToRight, none, unsupported
+    }
+
+    var customId: String?
+    var svgURL: URL
+    var position: Position
+    var size: Size
+    var animationinType: AnimationinType?
+    var animationoutType: AnimationoutType?
+    var duration: Float?
+    var variablePositions: [String: String]?
 }
 
+extension AnnotationActionShowOverlay.AnimationinType {
+    init(rawValue: String?) {
+        switch rawValue {
+        case "fade_in":
+            self = .fadeIn
+        case "slide_from_top":
+            self = .slideFromTop
+        case "slide_from_bottom":
+            self = .slideFromBottom
+        case "slide_from_left":
+            self = .slideFromLeft
+        case "slide_from_right":
+            self = .slideFromRight
+        case "none":
+            self = .none
+        default:
+            self = .unsupported
+        }
+    }
+}
+
+extension AnnotationActionShowOverlay.AnimationoutType {
+    init(rawValue: String?) {
+        switch rawValue {
+        case "fade_out":
+            self = .fadeOut
+        case "slide_to_top":
+            self = .slideToTop
+        case "slide_to_bottom":
+            self = .slideToBottom
+        case "slide_to_left":
+            self = .slideToLeft
+        case "slide_to_right":
+            self = .slideToRight
+        case "none":
+            self = .none
+        default:
+            self = .unsupported
+        }
+    }
+}
+
+extension AnnotationActionShowOverlay: Decodable {
+    private enum CodingKeys: String, CodingKey {
+        case customId = "custom_id"
+        case svgURL = "svg_url"
+        case position
+        case size
+        case animationinType = "animationinType"
+        case animationoutType = "animationoutType"
+        case duration
+        case variablePositions = "variable_positions"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let customId: String? = try? container.decode(String.self, forKey: .customId)
+        let svgURL: URL = try container.decode(URL.self, forKey: .svgURL)
+        let position: Position = try container.decode(Position.self, forKey: .position)
+        let size: Size = try container.decode(Size.self, forKey: .size)
+        let animationinType: AnimationinType = AnimationinType(rawValue: try? container.decode(String.self, forKey: .animationinType))
+        let animationoutType: AnimationoutType = AnimationoutType(rawValue: try? container.decode(String.self, forKey: .animationoutType))
+        let duration: Float? = try? container.decode(Float.self, forKey: .duration)
+        let variablePositions: [String: String]? = try? container.decode([String: String].self, forKey: .variablePositions)
+
+        self.init(customId: customId, svgURL: svgURL, position: position, size: size, animationinType: animationinType, animationoutType: animationoutType, duration: duration, variablePositions: variablePositions)
+    }
+}
 // MARK: - AnnotationActionHideOverlay
 
 struct AnnotationActionHideOverlay {

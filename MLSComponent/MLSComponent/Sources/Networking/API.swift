@@ -25,7 +25,12 @@ extension API: TargetType {
     }
 
     public var sampleData: Data {
-        return Data()
+        switch self {
+        case .annotations:
+            return Data("""
+                {"annotations":[{"id":"ann_1","timeline_id":"tml_1","offset":120,"actions":[{"type":"show_timeline_marker","data":{"color":"#cccccc","label":"Goal"}},{"type":"show_overlay","data":{"custom_id":"overlay1","svg_url":"https://svg.mls.mycujoo.tv/jfkdlajfd.svg","position":{"top":null,"bottom":5.0,"vCenter":null,"right":null,"left":5.0,"hCenter":null},"size":{"width":33.0,"height":null},"animatein_type":"fade_in","animateout_type":"fade_out","duration":5.0,"variable_positions":{"###_HOMESCORE_###":"homeScore","###_AWAYSCORE_###":"awayScore"}}},{"type":"hide_overlay","data":{"custom_id":"overlay1"}},{"type":"set_variable","data":{"name":"homeScore","string_value":null,"number_value":0,"bool_value":null}},{"type":"increment_variable","data":{"name":"homeScore","amount":1.0}},{"type":"create_timer","data":{"name":"scoreboardTimer","clock_type":"standard","direction":"down","start_value":2700000,"cap_value":0}},{"type":"start_timer","data":{"name":"scoreboardTimer"}},{"type":"pause_timer","data":{"name":"scoreboardTimer"}},{"type":"adjust_timer","data":{"name":"scoreboardTimer","value":20000}}]}]}
+                """.utf8)
+        }
     }
 
     public var task: Moya.Task {
