@@ -21,7 +21,6 @@
 		6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
 		6496C358249230B80099475D /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34A2492308D0099475D /* Overlay.swift */; };
 		6496C359249230B80099475D /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* TimelineMarker.swift */; };
-		6496C35A249230B80099475D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34C2492308D0099475D /* Action.swift */; };
 		6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView.swift */; };
 		6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
@@ -33,7 +32,6 @@
 		64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
 		64FDE314249A191B00E6510D /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34A2492308D0099475D /* Overlay.swift */; };
 		64FDE315249A191B00E6510D /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* TimelineMarker.swift */; };
-		64FDE316249A191B00E6510D /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34C2492308D0099475D /* Action.swift */; };
 		823AA45D690DCF9357648037 /* Pods_MLSComponent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771EB2AE64BEBE20FDB5FAEE /* Pods_MLSComponent_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +47,6 @@
 		6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonEmpty+RangeReplaceableCollection.swift"; sourceTree = "<group>"; };
 		6496C34A2492308D0099475D /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		6496C34B2492308D0099475D /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
-		6496C34C2492308D0099475D /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		6496C3522492308D0099475D /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
@@ -136,7 +133,6 @@
 			children = (
 				6496C3462492308D0099475D /* NonEmpty */,
 				6496C3492492308D0099475D /* View */,
-				6496C34C2492308D0099475D /* Action.swift */,
 				49E59028249BCA5B001E0C1C /* Annotation.swift */,
 			);
 			path = Models;
@@ -408,7 +404,6 @@
 			files = (
 				6496C3552492308D0099475D /* MLS.swift in Sources */,
 				6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */,
-				6496C35A249230B80099475D /* Action.swift in Sources */,
 				6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* Annotation.swift in Sources */,
 				6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
@@ -433,7 +428,6 @@
 				49E5902A249BCA5B001E0C1C /* Annotation.swift in Sources */,
 				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
 				64FDE314249A191B00E6510D /* Overlay.swift in Sources */,
-				64FDE316249A191B00E6510D /* Action.swift in Sources */,
 				64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */,
 				64FDE310249A191400E6510D /* MLS.swift in Sources */,

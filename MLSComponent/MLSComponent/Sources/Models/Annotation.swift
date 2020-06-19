@@ -19,45 +19,45 @@ public struct Annotation: Decodable {
     public let id: String
     public let timelineId: String
     public let offset: Int64
-    public let actions: [AnnotationAction]
+    public let actions: [Action]
 }
 
 public extension Annotation {
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case id
         case timelineId = "timeline_id"
         case offset
         case actions
     }
 
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id: String = try container.decode(String.self, forKey: .id)
         let timelineId: String = try container.decode(String.self, forKey: .timelineId)
         let offset: Int64 = try container.decode(Int64.self, forKey: .offset)
-        let actions: [AnnotationAction] = try container.decode([AnnotationAction].self, forKey: .actions)
+        let actions: [Action] = try container.decode([Action].self, forKey: .actions)
 
         self.init(id: id, timelineId: timelineId, offset: offset, actions: actions)
     }
 }
 
-// MARK: - AnnotationAction
+// MARK: - Action
 
 // TODO: Call this Action, remove the other Action struct.
-public enum AnnotationAction {
-    case showTimelineMarker(AnnotationActionShowTimelineMarker)
-    case showOverlay(AnnotationActionShowOverlay)
-    case hideOverlay(AnnotationActionHideOverlay)
-    case setVariable(AnnotationActionSetVariable)
-    case incrementVariable(AnnotationActionIncrementVariable)
-    case createTimer(AnnotationActionCreateTimer)
-    case startTimer(AnnotationActionStartTimer)
-    case pauseTimer(AnnotationActionPauseTimer)
-    case adjustTimer(AnnotationActionAdjustTimer)
+public enum Action {
+    case showTimelineMarker(ActionShowTimelineMarker)
+    case showOverlay(ActionShowOverlay)
+    case hideOverlay(ActionHideOverlay)
+    case setVariable(ActionSetVariable)
+    case incrementVariable(ActionIncrementVariable)
+    case createTimer(ActionCreateTimer)
+    case startTimer(ActionStartTimer)
+    case pauseTimer(ActionPauseTimer)
+    case adjustTimer(ActionAdjustTimer)
     case unsupported
 }
 
-extension AnnotationAction: Decodable {
+extension Action: Decodable {
     public enum CodingKeys: String, CodingKey {
         case type
         case data
@@ -68,31 +68,31 @@ extension AnnotationAction: Decodable {
         let type = try container.decode(String.self, forKey: .type)
         switch type.lowercased() {
         case "show_timeline_marker":
-            let data = try container.decode(AnnotationActionShowTimelineMarker.self, forKey: .data)
+            let data = try container.decode(ActionShowTimelineMarker.self, forKey: .data)
             self = .showTimelineMarker(data)
         case "show_overlay":
-            let data = try container.decode(AnnotationActionShowOverlay.self, forKey: .data)
+            let data = try container.decode(ActionShowOverlay.self, forKey: .data)
             self = .showOverlay(data)
         case "hide_overlay":
-            let data = try container.decode(AnnotationActionHideOverlay.self, forKey: .data)
+            let data = try container.decode(ActionHideOverlay.self, forKey: .data)
             self = .hideOverlay(data)
         case "set_variable":
-            let data = try container.decode(AnnotationActionSetVariable.self, forKey: .data)
+            let data = try container.decode(ActionSetVariable.self, forKey: .data)
             self = .setVariable(data)
         case "increment_variable":
-            let data = try container.decode(AnnotationActionIncrementVariable.self, forKey: .data)
+            let data = try container.decode(ActionIncrementVariable.self, forKey: .data)
             self = .incrementVariable(data)
         case "create_timer":
-            let data = try container.decode(AnnotationActionCreateTimer.self, forKey: .data)
+            let data = try container.decode(ActionCreateTimer.self, forKey: .data)
             self = .createTimer(data)
         case "start_timer":
-            let data = try container.decode(AnnotationActionStartTimer.self, forKey: .data)
+            let data = try container.decode(ActionStartTimer.self, forKey: .data)
             self = .startTimer(data)
         case "pause_timer":
-            let data = try container.decode(AnnotationActionPauseTimer.self, forKey: .data)
+            let data = try container.decode(ActionPauseTimer.self, forKey: .data)
             self = .pauseTimer(data)
         case "adjust_timer":
-            let data = try container.decode(AnnotationActionAdjustTimer.self, forKey: .data)
+            let data = try container.decode(ActionAdjustTimer.self, forKey: .data)
             self = .adjustTimer(data)
         default:
             self = .unsupported
@@ -100,17 +100,17 @@ extension AnnotationAction: Decodable {
     }
 }
 
-// MARK: - AnnotationActionShowTimelineMarker
+// MARK: - ActionShowTimelineMarker
 
-public struct AnnotationActionShowTimelineMarker: Decodable {
+public struct ActionShowTimelineMarker: Decodable {
     public let color: String
     public let label: String
 }
 
-// MARK: - AnnotationActionShowOverlay
+// MARK: - ActionShowOverlay
 
 
-public struct AnnotationActionShowOverlay {
+public struct ActionShowOverlay {
     public struct Position: Decodable {
         public let top: Float?
         public let bottom: Float?
@@ -143,8 +143,8 @@ public struct AnnotationActionShowOverlay {
     public let variablePositions: [String: String]?
 }
 
-public extension AnnotationActionShowOverlay.AnimationinType {
-    public init(rawValue: String?) {
+public extension ActionShowOverlay.AnimationinType {
+    init(rawValue: String?) {
         switch rawValue {
         case "fade_in":
             self = .fadeIn
@@ -164,8 +164,8 @@ public extension AnnotationActionShowOverlay.AnimationinType {
     }
 }
 
-public extension AnnotationActionShowOverlay.AnimationoutType {
-    public init(rawValue: String?) {
+public extension ActionShowOverlay.AnimationoutType {
+    init(rawValue: String?) {
         switch rawValue {
         case "fade_out":
             self = .fadeOut
@@ -185,7 +185,7 @@ public extension AnnotationActionShowOverlay.AnimationoutType {
     }
 }
 
-extension AnnotationActionShowOverlay: Decodable {
+extension ActionShowOverlay: Decodable {
     public enum CodingKeys: String, CodingKey {
         case customId = "custom_id"
         case svgURL = "svg_url"
@@ -211,13 +211,13 @@ extension AnnotationActionShowOverlay: Decodable {
         self.init(customId: customId, svgURL: svgURL, position: position, size: size, animationinType: animationinType, animationoutType: animationoutType, duration: duration, variablePositions: variablePositions)
     }
 }
-// MARK: - AnnotationActionHideOverlay
+// MARK: - ActionHideOverlay
 
-public struct AnnotationActionHideOverlay {
+public struct ActionHideOverlay {
     public let customId: String
 }
 
-extension AnnotationActionHideOverlay: Decodable {
+extension ActionHideOverlay: Decodable {
     public enum CodingKeys: String, CodingKey {
         case customId = "custom_id"
     }
@@ -230,16 +230,16 @@ extension AnnotationActionHideOverlay: Decodable {
     }
 }
 
-// MARK: - AnnotationActionSetVariable
+// MARK: - ActionSetVariable
 
-public struct AnnotationActionSetVariable {
+public struct ActionSetVariable {
     public let name: String
     public let stringValue: String?
     public let numberValue: Double?
     public let boolValue: Bool?
 }
 
-extension AnnotationActionSetVariable: Decodable {
+extension ActionSetVariable: Decodable {
     public enum CodingKeys: String, CodingKey {
         case name
         case stringValue = "string_value"
@@ -258,16 +258,16 @@ extension AnnotationActionSetVariable: Decodable {
     }
 }
 
-// MARK: - AnnotationActionIncrementVariable
+// MARK: - ActionIncrementVariable
 
-public struct AnnotationActionIncrementVariable: Decodable {
+public struct ActionIncrementVariable: Decodable {
     public let name: String
     public let amount: Double
 }
 
-// MARK: - AnnotationActionCreateTimer
+// MARK: - ActionCreateTimer
 
-public struct AnnotationActionCreateTimer {
+public struct ActionCreateTimer {
     public enum ClockType {
         case standard
         case unsupported
@@ -285,7 +285,7 @@ public struct AnnotationActionCreateTimer {
     public let capValue: Int64?
 }
 
-public extension AnnotationActionCreateTimer.ClockType {
+public extension ActionCreateTimer.ClockType {
     init(rawValue: String?) {
         switch rawValue {
         case "standard":
@@ -296,7 +296,7 @@ public extension AnnotationActionCreateTimer.ClockType {
     }
 }
 
-public extension AnnotationActionCreateTimer.Direction {
+public extension ActionCreateTimer.Direction {
     init(rawValue: String?) {
         switch rawValue {
         case "up":
@@ -309,7 +309,7 @@ public extension AnnotationActionCreateTimer.Direction {
     }
 }
 
-extension AnnotationActionCreateTimer: Decodable {
+extension ActionCreateTimer: Decodable {
     public enum CodingKeys: String, CodingKey {
         case name
         case clockType = "clock_type"
@@ -321,8 +321,8 @@ extension AnnotationActionCreateTimer: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let name: String = try container.decode(String.self, forKey: .name)
-        let clockType: AnnotationActionCreateTimer.ClockType = AnnotationActionCreateTimer.ClockType(rawValue: try? container.decode(String.self, forKey: .clockType))
-        let direction: AnnotationActionCreateTimer.Direction = AnnotationActionCreateTimer.Direction(rawValue: try? container.decode(String.self, forKey: .name))
+        let clockType: ActionCreateTimer.ClockType = ActionCreateTimer.ClockType(rawValue: try? container.decode(String.self, forKey: .clockType))
+        let direction: ActionCreateTimer.Direction = ActionCreateTimer.Direction(rawValue: try? container.decode(String.self, forKey: .name))
         let startValue: Int64 = (try? container.decode(Int64.self, forKey: .startValue)) ?? 0
         let capValue: Int64? = try? container.decode(Int64.self, forKey: .capValue)
 
@@ -330,21 +330,21 @@ extension AnnotationActionCreateTimer: Decodable {
     }
 }
 
-// MARK: - AnnotationActionStartTimer
+// MARK: - ActionStartTimer
 
-public struct AnnotationActionStartTimer: Decodable {
+public struct ActionStartTimer: Decodable {
     public let name: String
 }
 
-// MARK: - AnnotationActionStartTimer
+// MARK: - ActionStartTimer
 
-public struct AnnotationActionPauseTimer: Decodable {
+public struct ActionPauseTimer: Decodable {
     public let name: String
 }
 
-// MARK: - AnnotationActionStartTimer
+// MARK: - ActionStartTimer
 
-public struct AnnotationActionAdjustTimer: Decodable {
+public struct ActionAdjustTimer: Decodable {
     public let name: String
     public let value: Int64
 }
