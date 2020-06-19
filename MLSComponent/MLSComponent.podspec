@@ -11,6 +11,9 @@ Pod::Spec.new do |spec|
   spec.tvos.deployment_target = "11.0"
   spec.source       = { :git => "git@github.com:mycujoo/mls-ios.git", :tag => "#{spec.name}-#{spec.version}" }
   spec.source_files  = "MLSComponent/Sources/**/*.swift"
+  spec.ios.resource_bundles = {
+    'MLSComponent' => ["MLSComponent/Sources/Resources/**/*.{xcassets}"]
+  }
 
   spec.dependency 'YouboraLib'
   spec.dependency 'YouboraAVPlayerAdapter'

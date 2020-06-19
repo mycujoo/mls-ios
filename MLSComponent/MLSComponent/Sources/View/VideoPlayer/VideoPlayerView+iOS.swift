@@ -25,7 +25,6 @@ public class VideoPlayerView: UIView  {
         if let image = UIImage(named: "Icon-PlayLarge", in: Bundle(for: Self.self), compatibleWith: nil) {
             button.setImage(image, for: .normal)
             button.tintColor = .white
-            print("HELLOOOO!")
         }
         return button
     }()
@@ -71,6 +70,7 @@ public class VideoPlayerView: UIView  {
         if let image = UIImage(named: "Icon-Fullscreen", in: Bundle(for: Self.self), compatibleWith: nil) {
             button.setImage(image, for: .normal)
         }
+        button.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
         return button
     }()
 
@@ -151,14 +151,13 @@ public class VideoPlayerView: UIView  {
         playButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
 
-        currentTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.leadingAnchor, constant: 0).isActive = true
-        currentTimeLabel.bottomAnchor.constraint(equalTo: videoSlider.topAnchor, constant: 8).isActive = true
-        currentTimeLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        currentTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.leadingAnchor, constant: -4).isActive = true
+        currentTimeLabel.bottomAnchor.constraint(equalTo: videoSlider.topAnchor, constant: -8).isActive = true
 
         NSLayoutConstraint
             .activate(
                 [
-                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
                     videoSlider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
@@ -169,18 +168,21 @@ public class VideoPlayerView: UIView  {
             .activate(
                 [
                     currentDurationLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
-                    currentDurationLabel.centerYAnchor.constraint(equalTo: videoSlider.centerYAnchor),
-                    currentDurationLabel.widthAnchor.constraint(equalToConstant: 40)
+                    currentDurationLabel.centerYAnchor.constraint(equalTo: videoSlider.centerYAnchor)
                 ]
         )
+
+        currentDurationLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        currentDurationLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
         view.addSubview(fullscreenButton)
         NSLayoutConstraint
             .activate(
+                // Use the button's image insets as padding
                 [
-                    fullscreenButton.leadingAnchor.constraint(equalTo: currentDurationLabel.trailingAnchor, constant: 8),
+                    fullscreenButton.leadingAnchor.constraint(equalTo: currentDurationLabel.trailingAnchor, constant: 0),
                     fullscreenButton.centerYAnchor.constraint(equalTo: videoSlider.centerYAnchor),
-                    fullscreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+                    fullscreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
                 ]
         )
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)

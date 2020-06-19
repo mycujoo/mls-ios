@@ -114,6 +114,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		4989B1F2249D74E4006CBB47 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4989B1EB249D3750006CBB47 /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		49E59023249BC7EE001E0C1C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +216,7 @@
 		64CACD51249A367100CEE111 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4989B1F2249D74E4006CBB47 /* Resources */,
 				495CB131249CC4F800998FF4 /* Utils */,
 				49E59023249BC7EE001E0C1C /* Networking */,
 				64FDE2FF249A175600E6510D /* Core */,
@@ -240,7 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				6477C43E2469552A0033435D /* Info.plist */,
-				4989B1EB249D3750006CBB47 /* Media.xcassets */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
