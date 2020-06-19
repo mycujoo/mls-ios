@@ -49,9 +49,10 @@ public class VideoPlayer: NSObject {
         (CMTimeGetSeconds(player.currentTime()) * 10).rounded() / 10
     }
 
-    private(set) var annotations: [Annotation]? = nil {
+    private(set) public var annotations: [Annotation] = [] {
         didSet {
             // TODO: Evaluate actions on all annotations
+            delegate?.playerDidUpdateAnnotations(player: self)
         }
     }
 
@@ -151,8 +152,9 @@ public extension VideoPlayer {
 
 // MARK: - Private Methods
 extension VideoPlayer {
+    /// - note: If nil is provided, an empty array is set on the annotations property of the player.
     func updateAnnotations(annotations: [Annotation]?) {
-//        self.annotations = annotations
+        self.annotations = annotations ?? []
     }
 
     private func trackTime(with player: AVPlayer) -> Any {
@@ -207,7 +209,13 @@ public extension VideoPlayer {
 
 // MARK: - Delegate
 public protocol PlayerDelegate: AnyObject {
+    /// The player has updated its playing status. To access the current status, see `VideoPlayer.status`
     func playerDidUpdatePlaying(player: VideoPlayer)
+    /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`
     func playerDidUpdateTime(player: VideoPlayer)
+    /// The player has updated its state. To access the current state, see `VideoPlayer.state`
     func playerDidUpdateState(player: VideoPlayer)
+    /// The player has updated the list of known annotations. To access the current list of known annotations for the associated timeline, see `VideoPlayer.annotations`
+    /// - note: This does not have any relationship with the annotations that are currently being executed. This method is only called when the datasource refreshes.
+    func playerDidUpdateAnnotations(player: VideoPlayer)
 }
