@@ -47,7 +47,8 @@ public class MLS {
             player.playVideo(with: event, autoplay: autoplay)
 
             // TODO: Should not pass eventId but timelineId
-            moyaProvider.request(.annotations(event.id)) { result in
+//            moyaProvider.request(.annotations(event.id)) { result in
+            moyaProvider.request(.annotations("timelineMarkers")) { result in
                 switch result {
                 case .success(let response):
                     let decoder = JSONDecoder()

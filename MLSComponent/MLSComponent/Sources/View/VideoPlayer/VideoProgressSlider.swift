@@ -86,6 +86,7 @@ class VideoProgressSlider: UIControl {
     }()
 
     private var timelineMarkers: [CGFloat] = []
+    private var markers: [String: (markerView: UIView, position: CGFloat, marker: TimelineMarker)] = [:]
     
     //MARK: - Init
     
@@ -163,21 +164,75 @@ class VideoProgressSlider: UIControl {
 }
 
 extension VideoProgressSlider {
+    func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)]) {
+        let minimumPossibleMultiplier: CGFloat = 0.001
+        let centerXOfView: CGFloat = 2
+
+        // Remove markers that are not relevant anymore.
+        let newMarkerIds = objects.map { $0.marker.id }
+        for oldMarker in self.markers {
+            if newMarkerIds.contains(oldMarker.key) {
+                oldMarker.value.markerView.removeFromSuperview()
+            }
+        }
+
+        for object in objects {
+            var doAdd = true
+            if let oldMarker = self.markers[object.marker.id] {
+                if let constraint = (oldMarker.markerView.constraints.filter { $0.firstAttribute == .centerX && $0.secondAttribute == .centerX }).first {
+                    doAdd = false
+
+                    oldMarker.markerView.removeConstraint(constraint)
+                    oldMarker.markerView.addConstraint(constraint.constraintWithMultiplier(max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)))) // todo: Calculate correct multiplier
+                } else {
+                    oldMarker.markerView.removeFromSuperview()
+                }
+            }
+
+            if doAdd {
+                let markerView = UIView()
+                markerView.isUserInteractionEnabled = false
+                markerView.translatesAutoresizingMaskIntoConstraints = false
+                markerView.backgroundColor = object.marker.markerColor
+                addSubview(markerView)
+                markerView.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
+                markerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+                markerView.widthAnchor.constraint(equalToConstant: 3).isActive = true
+                addConstraint(
+                    NSLayoutConstraint(
+                        item: markerView,
+                        attribute: .centerX,
+                        relatedBy: .equal,
+                        toItem: self,
+                        attribute: .centerX,
+                        multiplier: max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)),
+                        constant: 0
+                    )
+                )
+            }
+        }
+
+        bringSubviewToFront(thumbView)
+
+        layoutIfNeeded()
+    }
+
+
     func addTimelineMarker(moment: Double, color: UIColor) {
         timelineMarkers.append(CGFloat(moment))
-        let highlight = UIView()
-        highlight.isUserInteractionEnabled = false
-        highlight.translatesAutoresizingMaskIntoConstraints = false
-        highlight.backgroundColor = color
-        addSubview(highlight)
-        highlight.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
-        highlight.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        highlight.widthAnchor.constraint(equalToConstant: 4).isActive = true
+        let markerView = UIView()
+        markerView.isUserInteractionEnabled = false
+        markerView.translatesAutoresizingMaskIntoConstraints = false
+        markerView.backgroundColor = color
+        addSubview(markerView)
+        markerView.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
+        markerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        markerView.widthAnchor.constraint(equalToConstant: 4).isActive = true
         let minimumPossibleMultiplier: CGFloat = 0.001
         let centerXOfView: CGFloat = 2
         addConstraint(
             NSLayoutConstraint(
-                item: highlight,
+                item: markerView,
                 attribute: .centerX,
                 relatedBy: .equal,
                 toItem: self,
@@ -186,6 +241,7 @@ extension VideoProgressSlider {
                 constant: 0
             )
         )
+        
         bringSubviewToFront(thumbView)
     }
 }

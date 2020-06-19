@@ -49,9 +49,18 @@ public class VideoPlayer: NSObject {
         (CMTimeGetSeconds(player.currentTime()) * 10).rounded() / 10
     }
 
+    /// - returns: The duration of the currentItem. If unknown, returns 0.
+    public var currentDuration: Double {
+        guard let duration = player.currentItem?.duration else { return 0 }
+        let seconds = CMTimeGetSeconds(duration)
+        guard !seconds.isNaN else { return 0 }
+
+        return seconds
+    }
+
     private(set) public var annotations: [Annotation] = [] {
         didSet {
-            // TODO: Evaluate actions on all annotations
+            evaluateAnnotations()
             delegate?.playerDidUpdateAnnotations(player: self)
         }
     }
@@ -108,10 +117,8 @@ public class VideoPlayer: NSObject {
 
     private func handleNewLoadedTimeRanges() {
         view.activityIndicatorView?.stopAnimating()
-        guard let duration = player.currentItem?.duration else { return }
-        let seconds = CMTimeGetSeconds(duration)
-
-        guard !seconds.isNaN else { return }
+        let seconds = self.currentDuration
+        guard seconds > 0 else { return }
         let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
         let minutesText = String(format: "%02d", Int(seconds) / 60)
         view.videoLengthLabel.text = "\(minutesText):\(secondsText)"
@@ -160,8 +167,10 @@ extension VideoPlayer {
     private func trackTime(with player: AVPlayer) -> Any {
         player
             .addPeriodicTimeObserver(
-                forInterval: CMTime(value: 1, timescale: 2),
-                queue: .main) { (progressTime) in
+                forInterval: CMTime(value: 1, timescale: 1),
+                queue: .main) { [weak self] (progressTime) in
+                    guard let self = self else { return }
+
                     let seconds = CMTimeGetSeconds(progressTime)
                     let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
                     let minutesString = String(format: "%02d", Int(seconds / 60))
@@ -169,21 +178,23 @@ extension VideoPlayer {
                     self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
                     self.delegate?.playerDidUpdateTime(player: self)
 
-                    if let duration = player.currentItem?.duration, duration.value != 0 {
-
-                        let durationSeconds = CMTimeGetSeconds(duration)
+                    let durationSeconds = self.currentDuration
+                    if durationSeconds > 0 {
                         self.view.videoSlider.value = seconds / durationSeconds
 
                         if durationSeconds <= seconds {
                             self.state = .ended
                         }
+
+                        self.evaluateAnnotations()
                     }
         }
     }
 
     private func sliderUpdated(with value: Double) {
-        guard let duration = player.currentItem?.duration, duration.value != 0 else { return }
-        let totalSeconds = CMTimeGetSeconds(duration)
+        let totalSeconds = self.currentDuration
+        guard totalSeconds > 0 else { return }
+
         let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
         player.seek(to: seekTime, completionHandler: { _ in })
     }
@@ -195,10 +206,15 @@ extension VideoPlayer {
 
 extension VideoPlayer {
     private func evaluateAnnotations() {
-//        let currentTime = self.currentTime
+        // TODO: Run this on a background thread.
+
+        let duration = self.currentDuration
+        guard duration > 0 else { return }
+
+        let currentTime = self.currentTime
         let annotations = self.annotations
 
-        var showTimelineMarkers: [TimelineMarker] = []
+        var showTimelineMarkers: [(position: Double, marker: TimelineMarker)] = []
         for annotation in annotations {
             for action in annotation.actions {
                 switch action {
@@ -206,7 +222,7 @@ extension VideoPlayer {
                     let color = UIColor(hex: data.color) ?? UIColor.gray
                     // There should not be multiple timeline markers for a single annotation, so reuse annotation id on the timeline marker.
                     let timelineMarker = TimelineMarker(id: annotation.id, kind: .singleLineText(text: data.label), markerColor: color, timestamp: TimeInterval(annotation.offset / 1000))
-                    showTimelineMarkers.append(timelineMarker)
+                    showTimelineMarkers.append((position: min(1.0, max(0.0, timelineMarker.timestamp / duration)), marker: timelineMarker))
 //                case .showOverlay(let data):
 //                    break
 //                case .hideOverlay(let data):
@@ -230,6 +246,9 @@ extension VideoPlayer {
                 }
             }
         }
+
+        // TODO: Do this on the main thread
+        self.view.videoSlider.setTimelineMarkers(with: showTimelineMarkers)
     }
 
 
