@@ -218,32 +218,4 @@ extension VideoProgressSlider {
 
         layoutIfNeeded()
     }
-
-
-    func addTimelineMarker(moment: Double, color: UIColor) {
-        timelineMarkers.append(CGFloat(moment))
-        let markerView = UIView()
-        markerView.isUserInteractionEnabled = false
-        markerView.translatesAutoresizingMaskIntoConstraints = false
-        markerView.backgroundColor = color
-        addSubview(markerView)
-        markerView.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
-        markerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        markerView.widthAnchor.constraint(equalToConstant: 4).isActive = true
-        let minimumPossibleMultiplier: CGFloat = 0.001
-        let centerXOfView: CGFloat = 2
-        addConstraint(
-            NSLayoutConstraint(
-                item: markerView,
-                attribute: .centerX,
-                relatedBy: .equal,
-                toItem: self,
-                attribute: .centerX,
-                multiplier: max(minimumPossibleMultiplier, centerXOfView * CGFloat(moment)),
-                constant: 0
-            )
-        )
-        
-        bringSubviewToFront(thumbView)
-    }
 }

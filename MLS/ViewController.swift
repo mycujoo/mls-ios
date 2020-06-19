@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         videoPlayer.delegate = self
         view.backgroundColor = .white
         videoPlayer.placePlayerView(in: view)
+
     }
 }
 
