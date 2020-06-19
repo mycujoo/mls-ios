@@ -33,7 +33,8 @@ class ViewController: UIViewController {
                     id: "",
                     stream: Stream(
                         urls: .init(
-                            URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!
+                            URL(string: "https://playlists.mycujoo.football/eu/ckb97qegxz7x00hewfdaghqhh/master.m3u8")!
+//                            URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!
                         )
                     )
                 )

@@ -133,9 +133,8 @@ public class VideoPlayer: NSObject {
         view.activityIndicatorView?.stopAnimating()
         let seconds = self.currentDuration
         guard seconds > 0 else { return }
-        let secondsText = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-        let minutesText = String(format: "%02d", Int(seconds) / 60)
-        view.videoLengthLabel.text = "\(minutesText):\(secondsText)"
+
+        updateDurationTimeLabel(seconds)
     }
 }
 
@@ -193,6 +192,7 @@ extension VideoPlayer {
 
                     if !self.view.videoSlider.isTracking {
                         self.updateCurrentTimeLabel(seconds)
+                        self.updateDurationTimeLabel(durationSeconds)
 
                         if durationSeconds > 0 {
                             self.view.videoSlider.value = seconds / durationSeconds
@@ -206,7 +206,6 @@ extension VideoPlayer {
                     self.delegate?.playerDidUpdateTime(player: self)
 
                     self.evaluateAnnotations()
-
         }
     }
 
@@ -226,7 +225,14 @@ extension VideoPlayer {
         let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
         let minutesString = String(format: "%02d", Int(seconds / 60))
 
-        self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+        view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+    }
+
+    private func updateDurationTimeLabel(_ seconds: Double) {
+        let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
+        let minutesString = String(format: "%02d", Int(seconds / 60))
+
+        view.videoLengthLabel.text = "\(minutesString):\(secondsString)"
     }
 
     private func playButtonTapped() {
