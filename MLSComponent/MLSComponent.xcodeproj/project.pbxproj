@@ -103,14 +103,6 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		49E59027249BCA4A001E0C1C /* Annotations */ = {
-			isa = PBXGroup;
-			children = (
-				49E59028249BCA5B001E0C1C /* Annotation.swift */,
-			);
-			path = Annotations;
-			sourceTree = "<group>";
-		};
 		6477C4302469552A0033435D = {
 			isa = PBXGroup;
 			children = (
@@ -142,10 +134,10 @@
 		6496C3452492308D0099475D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				49E59027249BCA4A001E0C1C /* Annotations */,
 				6496C3462492308D0099475D /* NonEmpty */,
 				6496C3492492308D0099475D /* View */,
 				6496C34C2492308D0099475D /* Action.swift */,
+				49E59028249BCA5B001E0C1C /* Annotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
