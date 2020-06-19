@@ -53,7 +53,21 @@ public class VideoPlayer: NSObject {
     public var currentDuration: Double {
         guard let duration = player.currentItem?.duration else { return 0 }
         let seconds = CMTimeGetSeconds(duration)
-        guard !seconds.isNaN else { return 0 }
+        guard !seconds.isNaN else {
+            // Live stream
+            if let items = player.currentItem?.seekableTimeRanges {
+                if !items.isEmpty {
+                    let range = items[items.count - 1]
+                    let timeRange = range.timeRangeValue
+                    let startSeconds = CMTimeGetSeconds(timeRange.start)
+                    let durationSeconds = CMTimeGetSeconds(timeRange.duration)
+
+                    return max(currentTime, Double(startSeconds + durationSeconds))
+                }
+
+            }
+            return 0
+        }
 
         return seconds
     }
@@ -178,10 +192,7 @@ extension VideoPlayer {
                     let seconds = CMTimeGetSeconds(progressTime)
 
                     if !self.view.videoSlider.isTracking {
-                        let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-                        let minutesString = String(format: "%02d", Int(seconds / 60))
-
-                        self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+                        self.updateCurrentTimeLabel(seconds)
 
                         if durationSeconds > 0 {
                             self.view.videoSlider.value = seconds / durationSeconds
@@ -199,12 +210,23 @@ extension VideoPlayer {
         }
     }
 
-    private func sliderUpdated(with value: Double) {
+    private func sliderUpdated(with fraction: Double) {
         let totalSeconds = self.currentDuration
         guard totalSeconds > 0 else { return }
 
-        let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
+        let time = Float64(fraction) * totalSeconds
+
+        updateCurrentTimeLabel(time)
+
+        let seekTime = CMTime(value: Int64(time), timescale: 1)
         player.seek(to: seekTime, throttleSeconds: 0.5, completionHandler: { _ in })
+    }
+
+    private func updateCurrentTimeLabel(_ seconds: Double) {
+        let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
+        let minutesString = String(format: "%02d", Int(seconds / 60))
+
+        self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
     }
 
     private func playButtonTapped() {

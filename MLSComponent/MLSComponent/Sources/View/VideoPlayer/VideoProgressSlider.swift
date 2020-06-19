@@ -165,7 +165,8 @@ class VideoProgressSlider: UIControl {
 
 extension VideoProgressSlider {
     func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)]) {
-        let minimumPossibleMultiplier: CGFloat = 0.001
+        let minPossibleMultiplier: CGFloat = 0.001
+        let maxPossibleMultiplier: CGFloat = 0.999
         let centerXOfView: CGFloat = 2
 
         // Remove markers that are not relevant anymore.
@@ -180,10 +181,12 @@ extension VideoProgressSlider {
         for object in objects {
             if let oldMarker = self.markers[object.marker.id] {
                 let oldConstraint = oldMarker.constraint
-                let newConstraint = oldConstraint.constraintWithMultiplier(max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)))
+                let newConstraint = oldConstraint.constraintWithMultiplier(min(max(minPossibleMultiplier, centerXOfView * CGFloat(object.position)), maxPossibleMultiplier))
+                // Set to low to avoid messing with the slider layout if at the edges
+                newConstraint.priority = .defaultLow
 
                 oldConstraint.isActive = false
-                addConstraint(newConstraint)
+                newConstraint.isActive = true
             } else {
                 let markerView = UIView()
                 markerView.isUserInteractionEnabled = false
@@ -200,11 +203,12 @@ extension VideoProgressSlider {
                     relatedBy: .equal,
                     toItem: self,
                     attribute: .centerX,
-                    multiplier: max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)),
+                    multiplier: min(max(minPossibleMultiplier, centerXOfView * CGFloat(object.position)), maxPossibleMultiplier),
                     constant: 0
                 )
-
-                addConstraint(constraint)
+                // Set to low to avoid messing with the slider layout if at the edges
+                constraint.priority = .defaultLow
+                constraint.isActive = true
 
                 self.markers[object.marker.id] = (markerView: markerView, constraint: constraint)
             }
