@@ -86,7 +86,7 @@ class VideoProgressSlider: UIControl {
     }()
 
     private var timelineMarkers: [CGFloat] = []
-    private var markers: [String: (markerView: UIView, position: CGFloat, marker: TimelineMarker)] = [:]
+    private var markers: [String: (markerView: UIView, constraint: NSLayoutConstraint)] = [:]
     
     //MARK: - Init
     
@@ -171,25 +171,20 @@ extension VideoProgressSlider {
         // Remove markers that are not relevant anymore.
         let newMarkerIds = objects.map { $0.marker.id }
         for oldMarker in self.markers {
-            if newMarkerIds.contains(oldMarker.key) {
+            if !newMarkerIds.contains(oldMarker.key) {
                 oldMarker.value.markerView.removeFromSuperview()
+                self.markers[oldMarker.key] = nil
             }
         }
 
         for object in objects {
-            var doAdd = true
             if let oldMarker = self.markers[object.marker.id] {
-                if let constraint = (oldMarker.markerView.constraints.filter { $0.firstAttribute == .centerX && $0.secondAttribute == .centerX }).first {
-                    doAdd = false
+                let oldConstraint = oldMarker.constraint
+                let newConstraint = oldConstraint.constraintWithMultiplier(max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)))
 
-                    oldMarker.markerView.removeConstraint(constraint)
-                    oldMarker.markerView.addConstraint(constraint.constraintWithMultiplier(max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)))) // todo: Calculate correct multiplier
-                } else {
-                    oldMarker.markerView.removeFromSuperview()
-                }
-            }
-
-            if doAdd {
+                oldConstraint.isActive = false
+                addConstraint(newConstraint)
+            } else {
                 let markerView = UIView()
                 markerView.isUserInteractionEnabled = false
                 markerView.translatesAutoresizingMaskIntoConstraints = false
@@ -198,17 +193,20 @@ extension VideoProgressSlider {
                 markerView.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
                 markerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
                 markerView.widthAnchor.constraint(equalToConstant: 3).isActive = true
-                addConstraint(
-                    NSLayoutConstraint(
-                        item: markerView,
-                        attribute: .centerX,
-                        relatedBy: .equal,
-                        toItem: self,
-                        attribute: .centerX,
-                        multiplier: max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)),
-                        constant: 0
-                    )
+
+                let constraint = NSLayoutConstraint(
+                    item: markerView,
+                    attribute: .centerX,
+                    relatedBy: .equal,
+                    toItem: self,
+                    attribute: .centerX,
+                    multiplier: max(minimumPossibleMultiplier, centerXOfView * CGFloat(object.position)),
+                    constant: 0
                 )
+
+                addConstraint(constraint)
+
+                self.markers[object.marker.id] = (markerView: markerView, constraint: constraint)
             }
         }
 

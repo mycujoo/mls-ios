@@ -68,6 +68,7 @@ public class VideoPlayer: NSObject {
     // MARK: - Private properties
 
     private let player = AVPlayer()
+    private let seekThrottler = Throttler(minimumDelay: 0.3)
     private var timeObserver: Any?
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
@@ -195,8 +196,10 @@ extension VideoPlayer {
         let totalSeconds = self.currentDuration
         guard totalSeconds > 0 else { return }
 
-        let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
-        player.seek(to: seekTime, completionHandler: { _ in })
+        seekThrottler.throttle { [weak self] in
+            let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
+            self?.player.seek(to: seekTime, completionHandler: { _ in })
+        }
     }
 
     private func playButtonTapped() {
