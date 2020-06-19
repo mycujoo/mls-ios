@@ -69,6 +69,8 @@ public class VideoPlayer: NSObject {
 
     private let player = AVPlayer()
     private let seekThrottler = Throttler(minimumDelay: 0.3)
+    /// Indicates whether the player is currently seeking (or will shortly be seeking, if it is being throttled).
+    private var isSeeking = false
     private var timeObserver: Any?
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
@@ -172,23 +174,31 @@ extension VideoPlayer {
                 queue: .main) { [weak self] (progressTime) in
                     guard let self = self else { return }
 
-                    let seconds = CMTimeGetSeconds(progressTime)
-                    let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-                    let minutesString = String(format: "%02d", Int(seconds / 60))
-
-                    self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
-                    self.delegate?.playerDidUpdateTime(player: self)
+                    // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
+                    guard !self.isSeeking else { return }
 
                     let durationSeconds = self.currentDuration
-                    if durationSeconds > 0 {
-                        self.view.videoSlider.value = seconds / durationSeconds
+                    let seconds = CMTimeGetSeconds(progressTime)
 
-                        if durationSeconds <= seconds {
-                            self.state = .ended
+                    if !self.view.videoSlider.isTracking {
+                        let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
+                        let minutesString = String(format: "%02d", Int(seconds / 60))
+
+                        self.view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
+
+                        if durationSeconds > 0 {
+                            self.view.videoSlider.value = seconds / durationSeconds
                         }
-
-                        self.evaluateAnnotations()
                     }
+
+                    if durationSeconds > 0 && durationSeconds <= seconds {
+                        self.state = .ended
+                    }
+
+                    self.delegate?.playerDidUpdateTime(player: self)
+
+                    self.evaluateAnnotations()
+
         }
     }
 
@@ -198,12 +208,21 @@ extension VideoPlayer {
 
         seekThrottler.throttle { [weak self] in
             let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
-            self?.player.seek(to: seekTime, completionHandler: { _ in })
+            self?.seek(to: seekTime, completionHandler: { _ in })
         }
     }
 
     private func playButtonTapped() {
         status.toggle()
+    }
+
+    /// Use this method to seek instead of calling it on the player directly, to ensure the `isSeeking` property stays correct.
+    private func seek(to time: CMTime, completionHandler: @escaping (Bool) -> Void) {
+        isSeeking = true
+        player.seek(to: time) { [weak self] b in
+            self?.isSeeking = false
+            completionHandler(b)
+        }
     }
 }
 
