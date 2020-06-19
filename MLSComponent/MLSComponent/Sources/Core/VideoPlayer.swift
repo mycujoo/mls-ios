@@ -232,7 +232,7 @@ extension VideoPlayer {
         let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
         let minutesString = String(format: "%02d", Int(seconds / 60))
 
-        view.videoLengthLabel.text = "\(minutesString):\(secondsString)"
+        view.currentDurationLabel.text = "\(minutesString):\(secondsString)"
     }
 
     private func playButtonTapped() {

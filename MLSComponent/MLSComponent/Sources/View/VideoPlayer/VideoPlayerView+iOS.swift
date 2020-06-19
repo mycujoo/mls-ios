@@ -19,19 +19,22 @@ public class VideoPlayerView: UIView  {
 
     var activityIndicatorView: UIActivityIndicatorView?
 
-    let playButton: UIButton = {
+    lazy var playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        if let image = UIImage(named: "Icon-PlayLarge", in: Bundle(for: VideoPlayerView.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-PlayLarge", in: Bundle(for: Self.self), compatibleWith: nil) {
             button.setImage(image, for: .normal)
+            button.tintColor = .white
+            print("HELLOOOO!")
         }
         return button
     }()
 
-    let pauseButton: UIButton = {
+    lazy var pauseButton: UIButton = {
         let button = UIButton()
+        button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
-        if let image = UIImage(named: "Icon-PauseLarge", in: Bundle(for: VideoPlayerView.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-PauseLarge", in: Bundle(for: Self.self), compatibleWith: nil) {
             button.setImage(image, for: .normal)
         }
         return button
@@ -46,7 +49,7 @@ public class VideoPlayerView: UIView  {
         return label
     }()
 
-    let videoLengthLabel: UILabel! = {
+    let currentDurationLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
@@ -61,22 +64,21 @@ public class VideoPlayerView: UIView  {
         return slider
     }()
 
-    private let fullscreenButton: UIButton = {
+    private lazy var fullscreenButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        if let image = UIImage(named: "Icon-Fullscreen", in: Bundle(for: VideoPlayerView.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-Fullscreen", in: Bundle(for: Self.self), compatibleWith: nil) {
             button.setImage(image, for: .normal)
         }
-        button.setTitle("Go fullscreen", for: .normal)
         return button
     }()
 
-    private let shrinkscreenButton: UIButton = {
+    private lazy var shrinkscreenButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        if let image = UIImage(named: "Icon-Shrinkscreen", in: Bundle(for: VideoPlayerView.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-Shrinkscreen", in: Bundle(for: Self.self), compatibleWith: nil) {
             button.setImage(image, for: .normal)
         }
         return button
@@ -139,7 +141,7 @@ public class VideoPlayerView: UIView  {
     private func drawControls(in view: UIView) {
 
         view.addSubview(currentTimeLabel)
-        view.addSubview(videoLengthLabel)
+        view.addSubview(currentDurationLabel)
         view.addSubview(videoSlider)
 
         view.addSubview(playButton)
@@ -149,15 +151,15 @@ public class VideoPlayerView: UIView  {
         playButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
 
-        currentTimeLabel.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 8).isActive = true
-        currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        currentTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.leadingAnchor, constant: 0).isActive = true
+        currentTimeLabel.bottomAnchor.constraint(equalTo: videoSlider.topAnchor, constant: 8).isActive = true
         currentTimeLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
         NSLayoutConstraint
             .activate(
                 [
-                    videoSlider.leadingAnchor.constraint(equalTo: currentTimeLabel.trailingAnchor, constant: 8),
-                    videoSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+                    videoSlider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
@@ -166,9 +168,9 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    videoLengthLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
-                    videoLengthLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    videoLengthLabel.widthAnchor.constraint(equalToConstant: 40)
+                    currentDurationLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
+                    currentDurationLabel.centerYAnchor.constraint(equalTo: videoSlider.centerYAnchor),
+                    currentDurationLabel.widthAnchor.constraint(equalToConstant: 40)
                 ]
         )
 
@@ -176,14 +178,13 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    fullscreenButton.leadingAnchor.constraint(equalTo: videoLengthLabel.trailingAnchor, constant: 8),
-                    fullscreenButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    fullscreenButton.leadingAnchor.constraint(equalTo: currentDurationLabel.trailingAnchor, constant: 8),
+                    fullscreenButton.centerYAnchor.constraint(equalTo: videoSlider.centerYAnchor),
                     fullscreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
                 ]
         )
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
-        view.layer.cornerRadius = 8.0
         view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
     }
 
