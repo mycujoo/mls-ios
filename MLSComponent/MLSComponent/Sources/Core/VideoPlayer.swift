@@ -49,6 +49,12 @@ public class VideoPlayer: NSObject {
         (CMTimeGetSeconds(player.currentTime()) * 10).rounded() / 10
     }
 
+    private(set) var annotations: [Annotation]? = nil {
+        didSet {
+            // TODO: Evaluate actions on all annotations
+        }
+    }
+
     // MARK: - Private properties
 
     private let player = AVPlayer()
@@ -118,9 +124,9 @@ public extension VideoPlayer {
 
     func pause() { status = .pause }
 
-    func playVideo(with event: Event, isAutoStart: Bool = true) {
+    func playVideo(with event: Event, autoplay: Bool = true) {
         self.event = event
-        if isAutoStart { play() }
+        if autoplay { play() }
     }
 
     #if os(iOS)
@@ -145,6 +151,10 @@ public extension VideoPlayer {
 
 // MARK: - Private Methods
 extension VideoPlayer {
+    func updateAnnotations(annotations: [Annotation]?) {
+//        self.annotations = annotations
+    }
+
     private func trackTime(with player: AVPlayer) -> Any {
         player
             .addPeriodicTimeObserver(
