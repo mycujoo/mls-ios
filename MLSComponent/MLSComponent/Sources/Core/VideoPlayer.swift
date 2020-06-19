@@ -67,10 +67,7 @@ public class VideoPlayer: NSObject {
 
     // MARK: - Private properties
 
-    private let player = AVPlayer()
-    private let seekThrottler = Throttler(minimumDelay: 0.3)
-    /// Indicates whether the player is currently seeking (or will shortly be seeking, if it is being throttled).
-    private var isSeeking = false
+    private let player = MLSAVPlayer()
     private var timeObserver: Any?
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
@@ -175,7 +172,7 @@ extension VideoPlayer {
                     guard let self = self else { return }
 
                     // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
-                    guard !self.isSeeking else { return }
+                    guard !self.player.isSeeking else { return }
 
                     let durationSeconds = self.currentDuration
                     let seconds = CMTimeGetSeconds(progressTime)
@@ -206,23 +203,12 @@ extension VideoPlayer {
         let totalSeconds = self.currentDuration
         guard totalSeconds > 0 else { return }
 
-        seekThrottler.throttle { [weak self] in
-            let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
-            self?.seek(to: seekTime, completionHandler: { _ in })
-        }
+        let seekTime = CMTime(value: Int64(Float64(value) * totalSeconds), timescale: 1)
+        player.seek(to: seekTime, throttleSeconds: 0.5, completionHandler: { _ in })
     }
 
     private func playButtonTapped() {
         status.toggle()
-    }
-
-    /// Use this method to seek instead of calling it on the player directly, to ensure the `isSeeking` property stays correct.
-    private func seek(to time: CMTime, completionHandler: @escaping (Bool) -> Void) {
-        isSeeking = true
-        player.seek(to: time) { [weak self] b in
-            self?.isSeeking = false
-            completionHandler(b)
-        }
     }
 }
 
