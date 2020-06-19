@@ -2,6 +2,7 @@
 // Copyright © 2020 mycujoo. All rights reserved.
 //
 
+#if os(tvOS)
 import UIKit
 import AVKit
 
@@ -21,14 +22,7 @@ public class VideoPlayerView: UIView  {
     let playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        #if os(iOS)
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            button.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-            button.tintColor = .white
-        }
-        #else
         button.setTitle("Play", for: .normal)
-        #endif
         return button
     }()
 
@@ -99,7 +93,7 @@ public class VideoPlayerView: UIView  {
                     controlsBackground.heightAnchor.constraint(equalToConstant: 32)
                 ]
         )
-        
+
         let indicator = UIActivityIndicatorView()
         indicator.style = .white
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -126,20 +120,7 @@ public class VideoPlayerView: UIView  {
         view.addSubview(videoLengthLabel)
         view.addSubview(videoSlider)
 
-        #if os(iOS)
-        view.addSubview(playButton)
-        playButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
-        playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        playButton.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        playButton.widthAnchor.constraint(equalToConstant: 16).isActive = true
-        playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
-        #endif
-
-        #if os(iOS)
-        currentTimeLabel.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 8).isActive = true
-        #else
         currentTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
-        #endif
         currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         currentTimeLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
@@ -162,20 +143,7 @@ public class VideoPlayerView: UIView  {
                 ]
         )
 
-        #if os(iOS)
-        view.addSubview(fullscreenButton)
-        NSLayoutConstraint
-            .activate(
-                [
-                    fullscreenButton.leadingAnchor.constraint(equalTo: videoLengthLabel.trailingAnchor, constant: 8),
-                    fullscreenButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    fullscreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
-                ]
-        )
-        fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
-        #else
         videoLengthLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
-        #endif
 
         view.layer.cornerRadius = 8.0
         view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
@@ -189,9 +157,9 @@ public class VideoPlayerView: UIView  {
         self.playerLayer = playerLayer
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
-        
+
         bringSubviewToFront(controlsBackground)
-        activityIndicatorView?.startAnimating()        
+        activityIndicatorView?.startAnimating()
     }
 }
 
@@ -211,21 +179,8 @@ extension VideoPlayerView {
     }
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
-        onTimeSliderSlide?(sender.value)        
+        onTimeSliderSlide?(sender.value)
     }
-
-    #if os(iOS)
-    @objc private func fullscreenButtonTapped() {
-        isFullScreen.toggle()
-        let newValue: UIInterfaceOrientation = isFullScreen ? .landscapeRight : .portrait
-        UIDevice.current.setValue(newValue.rawValue, forKey: "orientation")
-    }
-    #endif
-}
-
-// MARK: - Annotations
-extension VideoPlayerView {
-    // TODO: Show/hide overlay
 }
 
 public extension VideoPlayerView {
@@ -242,3 +197,4 @@ public extension VideoPlayerView {
         }
     }
 }
+#endif
