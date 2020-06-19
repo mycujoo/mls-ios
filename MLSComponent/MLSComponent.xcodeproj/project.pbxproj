@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
+		495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
 		49E59025249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59026249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59029249BCA5B001E0C1C /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59028249BCA5B001E0C1C /* Annotation.swift */; };
@@ -19,7 +21,6 @@
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C356249230B50099475D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
 		6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
-		6496C358249230B80099475D /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34A2492308D0099475D /* Overlay.swift */; };
 		6496C359249230B80099475D /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* TimelineMarker.swift */; };
 		6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView.swift */; };
@@ -30,7 +31,6 @@
 		64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
 		64FDE312249A191800E6510D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
 		64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
-		64FDE314249A191B00E6510D /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34A2492308D0099475D /* Overlay.swift */; };
 		64FDE315249A191B00E6510D /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* TimelineMarker.swift */; };
 		823AA45D690DCF9357648037 /* Pods_MLSComponent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771EB2AE64BEBE20FDB5FAEE /* Pods_MLSComponent_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -38,6 +38,7 @@
 /* Begin PBXFileReference section */
 		1F38F614530799BF521F957D /* Pods-MLSComponent-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSComponent-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSComponent-iOS/Pods-MLSComponent-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		433227EAE71557649D4E75B1 /* Pods_MLSComponent_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSComponent_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		495CB132249CC50E00998FF4 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +46,6 @@
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C3472492308D0099475D /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
 		6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonEmpty+RangeReplaceableCollection.swift"; sourceTree = "<group>"; };
-		6496C34A2492308D0099475D /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		6496C34B2492308D0099475D /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
 		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
@@ -90,6 +90,14 @@
 			);
 			name = Pods;
 			path = ../Pods;
+			sourceTree = "<group>";
+		};
+		495CB131249CC4F800998FF4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				495CB132249CC50E00998FF4 /* UIColor+.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		49E59023249BC7EE001E0C1C /* Networking */ = {
@@ -150,7 +158,6 @@
 		6496C3492492308D0099475D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6496C34A2492308D0099475D /* Overlay.swift */,
 				6496C34B2492308D0099475D /* TimelineMarker.swift */,
 			);
 			path = View;
@@ -186,6 +193,7 @@
 		64CACD51249A367100CEE111 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				495CB131249CC4F800998FF4 /* Utils */,
 				49E59023249BC7EE001E0C1C /* Networking */,
 				64FDE2FF249A175600E6510D /* Core */,
 				6496C3452492308D0099475D /* Models */,
@@ -407,8 +415,8 @@
 				6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* Annotation.swift in Sources */,
 				6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
+				495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				6496C359249230B80099475D /* TimelineMarker.swift in Sources */,
-				6496C358249230B80099475D /* Overlay.swift in Sources */,
 				6496C356249230B50099475D /* NonEmpty.swift in Sources */,
 				6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */,
 				6496C35C249230BF0099475D /* VideoPlayerView.swift in Sources */,
@@ -426,8 +434,8 @@
 				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
 				64FDE312249A191800E6510D /* NonEmpty.swift in Sources */,
 				49E5902A249BCA5B001E0C1C /* Annotation.swift in Sources */,
+				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
-				64FDE314249A191B00E6510D /* Overlay.swift in Sources */,
 				64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */,
 				64FDE310249A191400E6510D /* MLS.swift in Sources */,

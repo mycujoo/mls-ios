@@ -45,4 +45,8 @@ extension ViewController: PlayerDelegate {
     func playerDidUpdateState(player: VideoPlayer) {
         print("new state: ", player.state)
     }
+
+    func playerDidUpdateAnnotations(player: VideoPlayer) {
+        print("new annotations: ", player.annotations)
+    }
 }
