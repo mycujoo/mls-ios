@@ -12,8 +12,9 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "git@github.com:mycujoo/mls-ios.git", :tag => "#{spec.name}-#{spec.version}" }
   spec.source_files  = "MLSComponent/Sources/**/*.swift"
   spec.ios.resource_bundles = {
-    'MLSComponent' => ["MLSComponent/Sources/Resources/**/*.{xcassets}"]
+    'MLSResources' => ["MLSComponent/Sources/Resources/**/*.{xcassets}"]
   }
+  spec.frameworks = "Foundation", "AVFoundation", "UIKit"
 
   spec.dependency 'YouboraLib'
   spec.dependency 'YouboraAVPlayerAdapter'

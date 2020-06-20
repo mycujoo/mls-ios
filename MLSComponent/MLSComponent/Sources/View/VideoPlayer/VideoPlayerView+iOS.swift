@@ -22,7 +22,7 @@ public class VideoPlayerView: UIView  {
     lazy var playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        if let image = UIImage(named: "Icon-PlayLarge", in: Bundle(for: Self.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-PlayLarge", in: Bundle.resourceBundle, compatibleWith: nil) {
             button.setImage(image, for: .normal)
             button.tintColor = .white
         }
@@ -33,7 +33,7 @@ public class VideoPlayerView: UIView  {
         let button = UIButton()
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
-        if let image = UIImage(named: "Icon-PauseLarge", in: Bundle(for: Self.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-PauseLarge", in: Bundle.resourceBundle, compatibleWith: nil) {
             button.setImage(image, for: .normal)
         }
         return button
@@ -67,7 +67,7 @@ public class VideoPlayerView: UIView  {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        if let image = UIImage(named: "Icon-Fullscreen", in: Bundle(for: Self.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil) {
             button.setImage(image, for: .normal)
         }
         button.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
@@ -78,7 +78,7 @@ public class VideoPlayerView: UIView  {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        if let image = UIImage(named: "Icon-Shrinkscreen", in: Bundle(for: Self.self), compatibleWith: nil) {
+        if let image = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil) {
             button.setImage(image, for: .normal)
         }
         return button
