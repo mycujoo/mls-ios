@@ -27,34 +27,33 @@ class ViewController: UIViewController {
         return player
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        videoPlayer.delegate = self
-        view.backgroundColor = .black
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
-        view.addSubview(videoPlayer.view)
-        videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
-        videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        videoPlayer.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16).isActive = true
-        videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
+        if videoPlayer.delegate == nil {
+            videoPlayer.delegate = self
+            view.backgroundColor = .black
 
-        let leading = videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        leading.priority = .defaultHigh
-        leading.isActive = true
+            view.addSubview(videoPlayer.view)
+            videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
+            videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            videoPlayer.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16).isActive = true
+            videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
 
-        let trailing = videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        trailing.priority = .defaultHigh
-        trailing.isActive = true
+            let leading = videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            leading.priority = .defaultHigh
+            leading.isActive = true
 
-        doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(playerViewTapped))
-        doubleTapGestureRecognizer!.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer!.delegate = self
-        videoPlayer.view.addGestureRecognizer(doubleTapGestureRecognizer!)
-    }
+            let trailing = videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            trailing.priority = .defaultHigh
+            trailing.isActive = true
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+            doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(playerViewTapped))
+            doubleTapGestureRecognizer!.numberOfTapsRequired = 2
+            doubleTapGestureRecognizer!.delegate = self
+            videoPlayer.view.addGestureRecognizer(doubleTapGestureRecognizer!)
+        }
 
         updateIsFullscreen()
     }
@@ -98,6 +97,14 @@ extension ViewController: UIGestureRecognizerDelegate {
             return videoPlayer.isFullscreen
         }
         return false
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // Ensure that the doubleTapGestureRecognizer does not delay any controls.
+        if (touch.view?.isKind(of: UIControl.self) ?? false) {
+            return false
+        }
+        return true
     }
 }
 
