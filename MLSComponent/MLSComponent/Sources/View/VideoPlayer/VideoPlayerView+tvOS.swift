@@ -16,21 +16,18 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - UI Components
 
-    var activityIndicatorView: UIActivityIndicatorView?
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .white
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
 
     let playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Play", for: .normal)
         return button
-    }()
-
-    lazy var bufferIcon: NVActivityIndicatorView = {
-        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        indicator.color = .white
-        indicator.type = .circleStrokeSpin
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        return indicator
     }()
 
     let remainingTimeLabel: UILabel! = {
@@ -87,15 +84,11 @@ public class VideoPlayerView: UIView  {
                 ]
         )
 
-        let indicator = UIActivityIndicatorView()
-        indicator.style = .white
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorView = indicator
-        addSubview(indicator)
+        addSubview(activityIndicatorView)
         NSLayoutConstraint.activate(
             [
-                indicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-                indicator.centerXAnchor.constraint(equalTo: centerXAnchor)
+                activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor)
             ]
         )
 
@@ -151,7 +144,8 @@ public class VideoPlayerView: UIView  {
         playerLayer.frame = bounds
 
         bringSubviewToFront(controlsBackground)
-        activityIndicatorView?.startAnimating()
+
+        setBufferIcon(visible: true)
     }
 }
 
@@ -186,13 +180,13 @@ extension VideoPlayerView {
 
     func setBufferIcon(visible: Bool) {
         if visible {
-            bufferIcon.startAnimating()
-            bringSubviewToFront(bufferIcon)
+            activityIndicatorView.startAnimating()
+            bringSubviewToFront(activityIndicatorView)
         } else {
-            sendSubviewToBack(bufferIcon)
-            bufferIcon.stopAnimating()
+            sendSubviewToBack(activityIndicatorView)
+            activityIndicatorView.stopAnimating()
         }
-        bufferIcon.isHidden = !visible
+        activityIndicatorView.isHidden = !visible
     }
 }
 
