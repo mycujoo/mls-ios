@@ -76,6 +76,16 @@ public class VideoPlayerView: UIView  {
         }
     }
 
+    /// Exposes the AVPlayerLayer's videoGravity property.
+    public var videoGravity: AVLayerVideoGravity {
+        get {
+            return playerLayer?.videoGravity ?? .resizeAspect
+        }
+        set {
+            playerLayer?.videoGravity = newValue
+        }
+    }
+
     private lazy var fullscreenButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -209,6 +219,7 @@ public class VideoPlayerView: UIView  {
     func drawPlayer(with player: AVPlayer) {
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspect
+        playerLayer.needsDisplayOnBoundsChange = true
         self.playerLayer = playerLayer
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
