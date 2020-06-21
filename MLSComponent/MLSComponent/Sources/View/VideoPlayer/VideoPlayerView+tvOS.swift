@@ -11,7 +11,6 @@ public class VideoPlayerView: UIView  {
     // MARK: - Properties
 
     private var playerLayer: AVPlayerLayer?
-    private var isFullscreen = false
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
 
@@ -35,7 +34,7 @@ public class VideoPlayerView: UIView  {
         return label
     }()
 
-    let videoLengthLabel: UILabel! = {
+    let currentDurationLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
@@ -48,16 +47,6 @@ public class VideoPlayerView: UIView  {
         let slider = VideoProgressSlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
-    }()
-
-    private let fullscreenButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 13.0, tvOS 13.0, *) {
-            button.setImage(UIImage(systemName: "viewfinder"), for: .normal)
-            button.tintColor = .white
-        }
-        return button
     }()
 
     private let controlsBackground: UIView = {
@@ -117,7 +106,7 @@ public class VideoPlayerView: UIView  {
     private func drawControls(in view: UIView) {
 
         view.addSubview(currentTimeLabel)
-        view.addSubview(videoLengthLabel)
+        view.addSubview(currentDurationLabel)
         view.addSubview(videoSlider)
 
         currentTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
@@ -137,13 +126,13 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    videoLengthLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
-                    videoLengthLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    videoLengthLabel.widthAnchor.constraint(equalToConstant: 40)
+                    currentDurationLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
+                    currentDurationLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    currentDurationLabel.widthAnchor.constraint(equalToConstant: 40)
                 ]
         )
 
-        videoLengthLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
+        currentDurationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
 
         view.layer.cornerRadius = 8.0
         view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
@@ -181,6 +170,17 @@ extension VideoPlayerView {
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
     }
+
+    func setPlayButtonTo(status: VideoPlayer.Status) {
+        let icon: UIImage?
+        switch status {
+        case .play:
+            playButton.setTitle("Play", for: .normal)
+        case .pause:
+            playButton.setTitle("Pause", for: .normal)
+        }
+    }
+
 }
 
 public extension VideoPlayerView {
