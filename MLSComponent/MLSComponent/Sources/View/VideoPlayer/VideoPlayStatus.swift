@@ -18,4 +18,8 @@ public extension VideoPlayer {
         }
         public var isPlaying: Bool { self == .play }
     }
+    
+    enum PlayButtonState {
+        case play, pause, replay
+    }
 }

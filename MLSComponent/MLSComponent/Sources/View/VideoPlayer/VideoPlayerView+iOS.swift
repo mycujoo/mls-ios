@@ -19,6 +19,7 @@ public class VideoPlayerView: UIView  {
 
     private lazy var playIcon = UIImage(named: "Icon-PlayLarge", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var pauseIcon = UIImage(named: "Icon-PauseLarge", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var replayIcon = UIImage(named: "Icon-ReplayLarge", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
 
@@ -255,13 +256,15 @@ extension VideoPlayerView {
         onTimeSliderSlide?(sender.value)
     }
 
-    func setPlayButtonTo(status: VideoPlayer.Status) {
+    func setPlayButtonTo(state: VideoPlayer.PlayButtonState) {
         let icon: UIImage?
-        switch status {
+        switch state {
         case .play:
             icon = playIcon
         case .pause:
             icon = pauseIcon
+        case .replay:
+            icon = replayIcon
         }
 
         if let image = icon {

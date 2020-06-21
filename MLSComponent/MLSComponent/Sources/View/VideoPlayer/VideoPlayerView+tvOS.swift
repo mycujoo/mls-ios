@@ -154,7 +154,6 @@ public class VideoPlayerView: UIView  {
 
 // MARK: - Actions
 extension VideoPlayerView {
-
     func onPlayButtonTapped(_ action: @escaping () -> Void) {
         onPlayButtonTapped = action
     }
@@ -171,13 +170,15 @@ extension VideoPlayerView {
         onTimeSliderSlide?(sender.value)
     }
 
-    func setPlayButtonTo(status: VideoPlayer.Status) {
+    func setPlayButtonTo(state: VideoPlayer.PlayButtonState) {
         let icon: UIImage?
-        switch status {
+        switch state {
         case .play:
             playButton.setTitle("Play", for: .normal)
         case .pause:
             playButton.setTitle("Pause", for: .normal)
+        case .replay:
+            playButton.setTitle("Replay", for: .normal)
         }
     }
 

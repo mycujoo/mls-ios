@@ -30,17 +30,21 @@ public class VideoPlayer: NSObject {
 
     public private(set) var status: Status = .pause {
         didSet {
-            let buttonStatus: Status
+            var buttonState: PlayButtonState
             switch status {
             case .play:
-                buttonStatus = .pause
+                buttonState = .pause
                 player.play()
             case .pause:
-                buttonStatus = .play
+                buttonState = .play
                 player.pause()
             }
 
-            view.setPlayButtonTo(status: buttonStatus)
+            if state == .ended {
+                buttonState = .replay
+            }
+
+            view.setPlayButtonTo(state: buttonState)
 
             delegate?.playerDidUpdatePlaying(player: self)
         }
@@ -210,6 +214,7 @@ extension VideoPlayer {
 
                     if durationSeconds > 0 && durationSeconds <= seconds && !self.isLivestream {
                         self.state = .ended
+                        self.view.setPlayButtonTo(state: .replay)
                     }
 
                     self.delegate?.playerDidUpdateTime(player: self)
@@ -231,22 +236,34 @@ extension VideoPlayer {
     }
 
     private func updateRemainingTimeLabel(_ seconds: Double) {
-        if seconds <= -3600 {
-            let hoursString = String(format: "%02d", Int(seconds / 3600))
-            let minutesString = String(format: "%02d", -1 * Int(seconds.truncatingRemainder(dividingBy: 3600) / 60))
-            let secondsString = String(format: "%02d", -1 * Int(seconds.truncatingRemainder(dividingBy: 60)))
+        var s = abs(seconds)
 
-            view.remainingTimeLabel.text = "\(hoursString):\(minutesString):\(secondsString)"
+        if s >= 3600 {
+            let hoursString = String(format: "%d", Int(s / 3600))
+            let minutesString = String(format: "%02d", Int(s.truncatingRemainder(dividingBy: 3600) / 60))
+            let secondsString = String(format: "%02d", Int(s.truncatingRemainder(dividingBy: 60)))
+
+            view.remainingTimeLabel.text = "-\(hoursString):\(minutesString):\(secondsString)"
         } else {
-            let minutesString = String(format: "%02d", Int(seconds / 60))
-            let secondsString = String(format: "%02d", -1 * Int(seconds.truncatingRemainder(dividingBy: 60)))
+            let minutesString = String(format: "%d", Int(s / 60))
+            let secondsString = String(format: "%02d", Int(s.truncatingRemainder(dividingBy: 60)))
 
-            view.remainingTimeLabel.text = "\(minutesString):\(secondsString)"
+            view.remainingTimeLabel.text = "-\(minutesString):\(secondsString)"
         }
     }
 
     private func playButtonTapped() {
-        status.toggle()
+        if state != .ended {
+            status.toggle()
+        }
+        else {
+            player.seek(to: .zero) { [weak self] finished in
+                if finished {
+                    self?.state = .readyToPlay
+                    self?.play()
+                }
+            }
+        }
     }
 
     #if os(iOS)
