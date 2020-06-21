@@ -43,6 +43,15 @@ public class VideoPlayerView: UIView  {
         return label
     }()
 
+    let barControlsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        return stackView
+    }()
+
     let currentDurationLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +66,15 @@ public class VideoPlayerView: UIView  {
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
     }()
+
+    /// Sets the visibility of the fullscreen button.
+    public var fullscreenButtonIsHidden: Bool = false {
+        didSet {
+            fullscreenButton.isHidden = fullscreenButtonIsHidden
+
+            barControlsStackView.trailingAnchor.constraint(equalTo: controlsBackground.trailingAnchor, constant: fullscreenButtonIsHidden ? -14 : -5).isActive = true
+        }
+    }
 
     private lazy var fullscreenButton: UIButton = {
         let button = UIButton()
@@ -90,7 +108,6 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
-
         addSubview(controlsBackground)
         drawControls(in: controlsBackground)
 
@@ -135,14 +152,17 @@ public class VideoPlayerView: UIView  {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
+        // TODO: This may be where the animation goes wrong.
         playerLayer?.frame = bounds
     }
 
     private func drawControls(in view: UIView) {
+        // MARK: Basic setup
 
-        view.addSubview(currentTimeLabel)
-        view.addSubview(currentDurationLabel)
-        view.addSubview(videoSlider)
+        view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
+        view.addSubview(barControlsStackView)
+
+        // MARK: Play/pause button
 
         view.addSubview(playButton)
         playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -151,49 +171,42 @@ public class VideoPlayerView: UIView  {
         playButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
 
-        currentTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.leadingAnchor, constant: -4).isActive = true
-        currentTimeLabel.bottomAnchor.constraint(equalTo: videoSlider.topAnchor, constant: -8).isActive = true
+        // MARK: Current elapsed time
+
+        view.addSubview(currentTimeLabel)
+        currentTimeLabel.leadingAnchor.constraint(equalTo: barControlsStackView.leadingAnchor, constant: 0).isActive = true
+        currentTimeLabel.bottomAnchor.constraint(equalTo: barControlsStackView.topAnchor, constant: 0).isActive = true
+
+        // MARK: Seekbar
+
+        barControlsStackView.addArrangedSubview(videoSlider)
+        barControlsStackView.addArrangedSubview(currentDurationLabel)
+        barControlsStackView.addArrangedSubview(fullscreenButton)
 
         NSLayoutConstraint
             .activate(
                 [
-                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
-                    videoSlider.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
-                    videoSlider.heightAnchor.constraint(equalToConstant: 16)
-                ]
-        )
-        videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
+                    barControlsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
+                    barControlsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+                    barControlsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+                    barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
+                ])
 
-        NSLayoutConstraint
-            .activate(
-                [
-                    currentDurationLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
-                    currentDurationLabel.centerYAnchor.constraint(equalTo: videoSlider.centerYAnchor)
-                ]
-        )
+        barControlsStackView.setCustomSpacing(14, after: videoSlider)
+        barControlsStackView.setCustomSpacing(5, after: currentDurationLabel)
 
         currentDurationLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         currentDurationLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
-        view.addSubview(fullscreenButton)
-        NSLayoutConstraint
-            .activate(
-                // Use the button's image insets as padding
-                [
-                    fullscreenButton.leadingAnchor.constraint(equalTo: currentDurationLabel.trailingAnchor, constant: 0),
-                    fullscreenButton.centerYAnchor.constraint(equalTo: videoSlider.centerYAnchor),
-                    fullscreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
-                ]
-        )
+        videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
-
-        view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
     }
 
     //MARK: - Methods
 
     func drawPlayer(with player: AVPlayer) {
-
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspect
         self.playerLayer = playerLayer
@@ -201,7 +214,7 @@ public class VideoPlayerView: UIView  {
         playerLayer.frame = bounds
         
         bringSubviewToFront(controlsBackground)
-        activityIndicatorView?.startAnimating()        
+        activityIndicatorView?.startAnimating()
     }
 }
 
