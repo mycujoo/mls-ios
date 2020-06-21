@@ -17,8 +17,6 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - UI Components
 
-    var activityIndicatorView: UIActivityIndicatorView?
-
     private lazy var playIcon = UIImage(named: "Icon-PlayLarge", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var pauseIcon = UIImage(named: "Icon-PauseLarge", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
@@ -32,6 +30,14 @@ public class VideoPlayerView: UIView  {
             button.tintColor = .white
         }
         return button
+    }()
+
+    lazy var bufferIcon: NVActivityIndicatorView = {
+        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.color = .white
+        indicator.type = .circleStrokeSpin
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
     }()
 
     let barControlsStackView: UIStackView = {
@@ -137,16 +143,14 @@ public class VideoPlayerView: UIView  {
 
         NSLayoutConstraint.activate(viewConstraints)
         NSLayoutConstraint.activate(safeAreaConstraints)
-        
-        let indicator = UIActivityIndicatorView()
-        indicator.style = .white
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorView = indicator
-        addSubview(indicator)
+
+        addSubview(bufferIcon)
         NSLayoutConstraint.activate(
             [
-                indicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-                indicator.centerXAnchor.constraint(equalTo: centerXAnchor)
+                bufferIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
+                bufferIcon.centerXAnchor.constraint(equalTo: centerXAnchor),
+                bufferIcon.heightAnchor.constraint(equalToConstant: 40),
+                bufferIcon.widthAnchor.constraint(equalToConstant: 40)
             ]
         )
 
@@ -212,7 +216,7 @@ public class VideoPlayerView: UIView  {
         playerLayer.frame = bounds
         
         bringSubviewToFront(controlsBackground)
-        activityIndicatorView?.startAnimating()
+        setBufferIcon(visible: true)
     }
 }
 
@@ -269,6 +273,19 @@ extension VideoPlayerView {
         if let image = icon {
             fullscreenButton.setImage(image, for: .normal)
         }
+    }
+
+    /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
+    func setBufferIcon(visible: Bool) {
+        if visible {
+            bufferIcon.startAnimating()
+            bringSubviewToFront(bufferIcon)
+        } else {
+            sendSubviewToBack(bufferIcon)
+            bufferIcon.stopAnimating()
+        }
+        bufferIcon.isHidden = !visible
+        playButton.isHidden = visible
     }
 }
 

@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4959C7B4249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */; };
+		4959C7B5249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */; };
+		4959C7B6249FC111005212E1 /* NVActivityIndicatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */; };
+		4959C7B7249FC111005212E1 /* NVActivityIndicatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */; };
+		4959C7B8249FC111005212E1 /* NVActivityIndicatorViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */; };
+		4959C7B9249FC111005212E1 /* NVActivityIndicatorViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */; };
+		4959C7BA249FC111005212E1 /* NVActivityIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */; };
+		4959C7BB249FC111005212E1 /* NVActivityIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */; };
+		4959C7BC249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */; };
+		4959C7BD249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */; };
+		4959C7BE249FC111005212E1 /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */; };
+		4959C7BF249FC111005212E1 /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */; };
+		4959C7E8249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C7A5249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
+		4959C7E9249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C7A5249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
 		495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
 		495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
 		495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */; };
@@ -47,6 +61,13 @@
 /* Begin PBXFileReference section */
 		1F38F614530799BF521F957D /* Pods-MLSComponent-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSComponent-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSComponent-iOS/Pods-MLSComponent-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		433227EAE71557649D4E75B1 /* Pods_MLSComponent_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSComponent_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
+		4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
+		4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorViewable.swift; sourceTree = "<group>"; };
+		4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVActivityIndicatorView.h; sourceTree = "<group>"; };
+		4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
+		4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorView.swift; sourceTree = "<group>"; };
+		4959C7A5249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationCircleStrokeSpin.swift; sourceTree = "<group>"; };
 		495CB132249CC50E00998FF4 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+.swift"; sourceTree = "<group>"; };
 		495CB138249CF98600998FF4 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
@@ -105,6 +126,37 @@
 			);
 			name = Pods;
 			path = ../Pods;
+			sourceTree = "<group>";
+		};
+		4959C788249FC111005212E1 /* NVActivityIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */,
+				4959C78A249FC111005212E1 /* Presenter */,
+				4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */,
+				4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */,
+				4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */,
+				4959C791249FC111005212E1 /* Animations */,
+			);
+			name = NVActivityIndicatorView;
+			path = MLSComponent/Sources/View/NVActivityIndicatorView;
+			sourceTree = SOURCE_ROOT;
+		};
+		4959C78A249FC111005212E1 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */,
+				4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		4959C791249FC111005212E1 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				4959C7A5249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		495CB131249CC4F800998FF4 /* Utils */ = {
@@ -192,6 +244,7 @@
 		6496C34D2492308D0099475D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4959C788249FC111005212E1 /* NVActivityIndicatorView */,
 				6496C34E2492308D0099475D /* OverlayViews */,
 				6496C3502492308D0099475D /* VideoPlayer */,
 			);
@@ -281,6 +334,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4959C7BA249FC111005212E1 /* NVActivityIndicatorView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +342,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4959C7BB249FC111005212E1 /* NVActivityIndicatorView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,18 +497,24 @@
 			files = (
 				6496C3552492308D0099475D /* MLS.swift in Sources */,
 				6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */,
+				4959C7B4249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				495CB139249CF98600998FF4 /* Throttler.swift in Sources */,
 				495CB13C249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */,
+				4959C7B8249FC111005212E1 /* NVActivityIndicatorViewable.swift in Sources */,
 				6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */,
+				4959C7BE249FC111005212E1 /* NVActivityIndicatorView.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* Annotation.swift in Sources */,
 				6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */,
+				4959C7B6249FC111005212E1 /* NVActivityIndicatorPresenter.swift in Sources */,
 				6496C359249230B80099475D /* TimelineMarker.swift in Sources */,
+				4959C7BC249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */,
 				6496C356249230B50099475D /* NonEmpty.swift in Sources */,
 				6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */,
 				6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */,
 				49E59025249BC809001E0C1C /* API.swift in Sources */,
 				49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */,
+				4959C7E8249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */,
 			);
@@ -465,18 +526,24 @@
 			files = (
 				64FDE315249A191B00E6510D /* TimelineMarker.swift in Sources */,
 				64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */,
+				4959C7B5249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
 				495CB13D249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */,
+				4959C7B9249FC111005212E1 /* NVActivityIndicatorViewable.swift in Sources */,
 				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
+				4959C7BF249FC111005212E1 /* NVActivityIndicatorView.swift in Sources */,
 				64FDE312249A191800E6510D /* NonEmpty.swift in Sources */,
 				49E5902A249BCA5B001E0C1C /* Annotation.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
+				4959C7B7249FC111005212E1 /* NVActivityIndicatorPresenter.swift in Sources */,
 				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
+				4959C7BD249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */,
 				64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */,
 				4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */,
 				64FDE310249A191400E6510D /* MLS.swift in Sources */,
 				49EFD24E249E0CC700ED417B /* Bundle+.swift in Sources */,
+				4959C7E9249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				49E59026249BC809001E0C1C /* API.swift in Sources */,
 				495CB137249CD9FC00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 			);

@@ -111,6 +111,7 @@ public class VideoPlayer: NSObject {
         super.init()
         player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+        player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
         view.onTimeSliderSlide(sliderUpdated)
         view.onPlayButtonTapped(playButtonTapped)
@@ -124,6 +125,7 @@ public class VideoPlayer: NSObject {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
         player.removeObserver(self, forKeyPath: "status")
+        player.removeObserver(self, forKeyPath: "timeControlStatus")
         youboraPlugin.fireStop()
     }
     
@@ -140,13 +142,28 @@ public class VideoPlayer: NSObject {
             handleNewLoadedTimeRanges()
         case "status":
             state = State(rawValue: player.status.rawValue) ?? .unknown
+        case "timeControlStatus":
+            if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
+                let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
+                let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
+                if newStatus != oldStatus {
+                    DispatchQueue.main.async { [weak self] in
+                        if newStatus == .playing || newStatus == .paused {
+                            self?.view.setBufferIcon(visible: false)
+                            print("Setting buffer to false!")
+                        } else {
+                            self?.view.setBufferIcon(visible: true)
+                            print("Setting buffer to true!")
+                        }
+                    }
+                }
+            }
         default:
             break
         }
     }
 
     private func handleNewLoadedTimeRanges() {
-        view.activityIndicatorView?.stopAnimating()
         let totalSeconds = self.currentDuration
         guard totalSeconds > 0 else { return }
 
