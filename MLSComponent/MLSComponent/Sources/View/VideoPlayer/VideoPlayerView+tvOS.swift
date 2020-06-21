@@ -143,6 +143,7 @@ public class VideoPlayerView: UIView  {
     func drawPlayer(with player: AVPlayer) {
 
         let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.videoGravity = .resizeAspect
         self.playerLayer = playerLayer
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds

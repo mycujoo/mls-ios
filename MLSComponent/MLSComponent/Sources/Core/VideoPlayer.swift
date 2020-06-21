@@ -165,25 +165,6 @@ public extension VideoPlayer {
         self.event = event
         if autoplay { play() }
     }
-
-    #if os(iOS)
-    func placePlayerView(in view: UIView) {
-        view.addSubview(self.view)
-        self.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        self.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        self.view.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 9 / 16).isActive = true
-        self.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
-
-        let leading = self.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        leading.priority = .defaultHigh
-        leading.isActive = true
-
-        let trailing = self.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        trailing.priority = .defaultHigh
-        trailing.isActive = true
-    }
-    #endif
 }
 
 // MARK: - Private Methods

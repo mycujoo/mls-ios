@@ -93,15 +93,30 @@ public class VideoPlayerView: UIView  {
 
         addSubview(controlsBackground)
         drawControls(in: controlsBackground)
-        NSLayoutConstraint
-            .activate(
-                [
-                    controlsBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-                    controlsBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-                    controlsBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-                    controlsBackground.topAnchor.constraint(equalTo: topAnchor, constant: 0)
-                ]
-        )
+
+        let viewConstraints = [
+            controlsBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            controlsBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            controlsBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            controlsBackground.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+        ]
+
+        let safeAreaConstraints = [
+            controlsBackground.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            controlsBackground.trailingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            controlsBackground.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            controlsBackground.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
+        ]
+
+        for constraint in viewConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 998)
+        }
+        for constraint in safeAreaConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 999)
+        }
+
+        NSLayoutConstraint.activate(viewConstraints)
+        NSLayoutConstraint.activate(safeAreaConstraints)
         
         let indicator = UIActivityIndicatorView()
         indicator.style = .white
@@ -180,6 +195,7 @@ public class VideoPlayerView: UIView  {
     func drawPlayer(with player: AVPlayer) {
 
         let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.videoGravity = .resizeAspect
         self.playerLayer = playerLayer
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds

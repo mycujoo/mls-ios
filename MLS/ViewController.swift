@@ -28,10 +28,22 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         videoPlayer.delegate = self
-        view.backgroundColor = .white
-        videoPlayer.placePlayerView(in: view)
-
         view.backgroundColor = .black
+
+        view.addSubview(videoPlayer.view)
+        videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
+        videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        videoPlayer.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16).isActive = true
+        videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor).isActive = true
+
+        let leading = videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        leading.priority = .defaultHigh
+        leading.isActive = true
+
+        let trailing = videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        trailing.priority = .defaultHigh
+        trailing.isActive = true
     }
 }
 
