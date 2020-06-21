@@ -118,7 +118,6 @@ public class VideoPlayer: NSObject {
 
     public override init() {
         super.init()
-        player.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
@@ -132,7 +131,6 @@ public class VideoPlayer: NSObject {
 
     deinit {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
-        player.removeObserver(self, forKeyPath: "currentItem.loadedTimeRanges")
         player.removeObserver(self, forKeyPath: "status")
         player.removeObserver(self, forKeyPath: "timeControlStatus")
         youboraPlugin.fireStop()
@@ -147,8 +145,6 @@ public class VideoPlayer: NSObject {
         context: UnsafeMutableRawPointer?
     ) {
         switch keyPath {
-        case "currentItem.loadedTimeRanges":
-            handleNewLoadedTimeRanges()
         case "status":
             state = State(rawValue: player.status.rawValue) ?? .unknown
         case "timeControlStatus":
@@ -168,13 +164,6 @@ public class VideoPlayer: NSObject {
         default:
             break
         }
-    }
-
-    private func handleNewLoadedTimeRanges() {
-        let totalSeconds = self.currentDuration
-        guard totalSeconds > 0 else { return }
-
-        updateRemainingTimeLabel(currentTime - totalSeconds)
     }
 }
 

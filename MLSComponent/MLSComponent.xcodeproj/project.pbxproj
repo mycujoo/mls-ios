@@ -240,9 +240,9 @@
 		6496C34D2492308D0099475D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4959C788249FC111005212E1 /* NVActivityIndicatorView */,
 				6496C34E2492308D0099475D /* OverlayViews */,
 				6496C3502492308D0099475D /* VideoPlayer */,
+				4959C788249FC111005212E1 /* NVActivityIndicatorView */,
 			);
 			path = View;
 			sourceTree = "<group>";

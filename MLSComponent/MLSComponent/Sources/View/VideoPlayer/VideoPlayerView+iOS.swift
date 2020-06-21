@@ -52,8 +52,13 @@ public class VideoPlayerView: UIView  {
     let remainingTimeLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        if #available(iOS 13.0, *) {
+            label.font = UIFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+        } else {
+            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 10), size: 10)
+        }
         label.text = "00:00"
+        label.textAlignment = .center
         label.textColor = .white
         return label
     }()
@@ -195,6 +200,9 @@ public class VideoPlayerView: UIView  {
 
         barControlsStackView.setCustomSpacing(14, after: videoSlider)
         barControlsStackView.setCustomSpacing(5, after: remainingTimeLabel)
+
+        // Set a minimum width explicitly to prevent constant resizing of the seekbar when dragging it.
+        remainingTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
         remainingTimeLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         remainingTimeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)

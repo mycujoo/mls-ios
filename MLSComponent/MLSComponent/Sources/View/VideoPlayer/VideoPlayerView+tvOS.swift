@@ -25,11 +25,24 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
+    lazy var bufferIcon: NVActivityIndicatorView = {
+        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.color = .white
+        indicator.type = .circleStrokeSpin
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     let remainingTimeLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        if #available(tvOS 13.0, *) {
+            label.font = UIFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+        } else {
+            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 10), size: 10)
+        }
         label.text = "00:00"
+        label.textAlignment = .center
         label.textColor = .white
         return label
     }()
@@ -114,7 +127,9 @@ public class VideoPlayerView: UIView  {
                 [
                     remainingTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
                     remainingTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    remainingTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+                    remainingTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+                    // Set a minimum width explicitly to prevent constant resizing of the seekbar when dragging it.
+                    remainingTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50)
                 ]
         )
 
@@ -169,6 +184,16 @@ extension VideoPlayerView {
         }
     }
 
+    func setBufferIcon(visible: Bool) {
+        if visible {
+            bufferIcon.startAnimating()
+            bringSubviewToFront(bufferIcon)
+        } else {
+            sendSubviewToBack(bufferIcon)
+            bufferIcon.stopAnimating()
+        }
+        bufferIcon.isHidden = !visible
+    }
 }
 
 public extension VideoPlayerView {
