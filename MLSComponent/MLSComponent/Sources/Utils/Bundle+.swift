@@ -8,8 +8,9 @@ extension Bundle {
     static var resourceBundle: Bundle? {
         let bundle = Bundle(for: MLS.self)
         guard let resourcesBundleUrl = bundle.resourceURL?.appendingPathComponent("MLSResources.bundle") else {
-            return nil
+            // Fallback to the main bundle, which is only useful when compiling the framework directly.
+            return bundle
         }
-        return Bundle(url: resourcesBundleUrl)
+        return Bundle(url: resourcesBundleUrl) ?? bundle
     }
 }
