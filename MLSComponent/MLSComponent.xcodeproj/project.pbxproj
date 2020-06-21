@@ -13,6 +13,12 @@
 		4959C7BC249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */; };
 		4959C7BE249FC111005212E1 /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */; };
 		4959C7E8249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C7A5249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
+		4959C806249FD515005212E1 /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */; };
+		4959C807249FD515005212E1 /* NVActivityIndicatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */; };
+		4959C808249FD515005212E1 /* NVActivityIndicatorViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */; };
+		4959C809249FD515005212E1 /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */; };
+		4959C80A249FD515005212E1 /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */; };
+		4959C80B249FD515005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C7A5249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
 		495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
 		495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
 		495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */; };
@@ -119,7 +125,7 @@
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
-		4959C788249FC111005212E1 /* NVActivityIndicatorView+iOS */ = {
+		4959C788249FC111005212E1 /* NVActivityIndicatorView */ = {
 			isa = PBXGroup;
 			children = (
 				4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */,
@@ -128,8 +134,8 @@
 				4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */,
 				4959C791249FC111005212E1 /* Animations */,
 			);
-			name = "NVActivityIndicatorView+iOS";
-			path = "MLSComponent/Sources/View/NVActivityIndicatorView+iOS";
+			name = NVActivityIndicatorView;
+			path = MLSComponent/Sources/View/NVActivityIndicatorView;
 			sourceTree = SOURCE_ROOT;
 		};
 		4959C78A249FC111005212E1 /* Presenter */ = {
@@ -236,7 +242,7 @@
 			children = (
 				6496C34E2492308D0099475D /* OverlayViews */,
 				6496C3502492308D0099475D /* VideoPlayer */,
-				4959C788249FC111005212E1 /* NVActivityIndicatorView+iOS */,
+				4959C788249FC111005212E1 /* NVActivityIndicatorView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -514,13 +520,19 @@
 			files = (
 				64FDE315249A191B00E6510D /* TimelineMarker.swift in Sources */,
 				64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */,
+				4959C806249FD515005212E1 /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
 				495CB13D249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */,
+				4959C808249FD515005212E1 /* NVActivityIndicatorViewable.swift in Sources */,
 				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
+				4959C80A249FD515005212E1 /* NVActivityIndicatorView.swift in Sources */,
 				64FDE312249A191800E6510D /* NonEmpty.swift in Sources */,
+				4959C80B249FD515005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				49E5902A249BCA5B001E0C1C /* Annotation.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
+				4959C807249FD515005212E1 /* NVActivityIndicatorPresenter.swift in Sources */,
 				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
+				4959C809249FD515005212E1 /* NVActivityIndicatorShape.swift in Sources */,
 				64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */,
 				4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */,

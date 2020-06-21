@@ -16,9 +16,10 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - UI Components
 
-    let activityIndicatorView: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.style = .white
+    lazy var bufferIcon: NVActivityIndicatorView = {
+        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        indicator.color = .white
+        indicator.type = .circleStrokeSpin
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
@@ -84,11 +85,13 @@ public class VideoPlayerView: UIView  {
                 ]
         )
 
-        addSubview(activityIndicatorView)
+        addSubview(bufferIcon)
         NSLayoutConstraint.activate(
             [
-                activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor)
+                bufferIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
+                bufferIcon.centerXAnchor.constraint(equalTo: centerXAnchor),
+                bufferIcon.heightAnchor.constraint(equalToConstant: 80),
+                bufferIcon.widthAnchor.constraint(equalToConstant: 80)
             ]
         )
 
@@ -180,13 +183,13 @@ extension VideoPlayerView {
 
     func setBufferIcon(visible: Bool) {
         if visible {
-            activityIndicatorView.startAnimating()
-            bringSubviewToFront(activityIndicatorView)
+            bufferIcon.startAnimating()
+            bringSubviewToFront(bufferIcon)
         } else {
-            sendSubviewToBack(activityIndicatorView)
-            activityIndicatorView.stopAnimating()
+            sendSubviewToBack(bufferIcon)
+            bufferIcon.stopAnimating()
         }
-        activityIndicatorView.isHidden = !visible
+        bufferIcon.isHidden = !visible
     }
 }
 
