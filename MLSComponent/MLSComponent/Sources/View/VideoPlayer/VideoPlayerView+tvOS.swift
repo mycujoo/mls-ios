@@ -35,9 +35,9 @@ public class VideoPlayerView: UIView  {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         if #available(tvOS 13.0, *) {
-            label.font = UIFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+            label.font = UIFont.monospacedSystemFont(ofSize: 24, weight: .regular)
         } else {
-            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 10), size: 10)
+            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 24), size: 24)
         }
         label.text = "00:00"
         label.textAlignment = .center
@@ -78,10 +78,10 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    controlsBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-                    controlsBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-                    controlsBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-                    controlsBackground.heightAnchor.constraint(equalToConstant: 32)
+                    controlsBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                    controlsBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+                    controlsBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+                    controlsBackground.heightAnchor.constraint(equalToConstant: 64)
                 ]
         )
 
@@ -111,7 +111,7 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
                     videoSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
@@ -121,18 +121,18 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    remainingTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
+                    remainingTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 24),
                     remainingTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    remainingTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+                    remainingTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
                     // Set a minimum width explicitly to prevent constant resizing of the seekbar when dragging it.
-                    remainingTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50)
+                    remainingTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 120)
                 ]
         )
 
         remainingTimeLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         remainingTimeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
-        view.layer.cornerRadius = 8.0
+        view.layer.cornerRadius = 16.0
         view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
     }
 
