@@ -58,6 +58,15 @@ public class VideoPlayer: NSObject {
     }
     #endif
 
+    /// Indicates whether the current item is a live stream.
+    public var isLivestream: Bool {
+        guard let duration = player.currentItem?.duration else {
+            return false
+        }
+        let seconds = CMTimeGetSeconds(duration)
+        return seconds.isNaN || seconds.isInfinite
+    }
+
     public var currentTime: Double {
         (CMTimeGetSeconds(player.currentTime()) * 10).rounded() / 10
     }
@@ -210,7 +219,7 @@ extension VideoPlayer {
                         }
                     }
 
-                    if durationSeconds > 0 && durationSeconds <= seconds {
+                    if durationSeconds > 0 && durationSeconds <= seconds && !self.isLivestream {
                         self.state = .ended
                     }
 
