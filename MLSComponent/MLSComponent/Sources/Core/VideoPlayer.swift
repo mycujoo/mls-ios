@@ -150,10 +150,8 @@ public class VideoPlayer: NSObject {
                     DispatchQueue.main.async { [weak self] in
                         if newStatus == .playing || newStatus == .paused {
                             self?.view.setBufferIcon(visible: false)
-                            print("Setting buffer to false!")
                         } else {
                             self?.view.setBufferIcon(visible: true)
-                            print("Setting buffer to true!")
                         }
                     }
                 }

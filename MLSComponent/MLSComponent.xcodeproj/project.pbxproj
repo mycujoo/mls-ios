@@ -13,8 +13,6 @@
 		4959C7B7249FC111005212E1 /* NVActivityIndicatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */; };
 		4959C7B8249FC111005212E1 /* NVActivityIndicatorViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */; };
 		4959C7B9249FC111005212E1 /* NVActivityIndicatorViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */; };
-		4959C7BA249FC111005212E1 /* NVActivityIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */; };
-		4959C7BB249FC111005212E1 /* NVActivityIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */; };
 		4959C7BC249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */; };
 		4959C7BD249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */; };
 		4959C7BE249FC111005212E1 /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */; };
@@ -64,7 +62,6 @@
 		4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
 		4959C78C249FC111005212E1 /* NVActivityIndicatorViewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorViewable.swift; sourceTree = "<group>"; };
-		4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVActivityIndicatorView.h; sourceTree = "<group>"; };
 		4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
 		4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorView.swift; sourceTree = "<group>"; };
 		4959C7A5249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationCircleStrokeSpin.swift; sourceTree = "<group>"; };
@@ -133,7 +130,6 @@
 			children = (
 				4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */,
 				4959C78A249FC111005212E1 /* Presenter */,
-				4959C78D249FC111005212E1 /* NVActivityIndicatorView.h */,
 				4959C78E249FC111005212E1 /* NVActivityIndicatorShape.swift */,
 				4959C78F249FC111005212E1 /* NVActivityIndicatorView.swift */,
 				4959C791249FC111005212E1 /* Animations */,
@@ -334,7 +330,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4959C7BA249FC111005212E1 /* NVActivityIndicatorView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +337,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4959C7BB249FC111005212E1 /* NVActivityIndicatorView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
