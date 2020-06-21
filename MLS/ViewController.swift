@@ -52,4 +52,24 @@ extension ViewController: PlayerDelegate {
     func playerDidUpdateAnnotations(player: VideoPlayer) {
         print("new annotations: ", player.annotations)
     }
+
+    func playerDidUpdateFullscreen(player: VideoPlayer) {
+        print("fullscreen mode: ", player.isFullscreen)
+
+        if player.isFullscreen && !UIDevice.current.orientation.isLandscape {
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        }
+        else if !player.isFullscreen && !UIDevice.current.orientation.isPortrait {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
+    }
+}
+
+extension ViewController {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        // Make sure the player is aware of the new orientation so that it can rectify the fullscreen button image.
+        videoPlayer.isFullscreen = UIDevice.current.orientation.isLandscape
+    }
 }

@@ -3,7 +3,6 @@
 //
 
 import AVFoundation
-import UIKit
 import YouboraAVPlayerAdapter
 import YouboraLib
 
@@ -44,6 +43,16 @@ public class VideoPlayer: NSObject {
             view.setPlayButtonTo(status: buttonStatus)
 
             delegate?.playerDidUpdatePlaying(player: self)
+        }
+    }
+
+    /// This property changes when the fullscreen button is tapped. SDK implementors can update this state directly, which will update the visual of the button.
+    /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
+    public var isFullscreen: Bool = false {
+        didSet {
+            view.setFullscreenButtonTo(fullscreen: isFullscreen)
+
+            delegate?.playerDidUpdateFullscreen(player: self)
         }
     }
 
@@ -243,7 +252,7 @@ extension VideoPlayer {
     }
 
     private func fullscreenButtonTapped() {
-        // TODO: Do something.
+        isFullscreen.toggle()
     }
 }
 
@@ -319,6 +328,11 @@ public protocol PlayerDelegate: AnyObject {
     func playerDidUpdateTime(player: VideoPlayer)
     /// The player has updated its state. To access the current state, see `VideoPlayer.state`
     func playerDidUpdateState(player: VideoPlayer)
+    /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
+    /// SDK implementers are responsible for any other visual or behavioral changes on the player.
+    /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)
+    /// To hide the fullscreen button entirely, set `VideoPlayer.hideFullscreenButton`
+    func playerDidUpdateFullscreen(player: VideoPlayer)
     /// The player has updated the list of known annotations. To access the current list of known annotations for the associated timeline, see `VideoPlayer.annotations`
     /// - note: This does not have any relationship with the annotations that are currently being executed. This method is only called when the datasource refreshes.
     func playerDidUpdateAnnotations(player: VideoPlayer)
