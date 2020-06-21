@@ -9,6 +9,8 @@ class ViewController: UIViewController {
 
     private lazy var mls = MLS(publicKey: "key", configuration: Configuration())
 
+    private var doubleTapGestureRecognizer: UITapGestureRecognizer? = nil
+
     lazy var videoPlayer: VideoPlayer = {
         let player = mls
             .videoPlayer(
@@ -44,6 +46,17 @@ class ViewController: UIViewController {
         let trailing = videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         trailing.priority = .defaultHigh
         trailing.isActive = true
+
+        doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(playerViewTapped))
+        doubleTapGestureRecognizer!.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer!.delegate = self
+        videoPlayer.view.addGestureRecognizer(doubleTapGestureRecognizer!)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        updateIsFullscreen()
     }
 }
 
@@ -77,11 +90,30 @@ extension ViewController: PlayerDelegate {
     }
 }
 
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard let doubleTapGestureRecognizer = self.doubleTapGestureRecognizer else { return false }
+        if gestureRecognizer == doubleTapGestureRecognizer && otherGestureRecognizer == videoPlayer.view.tapGestureRecognizer {
+            // Could return true here. However, we only want to register double-taps in landscape mode in this demo.
+            return videoPlayer.isFullscreen
+        }
+        return false
+    }
+}
+
 extension ViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
         // Make sure the player is aware of the new orientation so that it can rectify the fullscreen button image.
+        updateIsFullscreen()
+    }
+
+    @objc private func playerViewTapped() {
+        videoPlayer.view.videoGravity = .resizeAspectFill
+    }
+
+    private func updateIsFullscreen() {
         videoPlayer.isFullscreen = UIDevice.current.orientation.isLandscape
     }
 }

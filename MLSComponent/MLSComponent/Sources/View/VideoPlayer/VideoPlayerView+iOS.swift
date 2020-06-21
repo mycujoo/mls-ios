@@ -109,6 +109,13 @@ public class VideoPlayerView: UIView  {
         }
     }
 
+    /// Exposes the `UITapGestureRecognizer` on the VideoPlayerView, which is used to determine whether to hide or show the controls.
+    public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+        let gr = UITapGestureRecognizer(target: self, action: #selector(controlViewTapped))
+        gr.numberOfTapsRequired = 1
+        return gr
+    }()
+
     // MARK: - Init
 
     init() {
@@ -214,7 +221,7 @@ public class VideoPlayerView: UIView  {
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(controlViewTapped)))
+        addGestureRecognizer(tapGestureRecognizer)
 
         setControlViewVisibility(visible: true)
     }
