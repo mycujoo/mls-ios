@@ -31,16 +31,18 @@ public class VideoPlayer: NSObject {
 
     public private(set) var status: Status = .pause {
         didSet {
+            let buttonStatus: Status
             switch status {
             case .play:
+                buttonStatus = .pause
                 player.play()
             case .pause:
+                buttonStatus = .play
                 player.pause()
             }
-            if #available(iOS 13.0, tvOS 13.0, *) {
-                let image = status.isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill")
-                view.playButton.setImage(image, for: .normal)
-            }
+
+            view.setPlayButtonTo(status: buttonStatus)
+
             delegate?.playerDidUpdatePlaying(player: self)
         }
     }
@@ -101,6 +103,7 @@ public class VideoPlayer: NSObject {
         timeObserver = trackTime(with: player)
         view.onTimeSliderSlide(sliderUpdated)
         view.onPlayButtonTapped(playButtonTapped)
+        view.onFullscreenButtonTapped(fullscreenButtonTapped)
         youboraPlugin.fireInit()
     }
 
@@ -237,6 +240,10 @@ extension VideoPlayer {
 
     private func playButtonTapped() {
         status.toggle()
+    }
+
+    private func fullscreenButtonTapped() {
+        // TODO: Do something.
     }
 }
 

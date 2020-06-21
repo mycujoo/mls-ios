@@ -11,7 +11,7 @@ public class VideoPlayerView: UIView  {
     // MARK: - Properties
 
     private var playerLayer: AVPlayerLayer?
-    private var isFullScreen = false
+    private var isFullscreen = false
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
 

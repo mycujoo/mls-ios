@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         videoPlayer.placePlayerView(in: view)
 
+        view.backgroundColor = .black
     }
 }
 

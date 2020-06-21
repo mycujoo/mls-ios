@@ -11,30 +11,25 @@ public class VideoPlayerView: UIView  {
     // MARK: - Properties
 
     private var playerLayer: AVPlayerLayer?
-    private var isFullScreen = false
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
+    private var onFullscreenButtonTapped: (() -> Void)?
 
     // MARK: - UI Components
 
     var activityIndicatorView: UIActivityIndicatorView?
 
+    private lazy var playIcon = UIImage(named: "Icon-PlayLarge", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var pauseIcon = UIImage(named: "Icon-PauseLarge", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
+
     lazy var playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        if let image = UIImage(named: "Icon-PlayLarge", in: Bundle.resourceBundle, compatibleWith: nil) {
+        if let image = playIcon {
             button.setImage(image, for: .normal)
             button.tintColor = .white
-        }
-        return button
-    }()
-
-    lazy var pauseButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        if let image = UIImage(named: "Icon-PauseLarge", in: Bundle.resourceBundle, compatibleWith: nil) {
-            button.setImage(image, for: .normal)
         }
         return button
     }()
@@ -67,20 +62,10 @@ public class VideoPlayerView: UIView  {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        if let image = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil) {
+        if let image = fullscreenIcon {
             button.setImage(image, for: .normal)
         }
         button.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
-        return button
-    }()
-
-    private lazy var shrinkscreenButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .white
-        if let image = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil) {
-            button.setImage(image, for: .normal)
-        }
         return button
     }()
 
@@ -215,6 +200,14 @@ extension VideoPlayerView {
         onPlayButtonTapped?()
     }
 
+    func onFullscreenButtonTapped(_ action: @escaping () -> Void) {
+        onFullscreenButtonTapped = action
+    }
+
+    @objc private func fullscreenButtonTapped() {
+        onFullscreenButtonTapped?()
+    }
+
     func onTimeSliderSlide(_ action: @escaping (Double) -> Void) {
         onTimeSliderSlide = action
     }
@@ -223,10 +216,32 @@ extension VideoPlayerView {
         onTimeSliderSlide?(sender.value)
     }
 
-    @objc private func fullscreenButtonTapped() {
-        isFullScreen.toggle()
-        let newValue: UIInterfaceOrientation = isFullScreen ? .landscapeRight : .portrait
-        UIDevice.current.setValue(newValue.rawValue, forKey: "orientation")
+    func setPlayButtonTo(status: VideoPlayer.Status) {
+        let icon: UIImage?
+        switch status {
+        case .play:
+            icon = playIcon
+        case .pause:
+            icon = pauseIcon
+        }
+
+        if let image = icon {
+            playButton.setImage(image, for: .normal)
+        }
+    }
+
+    func setFullscreenButtonTo(fullscreen: Bool) {
+        let icon: UIImage?
+        switch fullscreen {
+        case true:
+            icon = shrinkscreenIcon
+        case false:
+            icon = fullscreenIcon
+        }
+
+        if let image = icon {
+            fullscreenButton.setImage(image, for: .normal)
+        }
     }
 }
 
