@@ -14,7 +14,7 @@ public class VideoPlayerView: UIView  {
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
-    private var controlViewThrottler = Throttler(minimumDelay: 4.0)
+    private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     // MARK: - UI Components
 
@@ -237,28 +237,34 @@ public class VideoPlayerView: UIView  {
 // MARK: - Actions
 extension VideoPlayerView {
 
-    func onPlayButtonTapped(_ action: @escaping () -> Void) {
+    func setOnPlayButtonTapped(_ action: @escaping () -> Void) {
         onPlayButtonTapped = action
     }
 
     @objc private func playButtonTapped() {
         onPlayButtonTapped?()
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
-    func onFullscreenButtonTapped(_ action: @escaping () -> Void) {
+    func setOnFullscreenButtonTapped(_ action: @escaping () -> Void) {
         onFullscreenButtonTapped = action
     }
 
     @objc private func fullscreenButtonTapped() {
         onFullscreenButtonTapped?()
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
-    func onTimeSliderSlide(_ action: @escaping (Double) -> Void) {
+    func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
         onTimeSliderSlide = action
     }
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     @objc private func controlViewTapped() {
@@ -271,16 +277,18 @@ extension VideoPlayerView {
 
     private func setControlViewVisibility(visible: Bool) {
         if visible {
-            controlViewThrottler.throttle {
+            controlViewDebouncer.debounce {
                 UIView.animate(withDuration: 0.3) {
                     self.controlView.alpha = 0
                 }
             }
         }
 
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.15) {
-                self.controlView.alpha = visible ? 1 : 0
+        if (controlView.alpha <= 0) == visible {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.15) {
+                    self.controlView.alpha = visible ? 1 : 0
+                }
             }
         }
     }

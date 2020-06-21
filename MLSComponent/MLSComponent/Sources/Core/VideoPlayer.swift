@@ -125,10 +125,10 @@ public class VideoPlayer: NSObject {
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
-        view.onTimeSliderSlide(sliderUpdated)
-        view.onPlayButtonTapped(playButtonTapped)
+        view.setOnTimeSliderSlide(sliderUpdated)
+        view.setOnPlayButtonTapped(playButtonTapped)
         #if os(iOS)
-        view.onFullscreenButtonTapped(fullscreenButtonTapped)
+        view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
         #endif
         youboraPlugin.fireInit()
     }
@@ -232,7 +232,7 @@ extension VideoPlayer {
         updateRemainingTimeLabel(time - totalSeconds)
 
         let seekTime = CMTime(value: Int64(time), timescale: 1)
-        player.seek(to: seekTime, throttleSeconds: 0.5, completionHandler: { _ in })
+        player.seek(to: seekTime, debounceSeconds: 0.5, completionHandler: { _ in })
     }
 
     private func updateRemainingTimeLabel(_ seconds: Double) {

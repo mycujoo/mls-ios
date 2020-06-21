@@ -154,7 +154,7 @@ public class VideoPlayerView: UIView  {
 
 // MARK: - Actions
 extension VideoPlayerView {
-    func onPlayButtonTapped(_ action: @escaping () -> Void) {
+    func setOnPlayButtonTapped(_ action: @escaping () -> Void) {
         onPlayButtonTapped = action
     }
 
@@ -162,7 +162,7 @@ extension VideoPlayerView {
         onPlayButtonTapped?()
     }
 
-    func onTimeSliderSlide(_ action: @escaping (Double) -> Void) {
+    func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
         onTimeSliderSlide = action
     }
 
