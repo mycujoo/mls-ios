@@ -25,16 +25,7 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    let currentTimeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        label.text = "00:00"
-        label.textColor = .white
-        return label
-    }()
-
-    let currentDurationLabel: UILabel! = {
+    let remainingTimeLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
@@ -105,18 +96,13 @@ public class VideoPlayerView: UIView  {
 
     private func drawControls(in view: UIView) {
 
-        view.addSubview(currentTimeLabel)
-        view.addSubview(currentDurationLabel)
+        view.addSubview(remainingTimeLabel)
         view.addSubview(videoSlider)
-
-        currentTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
-        currentTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        currentTimeLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
         NSLayoutConstraint
             .activate(
                 [
-                    videoSlider.leadingAnchor.constraint(equalTo: currentTimeLabel.trailingAnchor, constant: 8),
+                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
                     videoSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
@@ -126,13 +112,14 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    currentDurationLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
-                    currentDurationLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    currentDurationLabel.widthAnchor.constraint(equalToConstant: 40)
+                    remainingTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 8),
+                    remainingTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    remainingTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
                 ]
         )
 
-        currentDurationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
+        remainingTimeLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        remainingTimeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
         view.layer.cornerRadius = 8.0
         view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)

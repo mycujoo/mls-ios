@@ -147,10 +147,10 @@ public class VideoPlayer: NSObject {
 
     private func handleNewLoadedTimeRanges() {
         view.activityIndicatorView?.stopAnimating()
-        let seconds = self.currentDuration
-        guard seconds > 0 else { return }
+        let totalSeconds = self.currentDuration
+        guard totalSeconds > 0 else { return }
 
-        updateDurationTimeLabel(seconds)
+        updateRemainingTimeLabel(currentTime - totalSeconds)
     }
 }
 
@@ -188,8 +188,7 @@ extension VideoPlayer {
                     let seconds = CMTimeGetSeconds(progressTime)
 
                     if !self.view.videoSlider.isTracking {
-                        self.updateCurrentTimeLabel(seconds)
-                        self.updateDurationTimeLabel(durationSeconds)
+                        self.updateRemainingTimeLabel(seconds - durationSeconds)
 
                         if durationSeconds > 0 {
                             self.view.videoSlider.value = seconds / durationSeconds
@@ -212,24 +211,25 @@ extension VideoPlayer {
 
         let time = Float64(fraction) * totalSeconds
 
-        updateCurrentTimeLabel(time)
+        updateRemainingTimeLabel(time - totalSeconds)
 
         let seekTime = CMTime(value: Int64(time), timescale: 1)
         player.seek(to: seekTime, throttleSeconds: 0.5, completionHandler: { _ in })
     }
 
-    private func updateCurrentTimeLabel(_ seconds: Double) {
-        let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-        let minutesString = String(format: "%02d", Int(seconds / 60))
+    private func updateRemainingTimeLabel(_ seconds: Double) {
+        if seconds <= -3600 {
+            let hoursString = String(format: "%02d", Int(seconds / 3600))
+            let minutesString = String(format: "%02d", -1 * Int(seconds.truncatingRemainder(dividingBy: 3600) / 60))
+            let secondsString = String(format: "%02d", -1 * Int(seconds.truncatingRemainder(dividingBy: 60)))
 
-        view.currentTimeLabel.text = "\(minutesString):\(secondsString)"
-    }
+            view.remainingTimeLabel.text = "\(hoursString):\(minutesString):\(secondsString)"
+        } else {
+            let minutesString = String(format: "%02d", Int(seconds / 60))
+            let secondsString = String(format: "%02d", -1 * Int(seconds.truncatingRemainder(dividingBy: 60)))
 
-    private func updateDurationTimeLabel(_ seconds: Double) {
-        let secondsString = String(format: "%02d", Int(seconds.truncatingRemainder(dividingBy: 60)))
-        let minutesString = String(format: "%02d", Int(seconds / 60))
-
-        view.currentDurationLabel.text = "\(minutesString):\(secondsString)"
+            view.remainingTimeLabel.text = "\(minutesString):\(secondsString)"
+        }
     }
 
     private func playButtonTapped() {

@@ -34,15 +34,6 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    let currentTimeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        label.text = "00:00"
-        label.textColor = .white
-        return label
-    }()
-
     let barControlsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +43,7 @@ public class VideoPlayerView: UIView  {
         return stackView
     }()
 
-    let currentDurationLabel: UILabel! = {
+    let remainingTimeLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
@@ -66,6 +57,25 @@ public class VideoPlayerView: UIView  {
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
     }()
+
+    private lazy var fullscreenButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .white
+        if let image = fullscreenIcon {
+            button.setImage(image, for: .normal)
+        }
+        button.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
+        return button
+    }()
+
+    private let controlsBackground: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
     public var fullscreenButtonIsHidden: Bool = false {
@@ -86,24 +96,7 @@ public class VideoPlayerView: UIView  {
         }
     }
 
-    private lazy var fullscreenButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .white
-        if let image = fullscreenIcon {
-            button.setImage(image, for: .normal)
-        }
-        button.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
-        return button
-    }()
-
-    private let controlsBackground: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    //MARK: - Init
+    // MARK: - Init
 
     init() {
         super.init(frame: .zero)
@@ -181,16 +174,10 @@ public class VideoPlayerView: UIView  {
         playButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
 
-        // MARK: Current elapsed time
-
-        view.addSubview(currentTimeLabel)
-        currentTimeLabel.leadingAnchor.constraint(equalTo: barControlsStackView.leadingAnchor, constant: 0).isActive = true
-        currentTimeLabel.bottomAnchor.constraint(equalTo: barControlsStackView.topAnchor, constant: 0).isActive = true
-
         // MARK: Seekbar
 
         barControlsStackView.addArrangedSubview(videoSlider)
-        barControlsStackView.addArrangedSubview(currentDurationLabel)
+        barControlsStackView.addArrangedSubview(remainingTimeLabel)
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
         NSLayoutConstraint
@@ -203,10 +190,10 @@ public class VideoPlayerView: UIView  {
                 ])
 
         barControlsStackView.setCustomSpacing(14, after: videoSlider)
-        barControlsStackView.setCustomSpacing(5, after: currentDurationLabel)
+        barControlsStackView.setCustomSpacing(5, after: remainingTimeLabel)
 
-        currentDurationLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        currentDurationLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        remainingTimeLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        remainingTimeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
