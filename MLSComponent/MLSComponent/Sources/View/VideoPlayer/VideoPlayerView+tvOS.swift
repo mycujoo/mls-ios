@@ -51,7 +51,7 @@ public class VideoPlayerView: UIView  {
         return slider
     }()
 
-    private let controlsBackground: UIView = {
+    private let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -73,15 +73,15 @@ public class VideoPlayerView: UIView  {
 
     private func drawSelf() {
 
-        addSubview(controlsBackground)
-        drawControls(in: controlsBackground)
+        addSubview(controlView)
+        drawControls(in: controlView)
         NSLayoutConstraint
             .activate(
                 [
-                    controlsBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                    controlsBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                    controlsBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-                    controlsBackground.heightAnchor.constraint(equalToConstant: 64)
+                    controlView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                    controlView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+                    controlView.heightAnchor.constraint(equalToConstant: 64)
                 ]
         )
 
@@ -146,7 +146,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
 
-        bringSubviewToFront(controlsBackground)
+        bringSubviewToFront(controlView)
 
         setBufferIcon(visible: true)
     }

@@ -14,6 +14,7 @@ public class VideoPlayerView: UIView  {
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
+    private var controlViewThrottler = Throttler(minimumDelay: 4.0)
 
     // MARK: - UI Components
 
@@ -81,7 +82,7 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    private let controlsBackground: UIView = {
+    private let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -94,7 +95,7 @@ public class VideoPlayerView: UIView  {
         didSet {
             fullscreenButton.isHidden = fullscreenButtonIsHidden
 
-            barControlsStackView.trailingAnchor.constraint(equalTo: controlsBackground.trailingAnchor, constant: fullscreenButtonIsHidden ? -14 : -5).isActive = true
+            barControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: fullscreenButtonIsHidden ? -14 : -5).isActive = true
         }
     }
 
@@ -123,21 +124,21 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
-        addSubview(controlsBackground)
-        drawControls(in: controlsBackground)
+        addSubview(controlView)
+        drawControls(in: controlView)
 
         let viewConstraints = [
-            controlsBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            controlsBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            controlsBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlsBackground.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            controlView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            controlView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ]
 
         let safeAreaConstraints = [
-            controlsBackground.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            controlsBackground.trailingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            controlsBackground.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            controlsBackground.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
+            controlView.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            controlView.trailingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            controlView.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            controlView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
         ]
 
         for constraint in viewConstraints {
@@ -172,7 +173,7 @@ public class VideoPlayerView: UIView  {
     private func drawControls(in view: UIView) {
         // MARK: Basic setup
 
-        view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
+        view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.5)
         view.addSubview(barControlsStackView)
 
         // MARK: Play/pause button
@@ -212,6 +213,10 @@ public class VideoPlayerView: UIView  {
 
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
+
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(controlViewTapped)))
+
+        setControlViewVisibility(visible: true)
     }
 
     //MARK: - Methods
@@ -224,7 +229,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
         
-        bringSubviewToFront(controlsBackground)
+        bringSubviewToFront(controlView)
         setBufferIcon(visible: true)
     }
 }
@@ -254,6 +259,30 @@ extension VideoPlayerView {
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
+    }
+
+    @objc private func controlViewTapped() {
+        toggleControlViewVisibility()
+    }
+
+    private func toggleControlViewVisibility() {
+        setControlViewVisibility(visible: controlView.alpha <= 0)
+    }
+
+    private func setControlViewVisibility(visible: Bool) {
+        if visible {
+            controlViewThrottler.throttle {
+                UIView.animate(withDuration: 0.3) {
+                    self.controlView.alpha = 0
+                }
+            }
+        }
+
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.15) {
+                self.controlView.alpha = visible ? 1 : 0
+            }
+        }
     }
 
     func setPlayButtonTo(state: VideoPlayer.PlayButtonState) {
