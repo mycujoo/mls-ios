@@ -90,7 +90,8 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
-    private let controlView: UIView = {
+    /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
+    public let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

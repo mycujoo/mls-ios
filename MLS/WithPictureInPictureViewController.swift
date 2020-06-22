@@ -73,20 +73,19 @@ class WithPictureInPictureViewController: UIViewController {
             // PIP setup
 
             if #available(iOS 13.0, *) {
-                let startImage = AVPictureInPictureController.pictureInPictureButtonStartImage
-                let stopImage = AVPictureInPictureController.pictureInPictureButtonStopImage
+                let startImage = AVPictureInPictureController.pictureInPictureButtonStartImage.withTintColor(.white)
+                let stopImage = AVPictureInPictureController.pictureInPictureButtonStopImage.withTintColor(.white)
                 pipButton.setImage(startImage, for: .normal)
                 pipButton.setImage(stopImage, for: .selected)
             } else {
                 // Fallback on earlier versions
             }
 
-            view.addSubview(pipButton)
-            view.bringSubviewToFront(pipButton)
+            videoPlayer.view.controlView.addSubview(pipButton)
             NSLayoutConstraint.activate(
                 [
-                    pipButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                    pipButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    pipButton.topAnchor.constraint(equalTo: videoPlayer.view.controlView.topAnchor, constant: 12),
+                    pipButton.trailingAnchor.constraint(equalTo: videoPlayer.view.controlView.trailingAnchor, constant: -12),
                     pipButton.heightAnchor.constraint(equalToConstant: 40),
                     pipButton.widthAnchor.constraint(equalToConstant: 40)
                 ]
@@ -105,7 +104,9 @@ class WithPictureInPictureViewController: UIViewController {
 
             let _ = pictureInPictureController?.observe(\AVPictureInPictureController.isPictureInPicturePossible, options: [.initial, .new]) { [weak self] prop, change in
                 // Update the PiP button's enabled state.
-                self?.pipButton.isEnabled = change.newValue ?? false
+//                self?.pipButton.isEnabled = change.newValue ?? false
+                // TODO: On simulators, the updated state isn't always correct. For this demo, always leave isEnabled to true here.
+                self?.pipButton.isEnabled = true
             }
         } else {
             // PiP isn't supported by the current device. Disable the PiP button.
