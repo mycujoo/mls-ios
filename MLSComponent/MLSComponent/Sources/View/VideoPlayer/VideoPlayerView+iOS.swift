@@ -138,7 +138,8 @@ public class VideoPlayerView: UIView  {
 
     private func drawSelf() {
         addSubview(controlView)
-        drawControls(in: controlView)
+        addSubview(controlAlphaView)
+        drawControls()
 
         let viewConstraints = [
             controlView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
@@ -154,15 +155,26 @@ public class VideoPlayerView: UIView  {
             controlView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
         ]
 
+        let alphaConstraints = [
+            controlAlphaView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            controlAlphaView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+        ]
+
         for constraint in viewConstraints {
             constraint.priority = UILayoutPriority(rawValue: 249)
         }
         for constraint in safeAreaConstraints {
             constraint.priority = UILayoutPriority(rawValue: 250)
         }
+        for constraint in alphaConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 250)
+        }
 
         NSLayoutConstraint.activate(viewConstraints)
         NSLayoutConstraint.activate(safeAreaConstraints)
+        NSLayoutConstraint.activate(alphaConstraints)
 
         addSubview(bufferIcon)
         NSLayoutConstraint.activate(
@@ -183,17 +195,17 @@ public class VideoPlayerView: UIView  {
         playerLayer?.frame = bounds
     }
 
-    private func drawControls(in view: UIView) {
+    private func drawControls() {
         // MARK: Basic setup
 
-        view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.5)
-        view.addSubview(barControlsStackView)
+        controlAlphaView.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.5)
+        controlView.addSubview(barControlsStackView)
 
         // MARK: Play/pause button
 
-        view.addSubview(playButton)
-        playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        playButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        controlView.addSubview(playButton)
+        playButton.centerXAnchor.constraint(equalTo: controlView.centerXAnchor).isActive = true
+        playButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor).isActive = true
         playButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         playButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
@@ -205,13 +217,13 @@ public class VideoPlayerView: UIView  {
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
         NSLayoutConstraint
-            .activate(
-                [
-                    barControlsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
-                    barControlsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-                    barControlsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
-                    barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
-                ])
+           .activate(
+               [
+                   barControlsStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 14),
+                   barControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
+                   barControlsStackView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8),
+                   barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
+               ])
 
         barControlsStackView.setCustomSpacing(14, after: videoSlider)
         barControlsStackView.setCustomSpacing(5, after: remainingTimeLabel)
@@ -241,7 +253,8 @@ public class VideoPlayerView: UIView  {
         self.playerLayer = playerLayer
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
-        
+
+        bringSubviewToFront(controlAlphaView)
         bringSubviewToFront(controlView)
         setBufferIcon(visible: true)
     }
@@ -292,6 +305,7 @@ extension VideoPlayerView {
         if visible {
             controlViewDebouncer.debounce {
                 UIView.animate(withDuration: 0.3) {
+                    self.controlAlphaView.alpha = 0
                     self.controlView.alpha = 0
                 }
             }
@@ -300,6 +314,7 @@ extension VideoPlayerView {
         if (controlView.alpha <= 0) == visible {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.15) {
+                    self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
                 }
             }

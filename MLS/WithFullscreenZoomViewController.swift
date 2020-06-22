@@ -12,7 +12,6 @@ class WithFullscreenZoomViewController: UIViewController {
 
     private var portraitPlayerConstraints: [NSLayoutConstraint] = []
     private var landscapePlayerConstraints: [NSLayoutConstraint] = []
-    private var zoomedLandscapePlayerConstraints: [NSLayoutConstraint] = []
 
     private enum PlayerConstraintMode: Int {
         case portrait = 0, landscape, zoomedLandscape, unknown
@@ -23,25 +22,20 @@ class WithFullscreenZoomViewController: UIViewController {
             case .portrait:
                 videoPlayer.view.videoGravity = .resizeAspect
                 NSLayoutConstraint.deactivate(landscapePlayerConstraints)
-                NSLayoutConstraint.deactivate(zoomedLandscapePlayerConstraints)
                 NSLayoutConstraint.activate(portraitPlayerConstraints)
             case .landscape:
                 videoPlayer.view.videoGravity = .resizeAspect
                 NSLayoutConstraint.deactivate(portraitPlayerConstraints)
-                NSLayoutConstraint.deactivate(zoomedLandscapePlayerConstraints)
                 NSLayoutConstraint.activate(landscapePlayerConstraints)
             case .zoomedLandscape:
-//                videoPlayer.view.videoGravity = .resizeAspectFill
+                videoPlayer.view.videoGravity = .resizeAspectFill
                 NSLayoutConstraint.deactivate(portraitPlayerConstraints)
-                NSLayoutConstraint.deactivate(landscapePlayerConstraints)
-                NSLayoutConstraint.activate(zoomedLandscapePlayerConstraints)
+                NSLayoutConstraint.activate(landscapePlayerConstraints)
             default:
                 break
             }
             videoPlayer.view.setNeedsLayout()
-            UIView.animate(withDuration: 0.3) {
-                self.videoPlayer.view.layoutIfNeeded()
-            }
+            videoPlayer.view.layoutIfNeeded()
         }
     }
 
@@ -86,20 +80,13 @@ class WithFullscreenZoomViewController: UIViewController {
             ]
 
             landscapePlayerConstraints = [
-                videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                videoPlayer.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                videoPlayer.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                videoPlayer.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ]
-
-            zoomedLandscapePlayerConstraints = [
                 videoPlayer.view.topAnchor.constraint(equalTo: view.topAnchor),
                 videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 videoPlayer.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
 
-            for constraint in (portraitPlayerConstraints + landscapePlayerConstraints + zoomedLandscapePlayerConstraints) {
+            for constraint in (portraitPlayerConstraints + landscapePlayerConstraints) {
                 constraint.priority = .defaultHigh
             }
 
