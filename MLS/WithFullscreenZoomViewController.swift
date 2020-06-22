@@ -172,6 +172,7 @@ extension WithFullscreenZoomViewController {
         }
 
         if fullscreen && !UIDevice.current.orientation.isLandscape {
+            // Note: make sure to enable "requires full screen" on the build target for this to work on iPads
             UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         }
         else if !fullscreen && !UIDevice.current.orientation.isPortrait {
