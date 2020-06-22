@@ -249,27 +249,38 @@ extension ActionHideOverlay: Decodable {
 
 public struct ActionSetVariable {
     public let name: String
-    public let stringValue: String?
-    public let numberValue: Double?
-    public let boolValue: Bool?
+    public var stringValue: String?
+    public var doubleValue: Double?
+    public var longValue: Int64?
 }
 
 extension ActionSetVariable: Decodable {
     public enum CodingKeys: String, CodingKey {
         case name
-        case stringValue = "string_value"
-        case numberValue = "number_value"
-        case boolValue = "bool_value"
+        case value
+        case type
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let name: String = try container.decode(String.self, forKey: .name)
-        let stringValue: String? = try? container.decode(String.self, forKey: .stringValue)
-        let numberValue: Double? = try? container.decode(Double.self, forKey: .numberValue)
-        let boolValue: Bool? = try? container.decode(Bool.self, forKey: .boolValue)
+        var stringValue: String? = nil
+        var doubleValue: Double? = nil
+        var longValue: Int64? = nil
+        if let type = try? container.decode(String.self, forKey: .type) {
+            switch type {
+            case "string":
+                stringValue = try? container.decode(String.self, forKey: .value)
+            case "float", "double":
+                doubleValue = try? container.decode(Double.self, forKey: .value)
+            case "int", "long":
+                longValue = try? container.decode(Int64.self, forKey: .value)
+            default:
+                break
+            }
+        }
 
-        self.init(name: name, stringValue: stringValue, numberValue: numberValue, boolValue: boolValue)
+        self.init(name: name, stringValue: stringValue, doubleValue: doubleValue, longValue: longValue)
     }
 }
 
