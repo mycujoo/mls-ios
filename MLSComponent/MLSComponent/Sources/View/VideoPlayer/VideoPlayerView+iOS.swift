@@ -82,6 +82,12 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
+    private let controlAlphaView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -149,10 +155,10 @@ public class VideoPlayerView: UIView  {
         ]
 
         for constraint in viewConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 998)
+            constraint.priority = UILayoutPriority(rawValue: 249)
         }
         for constraint in safeAreaConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 999)
+            constraint.priority = UILayoutPriority(rawValue: 250)
         }
 
         NSLayoutConstraint.activate(viewConstraints)

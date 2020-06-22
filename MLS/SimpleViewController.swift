@@ -44,7 +44,6 @@ class SimpleViewController: UIViewController {
 
             let playerConstraints = [
                 videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                videoPlayer.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
                 videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
                 videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),

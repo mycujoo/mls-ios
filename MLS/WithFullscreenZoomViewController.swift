@@ -6,13 +6,44 @@ import UIKit
 import MLSComponent
 
 class WithFullscreenZoomViewController: UIViewController {
-
     private lazy var mls = MLS(publicKey: "key", configuration: Configuration())
 
     private var doubleTapGestureRecognizer: UITapGestureRecognizer? = nil
 
-    private var playerConstraints: [NSLayoutConstraint]? = nil
-    private var zoomedPlayerConstraints: [NSLayoutConstraint]? = nil
+    private var portraitPlayerConstraints: [NSLayoutConstraint] = []
+    private var landscapePlayerConstraints: [NSLayoutConstraint] = []
+    private var zoomedLandscapePlayerConstraints: [NSLayoutConstraint] = []
+
+    private enum PlayerConstraintMode: Int {
+        case portrait = 0, landscape, zoomedLandscape, unknown
+    }
+    private var playerConstraintMode = PlayerConstraintMode.unknown {
+        didSet {
+            switch playerConstraintMode {
+            case .portrait:
+                videoPlayer.view.videoGravity = .resizeAspect
+                NSLayoutConstraint.deactivate(landscapePlayerConstraints)
+                NSLayoutConstraint.deactivate(zoomedLandscapePlayerConstraints)
+                NSLayoutConstraint.activate(portraitPlayerConstraints)
+            case .landscape:
+                videoPlayer.view.videoGravity = .resizeAspect
+                NSLayoutConstraint.deactivate(portraitPlayerConstraints)
+                NSLayoutConstraint.deactivate(zoomedLandscapePlayerConstraints)
+                NSLayoutConstraint.activate(landscapePlayerConstraints)
+            case .zoomedLandscape:
+//                videoPlayer.view.videoGravity = .resizeAspectFill
+                NSLayoutConstraint.deactivate(portraitPlayerConstraints)
+                NSLayoutConstraint.deactivate(landscapePlayerConstraints)
+                NSLayoutConstraint.activate(zoomedLandscapePlayerConstraints)
+            default:
+                break
+            }
+            videoPlayer.view.setNeedsLayout()
+            UIView.animate(withDuration: 0.3) {
+                self.videoPlayer.view.layoutIfNeeded()
+            }
+        }
+    }
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls
@@ -39,36 +70,37 @@ class WithFullscreenZoomViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        let isLandscape = UIDevice.current.orientation.isLandscape
         if videoPlayer.delegate == nil {
             videoPlayer.delegate = self
 
             view.addSubview(videoPlayer.view)
             videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
 
-            playerConstraints = [
+            portraitPlayerConstraints = [
                 videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                videoPlayer.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
                 videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
                 videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
                 videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
-            for constraint in playerConstraints! {
-                constraint.priority = UILayoutPriority(rawValue: 998)
-            }
+            landscapePlayerConstraints = [
+                videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                videoPlayer.view.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+                videoPlayer.view.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+                videoPlayer.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ]
 
-            NSLayoutConstraint.activate(playerConstraints!)
-
-            // Define the layout constraints for a zoomed player, but do not activate the constraints.
-            zoomedPlayerConstraints = [
+            zoomedLandscapePlayerConstraints = [
                 videoPlayer.view.topAnchor.constraint(equalTo: view.topAnchor),
                 videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
                 videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
                 videoPlayer.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
-            for constraint in zoomedPlayerConstraints! {
-                constraint.priority = UILayoutPriority(rawValue: 999)
+
+            for constraint in (portraitPlayerConstraints + landscapePlayerConstraints + zoomedLandscapePlayerConstraints) {
+                constraint.priority = .defaultHigh
             }
 
             doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(playerViewDoubleTapped))
@@ -77,7 +109,7 @@ class WithFullscreenZoomViewController: UIViewController {
             videoPlayer.view.addGestureRecognizer(doubleTapGestureRecognizer!)
         }
 
-        updateIsFullscreen()
+        updateIsFullscreen(to: isLandscape)
     }
 }
 
@@ -102,12 +134,7 @@ extension WithFullscreenZoomViewController: PlayerDelegate {
     func playerDidUpdateFullscreen(player: VideoPlayer) {
         print("fullscreen mode: ", player.isFullscreen)
 
-        if player.isFullscreen && !UIDevice.current.orientation.isLandscape {
-            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-        }
-        else if !player.isFullscreen && !UIDevice.current.orientation.isPortrait {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        }
+        updateIsFullscreen(to: UIDevice.current.orientation.isLandscape)
     }
 }
 
@@ -134,25 +161,37 @@ extension WithFullscreenZoomViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        // Make sure the player is aware of the new orientation so that it can rectify the fullscreen button image.
-        updateIsFullscreen()
+        updateIsFullscreen(to: UIDevice.current.orientation.isLandscape)
     }
 
     @objc private func playerViewDoubleTapped() {
-        if let playerConstraints = self.playerConstraints, let zoomedPlayerConstraints = self.zoomedPlayerConstraints {
-            if videoPlayer.view.videoGravity == .resizeAspect {
-                videoPlayer.view.videoGravity = .resizeAspectFill
-                NSLayoutConstraint.deactivate(playerConstraints)
-                NSLayoutConstraint.activate(zoomedPlayerConstraints)
-            } else {
-                videoPlayer.view.videoGravity = .resizeAspect
-                NSLayoutConstraint.deactivate(zoomedPlayerConstraints)
-                NSLayoutConstraint.activate(playerConstraints)
-            }
+        switch playerConstraintMode {
+        case .landscape:
+            playerConstraintMode = .zoomedLandscape
+        case .zoomedLandscape:
+            playerConstraintMode = .landscape
+        default:
+            break
         }
     }
 
-    private func updateIsFullscreen() {
-        videoPlayer.isFullscreen = UIDevice.current.orientation.isLandscape
+    private func updateIsFullscreen(to fullscreen: Bool) {
+        if videoPlayer.isFullscreen != fullscreen {
+            videoPlayer.isFullscreen = fullscreen
+        }
+
+        if fullscreen && !UIDevice.current.orientation.isLandscape {
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        }
+        else if !fullscreen && !UIDevice.current.orientation.isPortrait {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
+
+        if fullscreen && ![.landscape, .zoomedLandscape].contains(playerConstraintMode) {
+            playerConstraintMode = .landscape
+        } else if !fullscreen && .portrait != playerConstraintMode {
+            playerConstraintMode = .portrait
+        }
     }
 }
+

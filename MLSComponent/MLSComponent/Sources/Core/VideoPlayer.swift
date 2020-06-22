@@ -55,9 +55,10 @@ public class VideoPlayer: NSObject {
     /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
     public var isFullscreen: Bool = false {
         didSet {
-            view.setFullscreenButtonTo(fullscreen: isFullscreen)
-
-            delegate?.playerDidUpdateFullscreen(player: self)
+            if isFullscreen != oldValue {
+                view.setFullscreenButtonTo(fullscreen: isFullscreen)
+                delegate?.playerDidUpdateFullscreen(player: self)
+            }
         }
     }
     #endif
