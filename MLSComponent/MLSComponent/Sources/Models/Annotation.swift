@@ -252,6 +252,7 @@ public struct ActionSetVariable {
     public var stringValue: String?
     public var doubleValue: Double?
     public var longValue: Int64?
+    public var doublePrecision: Int?
 }
 
 extension ActionSetVariable: Decodable {
@@ -259,6 +260,7 @@ extension ActionSetVariable: Decodable {
         case name
         case value
         case type
+        case doublePrecision = "double_precision"
     }
 
     public init(from decoder: Decoder) throws {
@@ -267,12 +269,14 @@ extension ActionSetVariable: Decodable {
         var stringValue: String? = nil
         var doubleValue: Double? = nil
         var longValue: Int64? = nil
+        var doublePrecision: Int? = nil
         if let type = try? container.decode(String.self, forKey: .type) {
             switch type {
             case "string":
                 stringValue = try? container.decode(String.self, forKey: .value)
             case "float", "double":
                 doubleValue = try? container.decode(Double.self, forKey: .value)
+                doublePrecision = try container.decode(Int.self, forKey: .doublePrecision)
             case "int", "long":
                 longValue = try? container.decode(Int64.self, forKey: .value)
             default:
@@ -280,7 +284,7 @@ extension ActionSetVariable: Decodable {
             }
         }
 
-        self.init(name: name, stringValue: stringValue, doubleValue: doubleValue, longValue: longValue)
+        self.init(name: name, stringValue: stringValue, doubleValue: doubleValue, longValue: longValue, doublePrecision: doublePrecision)
     }
 }
 
