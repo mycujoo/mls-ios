@@ -54,6 +54,7 @@ public enum Action {
     case startTimer(ActionStartTimer)
     case pauseTimer(ActionPauseTimer)
     case adjustTimer(ActionAdjustTimer)
+    case createClock(ActionCreateClock)
     case unsupported
 }
 
@@ -94,6 +95,9 @@ extension Action: Decodable {
         case "adjust_timer":
             let data = try container.decode(ActionAdjustTimer.self, forKey: .data)
             self = .adjustTimer(data)
+        case "create_clock":
+            let data = try container.decode(ActionCreateClock.self, forKey: .data)
+            self = .createClock(data)
         default:
             self = .unsupported
         }
@@ -109,6 +113,13 @@ public struct ActionShowTimelineMarker: Decodable {
 
 // MARK: - ActionShowOverlay
 
+public enum OverlayAnimateinType {
+    case fadeIn, slideFromTop, slideFromBottom, slideFromLeft, slideFromRight, none, unsupported
+}
+
+public enum OverlayAnimateoutType {
+    case fadeOut, slideToTop, slideToBottom, slideToLeft, slideToRight, none, unsupported
+}
 
 public struct ActionShowOverlay {
     public struct Position: Decodable {
@@ -125,25 +136,19 @@ public struct ActionShowOverlay {
         public let height: Float?
     }
 
-    public enum AnimationinType {
-        case fadeIn, slideFromTop, slideFromBottom, slideFromLeft, slideFromRight, none, unsupported
-    }
-
-    public enum AnimationoutType {
-        case fadeOut, slideToTop, slideToBottom, slideToLeft, slideToRight, none, unsupported
-    }
-
     public let customId: String?
     public let svgURL: URL
     public let position: Position
     public let size: Size
-    public let animationinType: AnimationinType?
-    public let animationoutType: AnimationoutType?
+    public let animateinType: OverlayAnimateinType?
+    public let animateoutType: OverlayAnimateoutType?
+    public let animateinDuration: Float?
+    public let animateoutDuration: Float?
     public let duration: Float?
     public let variablePositions: [String: String]?
 }
 
-public extension ActionShowOverlay.AnimationinType {
+public extension OverlayAnimateinType {
     init(rawValue: String?) {
         switch rawValue {
         case "fade_in":
@@ -164,7 +169,7 @@ public extension ActionShowOverlay.AnimationinType {
     }
 }
 
-public extension ActionShowOverlay.AnimationoutType {
+public extension OverlayAnimateoutType {
     init(rawValue: String?) {
         switch rawValue {
         case "fade_out":
@@ -191,8 +196,10 @@ extension ActionShowOverlay: Decodable {
         case svgURL = "svg_url"
         case position
         case size
-        case animationinType = "animationinType"
-        case animationoutType = "animationoutType"
+        case animateinType = "animatein_type"
+        case animateoutType = "animateout_type"
+        case animateinDuration = "animatein_duration"
+        case animateoutDuration = "animateout_duration"
         case duration
         case variablePositions = "variable_positions"
     }
@@ -203,30 +210,38 @@ extension ActionShowOverlay: Decodable {
         let svgURL: URL = try container.decode(URL.self, forKey: .svgURL)
         let position: Position = try container.decode(Position.self, forKey: .position)
         let size: Size = try container.decode(Size.self, forKey: .size)
-        let animationinType: AnimationinType = AnimationinType(rawValue: try? container.decode(String.self, forKey: .animationinType))
-        let animationoutType: AnimationoutType = AnimationoutType(rawValue: try? container.decode(String.self, forKey: .animationoutType))
+        let animateinType: OverlayAnimateinType = OverlayAnimateinType(rawValue: try? container.decode(String.self, forKey: .animateinType))
+        let animateoutType: OverlayAnimateoutType = OverlayAnimateoutType(rawValue: try? container.decode(String.self, forKey: .animateoutType))
+        let animateinDuration: Float? = try? container.decode(Float.self, forKey: .animateinDuration)
+        let animateoutDuration: Float? = try? container.decode(Float.self, forKey: .animateoutDuration)
         let duration: Float? = try? container.decode(Float.self, forKey: .duration)
         let variablePositions: [String: String]? = try? container.decode([String: String].self, forKey: .variablePositions)
 
-        self.init(customId: customId, svgURL: svgURL, position: position, size: size, animationinType: animationinType, animationoutType: animationoutType, duration: duration, variablePositions: variablePositions)
+        self.init(customId: customId, svgURL: svgURL, position: position, size: size, animateinType: animateinType, animateoutType: animateoutType, animateinDuration: animateinDuration, animateoutDuration: animateoutDuration, duration: duration, variablePositions: variablePositions)
     }
 }
 // MARK: - ActionHideOverlay
 
 public struct ActionHideOverlay {
     public let customId: String
+    public let animateoutType: OverlayAnimateoutType?
+    public let animateoutDuration: Float?
 }
 
 extension ActionHideOverlay: Decodable {
     public enum CodingKeys: String, CodingKey {
         case customId = "custom_id"
+        case animateoutType = "animateout_type"
+        case animateoutDuration = "animateout_duration"
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let customId: String = try container.decode(String.self, forKey: .customId)
+        let animateoutType: OverlayAnimateoutType = OverlayAnimateoutType(rawValue: try? container.decode(String.self, forKey: .animateoutType))
+        let animateoutDuration: Float? = try? container.decode(Float.self, forKey: .animateoutDuration)
 
-        self.init(customId: customId)
+        self.init(customId: customId, animateoutType: animateoutType, animateoutDuration: animateoutDuration)
     }
 }
 
@@ -268,8 +283,9 @@ public struct ActionIncrementVariable: Decodable {
 // MARK: - ActionCreateTimer
 
 public struct ActionCreateTimer {
-    public enum ClockType {
-        case standard
+    public enum Format {
+        case ms
+        case s
         case unsupported
     }
     public enum Direction {
@@ -279,17 +295,19 @@ public struct ActionCreateTimer {
     }
 
     public let name: String
-    public let clockType: ClockType
+    public let format: Format
     public let direction: Direction
     public let startValue: Int64
     public let capValue: Int64?
 }
 
-public extension ActionCreateTimer.ClockType {
+public extension ActionCreateTimer.Format {
     init(rawValue: String?) {
         switch rawValue {
-        case "standard":
-            self = .standard
+        case "ms":
+            self = .ms
+        case "s":
+            self = .s
         default:
             self = .unsupported
         }
@@ -312,7 +330,7 @@ public extension ActionCreateTimer.Direction {
 extension ActionCreateTimer: Decodable {
     public enum CodingKeys: String, CodingKey {
         case name
-        case clockType = "clock_type"
+        case format
         case direction
         case startValue = "start_value"
         case capValue = "cap_value"
@@ -321,12 +339,12 @@ extension ActionCreateTimer: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let name: String = try container.decode(String.self, forKey: .name)
-        let clockType: ActionCreateTimer.ClockType = ActionCreateTimer.ClockType(rawValue: try? container.decode(String.self, forKey: .clockType))
+        let format: ActionCreateTimer.Format = ActionCreateTimer.Format(rawValue: try? container.decode(String.self, forKey: .format))
         let direction: ActionCreateTimer.Direction = ActionCreateTimer.Direction(rawValue: try? container.decode(String.self, forKey: .name))
         let startValue: Int64 = (try? container.decode(Int64.self, forKey: .startValue)) ?? 0
         let capValue: Int64? = try? container.decode(Int64.self, forKey: .capValue)
 
-        self.init(name: name, clockType: clockType, direction: direction, startValue: startValue, capValue: capValue)
+        self.init(name: name, format: format, direction: direction, startValue: startValue, capValue: capValue)
     }
 }
 
@@ -347,4 +365,46 @@ public struct ActionPauseTimer: Decodable {
 public struct ActionAdjustTimer: Decodable {
     public let name: String
     public let value: Int64
+}
+
+// MARK: - ActionCreateClock
+
+
+public struct ActionCreateClock {
+    public enum Format {
+        case twelveHours
+        case twentyfourHours
+        case unsupported
+    }
+
+    public let name: String
+    public let format: Format
+}
+
+public extension ActionCreateClock.Format {
+    init(rawValue: String?) {
+        switch rawValue {
+        case "12h":
+            self = .twelveHours
+        case "24h":
+            self = .twentyfourHours
+        default:
+            self = .unsupported
+        }
+    }
+}
+
+extension ActionCreateClock: Decodable {
+    public enum CodingKeys: String, CodingKey {
+        case name
+        case format
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let name: String = try container.decode(String.self, forKey: .name)
+        let format: ActionCreateClock.Format = ActionCreateClock.Format(rawValue: try? container.decode(String.self, forKey: .format))
+
+        self.init(name: name, format: format)
+    }
 }
