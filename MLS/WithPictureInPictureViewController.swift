@@ -103,8 +103,7 @@ class WithPictureInPictureViewController: UIViewController {
             pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
             pictureInPictureController?.delegate = self
 
-            let _ = pictureInPictureController?.observe(\AVPictureInPictureController.isPictureInPicturePossible,
-                                                                        options: [.initial, .new]) { [weak self] _, change in
+            let _ = pictureInPictureController?.observe(\AVPictureInPictureController.isPictureInPicturePossible, options: [.initial, .new]) { [weak self] prop, change in
                 // Update the PiP button's enabled state.
                 self?.pipButton.isEnabled = change.newValue ?? false
             }
@@ -115,7 +114,6 @@ class WithPictureInPictureViewController: UIViewController {
     }
 
     @objc func pipButtonTapped() {
-        print("Got there")
         guard let pictureInPictureController = pictureInPictureController else { return }
         if pictureInPictureController.isPictureInPictureActive {
             pictureInPictureController.stopPictureInPicture()
@@ -125,6 +123,4 @@ class WithPictureInPictureViewController: UIViewController {
     }
 }
 
-extension WithPictureInPictureViewController: AVPictureInPictureControllerDelegate {
-
-}
+extension WithPictureInPictureViewController: AVPictureInPictureControllerDelegate {}
