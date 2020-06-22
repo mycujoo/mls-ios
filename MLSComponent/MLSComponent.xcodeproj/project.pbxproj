@@ -29,6 +29,8 @@
 		495CB13D249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */; };
 		4989B1EC249D3750006CBB47 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4989B1EB249D3750006CBB47 /* Media.xcassets */; };
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
+		49A9F52324A15B9200D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
+		49A9F52424A15B9700D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49E59025249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59026249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59029249BCA5B001E0C1C /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59028249BCA5B001E0C1C /* Annotation.swift */; };
@@ -71,6 +73,7 @@
 		495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayer.swift; sourceTree = "<group>"; };
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
+		49A9F52224A15B9200D00143 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		49EFD24C249E0CC700ED417B /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
@@ -158,10 +161,11 @@
 		495CB131249CC4F800998FF4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
 				495CB138249CF98600998FF4 /* Throttler.swift */,
 				495CB132249CC50E00998FF4 /* UIColor+.swift */,
-				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
+				49A9F52224A15B9200D00143 /* UIView+.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -511,6 +515,7 @@
 				4959C7E8249FC111005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */,
+				49A9F52324A15B9200D00143 /* UIView+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +545,7 @@
 				49EFD24E249E0CC700ED417B /* Bundle+.swift in Sources */,
 				49E59026249BC809001E0C1C /* API.swift in Sources */,
 				495CB137249CD9FC00998FF4 /* NSLayoutConstraint+.swift in Sources */,
+				49A9F52424A15B9700D00143 /* UIView+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

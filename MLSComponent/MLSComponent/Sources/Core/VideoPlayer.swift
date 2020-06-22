@@ -24,7 +24,6 @@ public class VideoPlayer: NSObject {
             guard let stream = event?.stream else { return }
 
             player.replaceCurrentItem(with: AVPlayerItem(url: stream.urls.first))
-            view.drawPlayer(with: player)
         }
     }
 
@@ -132,6 +131,8 @@ public class VideoPlayer: NSObject {
         view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
         #endif
         youboraPlugin.fireInit()
+        
+        view.drawPlayer(with: player)
     }
 
     deinit {
@@ -237,7 +238,7 @@ extension VideoPlayer {
     }
 
     private func updateRemainingTimeLabel(_ seconds: Double) {
-        var s = abs(seconds)
+        let s = abs(seconds)
 
         if s >= 3600 {
             let hoursString = String(format: "%d", Int(s / 3600))

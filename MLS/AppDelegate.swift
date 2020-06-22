@@ -13,7 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 //        window?.rootViewController = SimpleViewController()
-        window?.rootViewController = WithFullscreenZoomViewController()
+//        window?.rootViewController = WithFullscreenZoomViewController()
+        window?.rootViewController = WithPictureInPictureViewController()
         window?.makeKeyAndVisible()
 
         return true

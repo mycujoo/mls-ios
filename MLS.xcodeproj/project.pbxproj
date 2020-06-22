@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49A9F52124A1549F00D00143 /* WithPictureInPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */; };
 		49B3B65524A0E3C8000E02AB /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */; };
 		6418F6DA246951050013A9EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6D9246951050013A9EE /* AppDelegate.swift */; };
 		6418F6DE246951050013A9EE /* WithFullscreenZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		07C31E5A9EF72297C1A70F68 /* Pods-MLS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS.debug.xcconfig"; path = "Target Support Files/Pods-MLS/Pods-MLS.debug.xcconfig"; sourceTree = "<group>"; };
 		2E0DAA284AF67F8A42BBC5A2 /* Pods-MLS-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPictureInPictureViewController.swift; sourceTree = "<group>"; };
 		49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		59C4A3D7BF2B801746FEFBC7 /* Pods_MLS_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6124E01761580CD0B6877AD0 /* Pods-MLS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS.release.xcconfig"; path = "Target Support Files/Pods-MLS/Pods-MLS.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				6418F6D9246951050013A9EE /* AppDelegate.swift */,
 				49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */,
+				49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */,
 				6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */,
 				6418F6E2246951060013A9EE /* Assets.xcassets */,
 				6418F6E4246951060013A9EE /* LaunchScreen.storyboard */,
@@ -328,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6418F6DE246951050013A9EE /* WithFullscreenZoomViewController.swift in Sources */,
+				49A9F52124A1549F00D00143 /* WithPictureInPictureViewController.swift in Sources */,
 				6418F6DA246951050013A9EE /* AppDelegate.swift in Sources */,
 				49B3B65524A0E3C8000E02AB /* SimpleViewController.swift in Sources */,
 			);

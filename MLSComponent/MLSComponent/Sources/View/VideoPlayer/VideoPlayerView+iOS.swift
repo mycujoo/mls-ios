@@ -10,7 +10,9 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
-    private var playerLayer: AVPlayerLayer?
+    /// The AVPlayerLayer that is associated with this video player.
+    private(set) public var playerLayer: AVPlayerLayer?
+
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
@@ -101,7 +103,9 @@ public class VideoPlayerView: UIView  {
         didSet {
             fullscreenButton.isHidden = fullscreenButtonIsHidden
 
-            barControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: fullscreenButtonIsHidden ? -14 : -5).isActive = true
+            if let trailingConstraint = barControlsStackView.constraints(on: barControlsStackView.trailingAnchor).first {
+                trailingConstraint.constant = fullscreenButtonIsHidden ? -14 : -5
+            }
         }
     }
 

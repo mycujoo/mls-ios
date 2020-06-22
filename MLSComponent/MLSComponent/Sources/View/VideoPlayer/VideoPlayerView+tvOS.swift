@@ -10,7 +10,9 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
-    private var playerLayer: AVPlayerLayer?
+    /// The AVPlayerLayer that is associated with this video player.
+    private(set) public var playerLayer: AVPlayerLayer?
+    
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
 
@@ -139,7 +141,6 @@ public class VideoPlayerView: UIView  {
     //MARK: - Methods
 
     func drawPlayer(with player: AVPlayer) {
-
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspect
         self.playerLayer = playerLayer

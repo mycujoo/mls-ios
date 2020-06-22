@@ -48,6 +48,8 @@ class SimpleViewController: UIViewController {
 
             let playerConstraints = [
                 videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                // Note that this heightAnchor approach will not look good on some devices in landscape.
+                // For a more complete solution, see `WithFullscreenZoomViewController.swift`
                 videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
                 videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
