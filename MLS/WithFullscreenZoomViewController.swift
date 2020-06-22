@@ -121,7 +121,7 @@ extension WithFullscreenZoomViewController: PlayerDelegate {
     func playerDidUpdateFullscreen(player: VideoPlayer) {
         print("fullscreen mode: ", player.isFullscreen)
 
-        updateIsFullscreen(to: UIDevice.current.orientation.isLandscape)
+        updateIsFullscreen(to: player.isFullscreen)
     }
 }
 
