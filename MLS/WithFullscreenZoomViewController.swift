@@ -54,6 +54,10 @@ class WithFullscreenZoomViewController: UIViewController {
         )
         return player
     }()
+    
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
