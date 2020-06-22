@@ -349,7 +349,7 @@ public protocol PlayerDelegate: AnyObject {
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
     /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)
-    /// To hide the fullscreen button entirely, set `VideoPlayer.hideFullscreenButton`
+    /// To hide the fullscreen button entirely, set `VideoPlayer.fullscreenButtonIsHidden`
     func playerDidUpdateFullscreen(player: VideoPlayer)
     #endif
     /// The player has updated the list of known annotations. To access the current list of known annotations for the associated timeline, see `VideoPlayer.annotations`

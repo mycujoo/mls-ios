@@ -5,7 +5,7 @@
 import UIKit
 import MLSComponent
 
-class WithFullscreenViewController: UIViewController {
+class WithFullscreenZoomViewController: UIViewController {
 
     private lazy var mls = MLS(publicKey: "key", configuration: Configuration())
 
@@ -30,12 +30,17 @@ class WithFullscreenViewController: UIViewController {
         return player
     }()
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .black
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         if videoPlayer.delegate == nil {
             videoPlayer.delegate = self
-            view.backgroundColor = .black
 
             view.addSubview(videoPlayer.view)
             videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
@@ -65,14 +70,6 @@ class WithFullscreenViewController: UIViewController {
             for constraint in zoomedPlayerConstraints! {
                 constraint.priority = UILayoutPriority(rawValue: 999)
             }
-//
-//            let leading = videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-//            leading.priority = .defaultHigh
-//            leading.isActive = true
-//
-//            let trailing = videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-//            trailing.priority = .defaultHigh
-//            trailing.isActive = true
 
             doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(playerViewDoubleTapped))
             doubleTapGestureRecognizer!.numberOfTapsRequired = 2
@@ -85,7 +82,7 @@ class WithFullscreenViewController: UIViewController {
 }
 
 // MARK: - PlayerDelegate
-extension WithFullscreenViewController: PlayerDelegate {
+extension WithFullscreenZoomViewController: PlayerDelegate {
     func playerDidUpdatePlaying(player: VideoPlayer) {
         print("new status: ", player.status)
     }
@@ -114,7 +111,7 @@ extension WithFullscreenViewController: PlayerDelegate {
     }
 }
 
-extension WithFullscreenViewController: UIGestureRecognizerDelegate {
+extension WithFullscreenZoomViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let doubleTapGestureRecognizer = self.doubleTapGestureRecognizer else { return false }
         if gestureRecognizer == doubleTapGestureRecognizer && otherGestureRecognizer == videoPlayer.view.tapGestureRecognizer {
@@ -133,7 +130,7 @@ extension WithFullscreenViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension WithFullscreenViewController {
+extension WithFullscreenZoomViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
