@@ -119,6 +119,7 @@ public class VideoPlayerView: UIView  {
     public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
         let gr = UITapGestureRecognizer(target: self, action: #selector(controlViewTapped))
         gr.numberOfTapsRequired = 1
+        gr.delegate = self
         return gr
     }()
 
@@ -364,6 +365,19 @@ extension VideoPlayerView {
         playButton.isHidden = visible
     }
 }
+
+// - MARK: GestureRecognizerDelegate
+
+extension VideoPlayerView: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // Ensure that the tapGestureRecognizer does not register on any controls.
+        if (touch.view?.isKind(of: UIControl.self) ?? false) {
+            return false
+        }
+        return true
+    }
+}
+
 
 public extension VideoPlayerView {
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
