@@ -11,7 +11,7 @@ public class VideoPlayer: NSObject {
     // MARK: - Public properties
 
     public weak var delegate: PlayerDelegate?
-    public private(set) var view = VideoPlayerView()
+    public private(set) var view: VideoPlayerView!
 
     public private(set) var state: State = .unknown {
         didSet {
@@ -132,17 +132,25 @@ public class VideoPlayer: NSObject {
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
 
-        youboraPlugin.fireInit()
-
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.view.setOnTimeSliderSlide(self.sliderUpdated)
-            self.view.setOnPlayButtonTapped(self.playButtonTapped)
+        func initPlayerView() {
+            view = VideoPlayerView()
+            view.setOnTimeSliderSlide(sliderUpdated)
+            view.setOnPlayButtonTapped(playButtonTapped)
             #if os(iOS)
-            self.view.setOnFullscreenButtonTapped(self.fullscreenButtonTapped)
+            view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
-            self.view.drawPlayer(with: self.player)
+            view.drawPlayer(with: player)
         }
+
+        if Thread.isMainThread {
+            initPlayerView()
+        } else {
+            DispatchQueue.main.sync {
+                initPlayerView()
+            }
+        }
+
+        youboraPlugin.fireInit()
     }
 
     deinit {
