@@ -10,6 +10,15 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
+    /// The color that is used throughout various controls and elements of the video player.
+    public var primaryColor: UIColor = .white {
+        didSet {
+            playButton.tintColor = primaryColor
+            bufferIcon.color = primaryColor
+            videoSlider.trackView.backgroundColor = primaryColor
+        }
+    }
+
     /// The AVPlayerLayer that is associated with this video player.
     private(set) public var playerLayer: AVPlayerLayer?
 

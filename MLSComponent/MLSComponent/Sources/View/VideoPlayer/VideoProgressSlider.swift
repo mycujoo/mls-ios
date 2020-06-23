@@ -24,7 +24,7 @@ class VideoProgressSlider: UIControl {
     private let minimumValue = 0.0
     private let maximumValue = 1.0
 
-    private let timeView: UIView = {
+    let timeView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
@@ -34,7 +34,7 @@ class VideoProgressSlider: UIControl {
         return view
     }()
 
-    private let trackView: UIView = {
+    let trackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
@@ -48,7 +48,7 @@ class VideoProgressSlider: UIControl {
         trackView.trailingAnchor.constraint(equalTo: leadingAnchor)
     }()
 
-    private let thumbView: UIView = {
+    let thumbView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
