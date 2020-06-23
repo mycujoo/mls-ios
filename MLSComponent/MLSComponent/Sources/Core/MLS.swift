@@ -43,7 +43,7 @@ public class MLS {
 
     public func videoPlayer(with event: Event? = nil, autoplay: Bool = true) -> VideoPlayer {
         let player = VideoPlayer()
-        player.view.primaryColor = .blue
+        player.view.primaryColor = UIColor(hex: "#38d430")
         if let event = event {
             player.playVideo(with: event, autoplay: autoplay)
 

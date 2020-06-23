@@ -43,17 +43,11 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    let remainingTimeLabel: UILabel! = {
+    private let timeIndicatorLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        if #available(tvOS 13.0, *) {
-            label.font = UIFont.monospacedSystemFont(ofSize: 18, weight: .regular)
-        } else {
-            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 18), size: 18)
-        }
-        label.text = "00:00"
         label.textAlignment = .left
-        label.textColor = .white
+        label.textColor = UIColor(hex: "#cccccc")
         return label
     }()
 
@@ -108,6 +102,8 @@ public class VideoPlayerView: UIView  {
         )
 
         backgroundColor = .black
+
+        setTimeIndicatorLabel(elapsedText: "00:00", totalText: "00:00")
     }
 
     public override func layoutSubviews() {
@@ -117,7 +113,7 @@ public class VideoPlayerView: UIView  {
 
     private func drawControls() {
 
-        controlView.addSubview(remainingTimeLabel)
+        controlView.addSubview(timeIndicatorLabel)
         controlView.addSubview(videoSlider)
 
         NSLayoutConstraint
@@ -125,7 +121,7 @@ public class VideoPlayerView: UIView  {
                 [
                     videoSlider.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 96),
                     videoSlider.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -96),
-                    videoSlider.bottomAnchor.constraint(equalTo: remainingTimeLabel.topAnchor, constant: -12),
+                    videoSlider.bottomAnchor.constraint(equalTo: timeIndicatorLabel.topAnchor, constant: -12),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
@@ -134,14 +130,14 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    remainingTimeLabel.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 96),
-                    remainingTimeLabel.trailingAnchor.constraint(greaterThanOrEqualTo: controlView.trailingAnchor, constant: -96),
-                    remainingTimeLabel.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96)
+                    timeIndicatorLabel.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 96),
+                    timeIndicatorLabel.trailingAnchor.constraint(greaterThanOrEqualTo: controlView.trailingAnchor, constant: -96),
+                    timeIndicatorLabel.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96)
                 ]
         )
 
-        remainingTimeLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        remainingTimeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        timeIndicatorLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
         controlView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
@@ -222,6 +218,18 @@ extension VideoPlayerView {
             bufferIcon.stopAnimating()
         }
         bufferIcon.isHidden = !visible
+    }
+
+    func setTimeIndicatorLabel(elapsedText: String, totalText: String) {
+        let str1 = NSMutableAttributedString(string: elapsedText, attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold).monospacedDigitFont,
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ])
+        let str2 = NSMutableAttributedString(string: " / \(totalText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .regular)])
+
+        str1.append(str2)
+
+        timeIndicatorLabel.attributedText = str1
     }
 }
 

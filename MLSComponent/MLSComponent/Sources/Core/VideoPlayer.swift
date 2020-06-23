@@ -216,7 +216,7 @@ extension VideoPlayer {
                     let seconds = CMTimeGetSeconds(progressTime)
 
                     if !self.view.videoSlider.isTracking {
-                        self.updateRemainingTimeLabel(seconds - durationSeconds)
+                        self.updatetimeIndicatorLabel(seconds, totalSeconds: durationSeconds)
 
                         if durationSeconds > 0 {
                             self.view.videoSlider.value = seconds / durationSeconds
@@ -238,28 +238,30 @@ extension VideoPlayer {
         let totalSeconds = self.currentDuration
         guard totalSeconds > 0 else { return }
 
-        let time = Float64(fraction) * totalSeconds
+        let elapsedSeconds = Float64(fraction) * totalSeconds
 
-        updateRemainingTimeLabel(time - totalSeconds)
+        updatetimeIndicatorLabel(elapsedSeconds, totalSeconds: totalSeconds)
 
-        let seekTime = CMTime(value: Int64(time), timescale: 1)
+        let seekTime = CMTime(value: Int64(elapsedSeconds), timescale: 1)
         player.seek(to: seekTime, debounceSeconds: 0.5, completionHandler: { _ in })
     }
 
-    private func updateRemainingTimeLabel(_ seconds: Double) {
-        let s = abs(seconds)
+    private func updatetimeIndicatorLabel(_ elapsedSeconds: Double, totalSeconds: Double) {
+        view.setTimeIndicatorLabel(elapsedText: formatSeconds(elapsedSeconds), totalText: formatSeconds(totalSeconds))
+    }
 
+    private func formatSeconds(_ s: Double) -> String {
         if s >= 3600 {
             let hoursString = String(format: "%d", Int(s / 3600))
             let minutesString = String(format: "%02d", Int(s.truncatingRemainder(dividingBy: 3600) / 60))
             let secondsString = String(format: "%02d", Int(s.truncatingRemainder(dividingBy: 60)))
 
-            view.remainingTimeLabel.text = "-\(hoursString):\(minutesString):\(secondsString)"
+            return "\(hoursString):\(minutesString):\(secondsString)"
         } else {
             let minutesString = String(format: "%d", Int(s / 60))
             let secondsString = String(format: "%02d", Int(s.truncatingRemainder(dividingBy: 60)))
 
-            view.remainingTimeLabel.text = "-\(minutesString):\(secondsString)"
+            return "\(minutesString):\(secondsString)"
         }
     }
 

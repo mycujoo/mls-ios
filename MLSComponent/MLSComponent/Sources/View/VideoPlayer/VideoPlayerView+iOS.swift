@@ -25,7 +25,7 @@ public class VideoPlayerView: UIView  {
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
-    private var controlViewDebouncer = Debouncer(minimumDelay: 400.0) // tmp
+    private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     // MARK: - UI Components
 
@@ -62,17 +62,11 @@ public class VideoPlayerView: UIView  {
         return stackView
     }()
 
-    let remainingTimeLabel: UILabel! = {
+    private let timeIndicatorLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 13.0, *) {
-            label.font = UIFont.monospacedSystemFont(ofSize: 10, weight: .regular)
-        } else {
-            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 10), size: 10)
-        }
-        label.text = "00:00"
         label.textAlignment = .left
-        label.textColor = .white
+        label.textColor = UIColor(hex: "#cccccc")
         return label
     }()
 
@@ -202,6 +196,8 @@ public class VideoPlayerView: UIView  {
         )
 
         backgroundColor = .black
+
+        setTimeIndicatorLabel(elapsedText: "00:00", totalText: "00:00")
     }
 
     public override func layoutSubviews() {
@@ -244,7 +240,7 @@ public class VideoPlayerView: UIView  {
         // MARK: Below seekbar
 
         let spacer = UIView()
-        barControlsStackView.addArrangedSubview(remainingTimeLabel)
+        barControlsStackView.addArrangedSubview(timeIndicatorLabel)
         barControlsStackView.addArrangedSubview(spacer)
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
@@ -256,13 +252,13 @@ public class VideoPlayerView: UIView  {
         ])
 
         barControlsStackView.setCustomSpacing(14, after: videoSlider)
-        barControlsStackView.setCustomSpacing(5, after: remainingTimeLabel)
+        barControlsStackView.setCustomSpacing(5, after: timeIndicatorLabel)
 
         // Set a minimum width explicitly to prevent constant resizing of the seekbar when dragging it.
-        remainingTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+        timeIndicatorLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
-        remainingTimeLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        remainingTimeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        timeIndicatorLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
@@ -391,6 +387,18 @@ extension VideoPlayerView {
         }
         bufferIcon.isHidden = !visible
         playButton.isHidden = visible
+    }
+
+    func setTimeIndicatorLabel(elapsedText: String, totalText: String) {
+        let str1 = NSMutableAttributedString(string: elapsedText, attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10, weight: .bold).monospacedDigitFont,
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ])
+        let str2 = NSMutableAttributedString(string: " / \(totalText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10, weight: .regular)])
+
+        str1.append(str2)
+
+        timeIndicatorLabel.attributedText = str1
     }
 }
 
