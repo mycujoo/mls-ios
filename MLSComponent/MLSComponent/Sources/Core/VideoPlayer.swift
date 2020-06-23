@@ -158,6 +158,15 @@ public class VideoPlayer: NSObject {
                 let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
                 let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
                 if newStatus != oldStatus {
+                    switch newStatus {
+                    case .playing:
+                        self.status = .play
+                    case .paused:
+                        self.status = .pause
+                    default:
+                        break
+                    }
+
                     DispatchQueue.main.async { [weak self] in
                         if newStatus == .playing || newStatus == .paused {
                             self?.view.setBufferIcon(visible: false)
