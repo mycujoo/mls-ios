@@ -29,8 +29,8 @@ class VideoProgressSlider: UIControl {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        view.heightAnchor.constraint(equalToConstant: 8).isActive = true
-        view.layer.cornerRadius = 4
+        view.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        view.layer.cornerRadius = 3
         return view
     }()
 
@@ -39,8 +39,8 @@ class VideoProgressSlider: UIControl {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         view.backgroundColor = UIColor.white
-        view.heightAnchor.constraint(equalToConstant: 8).isActive = true
-        view.layer.cornerRadius = 4
+        view.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        view.layer.cornerRadius = 3
         return view
     }()
 
@@ -53,9 +53,9 @@ class VideoProgressSlider: UIControl {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         view.backgroundColor = .white
-        view.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 10).isActive = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        view.layer.cornerRadius = 6
+        view.layer.cornerRadius = 5
         return view
     }()
 
