@@ -10,11 +10,21 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Properties
 
+    /// The color that is used throughout various controls and elements of the video player.
+    public var primaryColor: UIColor = .white {
+        didSet {
+            playButton.tintColor = primaryColor
+            bufferIcon.color = primaryColor
+            videoSlider.trackView.backgroundColor = primaryColor
+        }
+    }
+
     /// The AVPlayerLayer that is associated with this video player.
     private(set) public var playerLayer: AVPlayerLayer?
     
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
+    private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     // MARK: - UI Components
 
@@ -37,12 +47,12 @@ public class VideoPlayerView: UIView  {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         if #available(tvOS 13.0, *) {
-            label.font = UIFont.monospacedSystemFont(ofSize: 24, weight: .regular)
+            label.font = UIFont.monospacedSystemFont(ofSize: 18, weight: .regular)
         } else {
-            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 24), size: 24)
+            label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 18), size: 18)
         }
         label.text = "00:00"
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.textColor = .white
         return label
     }()
@@ -76,14 +86,14 @@ public class VideoPlayerView: UIView  {
     private func drawSelf() {
 
         addSubview(controlView)
-        drawControls(in: controlView)
+        drawControls()
         NSLayoutConstraint
             .activate(
                 [
-                    controlView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                    controlView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-                    controlView.heightAnchor.constraint(equalToConstant: 64)
+                    controlView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+                    controlView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+                    controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
                 ]
         )
 
@@ -105,16 +115,17 @@ public class VideoPlayerView: UIView  {
         playerLayer?.frame = bounds
     }
 
-    private func drawControls(in view: UIView) {
+    private func drawControls() {
 
-        view.addSubview(remainingTimeLabel)
-        view.addSubview(videoSlider)
+        controlView.addSubview(remainingTimeLabel)
+        controlView.addSubview(videoSlider)
 
         NSLayoutConstraint
             .activate(
                 [
-                    videoSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-                    videoSlider.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                    videoSlider.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 96),
+                    videoSlider.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -96),
+                    videoSlider.bottomAnchor.constraint(equalTo: remainingTimeLabel.topAnchor, constant: -12),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
@@ -123,19 +134,16 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    remainingTimeLabel.leadingAnchor.constraint(equalTo: videoSlider.trailingAnchor, constant: 24),
-                    remainingTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                    remainingTimeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-                    // Set a minimum width explicitly to prevent constant resizing of the seekbar when dragging it.
-                    remainingTimeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 120)
+                    remainingTimeLabel.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 96),
+                    remainingTimeLabel.trailingAnchor.constraint(greaterThanOrEqualTo: controlView.trailingAnchor, constant: -96),
+                    remainingTimeLabel.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96)
                 ]
         )
 
         remainingTimeLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         remainingTimeLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
-        view.layer.cornerRadius = 16.0
-        view.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.8)
+        controlView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
 
     //MARK: - Methods
@@ -161,6 +169,8 @@ extension VideoPlayerView {
 
     @objc private func playButtonTapped() {
         onPlayButtonTapped?()
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
@@ -169,6 +179,26 @@ extension VideoPlayerView {
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
+    private func setControlViewVisibility(visible: Bool) {
+        if visible {
+            controlViewDebouncer.debounce {
+                UIView.animate(withDuration: 0.3) {
+                    self.controlView.alpha = 0
+                }
+            }
+        }
+
+        if (controlView.alpha <= 0) == visible {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.15) {
+                    self.controlView.alpha = visible ? 1 : 0
+                }
+            }
+        }
     }
 
     func setPlayButtonTo(state: VideoPlayer.PlayButtonState) {
