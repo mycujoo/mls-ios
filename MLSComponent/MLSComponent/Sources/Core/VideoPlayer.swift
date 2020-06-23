@@ -42,9 +42,10 @@ public class VideoPlayer: NSObject {
             if state == .ended {
                 buttonState = .replay
             }
-
-            view.setPlayButtonTo(state: buttonState)
-
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view.setPlayButtonTo(state: buttonState)
+            }
             delegate?.playerDidUpdatePlaying(player: self)
         }
     }
@@ -55,7 +56,10 @@ public class VideoPlayer: NSObject {
     public var isFullscreen: Bool = false {
         didSet {
             if isFullscreen != oldValue {
-                view.setFullscreenButtonTo(fullscreen: isFullscreen)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view.setFullscreenButtonTo(fullscreen: self.isFullscreen)
+                }
                 delegate?.playerDidUpdateFullscreen(player: self)
             }
         }
@@ -118,6 +122,8 @@ public class VideoPlayer: NSObject {
         return plugin
     }()
 
+    lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
+
     // MARK: - Methods
 
     public override init() {
@@ -125,14 +131,18 @@ public class VideoPlayer: NSObject {
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
-        view.setOnTimeSliderSlide(sliderUpdated)
-        view.setOnPlayButtonTapped(playButtonTapped)
-        #if os(iOS)
-        view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
-        #endif
+
         youboraPlugin.fireInit()
-        
-        view.drawPlayer(with: player)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.view.setOnTimeSliderSlide(self.sliderUpdated)
+            self.view.setOnPlayButtonTapped(self.playButtonTapped)
+            #if os(iOS)
+            self.view.setOnFullscreenButtonTapped(self.fullscreenButtonTapped)
+            #endif
+            self.view.drawPlayer(with: self.player)
+        }
     }
 
     deinit {
@@ -247,7 +257,10 @@ extension VideoPlayer {
     }
 
     private func updatetimeIndicatorLabel(_ elapsedSeconds: Double, totalSeconds: Double) {
-        view.setTimeIndicatorLabel(elapsedText: formatSeconds(elapsedSeconds), totalText: formatSeconds(totalSeconds))
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
+        }
     }
 
     private func formatSeconds(_ s: Double) -> String {
@@ -288,49 +301,54 @@ extension VideoPlayer {
 
 extension VideoPlayer {
     private func evaluateAnnotations() {
-        // TODO: Run this on a background thread.
+        annotationsQueue.async { [weak self] in
+            guard let self = self else { return }
 
-        let duration = self.currentDuration
-        guard duration > 0 else { return }
+            let duration = self.currentDuration
+            guard duration > 0 else { return }
 
-        let currentTime = self.currentTime
-        let annotations = self.annotations
+            let currentTime = self.currentTime
+            let annotations = self.annotations
 
-        var showTimelineMarkers: [(position: Double, marker: TimelineMarker)] = []
-        for annotation in annotations {
-            for action in annotation.actions {
-                switch action {
-                case .showTimelineMarker(let data):
-                    let color = UIColor(hex: data.color) ?? UIColor.gray
-                    // There should not be multiple timeline markers for a single annotation, so reuse annotation id on the timeline marker.
-                    let timelineMarker = TimelineMarker(id: annotation.id, kind: .singleLineText(text: data.label), markerColor: color, timestamp: TimeInterval(annotation.offset / 1000))
-                    showTimelineMarkers.append((position: min(1.0, max(0.0, timelineMarker.timestamp / duration)), marker: timelineMarker))
-//                case .showOverlay(let data):
-//                    break
-//                case .hideOverlay(let data):
-//                    break
-//                case .setVariable(let data):
-//                    break
-//                case .incrementVariable(let data):
-//                    break
-//                case .createTimer(let data):
-//                    break
-//                case .startTimer(let data):
-//                    break
-//                case .pauseTimer(let data):
-//                    break
-//                case .adjustTimer(let data):
-//                    break
-//                case .unsupported:
-//                    break
-                default:
-                    break
+            var showTimelineMarkers: [(position: Double, marker: TimelineMarker)] = []
+            for annotation in annotations {
+                for action in annotation.actions {
+                    switch action {
+                    case .showTimelineMarker(let data):
+                        let color = UIColor(hex: data.color) ?? UIColor.gray
+                        // There should not be multiple timeline markers for a single annotation, so reuse annotation id on the timeline marker.
+                        let timelineMarker = TimelineMarker(id: annotation.id, kind: .singleLineText(text: data.label), markerColor: color, timestamp: TimeInterval(annotation.offset / 1000))
+                        showTimelineMarkers.append((position: min(1.0, max(0.0, timelineMarker.timestamp / duration)), marker: timelineMarker))
+    //                case .showOverlay(let data):
+    //                    break
+    //                case .hideOverlay(let data):
+    //                    break
+    //                case .setVariable(let data):
+    //                    break
+    //                case .incrementVariable(let data):
+    //                    break
+    //                case .createTimer(let data):
+    //                    break
+    //                case .startTimer(let data):
+    //                    break
+    //                case .pauseTimer(let data):
+    //                    break
+    //                case .adjustTimer(let data):
+    //                    break
+    //                case .unsupported:
+    //                    break
+                    default:
+                        break
+                    }
                 }
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view.videoSlider.setTimelineMarkers(with: showTimelineMarkers)
             }
         }
 
-        // TODO: Do this on the main thread
-        self.view.videoSlider.setTimelineMarkers(with: showTimelineMarkers)
     }
 
 
