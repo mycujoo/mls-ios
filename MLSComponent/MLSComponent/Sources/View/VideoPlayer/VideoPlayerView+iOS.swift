@@ -16,7 +16,7 @@ public class VideoPlayerView: UIView  {
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
-    private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
+    private var controlViewDebouncer = Debouncer(minimumDelay: 400.0) // tmp
 
     // MARK: - UI Components
 
@@ -62,7 +62,7 @@ public class VideoPlayerView: UIView  {
             label.font = UIFont(descriptor: UIFontDescriptor(name: "Menlo", size: 10), size: 10)
         }
         label.text = "00:00"
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.textColor = .white
         return label
     }()
@@ -204,32 +204,47 @@ public class VideoPlayerView: UIView  {
     private func drawControls() {
         // MARK: Basic setup
 
-        controlAlphaView.backgroundColor = #colorLiteral(red: 0.1098039216, green: 0.1098039216, blue: 0.1098039216, alpha: 0.5)
+        controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
         controlView.addSubview(barControlsStackView)
 
         // MARK: Play/pause button
 
         controlView.addSubview(playButton)
-        playButton.centerXAnchor.constraint(equalTo: controlView.centerXAnchor).isActive = true
-        playButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor).isActive = true
-        playButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        playButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+
+        NSLayoutConstraint.activate([
+            playButton.centerXAnchor.constraint(equalTo: controlView.centerXAnchor),
+            playButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor),
+            playButton.heightAnchor.constraint(equalToConstant: 40),
+            playButton.widthAnchor.constraint(equalToConstant: 40)
+        ])
+
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
 
         // MARK: Seekbar
 
-        barControlsStackView.addArrangedSubview(videoSlider)
+        controlView.addSubview(videoSlider)
+        NSLayoutConstraint.activate([
+            videoSlider.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 14),
+            videoSlider.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -14),
+            videoSlider.bottomAnchor.constraint(equalTo: barControlsStackView.topAnchor, constant: 0),
+            videoSlider.heightAnchor.constraint(equalToConstant: 10)
+        ])
+
+        videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
+
+        // MARK: Below seekbar
+
+        let spacer = UIView()
         barControlsStackView.addArrangedSubview(remainingTimeLabel)
+        barControlsStackView.addArrangedSubview(spacer)
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
-        NSLayoutConstraint
-           .activate(
-               [
-                   barControlsStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 14),
-                   barControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
-                   barControlsStackView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8),
-                   barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
-               ])
+        NSLayoutConstraint.activate([
+           barControlsStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 14),
+           barControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
+           barControlsStackView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8),
+           barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
+        ])
 
         barControlsStackView.setCustomSpacing(14, after: videoSlider)
         barControlsStackView.setCustomSpacing(5, after: remainingTimeLabel)
@@ -242,7 +257,6 @@ public class VideoPlayerView: UIView  {
         fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
-        videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
         addGestureRecognizer(tapGestureRecognizer)
