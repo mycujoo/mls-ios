@@ -193,9 +193,14 @@ extension VideoProgressSlider {
                 markerView.translatesAutoresizingMaskIntoConstraints = false
                 markerView.backgroundColor = object.marker.markerColor
                 addSubview(markerView)
-                markerView.heightAnchor.constraint(equalTo: timeView.heightAnchor).isActive = true
+                #if os(tvOS)
+                markerView.widthAnchor.constraint(equalToConstant: 4).isActive = true
+                markerView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+                #else
+                markerView.widthAnchor.constraint(equalToConstant: 2).isActive = true
+                markerView.heightAnchor.constraint(equalToConstant: 6).isActive = true
+                #endif
                 markerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-                markerView.widthAnchor.constraint(equalToConstant: 3).isActive = true
 
                 let constraint = NSLayoutConstraint(
                     item: markerView,

@@ -31,7 +31,7 @@ extension API: TargetType {
         switch self {
         case .playerConfig(let eventId):
             return Data("""
-                {"primary_color":"#38d430","autoplay":false,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
+                {"primary_color":"#38d430","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
                 """.utf8)
         case .annotations(let timelineId):
             switch timelineId {
