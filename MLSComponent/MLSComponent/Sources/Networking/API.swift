@@ -37,7 +37,7 @@ extension API: TargetType {
             switch timelineId {
             case "timelineMarkers":
                 return Data("""
-                {"annotations":[{"id":"ann_1","timeline_id":"tml_1","offset":5000,"actions":[{"type":"show_timeline_marker","data":{"color":"#ff0000","label":"Goal"}}]},{"id":"ann_2","timeline_id":"tml_2","offset":120000,"actions":[{"type":"show_timeline_marker","data":{"color":"#aaaaaa","label":"Goal"}}]},{"id":"ann_3","timeline_id":"tml_3","offset":2400000,"actions":[{"type":"show_timeline_marker","data":{"color":"#00ff44","label":"Goal"}}]},{"id":"ann_4","timeline_id":"tml_4","offset":4600000,"actions":[{"type":"show_timeline_marker","data":{"color":"#fda89f","label":"Goal"}}]}]}
+                {"annotations":[{"actions":[{"data":{"color":"#ff0000","label":"Goal"},"type":"show_timeline_marker"}],"id":"ann_1","offset":824000,"timeline_id":"tml_1"},{"actions":[{"data":{"color":"#00ff44","label":"Goal"},"type":"show_timeline_marker"}],"id":"ann_3","offset":4122000,"timeline_id":"tml_3"},{"actions":[{"data":{"color":"#fda89f","label":"Goal"},"type":"show_timeline_marker"}],"id":"ann_4","offset":7419000,"timeline_id":"tml_4"}]}
                 """.utf8)
             default:
                 return Data("""

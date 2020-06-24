@@ -91,7 +91,14 @@ class VideoProgressSlider: UIControl {
     /// - a UIView that represents the timeline marker
     /// - a position (between 0 and 1) that describes its relative position on the seekbar
     /// - a constraint that is used to set its position. This could be derived from the markerView's layoutAnchors but its quicker to access this way.
-    private var markers: [String: (markerView: UIView, position: Double, constraint: NSLayoutConstraint)] = [:]
+    private var markers: [String: (markerView: UIView, position: Double, constraint: NSLayoutConstraint)] = [:] {
+        didSet {
+            markerPositions = markers.map { $0.value.position}.sorted()
+        }
+    }
+
+    /// Should contain the same positions as are stored in `markers`. Saves computational effort while seeking.
+    private var markerPositions: [Double] = []
     
     //MARK: - Init
     
@@ -157,9 +164,8 @@ class VideoProgressSlider: UIControl {
         sendActions(for: .valueChanged)
 
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
-        let moments = (markers.map { $0.value.position }).sorted()
-        let highlightValue = moments.first { moment in
-            ((value - rangeInterval)...(value + rangeInterval)).contains(moment)
+        let highlightValue = markerPositions.first { position in
+            ((value - rangeInterval)...(value + rangeInterval)).contains(position)
         }
 
         if let highlightValue = highlightValue {
@@ -176,7 +182,7 @@ class VideoProgressSlider: UIControl {
 extension VideoProgressSlider {
     func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)]) {
         let minPossibleMultiplier: CGFloat = 0.001
-        let maxPossibleMultiplier: CGFloat = 0.999
+        let maxPossibleMultiplier: CGFloat = 2
         let centerXOfView: CGFloat = 2
 
         // Remove markers that are not relevant anymore.
