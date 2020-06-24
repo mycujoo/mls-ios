@@ -5,6 +5,9 @@
 import UIKit
 
 class VideoProgressSlider: UIControl {
+
+    /// Describes how many points the thumb needs to be away from the center of a timeline marker before its bubble appears/disappears.
+    private let showTimelineMarkerBubbleWithinPointRange: Double = 5.0
     
     //MARK: - Properties
     
@@ -17,7 +20,6 @@ class VideoProgressSlider: UIControl {
         set {
             guard !isTracking else { return }
             _value = newValue
-            updateLayerFrames()
         }
     }
     
@@ -85,8 +87,11 @@ class VideoProgressSlider: UIControl {
         highlightView.centerXAnchor.constraint(equalTo: leadingAnchor)
     }()
 
-    private var timelineMarkers: [CGFloat] = []
-    private var markers: [String: (markerView: UIView, constraint: NSLayoutConstraint)] = [:]
+    /// A dictionary of marker ids (keys) to tuples (values). Each tuple contains:
+    /// - a UIView that represents the timeline marker
+    /// - a position (between 0 and 1) that describes its relative position on the seekbar
+    /// - a constraint that is used to set its position. This could be derived from the markerView's layoutAnchors but its quicker to access this way.
+    private var markers: [String: (markerView: UIView, position: Double, constraint: NSLayoutConstraint)] = [:]
     
     //MARK: - Init
     
@@ -145,11 +150,16 @@ class VideoProgressSlider: UIControl {
 
     //MARK: - Touching
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        _value = Double(max(0, min(touch.location(in: self).x, bounds.width)) / bounds.width)
+        let width = Double(bounds.width)
+        guard width > 0 else { return false }
+
+        _value = max(0, min(Double(touch.location(in: self).x), width)) / width
         sendActions(for: .valueChanged)
 
-        let highlightValue = timelineMarkers.first { moment in
-            ((value - 0.1)...(value + 0.1)).contains(Double(moment))
+        let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
+        let moments = (markers.map { $0.value.position }).sorted()
+        let highlightValue = moments.first { moment in
+            ((value - rangeInterval)...(value + rangeInterval)).contains(moment)
         }
 
         if let highlightValue = highlightValue {
@@ -180,6 +190,10 @@ extension VideoProgressSlider {
 
         for object in objects {
             if let oldMarker = self.markers[object.marker.id] {
+                guard oldMarker.position != object.position else {
+                    continue
+                }
+
                 let oldConstraint = oldMarker.constraint
                 let newConstraint = oldConstraint.constraintWithMultiplier(min(max(minPossibleMultiplier, centerXOfView * CGFloat(object.position)), maxPossibleMultiplier))
                 // Set to low to avoid messing with the slider layout if at the edges
@@ -187,6 +201,8 @@ extension VideoProgressSlider {
 
                 oldConstraint.isActive = false
                 newConstraint.isActive = true
+
+                self.markers[object.marker.id] = (markerView: oldMarker.markerView, position: object.position, constraint: newConstraint)
             } else {
                 let markerView = UIView()
                 markerView.isUserInteractionEnabled = false
@@ -215,7 +231,7 @@ extension VideoProgressSlider {
                 constraint.priority = .defaultLow
                 constraint.isActive = true
 
-                self.markers[object.marker.id] = (markerView: markerView, constraint: constraint)
+                self.markers[object.marker.id] = (markerView: markerView, position: object.position, constraint: constraint)
             }
         }
 

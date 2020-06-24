@@ -115,6 +115,7 @@ public class VideoPlayerView: UIView  {
 
     private func drawControls() {
 
+        controlView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
         controlView.addSubview(timeIndicatorLabel)
         controlView.addSubview(videoSlider)
 
@@ -141,7 +142,7 @@ public class VideoPlayerView: UIView  {
         timeIndicatorLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
-        controlView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        setControlViewVisibility(visible: true)
     }
 
     //MARK: - Methods
