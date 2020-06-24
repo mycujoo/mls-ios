@@ -115,16 +115,6 @@ public class VideoPlayerView: UIView  {
         }
     }
 
-    /// Exposes the AVPlayerLayer's videoGravity property.
-    public var videoGravity: AVLayerVideoGravity {
-        get {
-            return playerLayer?.videoGravity ?? .resizeAspect
-        }
-        set {
-            playerLayer?.videoGravity = newValue
-        }
-    }
-
     /// Exposes the `UITapGestureRecognizer` on the VideoPlayerView, which is used to determine whether to hide or show the controls.
     public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
         let gr = UITapGestureRecognizer(target: self, action: #selector(controlViewTapped))

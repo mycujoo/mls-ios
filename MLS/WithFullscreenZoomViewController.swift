@@ -20,15 +20,15 @@ class WithFullscreenZoomViewController: UIViewController {
         didSet {
             switch playerConstraintMode {
             case .portrait:
-                videoPlayer.view.videoGravity = .resizeAspect
+                videoPlayer.view.playerLayer?.videoGravity = .resizeAspect
                 NSLayoutConstraint.deactivate(landscapePlayerConstraints)
                 NSLayoutConstraint.activate(portraitPlayerConstraints)
             case .landscape:
-                videoPlayer.view.videoGravity = .resizeAspect
+                videoPlayer.view.playerLayer?.videoGravity = .resizeAspect
                 NSLayoutConstraint.deactivate(portraitPlayerConstraints)
                 NSLayoutConstraint.activate(landscapePlayerConstraints)
             case .zoomedLandscape:
-                videoPlayer.view.videoGravity = .resizeAspectFill
+                videoPlayer.view.playerLayer?.videoGravity = .resizeAspectFill
                 NSLayoutConstraint.deactivate(portraitPlayerConstraints)
                 NSLayoutConstraint.activate(landscapePlayerConstraints)
             default:
