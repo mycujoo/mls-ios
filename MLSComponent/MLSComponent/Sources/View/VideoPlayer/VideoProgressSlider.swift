@@ -89,9 +89,7 @@ class VideoProgressSlider: UIControl {
         return label
     }()
 
-    private lazy var centerXConstraintOfMarkerBubble: NSLayoutConstraint = {
-        markerBubbleLabel.centerXAnchor.constraint(equalTo: leadingAnchor)
-    }()
+    private var centerXConstraintOfMarkerBubble: NSLayoutConstraint? = nil
 
     /// A dictionary of marker ids (keys) to tuples (values). Each tuple contains:
     /// - a UIView that represents the timeline marker
@@ -146,7 +144,6 @@ class VideoProgressSlider: UIControl {
         addSubview(markerBubbleLabel)
         markerBubbleLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -4).isActive = true
         markerBubbleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
-        centerXConstraintOfMarkerBubble.isActive = true
     }
     
     private func updateLayerFrames() {
@@ -165,7 +162,6 @@ class VideoProgressSlider: UIControl {
 
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
         if let marker = (markers.first { ((value - rangeInterval)...(value + rangeInterval)).contains($0.value.position) }) {
-            centerXConstraintOfMarkerBubble.constant = bounds.width * CGFloat(marker.value.position)
             markerBubbleLabel.backgroundColor = marker.value.marker.markerColor
             markerBubbleLabel.textColor = marker.value.marker.markerColor.isDarkColor ? .white : .black
 
@@ -173,7 +169,16 @@ class VideoProgressSlider: UIControl {
             case .singleLineText(let text):
                 markerBubbleLabel.text = text
             }
-            
+
+            if let constraint = centerXConstraintOfMarkerBubble, let secondItem = constraint.secondItem, secondItem.isEqual(marker.value.markerView) {} else {
+                // There is either no constraint for the marker bubble yet, or it is currently placed on a different timeline marker.
+                // (Re)place it with a new constraint.
+                centerXConstraintOfMarkerBubble?.isActive = false
+                centerXConstraintOfMarkerBubble = markerBubbleLabel.centerXAnchor.constraint(equalTo: marker.value.markerView.centerXAnchor)
+                centerXConstraintOfMarkerBubble?.priority = .defaultLow
+                centerXConstraintOfMarkerBubble?.isActive = true
+            }
+
             markerBubbleLabel.isHidden = false
         } else {
             markerBubbleLabel.isHidden = true
