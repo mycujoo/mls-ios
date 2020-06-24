@@ -73,32 +73,31 @@ class VideoProgressSlider: UIControl {
         }
     }
 
-    private let highlightView: UIView = {
-        let label = UILabel()
+    private let markerBubbleLabel: UILabel = {
+        let label = PaddingLabel(padding: UIEdgeInsets.init(top: 4, left: 10, bottom: 4, right: 10))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isUserInteractionEnabled = false
-        label.backgroundColor = .green
-        label.text = "highlight"
+        label.numberOfLines = 10
+        label.lineBreakMode = .byWordWrapping
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+        label.textAlignment = .center
+        label.layer.cornerRadius = 3
+        label.clipsToBounds = true
         label.isHidden = true
         return label
     }()
 
-    private lazy var centerXConstraintOfHighlight: NSLayoutConstraint = {
-        highlightView.centerXAnchor.constraint(equalTo: leadingAnchor)
+    private lazy var centerXConstraintOfMarkerBubble: NSLayoutConstraint = {
+        markerBubbleLabel.centerXAnchor.constraint(equalTo: leadingAnchor)
     }()
 
     /// A dictionary of marker ids (keys) to tuples (values). Each tuple contains:
     /// - a UIView that represents the timeline marker
     /// - a position (between 0 and 1) that describes its relative position on the seekbar
     /// - a constraint that is used to set its position. This could be derived from the markerView's layoutAnchors but its quicker to access this way.
-    private var markers: [String: (markerView: UIView, position: Double, constraint: NSLayoutConstraint)] = [:] {
-        didSet {
-            markerPositions = markers.map { $0.value.position}.sorted()
-        }
-    }
-
-    /// Should contain the same positions as are stored in `markers`. Saves computational effort while seeking.
-    private var markerPositions: [Double] = []
+    private var markers: [String: (marker: TimelineMarker, markerView: UIView, position: Double, constraint: NSLayoutConstraint)] = [:]
     
     //MARK: - Init
     
@@ -144,9 +143,10 @@ class VideoProgressSlider: UIControl {
         centerXOfThumbView.isActive = true
         thumbView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
-        addSubview(highlightView)
-        highlightView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 16).isActive = true
-        centerXConstraintOfHighlight.isActive = true
+        addSubview(markerBubbleLabel)
+        markerBubbleLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -4).isActive = true
+        markerBubbleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
+        centerXConstraintOfMarkerBubble.isActive = true
     }
     
     private func updateLayerFrames() {
@@ -164,15 +164,19 @@ class VideoProgressSlider: UIControl {
         sendActions(for: .valueChanged)
 
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
-        let highlightValue = markerPositions.first { position in
-            ((value - rangeInterval)...(value + rangeInterval)).contains(position)
-        }
+        if let marker = (markers.first { ((value - rangeInterval)...(value + rangeInterval)).contains($0.value.position) }) {
+            centerXConstraintOfMarkerBubble.constant = bounds.width * CGFloat(marker.value.position)
+            markerBubbleLabel.backgroundColor = marker.value.marker.markerColor
+            markerBubbleLabel.textColor = marker.value.marker.markerColor.isDarkColor ? .white : .black
 
-        if let highlightValue = highlightValue {
-            highlightView.isHidden = false
-            centerXConstraintOfHighlight.constant = bounds.width * CGFloat(highlightValue)
+            switch marker.value.marker.kind {
+            case .singleLineText(let text):
+                markerBubbleLabel.text = text
+            }
+            
+            markerBubbleLabel.isHidden = false
         } else {
-            highlightView.isHidden = true
+            markerBubbleLabel.isHidden = true
         }
 
         return true
@@ -208,7 +212,7 @@ extension VideoProgressSlider {
                 oldConstraint.isActive = false
                 newConstraint.isActive = true
 
-                self.markers[object.marker.id] = (markerView: oldMarker.markerView, position: object.position, constraint: newConstraint)
+                self.markers[object.marker.id] = (marker: object.marker, markerView: oldMarker.markerView, position: object.position, constraint: newConstraint)
             } else {
                 let markerView = UIView()
                 markerView.isUserInteractionEnabled = false
@@ -237,7 +241,7 @@ extension VideoProgressSlider {
                 constraint.priority = .defaultLow
                 constraint.isActive = true
 
-                self.markers[object.marker.id] = (markerView: markerView, position: object.position, constraint: constraint)
+                self.markers[object.marker.id] = (marker: object.marker, markerView: markerView, position: object.position, constraint: constraint)
             }
         }
 
