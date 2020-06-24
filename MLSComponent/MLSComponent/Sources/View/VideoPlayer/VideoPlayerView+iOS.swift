@@ -93,7 +93,7 @@ public class VideoPlayerView: UIView  {
     private let timeIndicatorLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
+        label.textAlignment = .natural
         label.textColor = UIColor(hex: "#cccccc")
         return label
     }()
@@ -461,6 +461,10 @@ extension VideoPlayerView {
             let str2 = NSMutableAttributedString(string: " / \(totalText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10, weight: .regular)])
 
             str1.append(str2)
+        }
+
+        if UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft {
+            // TODO: I18N
         }
 
         timeIndicatorLabel.attributedText = str1

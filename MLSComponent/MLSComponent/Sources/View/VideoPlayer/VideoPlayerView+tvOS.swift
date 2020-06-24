@@ -48,7 +48,7 @@ public class VideoPlayerView: UIView  {
     private let timeIndicatorLabel: UILabel! = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
+        label.textAlignment = .natural
         label.textColor = UIColor(hex: "#cccccc")
         return label
     }()

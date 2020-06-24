@@ -172,7 +172,11 @@ class VideoProgressSlider: UIControl {
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
-        _value = max(0, min(Double(touch.location(in: self).x), width)) / width
+        if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
+            _value = 1 - (max(0, min(Double(touch.location(in: self).x), width)) / width)
+        } else {
+            _value = max(0, min(Double(touch.location(in: self).x), width)) / width
+        }
         sendActions(for: .valueChanged)
 
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
@@ -218,9 +222,18 @@ class VideoProgressSlider: UIControl {
 
 extension VideoProgressSlider {
     func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)]) {
-        let minPossibleMultiplier: CGFloat = 0.001
-        let maxPossibleMultiplier: CGFloat = 2
-        let centerXOfView: CGFloat = 2
+        /// Takes a position (value between 0 and 1) and returns a multiplier that can be used on a centerXAnchor for the timeline marker.
+        func calcConstraintMultiplier(position: Double) -> CGFloat {
+            let minPossibleMultiplier: CGFloat = 0.001
+            let maxPossibleMultiplier: CGFloat = 2
+            let centerXOfView: CGFloat = 2
+
+            if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
+                return min(max(minPossibleMultiplier, centerXOfView * CGFloat(1 - position)), maxPossibleMultiplier)
+            } else {
+                return min(max(minPossibleMultiplier, centerXOfView * CGFloat(position)), maxPossibleMultiplier)
+            }
+        }
 
         // Remove markers that are not relevant anymore.
         let newMarkerIds = objects.map { $0.marker.id }
@@ -238,7 +251,7 @@ extension VideoProgressSlider {
                 }
 
                 let oldConstraint = oldMarker.constraint
-                let newConstraint = oldConstraint.constraintWithMultiplier(min(max(minPossibleMultiplier, centerXOfView * CGFloat(object.position)), maxPossibleMultiplier))
+                let newConstraint = oldConstraint.constraintWithMultiplier(calcConstraintMultiplier(position: object.position))
                 // Set to low to avoid messing with the slider layout if at the edges
                 newConstraint.priority = .defaultLow
 
@@ -267,7 +280,7 @@ extension VideoProgressSlider {
                     relatedBy: .equal,
                     toItem: self,
                     attribute: .centerX,
-                    multiplier: min(max(minPossibleMultiplier, centerXOfView * CGFloat(object.position)), maxPossibleMultiplier),
+                    multiplier: calcConstraintMultiplier(position: object.position),
                     constant: 0
                 )
                 // Set to low to avoid messing with the slider layout if at the edges
