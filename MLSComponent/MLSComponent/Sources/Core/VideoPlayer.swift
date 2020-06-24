@@ -123,7 +123,21 @@ public class VideoPlayer: NSObject {
         return plugin
     }()
 
-    lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
+    private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
+
+    // MARK: - Internal properties
+
+    /// Setting the playerConfig will automatically updates the associated views and behavior.
+    /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
+    var playerConfig = PlayerConfig.standard() {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+                self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
+                // TODO: Reconfigure other options as well.
+            }
+        }
+    }
 
     // MARK: - Methods
 
@@ -232,9 +246,12 @@ public extension VideoPlayer {
 
     func pause() { status = .pause }
 
-    func playVideo(with event: Event, autoplay: Bool = true) {
+    func playVideo(with event: Event) {
         self.event = event
-        if autoplay { play() }
+        print("Playing video with config", playerConfig)
+        if playerConfig.autoplay {
+            play()
+        }
     }
 }
 

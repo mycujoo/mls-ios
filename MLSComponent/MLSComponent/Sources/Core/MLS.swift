@@ -43,11 +43,29 @@ public class MLS {
 
     public func videoPlayer(with event: Event? = nil, autoplay: Bool = true) -> VideoPlayer {
         let player = VideoPlayer()
-        DispatchQueue.main.async {
-            player.view.primaryColor = UIColor(hex: "#38d430")
-        }
         if let event = event {
-            player.playVideo(with: event, autoplay: autoplay)
+            var playVideoWasCalled = false
+            let playVideoWorkItem = DispatchWorkItem() {
+                if !playVideoWasCalled {
+                    playVideoWasCalled = true
+                    player.playVideo(with: event)
+                }
+            }
+
+            // Schedule the player to start playing in 3 seconds if the API does not respond by then.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playVideoWorkItem)
+            moyaProvider.request(.playerConfig(event.id)) { result in
+                switch result {
+                case .success(let response):
+                    let decoder = JSONDecoder()
+                    if let config = try? decoder.decode(PlayerConfig.self, from: response.data) {
+                        player.playerConfig = config
+                        DispatchQueue.main.async(execute: playVideoWorkItem)
+                    }
+                case .failure(_):
+                    break
+                }
+            }
 
             // TODO: Should not pass eventId but timelineId
 //            moyaProvider.request(.annotations(event.id)) { result in

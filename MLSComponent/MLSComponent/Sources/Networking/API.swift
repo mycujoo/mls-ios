@@ -6,12 +6,15 @@ import Foundation
 import Moya
 
 public enum API {
+    case playerConfig(String)
     case annotations(String)
 }
 extension API: TargetType {
     public var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
     public var path: String {
         switch self {
+        case .playerConfig(let eventId):
+            return "/bff/player_config/\(eventId)"
         case .annotations(let timelineId):
             return "/bff/annotations/\(timelineId)"
         }
@@ -19,13 +22,17 @@ extension API: TargetType {
 
     public var method: Moya.Method {
         switch self {
-        case .annotations:
+        case .playerConfig, .annotations:
             return .get
         }
     }
 
     public var sampleData: Data {
         switch self {
+        case .playerConfig(let eventId):
+            return Data("""
+                {"primary_color":"#38d430","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
+                """.utf8)
         case .annotations(let timelineId):
             switch timelineId {
             case "timelineMarkers":
@@ -44,7 +51,7 @@ extension API: TargetType {
 
     public var task: Moya.Task {
         switch self {
-       case .annotations:
+        case .playerConfig, .annotations:
            return .requestPlain
        }
     }
