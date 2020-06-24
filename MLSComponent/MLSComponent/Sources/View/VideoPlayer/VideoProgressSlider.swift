@@ -74,7 +74,11 @@ class VideoProgressSlider: UIControl {
     }
 
     private let markerBubbleLabel: UILabel = {
-        let label = PaddingLabel(padding: UIEdgeInsets.init(top: 4, left: 10, bottom: 4, right: 10))
+        #if os(tvOS)
+        let label = PaddingLabel(padding: UIEdgeInsets.init(top: 6, left: 12, bottom: 6, right: 12))
+        #else
+        let label = PaddingLabel(padding: UIEdgeInsets.init(top: 4, left: 8, bottom: 4, right: 8))
+        #endif
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isUserInteractionEnabled = false
         label.numberOfLines = 10
@@ -82,7 +86,7 @@ class VideoProgressSlider: UIControl {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
         #if os(tvOS)
-        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 22, weight: .regular)
         label.layer.cornerRadius = 12
         #else
         label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
@@ -90,16 +94,17 @@ class VideoProgressSlider: UIControl {
         #endif
         label.textAlignment = .center
         label.clipsToBounds = true
-        label.isHidden = true
+        label.alpha = 0.0
         return label
     }()
 
     private var centerXConstraintOfMarkerBubble: NSLayoutConstraint? = nil
 
     /// A dictionary of marker ids (keys) to tuples (values). Each tuple contains:
-    /// - a UIView that represents the timeline marker
-    /// - a position (between 0 and 1) that describes its relative position on the seekbar
-    /// - a constraint that is used to set its position. This could be derived from the markerView's layoutAnchors but its quicker to access this way.
+    /// * the TimelineMarker object itself
+    /// * a UIView that represents the timeline marker
+    /// * a position (between 0 and 1) that describes its relative position on the seekbar
+    /// * a constraint that is used to set its position. This could be derived from the markerView's layoutAnchors but its quicker to access this way.
     private var markers: [String: (marker: TimelineMarker, markerView: UIView, position: Double, constraint: NSLayoutConstraint)] = [:]
     
     //MARK: - Init
@@ -188,13 +193,26 @@ class VideoProgressSlider: UIControl {
                 centerXConstraintOfMarkerBubble?.priority = .defaultLow
                 centerXConstraintOfMarkerBubble?.isActive = true
             }
-
-            markerBubbleLabel.isHidden = false
+            if markerBubbleLabel.alpha < 1 {
+                UIView.animate(withDuration: 0.15) { [weak self] in
+                    self?.markerBubbleLabel.alpha = 1.0
+                }
+            }
         } else {
-            markerBubbleLabel.isHidden = true
+            if markerBubbleLabel.alpha > 0 {
+                UIView.animate(withDuration: 0.15) { [weak self] in
+                    self?.markerBubbleLabel.alpha = 0.0
+                }
+            }
         }
 
         return true
+    }
+
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.15) { [weak self] in
+            self?.markerBubbleLabel.alpha = 0.0
+        }
     }
 }
 
