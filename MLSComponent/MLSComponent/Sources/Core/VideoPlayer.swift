@@ -24,7 +24,14 @@ public class VideoPlayer: NSObject {
         didSet {
             guard let stream = event?.stream else { return }
 
-            replaceCurrentItem(url: stream.urls.first)
+            replaceCurrentItem(url: stream.urls.first) { [weak self] completed in
+                guard let self = self else { return }
+                if completed {
+                    if self.playerConfig.autoplay {
+                        self.play()
+                    }
+                }
+            }
         }
     }
 
@@ -47,7 +54,10 @@ public class VideoPlayer: NSObject {
                 guard let self = self else { return }
                 self.view.setPlayButtonTo(state: buttonState)
             }
-            delegate?.playerDidUpdatePlaying(player: self)
+
+            if oldValue != status {
+                delegate?.playerDidUpdatePlaying(player: self)
+            }
         }
     }
 
@@ -80,7 +90,7 @@ public class VideoPlayer: NSObject {
         (CMTimeGetSeconds(player.currentTime()) * 10).rounded() / 10
     }
 
-    /// - returns: The duration of the currentItem. If unknown, returns 0.
+    /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
     public var currentDuration: Double {
         guard let duration = player.currentItem?.duration else { return 0 }
         let seconds = CMTimeGetSeconds(duration)
@@ -176,7 +186,8 @@ public class VideoPlayer: NSObject {
     }
 
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
-    private func replaceCurrentItem(url: URL) {
+    /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
+    private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields])
@@ -191,10 +202,10 @@ public class VideoPlayer: NSObject {
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
                     self.player.replaceCurrentItem(with: playerItem)
+                    callback(true)
                 }
             default:
-                // TODO: Handle failed/cancelled cases.
-                break
+                callback(false)
             }
         }
     }
@@ -248,9 +259,6 @@ public extension VideoPlayer {
 
     func playVideo(with event: Event) {
         self.event = event
-        if playerConfig.autoplay {
-            play()
-        }
     }
 }
 

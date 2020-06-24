@@ -41,7 +41,7 @@ public class MLS {
         self.moyaProvider = MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
     }
 
-    public func videoPlayer(with event: Event? = nil, autoplay: Bool = true) -> VideoPlayer {
+    public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
         let player = VideoPlayer()
         if let event = event {
             var playVideoWasCalled = false

@@ -105,7 +105,7 @@ public class VideoPlayerView: UIView  {
 
         backgroundColor = .black
 
-        setTimeIndicatorLabel(elapsedText: "00:00", totalText: "00:00")
+        setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
     }
 
     public override func layoutSubviews() {
@@ -220,14 +220,23 @@ extension VideoPlayerView {
         bufferIcon.isHidden = !visible
     }
 
-    func setTimeIndicatorLabel(elapsedText: String, totalText: String) {
+    /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
+    func setTimeIndicatorLabel(elapsedText: String?, totalText: String?) {
+        guard let elapsedText = elapsedText else {
+            timeIndicatorLabel.text = ""
+            return
+        }
+
         let str1 = NSMutableAttributedString(string: elapsedText, attributes: [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold).monospacedDigitFont,
             NSAttributedString.Key.foregroundColor: UIColor.white
         ])
-        let str2 = NSMutableAttributedString(string: " / \(totalText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .regular)])
 
-        str1.append(str2)
+        if let totalText = totalText {
+            let str2 = NSMutableAttributedString(string: " / \(totalText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .regular)])
+
+            str1.append(str2)
+        }
 
         timeIndicatorLabel.attributedText = str1
     }
