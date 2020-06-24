@@ -248,7 +248,6 @@ public extension VideoPlayer {
 
     func playVideo(with event: Event) {
         self.event = event
-        print("Playing video with config", playerConfig)
         if playerConfig.autoplay {
             play()
         }

@@ -154,8 +154,6 @@ public class VideoPlayerView: UIView  {
         playerLayer.frame = bounds
 
         bringSubviewToFront(controlView)
-
-        setBufferIcon(visible: true)
     }
 }
 

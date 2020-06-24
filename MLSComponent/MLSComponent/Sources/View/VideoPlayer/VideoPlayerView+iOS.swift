@@ -283,7 +283,6 @@ public class VideoPlayerView: UIView  {
 
         bringSubviewToFront(controlAlphaView)
         bringSubviewToFront(controlView)
-        setBufferIcon(visible: true)
     }
 }
 
