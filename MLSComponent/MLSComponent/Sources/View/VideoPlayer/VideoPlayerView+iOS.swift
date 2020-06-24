@@ -15,6 +15,8 @@ public class VideoPlayerView: UIView  {
 
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
+    private var onSkipBackButtonTapped: (() -> Void)?
+    private var onSkipForwardButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
@@ -333,12 +335,23 @@ extension VideoPlayerView {
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
+    func setOnSkipBackButtonTapped(_ action: @escaping () -> Void) {
+        onSkipBackButtonTapped = action
+    }
 
     @objc private func skipBackButtonTapped() {
+        onSkipBackButtonTapped?()
+
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
+    func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void) {
+        onSkipForwardButtonTapped = action
+    }
+
     @objc private func skipForwardButtonTapped() {
+        onSkipForwardButtonTapped?()
+
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 

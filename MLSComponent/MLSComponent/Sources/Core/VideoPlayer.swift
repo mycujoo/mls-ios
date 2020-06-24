@@ -133,6 +133,10 @@ public class VideoPlayer: NSObject {
         return plugin
     }()
 
+    /// A private counter to help the skip buttons keep track of how much to seek by after the user stops pressing
+    private var relativeSeekButtonCurrentAmount: Double = 0.0
+    private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
+
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
 
     // MARK: - Internal properties
@@ -162,6 +166,8 @@ public class VideoPlayer: NSObject {
             view.setOnTimeSliderSlide(sliderUpdated)
             view.setOnPlayButtonTapped(playButtonTapped)
             #if os(iOS)
+            view.setOnSkipBackButtonTapped(skipBackButtonTapped)
+            view.setOnSkipForwardButtonTapped(skipForwardButtonTapped)
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
             view.drawPlayer(with: player)
@@ -350,6 +356,26 @@ extension VideoPlayer {
     }
 
     #if os(iOS)
+    /// Puts a seek operation on the `relativeSeekDebouncer`. If multiple calls happen within the debounce time, `relativeSeekButtonCurrentAmount` is increased (which is used to calculate the final seek position after debounce).
+    private func relativeSeekWithDebouncer(amount: Double) {
+        self.relativeSeekButtonCurrentAmount += amount
+
+        relativeSeekDebouncer.debounce { [weak self] in
+            guard let self = self else { return }
+            self.player.seek(to: CMTime(seconds: self.currentTime + self.relativeSeekButtonCurrentAmount, preferredTimescale: 1)) { [weak self] completed in
+                if completed { self?.relativeSeekButtonCurrentAmount = 0 }
+            }
+        }
+    }
+
+    private func skipBackButtonTapped() {
+        relativeSeekWithDebouncer(amount: -10)
+    }
+
+    private func skipForwardButtonTapped() {
+        relativeSeekWithDebouncer(amount: 10)
+    }
+
     private func fullscreenButtonTapped() {
         isFullscreen.toggle()
     }
