@@ -19,11 +19,12 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     public var event: Event? {
         didSet {
             guard let stream = event?.stream else { return }
 
-            player.replaceCurrentItem(with: AVPlayerItem(url: stream.urls.first))
+            replaceCurrentItem(url: stream.urls.first)
         }
     }
 
@@ -158,6 +159,30 @@ public class VideoPlayer: NSObject {
         player.removeObserver(self, forKeyPath: "status")
         player.removeObserver(self, forKeyPath: "timeControlStatus")
         youboraPlugin.fireStop()
+    }
+
+    /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
+    private func replaceCurrentItem(url: URL) {
+        // TODO: generate the user-agent elsewhere.
+        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
+        let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields])
+        asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
+            guard let `self` = self else { return }
+
+            var error: NSError?
+            let status = asset.statusOfValue(forKey: "playable", error: &error)
+            switch status {
+            case .loaded:
+                let playerItem = AVPlayerItem(asset: asset)
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.player.replaceCurrentItem(with: playerItem)
+                }
+            default:
+                // TODO: Handle failed/cancelled cases.
+                break
+            }
+        }
     }
     
     //MARK: - KVO
