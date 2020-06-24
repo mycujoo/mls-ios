@@ -220,7 +220,6 @@ public class VideoPlayerView: UIView  {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        // TODO: This may be where the animation goes wrong.
         playerLayer?.frame = bounds
     }
 
