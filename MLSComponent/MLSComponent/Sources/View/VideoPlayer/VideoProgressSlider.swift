@@ -81,9 +81,14 @@ class VideoProgressSlider: UIControl {
         label.lineBreakMode = .byWordWrapping
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.75
+        #if os(tvOS)
+        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        label.layer.cornerRadius = 12
+        #else
         label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
-        label.textAlignment = .center
         label.layer.cornerRadius = 3
+        #endif
+        label.textAlignment = .center
         label.clipsToBounds = true
         label.isHidden = true
         return label
@@ -143,7 +148,12 @@ class VideoProgressSlider: UIControl {
 
         addSubview(markerBubbleLabel)
         markerBubbleLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -4).isActive = true
+        #if os(tvOS)
+        markerBubbleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 320).isActive = true
+        #else
         markerBubbleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
+        #endif
+
     }
     
     private func updateLayerFrames() {
