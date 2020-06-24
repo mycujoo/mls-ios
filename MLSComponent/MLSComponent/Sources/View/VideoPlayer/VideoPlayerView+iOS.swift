@@ -24,6 +24,8 @@ public class VideoPlayerView: UIView  {
     var primaryColor: UIColor = .white {
         didSet {
             playButton.tintColor = primaryColor
+            skipBackButton.tintColor = primaryColor
+            skipForwardButton.tintColor = primaryColor
             bufferIcon.color = primaryColor
             videoSlider.trackView.backgroundColor = primaryColor
         }
@@ -31,9 +33,11 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - UI Components
 
-    private lazy var playIcon = UIImage(named: "Icon-PlayLarge", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var pauseIcon = UIImage(named: "Icon-PauseLarge", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var replayIcon = UIImage(named: "Icon-ReplayLarge", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var playIcon = UIImage(named: "Icon-Play", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var pauseIcon = UIImage(named: "Icon-Pause", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var replayIcon = UIImage(named: "Icon-Replay", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var skipBackIcon = UIImage(named: "Icon-BackBy10", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var skipForwardIcon = UIImage(named: "Icon-ForwardBy10", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
 
@@ -48,11 +52,31 @@ public class VideoPlayerView: UIView  {
     }()
 
     lazy var bufferIcon: NVActivityIndicatorView = {
-        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         indicator.color = .white
         indicator.type = .circleStrokeSpin
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
+    }()
+
+    lazy var skipBackButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if let image = skipBackIcon {
+            button.setImage(image, for: .normal)
+            button.tintColor = .white
+        }
+        return button
+    }()
+
+    lazy var skipForwardButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if let image = skipForwardIcon {
+            button.setImage(image, for: .normal)
+            button.tintColor = .white
+        }
+        return button
     }()
 
     let barControlsStackView: UIStackView = {
@@ -182,8 +206,8 @@ public class VideoPlayerView: UIView  {
             [
                 bufferIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
                 bufferIcon.centerXAnchor.constraint(equalTo: centerXAnchor),
-                bufferIcon.heightAnchor.constraint(equalToConstant: 40),
-                bufferIcon.widthAnchor.constraint(equalToConstant: 40)
+                bufferIcon.heightAnchor.constraint(equalToConstant: 32),
+                bufferIcon.widthAnchor.constraint(equalToConstant: 32)
             ]
         )
 
@@ -201,7 +225,7 @@ public class VideoPlayerView: UIView  {
     private func drawControls() {
         // MARK: Basic setup
 
-        controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
 
         // MARK: Play/pause button
@@ -211,11 +235,31 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint.activate([
             playButton.centerXAnchor.constraint(equalTo: controlView.centerXAnchor),
             playButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor),
-            playButton.heightAnchor.constraint(equalToConstant: 40),
-            playButton.widthAnchor.constraint(equalToConstant: 40)
+            playButton.heightAnchor.constraint(equalToConstant: 32),
+            playButton.widthAnchor.constraint(equalToConstant: 32)
         ])
 
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+
+        // MARK: Skip forward/backwards buttons
+
+        controlView.addSubview(skipBackButton)
+        controlView.addSubview(skipForwardButton)
+
+        NSLayoutConstraint.activate([
+            skipBackButton.trailingAnchor.constraint(equalTo: playButton.leadingAnchor, constant: -32),
+            skipBackButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor),
+            skipBackButton.heightAnchor.constraint(equalToConstant: 32),
+            skipBackButton.widthAnchor.constraint(equalToConstant: 32),
+            skipForwardButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 32),
+            skipForwardButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor),
+            skipForwardButton.heightAnchor.constraint(equalToConstant: 32),
+            skipForwardButton.widthAnchor.constraint(equalToConstant: 32),
+        ])
+
+        skipBackButton.addTarget(self, action: #selector(skipBackButtonTapped), for: .touchUpInside)
+        skipForwardButton.addTarget(self, action: #selector(skipForwardButtonTapped), for: .touchUpInside)
+
 
         // MARK: Seekbar
 
@@ -286,6 +330,15 @@ extension VideoPlayerView {
     @objc private func playButtonTapped() {
         onPlayButtonTapped?()
 
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
+
+    @objc private func skipBackButtonTapped() {
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
+    @objc private func skipForwardButtonTapped() {
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 

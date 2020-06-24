@@ -115,7 +115,7 @@ public class VideoPlayerView: UIView  {
 
     private func drawControls() {
 
-        controlView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        controlView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7546214789)
         controlView.addSubview(timeIndicatorLabel)
         controlView.addSubview(videoSlider)
 
