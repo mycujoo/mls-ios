@@ -12,7 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = ViewController()
+//        window?.rootViewController = SimpleViewController()
+        window?.rootViewController = WithFullscreenZoomViewController()
+//        window?.rootViewController = WithPictureInPictureViewController()
         window?.makeKeyAndVisible()
 
         return true
