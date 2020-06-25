@@ -374,7 +374,7 @@ extension VideoPlayer {
 
         self.relativeSeekButtonCurrentAmount += amount
 
-        let expectedSeekTo = min(max(0, currentDuration - 1), currentTime + self.relativeSeekButtonCurrentAmount)
+        let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
 
         view.videoSlider.value = expectedSeekTo / currentDuration
         updatetimeIndicatorLabel(expectedSeekTo, totalSeconds: currentDuration)
@@ -382,7 +382,7 @@ extension VideoPlayer {
         relativeSeekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
 
-            let seekTo = min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount)
+            let seekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
             self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] completed in
                 if completed {
                     self?.relativeSeekButtonCurrentAmount = 0
