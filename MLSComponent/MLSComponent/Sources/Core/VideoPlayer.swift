@@ -116,7 +116,8 @@ public class VideoPlayer: NSObject {
 
     private(set) public var annotations: [Annotation] = [] {
         didSet {
-            evaluateAnnotations()
+            annotationManager.annotations = annotations
+            annotationManager.evaluate(currentTime: currentTime, currentDuration: currentDuration)
             delegate?.playerDidUpdateAnnotations(player: self)
         }
     }
@@ -124,6 +125,7 @@ public class VideoPlayer: NSObject {
     // MARK: - Private properties
 
     private let player = MLSAVPlayer()
+    private var annotationManager: AnnotationManager!
     private var timeObserver: Any?
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
@@ -137,8 +139,6 @@ public class VideoPlayer: NSObject {
     /// A private counter to help the skip buttons keep track of how much to seek by after the user stops pressing
     private var relativeSeekButtonCurrentAmount: Double = 0.0
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
-
-    private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
 
     // MARK: - Internal properties
 
@@ -190,6 +190,8 @@ public class VideoPlayer: NSObject {
         }
 
         youboraPlugin.fireInit()
+
+        annotationManager = AnnotationManager(delegate: self)
     }
 
     deinit {
@@ -311,7 +313,7 @@ extension VideoPlayer {
 
                     self.delegate?.playerDidUpdateTime(player: self)
 
-                    self.evaluateAnnotations()
+                    self.annotationManager.evaluate(currentTime: seconds, currentDuration: durationSeconds)
         }
     }
 
@@ -404,59 +406,10 @@ extension VideoPlayer {
     #endif
 }
 
-extension VideoPlayer {
-    private func evaluateAnnotations() {
-        annotationsQueue.async { [weak self] in
-            guard let self = self else { return }
-
-            let duration = self.currentDuration
-            guard duration > 0 else { return }
-
-            let currentTime = self.currentTime
-            let annotations = self.annotations
-
-            var showTimelineMarkers: [(position: Double, marker: TimelineMarker)] = []
-            for annotation in annotations {
-                for action in annotation.actions {
-                    switch action {
-                    case .showTimelineMarker(let data):
-                        let color = UIColor(hex: data.color) ?? UIColor.gray
-                        // There should not be multiple timeline markers for a single annotation, so reuse annotation id on the timeline marker.
-                        let timelineMarker = TimelineMarker(id: annotation.id, kind: .singleLineText(text: data.label), markerColor: color, timestamp: TimeInterval(annotation.offset / 1000))
-                        showTimelineMarkers.append((position: min(1.0, max(0.0, timelineMarker.timestamp / duration)), marker: timelineMarker))
-    //                case .showOverlay(let data):
-    //                    break
-    //                case .hideOverlay(let data):
-    //                    break
-    //                case .setVariable(let data):
-    //                    break
-    //                case .incrementVariable(let data):
-    //                    break
-    //                case .createTimer(let data):
-    //                    break
-    //                case .startTimer(let data):
-    //                    break
-    //                case .pauseTimer(let data):
-    //                    break
-    //                case .adjustTimer(let data):
-    //                    break
-    //                case .unsupported:
-    //                    break
-                    default:
-                        break
-                    }
-                }
-            }
-
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.view.videoSlider.setTimelineMarkers(with: showTimelineMarkers)
-            }
-        }
-
+extension VideoPlayer: AnnotationManagerDelegate {
+    func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)]) {
+        self.view.videoSlider.setTimelineMarkers(with: objects)
     }
-
-
 }
 
 // MARK: - State
