@@ -11,7 +11,3 @@ struct ShowOverlay {
     let animateType: OverlayAnimateinType
     let animateDuration: Double
 }
-
-struct Overlay {
-    let svgURL: URL
-}

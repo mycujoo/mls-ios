@@ -9,8 +9,3 @@ struct ShowTimelineMarker {
     let timelineMarker: TimelineMarker
     let position: Double
 }
-
-struct TimelineMarker {
-    let color: UIColor
-    let label: String
-}
