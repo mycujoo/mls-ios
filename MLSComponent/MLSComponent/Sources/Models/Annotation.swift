@@ -60,12 +60,14 @@ public enum Action {
 
 extension Action: Decodable {
     public enum CodingKeys: String, CodingKey {
+        case id
         case type
         case data
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        let id = try container.decode(String.self, forKey: .id)
         let type = try container.decode(String.self, forKey: .type)
         switch type.lowercased() {
         case "show_timeline_marker":
@@ -123,17 +125,17 @@ public enum OverlayAnimateoutType {
 
 public struct ActionShowOverlay {
     public struct Position: Decodable {
-        public let top: Float?
-        public let bottom: Float?
-        public let vcenter: Float?
-        public let trailing: Float?
-        public let leading: Float?
-        public let hcenter: Float?
+        public let top: Double?
+        public let bottom: Double?
+        public let vcenter: Double?
+        public let trailing: Double?
+        public let leading: Double?
+        public let hcenter: Double?
     }
 
     public struct Size: Decodable {
-        public let width: Float?
-        public let height: Float?
+        public let width: Double?
+        public let height: Double?
     }
 
     public let customId: String?
@@ -142,9 +144,9 @@ public struct ActionShowOverlay {
     public let size: Size
     public let animateinType: OverlayAnimateinType?
     public let animateoutType: OverlayAnimateoutType?
-    public let animateinDuration: Float?
-    public let animateoutDuration: Float?
-    public let duration: Float?
+    public let animateinDuration: Double?
+    public let animateoutDuration: Double?
+    public let duration: Double?
     public let variablePositions: [String: String]?
 }
 
@@ -212,9 +214,9 @@ extension ActionShowOverlay: Decodable {
         let size: Size = try container.decode(Size.self, forKey: .size)
         let animateinType: OverlayAnimateinType = OverlayAnimateinType(rawValue: try? container.decode(String.self, forKey: .animateinType))
         let animateoutType: OverlayAnimateoutType = OverlayAnimateoutType(rawValue: try? container.decode(String.self, forKey: .animateoutType))
-        let animateinDuration: Float? = try? container.decode(Float.self, forKey: .animateinDuration)
-        let animateoutDuration: Float? = try? container.decode(Float.self, forKey: .animateoutDuration)
-        let duration: Float? = try? container.decode(Float.self, forKey: .duration)
+        let animateinDuration: Double? = try? container.decode(Double.self, forKey: .animateinDuration)
+        let animateoutDuration: Double? = try? container.decode(Double.self, forKey: .animateoutDuration)
+        let duration: Double? = try? container.decode(Double.self, forKey: .duration)
         let variablePositions: [String: String]? = try? container.decode([String: String].self, forKey: .variablePositions)
 
         self.init(customId: customId, svgURL: svgURL, position: position, size: size, animateinType: animateinType, animateoutType: animateoutType, animateinDuration: animateinDuration, animateoutDuration: animateoutDuration, duration: duration, variablePositions: variablePositions)
@@ -225,7 +227,7 @@ extension ActionShowOverlay: Decodable {
 public struct ActionHideOverlay {
     public let customId: String
     public let animateoutType: OverlayAnimateoutType?
-    public let animateoutDuration: Float?
+    public let animateoutDuration: Double?
 }
 
 extension ActionHideOverlay: Decodable {
@@ -239,7 +241,7 @@ extension ActionHideOverlay: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let customId: String = try container.decode(String.self, forKey: .customId)
         let animateoutType: OverlayAnimateoutType = OverlayAnimateoutType(rawValue: try? container.decode(String.self, forKey: .animateoutType))
-        let animateoutDuration: Float? = try? container.decode(Float.self, forKey: .animateoutDuration)
+        let animateoutDuration: Double? = try? container.decode(Double.self, forKey: .animateoutDuration)
 
         self.init(customId: customId, animateoutType: animateoutType, animateoutDuration: animateoutDuration)
     }
