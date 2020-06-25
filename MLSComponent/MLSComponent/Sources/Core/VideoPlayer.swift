@@ -296,7 +296,7 @@ extension VideoPlayer {
                     let durationSeconds = self.currentDuration
                     let seconds = CMTimeGetSeconds(progressTime)
 
-                    if !self.view.videoSlider.isTracking {
+                    if !self.view.videoSlider.isTracking && self.relativeSeekButtonCurrentAmount == 0 {
                         self.updatetimeIndicatorLabel(seconds, totalSeconds: durationSeconds)
 
                         if durationSeconds > 0 {
@@ -366,14 +366,21 @@ extension VideoPlayer {
     #if os(iOS)
     /// Puts a seek operation on the `relativeSeekDebouncer`. If multiple calls happen within the debounce time, `relativeSeekButtonCurrentAmount` is increased (which is used to calculate the final seek position after debounce).
     private func relativeSeekWithDebouncer(amount: Double) {
+        let currentDuration = self.currentDuration
+        let currentTime = self.currentTime
+        guard currentDuration > 0 else { return }
+
         self.relativeSeekButtonCurrentAmount += amount
+
+        let expectedSeekTo = min(max(0, currentDuration - 1), currentTime + self.relativeSeekButtonCurrentAmount)
+
+        view.videoSlider.value = expectedSeekTo / currentDuration
+        updatetimeIndicatorLabel(expectedSeekTo, totalSeconds: currentDuration)
 
         relativeSeekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
-            let currentDuration = self.currentDuration
-            guard currentDuration > 0 else { return }
 
-            let seekTo = min(currentDuration - 1, self.currentTime + self.relativeSeekButtonCurrentAmount)
+            let seekTo = min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount)
             self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] completed in
                 if completed {
                     self?.relativeSeekButtonCurrentAmount = 0
