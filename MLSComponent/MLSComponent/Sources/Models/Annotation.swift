@@ -43,19 +43,10 @@ public extension Annotation {
 
 // MARK: - Action
 
-// TODO: Call this Action, remove the other Action struct.
-public enum Action {
-    case showTimelineMarker(ActionShowTimelineMarker)
-    case showOverlay(ActionShowOverlay)
-    case hideOverlay(ActionHideOverlay)
-    case setVariable(ActionSetVariable)
-    case incrementVariable(ActionIncrementVariable)
-    case createTimer(ActionCreateTimer)
-    case startTimer(ActionStartTimer)
-    case pauseTimer(ActionPauseTimer)
-    case adjustTimer(ActionAdjustTimer)
-    case createClock(ActionCreateClock)
-    case unsupported
+public struct Action {
+    let id: String
+    private let type: String
+    let data: ActionData
 }
 
 extension Action: Decodable {
@@ -69,42 +60,60 @@ extension Action: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(String.self, forKey: .id)
         let type = try container.decode(String.self, forKey: .type)
+        let data: ActionData
         switch type.lowercased() {
         case "show_timeline_marker":
-            let data = try container.decode(ActionShowTimelineMarker.self, forKey: .data)
-            self = .showTimelineMarker(data)
+            let rawData = try container.decode(ActionShowTimelineMarker.self, forKey: .data)
+            data = .showTimelineMarker(rawData)
         case "show_overlay":
-            let data = try container.decode(ActionShowOverlay.self, forKey: .data)
-            self = .showOverlay(data)
+            let rawData = try container.decode(ActionShowOverlay.self, forKey: .data)
+            data = .showOverlay(rawData)
         case "hide_overlay":
-            let data = try container.decode(ActionHideOverlay.self, forKey: .data)
-            self = .hideOverlay(data)
+            let rawData = try container.decode(ActionHideOverlay.self, forKey: .data)
+            data = .hideOverlay(rawData)
         case "set_variable":
-            let data = try container.decode(ActionSetVariable.self, forKey: .data)
-            self = .setVariable(data)
+            let rawData = try container.decode(ActionSetVariable.self, forKey: .data)
+            data = .setVariable(rawData)
         case "increment_variable":
-            let data = try container.decode(ActionIncrementVariable.self, forKey: .data)
-            self = .incrementVariable(data)
+            let rawData = try container.decode(ActionIncrementVariable.self, forKey: .data)
+            data = .incrementVariable(rawData)
         case "create_timer":
-            let data = try container.decode(ActionCreateTimer.self, forKey: .data)
-            self = .createTimer(data)
+            let rawData = try container.decode(ActionCreateTimer.self, forKey: .data)
+            data = .createTimer(rawData)
         case "start_timer":
-            let data = try container.decode(ActionStartTimer.self, forKey: .data)
-            self = .startTimer(data)
+            let rawData = try container.decode(ActionStartTimer.self, forKey: .data)
+            data = .startTimer(rawData)
         case "pause_timer":
-            let data = try container.decode(ActionPauseTimer.self, forKey: .data)
-            self = .pauseTimer(data)
+            let rawData = try container.decode(ActionPauseTimer.self, forKey: .data)
+            data = .pauseTimer(rawData)
         case "adjust_timer":
-            let data = try container.decode(ActionAdjustTimer.self, forKey: .data)
-            self = .adjustTimer(data)
+            let rawData = try container.decode(ActionAdjustTimer.self, forKey: .data)
+            data = .adjustTimer(rawData)
         case "create_clock":
-            let data = try container.decode(ActionCreateClock.self, forKey: .data)
-            self = .createClock(data)
+            let rawData = try container.decode(ActionCreateClock.self, forKey: .data)
+            data = .createClock(rawData)
         default:
-            self = .unsupported
+            data = .unsupported
         }
+
+        self.init(id: id, type: type, data: data)
     }
 }
+
+public enum ActionData {
+    case showTimelineMarker(ActionShowTimelineMarker)
+    case showOverlay(ActionShowOverlay)
+    case hideOverlay(ActionHideOverlay)
+    case setVariable(ActionSetVariable)
+    case incrementVariable(ActionIncrementVariable)
+    case createTimer(ActionCreateTimer)
+    case startTimer(ActionStartTimer)
+    case pauseTimer(ActionPauseTimer)
+    case adjustTimer(ActionAdjustTimer)
+    case createClock(ActionCreateClock)
+    case unsupported
+}
+
 
 // MARK: - ActionShowTimelineMarker
 
