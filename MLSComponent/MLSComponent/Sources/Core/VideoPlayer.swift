@@ -35,6 +35,7 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// The current status of the player, based on the current item.
     public private(set) var status: Status = .pause {
         didSet {
             var buttonState: PlayButtonState
@@ -156,6 +157,9 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
+    var seekTolerance: CMTime = .positiveInfinity
+
     // MARK: - Methods
 
     public override init() {
@@ -199,7 +203,7 @@ public class VideoPlayer: NSObject {
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields])
+        let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
             guard let `self` = self else { return }
 
@@ -311,15 +315,15 @@ extension VideoPlayer {
     }
 
     private func sliderUpdated(with fraction: Double) {
-        let totalSeconds = self.currentDuration
-        guard totalSeconds > 0 else { return }
+        let currentDuration = self.currentDuration
+        guard currentDuration > 0 else { return }
 
-        let elapsedSeconds = Float64(fraction) * totalSeconds
+        let elapsedSeconds = Float64(fraction) * currentDuration
 
-        updatetimeIndicatorLabel(elapsedSeconds, totalSeconds: totalSeconds)
+        updatetimeIndicatorLabel(elapsedSeconds, totalSeconds: currentDuration)
 
-        let seekTime = CMTime(value: Int64(elapsedSeconds), timescale: 1)
-        player.seek(to: seekTime, debounceSeconds: 0.5, completionHandler: { _ in })
+        let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
     }
 
     private func updatetimeIndicatorLabel(_ elapsedSeconds: Double, totalSeconds: Double) {
@@ -349,7 +353,7 @@ extension VideoPlayer {
             status.toggle()
         }
         else {
-            player.seek(to: .zero) { [weak self] finished in
+            player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
                 if finished {
                     self?.state = .readyToPlay
                     self?.play()
@@ -365,8 +369,15 @@ extension VideoPlayer {
 
         relativeSeekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
-            self.player.seek(to: CMTime(seconds: self.currentTime + self.relativeSeekButtonCurrentAmount, preferredTimescale: 1)) { [weak self] completed in
-                if completed { self?.relativeSeekButtonCurrentAmount = 0 }
+            let currentDuration = self.currentDuration
+            guard currentDuration > 0 else { return }
+
+            let seekTo = min(currentDuration - 1, self.currentTime + self.relativeSeekButtonCurrentAmount)
+            self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] completed in
+                if completed {
+                    self?.relativeSeekButtonCurrentAmount = 0
+                    self?.play()
+                }
             }
         }
     }
