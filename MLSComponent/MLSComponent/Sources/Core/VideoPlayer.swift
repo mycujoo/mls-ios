@@ -179,6 +179,8 @@ public class VideoPlayer: NSObject {
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
             view.drawPlayer(with: player)
+
+            annotationManager = AnnotationManager(delegate: view!)
         }
 
         if Thread.isMainThread {
@@ -190,8 +192,6 @@ public class VideoPlayer: NSObject {
         }
 
         youboraPlugin.fireInit()
-
-        annotationManager = AnnotationManager(delegate: self)
     }
 
     deinit {
@@ -408,12 +408,6 @@ extension VideoPlayer {
         isFullscreen.toggle()
     }
     #endif
-}
-
-extension VideoPlayer: AnnotationManagerDelegate {
-    func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)]) {
-        self.view.videoSlider.setTimelineMarkers(with: objects)
-    }
 }
 
 // MARK: - State

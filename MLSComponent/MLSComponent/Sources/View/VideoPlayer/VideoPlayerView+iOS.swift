@@ -506,4 +506,11 @@ public extension VideoPlayerView {
         }
     }
 }
+
+
+extension VideoPlayerView: AnnotationManagerDelegate {
+    func setTimelineMarkers(with objects: [ShowTimelineMarker]) {
+        videoSlider.setTimelineMarkers(with: objects)
+    }
+}
 #endif

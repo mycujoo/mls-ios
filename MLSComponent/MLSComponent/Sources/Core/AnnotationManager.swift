@@ -26,7 +26,7 @@ class AnnotationManager {
 
             let annotations = self.annotations
 
-            var showTimelineMarkers: [(position: Double, marker: TimelineMarker)] = []
+            var showTimelineMarkers: [ShowTimelineMarker] = []
 
             var inRangeShowOverlayActions: Set<Action> = Set()
             var hideOverlayActions: [Action] = []
@@ -37,10 +37,10 @@ class AnnotationManager {
                 for action in annotation.actions {
                     switch action.data {
                     case .showTimelineMarker(let data):
-                        let color = UIColor(hex: data.color) ?? UIColor.gray
-                        // There should not be multiple timeline markers for a single annotation, so reuse annotation id on the timeline marker.
-                        let timelineMarker = TimelineMarker(id: annotation.id, kind: .singleLineText(text: data.label), markerColor: color, timestamp: TimeInterval(annotation.offset / 1000))
-                        showTimelineMarkers.append((position: min(1.0, max(0.0, timelineMarker.timestamp / currentDuration)), marker: timelineMarker))
+                        let timelineMarker = TimelineMarker(color: UIColor(hex: data.color) ?? UIColor.gray, label: data.label)
+                        let position = min(1.0, max(0.0, TimeInterval(annotation.offset / 1000) / currentDuration))
+
+                        showTimelineMarkers.append(ShowTimelineMarker(actionId: action.id, timelineMarker: timelineMarker, position: position))
                     case .showOverlay(let data):
                         guard let duration = data.duration else { break } // tmp, to keep it simple. Should remove later for non-duration bound actions.
 
@@ -85,6 +85,8 @@ class AnnotationManager {
 }
 
 protocol AnnotationManagerDelegate: class {
-    func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)])
-    func showOverlays(with objects: [Action])
+    func setTimelineMarkers(with objects: [ShowTimelineMarker])
+//    func showOverlays(with objects: [Action])
 }
+
+

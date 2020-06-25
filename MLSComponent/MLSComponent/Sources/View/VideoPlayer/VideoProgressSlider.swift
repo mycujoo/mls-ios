@@ -182,11 +182,7 @@ class VideoProgressSlider: UIControl {
         if let marker = (markers.first { ((value - rangeInterval)...(value + rangeInterval)).contains($0.value.position) }) {
             markerBubbleLabel.backgroundColor = annotationBubbleColor
             markerBubbleLabel.textColor = annotationBubbleColor.isDarkColor ? .white : .black
-
-            switch marker.value.marker.kind {
-            case .singleLineText(let text):
-                markerBubbleLabel.text = text
-            }
+            markerBubbleLabel.text = marker.value.marker.label
 
             if let constraint = centerXConstraintOfMarkerBubble, let secondItem = constraint.secondItem, secondItem.isEqual(marker.value.markerView) {} else {
                 // There is either no constraint for the marker bubble yet, or it is currently placed on a different timeline marker.
@@ -220,7 +216,7 @@ class VideoProgressSlider: UIControl {
 }
 
 extension VideoProgressSlider {
-    func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)]) {
+    func setTimelineMarkers(with operations: [ShowTimelineMarker]) {
         /// Takes a position (value between 0 and 1) and returns a multiplier that can be used on a centerXAnchor for the timeline marker.
         func calcConstraintMultiplier(position: Double) -> CGFloat {
             let minPossibleMultiplier: CGFloat = 0.001
@@ -231,7 +227,7 @@ extension VideoProgressSlider {
         }
 
         // Remove markers that are not relevant anymore.
-        let newMarkerIds = objects.map { $0.marker.id }
+        let newMarkerIds = operations.map { $0.actionId }
         for oldMarker in self.markers {
             if !newMarkerIds.contains(oldMarker.key) {
                 oldMarker.value.markerView.removeFromSuperview()
@@ -239,26 +235,26 @@ extension VideoProgressSlider {
             }
         }
 
-        for object in objects {
-            if let oldMarker = self.markers[object.marker.id] {
-                guard oldMarker.position != object.position else {
+        for operation in operations {
+            if let oldMarker = self.markers[operation.actionId] {
+                guard oldMarker.position != operation.position else {
                     continue
                 }
 
                 let oldConstraint = oldMarker.constraint
-                let newConstraint = oldConstraint.constraintWithMultiplier(calcConstraintMultiplier(position: object.position))
+                let newConstraint = oldConstraint.constraintWithMultiplier(calcConstraintMultiplier(position: operation.position))
                 // Set to low to avoid messing with the slider layout if at the edges
                 newConstraint.priority = .defaultLow
 
                 oldConstraint.isActive = false
                 newConstraint.isActive = true
 
-                self.markers[object.marker.id] = (marker: object.marker, markerView: oldMarker.markerView, position: object.position, constraint: newConstraint)
+                self.markers[operation.actionId] = (marker: operation.timelineMarker, markerView: oldMarker.markerView, position: operation.position, constraint: newConstraint)
             } else {
                 let markerView = UIView()
                 markerView.isUserInteractionEnabled = false
                 markerView.translatesAutoresizingMaskIntoConstraints = false
-                markerView.backgroundColor = object.marker.markerColor
+                markerView.backgroundColor = operation.timelineMarker.color
                 addSubview(markerView)
                 #if os(tvOS)
                 markerView.widthAnchor.constraint(equalToConstant: 4).isActive = true
@@ -275,14 +271,14 @@ extension VideoProgressSlider {
                     relatedBy: .equal,
                     toItem: self,
                     attribute: .centerX,
-                    multiplier: calcConstraintMultiplier(position: object.position),
+                    multiplier: calcConstraintMultiplier(position: operation.position),
                     constant: 0
                 )
                 // Set to low to avoid messing with the slider layout if at the edges
                 constraint.priority = .defaultLow
                 constraint.isActive = true
 
-                self.markers[object.marker.id] = (marker: object.marker, markerView: markerView, position: object.position, constraint: constraint)
+                self.markers[operation.actionId] = (marker: operation.timelineMarker, markerView: markerView, position: operation.position, constraint: constraint)
             }
         }
 
