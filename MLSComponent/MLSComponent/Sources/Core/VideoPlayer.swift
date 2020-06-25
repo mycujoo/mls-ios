@@ -204,6 +204,7 @@ public class VideoPlayer: NSObject {
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
+        relativeSeekButtonCurrentAmount = 0
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
@@ -326,7 +327,9 @@ extension VideoPlayer {
         updatetimeIndicatorLabel(elapsedSeconds, totalSeconds: currentDuration)
 
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
-        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
+            self?.relativeSeekButtonCurrentAmount = 0
+        })
     }
 
     private func updatetimeIndicatorLabel(_ elapsedSeconds: Double, totalSeconds: Double) {
@@ -358,6 +361,7 @@ extension VideoPlayer {
         else {
             player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
                 if finished {
+                    self?.relativeSeekButtonCurrentAmount = 0
                     self?.state = .readyToPlay
                     self?.play()
                 }
