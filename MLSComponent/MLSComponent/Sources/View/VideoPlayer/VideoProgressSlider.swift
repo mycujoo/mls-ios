@@ -66,6 +66,8 @@ class VideoProgressSlider: UIControl {
     }()
     
     var thumbTintColor = UIColor.white
+
+    var annotationBubbleColor = UIColor.black
     
     override var frame: CGRect {
         didSet {
@@ -178,8 +180,8 @@ class VideoProgressSlider: UIControl {
 
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
         if let marker = (markers.first { ((value - rangeInterval)...(value + rangeInterval)).contains($0.value.position) }) {
-            markerBubbleLabel.backgroundColor = marker.value.marker.markerColor
-            markerBubbleLabel.textColor = marker.value.marker.markerColor.isDarkColor ? .white : .black
+            markerBubbleLabel.backgroundColor = annotationBubbleColor
+            markerBubbleLabel.textColor = annotationBubbleColor.isDarkColor ? .white : .black
 
             switch marker.value.marker.kind {
             case .singleLineText(let text):

@@ -149,6 +149,7 @@ public class VideoPlayer: NSObject {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
+                self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
                 self.view.skipBackButton.isHidden = !self.playerConfig.showBackForwardsButtons
                 self.view.skipForwardButton.isHidden = !self.playerConfig.showBackForwardsButtons

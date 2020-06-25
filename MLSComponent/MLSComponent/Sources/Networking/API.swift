@@ -31,7 +31,7 @@ extension API: TargetType {
         switch self {
         case .playerConfig(let eventId):
             return Data("""
-                {"primary_color":"#de4f1f","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
+                {"primary_color":"#ffffff","secondary_color":"#de4f1f","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
                 """.utf8)
         case .annotations(let timelineId):
             switch timelineId {
@@ -39,6 +39,10 @@ extension API: TargetType {
                 return Data("""
                 {"annotations":[{"actions":[{"data":{"color":"#ff0000","label":"Goal"},"type":"show_timeline_marker"}],"id":"ann_1","offset":824000,"timeline_id":"tml_1"},{"actions":[{"data":{"color":"#cccccc","label":"Goal"},"type":"show_timeline_marker"}],"id":"ann_3","offset":4122000,"timeline_id":"tml_3"},{"actions":[{"data":{"color":"#fda89f","label":"A very long annotation"},"type":"show_timeline_marker"}],"id":"ann_4","offset":7419000,"timeline_id":"tml_4"}]}
                 """.utf8)
+            case "brusquevsmanaus":
+                return Data("""
+                    {"annotations":[{"id":"ann_1","offset":671000,"timeline_id":"tml_1","actions":[{"type":"show_timeline_marker","data":{"color":"#ffff01","label":"Kickoff"}},{"type":"show_overlay","data":{"custom_id":"scoreboard1","svg_url":"https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg","position":{"top":5.0,"leading":5.0},"size":{"width":20.0},"animatein_type":"fade_in","animatein_duration":0.3,"variable_positions":{"###_HOMESCORE_###":"homeScore","###_AWAYSCORE_###":"awayScore"}}}]},{"id":"ann_2","offset":5366000,"timeline_id":"tml_1","actions":[{"type":"show_timeline_marker","data":{"color":"#ffffff","label":"Goal"}},{"type":"show_overlay","data":{"svg_url":"https://storage.googleapis.com/mycujoo-player-app.appspot.com/announcement_overlay.svg","position":{"bottom":10.0,"leading":5.0},"size":{"width":30.0},"animatein_type":"slide_from_leading","animateout_type":"fade_out","animatein_duration":0.3,"animateout_duration":0.3,"duration":5.0,}}]},{"id":"ann_3","offset":7548000,"timeline_id":"tml_1","actions":[{"type":"show_timeline_marker","data":{"color":"#000000","label":"Fulltime"}},{"type":"hide_overlay","data":{"custom_id":"scoreboard1","animateout_type":"fade_out","animateout_duration":0.3}}]}]}
+                    """.utf8)
             default:
                 return Data("""
                 {"annotations":[{"id":"ann_1","offset":120000,"timeline_id":"tml_1","actions":[{"type":"show_timeline_marker","data":{"color":"#cccccc","label":"Goal"}},{"type":"show_overlay","data":{"custom_id":"scoreboard1","svg_url":"https://svg.mls.mycujoo.tv/jfkdlajfd.svg","position":{"top":null,"bottom":5.0,"vcenter":null,"right":null,"left":5.0,"hcenter":null},"size":{"width":33.0,"height":null},"animatein_type":"fade_in","animateout_type":"fade_out","animatein_duration":0.3,"animateout_duration":0.3,"duration":5.0,"variable_positions":{"###_HOMESCORE_###":"homeScore","###_AWAYSCORE_###":"awayScore"}}},{"type":"hide_overlay","data":{"custom_id":"overlay1","animateout_type":"fade_out","animateout_duration":0.3}},{"type":"set_variable","data":{"name":"homeScore","value":0,"type":"double","double_precision":2}},{"type":"increment_variable","data":{"name":"homeScore","amount":1.0}},{"type":"create_timer","data":{"name":"scoreboardTimer","format":"ms","direction":"down","start_value":2700000,"step":1000,"cap_value":0}},{"type":"start_timer","data":{"name":"scoreboardTimer"}},{"type":"pause_timer","data":{"name":"scoreboardTimer"}},{"type":"adjust_timer","data":{"name":"scoreboardTimer","value":20000}},{"type":"create_clock","data":{"name":"clock1","format":"12h"}}]}]}

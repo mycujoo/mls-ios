@@ -1,5 +1,5 @@
 //
-// Copyright © 2020 mycujoo. All rights reserved.
+// Copytrailing © 2020 mycujoo. All trailings reserved.
 //
 
 import Foundation
@@ -114,11 +114,11 @@ public struct ActionShowTimelineMarker: Decodable {
 // MARK: - ActionShowOverlay
 
 public enum OverlayAnimateinType {
-    case fadeIn, slideFromTop, slideFromBottom, slideFromLeft, slideFromRight, none, unsupported
+    case fadeIn, slideFromTop, slideFromBottom, slideFromleading, slideFromtrailing, none, unsupported
 }
 
 public enum OverlayAnimateoutType {
-    case fadeOut, slideToTop, slideToBottom, slideToLeft, slideToRight, none, unsupported
+    case fadeOut, slideToTop, slideToBottom, slideToLeading, slideToTrailing, none, unsupported
 }
 
 public struct ActionShowOverlay {
@@ -126,8 +126,8 @@ public struct ActionShowOverlay {
         public let top: Float?
         public let bottom: Float?
         public let vcenter: Float?
-        public let right: Float?
-        public let left: Float?
+        public let trailing: Float?
+        public let leading: Float?
         public let hcenter: Float?
     }
 
@@ -157,10 +157,10 @@ public extension OverlayAnimateinType {
             self = .slideFromTop
         case "slide_from_bottom":
             self = .slideFromBottom
-        case "slide_from_left":
-            self = .slideFromLeft
-        case "slide_from_right":
-            self = .slideFromRight
+        case "slide_from_leading":
+            self = .slideFromleading
+        case "slide_from_trailing":
+            self = .slideFromtrailing
         case "none":
             self = .none
         default:
@@ -178,10 +178,10 @@ public extension OverlayAnimateoutType {
             self = .slideToTop
         case "slide_to_bottom":
             self = .slideToBottom
-        case "slide_to_left":
-            self = .slideToLeft
-        case "slide_to_right":
-            self = .slideToRight
+        case "slide_to_leading":
+            self = .slideToLeading
+        case "slide_to_trailing":
+            self = .slideToTrailing
         case "none":
             self = .none
         default:

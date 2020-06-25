@@ -19,12 +19,19 @@ public class VideoPlayerView: UIView  {
 
     // MARK: - Internal properties
 
-    /// The color that is used throughout various controls and elements of the video player.
+    /// The color that is used throughout various controls and elements of the video player, together with the `secondaryColor`.
     var primaryColor: UIColor = .white {
         didSet {
             playButton.tintColor = primaryColor
             bufferIcon.color = primaryColor
             videoSlider.trackView.backgroundColor = primaryColor
+        }
+    }
+
+    /// The color that is used throughout various controls and elements of the video player, together with the `primaryColor`.
+    var secondaryColor: UIColor = .black {
+        didSet {
+            videoSlider.annotationBubbleColor = secondaryColor
         }
     }
 

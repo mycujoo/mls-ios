@@ -76,7 +76,7 @@ public class MLS {
 
             // TODO: Should not pass eventId but timelineId
 //            moyaProvider.request(.annotations(event.id)) { result in
-            moyaProvider.request(.annotations("timelineMarkers")) { result in
+            moyaProvider.request(.annotations("brusquevsmanaus")) { result in
                 switch result {
                 case .success(let response):
                     let decoder = JSONDecoder()
