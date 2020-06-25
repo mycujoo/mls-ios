@@ -12,8 +12,7 @@ class AnnotationManager {
 
     var annotations: [Annotation] = []
 
-//    var activeShowOverlayActions: [String: ActionShowOverlay] = [:]
-
+    var activeShowOverlayActions: Set<Action> = Set()
 
     init(delegate: AnnotationManagerDelegate) {
         self.delegate = delegate
@@ -29,7 +28,9 @@ class AnnotationManager {
 
             var showTimelineMarkers: [(position: Double, marker: TimelineMarker)] = []
 
-            var inRangeShowOverlayActions: [String: ActionShowOverlay] = [:]
+            var inRangeShowOverlayActions: Set<Action> = Set()
+            var hideOverlayActions: [Action] = []
+            var showOverlayActions: [Action] = []
 
             for annotation in annotations {
                 let offsetAsDouble = Double(annotation.offset)
@@ -41,7 +42,11 @@ class AnnotationManager {
                         let timelineMarker = TimelineMarker(id: annotation.id, kind: .singleLineText(text: data.label), markerColor: color, timestamp: TimeInterval(annotation.offset / 1000))
                         showTimelineMarkers.append((position: min(1.0, max(0.0, timelineMarker.timestamp / currentDuration)), marker: timelineMarker))
                     case .showOverlay(let data):
-                        break
+                        guard let duration = data.duration else { break } // tmp, to keep it simple. Should remove later for non-duration bound actions.
+
+                        if (offsetAsDouble...offsetAsDouble+duration).contains(currentTime) {
+                            inRangeShowOverlayActions.insert(action)
+                        }
                     case .hideOverlay(let data):
                         break
                     case .setVariable(let data):
@@ -64,8 +69,16 @@ class AnnotationManager {
                 }
             }
 
+
+
+
+
+
+
+
             DispatchQueue.main.async { [weak self] in
                 self?.delegate?.setTimelineMarkers(with: showTimelineMarkers)
+
             }
         }
     }
@@ -73,4 +86,5 @@ class AnnotationManager {
 
 protocol AnnotationManagerDelegate: class {
     func setTimelineMarkers(with objects: [(position: Double, marker: TimelineMarker)])
+    func showOverlays(with objects: [Action])
 }

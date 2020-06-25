@@ -43,10 +43,18 @@ public extension Annotation {
 
 // MARK: - Action
 
-public struct Action {
+public struct Action: Hashable {
     let id: String
     private let type: String
     let data: ActionData
+
+    public static func == (lhs: Action, rhs: Action) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 extension Action: Decodable {
