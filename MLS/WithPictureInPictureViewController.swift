@@ -63,8 +63,8 @@ class WithPictureInPictureViewController: UIViewController {
                 // Note that this heightAnchor approach will not look good on some devices in landscape.
                 // For a more complete solution, see `WithFullscreenZoomViewController.swift`
                 videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+                videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
                 videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
@@ -85,7 +85,7 @@ class WithPictureInPictureViewController: UIViewController {
             NSLayoutConstraint.activate(
                 [
                     pipButton.topAnchor.constraint(equalTo: videoPlayer.view.controlView.topAnchor, constant: 12),
-                    pipButton.trailingAnchor.constraint(equalTo: videoPlayer.view.controlView.trailingAnchor, constant: -12),
+                    pipButton.rightAnchor.constraint(equalTo: videoPlayer.view.controlView.rightAnchor, constant: -12),
                     pipButton.heightAnchor.constraint(equalToConstant: 40),
                     pipButton.widthAnchor.constraint(equalToConstant: 40)
                 ]

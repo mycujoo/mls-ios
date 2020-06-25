@@ -86,8 +86,8 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    controlView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-                    controlView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+                    controlView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+                    controlView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
                     controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
                     controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
                 ]
@@ -122,8 +122,8 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    videoSlider.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 96),
-                    videoSlider.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -96),
+                    videoSlider.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 96),
+                    videoSlider.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -96),
                     videoSlider.bottomAnchor.constraint(equalTo: timeIndicatorLabel.topAnchor, constant: -12),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
@@ -133,8 +133,8 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint
             .activate(
                 [
-                    timeIndicatorLabel.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 96),
-                    timeIndicatorLabel.trailingAnchor.constraint(greaterThanOrEqualTo: controlView.trailingAnchor, constant: -96),
+                    timeIndicatorLabel.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 96),
+                    timeIndicatorLabel.rightAnchor.constraint(greaterThanOrEqualTo: controlView.rightAnchor, constant: -96),
                     timeIndicatorLabel.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96)
                 ]
         )

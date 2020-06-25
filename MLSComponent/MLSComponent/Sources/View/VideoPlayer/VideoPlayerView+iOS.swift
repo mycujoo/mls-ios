@@ -135,8 +135,8 @@ public class VideoPlayerView: UIView  {
         didSet {
             fullscreenButton.isHidden = fullscreenButtonIsHidden
 
-            if let trailingConstraint = barControlsStackView.constraints(on: barControlsStackView.trailingAnchor).first {
-                trailingConstraint.constant = fullscreenButtonIsHidden ? -14 : -5
+            if let rightConstraint = barControlsStackView.constraints(on: barControlsStackView.rightAnchor).first {
+                rightConstraint.constant = fullscreenButtonIsHidden ? -14 : -5
             }
         }
     }
@@ -169,22 +169,22 @@ public class VideoPlayerView: UIView  {
         drawControls()
 
         let viewConstraints = [
-            controlView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            controlView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            controlView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            controlView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ]
 
         let safeAreaConstraints = [
-            controlView.leadingAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            controlView.trailingAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            controlView.leftAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leftAnchor, constant: 0),
+            controlView.rightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.rightAnchor, constant: 0),
             controlView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
             controlView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
         ]
 
         let alphaConstraints = [
-            controlAlphaView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            controlAlphaView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            controlAlphaView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ]
@@ -248,11 +248,11 @@ public class VideoPlayerView: UIView  {
         controlView.addSubview(skipForwardButton)
 
         NSLayoutConstraint.activate([
-            skipBackButton.trailingAnchor.constraint(equalTo: playButton.leadingAnchor, constant: -32),
+            skipBackButton.rightAnchor.constraint(equalTo: playButton.leftAnchor, constant: -32),
             skipBackButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor),
             skipBackButton.heightAnchor.constraint(equalToConstant: 32),
             skipBackButton.widthAnchor.constraint(equalToConstant: 32),
-            skipForwardButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor, constant: 32),
+            skipForwardButton.leftAnchor.constraint(equalTo: playButton.rightAnchor, constant: 32),
             skipForwardButton.centerYAnchor.constraint(equalTo: controlView.centerYAnchor),
             skipForwardButton.heightAnchor.constraint(equalToConstant: 32),
             skipForwardButton.widthAnchor.constraint(equalToConstant: 32),
@@ -266,8 +266,8 @@ public class VideoPlayerView: UIView  {
 
         controlView.addSubview(videoSlider)
         NSLayoutConstraint.activate([
-            videoSlider.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 14),
-            videoSlider.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -14),
+            videoSlider.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 14),
+            videoSlider.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -14),
             videoSlider.bottomAnchor.constraint(equalTo: barControlsStackView.topAnchor, constant: 0),
             videoSlider.heightAnchor.constraint(equalToConstant: 10)
         ])
@@ -282,12 +282,13 @@ public class VideoPlayerView: UIView  {
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
         NSLayoutConstraint.activate([
-           barControlsStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 14),
-           barControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
+           barControlsStackView.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 14),
+           barControlsStackView.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -5),
            barControlsStackView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8),
            barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
         ])
 
+        barControlsStackView.semanticContentAttribute = .forceLeftToRight
         barControlsStackView.setCustomSpacing(14, after: videoSlider)
         barControlsStackView.setCustomSpacing(5, after: timeIndicatorLabel)
 

@@ -46,8 +46,8 @@ class VideoProgressSlider: UIControl {
         return view
     }()
 
-    private lazy var trailingConstraintOfTrackView: NSLayoutConstraint = {
-        trackView.trailingAnchor.constraint(equalTo: leadingAnchor)
+    private lazy var rightConstraintOfTrackView: NSLayoutConstraint = {
+        trackView.rightAnchor.constraint(equalTo: leftAnchor)
     }()
 
     let thumbView: UIView = {
@@ -62,7 +62,7 @@ class VideoProgressSlider: UIControl {
     }()
 
     private lazy var centerXOfThumbView: NSLayoutConstraint = {
-        thumbView.centerXAnchor.constraint(equalTo: leadingAnchor)
+        thumbView.centerXAnchor.constraint(equalTo: leftAnchor)
     }()
     
     var thumbTintColor = UIColor.white
@@ -131,8 +131,8 @@ class VideoProgressSlider: UIControl {
         NSLayoutConstraint
             .activate(
                 [
-                    timeView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                    timeView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                    timeView.leftAnchor.constraint(equalTo: leftAnchor),
+                    timeView.rightAnchor.constraint(equalTo: rightAnchor),
                     timeView.centerYAnchor.constraint(equalTo: centerYAnchor)
                 ]
         )
@@ -141,8 +141,8 @@ class VideoProgressSlider: UIControl {
         NSLayoutConstraint
             .activate(
                 [
-                    trackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                    trailingConstraintOfTrackView,
+                    trackView.leftAnchor.constraint(equalTo: leftAnchor),
+                    rightConstraintOfTrackView,
                     trackView.centerYAnchor.constraint(equalTo: centerYAnchor)
                 ]
         )
@@ -163,7 +163,7 @@ class VideoProgressSlider: UIControl {
     
     private func updateLayerFrames() {
         let thumbCenter = bounds.width * CGFloat(value)
-        trailingConstraintOfTrackView.constant = thumbCenter
+        rightConstraintOfTrackView.constant = thumbCenter
         centerXOfThumbView.constant = thumbCenter
     }
 
@@ -172,11 +172,8 @@ class VideoProgressSlider: UIControl {
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
-        if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
-            _value = 1 - (max(0, min(Double(touch.location(in: self).x), width)) / width)
-        } else {
-            _value = max(0, min(Double(touch.location(in: self).x), width)) / width
-        }
+        _value = max(0, min(Double(touch.location(in: self).x), width)) / width
+
         sendActions(for: .valueChanged)
 
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
@@ -228,11 +225,7 @@ extension VideoProgressSlider {
             let maxPossibleMultiplier: CGFloat = 2
             let centerXOfView: CGFloat = 2
 
-            if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
-                return min(max(minPossibleMultiplier, centerXOfView * CGFloat(1 - position)), maxPossibleMultiplier)
-            } else {
-                return min(max(minPossibleMultiplier, centerXOfView * CGFloat(position)), maxPossibleMultiplier)
-            }
+            return min(max(minPossibleMultiplier, centerXOfView * CGFloat(position)), maxPossibleMultiplier)
         }
 
         // Remove markers that are not relevant anymore.

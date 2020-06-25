@@ -78,15 +78,15 @@ class WithFullscreenZoomViewController: UIViewController {
             portraitPlayerConstraints = [
                 videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                 videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+                videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
                 videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
             landscapePlayerConstraints = [
                 videoPlayer.view.topAnchor.constraint(equalTo: view.topAnchor),
-                videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                videoPlayer.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+                videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
                 videoPlayer.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
 
