@@ -5,5 +5,6 @@
 import Foundation
 
 struct Overlay {
+    let id: String
     let svgURL: URL
 }

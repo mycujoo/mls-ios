@@ -106,23 +106,23 @@ class WithFullscreenZoomViewController: UIViewController {
 // MARK: - PlayerDelegate
 extension WithFullscreenZoomViewController: PlayerDelegate {
     func playerDidUpdatePlaying(player: VideoPlayer) {
-        print("new status: ", player.status)
+//        print("new status: ", player.status)
     }
 
     func playerDidUpdateTime(player: VideoPlayer) {
-        print("new time: ", player.currentTime)
+//        print("new time: ", player.currentTime)
     }
 
     func playerDidUpdateState(player: VideoPlayer) {
-        print("new state: ", player.state)
+//        print("new state: ", player.state)
     }
 
     func playerDidUpdateAnnotations(player: VideoPlayer) {
-        print("new annotations: ", player.annotations)
+//        print("new annotations: ", player.annotations)
     }
 
     func playerDidUpdateFullscreen(player: VideoPlayer) {
-        print("fullscreen mode: ", player.isFullscreen)
+//        print("fullscreen mode: ", player.isFullscreen)
 
         updateIsFullscreen(to: player.isFullscreen)
     }

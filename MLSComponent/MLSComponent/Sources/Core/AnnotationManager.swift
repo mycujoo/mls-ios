@@ -20,20 +20,23 @@ class AnnotationManager {
 
     func evaluate(currentTime: Double, currentDuration: Double) {
         annotationsQueue.async { [weak self] in
-            guard let self = self else { return }
-
-            guard currentDuration > 0 else { return }
-
+            guard let self = self, currentDuration > 0 else { return }
             let annotations = self.annotations
 
+            // MARK: Final actions
+
             var showTimelineMarkers: [ShowTimelineMarker] = []
+            var showOverlays: [ShowOverlay] = []
+            var hideOverlays: [HideOverlay] = []
+
+            // MARK:  Helpers
 
             var inRangeShowOverlayActions: Set<Action> = Set()
-            var hideOverlayActions: [Action] = []
-            var showOverlayActions: [Action] = []
+
+            // MARK: Evaluate
 
             for annotation in annotations {
-                let offsetAsDouble = Double(annotation.offset)
+                let offsetAsSeconds = Double(annotation.offset) / 1000
                 for action in annotation.actions {
                     switch action.data {
                     case .showTimelineMarker(let data):
@@ -43,8 +46,7 @@ class AnnotationManager {
                         showTimelineMarkers.append(ShowTimelineMarker(actionId: action.id, timelineMarker: timelineMarker, position: position))
                     case .showOverlay(let data):
                         guard let duration = data.duration else { break } // tmp, to keep it simple. Should remove later for non-duration bound actions.
-
-                        if (offsetAsDouble...offsetAsDouble+duration).contains(currentTime) {
+                        if offsetAsSeconds <= currentTime && currentTime < (offsetAsSeconds + duration) {
                             inRangeShowOverlayActions.insert(action)
                         }
                     case .hideOverlay(let data):
@@ -69,24 +71,71 @@ class AnnotationManager {
                 }
             }
 
+            let showOverlayActions = inRangeShowOverlayActions.subtracting(self.activeShowOverlayActions)
+            let hideOverlayActions = self.activeShowOverlayActions.subtracting(inRangeShowOverlayActions)
+            self.activeShowOverlayActions = self.activeShowOverlayActions.union(showOverlayActions).subtracting(hideOverlayActions)
 
+            showOverlays = showOverlayActions
+                .map { action -> ShowOverlay? in
+                    let actionData: ActionShowOverlay
+                    switch action.data {
+                    case .showOverlay(let d):
+                        actionData = d
+                    default:
+                        return nil
+                    }
 
+                    let overlay = Overlay(
+                        id: actionData.customId ?? action.id,
+                        svgURL: actionData.svgURL)
 
+                    return ShowOverlay(
+                        actionId: action.id,
+                        overlay: overlay,
+                        position: actionData.position,
+                        size: actionData.size,
+                        animateType: actionData.animateinType ?? .fadeIn,
+                        animateDuration: actionData.animateinDuration ?? 0.3)
+                }
+                .filter { $0 != nil }
+                .map { $0! }
 
+            hideOverlays = hideOverlayActions
+                .map { action -> HideOverlay in
+                    let actionData: ActionShowOverlay?
+                    switch action.data {
+                    case .showOverlay(let d):
+                        actionData = d
+                    default:
+                        actionData = nil
+                    }
+                    return HideOverlay(
+                        actionId: action.id,
+                        overlayId: actionData?.customId ?? action.id,
+                        animateType: actionData?.animateoutType ?? .fadeOut,
+                        animateDuration: actionData?.animateoutDuration ?? 0.3)
+                }
 
-
+            // TODO: Merge hideOverlays (which is based on ShowOverlay actions) with a HideOverlayAction based list.
 
             DispatchQueue.main.async { [weak self] in
                 self?.delegate?.setTimelineMarkers(with: showTimelineMarkers)
-
+                self?.delegate?.showOverlays(with: showOverlays)
+                self?.delegate?.hideOverlays(with: hideOverlays)
             }
         }
     }
 }
 
 protocol AnnotationManagerDelegate: class {
-    func setTimelineMarkers(with objects: [ShowTimelineMarker])
-//    func showOverlays(with objects: [Action])
+    /// Gets triggered often, and will often contain the same ShowTimelineMarker actions. It is up to the delegate to interpret which ones are new.
+    func setTimelineMarkers(with actions: [ShowTimelineMarker])
+    /// Gets triggered whenever an overlay needs to be shown. Unlike `setTimelineMarkers`,
+    /// this will only contain actions that are new and can therefore be executed immediately.
+    func showOverlays(with actions: [ShowOverlay])
+    /// Gets triggered whenever an overlay needs to be hidden. Unlike `setTimelineMarkers`,
+    /// this will only contain actions that are new and can therefore be executed immediately.
+    func hideOverlays(with actions: [HideOverlay])
 }
 
 
