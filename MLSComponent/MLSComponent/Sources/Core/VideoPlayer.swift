@@ -380,7 +380,6 @@ extension VideoPlayer {
 
 
         let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
-        print("New expected SeekTo", expectedSeekTo)
 
         view.videoSlider.value = expectedSeekTo / currentDuration
         updatetimeIndicatorLabel(expectedSeekTo, totalSeconds: currentDuration)
