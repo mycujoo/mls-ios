@@ -264,19 +264,4 @@ public extension VideoPlayerView {
         }
     }
 }
-
-
-extension VideoPlayerView: AnnotationManagerDelegate {
-    func setTimelineMarkers(with actions: [TimelineMarker]) {
-        videoSlider.setTimelineMarkers(with: actions)
-    }
-
-    func showOverlays(with actions: [ShowOverlay]) {
-
-    }
-
-    func hideOverlays(with actions: [HideOverlay]) {
-
-    }
-}
 #endif

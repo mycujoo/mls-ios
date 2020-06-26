@@ -386,7 +386,10 @@ extension VideoPlayer {
         relativeSeekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
 
-            let seekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
+            // Do not use the currentTime from outside this closure, since it may have been updated since then.
+            // However, currentDuration can be used, since it's more expensive to obtain and doesn't change radically in this timespan.
+
+            let seekTo = max(0, min(currentDuration - 1, self.currentTime + self.relativeSeekButtonCurrentAmount))
             self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] completed in
                 if completed {
                     self?.relativeSeekButtonCurrentAmount = 0

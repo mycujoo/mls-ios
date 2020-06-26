@@ -35,6 +35,8 @@
 		49A9F52424A15B9700D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49B25DE324A5ED5E00CCB14D /* HideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */; };
 		49B25DE424A5EE4E00CCB14D /* HideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */; };
+		49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */; };
+		49B25DE724A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */; };
 		49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5724A35204002CCDF5 /* PlayerConfig.swift */; };
 		49C12D5924A35204002CCDF5 /* PlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5724A35204002CCDF5 /* PlayerConfig.swift */; };
 		49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
@@ -92,6 +94,7 @@
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
 		49A9F52224A15B9200D00143 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideOverlay.swift; sourceTree = "<group>"; };
+		49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		49C12D5724A35204002CCDF5 /* PlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfig.swift; sourceTree = "<group>"; };
 		49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -311,6 +314,7 @@
 				6496C3492492308D0099475D /* Actions */,
 				6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */,
 				4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */,
+				49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */,
 				6496C3532492308D0099475D /* VideoProgressSlider.swift */,
 				6496C3542492308D0099475D /* VideoPlayStatus.swift */,
 			);
@@ -556,6 +560,7 @@
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4935B1F724A4DB6E0073ED96 /* AnnotationManager.swift in Sources */,
 				6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
+				49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				4959C7B6249FC111005212E1 /* NVActivityIndicatorPresenter.swift in Sources */,
 				6496C359249230B80099475D /* ShowTimelineMarker.swift in Sources */,
@@ -594,6 +599,7 @@
 				49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4935B1F824A4DB710073ED96 /* AnnotationManager.swift in Sources */,
 				4959C80B249FD515005212E1 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
+				49B25DE724A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				49E5902A249BCA5B001E0C1C /* Annotation.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				4959C807249FD515005212E1 /* NVActivityIndicatorPresenter.swift in Sources */,
