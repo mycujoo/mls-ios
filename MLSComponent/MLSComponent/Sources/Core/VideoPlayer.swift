@@ -378,7 +378,9 @@ extension VideoPlayer {
 
         self.relativeSeekButtonCurrentAmount += amount
 
+
         let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
+        print("New expected SeekTo", expectedSeekTo)
 
         view.videoSlider.value = expectedSeekTo / currentDuration
         updatetimeIndicatorLabel(expectedSeekTo, totalSeconds: currentDuration)
@@ -389,11 +391,17 @@ extension VideoPlayer {
             // Do not use the currentTime from outside this closure, since it may have been updated since then.
             // However, currentDuration can be used, since it's more expensive to obtain and doesn't change radically in this timespan.
 
-            let seekTo = max(0, min(currentDuration - 1, self.currentTime + self.relativeSeekButtonCurrentAmount))
+            let seekAmount = self.relativeSeekButtonCurrentAmount
+            let seekTo = max(0, min(currentDuration - 1, self.currentTime + seekAmount))
+
             self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] completed in
+                guard let self = self else { return }
+                // Correct relativeSeekButtonCurrentAmount by how much was being seeked.
+                // Do this (rather than setting to 0) because since the last seek was initiated, the debouncer may have been
+                // triggered again, so setting to 0 would lead to a wrong seek operation on that one.
+                self.relativeSeekButtonCurrentAmount -= seekAmount
                 if completed {
-                    self?.relativeSeekButtonCurrentAmount = 0
-                    self?.play()
+                    self.play()
                 }
             }
         }
