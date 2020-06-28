@@ -216,13 +216,13 @@ public class VideoPlayerView: UIView  {
         ]
 
         for constraint in viewConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 249)
+            constraint.priority = UILayoutPriority(rawValue: 749)
         }
         for constraint in safeAreaConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 250)
+            constraint.priority = UILayoutPriority(rawValue: 750)
         }
         for constraint in alphaConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 250)
+            constraint.priority = UILayoutPriority(rawValue: 750)
         }
 
         NSLayoutConstraint.activate(viewConstraints)

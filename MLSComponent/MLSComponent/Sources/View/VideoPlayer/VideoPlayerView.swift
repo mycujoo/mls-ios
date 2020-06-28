@@ -48,13 +48,13 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
         if let width = size.width {
             let constraint = imageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(width / 100))
-            constraint.priority = UILayoutPriority(rawValue: 248) // lower than constraints of overlay against its superview
+            constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
         }
 
         if let height = size.height {
             let constraint = imageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: CGFloat(height / 100))
-            constraint.priority = UILayoutPriority(rawValue: 248) // lower than constraints of overlay against its superview
+            constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
         }
 
@@ -70,7 +70,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
                 attribute: .width,
                 multiplier: multiplier,
                 constant: 0)
-                constraint.priority = UILayoutPriority(rawValue: 248) // lower than constraints of overlay against its superview
+                constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
                 constraint.isActive = true
         }
 
@@ -82,8 +82,8 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         leadingConstraint.priority = .defaultLow
         leadingConstraint.isActive = true
         let topConstraint = imageView.topAnchor.constraint(equalTo: overlayView.topAnchor)
-        leadingConstraint.priority = .defaultLow
-        leadingConstraint.isActive = true
+        topConstraint.priority = .defaultLow
+        topConstraint.isActive = true
 
     }
 }
