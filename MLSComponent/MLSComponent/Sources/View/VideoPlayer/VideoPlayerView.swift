@@ -68,9 +68,6 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
         // MARK: Positional constraints
 
-        var horizontallyFulfilled = false
-        var verticallyFulfilled = false
-
         if let top = position.top {
             let spacer = makeSpacer()
             vStackView.insertArrangedSubview(spacer, at: 0)
@@ -78,7 +75,16 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
             vStackView.topAnchor.constraint(equalTo: overlayView.topAnchor).isActive = true
-            verticallyFulfilled = true
+        } else if let bottom = position.bottom {
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: .bottom, relatedBy: .equal, toItem: overlayView, attribute: .bottom, multiplier: CGFloat(1 - (bottom / 100)), constant: 0)
+            constraint.priority = UILayoutPriority(rawValue: 247)
+            constraint.isActive = true
+
+        } else if let vcenter = position.vcenter {
+            let multiplier = min(2, max(0.001, CGFloat(vcenter / 50) + 1))
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: .centerY, relatedBy: .equal, toItem: overlayView, attribute: .centerY, multiplier: multiplier, constant: 0)
+            constraint.priority = UILayoutPriority(rawValue: 247)
+            constraint.isActive = true
         }
 
         if let leading = position.leading {
@@ -95,10 +101,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
             }
-            horizontallyFulfilled = true
-        }
-        
-        if let trailing = position.trailing, !horizontallyFulfilled {
+        } else if let trailing = position.trailing {
             if rtl {
                 let spacer = makeSpacer()
                 hStackView.addArrangedSubview(spacer)
@@ -112,32 +115,9 @@ extension VideoPlayerView: AnnotationManagerDelegate {
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
             }
-            horizontallyFulfilled = true
-        }
-        
-        var multiplier: CGFloat? = nil
-        var attribute: NSLayoutConstraint.Attribute? = nil
-
-        if let bottom = position.bottom, !verticallyFulfilled {
-            multiplier = CGFloat(1 - (bottom / 100))
-            attribute = .bottom
-            verticallyFulfilled = true
-        }
-
-        // TODO: hcenter and vcenter aren't working properly yet.
-        if let hcenter = position.hcenter, !horizontallyFulfilled {
-            multiplier = min(2, max(0.001, CGFloat(hcenter / 100) * 2))
-            attribute = .centerX
-            horizontallyFulfilled = true
-        }
-        if let vcenter = position.vcenter, !verticallyFulfilled {
-            multiplier = min(2, max(0.001, CGFloat(vcenter / 100) * 2))
-            attribute = .centerY
-            verticallyFulfilled = true
-        }
-
-        if let multiplier = multiplier, let attribute = attribute {
-            let constraint = NSLayoutConstraint(item: vStackView, attribute: attribute, relatedBy: .equal, toItem: overlayView, attribute: attribute, multiplier: multiplier, constant: 0)
+        } else if let hcenter = position.hcenter {
+            let multiplier = min(2, max(0.001, CGFloat(hcenter / 50) + 1))
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: .centerX, relatedBy: .equal, toItem: overlayView, attribute: .centerX, multiplier: multiplier, constant: 0)
             constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
         }
