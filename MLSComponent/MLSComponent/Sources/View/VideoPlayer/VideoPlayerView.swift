@@ -23,8 +23,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
                                     let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
 
-                                    self.setOverlayConstraints(imageView: imageView, size: action.size, position: action.position)
-                                    self.overlays[action.overlay.id] = (overlay: action.overlay, view: imageView)
+                                    self.placeOverlay(imageView: imageView, size: action.size, position: action.position)
                                 }
                             }
                         }
@@ -38,11 +37,110 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
     }
 
-    private func setOverlayConstraints(imageView: UIView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
-        imageView.removeFromSuperview()
-        overlayView.addSubview(imageView)
+    private func placeOverlay(imageView: UIView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
+        func wrap(_ v: UIView, axis: NSLayoutConstraint.Axis) -> UIStackView {
+            let stackView = UIStackView(arrangedSubviews: [v])
+            stackView.axis = axis
+            stackView.distribution = .fill
+            stackView.alignment = .fill
+            stackView.semanticContentAttribute = semanticContentAttribute
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            return stackView
+        }
 
+        func makeSpacer() -> UIView {
+            let spacerView = UIView()
+            spacerView.translatesAutoresizingMaskIntoConstraints = false
+            return spacerView
+        }
+
+        // MARK: Setup basic properties
+
+        imageView.removeFromSuperview()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let hStackView = wrap(imageView, axis: .horizontal)
+        let vStackView = wrap(hStackView, axis: .vertical)
+
+        overlayView.addSubview(vStackView)
+
+        let rtl = UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft
+
+        // MARK: Positional constraints
+
+        var horizontallyFulfilled = false
+        var verticallyFulfilled = false
+
+        if let top = position.top {
+            let spacer = makeSpacer()
+            vStackView.insertArrangedSubview(spacer, at: 0)
+            let constraint = spacer.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: CGFloat(top / 100))
+            constraint.priority = UILayoutPriority(rawValue: 247)
+            constraint.isActive = true
+            vStackView.topAnchor.constraint(equalTo: overlayView.topAnchor).isActive = true
+            verticallyFulfilled = true
+        }
+
+        if let leading = position.leading {
+            if !rtl {
+                let spacer = makeSpacer()
+                hStackView.insertArrangedSubview(spacer, at: 0)
+                let constraint = spacer.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(leading / 100))
+                constraint.priority = UILayoutPriority(rawValue: 247)
+                constraint.isActive = true
+                vStackView.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor).isActive = true
+            } else {
+                let multiplier = CGFloat(1 - (leading / 100))
+                let constraint = NSLayoutConstraint(item: vStackView, attribute: .leading, relatedBy: .equal, toItem: overlayView, attribute: .leading, multiplier: multiplier, constant: 0)
+                constraint.priority = UILayoutPriority(rawValue: 247)
+                constraint.isActive = true
+            }
+            horizontallyFulfilled = true
+        }
+        
+        if let trailing = position.trailing, !horizontallyFulfilled {
+            if rtl {
+                let spacer = makeSpacer()
+                hStackView.addArrangedSubview(spacer)
+                let constraint = spacer.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(trailing / 100))
+                constraint.priority = UILayoutPriority(rawValue: 247)
+                constraint.isActive = true
+                vStackView.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor).isActive = true
+            } else {
+                let multiplier = CGFloat(trailing / 100)
+                let constraint = NSLayoutConstraint(item: vStackView, attribute: .trailing, relatedBy: .equal, toItem: overlayView, attribute: .trailing, multiplier: multiplier, constant: 0)
+                constraint.priority = UILayoutPriority(rawValue: 247)
+                constraint.isActive = true
+            }
+            horizontallyFulfilled = true
+        }
+        
+        var multiplier: CGFloat? = nil
+        var attribute: NSLayoutConstraint.Attribute? = nil
+
+        if let bottom = position.bottom, !verticallyFulfilled {
+            multiplier = CGFloat(1 - (bottom / 100))
+            attribute = .bottom
+            verticallyFulfilled = true
+        }
+
+        // TODO: hcenter and vcenter aren't working properly yet.
+        if let hcenter = position.hcenter, !horizontallyFulfilled {
+            multiplier = min(2, max(0.001, CGFloat(hcenter / 100) * 2))
+            attribute = .centerX
+            horizontallyFulfilled = true
+        }
+        if let vcenter = position.vcenter, !verticallyFulfilled {
+            multiplier = min(2, max(0.001, CGFloat(vcenter / 100) * 2))
+            attribute = .centerY
+            verticallyFulfilled = true
+        }
+
+        if let multiplier = multiplier, let attribute = attribute {
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: attribute, relatedBy: .equal, toItem: overlayView, attribute: attribute, multiplier: multiplier, constant: 0)
+            constraint.priority = UILayoutPriority(rawValue: 247)
+            constraint.isActive = true
+        }
 
         // MARK: Size constraints
 
@@ -59,31 +157,13 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         }
 
         if size.width == nil || size.height == nil {
-            // If one of the height or width constraints is nil (which mostly will be the case), then set the standard aspect ratio.
+            // If one of the height or width constraints is nil (which mostly will be the case), then set the aspect ratio
+            // as determined by the native bounds of the svg.
             let multiplier = imageView.frame.width > 0 ? imageView.frame.height / imageView.frame.width : 1.0
 
-            let constraint = NSLayoutConstraint(
-                item: imageView,
-                attribute: .height,
-                relatedBy: .equal,
-                toItem: imageView,
-                attribute: .width,
-                multiplier: multiplier,
-                constant: 0)
-                constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
-                constraint.isActive = true
+            let constraint = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: multiplier, constant: 0)
+            constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
+            constraint.isActive = true
         }
-
-        // MARK: Positional constraints
-
-
-
-        let leadingConstraint = imageView.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor)
-        leadingConstraint.priority = .defaultLow
-        leadingConstraint.isActive = true
-        let topConstraint = imageView.topAnchor.constraint(equalTo: overlayView.topAnchor)
-        topConstraint.priority = .defaultLow
-        topConstraint.isActive = true
-
     }
 }
