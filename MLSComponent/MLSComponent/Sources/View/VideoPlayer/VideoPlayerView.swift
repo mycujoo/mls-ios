@@ -40,38 +40,50 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
     private func setOverlayConstraints(imageView: UIView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
         imageView.removeFromSuperview()
-        addSubview(imageView)
+        overlayView.addSubview(imageView)
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         // MARK: Size constraints
 
         if let width = size.width {
-            imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: CGFloat(width / 100)).isActive = true
+            let constraint = imageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(width / 100))
+            constraint.priority = UILayoutPriority(rawValue: 248) // lower than constraints of overlay against its superview
+            constraint.isActive = true
         }
 
         if let height = size.height {
-            imageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: CGFloat(height / 100)).isActive = true
+            let constraint = imageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: CGFloat(height / 100))
+            constraint.priority = UILayoutPriority(rawValue: 248) // lower than constraints of overlay against its superview
+            constraint.isActive = true
         }
 
         if size.width == nil || size.height == nil {
             // If one of the height or width constraints is nil (which mostly will be the case), then set the standard aspect ratio.
             let multiplier = imageView.frame.width > 0 ? imageView.frame.height / imageView.frame.width : 1.0
 
-            NSLayoutConstraint(
+            let constraint = NSLayoutConstraint(
                 item: imageView,
                 attribute: .height,
                 relatedBy: .equal,
                 toItem: imageView,
                 attribute: .width,
                 multiplier: multiplier,
-                constant: 0).isActive = true
+                constant: 0)
+                constraint.priority = UILayoutPriority(rawValue: 248) // lower than constraints of overlay against its superview
+                constraint.isActive = true
         }
 
         // MARK: Positional constraints
 
-        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+
+
+        let leadingConstraint = imageView.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor)
+        leadingConstraint.priority = .defaultLow
+        leadingConstraint.isActive = true
+        let topConstraint = imageView.topAnchor.constraint(equalTo: overlayView.topAnchor)
+        leadingConstraint.priority = .defaultLow
+        leadingConstraint.isActive = true
 
     }
 }
