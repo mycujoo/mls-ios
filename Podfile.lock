@@ -1,13 +1,20 @@
 PODS:
   - Alamofire (5.2.1)
+  - CocoaLumberjack (3.6.1):
+    - CocoaLumberjack/Core (= 3.6.1)
+  - CocoaLumberjack/Core (3.6.1)
   - MLSComponent (0.0.1):
+    - Alamofire (~> 5.0)
     - Moya (~> 14.0)
+    - SVGKit (~> 2.1)
     - YouboraAVPlayerAdapter
     - YouboraLib
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
+  - SVGKit (2.1.1):
+    - CocoaLumberjack (~> 3.0)
   - YouboraAVPlayerAdapter (6.5.17):
     - YouboraAVPlayerAdapter/Default (= 6.5.17)
     - YouboraLib (~> 6.5.19)
@@ -24,7 +31,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CocoaLumberjack
     - Moya
+    - SVGKit
     - YouboraAVPlayerAdapter
     - YouboraLib
 
@@ -34,8 +43,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
-  MLSComponent: 701182b1d25c04830b17f0a3afdc8bcd7877fd7f
+  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
+  MLSComponent: 56553caef2642e7a6e47ff74a59deffec4952e94
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  SVGKit: 652cdf7bef8bec8564d04a8511d3ab50c7595fac
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 

@@ -17,6 +17,9 @@ public class VideoPlayerView: UIView  {
     private var onPlayButtonTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
+    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
+    private var overlays: [String: Overlay] = [:]
+
     // MARK: - Internal properties
 
     /// The color that is used throughout various controls and elements of the video player, together with the `secondaryColor`.

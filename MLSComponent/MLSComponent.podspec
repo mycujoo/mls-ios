@@ -18,6 +18,9 @@ Pod::Spec.new do |spec|
 
   spec.dependency 'YouboraLib'
   spec.dependency 'YouboraAVPlayerAdapter'
+  spec.dependency 'Alamofire', '~> 5.0'
   spec.dependency 'Moya', '~> 14.0'
+  # TODO: Do a PR on Macaw for tvos support
+  spec.ios.dependency 'SVGKit', '~> 2.1'
 
 end
