@@ -3,7 +3,8 @@
 //
 
 import Foundation
-import SVGKit
+import Macaw
+import Alamofire
 
 extension VideoPlayerView: AnnotationManagerDelegate {
     func setTimelineMarkers(with actions: [ShowTimelineMarker]) {
@@ -14,14 +15,17 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         DispatchQueue.global(qos: .background).async { [weak self] in
             if actions.count > 0 {
                 for action in actions {
-                    if let svgImage = SVGKImage(contentsOf: action.overlay.svgURL) {
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self else { return }
+                    AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
+                        if let svgString = response.value {
+                            if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
+                                DispatchQueue.main.async { [weak self] in
+                                    guard let self = self else { return }
 
-                            if let imageView = SVGKFastImageView(svgkImage: svgImage) {
-                                self.setOverlayConstraints(imageView: imageView, size: action.size, position: action.position)
+                                    let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
 
-                                self.overlays[action.overlay.id] = (overlay: action.overlay, view: imageView)
+                                    self.setOverlayConstraints(imageView: imageView, size: action.size, position: action.position)
+                                    self.overlays[action.overlay.id] = (overlay: action.overlay, view: imageView)
+                                }
                             }
                         }
                     }
@@ -34,7 +38,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
     }
 
-    private func setOverlayConstraints(imageView: SVGKFastImageView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
+    private func setOverlayConstraints(imageView: UIView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
         imageView.removeFromSuperview()
         addSubview(imageView)
 
@@ -52,13 +56,15 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
         if size.width == nil || size.height == nil {
             // If one of the height or width constraints is nil (which mostly will be the case), then set the standard aspect ratio.
+            let multiplier = imageView.frame.width > 0 ? imageView.frame.height / imageView.frame.width : 1.0
+
             NSLayoutConstraint(
                 item: imageView,
                 attribute: .height,
                 relatedBy: .equal,
                 toItem: imageView,
                 attribute: .width,
-                multiplier: imageView.frame.height / imageView.frame.width,
+                multiplier: multiplier,
                 constant: 0).isActive = true
         }
 

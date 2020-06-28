@@ -5,7 +5,6 @@
 #if os(iOS)
 import UIKit
 import AVKit
-import SVGKit
 
 public class VideoPlayerView: UIView  {
 
@@ -42,7 +41,7 @@ public class VideoPlayerView: UIView  {
     }
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    var overlays: [String: (overlay: Overlay, view: SVGKFastImageView)] = [:]
+    var overlays: [String: (overlay: Overlay, view: UIView)] = [:]
 
     // MARK: - UI Components
 
