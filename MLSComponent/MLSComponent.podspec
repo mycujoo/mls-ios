@@ -21,6 +21,6 @@ Pod::Spec.new do |spec|
   spec.dependency 'Alamofire', '~> 5.0'
   spec.dependency 'Moya', '~> 14.0'
   # TODO: Do a PR on Macaw for tvos support
-  spec.ios.dependency 'Macaw', '~> 0.9'
+  spec.ios.dependency 'SWXMLHash', '~> 5.0'
 
 end
