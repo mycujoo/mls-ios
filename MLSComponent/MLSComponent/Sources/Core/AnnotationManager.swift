@@ -33,6 +33,7 @@ class AnnotationManager {
             // MARK:  Helpers
 
             var inRangeShowOverlayActions: Set<Action> = Set()
+            var inRangeHideOverlayActions: Set<Action> = Set()
 
             // MARK: Evaluate
 
@@ -55,8 +56,10 @@ class AnnotationManager {
                                 inRangeShowOverlayActions.insert(action)
                             }
                         }
-                    case .hideOverlay(let data):
-                        break
+                    case .hideOverlay:
+                        if offsetAsSeconds <= currentTime {
+                            inRangeHideOverlayActions.insert(action)
+                        }
 //                    case .setVariable(let data):
 //                        break
 //                    case .incrementVariable(let data):
@@ -78,7 +81,7 @@ class AnnotationManager {
             }
 
             let showOverlayActions = inRangeShowOverlayActions.subtracting(self.activeShowOverlayActions)
-            let hideOverlayActions = self.activeShowOverlayActions.subtracting(inRangeShowOverlayActions)
+            let hideOverlayActions = self.activeShowOverlayActions.subtracting(inRangeShowOverlayActions).union(inRangeHideOverlayActions)
             self.activeShowOverlayActions = self.activeShowOverlayActions.union(showOverlayActions).subtracting(hideOverlayActions)
 
             showOverlays = showOverlayActions
@@ -108,18 +111,29 @@ class AnnotationManager {
 
             hideOverlays = hideOverlayActions
                 .map { action -> HideOverlay in
-                    let actionData: ActionShowOverlay?
+                    let overlayId: String?
+                    let animateType: OverlayAnimateoutType?
+                    let animateDuration: Double?
+
                     switch action.data {
                     case .showOverlay(let d):
-                        actionData = d
+                        overlayId = d.customId
+                        animateType = d.animateoutType
+                        animateDuration = d.animateoutDuration
+                    case .hideOverlay(let d):
+                        overlayId = d.customId
+                        animateType = d.animateoutType
+                        animateDuration = d.animateoutDuration
                     default:
-                        actionData = nil
+                        overlayId = nil
+                        animateType = nil
+                        animateDuration = nil
                     }
                     return HideOverlay(
                         actionId: action.id,
-                        overlayId: actionData?.customId ?? action.id,
-                        animateType: actionData?.animateoutType ?? .fadeOut,
-                        animateDuration: actionData?.animateoutDuration ?? 0.3)
+                        overlayId: overlayId ?? action.id,
+                        animateType: animateType ?? .fadeOut,
+                        animateDuration: animateDuration ?? 0.3)
                 }
 
             // TODO: Merge hideOverlays (which is based on ShowOverlay actions) with a HideOverlayAction based list.

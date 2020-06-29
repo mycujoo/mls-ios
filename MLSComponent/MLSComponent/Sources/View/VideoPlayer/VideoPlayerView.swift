@@ -35,7 +35,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
     }
 
     func hideOverlays(with actions: [HideOverlay]) {
-
+        print("hide overlays!", actions)
     }
 
     private func placeOverlay(imageView: UIView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
