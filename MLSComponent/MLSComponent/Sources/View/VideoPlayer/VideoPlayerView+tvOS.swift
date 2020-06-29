@@ -18,7 +18,7 @@ public class VideoPlayerView: UIView  {
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    private var overlays: [String: Overlay] = [:]
+    var overlays: [String: UIView] = [:]
 
     // MARK: - Internal properties
 

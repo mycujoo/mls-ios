@@ -12,20 +12,20 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
     func showOverlays(with actions: [ShowOverlay]) {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            if actions.count > 0 {
-                for action in actions {
-                    AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
-                        if let svgString = response.value {
-                            if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
-                                DispatchQueue.main.async { [weak self] in
-                                    guard let self = self else { return }
+            for action in actions {
+                AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
+                    if let svgString = response.value {
+                        if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
 
-                                    let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
-                                    imageView.clipsToBounds = true
-                                    imageView.backgroundColor = .none
+                                let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
+                                imageView.clipsToBounds = true
+                                imageView.backgroundColor = .none
 
-                                    self.placeOverlay(imageView: imageView, size: action.size, position: action.position)
-                                }
+                                self.placeOverlay(imageView: imageView, size: action.size, position: action.position)
+
+                                self.overlays[action.overlay.id] = imageView
                             }
                         }
                     }
@@ -35,7 +35,12 @@ extension VideoPlayerView: AnnotationManagerDelegate {
     }
 
     func hideOverlays(with actions: [HideOverlay]) {
-        print("hide overlays!", actions)
+        for action in actions {
+            if let overlayView = self.overlays[action.overlayId] {
+                overlayView.removeFromSuperview()
+                self.overlays[action.overlayId] = nil
+            }
+        }
     }
 
     private func placeOverlay(imageView: UIView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
@@ -143,7 +148,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         if size.width == nil || size.height == nil {
             // If one of the height or width constraints is nil (which mostly will be the case), then set the aspect ratio
             // as determined by the native bounds of the svg.
-            let multiplier = imageView.frame.width > 0 ? imageView.frame.height / imageView.frame.width : 1.0
+            let multiplier = imageView.frame.width > 0 && imageView.frame.height > 0 ? imageView.frame.height / imageView.frame.width : 1.0
 
             let constraint = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: multiplier, constant: 0)
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview

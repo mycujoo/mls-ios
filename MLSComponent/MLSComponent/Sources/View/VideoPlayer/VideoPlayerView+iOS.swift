@@ -41,7 +41,7 @@ public class VideoPlayerView: UIView  {
     }
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    var overlays: [String: (overlay: Overlay, view: UIView)] = [:]
+    var overlays: [String: UIView] = [:]
 
     // MARK: - UI Components
 
