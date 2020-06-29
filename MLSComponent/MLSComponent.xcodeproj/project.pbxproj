@@ -153,7 +153,6 @@
 		49736F1024A9F59C001F3F48 /* RotateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8324A9F59B001F3F48 /* RotateEvent.swift */; };
 		49736F1124A9F59C001F3F48 /* TapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8424A9F59B001F3F48 /* TapEvent.swift */; };
 		49736F1224A9F59C001F3F48 /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8624A9F59B001F3F48 /* MacawView+PDF.swift */; };
-		49736F1324A9F59C001F3F48 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49736E8724A9F59B001F3F48 /* Info.plist */; };
 		49736F1424A9F59C001F3F48 /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8924A9F59B001F3F48 /* CGFloat+Double.swift */; };
 		49736F1524A9F59C001F3F48 /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8A24A9F59B001F3F48 /* CAAnimationClosure.swift */; };
 		49736F1624A9F59C001F3F48 /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8B24A9F59B001F3F48 /* NSTimer+Closure.swift */; };
@@ -167,6 +166,8 @@
 		49736F1E24A9F59C001F3F48 /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9424A9F59B001F3F48 /* SVGParser.swift */; };
 		4989B1EC249D3750006CBB47 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4989B1EB249D3750006CBB47 /* Media.xcassets */; };
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
+		49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
+		49A8047624AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		49A9F52324A15B9200D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49A9F52424A15B9700D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49B25DE324A5ED5E00CCB14D /* HideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */; };
@@ -350,7 +351,6 @@
 		49736E8324A9F59B001F3F48 /* RotateEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateEvent.swift; sourceTree = "<group>"; };
 		49736E8424A9F59B001F3F48 /* TapEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapEvent.swift; sourceTree = "<group>"; };
 		49736E8624A9F59B001F3F48 /* MacawView+PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MacawView+PDF.swift"; sourceTree = "<group>"; };
-		49736E8724A9F59B001F3F48 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49736E8924A9F59B001F3F48 /* CGFloat+Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Double.swift"; sourceTree = "<group>"; };
 		49736E8A24A9F59B001F3F48 /* CAAnimationClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAAnimationClosure.swift; sourceTree = "<group>"; };
 		49736E8B24A9F59B001F3F48 /* NSTimer+Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTimer+Closure.swift"; sourceTree = "<group>"; };
@@ -364,6 +364,8 @@
 		49736E9424A9F59B001F3F48 /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParser.swift; sourceTree = "<group>"; };
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
+		49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
+		49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLIndexer+XMLIndexerDeserializable.swift"; sourceTree = "<group>"; };
 		49A9F52224A15B9200D00143 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideOverlay.swift; sourceTree = "<group>"; };
 		49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 		495CB131249CC4F800998FF4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				49A8047224AA0C4000E30DA8 /* SWXMLHash */,
 				49736DF424A9F588001F3F48 /* Macaw */,
 				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
@@ -480,7 +483,6 @@
 				49736DF524A9F599001F3F48 /* bindings */,
 				49736E7E24A9F59B001F3F48 /* events */,
 				49736E8524A9F59B001F3F48 /* export */,
-				49736E8724A9F59B001F3F48 /* Info.plist */,
 				49736E6A24A9F59A001F3F48 /* layout */,
 				49736E4024A9F59A001F3F48 /* MCAMediaTimingFillMode_iOS.swift */,
 				49736E4124A9F59A001F3F48 /* MCAMediaTimingFillMode_macOS.swift */,
@@ -800,6 +802,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		49A8047224AA0C4000E30DA8 /* SWXMLHash */ = {
+			isa = PBXGroup;
+			children = (
+				49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */,
+				49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */,
+			);
+			path = SWXMLHash;
+			sourceTree = "<group>";
+		};
 		49C12D5D24A3B109002CCDF5 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -1072,7 +1083,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49736F1324A9F59C001F3F48 /* Info.plist in Resources */,
 				4989B1EC249D3750006CBB47 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1238,6 +1248,7 @@
 				6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				49736EC824A9F59C001F3F48 /* MDisplayLink_macOS.swift in Sources */,
+				49A8047624AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
 				49736F0824A9F59C001F3F48 /* BoundsUtils.swift in Sources */,
 				49736ED224A9F59C001F3F48 /* MacawZoom.swift in Sources */,
 				49736EF924A9F59C001F3F48 /* AnimationImpl.swift in Sources */,
@@ -1259,6 +1270,7 @@
 				6496C359249230B80099475D /* ShowTimelineMarker.swift in Sources */,
 				49736E9824A9F59C001F3F48 /* Rect.swift in Sources */,
 				49736EE324A9F59C001F3F48 /* AnimationCache.swift in Sources */,
+				49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */,
 				49736ED924A9F59C001F3F48 /* ShapeAnimation.swift in Sources */,
 				49736EF124A9F59C001F3F48 /* Interpolable.swift in Sources */,
 				4959C7BC249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */,

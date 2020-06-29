@@ -7,10 +7,6 @@
 
 import Foundation
 
-#if !CARTHAGE
-import SWXMLHash
-#endif
-
 enum Selector {
     case byId(String)
     case byClass(String)
