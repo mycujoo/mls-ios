@@ -126,6 +126,8 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
         // MARK: Size constraints
 
+        // NOTE: Keep in mind that these constraints only work consistently because intrinsicContentSize was disabled within Macaw!
+
         if let width = size.width {
             let constraint = imageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(width / 100))
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview

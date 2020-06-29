@@ -41,31 +41,36 @@ class AnnotationManager {
                 for action in annotation.actions {
                     switch action.data {
                     case .showTimelineMarker(let data):
-                        let timelineMarker = TimelineMarker(color: UIColor(hex: data.color) ?? UIColor.gray, label: data.label)
+                        let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label)
                         let position = min(1.0, max(0.0, TimeInterval(annotation.offset / 1000) / currentDuration))
 
                         showTimelineMarkers.append(ShowTimelineMarker(actionId: action.id, timelineMarker: timelineMarker, position: position))
                     case .showOverlay(let data):
-                        guard let duration = data.duration else { break } // tmp, to keep it simple. Should remove later for non-duration bound actions.
-                        if offsetAsSeconds <= currentTime && currentTime < (offsetAsSeconds + duration) {
-                            inRangeShowOverlayActions.insert(action)
+                        if let duration = data.duration {
+                            if offsetAsSeconds <= currentTime && currentTime < (offsetAsSeconds + duration) {
+                                inRangeShowOverlayActions.insert(action)
+                            }
+                        } else {
+                            if offsetAsSeconds <= currentTime {
+                                inRangeShowOverlayActions.insert(action)
+                            }
                         }
                     case .hideOverlay(let data):
                         break
-                    case .setVariable(let data):
-                        break
-                    case .incrementVariable(let data):
-                        break
-                    case .createTimer(let data):
-                        break
-                    case .startTimer(let data):
-                        break
-                    case .pauseTimer(let data):
-                        break
-                    case .adjustTimer(let data):
-                        break
-                    case .unsupported:
-                        break
+//                    case .setVariable(let data):
+//                        break
+//                    case .incrementVariable(let data):
+//                        break
+//                    case .createTimer(let data):
+//                        break
+//                    case .startTimer(let data):
+//                        break
+//                    case .pauseTimer(let data):
+//                        break
+//                    case .adjustTimer(let data):
+//                        break
+//                    case .unsupported:
+//                        break
                     default:
                         break
                     }

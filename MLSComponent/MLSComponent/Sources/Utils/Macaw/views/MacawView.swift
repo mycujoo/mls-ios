@@ -47,9 +47,12 @@ class MacawView: MView, MGestureRecognizerDelegate {
         }
     }
 
-    override var intrinsicContentSize: CGSize {
-        get { return drawingView.intrinsicContentSize }
-    }
+    /* EDITTED FOR MLS
+     Disabled to favor custom constraints over intrinsic sizing.
+     */
+    //    override var intrinsicContentSize: CGSize {
+    //        get { return drawingView.intrinsicContentSize }
+    //    }
 
     internal var renderer: NodeRenderer? {
         get { return drawingView.renderer }
@@ -264,13 +267,16 @@ internal class DrawingView: MView {
         }
     }
 
-    override var intrinsicContentSize: CGSize {
-        if let bounds = node.bounds {
-            return bounds.size().toCG()
-        } else {
-            return CGSize(width: MNoIntrinsicMetric(), height: MNoIntrinsicMetric())
-        }
-    }
+    /* EDITTED FOR MLS
+     Disabled to favor custom constraints over intrinsic sizing.
+     */
+    //    override var intrinsicContentSize: CGSize {
+    //        if let bounds = node.bounds {
+    //            return bounds.size().toCG()
+    //        } else {
+    //            return CGSize(width: MNoIntrinsicMetric(), height: MNoIntrinsicMetric())
+    //        }
+    //    }
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
