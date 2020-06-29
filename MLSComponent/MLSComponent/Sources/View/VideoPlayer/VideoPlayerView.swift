@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import Macaw
 import Alamofire
 
 extension VideoPlayerView: AnnotationManagerDelegate {
