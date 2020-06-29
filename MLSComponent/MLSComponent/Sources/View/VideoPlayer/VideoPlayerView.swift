@@ -21,6 +21,8 @@ extension VideoPlayerView: AnnotationManagerDelegate {
                                     guard let self = self else { return }
 
                                     let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
+                                    imageView.clipsToBounds = true
+                                    imageView.backgroundColor = .none
 
                                     self.placeOverlay(imageView: imageView, size: action.size, position: action.position)
                                 }
@@ -43,6 +45,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             stackView.distribution = .fill
             stackView.alignment = .fill
             stackView.semanticContentAttribute = semanticContentAttribute
+            stackView.clipsToBounds = true
             stackView.translatesAutoresizingMaskIntoConstraints = false
             return stackView
         }
