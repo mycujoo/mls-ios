@@ -442,7 +442,7 @@ public protocol PlayerDelegate: AnyObject {
     func playerDidUpdateTime(player: VideoPlayer)
     /// The player has updated its state. To access the current state, see `VideoPlayer.state`
     func playerDidUpdateState(player: VideoPlayer)
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
     /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)

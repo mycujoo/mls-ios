@@ -1,6 +1,6 @@
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(OSX)
 import AppKit
@@ -130,27 +130,37 @@ class MacawView: MView, MGestureRecognizerDelegate {
         let tapRecognizer = MTapGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleTap(recognizer:)))
         let longTapRecognizer = MLongPressGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleLongTap(recognizer:)))
         let panRecognizer = MPanGestureRecognizer(target: drawingView, action: #selector(DrawingView.handlePan))
+        #if os(iOS)
         let rotationRecognizer = MRotationGestureRecognizer(target: drawingView, action: #selector(DrawingView.handleRotation))
         let pinchRecognizer = MPinchGestureRecognizer(target: drawingView, action: #selector(DrawingView.handlePinch))
+        #endif
 
         tapRecognizer.delegate = self
         longTapRecognizer.delegate = self
         panRecognizer.delegate = self
+
+        #if os(iOS)
         rotationRecognizer.delegate = self
         pinchRecognizer.delegate = self
+        #endif
 
         tapRecognizer.cancelsTouchesInView = false
         longTapRecognizer.cancelsTouchesInView = false
         panRecognizer.cancelsTouchesInView = false
+
+        #if os(iOS)
         rotationRecognizer.cancelsTouchesInView = false
         pinchRecognizer.cancelsTouchesInView = false
+        #endif
 
         self.removeGestureRecognizers()
         self.addGestureRecognizer(tapRecognizer)
         self.addGestureRecognizer(longTapRecognizer)
         self.addGestureRecognizer(panRecognizer)
+        #if os(iOS)
         self.addGestureRecognizer(rotationRecognizer)
         self.addGestureRecognizer(pinchRecognizer)
+        #endif
     }
 
     override func mTouchesBegan(_ touches: Set<MTouch>, with event: MEvent?) {
@@ -582,6 +592,7 @@ internal class DrawingView: MView {
         }
     }
 
+    #if os(iOS)
     // MARK: - Rotation
 
     @objc func handleRotation(_ recognizer: MRotationGestureRecognizer) {
@@ -667,6 +678,7 @@ internal class DrawingView: MView {
             recognizersMap.removeValue(forKey: recognizer)
         }
     }
+    #endif
 }
 
 class LayoutHelper {
