@@ -75,6 +75,13 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// The view in which all dynamic overlays are rendered.
+    let overlayView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     //MARK: - Init
 
     init() {
@@ -90,7 +97,7 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
-
+        addSubview(overlayView)
         addSubview(controlView)
         drawControls()
         NSLayoutConstraint
@@ -99,7 +106,11 @@ public class VideoPlayerView: UIView  {
                     controlView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
                     controlView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
                     controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+                    overlayView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+                    overlayView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+                    overlayView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+                    overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
                 ]
         )
 
@@ -164,6 +175,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
 
+        bringSubviewToFront(overlayView)
         bringSubviewToFront(controlView)
     }
 }

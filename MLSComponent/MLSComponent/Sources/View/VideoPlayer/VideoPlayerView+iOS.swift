@@ -5,7 +5,6 @@
 #if os(iOS)
 import UIKit
 import AVKit
-import SVGKit
 
 public class VideoPlayerView: UIView  {
 
@@ -42,7 +41,7 @@ public class VideoPlayerView: UIView  {
     }
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    var overlays: [String: (overlay: Overlay, view: SVGKFastImageView)] = [:]
+    var overlays: [String: (overlay: Overlay, view: UIView)] = [:]
 
     // MARK: - UI Components
 
@@ -139,6 +138,13 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// The view in which all dynamic overlays are rendered.
+    let overlayView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
@@ -175,6 +181,7 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
+        addSubview(overlayView)
         addSubview(controlView)
         addSubview(controlAlphaView)
         drawControls()
@@ -183,14 +190,22 @@ public class VideoPlayerView: UIView  {
             controlView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             controlView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            overlayView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            overlayView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            overlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            overlayView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ]
 
         let safeAreaConstraints = [
             controlView.leftAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leftAnchor, constant: 0),
             controlView.rightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.rightAnchor, constant: 0),
             controlView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            controlView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
+            controlView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+            overlayView.leftAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leftAnchor, constant: 0),
+            overlayView.rightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.rightAnchor, constant: 0),
+            overlayView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            overlayView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
         ]
 
         let alphaConstraints = [
@@ -201,13 +216,13 @@ public class VideoPlayerView: UIView  {
         ]
 
         for constraint in viewConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 249)
+            constraint.priority = UILayoutPriority(rawValue: 749)
         }
         for constraint in safeAreaConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 250)
+            constraint.priority = UILayoutPriority(rawValue: 750)
         }
         for constraint in alphaConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 250)
+            constraint.priority = UILayoutPriority(rawValue: 750)
         }
 
         NSLayoutConstraint.activate(viewConstraints)
@@ -328,6 +343,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
 
+        bringSubviewToFront(overlayView)
         bringSubviewToFront(controlAlphaView)
         bringSubviewToFront(controlView)
     }
