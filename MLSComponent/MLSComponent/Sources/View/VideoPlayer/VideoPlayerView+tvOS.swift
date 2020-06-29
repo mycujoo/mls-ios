@@ -97,7 +97,7 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
-
+        addSubview(overlayView)
         addSubview(controlView)
         drawControls()
         NSLayoutConstraint
