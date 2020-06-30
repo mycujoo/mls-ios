@@ -37,48 +37,14 @@ extension VideoPlayerView: AnnotationManagerDelegate {
     func hideOverlays(with actions: [HideOverlayAction]) {
         for action in actions {
             if let v = self.overlays[action.overlayId] {
-                let animationCompleted: ((Bool) -> Void) = { [weak self] _ in
-                    v.removeFromSuperview()
+                removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
                     self?.overlays[action.overlayId] = nil
-                }
-
-                switch action.animateType {
-                case .fadeOut:
-                    UIView.animate(withDuration: action.animateDuration, animations: { [weak self] in
-                        v.alpha = 0
-                    }, completion: animationCompleted)
-                case .slideToTop, .slideToBottom, .slideToLeading, .slideToTrailing:
-                    let firstAttribute: NSLayoutConstraint.Attribute
-                    let secondAttribute: NSLayoutConstraint.Attribute
-                    if action.animateType == .slideToTop {
-                        firstAttribute = .bottom
-                        secondAttribute = .top
-                    } else if action.animateType == .slideToBottom {
-                        firstAttribute = .top
-                        secondAttribute = .bottom
-                    } else if action.animateType == .slideToLeading {
-                        firstAttribute = .trailing
-                        secondAttribute = .leading
-                    } else {
-                        firstAttribute = .leading
-                        secondAttribute = .trailing
-                    }
-
-                    let constraint = NSLayoutConstraint(item: v, attribute: firstAttribute, relatedBy: .equal, toItem: self.overlayView, attribute: secondAttribute, multiplier: 1, constant: 0)
-                    constraint.priority = UILayoutPriority(rawValue: 999)
-                    constraint.isActive = true
-
-                    UIView.animate(withDuration: action.animateDuration, animations: { [weak self] in
-                        self?.layoutIfNeeded()
-                    }, completion: animationCompleted)
-
-                case .none, .unsupported:
-                    animationCompleted(true)
                 }
             }
         }
     }
 
+    /// Places the overlay within a containerView, that is then sized, positioned and animated within the overlayContainerView.
     private func placeOverlay(
         imageView: UIView,
         size: AnnotationActionShowOverlay.Size,
@@ -111,7 +77,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         let hStackView = wrap(imageView, axis: .horizontal)
         let vStackView = wrap(hStackView, axis: .vertical)
 
-        overlayView.addSubview(vStackView)
+        overlayContainerView.addSubview(vStackView)
 
         let rtl = UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft
 
@@ -120,18 +86,18 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         if let top = position.top {
             let spacer = makeSpacer()
             vStackView.insertArrangedSubview(spacer, at: 0)
-            let constraint = spacer.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: CGFloat(top / 100))
+            let constraint = spacer.heightAnchor.constraint(equalTo: overlayContainerView.heightAnchor, multiplier: CGFloat(top / 100))
             constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
-            vStackView.topAnchor.constraint(equalTo: overlayView.topAnchor).isActive = true
+            vStackView.topAnchor.constraint(equalTo: overlayContainerView.topAnchor).isActive = true
         } else if let bottom = position.bottom {
             let multiplier = max(0.0001, CGFloat(1 - (bottom / 100)))
-            let constraint = NSLayoutConstraint(item: vStackView, attribute: .bottom, relatedBy: .equal, toItem: overlayView, attribute: .bottom, multiplier: multiplier, constant: 0)
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: .bottom, relatedBy: .equal, toItem: overlayContainerView, attribute: .bottom, multiplier: multiplier, constant: 0)
             constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
         } else if let vcenter = position.vcenter {
             let multiplier = min(2, max(0.0001, CGFloat(vcenter / 50) + 1))
-            let constraint = NSLayoutConstraint(item: vStackView, attribute: .centerY, relatedBy: .equal, toItem: overlayView, attribute: .centerY, multiplier: multiplier, constant: 0)
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: .centerY, relatedBy: .equal, toItem: overlayContainerView, attribute: .centerY, multiplier: multiplier, constant: 0)
             constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
         }
@@ -140,13 +106,13 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             if !rtl {
                 let spacer = makeSpacer()
                 hStackView.insertArrangedSubview(spacer, at: 0)
-                let constraint = spacer.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(leading / 100))
+                let constraint = spacer.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(leading / 100))
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
-                vStackView.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor).isActive = true
+                vStackView.leadingAnchor.constraint(equalTo: overlayContainerView.leadingAnchor).isActive = true
             } else {
                 let multiplier = max(0.0001, CGFloat(1 - (leading / 100)))
-                let constraint = NSLayoutConstraint(item: vStackView, attribute: .leading, relatedBy: .equal, toItem: overlayView, attribute: .leading, multiplier: multiplier, constant: 0)
+                let constraint = NSLayoutConstraint(item: vStackView, attribute: .leading, relatedBy: .equal, toItem: overlayContainerView, attribute: .leading, multiplier: multiplier, constant: 0)
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
             }
@@ -154,19 +120,19 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             if rtl {
                 let spacer = makeSpacer()
                 hStackView.addArrangedSubview(spacer)
-                let constraint = spacer.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(trailing / 100))
+                let constraint = spacer.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(trailing / 100))
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
-                vStackView.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor).isActive = true
+                vStackView.trailingAnchor.constraint(equalTo: overlayContainerView.trailingAnchor).isActive = true
             } else {
                 let multiplier = max(0.0001, CGFloat(1 - (trailing / 100)))
-                let constraint = NSLayoutConstraint(item: vStackView, attribute: .trailing, relatedBy: .equal, toItem: overlayView, attribute: .trailing, multiplier: multiplier, constant: 0)
+                let constraint = NSLayoutConstraint(item: vStackView, attribute: .trailing, relatedBy: .equal, toItem: overlayContainerView, attribute: .trailing, multiplier: multiplier, constant: 0)
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
             }
         } else if let hcenter = position.hcenter {
             let multiplier = min(2, max(0.0001, CGFloat(hcenter / 50) + 1))
-            let constraint = NSLayoutConstraint(item: vStackView, attribute: .centerX, relatedBy: .equal, toItem: overlayView, attribute: .centerX, multiplier: multiplier, constant: 0)
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: .centerX, relatedBy: .equal, toItem: overlayContainerView, attribute: .centerX, multiplier: multiplier, constant: 0)
             constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
         }
@@ -176,13 +142,13 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         // NOTE: Keep in mind that these constraints only work consistently because intrinsicContentSize was disabled within Macaw!
 
         if let width = size.width {
-            let constraint = imageView.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: CGFloat(width / 100))
+            let constraint = imageView.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(width / 100))
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
         }
 
         if let height = size.height {
-            let constraint = imageView.heightAnchor.constraint(equalTo: overlayView.heightAnchor, multiplier: CGFloat(height / 100))
+            let constraint = imageView.heightAnchor.constraint(equalTo: overlayContainerView.heightAnchor, multiplier: CGFloat(height / 100))
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
         }
@@ -218,5 +184,60 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         }
 
         return vStackView
+    }
+
+    /// Removes an overlay from the overlayContainerView with the proper animations.
+    private func removeOverlay(
+        containerView: UIView,
+        animateType: OverlayAnimateoutType,
+        animateDuration: Double,
+        completion: @escaping (() -> Void)
+    ) {
+        let animationCompleted: ((Bool) -> Void) = { [weak self] _ in
+            containerView.removeFromSuperview()
+            completion()
+        }
+
+        switch animateType {
+        case .fadeOut:
+            UIView.animate(withDuration: animateDuration, animations: { [weak self] in
+                containerView.alpha = 0
+            }, completion: animationCompleted)
+        case .slideToTop, .slideToBottom, .slideToLeading, .slideToTrailing:
+            let firstAttribute: NSLayoutConstraint.Attribute
+            let secondAttribute: NSLayoutConstraint.Attribute
+            if animateType == .slideToTop {
+                firstAttribute = .bottom
+                secondAttribute = .top
+                containerView.constraints(on: containerView.topAnchor).first?.isActive = false
+                containerView.constraints(on: containerView.bottomAnchor).first?.isActive = false
+            } else if animateType == .slideToBottom {
+                firstAttribute = .top
+                secondAttribute = .bottom
+                containerView.constraints(on: containerView.topAnchor).first?.isActive = false
+                containerView.constraints(on: containerView.bottomAnchor).first?.isActive = false
+            } else if animateType == .slideToLeading {
+                firstAttribute = .trailing
+                secondAttribute = .leading
+                containerView.constraints(on: containerView.leadingAnchor).first?.isActive = false
+                containerView.constraints(on: containerView.trailingAnchor).first?.isActive = false
+            } else {
+                firstAttribute = .leading
+                secondAttribute = .trailing
+                containerView.constraints(on: containerView.leadingAnchor).first?.isActive = false
+                containerView.constraints(on: containerView.trailingAnchor).first?.isActive = false
+            }
+
+            let constraint = NSLayoutConstraint(item: containerView, attribute: firstAttribute, relatedBy: .equal, toItem: self.overlayContainerView, attribute: secondAttribute, multiplier: 1, constant: 0)
+            constraint.priority = UILayoutPriority(rawValue: 999)
+            constraint.isActive = true
+
+            UIView.animate(withDuration: animateDuration, animations: { [weak self] in
+                self?.layoutIfNeeded()
+            }, completion: animationCompleted)
+
+        case .none, .unsupported:
+            animationCompleted(true)
+        }
     }
 }
