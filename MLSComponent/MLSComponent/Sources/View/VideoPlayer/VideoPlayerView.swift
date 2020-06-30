@@ -168,17 +168,50 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         switch animateType {
         case .fadeIn:
             imageView.alpha = 0
-            UIView.animate(withDuration: animateDuration) { [weak self] in
+            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
                 imageView.alpha = 1
-            }
+            }, completion: nil)
+
         case .slideFromTop, .slideFromBottom, .slideFromLeading, .slideFromTrailing:
-            // TODO
-
-            let animationCompleted: ((Bool) -> Void) = { [weak self] _ in
-
+            let firstAttribute: NSLayoutConstraint.Attribute
+            let secondAttribute: NSLayoutConstraint.Attribute
+            var finalPositionConstraints: [NSLayoutConstraint?] = []
+            if animateType == .slideFromTop {
+                firstAttribute = .bottom
+                secondAttribute = .top
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.topAnchor).first)
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.bottomAnchor).first)
+            } else if animateType == .slideFromTop {
+                firstAttribute = .top
+                secondAttribute = .bottom
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.topAnchor).first)
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.bottomAnchor).first)
+            } else if animateType == .slideFromTop {
+                firstAttribute = .trailing
+                secondAttribute = .leading
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.leadingAnchor).first)
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.trailingAnchor).first)
+            } else {
+                firstAttribute = .leading
+                secondAttribute = .trailing
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.leadingAnchor).first)
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.trailingAnchor).first)
             }
 
-            animationCompleted(true)
+            // Temporarily deactivate the positional constraints that were built before in favor of the constraints
+            // that determine starting position.
+            NSLayoutConstraint.deactivate(finalPositionConstraints.compactMap { $0 })
+            let constraint = NSLayoutConstraint(item: vStackView, attribute: firstAttribute, relatedBy: .equal, toItem: self.overlayContainerView, attribute: secondAttribute, multiplier: 1, constant: 0)
+            constraint.priority = UILayoutPriority(rawValue: 247)
+            constraint.isActive = true
+            overlayContainerView.layoutIfNeeded()
+
+            // Now animate towards the constraints that determine the final position.
+            constraint.isActive = false
+            NSLayoutConstraint.activate(finalPositionConstraints.compactMap { $0 })
+            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+                self?.overlayContainerView.layoutIfNeeded()
+            }, completion: nil)
         case .none, .unsupported:
             break
         }
@@ -200,9 +233,10 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
         switch animateType {
         case .fadeOut:
-            UIView.animate(withDuration: animateDuration, animations: { [weak self] in
+            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: {
                 containerView.alpha = 0
             }, completion: animationCompleted)
+
         case .slideToTop, .slideToBottom, .slideToLeading, .slideToTrailing:
             let firstAttribute: NSLayoutConstraint.Attribute
             let secondAttribute: NSLayoutConstraint.Attribute
@@ -229,11 +263,11 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             }
 
             let constraint = NSLayoutConstraint(item: containerView, attribute: firstAttribute, relatedBy: .equal, toItem: self.overlayContainerView, attribute: secondAttribute, multiplier: 1, constant: 0)
-            constraint.priority = UILayoutPriority(rawValue: 999)
+            constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
 
-            UIView.animate(withDuration: animateDuration, animations: { [weak self] in
-                self?.layoutIfNeeded()
+            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+                self?.overlayContainerView.layoutIfNeeded()
             }, completion: animationCompleted)
 
         case .none, .unsupported:
