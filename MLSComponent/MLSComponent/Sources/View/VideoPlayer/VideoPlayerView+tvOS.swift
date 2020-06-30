@@ -18,6 +18,7 @@ public class VideoPlayerView: UIView  {
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
+    /// The UIView should be the outer container of the overlay, not the SVGView directly.
     var overlays: [String: UIView] = [:]
 
     // MARK: - Internal properties

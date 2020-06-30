@@ -23,9 +23,9 @@ extension VideoPlayerView: AnnotationManagerDelegate {
                                 imageView.clipsToBounds = true
                                 imageView.backgroundColor = .none
 
-                                self.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                                let containerView = self.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
 
-                                self.overlays[action.overlay.id] = imageView
+                                self.overlays[action.overlay.id] = containerView
                             }
                         }
                     }
@@ -48,8 +48,30 @@ extension VideoPlayerView: AnnotationManagerDelegate {
                         v.alpha = 0
                     }, completion: animationCompleted)
                 case .slideToTop, .slideToBottom, .slideToLeading, .slideToTrailing:
-                    // TODO
-                    animationCompleted(true)
+                    let firstAttribute: NSLayoutConstraint.Attribute
+                    let secondAttribute: NSLayoutConstraint.Attribute
+                    if action.animateType == .slideToTop {
+                        firstAttribute = .bottom
+                        secondAttribute = .top
+                    } else if action.animateType == .slideToBottom {
+                        firstAttribute = .top
+                        secondAttribute = .bottom
+                    } else if action.animateType == .slideToLeading {
+                        firstAttribute = .trailing
+                        secondAttribute = .leading
+                    } else {
+                        firstAttribute = .leading
+                        secondAttribute = .trailing
+                    }
+
+                    let constraint = NSLayoutConstraint(item: v, attribute: firstAttribute, relatedBy: .equal, toItem: self.overlayView, attribute: secondAttribute, multiplier: 1, constant: 0)
+                    constraint.priority = UILayoutPriority(rawValue: 999)
+                    constraint.isActive = true
+
+                    UIView.animate(withDuration: action.animateDuration, animations: { [weak self] in
+                        self?.layoutIfNeeded()
+                    }, completion: animationCompleted)
+
                 case .none, .unsupported:
                     animationCompleted(true)
                 }
@@ -63,7 +85,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         position: AnnotationActionShowOverlay.Position,
         animateType: OverlayAnimateinType,
         animateDuration: Double
-    ) {
+    ) -> UIView {
         func wrap(_ v: UIView, axis: NSLayoutConstraint.Axis) -> UIStackView {
             let stackView = UIStackView(arrangedSubviews: [v])
             stackView.axis = axis
@@ -195,6 +217,6 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             break
         }
 
-
+        return vStackView
     }
 }

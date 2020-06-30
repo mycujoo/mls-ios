@@ -41,6 +41,7 @@ public class VideoPlayerView: UIView  {
     }
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
+    /// The UIView should be the outer container of the overlay, not the SVGView directly.
     var overlays: [String: UIView] = [:]
 
     // MARK: - UI Components
@@ -141,6 +142,7 @@ public class VideoPlayerView: UIView  {
     /// The view in which all dynamic overlays are rendered.
     let overlayView: UIView = {
         let view = UIView()
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
