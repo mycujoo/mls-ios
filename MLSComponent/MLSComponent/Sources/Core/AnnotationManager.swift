@@ -91,10 +91,10 @@ class AnnotationManager {
                 }
             }
 
-            // Shadow this list because we are going to manipulate it in the for-loop.
-            let activeOverlayIds = self.activeOverlayIds
+            var remainingActiveOverlayIds = self.activeOverlayIds
             for (_, action) in inRangeOverlayActions {
-                if activeOverlayIds.contains(action.overlayId) {
+                if remainingActiveOverlayIds.contains(action.overlayId) {
+                    remainingActiveOverlayIds.remove(action.overlayId)
                     if let action = action as? HideOverlayAction {
                         // The overlay is currently active AND should be hidden.
                         hideOverlays.append(action)
@@ -107,6 +107,12 @@ class AnnotationManager {
                         self.activeOverlayIds.insert(action.overlayId)
                     }
                 }
+            }
+
+            for overlayId in remainingActiveOverlayIds {
+                // These are all overlayIds that were active but no longer are. Remove those from screen as well.
+                hideOverlays.append(HideOverlayAction(actionId: overlayId, overlayId: overlayId, animateType: .none, animateDuration: 0.0))
+                self.activeOverlayIds.remove(overlayId)
             }
 
             DispatchQueue.main.async { [weak self] in
