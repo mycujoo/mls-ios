@@ -18,6 +18,7 @@ Pod::Spec.new do |spec|
 
   spec.dependency 'YouboraLib'
   spec.dependency 'YouboraAVPlayerAdapter'
+  spec.dependency 'Alamofire', '~> 5.0'
   spec.dependency 'Moya', '~> 14.0'
 
 end

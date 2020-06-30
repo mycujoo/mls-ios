@@ -17,6 +17,10 @@ public class VideoPlayerView: UIView  {
     private var onPlayButtonTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
+    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
+    /// The UIView should be the outer container of the overlay, not the SVGView directly.
+    var overlays: [String: UIView] = [:]
+
     // MARK: - Internal properties
 
     /// The color that is used throughout various controls and elements of the video player, together with the `secondaryColor`.
@@ -72,6 +76,13 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// The view in which all dynamic overlays are rendered.
+    let overlayContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     //MARK: - Init
 
     init() {
@@ -87,7 +98,7 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
-
+        addSubview(overlayContainerView)
         addSubview(controlView)
         drawControls()
         NSLayoutConstraint
@@ -96,7 +107,11 @@ public class VideoPlayerView: UIView  {
                     controlView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
                     controlView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
                     controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+                    overlayContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+                    overlayContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+                    overlayContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+                    overlayContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
                 ]
         )
 
@@ -161,6 +176,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
 
+        bringSubviewToFront(overlayContainerView)
         bringSubviewToFront(controlView)
     }
 }

@@ -116,7 +116,8 @@ public class VideoPlayer: NSObject {
 
     private(set) public var annotations: [Annotation] = [] {
         didSet {
-            evaluateAnnotations()
+            annotationManager.annotations = annotations
+            annotationManager.evaluate(currentTime: currentTime, currentDuration: currentDuration)
             delegate?.playerDidUpdateAnnotations(player: self)
         }
     }
@@ -124,6 +125,7 @@ public class VideoPlayer: NSObject {
     // MARK: - Private properties
 
     private let player = MLSAVPlayer()
+    private var annotationManager: AnnotationManager!
     private var timeObserver: Any?
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
@@ -137,8 +139,6 @@ public class VideoPlayer: NSObject {
     /// A private counter to help the skip buttons keep track of how much to seek by after the user stops pressing
     private var relativeSeekButtonCurrentAmount: Double = 0.0
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
-
-    private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
 
     // MARK: - Internal properties
 
@@ -179,6 +179,8 @@ public class VideoPlayer: NSObject {
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
             view.drawPlayer(with: player)
+
+            annotationManager = AnnotationManager(delegate: view!)
         }
 
         if Thread.isMainThread {
@@ -202,6 +204,7 @@ public class VideoPlayer: NSObject {
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
+        relativeSeekButtonCurrentAmount = 0
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
@@ -311,7 +314,7 @@ extension VideoPlayer {
 
                     self.delegate?.playerDidUpdateTime(player: self)
 
-                    self.evaluateAnnotations()
+                    self.annotationManager.evaluate(currentTime: seconds, currentDuration: durationSeconds)
         }
     }
 
@@ -324,7 +327,9 @@ extension VideoPlayer {
         updatetimeIndicatorLabel(elapsedSeconds, totalSeconds: currentDuration)
 
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
-        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
+            self?.relativeSeekButtonCurrentAmount = 0
+        })
     }
 
     private func updatetimeIndicatorLabel(_ elapsedSeconds: Double, totalSeconds: Double) {
@@ -356,6 +361,7 @@ extension VideoPlayer {
         else {
             player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
                 if finished {
+                    self?.relativeSeekButtonCurrentAmount = 0
                     self?.state = .readyToPlay
                     self?.play()
                 }
@@ -372,7 +378,8 @@ extension VideoPlayer {
 
         self.relativeSeekButtonCurrentAmount += amount
 
-        let expectedSeekTo = min(max(0, currentDuration - 1), currentTime + self.relativeSeekButtonCurrentAmount)
+
+        let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
 
         view.videoSlider.value = expectedSeekTo / currentDuration
         updatetimeIndicatorLabel(expectedSeekTo, totalSeconds: currentDuration)
@@ -380,11 +387,20 @@ extension VideoPlayer {
         relativeSeekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
 
-            let seekTo = min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount)
+            // Do not use the currentTime from outside this closure, since it may have been updated since then.
+            // However, currentDuration can be used, since it's more expensive to obtain and doesn't change radically in this timespan.
+
+            let seekAmount = self.relativeSeekButtonCurrentAmount
+            let seekTo = max(0, min(currentDuration - 1, self.currentTime + seekAmount))
+
             self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] completed in
+                guard let self = self else { return }
+                // Correct relativeSeekButtonCurrentAmount by how much was being seeked.
+                // Do this (rather than setting to 0) because since the last seek was initiated, the debouncer may have been
+                // triggered again, so setting to 0 would lead to a wrong seek operation on that one.
+                self.relativeSeekButtonCurrentAmount -= seekAmount
                 if completed {
-                    self?.relativeSeekButtonCurrentAmount = 0
-                    self?.play()
+                    self.play()
                 }
             }
         }
@@ -402,61 +418,6 @@ extension VideoPlayer {
         isFullscreen.toggle()
     }
     #endif
-}
-
-extension VideoPlayer {
-    private func evaluateAnnotations() {
-        annotationsQueue.async { [weak self] in
-            guard let self = self else { return }
-
-            let duration = self.currentDuration
-            guard duration > 0 else { return }
-
-            let currentTime = self.currentTime
-            let annotations = self.annotations
-
-            var showTimelineMarkers: [(position: Double, marker: TimelineMarker)] = []
-            for annotation in annotations {
-                for action in annotation.actions {
-                    switch action {
-                    case .showTimelineMarker(let data):
-                        let color = UIColor(hex: data.color) ?? UIColor.gray
-                        // There should not be multiple timeline markers for a single annotation, so reuse annotation id on the timeline marker.
-                        let timelineMarker = TimelineMarker(id: annotation.id, kind: .singleLineText(text: data.label), markerColor: color, timestamp: TimeInterval(annotation.offset / 1000))
-                        showTimelineMarkers.append((position: min(1.0, max(0.0, timelineMarker.timestamp / duration)), marker: timelineMarker))
-    //                case .showOverlay(let data):
-    //                    break
-    //                case .hideOverlay(let data):
-    //                    break
-    //                case .setVariable(let data):
-    //                    break
-    //                case .incrementVariable(let data):
-    //                    break
-    //                case .createTimer(let data):
-    //                    break
-    //                case .startTimer(let data):
-    //                    break
-    //                case .pauseTimer(let data):
-    //                    break
-    //                case .adjustTimer(let data):
-    //                    break
-    //                case .unsupported:
-    //                    break
-                    default:
-                        break
-                    }
-                }
-            }
-
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.view.videoSlider.setTimelineMarkers(with: showTimelineMarkers)
-            }
-        }
-
-    }
-
-
 }
 
 // MARK: - State
@@ -481,7 +442,7 @@ public protocol PlayerDelegate: AnyObject {
     func playerDidUpdateTime(player: VideoPlayer)
     /// The player has updated its state. To access the current state, see `VideoPlayer.state`
     func playerDidUpdateState(player: VideoPlayer)
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
     /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)

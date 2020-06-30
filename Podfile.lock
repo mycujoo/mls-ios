@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.2.1)
   - MLSComponent (0.0.1):
+    - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - YouboraAVPlayerAdapter
     - YouboraLib
@@ -34,7 +35,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
-  MLSComponent: 701182b1d25c04830b17f0a3afdc8bcd7877fd7f
+  MLSComponent: 17344044e945b65b4937e25ca59867a13238d86a
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d

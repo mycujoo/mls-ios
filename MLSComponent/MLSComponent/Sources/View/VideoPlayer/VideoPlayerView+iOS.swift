@@ -40,6 +40,10 @@ public class VideoPlayerView: UIView  {
         }
     }
 
+    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
+    /// The UIView should be the outer container of the overlay, not the SVGView directly.
+    var overlays: [String: UIView] = [:]
+
     // MARK: - UI Components
 
     private lazy var playIcon = UIImage(named: "Icon-Play", in: Bundle.resourceBundle, compatibleWith: nil)
@@ -135,6 +139,14 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// The view in which all dynamic overlays are rendered.
+    let overlayContainerView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
@@ -171,6 +183,7 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
+        addSubview(overlayContainerView)
         addSubview(controlView)
         addSubview(controlAlphaView)
         drawControls()
@@ -179,14 +192,22 @@ public class VideoPlayerView: UIView  {
             controlView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             controlView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            overlayContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            overlayContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            overlayContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            overlayContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ]
 
         let safeAreaConstraints = [
             controlView.leftAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leftAnchor, constant: 0),
             controlView.rightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.rightAnchor, constant: 0),
             controlView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            controlView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
+            controlView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+            overlayContainerView.leftAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leftAnchor, constant: 0),
+            overlayContainerView.rightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.rightAnchor, constant: 0),
+            overlayContainerView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            overlayContainerView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
         ]
 
         let alphaConstraints = [
@@ -197,13 +218,13 @@ public class VideoPlayerView: UIView  {
         ]
 
         for constraint in viewConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 249)
+            constraint.priority = UILayoutPriority(rawValue: 749)
         }
         for constraint in safeAreaConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 250)
+            constraint.priority = UILayoutPriority(rawValue: 750)
         }
         for constraint in alphaConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 250)
+            constraint.priority = UILayoutPriority(rawValue: 750)
         }
 
         NSLayoutConstraint.activate(viewConstraints)
@@ -324,6 +345,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
 
+        bringSubviewToFront(overlayContainerView)
         bringSubviewToFront(controlAlphaView)
         bringSubviewToFront(controlView)
     }
