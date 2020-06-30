@@ -13,7 +13,7 @@ class AnnotationManager {
 
     var annotations: [Annotation] = []
 
-    private var activeOverlays: [Overlay] = []
+    private var activeOverlayIds: Set<String> = Set()
 
     init(delegate: AnnotationManagerDelegate) {
         self.delegate = delegate
@@ -32,8 +32,7 @@ class AnnotationManager {
 
             // MARK:  Helpers
 
-            var inRangeShowOverlayActions: [ShowOverlayAction] = []
-            var inRangeHideOverlayActions: [HideOverlayAction] = []
+            var inRangeOverlayActions: [String: OverlayAction] = [:]
 
             // MARK: Evaluate
 
@@ -50,16 +49,17 @@ class AnnotationManager {
                         if offsetAsSeconds <= currentTime {
                             if let duration = data.duration {
                                 if currentTime < (offsetAsSeconds + duration) {
-                                    if let obj = self.makeHideOverlay(from: action) {
-                                        inRangeHideOverlayActions.append(obj)
+                                    if let obj = self.makeShowOverlay(from: action) {
+                                        inRangeOverlayActions[obj.overlayId] = obj
                                     }
-                                }
-                                if let obj = self.makeShowOverlay(from: action) {
-                                    inRangeShowOverlayActions.append(obj)
+                                } else {
+                                    if let obj = self.makeHideOverlay(from: action) {
+                                        inRangeOverlayActions[obj.overlayId] = obj
+                                    }
                                 }
                             } else {
                                 if let obj = self.makeShowOverlay(from: action) {
-                                    inRangeShowOverlayActions.append(obj)
+                                    inRangeOverlayActions[obj.overlayId] = obj
                                 }
                             }
                         }
@@ -67,7 +67,7 @@ class AnnotationManager {
                     case .hideOverlay:
                         if offsetAsSeconds <= currentTime {
                             if let obj = self.makeHideOverlay(from: action) {
-                                inRangeHideOverlayActions.append(obj)
+                                inRangeOverlayActions[obj.overlayId] = obj
                             }
                         }
 //                    case .setVariable(let data):
@@ -90,8 +90,23 @@ class AnnotationManager {
                 }
             }
 
-            let inRangeHideOverlayIds = inRangeShowOverlayActions.map { $0.overlay.id }
-            self.activeOverlays = inRangeShowOverlayActions.filter { inRangeHideOverlayIds.contains($0.overlay.id) }.map { $0.overlay }
+            // Shadow this list because we are going to manipulate it in the for-loop.
+            let activeOverlayIds = self.activeOverlayIds
+            for (_, action) in inRangeOverlayActions {
+                if activeOverlayIds.contains(action.overlayId) {
+                    if let action = action as? HideOverlayAction {
+                        // The overlay is currently active AND should be hidden.
+                        hideOverlays.append(action)
+                        self.activeOverlayIds.remove(action.overlayId)
+                    }
+                } else {
+                    if let action = action as? ShowOverlayAction {
+                        // The overlay is not currently active AND should be shown.
+                        showOverlays.append(action)
+                        self.activeOverlayIds.insert(action.overlayId)
+                    }
+                }
+            }
 
             DispatchQueue.main.async { [weak self] in
                 self?.delegate?.setTimelineMarkers(with: showTimelineMarkers)

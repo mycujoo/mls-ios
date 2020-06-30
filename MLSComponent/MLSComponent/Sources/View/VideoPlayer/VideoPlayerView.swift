@@ -11,6 +11,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
     }
 
     func showOverlays(with actions: [ShowOverlayAction]) {
+        print("Showing overlays!", actions)
         DispatchQueue.global(qos: .background).async { [weak self] in
             for action in actions {
                 AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
@@ -35,6 +36,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
     }
 
     func hideOverlays(with actions: [HideOverlayAction]) {
+        print("Hiding overlays!", actions)
         for action in actions {
             if let overlayView = self.overlays[action.overlayId] {
                 overlayView.removeFromSuperview()
