@@ -4,10 +4,8 @@
 
 import Foundation
 
-struct HideOverlay {
-    /// The actionId can be used to internally track progress.
+struct HideOverlayAction: OverlayAction {
     let actionId: String
-    /// The id of the overlay that should be hidden.
     let overlayId: String
     let animateType: OverlayAnimateoutType
     let animateDuration: Double

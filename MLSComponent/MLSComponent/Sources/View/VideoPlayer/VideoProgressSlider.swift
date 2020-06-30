@@ -216,7 +216,7 @@ class VideoProgressSlider: UIControl {
 }
 
 extension VideoProgressSlider {
-    func setTimelineMarkers(with operations: [ShowTimelineMarker]) {
+    func setTimelineMarkers(with operations: [ShowTimelineMarkerAction]) {
         /// Takes a position (value between 0 and 1) and returns a multiplier that can be used on a centerXAnchor for the timeline marker.
         func calcConstraintMultiplier(position: Double) -> CGFloat {
             let minPossibleMultiplier: CGFloat = 0.001

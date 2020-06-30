@@ -13,7 +13,7 @@ class AnnotationManager {
 
     var annotations: [Annotation] = []
 
-    var activeShowOverlayActions: Set<Action> = Set()
+    private var activeOverlays: [Overlay] = []
 
     init(delegate: AnnotationManagerDelegate) {
         self.delegate = delegate
@@ -26,14 +26,14 @@ class AnnotationManager {
 
             // MARK: Final actions
 
-            var showTimelineMarkers: [ShowTimelineMarker] = []
-            var showOverlays: [ShowOverlay] = []
-            var hideOverlays: [HideOverlay] = []
+            var showTimelineMarkers: [ShowTimelineMarkerAction] = []
+            var showOverlays: [ShowOverlayAction] = []
+            var hideOverlays: [HideOverlayAction] = []
 
             // MARK:  Helpers
 
-            var inRangeShowOverlayActions: Set<Action> = Set()
-            var inRangeHideOverlayActions: Set<Action> = Set()
+            var inRangeShowOverlayActions: [ShowOverlayAction] = []
+            var inRangeHideOverlayActions: [HideOverlayAction] = []
 
             // MARK: Evaluate
 
@@ -45,20 +45,30 @@ class AnnotationManager {
                         let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label)
                         let position = min(1.0, max(0.0, TimeInterval(annotation.offset / 1000) / currentDuration))
 
-                        showTimelineMarkers.append(ShowTimelineMarker(actionId: action.id, timelineMarker: timelineMarker, position: position))
+                        showTimelineMarkers.append(ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position))
                     case .showOverlay(let data):
-                        if let duration = data.duration {
-                            if offsetAsSeconds <= currentTime && currentTime < (offsetAsSeconds + duration) {
-                                inRangeShowOverlayActions.insert(action)
-                            }
-                        } else {
-                            if offsetAsSeconds <= currentTime {
-                                inRangeShowOverlayActions.insert(action)
+                        if offsetAsSeconds <= currentTime {
+                            if let duration = data.duration {
+                                if currentTime < (offsetAsSeconds + duration) {
+                                    if let obj = self.makeHideOverlay(from: action) {
+                                        inRangeHideOverlayActions.append(obj)
+                                    }
+                                }
+                                if let obj = self.makeShowOverlay(from: action) {
+                                    inRangeShowOverlayActions.append(obj)
+                                }
+                            } else {
+                                if let obj = self.makeShowOverlay(from: action) {
+                                    inRangeShowOverlayActions.append(obj)
+                                }
                             }
                         }
+
                     case .hideOverlay:
                         if offsetAsSeconds <= currentTime {
-                            inRangeHideOverlayActions.insert(action)
+                            if let obj = self.makeHideOverlay(from: action) {
+                                inRangeHideOverlayActions.append(obj)
+                            }
                         }
 //                    case .setVariable(let data):
 //                        break
@@ -80,82 +90,79 @@ class AnnotationManager {
                 }
             }
 
-            let showOverlayActions = inRangeShowOverlayActions.subtracting(self.activeShowOverlayActions)
-            let hideOverlayActions = self.activeShowOverlayActions.subtracting(inRangeShowOverlayActions).union(inRangeHideOverlayActions)
-            self.activeShowOverlayActions = self.activeShowOverlayActions.union(showOverlayActions).subtracting(hideOverlayActions)
-
-            showOverlays = showOverlayActions
-                .map { action -> ShowOverlay? in
-                    let actionData: ActionShowOverlay
-                    switch action.data {
-                    case .showOverlay(let d):
-                        actionData = d
-                    default:
-                        return nil
-                    }
-
-                    let overlay = Overlay(
-                        id: actionData.customId ?? action.id,
-                        svgURL: actionData.svgURL)
-
-                    return ShowOverlay(
-                        actionId: action.id,
-                        overlay: overlay,
-                        position: actionData.position,
-                        size: actionData.size,
-                        animateType: actionData.animateinType ?? .fadeIn,
-                        animateDuration: actionData.animateinDuration ?? 0.3)
-                }
-                .filter { $0 != nil }
-                .map { $0! }
-
-            hideOverlays = hideOverlayActions
-                .map { action -> HideOverlay in
-                    let overlayId: String?
-                    let animateType: OverlayAnimateoutType?
-                    let animateDuration: Double?
-
-                    switch action.data {
-                    case .showOverlay(let d):
-                        overlayId = d.customId
-                        animateType = d.animateoutType
-                        animateDuration = d.animateoutDuration
-                    case .hideOverlay(let d):
-                        overlayId = d.customId
-                        animateType = d.animateoutType
-                        animateDuration = d.animateoutDuration
-                    default:
-                        overlayId = nil
-                        animateType = nil
-                        animateDuration = nil
-                    }
-                    return HideOverlay(
-                        actionId: action.id,
-                        overlayId: overlayId ?? action.id,
-                        animateType: animateType ?? .fadeOut,
-                        animateDuration: animateDuration ?? 0.3)
-                }
-
-            // TODO: Merge hideOverlays (which is based on ShowOverlay actions) with a HideOverlayAction based list.
+            let inRangeHideOverlayIds = inRangeShowOverlayActions.map { $0.overlay.id }
+            self.activeOverlays = inRangeShowOverlayActions.filter { inRangeHideOverlayIds.contains($0.overlay.id) }.map { $0.overlay }
 
             DispatchQueue.main.async { [weak self] in
                 self?.delegate?.setTimelineMarkers(with: showTimelineMarkers)
-                self?.delegate?.showOverlays(with: showOverlays)
-                self?.delegate?.hideOverlays(with: hideOverlays)
+                if showOverlays.count > 0 {
+                    self?.delegate?.showOverlays(with: showOverlays)
+                }
+                if hideOverlays.count > 0 {
+                    self?.delegate?.hideOverlays(with: hideOverlays)
+                }
             }
         }
     }
 }
 
+fileprivate extension AnnotationManager {
+    func makeShowOverlay(from action: AnnotationAction) -> ShowOverlayAction? {
+        let actionData: AnnotationActionShowOverlay
+        switch action.data {
+        case .showOverlay(let d):
+            actionData = d
+        default:
+            return nil
+        }
+
+        let overlay = Overlay(
+            id: actionData.customId ?? action.id,
+            svgURL: actionData.svgURL)
+
+        return ShowOverlayAction(
+            actionId: action.id,
+            overlay: overlay,
+            position: actionData.position,
+            size: actionData.size,
+            animateType: actionData.animateinType ?? .fadeIn,
+            animateDuration: actionData.animateinDuration ?? 0.3)
+    }
+
+    func makeHideOverlay(from action: AnnotationAction) -> HideOverlayAction? {
+        let overlayId: String?
+        let animateType: OverlayAnimateoutType?
+        let animateDuration: Double?
+
+        switch action.data {
+        case .showOverlay(let d):
+            overlayId = d.customId
+            animateType = d.animateoutType
+            animateDuration = d.animateoutDuration
+        case .hideOverlay(let d):
+            overlayId = d.customId
+            animateType = d.animateoutType
+            animateDuration = d.animateoutDuration
+        default:
+            return nil
+        }
+        return HideOverlayAction(
+            actionId: action.id,
+            overlayId: overlayId ?? action.id,
+            animateType: animateType ?? .fadeOut,
+            animateDuration: animateDuration ?? 0.3)
+    }
+}
+
 protocol AnnotationManagerDelegate: class {
     /// Gets triggered often, and will often contain the same ShowTimelineMarker actions. It is up to the delegate to interpret which ones are new.
-    func setTimelineMarkers(with actions: [ShowTimelineMarker])
+    func setTimelineMarkers(with actions: [ShowTimelineMarkerAction])
     /// Gets triggered whenever an overlay needs to be shown. Unlike `setTimelineMarkers`,
     /// this will only contain actions that are new and can therefore be executed immediately.
-    func showOverlays(with actions: [ShowOverlay])
+    func showOverlays(with actions: [ShowOverlayAction])
     /// Gets triggered whenever an overlay needs to be hidden. Unlike `setTimelineMarkers`,
     /// this will only contain actions that are new and can therefore be executed immediately.
-    func hideOverlays(with actions: [HideOverlay])
+    func hideOverlays(with actions: [HideOverlayAction])
 }
 
 

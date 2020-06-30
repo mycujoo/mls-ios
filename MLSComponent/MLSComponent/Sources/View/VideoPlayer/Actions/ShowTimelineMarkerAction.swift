@@ -4,8 +4,7 @@
 
 import UIKit
 
-struct ShowTimelineMarker {
-    /// The actionId can be used to internally track progress.
+struct ShowTimelineMarkerAction: Action {
     let actionId: String
     let timelineMarker: TimelineMarker
     let position: Double

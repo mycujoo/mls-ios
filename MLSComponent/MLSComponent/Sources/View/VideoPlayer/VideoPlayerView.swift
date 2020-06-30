@@ -6,11 +6,11 @@ import Foundation
 import Alamofire
 
 extension VideoPlayerView: AnnotationManagerDelegate {
-    func setTimelineMarkers(with actions: [ShowTimelineMarker]) {
+    func setTimelineMarkers(with actions: [ShowTimelineMarkerAction]) {
         videoSlider.setTimelineMarkers(with: actions)
     }
 
-    func showOverlays(with actions: [ShowOverlay]) {
+    func showOverlays(with actions: [ShowOverlayAction]) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             for action in actions {
                 AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
@@ -34,7 +34,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         }
     }
 
-    func hideOverlays(with actions: [HideOverlay]) {
+    func hideOverlays(with actions: [HideOverlayAction]) {
         for action in actions {
             if let overlayView = self.overlays[action.overlayId] {
                 overlayView.removeFromSuperview()
@@ -43,7 +43,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         }
     }
 
-    private func placeOverlay(imageView: UIView, size: ActionShowOverlay.Size, position: ActionShowOverlay.Position) {
+    private func placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position) {
         func wrap(_ v: UIView, axis: NSLayoutConstraint.Axis) -> UIStackView {
             let stackView = UIStackView(arrangedSubviews: [v])
             stackView.axis = axis

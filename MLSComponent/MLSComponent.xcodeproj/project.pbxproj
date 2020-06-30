@@ -166,6 +166,8 @@
 		49736F1E24A9F59C001F3F48 /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9424A9F59B001F3F48 /* SVGParser.swift */; };
 		4989B1EC249D3750006CBB47 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4989B1EB249D3750006CBB47 /* Media.xcassets */; };
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
+		49A73D4524AB315D009CD2DF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A73D4424AB315D009CD2DF /* Action.swift */; };
+		49A73D4624AB315D009CD2DF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A73D4424AB315D009CD2DF /* Action.swift */; };
 		49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
 		49A8047624AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		49A8047724AA0DE200E30DA8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
@@ -307,8 +309,8 @@
 		49A804FF24AA201C00E30DA8 /* PathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6724A9F59A001F3F48 /* PathFunctions.swift */; };
 		49A9F52324A15B9200D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49A9F52424A15B9700D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
-		49B25DE324A5ED5E00CCB14D /* HideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */; };
-		49B25DE424A5EE4E00CCB14D /* HideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */; };
+		49B25DE324A5ED5E00CCB14D /* HideOverlayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE224A5ED5E00CCB14D /* HideOverlayAction.swift */; };
+		49B25DE424A5EE4E00CCB14D /* HideOverlayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE224A5ED5E00CCB14D /* HideOverlayAction.swift */; };
 		49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */; };
 		49B25DE724A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */; };
 		49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5724A35204002CCDF5 /* PlayerConfig.swift */; };
@@ -317,8 +319,8 @@
 		49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
 		49DDEABC24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
-		49E2DF0A24A54F7000750C00 /* ShowOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0924A54F7000750C00 /* ShowOverlay.swift */; };
-		49E2DF0B24A54F7000750C00 /* ShowOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0924A54F7000750C00 /* ShowOverlay.swift */; };
+		49E2DF0A24A54F7000750C00 /* ShowOverlayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0924A54F7000750C00 /* ShowOverlayAction.swift */; };
+		49E2DF0B24A54F7000750C00 /* ShowOverlayAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0924A54F7000750C00 /* ShowOverlayAction.swift */; };
 		49E2DF0F24A55B4900750C00 /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */; };
 		49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */; };
 		49E2DF1224A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
@@ -336,7 +338,7 @@
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C356249230B50099475D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
 		6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
-		6496C359249230B80099475D /* ShowTimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* ShowTimelineMarker.swift */; };
+		6496C359249230B80099475D /* ShowTimelineMarkerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */; };
 		6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */; };
 		6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
@@ -346,7 +348,7 @@
 		64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
 		64FDE312249A191800E6510D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
 		64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
-		64FDE315249A191B00E6510D /* ShowTimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* ShowTimelineMarker.swift */; };
+		64FDE315249A191B00E6510D /* ShowTimelineMarkerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */; };
 		823AA45D690DCF9357648037 /* Pods_MLSComponent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771EB2AE64BEBE20FDB5FAEE /* Pods_MLSComponent_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -501,15 +503,16 @@
 		49736E9424A9F59B001F3F48 /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParser.swift; sourceTree = "<group>"; };
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
+		49A73D4424AB315D009CD2DF /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
 		49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLIndexer+XMLIndexerDeserializable.swift"; sourceTree = "<group>"; };
 		49A9F52224A15B9200D00143 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-		49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideOverlay.swift; sourceTree = "<group>"; };
+		49B25DE224A5ED5E00CCB14D /* HideOverlayAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideOverlayAction.swift; sourceTree = "<group>"; };
 		49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		49C12D5724A35204002CCDF5 /* PlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfig.swift; sourceTree = "<group>"; };
 		49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
-		49E2DF0924A54F7000750C00 /* ShowOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowOverlay.swift; sourceTree = "<group>"; };
+		49E2DF0924A54F7000750C00 /* ShowOverlayAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowOverlayAction.swift; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
 		49E2DF1124A55B5400750C00 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -520,7 +523,7 @@
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C3472492308D0099475D /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
 		6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonEmpty+RangeReplaceableCollection.swift"; sourceTree = "<group>"; };
-		6496C34B2492308D0099475D /* ShowTimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimelineMarker.swift; sourceTree = "<group>"; };
+		6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimelineMarkerAction.swift; sourceTree = "<group>"; };
 		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+iOS.swift"; sourceTree = "<group>"; };
 		6496C3522492308D0099475D /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
@@ -1022,9 +1025,10 @@
 		6496C3492492308D0099475D /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				6496C34B2492308D0099475D /* ShowTimelineMarker.swift */,
-				49E2DF0924A54F7000750C00 /* ShowOverlay.swift */,
-				49B25DE224A5ED5E00CCB14D /* HideOverlay.swift */,
+				49A73D4424AB315D009CD2DF /* Action.swift */,
+				6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */,
+				49E2DF0924A54F7000750C00 /* ShowOverlayAction.swift */,
+				49B25DE224A5ED5E00CCB14D /* HideOverlayAction.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -1348,7 +1352,7 @@
 				4959C7BE249FC111005212E1 /* NVActivityIndicatorView.swift in Sources */,
 				49736EB624A9F59C001F3F48 /* ColorMatrix.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* Annotation.swift in Sources */,
-				49B25DE324A5ED5E00CCB14D /* HideOverlay.swift in Sources */,
+				49B25DE324A5ED5E00CCB14D /* HideOverlayAction.swift in Sources */,
 				49736EF324A9F59C001F3F48 /* ContentsInterpolation.swift in Sources */,
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				49736F1224A9F59C001F3F48 /* MacawView+PDF.swift in Sources */,
@@ -1360,6 +1364,7 @@
 				49736EB824A9F59C001F3F48 /* Align.swift in Sources */,
 				49736F1B24A9F59C001F3F48 /* SVGCanvas.swift in Sources */,
 				49736EDB24A9F59C001F3F48 /* AnimationSequence.swift in Sources */,
+				49A73D4524AB315D009CD2DF /* Action.swift in Sources */,
 				49736EDA24A9F59C001F3F48 /* MorphingAnimation.swift in Sources */,
 				49736EDE24A9F59C001F3F48 /* CombineAnimation.swift in Sources */,
 				49736EAB24A9F59C001F3F48 /* TransformedLocus.swift in Sources */,
@@ -1404,7 +1409,7 @@
 				49736ECC24A9F59C001F3F48 /* MView_macOS.swift in Sources */,
 				49736EC724A9F59C001F3F48 /* Stroke.swift in Sources */,
 				49736EA524A9F59C001F3F48 /* Line.swift in Sources */,
-				6496C359249230B80099475D /* ShowTimelineMarker.swift in Sources */,
+				6496C359249230B80099475D /* ShowTimelineMarkerAction.swift in Sources */,
 				49736E9824A9F59C001F3F48 /* Rect.swift in Sources */,
 				49736EE324A9F59C001F3F48 /* AnimationCache.swift in Sources */,
 				49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */,
@@ -1416,7 +1421,7 @@
 				49736E9624A9F59C001F3F48 /* Disposable.swift in Sources */,
 				49736E9524A9F59C001F3F48 /* GroupDisposable.swift in Sources */,
 				49736EFC24A9F59C001F3F48 /* MCAShapeLayerLineCap_iOS.swift in Sources */,
-				49E2DF0A24A54F7000750C00 /* ShowOverlay.swift in Sources */,
+				49E2DF0A24A54F7000750C00 /* ShowOverlayAction.swift in Sources */,
 				49736EF424A9F59C001F3F48 /* LocusInterpolation.swift in Sources */,
 				49736EA124A9F59C001F3F48 /* Locus.swift in Sources */,
 				49736EAA24A9F59C001F3F48 /* Insets.swift in Sources */,
@@ -1466,7 +1471,7 @@
 				49A804E824AA0EBB00E30DA8 /* ImageRenderer.swift in Sources */,
 				49A804ED24AA0ECB00E30DA8 /* SVGNodeLayout.swift in Sources */,
 				49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */,
-				64FDE315249A191B00E6510D /* ShowTimelineMarker.swift in Sources */,
+				64FDE315249A191B00E6510D /* ShowTimelineMarkerAction.swift in Sources */,
 				49A8049924AA0E3400E30DA8 /* Disposable.swift in Sources */,
 				64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */,
 				49A804E324AA0EAC00E30DA8 /* Graphics_iOS.swift in Sources */,
@@ -1513,7 +1518,7 @@
 				64FDE312249A191800E6510D /* NonEmpty.swift in Sources */,
 				49A8047B24AA0DF000E30DA8 /* AnimationSequence.swift in Sources */,
 				49A8048224AA0DF500E30DA8 /* ShapeAnimationGenerator.swift in Sources */,
-				49B25DE424A5EE4E00CCB14D /* HideOverlay.swift in Sources */,
+				49B25DE424A5EE4E00CCB14D /* HideOverlayAction.swift in Sources */,
 				49A804D824AA0EA100E30DA8 /* Color.swift in Sources */,
 				49A804AB24AA0E9800E30DA8 /* Rect.swift in Sources */,
 				49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
@@ -1536,6 +1541,7 @@
 				49A804D924AA0EA100E30DA8 /* AspectRatio.swift in Sources */,
 				49A8047A24AA0DF000E30DA8 /* MorphingAnimation.swift in Sources */,
 				49A8049424AA0E0B00E30DA8 /* ContentsInterpolation.swift in Sources */,
+				49A73D4624AB315D009CD2DF /* Action.swift in Sources */,
 				49A804CE24AA0EA100E30DA8 /* Effect.swift in Sources */,
 				49A804DF24AA0EA700E30DA8 /* MView_macOS.swift in Sources */,
 				49A8048024AA0DF200E30DA8 /* MorphingGenerator.swift in Sources */,
@@ -1566,7 +1572,7 @@
 				49A804BB24AA0E9800E30DA8 /* Polygon.swift in Sources */,
 				49A804D324AA0EA100E30DA8 /* OffsetEffect.swift in Sources */,
 				49A804A824AA0E8D00E30DA8 /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
-				49E2DF0B24A54F7000750C00 /* ShowOverlay.swift in Sources */,
+				49E2DF0B24A54F7000750C00 /* ShowOverlayAction.swift in Sources */,
 				64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				49A804A724AA0E8D00E30DA8 /* MCAShapeLayerLineCap_macOS.swift in Sources */,
 				49A8048324AA0DF500E30DA8 /* OpacityGenerator.swift in Sources */,
