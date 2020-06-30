@@ -135,6 +135,8 @@ public class VideoPlayerView: UIView  {
     /// The view that should be constrained to both the `VideoPlayerView`, but also the safeArea. Should be the parent view of e.g. `controlView`.
     private let safeView: UIView = {
         let view = UIView()
+        // This layer should NOT clipToBounds, since the controlAlphaView is a child-view but exceeds the safeView bounds.
+        view.clipsToBounds = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -191,8 +193,8 @@ public class VideoPlayerView: UIView  {
 
     private func drawSelf() {
         addSubview(safeView)
-        addSubview(controlAlphaView)
         safeView.addSubview(overlayContainerView)
+        safeView.addSubview(controlAlphaView)
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
         drawControls()
@@ -226,6 +228,10 @@ public class VideoPlayerView: UIView  {
             controlView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: 0),
             controlView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: 0),
             controlView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 0),
+            overlayContainerView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 0),
+            overlayContainerView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: 0),
+            overlayContainerView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: 0),
+            overlayContainerView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 0),
             bufferIcon.centerYAnchor.constraint(equalTo: safeView.centerYAnchor),
             bufferIcon.centerXAnchor.constraint(equalTo: safeView.centerXAnchor),
             bufferIcon.heightAnchor.constraint(equalToConstant: 32),
@@ -346,10 +352,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
 
-        bringSubviewToFront(controlAlphaView)
         bringSubviewToFront(safeView)
-        safeView.bringSubviewToFront(overlayContainerView)
-        safeView.bringSubviewToFront(controlView)
     }
 }
 

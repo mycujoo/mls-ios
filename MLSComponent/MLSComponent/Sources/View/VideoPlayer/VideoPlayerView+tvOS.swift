@@ -70,6 +70,21 @@ public class VideoPlayerView: UIView  {
         return slider
     }()
 
+    private let controlAlphaView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    /// The view that should be constrained to both the `VideoPlayerView`, but also the safeArea. Should be the parent view of e.g. `controlView`.
+    private let safeView: UIView = {
+        let view = UIView()
+        // This layer should NOT clipToBounds, since the controlAlphaView is a child-view but exceeds the safeView bounds.
+        view.clipsToBounds = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +94,7 @@ public class VideoPlayerView: UIView  {
     /// The view in which all dynamic overlays are rendered.
     let overlayContainerView: UIView = {
         let view = UIView()
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -98,32 +114,61 @@ public class VideoPlayerView: UIView  {
     // MARK: - Layout
 
     private func drawSelf() {
-        addSubview(overlayContainerView)
-        addSubview(controlView)
+        addSubview(safeView)
+        safeView.addSubview(overlayContainerView)
+        safeView.addSubview(controlAlphaView)
+        safeView.addSubview(controlView)
+        safeView.addSubview(bufferIcon)
         drawControls()
-        NSLayoutConstraint
-            .activate(
-                [
-                    controlView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-                    controlView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-                    controlView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-                    controlView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-                    overlayContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-                    overlayContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-                    overlayContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-                    overlayContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
-                ]
-        )
 
-        addSubview(bufferIcon)
-        NSLayoutConstraint.activate(
-            [
-                bufferIcon.centerYAnchor.constraint(equalTo: centerYAnchor),
-                bufferIcon.centerXAnchor.constraint(equalTo: centerXAnchor),
-                bufferIcon.heightAnchor.constraint(equalToConstant: 80),
-                bufferIcon.widthAnchor.constraint(equalToConstant: 80)
-            ]
-        )
+        let safeViewConstraints = [
+            safeView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            safeView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            safeView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            safeView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+        ]
+
+        let safeViewSafeAreaConstraints = [
+            safeView.leftAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.leftAnchor, constant: 0),
+            safeView.rightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.rightAnchor, constant: 0),
+            safeView.bottomAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            safeView.topAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.topAnchor, constant: 0)
+        ]
+
+        for constraint in safeViewConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 751)
+        }
+        for constraint in safeViewSafeAreaConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 752)
+        }
+
+        NSLayoutConstraint.activate(safeViewConstraints)
+        NSLayoutConstraint.activate(safeViewSafeAreaConstraints)
+
+        let constraints = [
+            controlView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 0),
+            controlView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: 0),
+            controlView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: 0),
+            controlView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 0),
+            overlayContainerView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 0),
+            overlayContainerView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: 0),
+            overlayContainerView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: 0),
+            overlayContainerView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 0),
+            bufferIcon.centerYAnchor.constraint(equalTo: safeView.centerYAnchor),
+            bufferIcon.centerXAnchor.constraint(equalTo: safeView.centerXAnchor),
+            bufferIcon.heightAnchor.constraint(equalToConstant: 32),
+            bufferIcon.widthAnchor.constraint(equalToConstant: 32),
+            controlAlphaView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+        ]
+
+        for constraint in constraints {
+            constraint.priority = UILayoutPriority(rawValue: 750)
+        }
+
+        NSLayoutConstraint.activate(constraints)
 
         backgroundColor = .black
 
@@ -137,7 +182,7 @@ public class VideoPlayerView: UIView  {
 
     private func drawControls() {
 
-        controlView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7546214789)
+        controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(timeIndicatorLabel)
         controlView.addSubview(videoSlider)
 
@@ -176,8 +221,7 @@ public class VideoPlayerView: UIView  {
         layer.addSublayer(playerLayer)
         playerLayer.frame = bounds
 
-        bringSubviewToFront(overlayContainerView)
-        bringSubviewToFront(controlView)
+        bringSubviewToFront(safeView)
     }
 }
 
@@ -207,6 +251,7 @@ extension VideoPlayerView {
         if visible {
             controlViewDebouncer.debounce {
                 UIView.animate(withDuration: 0.3) {
+                    self.controlAlphaView.alpha = 0
                     self.controlView.alpha = 0
                 }
             }
@@ -215,6 +260,7 @@ extension VideoPlayerView {
         if (controlView.alpha <= 0) == visible {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.15) {
+                    self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
                 }
             }
