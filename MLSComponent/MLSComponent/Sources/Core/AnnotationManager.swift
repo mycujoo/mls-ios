@@ -13,6 +13,7 @@ class AnnotationManager {
 
     var annotations: [Annotation] = []
 
+    /// A Set of overlayIds that are currently active (i.e. on-screen).
     private var activeOverlayIds: Set<String> = Set()
 
     init(delegate: AnnotationManagerDelegate) {
@@ -166,6 +167,18 @@ fileprivate extension AnnotationManager {
             overlayId: overlayId ?? action.id,
             animateType: animateType ?? .fadeOut,
             animateDuration: animateDuration ?? 0.3)
+    }
+
+    /// Removes the animation information. Useful for when the animation should not occur
+    /// because the user jumped between different sections of the video and the overlay should be hidden instantly.
+    func removeAnimation(from action: ShowOverlayAction) -> ShowOverlayAction {
+        return ShowOverlayAction(actionId: action.actionId, overlay: action.overlay, position: action.position, size: action.size, animateType: .none, animateDuration: 0)
+    }
+
+    /// Removes the animation information. Useful for when the animation should not occur
+    /// because the user jumped between different sections of the video and the overlay should be hidden instantly.
+    func removeAnimation(from action: HideOverlayAction) -> HideOverlayAction {
+        return HideOverlayAction(actionId: action.actionId, overlayId: action.overlayId, animateType: .none, animateDuration: 0)
     }
 }
 
