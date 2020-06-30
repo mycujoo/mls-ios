@@ -20,6 +20,10 @@ class AnnotationManager {
         self.delegate = delegate
     }
 
+    /// Evaluates all the known annotations and tells the AnnotationManagerDelegate to perform certain actions.
+    ///
+    /// - parameter currentTime: The elapsed time (in seconds) of the currently playing item of the video player.
+    /// - parameter currentDuration: The total duration (in seconds) of the currently playing item of the video player (this changes for live streams).
     func evaluate(currentTime: Double, currentDuration: Double) {
         annotationsQueue.async { [weak self] in
             guard let self = self, currentDuration > 0 else { return }
@@ -49,18 +53,30 @@ class AnnotationManager {
                     case .showOverlay(let data):
                         if offsetAsSeconds <= currentTime {
                             if let duration = data.duration {
-                                if currentTime < (offsetAsSeconds + duration) {
+                                if currentTime < offsetAsSeconds + duration {
                                     if let obj = self.makeShowOverlay(from: action) {
-                                        inRangeOverlayActions[obj.overlayId] = obj
+                                        if currentTime < offsetAsSeconds + duration + obj.animateDuration + 1 {
+                                            inRangeOverlayActions[obj.overlayId] = obj
+                                        } else {
+                                            inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
+                                        }
                                     }
                                 } else {
                                     if let obj = self.makeHideOverlay(from: action) {
-                                        inRangeOverlayActions[obj.overlayId] = obj
+                                        if currentTime < offsetAsSeconds + duration + obj.animateDuration + 1 {
+                                            inRangeOverlayActions[obj.overlayId] = obj
+                                        } else {
+                                            inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
+                                        }
                                     }
                                 }
                             } else {
                                 if let obj = self.makeShowOverlay(from: action) {
-                                    inRangeOverlayActions[obj.overlayId] = obj
+                                    if currentTime < offsetAsSeconds + obj.animateDuration + 1 {
+                                        inRangeOverlayActions[obj.overlayId] = obj
+                                    } else {
+                                        inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
+                                    }
                                 }
                             }
                         }
@@ -68,7 +84,11 @@ class AnnotationManager {
                     case .hideOverlay:
                         if offsetAsSeconds <= currentTime {
                             if let obj = self.makeHideOverlay(from: action) {
-                                inRangeOverlayActions[obj.overlayId] = obj
+                                if currentTime < offsetAsSeconds + obj.animateDuration + 1 {
+                                    inRangeOverlayActions[obj.overlayId] = obj
+                                } else {
+                                    inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
+                                }
                             }
                         }
 //                    case .setVariable(let data):
