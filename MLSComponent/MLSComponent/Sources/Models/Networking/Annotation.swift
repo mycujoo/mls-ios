@@ -133,7 +133,7 @@ public struct AnnotationActionShowTimelineMarker: Decodable {
 // MARK: - AnnotationActionShowOverlay
 
 public enum OverlayAnimateinType {
-    case fadeIn, slideFromTop, slideFromBottom, slideFromleading, slideFromtrailing, none, unsupported
+    case fadeIn, slideFromTop, slideFromBottom, slideFromLeading, slideFromTrailing, none, unsupported
 }
 
 public enum OverlayAnimateoutType {
@@ -177,9 +177,9 @@ public extension OverlayAnimateinType {
         case "slide_from_bottom":
             self = .slideFromBottom
         case "slide_from_leading":
-            self = .slideFromleading
+            self = .slideFromLeading
         case "slide_from_trailing":
-            self = .slideFromtrailing
+            self = .slideFromTrailing
         case "none":
             self = .none
         default:

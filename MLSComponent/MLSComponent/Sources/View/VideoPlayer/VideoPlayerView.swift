@@ -11,7 +11,6 @@ extension VideoPlayerView: AnnotationManagerDelegate {
     }
 
     func showOverlays(with actions: [ShowOverlayAction]) {
-        print("Showing overlays!", actions)
         DispatchQueue.global(qos: .background).async { [weak self] in
             for action in actions {
                 AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
@@ -24,7 +23,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
                                 imageView.clipsToBounds = true
                                 imageView.backgroundColor = .none
 
-                                self.placeOverlay(imageView: imageView, size: action.size, position: action.position)
+                                self.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
 
                                 self.overlays[action.overlay.id] = imageView
                             }
@@ -36,16 +35,35 @@ extension VideoPlayerView: AnnotationManagerDelegate {
     }
 
     func hideOverlays(with actions: [HideOverlayAction]) {
-        print("Hiding overlays!", actions)
         for action in actions {
-            if let overlayView = self.overlays[action.overlayId] {
-                overlayView.removeFromSuperview()
-                self.overlays[action.overlayId] = nil
+            if let v = self.overlays[action.overlayId] {
+                let animationCompleted: ((Bool) -> Void) = { [weak self] _ in
+                    v.removeFromSuperview()
+                    self?.overlays[action.overlayId] = nil
+                }
+
+                switch action.animateType {
+                case .fadeOut:
+                    UIView.animate(withDuration: action.animateDuration, animations: { [weak self] in
+                        v.alpha = 0
+                    }, completion: animationCompleted)
+                case .slideToTop, .slideToBottom, .slideToLeading, .slideToTrailing:
+                    // TODO
+                    animationCompleted(true)
+                case .none, .unsupported:
+                    animationCompleted(true)
+                }
             }
         }
     }
 
-    private func placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position) {
+    private func placeOverlay(
+        imageView: UIView,
+        size: AnnotationActionShowOverlay.Size,
+        position: AnnotationActionShowOverlay.Position,
+        animateType: OverlayAnimateinType,
+        animateDuration: Double
+    ) {
         func wrap(_ v: UIView, axis: NSLayoutConstraint.Axis) -> UIStackView {
             let stackView = UIStackView(arrangedSubviews: [v])
             stackView.axis = axis
@@ -156,5 +174,27 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
         }
+
+        // MARK: Animations
+
+        switch animateType {
+        case .fadeIn:
+            imageView.alpha = 0
+            UIView.animate(withDuration: animateDuration) { [weak self] in
+                imageView.alpha = 1
+            }
+        case .slideFromTop, .slideFromBottom, .slideFromLeading, .slideFromTrailing:
+            // TODO
+
+            let animationCompleted: ((Bool) -> Void) = { [weak self] _ in
+
+            }
+
+            animationCompleted(true)
+        case .none, .unsupported:
+            break
+        }
+
+
     }
 }
