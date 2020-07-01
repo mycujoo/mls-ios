@@ -23,12 +23,12 @@ public extension VideoPlayer {
         case play, pause, replay
     }
 
-    enum LiveState {
+    enum LiveState: Int {
         /// The viewer is watching a live stream AND is at the latest point in this live stream
-        case liveAndLatest
+        case liveAndLatest = 0
         /// The viewer is watching a live stream but is NOT at the latest point in this live stream
-        case liveNotLatest
+        case liveNotLatest = 1
         /// The viewer is not watching a live stream
-        case notLive
+        case notLive = 2
     }
 }

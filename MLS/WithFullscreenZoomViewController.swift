@@ -46,7 +46,7 @@ class WithFullscreenZoomViewController: UIViewController {
                     id: "",
                     stream: Stream(
                         urls: .init(
-                            URL(string: "https://playlists.mycujoo.football/as/ck3axeudv3m1a0hfyzlu4dw3x/master.m3u8")!
+                            URL(string: "https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8")!
                         )
                     )
                 )

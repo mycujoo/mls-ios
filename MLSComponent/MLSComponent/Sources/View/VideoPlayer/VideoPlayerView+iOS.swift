@@ -17,6 +17,7 @@ public class VideoPlayerView: UIView  {
     private var onPlayButtonTapped: (() -> Void)?
     private var onSkipBackButtonTapped: (() -> Void)?
     private var onSkipForwardButtonTapped: (() -> Void)?
+    private var onLiveButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
@@ -351,6 +352,7 @@ public class VideoPlayerView: UIView  {
         fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
+        liveButton.addTarget(self, action: #selector(liveButtonTapped), for: .touchUpInside)
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
         addGestureRecognizer(tapGestureRecognizer)
@@ -401,6 +403,16 @@ extension VideoPlayerView {
 
     @objc private func skipForwardButtonTapped() {
         onSkipForwardButtonTapped?()
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
+    func setOnLiveButtonTapped(_ action: @escaping () -> Void) {
+        onLiveButtonTapped = action
+    }
+
+    @objc private func liveButtonTapped() {
+        onLiveButtonTapped?()
 
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }

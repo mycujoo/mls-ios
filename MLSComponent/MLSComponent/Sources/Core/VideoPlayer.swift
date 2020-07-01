@@ -189,6 +189,7 @@ public class VideoPlayer: NSObject {
             #if os(iOS)
             view.setOnSkipBackButtonTapped(skipBackButtonTapped)
             view.setOnSkipForwardButtonTapped(skipForwardButtonTapped)
+            view.setOnLiveButtonTapped(liveButtonTapped)
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
             view.drawPlayer(with: player)
@@ -392,9 +393,10 @@ extension VideoPlayer {
 
         self.relativeSeekButtonCurrentAmount += amount
 
-
         let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
 
+        // TODO: Move this into the playerSeek debounced part, because then there is no chance of this being overwritten elsewhere
+        // because isSeeking will be set to true.
         view.videoSlider.value = expectedSeekTo / currentDuration
         updatePlaytimeIndicators(expectedSeekTo, totalSeconds: currentDuration, liveState: self.liveState)
 
@@ -426,6 +428,22 @@ extension VideoPlayer {
 
     private func skipForwardButtonTapped() {
         relativeSeekWithDebouncer(amount: 10)
+    }
+
+    private func liveButtonTapped() {
+        let currentDuration = self.currentDuration
+        guard currentDuration > 0, self.liveState != .liveAndLatest else { return }
+
+        view.videoSlider.value = 1.0
+        updatePlaytimeIndicators(currentDuration, totalSeconds: currentDuration, liveState: .liveAndLatest)
+
+        let seekTime = CMTime(value: Int64(currentDuration), timescale: 1)
+        player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
+            if finished {
+                self?.relativeSeekButtonCurrentAmount = 0
+                self?.play()
+            }
+        }
     }
 
     private func fullscreenButtonTapped() {
