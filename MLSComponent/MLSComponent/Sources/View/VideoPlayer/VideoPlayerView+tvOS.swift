@@ -78,6 +78,7 @@ public class VideoPlayerView: UIView  {
         button.layer.cornerRadius = 3
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.titleLabel?.textColor = .white
+        button.isHidden = true
         button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
         return button
     }()
@@ -292,6 +293,19 @@ extension VideoPlayerView {
             playButton.setTitle("Pause", for: .normal)
         case .replay:
             playButton.setTitle("Replay", for: .normal)
+        }
+    }
+
+    func setLiveButtonTo(state: VideoPlayer.LiveState) {
+        switch state {
+        case .liveAndLatest:
+            liveButton.isHidden = false
+            liveButton.backgroundColor = .red
+        case .liveNotLatest:
+            liveButton.isHidden = false
+            liveButton.backgroundColor = .gray
+        case .notLive:
+            liveButton.isHidden = true
         }
     }
 

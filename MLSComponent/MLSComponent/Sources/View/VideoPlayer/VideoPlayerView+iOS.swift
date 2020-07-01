@@ -124,6 +124,7 @@ public class VideoPlayerView: UIView  {
         button.layer.cornerRadius = 2
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .bold)
         button.titleLabel?.textColor = .white
+        button.isHidden = true
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
         return button
     }()
@@ -465,6 +466,19 @@ extension VideoPlayerView {
 
         if let image = icon {
             playButton.setImage(image, for: .normal)
+        }
+    }
+
+    func setLiveButtonTo(state: VideoPlayer.LiveState) {
+        switch state {
+        case .liveAndLatest:
+            liveButton.isHidden = false
+            liveButton.backgroundColor = .red
+        case .liveNotLatest:
+            liveButton.isHidden = false
+            liveButton.backgroundColor = .gray
+        case .notLive:
+            liveButton.isHidden = true
         }
     }
 

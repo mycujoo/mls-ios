@@ -127,6 +127,11 @@ public class VideoPlayer: NSObject {
     private let player = MLSAVPlayer()
     private var annotationManager: AnnotationManager!
     private var timeObserver: Any?
+
+    /// A private counter to help the skip buttons keep track of how much to seek by after the user stops pressing
+    private var relativeSeekButtonCurrentAmount: Double = 0.0
+    private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
+
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
         options.accountCode = "mycujoo"
@@ -136,9 +141,17 @@ public class VideoPlayer: NSObject {
         return plugin
     }()
 
-    /// A private counter to help the skip buttons keep track of how much to seek by after the user stops pressing
-    private var relativeSeekButtonCurrentAmount: Double = 0.0
-    private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
+    private var liveState: LiveState {
+        if isLivestream {
+            let currentTime = self.currentTime
+            let currentDuration = self.currentDuration
+            if currentDuration > 0 && currentTime + 15 >= currentDuration {
+                return .liveAndLatest
+            }
+            return .liveNotLatest
+        }
+        return .notLive
+    }
 
     // MARK: - Internal properties
 
@@ -300,7 +313,7 @@ extension VideoPlayer {
                     let seconds = CMTimeGetSeconds(progressTime)
 
                     if !self.view.videoSlider.isTracking && self.relativeSeekButtonCurrentAmount == 0 {
-                        self.updatetimeIndicatorLabel(seconds, totalSeconds: durationSeconds)
+                        self.updatePlaytimeIndicators(seconds, totalSeconds: durationSeconds, liveState: self.liveState)
 
                         if durationSeconds > 0 {
                             self.view.videoSlider.value = seconds / durationSeconds
@@ -324,7 +337,7 @@ extension VideoPlayer {
 
         let elapsedSeconds = Float64(fraction) * currentDuration
 
-        updatetimeIndicatorLabel(elapsedSeconds, totalSeconds: currentDuration)
+        updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
         player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
@@ -332,10 +345,11 @@ extension VideoPlayer {
         })
     }
 
-    private func updatetimeIndicatorLabel(_ elapsedSeconds: Double, totalSeconds: Double) {
+    private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: LiveState) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
+            self.view.setLiveButtonTo(state: liveState)
         }
     }
 
@@ -382,7 +396,7 @@ extension VideoPlayer {
         let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
 
         view.videoSlider.value = expectedSeekTo / currentDuration
-        updatetimeIndicatorLabel(expectedSeekTo, totalSeconds: currentDuration)
+        updatePlaytimeIndicators(expectedSeekTo, totalSeconds: currentDuration, liveState: self.liveState)
 
         relativeSeekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
