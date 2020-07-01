@@ -96,8 +96,9 @@ public class VideoPlayerView: UIView  {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fill
+        stackView.spacing = 9
         return stackView
     }()
 
@@ -113,6 +114,18 @@ public class VideoPlayerView: UIView  {
         let slider = VideoProgressSlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
+    }()
+
+    private lazy var liveButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(NSLocalizedString("LIVE", comment: ""), for: .normal)
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 2
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .bold)
+        button.titleLabel?.textColor = .white
+        button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+        return button
     }()
 
     private lazy var fullscreenButton: UIButton = {
@@ -314,6 +327,7 @@ public class VideoPlayerView: UIView  {
         let spacer = UIView()
         barControlsStackView.addArrangedSubview(timeIndicatorLabel)
         barControlsStackView.addArrangedSubview(spacer)
+        barControlsStackView.addArrangedSubview(liveButton)
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
         NSLayoutConstraint.activate([
@@ -324,14 +338,15 @@ public class VideoPlayerView: UIView  {
         ])
 
         barControlsStackView.semanticContentAttribute = .forceLeftToRight
-        barControlsStackView.setCustomSpacing(14, after: videoSlider)
-        barControlsStackView.setCustomSpacing(5, after: timeIndicatorLabel)
+//        barControlsStackView.setCustomSpacing(14, after: timeIndicatorLabel)
 
         // Set a minimum width explicitly to prevent constant resizing of the seekbar when dragging it.
         timeIndicatorLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
         timeIndicatorLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        liveButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        liveButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
