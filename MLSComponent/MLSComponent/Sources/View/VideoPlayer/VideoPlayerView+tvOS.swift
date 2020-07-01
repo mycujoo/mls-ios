@@ -70,6 +70,18 @@ public class VideoPlayerView: UIView  {
         return slider
     }()
 
+    private lazy var liveButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(NSLocalizedString("LIVE", comment: ""), for: .normal)
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 3
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.titleLabel?.textColor = .white
+        button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+        return button
+    }()
+
     private let controlAlphaView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -184,6 +196,7 @@ public class VideoPlayerView: UIView  {
 
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(timeIndicatorLabel)
+        controlView.addSubview(liveButton)
         controlView.addSubview(videoSlider)
 
         NSLayoutConstraint
@@ -191,7 +204,7 @@ public class VideoPlayerView: UIView  {
                 [
                     videoSlider.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 96),
                     videoSlider.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -96),
-                    videoSlider.bottomAnchor.constraint(equalTo: timeIndicatorLabel.topAnchor, constant: -12),
+                    videoSlider.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -130),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
@@ -201,8 +214,11 @@ public class VideoPlayerView: UIView  {
             .activate(
                 [
                     timeIndicatorLabel.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 96),
-                    timeIndicatorLabel.rightAnchor.constraint(greaterThanOrEqualTo: controlView.rightAnchor, constant: -96),
-                    timeIndicatorLabel.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96)
+                    timeIndicatorLabel.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96),
+
+                    liveButton.leftAnchor.constraint(greaterThanOrEqualTo: timeIndicatorLabel.rightAnchor, constant: 96),
+                    liveButton.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -96),
+                    liveButton.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96),
                 ]
         )
 
