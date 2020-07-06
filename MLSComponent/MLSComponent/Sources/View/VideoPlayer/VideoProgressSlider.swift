@@ -7,8 +7,12 @@ import UIKit
 class VideoProgressSlider: UIControl {
 
     /// Describes how many points the thumb needs to be away from the center of a timeline marker before its bubble appears/disappears.
+    #if os(tvOS)
+    private let showTimelineMarkerBubbleWithinPointRange: Double = 12.0
+    #else
     private let showTimelineMarkerBubbleWithinPointRange: Double = 5.0
-    
+    #endif
+
     //MARK: - Properties
     
     private var _value: Double = 0.0 {
@@ -26,6 +30,9 @@ class VideoProgressSlider: UIControl {
     /// A helper boolean to determine if this call to `continueTracking` is the first after `beginTracking` was called.
     private var isFirstContinueAfterBeginTracking = true
     #endif
+
+    /// Marks the position of the currently visible marker bubble (if one is on-screen, nil otherwise).
+    private var visibleMarkerPosition: Double? = nil
 
     var value: Double {
         get { _value }
@@ -235,9 +242,8 @@ class VideoProgressSlider: UIControl {
         _value = v
         #endif
 
-        sendActions(for: .valueChanged)
-
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
+        // TODO: Don't get the first, but get the closest.
         if let marker = (markers.first { ((value - rangeInterval)...(value + rangeInterval)).contains($0.value.position) }) {
             markerBubbleLabel.backgroundColor = annotationBubbleColor
             markerBubbleLabel.textColor = annotationBubbleColor.isDarkColor ? .white : .black
@@ -256,13 +262,17 @@ class VideoProgressSlider: UIControl {
                     self?.markerBubbleLabel.alpha = 1.0
                 }
             }
+            visibleMarkerPosition = marker.value.position
         } else {
             if markerBubbleLabel.alpha > 0 {
                 UIView.animate(withDuration: 0.15) { [weak self] in
                     self?.markerBubbleLabel.alpha = 0.0
                 }
             }
+            visibleMarkerPosition = nil
         }
+
+        sendActions(for: .valueChanged)
 
         return true
     }
@@ -271,6 +281,15 @@ class VideoProgressSlider: UIControl {
         UIView.animate(withDuration: 0.15) { [weak self] in
             self?.markerBubbleLabel.alpha = 0.0
         }
+
+        if let visibleMarkerPosition = visibleMarkerPosition {
+            // Stick to the marker that is currently on-screen.
+            _value = visibleMarkerPosition
+
+            sendActions(for: .valueChanged)
+        }
+
+        super.endTracking(touch, with: event)
     }
 }
 
