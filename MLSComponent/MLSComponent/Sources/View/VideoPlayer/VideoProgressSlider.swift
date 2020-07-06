@@ -14,7 +14,19 @@ class VideoProgressSlider: UIControl {
     private var _value: Double = 0.0 {
         didSet { updateLayerFrames() }
     }
-    
+
+    #if os(tvOS)
+    /// The value of `_value` at the start of a new tracking operation. Is used to determine the starting position of the thumb on tvOS.
+    private var valueOnFirstTouch: Double = 0.0
+
+    /// The value between 0 and 1 that marks the first position of the thumb as reported by tvOS.
+    /// Typically 0.5, but sometimes a little off on the first call to `continueTracking`, so determine the value there.
+    private var initialTrackingOffset: Double = 0.5
+
+    /// A helper boolean to determine if this call to `continueTracking` is the first after `beginTracking` was called.
+    private var isFirstContinueAfterBeginTracking = true
+    #endif
+
     var value: Double {
         get { _value }
         set {
@@ -170,11 +182,41 @@ class VideoProgressSlider: UIControl {
     }
 
     //MARK: - Touching
+    #if os(tvOS)
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let width = Double(bounds.width)
+        guard width > 0 else { return false }
+
+        valueOnFirstTouch = _value
+
+        let v = max(0, min(Double(touch.location(in: self).x), width)) / width
+
+        // Reset `isFirstContinueAfterBeginTracking`.
+        isFirstContinueAfterBeginTracking = true
+
+        return true
+    }
+    #endif
+
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
-        _value = max(0, min(Double(touch.location(in: self).x), width)) / width
+        let v = max(0, min(Double(touch.location(in: self).x), width)) / width
+
+        #if os(tvOS)
+        if isFirstContinueAfterBeginTracking {
+            isFirstContinueAfterBeginTracking = false
+            initialTrackingOffset = v
+        }
+
+        // Calculate the position relative to the starting position for a smoother seeking experience.
+        // This formula is needed because every new tracking operation starts with a touch location
+        // in the center of the seekbar.
+        _value = (v - initialTrackingOffset) * 2 * abs(valueOnFirstTouch - 1) + valueOnFirstTouch
+        #else
+        _value = v
+        #endif
 
         sendActions(for: .valueChanged)
 
