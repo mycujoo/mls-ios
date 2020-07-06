@@ -14,6 +14,7 @@ public class VideoPlayerView: UIView  {
     private(set) public var playerLayer: AVPlayerLayer?
     
     private var onTimeSliderSlide: ((Double) -> Void)?
+    private var onTimeSliderRelease: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
@@ -210,6 +211,7 @@ public class VideoPlayerView: UIView  {
                 ]
         )
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
+        videoSlider.addTarget(self, action: #selector(timeSliderRelease), for: [.touchUpInside, .touchUpOutside])
 
         NSLayoutConstraint
             .activate(
@@ -260,6 +262,16 @@ extension VideoPlayerView {
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
+    func setOnTimeSliderRelease(_ action: @escaping (Double) -> Void) {
+        onTimeSliderRelease = action
+    }
+
+    @objc private func timeSliderRelease(_ sender: VideoProgressSlider) {
+        onTimeSliderRelease?(sender.value)
 
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }

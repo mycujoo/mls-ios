@@ -185,6 +185,7 @@ public class VideoPlayer: NSObject {
         func initPlayerView() {
             view = VideoPlayerView()
             view.setOnTimeSliderSlide(sliderUpdated)
+            view.setOnTimeSliderRelease(sliderReleased)
             view.setOnPlayButtonTapped(playButtonTapped)
             #if os(iOS)
             view.setOnSkipBackButtonTapped(skipBackButtonTapped)
@@ -339,6 +340,15 @@ extension VideoPlayer {
         let elapsedSeconds = Float64(fraction) * currentDuration
 
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
+    }
+
+    private func sliderReleased(with fraction: Double) {
+        let currentDuration = self.currentDuration
+        guard currentDuration > 0 else { return }
+
+        let elapsedSeconds = Float64(fraction) * currentDuration
+
+        updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
         player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
@@ -395,8 +405,8 @@ extension VideoPlayer {
 
         let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
 
-        // TODO: Move this into the playerSeek debounced part, because then there is no chance of this being overwritten elsewhere
-        // because isSeeking will be set to true.
+        // TODO: This is poorly implemented, because at this point, player.isSeeking is still `false`,
+        // which means we set these UI values but they may be updated between now and the start of the actual seeking operation.
         view.videoSlider.value = expectedSeekTo / currentDuration
         updatePlaytimeIndicators(expectedSeekTo, totalSeconds: currentDuration, liveState: self.liveState)
 
