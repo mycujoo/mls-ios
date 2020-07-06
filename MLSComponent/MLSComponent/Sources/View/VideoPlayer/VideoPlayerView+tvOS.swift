@@ -276,6 +276,10 @@ extension VideoPlayerView {
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
+    fileprivate func toggleControlViewVisibility() {
+        setControlViewVisibility(visible: controlView.alpha <= 0)
+    }
+
     private func setControlViewVisibility(visible: Bool) {
         if visible {
             controlViewDebouncer.debounce {
@@ -356,15 +360,11 @@ extension VideoPlayerView {
 
 public extension VideoPlayerView {
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        guard let buttonPress = presses.first?.type else { return }
-
-        switch(buttonPress) {
-        case .playPause:
-            playButtonTapped()
-        case .select:
+        switch(presses.first?.type) {
+        case .playPause?, .select?:
             playButtonTapped()
         default:
-            break
+            super.pressesBegan(presses, with: event)
         }
     }
 }

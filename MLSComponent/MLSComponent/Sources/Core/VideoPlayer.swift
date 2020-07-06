@@ -353,6 +353,10 @@ extension VideoPlayer {
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
         player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
             self?.relativeSeekButtonCurrentAmount = 0
+
+            #if os(tvOS)
+            self?.play()
+            #endif
         })
     }
 

@@ -453,7 +453,7 @@ extension VideoPlayerView {
         toggleControlViewVisibility()
     }
 
-    private func toggleControlViewVisibility() {
+    fileprivate func toggleControlViewVisibility() {
         setControlViewVisibility(visible: controlView.alpha <= 0)
     }
 
@@ -571,19 +571,4 @@ extension VideoPlayerView: UIGestureRecognizerDelegate {
     }
 }
 
-
-public extension VideoPlayerView {
-    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        guard let buttonPress = presses.first?.type else { return }
-
-        switch(buttonPress) {
-        case .playPause:
-            playButtonTapped()
-        case .select:
-            playButtonTapped()
-        default:
-            break
-        }
-    }
-}
 #endif
