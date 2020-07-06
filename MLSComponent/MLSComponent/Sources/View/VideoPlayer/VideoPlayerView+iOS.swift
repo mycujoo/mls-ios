@@ -120,7 +120,7 @@ public class VideoPlayerView: UIView  {
     private lazy var liveButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(NSLocalizedString("LIVE", comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString("LIVE", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "LIVE", comment: ""), for: .normal)
         button.backgroundColor = .red
         button.layer.cornerRadius = 2
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .bold)

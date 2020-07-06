@@ -14,6 +14,9 @@ Pod::Spec.new do |spec|
   spec.ios.resource_bundles = {
     'MLSResources' => ["MLSComponent/Sources/Resources/**/*.{xcassets,strings}"]
   }
+  spec.tvos.resource_bundles = {
+    'MLSResources' => ["MLSComponent/Sources/Resources/**/*.{strings}"]
+  }
   spec.frameworks = "Foundation", "AVFoundation", "UIKit"
 
   spec.dependency 'YouboraLib'
