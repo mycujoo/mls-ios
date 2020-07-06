@@ -213,7 +213,24 @@ class VideoProgressSlider: UIControl {
         // Calculate the position relative to the starting position for a smoother seeking experience.
         // This formula is needed because every new tracking operation starts with a touch location
         // in the center of the seekbar.
-        _value = (v - initialTrackingOffset) * 2 * abs(valueOnFirstTouch - 1) + valueOnFirstTouch
+        
+        var vTranslated = (v - initialTrackingOffset)
+        if initialTrackingOffset > 0.5 {
+            if vTranslated > 0.0 {
+                vTranslated = vTranslated * (0.5 / (1 - initialTrackingOffset))
+            } else {
+                vTranslated = vTranslated / (0.5 / (1 - initialTrackingOffset))
+            }
+        } else {
+            if vTranslated > 0.0 {
+                vTranslated = vTranslated / (0.5 / initialTrackingOffset)
+            } else {
+                vTranslated = vTranslated * (0.5 / initialTrackingOffset)
+            }
+        }
+
+        _value = vTranslated * 2 * abs(valueOnFirstTouch - (vTranslated < 0 ? 0 : 1)) + valueOnFirstTouch
+
         #else
         _value = v
         #endif
