@@ -351,8 +351,10 @@ extension VideoPlayer {
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
-        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
-            self?.relativeSeekButtonCurrentAmount = 0
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] finished in
+            if finished {
+                self?.relativeSeekButtonCurrentAmount = 0
+            }
         })
     }
 
@@ -404,8 +406,6 @@ extension VideoPlayer {
 
         let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
 
-        // TODO: This is poorly implemented, because at this point, player.isSeeking is still `false`,
-        // which means we set these UI values but they may be updated between now and the start of the actual seeking operation.
         view.videoSlider.value = expectedSeekTo / currentDuration
         updatePlaytimeIndicators(expectedSeekTo, totalSeconds: currentDuration, liveState: self.liveState)
 
@@ -418,13 +418,13 @@ extension VideoPlayer {
             let seekAmount = self.relativeSeekButtonCurrentAmount
             let seekTo = max(0, min(currentDuration - 1, self.currentTime + seekAmount))
 
-            self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] completed in
+            self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] finished in
                 guard let self = self else { return }
                 // Correct relativeSeekButtonCurrentAmount by how much was being seeked.
                 // Do this (rather than setting to 0) because since the last seek was initiated, the debouncer may have been
                 // triggered again, so setting to 0 would lead to a wrong seek operation on that one.
                 self.relativeSeekButtonCurrentAmount -= seekAmount
-                if completed {
+                if finished {
                     self.play()
                 }
             }

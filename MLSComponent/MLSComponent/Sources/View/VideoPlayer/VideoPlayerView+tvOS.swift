@@ -399,8 +399,6 @@ extension VideoPlayerView {
 
 public extension VideoPlayerView {
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        debugPrint(presses)
-        debugPrint(presses.first?.type)
         switch(presses.first?.type) {
         case .playPause?:
             playButtonTapped()
