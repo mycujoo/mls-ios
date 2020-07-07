@@ -16,15 +16,11 @@ class MLSAVPlayer: AVPlayer {
 
     /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double {
-        // TODO: Include seek values
-        if let _seekingToTime = _seekingToTime {
-            return (CMTimeGetSeconds(_seekingToTime) * 10).rounded() / 10
-        }
-        return currentTime
+        return _seekingToTime ?? currentTime
     }
 
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
-    private var _seekingToTime: CMTime? = nil
+    private var _seekingToTime: Double? = nil
 
     /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double {
@@ -50,8 +46,6 @@ class MLSAVPlayer: AVPlayer {
     }
 
     private var isSeekingUpdatedAt = Date()
-
-    private var relativeSeekAmount: Double = 0.0
 
     private let seekDebouncer = Debouncer()
 
@@ -91,7 +85,7 @@ class MLSAVPlayer: AVPlayer {
         isSeeking = true
         let dateNow = Date()
 
-        _seekingToTime = time
+        _seekingToTime = (CMTimeGetSeconds(time) * 10).rounded() / 10
 
         seekDebouncer.minimumDelay = debounceSeconds
         seekDebouncer.debounce { [weak self] in
@@ -101,7 +95,6 @@ class MLSAVPlayer: AVPlayer {
                 guard let self = self else { return }
                 if self.isSeekingUpdatedAt == dateNow {
                     self._seekingToTime = nil
-                    self.relativeSeekAmount = 0
                     self.isSeeking = false
                 }
                 completionHandler(b)
@@ -122,7 +115,6 @@ class MLSAVPlayer: AVPlayer {
             self.super_seek(to: date) { [weak self] b in
                 guard let self = self else { return }
                 if self.isSeekingUpdatedAt == dateNow {
-                    self.relativeSeekAmount = 0
                     self.isSeeking = false
                 }
                 completionHandler(b)
@@ -140,27 +132,25 @@ class MLSAVPlayer: AVPlayer {
         isSeeking = true
         let dateNow = Date()
 
-        relativeSeekAmount += amount
+        _seekingToTime = max(0, min(currentDuration - 1, optimisticCurrentTime + amount))
 
-        _seekingToTime = CMTime(seconds: max(0, min(currentDuration - 1, currentTime + relativeSeekAmount)), preferredTimescale: 1)
+        print("- Initial seeking attempt before debounce: ", _seekingToTime)
 
         seekDebouncer.minimumDelay = debounceSeconds
         seekDebouncer.debounce { [weak self] in
-            guard let self = self else { return }
+            guard let self = self, let _seekingToTime = self._seekingToTime else { return }
             self.isSeekingUpdatedAt = dateNow
 
-            let seekAmount = self.relativeSeekAmount
-            let seekTo = CMTime(seconds: max(0, min(currentDuration - 1, currentTime + seekAmount)), preferredTimescale: 1)
+            let seekTo = CMTime(seconds: _seekingToTime, preferredTimescale: 1)
+            print("- Seeking attempt AFTER debounce: ", _seekingToTime)
 
             self.super_seek(to: seekTo, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter) { [weak self] b in
                 guard let self = self else { return }
 
                 if self.isSeekingUpdatedAt == dateNow {
+                    print("- Done seeking? Move to nil after this ", self._seekingToTime)
                     self._seekingToTime = nil
                     self.isSeeking = false
-                    self.relativeSeekAmount = 0
-                } else {
-                    self.relativeSeekAmount -= seekAmount
                 }
                 completionHandler(b)
             }

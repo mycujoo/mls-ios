@@ -105,7 +105,7 @@ public class VideoPlayer: NSObject {
     private(set) public var annotations: [Annotation] = [] {
         didSet {
             annotationManager.annotations = annotations
-            annotationManager.evaluate(currentTime: currentTime, currentDuration: currentDuration)
+            annotationManager.evaluate(currentTime: optimisticCurrentTime, currentDuration: currentDuration)
             delegate?.playerDidUpdateAnnotations(player: self)
         }
     }
@@ -130,9 +130,9 @@ public class VideoPlayer: NSObject {
     // TODO: Move livestate to mlsavplayer?
     private var liveState: LiveState {
         if isLivestream {
-            let currentTime = self.currentTime
+            let optimisticCurrentTime = self.optimisticCurrentTime
             let currentDuration = self.currentDuration
-            if currentDuration > 0 && currentTime + 15 >= currentDuration {
+            if currentDuration > 0 && optimisticCurrentTime + 15 >= currentDuration {
                 return .liveAndLatest
             }
             return .liveNotLatest
@@ -291,31 +291,31 @@ extension VideoPlayer {
         player
             .addPeriodicTimeObserver(
                 forInterval: CMTime(value: 1, timescale: 1),
-                queue: .main) { [weak self] (progressTime) in
+                queue: .main) { [weak self] _ in
                     guard let self = self else { return }
 
                     // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
                     guard !self.player.isSeeking else { return }
 
-                    let durationSeconds = self.currentDuration
-                    let seconds = CMTimeGetSeconds(progressTime)
+                    let currentDuration = self.currentDuration
+                    let optimisticCurrentTime = self.optimisticCurrentTime
 
                     if !self.view.videoSlider.isTracking {
-                        self.updatePlaytimeIndicators(seconds, totalSeconds: durationSeconds, liveState: self.liveState)
+                        self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
 
-                        if durationSeconds > 0 {
-                            self.view.videoSlider.value = seconds / durationSeconds
+                        if currentDuration > 0 {
+                            self.view.videoSlider.value = optimisticCurrentTime / currentDuration
                         }
                     }
 
-                    if durationSeconds > 0 && durationSeconds <= seconds && !self.isLivestream {
+                    if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !self.isLivestream {
                         self.state = .ended
                         self.view.setPlayButtonTo(state: .replay)
                     }
 
                     self.delegate?.playerDidUpdateTime(player: self)
 
-                    self.annotationManager.evaluate(currentTime: seconds, currentDuration: durationSeconds)
+                    self.annotationManager.evaluate(currentTime: optimisticCurrentTime, currentDuration: currentDuration)
         }
     }
 
