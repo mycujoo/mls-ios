@@ -16,6 +16,8 @@ public class VideoPlayerView: UIView  {
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onTimeSliderRelease: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
+    private var onSkipBackButtonTapped: (() -> Void)?
+    private var onSkipForwardButtonTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
@@ -266,6 +268,26 @@ extension VideoPlayerView {
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
+    func setOnSkipBackButtonTapped(_ action: @escaping () -> Void) {
+        onSkipBackButtonTapped = action
+    }
+
+    private func skipBackButtonTapped() {
+        onSkipBackButtonTapped?()
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
+    func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void) {
+        onSkipForwardButtonTapped = action
+    }
+
+    private func skipForwardButtonTapped() {
+        onSkipForwardButtonTapped?()
+
+        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
         onTimeSliderSlide = action
     }
@@ -377,15 +399,18 @@ extension VideoPlayerView {
 
 public extension VideoPlayerView {
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        debugPrint(presses)
+        debugPrint(presses.first?.type)
         switch(presses.first?.type) {
         case .playPause?:
             playButtonTapped()
         case .select?:
             selectButtonTapped = true
             toggleControlViewVisibility()
-
-            // TODO: Select should hide visibility when it's already there
-            // todo: button taps to seek
+        case .leftArrow?:
+            skipBackButtonTapped()
+        case .rightArrow?:
+            skipForwardButtonTapped()
         default:
             super.pressesBegan(presses, with: event)
         }

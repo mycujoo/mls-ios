@@ -187,9 +187,9 @@ public class VideoPlayer: NSObject {
             view.setOnTimeSliderSlide(sliderUpdated)
             view.setOnTimeSliderRelease(sliderReleased)
             view.setOnPlayButtonTapped(playButtonTapped)
-            #if os(iOS)
             view.setOnSkipBackButtonTapped(skipBackButtonTapped)
             view.setOnSkipForwardButtonTapped(skipForwardButtonTapped)
+            #if os(iOS)
             view.setOnLiveButtonTapped(liveButtonTapped)
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
@@ -394,7 +394,6 @@ extension VideoPlayer {
         }
     }
 
-    #if os(iOS)
     /// Puts a seek operation on the `relativeSeekDebouncer`. If multiple calls happen within the debounce time, `relativeSeekButtonCurrentAmount` is increased (which is used to calculate the final seek position after debounce).
     private func relativeSeekWithDebouncer(amount: Double) {
         let currentDuration = self.currentDuration
@@ -440,6 +439,7 @@ extension VideoPlayer {
         relativeSeekWithDebouncer(amount: 10)
     }
 
+    #if os(iOS)
     private func liveButtonTapped() {
         let currentDuration = self.currentDuration
         guard currentDuration > 0, self.liveState != .liveAndLatest else { return }
