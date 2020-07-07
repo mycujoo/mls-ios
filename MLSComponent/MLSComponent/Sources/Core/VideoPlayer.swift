@@ -87,31 +87,14 @@ public class VideoPlayer: NSObject {
         return seconds.isNaN || seconds.isInfinite
     }
 
+    /// - returns: The current time (in seconds) of the currentItem.
     public var currentTime: Double {
-        (CMTimeGetSeconds(player.currentTime()) * 10).rounded() / 10
+        return player.currentTime
     }
 
     /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
     public var currentDuration: Double {
-        guard let duration = player.currentItem?.duration else { return 0 }
-        let seconds = CMTimeGetSeconds(duration)
-        guard !seconds.isNaN else {
-            // Live stream
-            if let items = player.currentItem?.seekableTimeRanges {
-                if !items.isEmpty {
-                    let range = items[items.count - 1]
-                    let timeRange = range.timeRangeValue
-                    let startSeconds = CMTimeGetSeconds(timeRange.start)
-                    let durationSeconds = CMTimeGetSeconds(timeRange.duration)
-
-                    return max(currentTime, Double(startSeconds + durationSeconds))
-                }
-
-            }
-            return 0
-        }
-
-        return seconds
+        return player.currentDuration
     }
 
     private(set) public var annotations: [Annotation] = [] {

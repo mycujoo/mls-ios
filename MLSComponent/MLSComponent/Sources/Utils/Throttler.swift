@@ -37,9 +37,9 @@ class Throttler {
 class Debouncer {
     private var workItem: DispatchWorkItem = DispatchWorkItem(block: {})
     private let queue: DispatchQueue
-    private let minimumDelay: TimeInterval
+    var minimumDelay: TimeInterval
 
-    init(minimumDelay: TimeInterval, queue: DispatchQueue = DispatchQueue.main) {
+    init(minimumDelay: TimeInterval = 0, queue: DispatchQueue = DispatchQueue.main) {
         self.minimumDelay = minimumDelay
         self.queue = queue
     }
