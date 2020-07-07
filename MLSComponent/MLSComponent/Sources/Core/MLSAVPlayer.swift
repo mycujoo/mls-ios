@@ -7,12 +7,24 @@ import AVFoundation
 
 /// A subclass of AVPlayer to improve visibility of such things as seeking states.
 class MLSAVPlayer: AVPlayer {
-    var isSeeking = false
+    private(set) var isSeeking = false
 
     /// - returns: The current time (in seconds) of the currentItem.
     var currentTime: Double {
-        (CMTimeGetSeconds(currentTime()) * 10).rounded() / 10
+        return (CMTimeGetSeconds(currentTime()) * 10).rounded() / 10
     }
+
+    /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
+    var optimisticCurrentTime: Double {
+        // TODO: Include seek values
+        if let _seekingToTime = _seekingToTime {
+            return (CMTimeGetSeconds(_seekingToTime) * 10).rounded() / 10
+        }
+        return currentTime
+    }
+
+    /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
+    private var _seekingToTime: CMTime? = nil
 
     /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double {
@@ -42,7 +54,6 @@ class MLSAVPlayer: AVPlayer {
     private var relativeSeekAmount: Double = 0.0
 
     private let seekDebouncer = Debouncer()
-    private let relativeSeekDebouncer = Debouncer()
 
     override func seek(to time: CMTime) {
         self.seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: 0.0, completionHandler: { _ in })
@@ -68,17 +79,19 @@ class MLSAVPlayer: AVPlayer {
         self.seek(to: date, debounceSeconds: 0.0, completionHandler: completionHandler)
     }
 
-    /// By using this method, the actual seek operation is throttled as long as there are more calls to this method coming in under the defined threshold.
-    /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being throttled.
+    /// By using this method, the actual seek operation is debounced as long as there are more calls to this method coming in under the defined threshold.
+    /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being debounced.
     func seek(to time: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
-        seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: debounceSeconds, completionHandler: completionHandler)
+        self.seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: debounceSeconds, completionHandler: completionHandler)
     }
 
-    /// By using this method, the actual seek operation is throttled as long as there are more calls to this method coming in under the defined threshold.
-    /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being throttled.
+    /// By using this method, the actual seek operation is debounced as long as there are more calls to this method coming in under the defined threshold.
+    /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being debounced.
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
         isSeeking = true
         let dateNow = Date()
+
+        _seekingToTime = time
 
         seekDebouncer.minimumDelay = debounceSeconds
         seekDebouncer.debounce { [weak self] in
@@ -87,6 +100,8 @@ class MLSAVPlayer: AVPlayer {
             self.super_seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter) { [weak self] b in
                 guard let self = self else { return }
                 if self.isSeekingUpdatedAt == dateNow {
+                    self._seekingToTime = nil
+                    self.relativeSeekAmount = 0
                     self.isSeeking = false
                 }
                 completionHandler(b)
@@ -94,8 +109,8 @@ class MLSAVPlayer: AVPlayer {
         }
     }
 
-    /// By using this method, the actual seek operation is throttled as long as there are more calls to this method coming in under the defined threshold.
-    /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being throttled.
+    /// By using this method, the actual seek operation is debounced as long as there are more calls to this method coming in under the defined threshold.
+    /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being debounced.
     func seek(to date: Date, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
         isSeeking = true
         let dateNow = Date()
@@ -107,7 +122,46 @@ class MLSAVPlayer: AVPlayer {
             self.super_seek(to: date) { [weak self] b in
                 guard let self = self else { return }
                 if self.isSeekingUpdatedAt == dateNow {
+                    self.relativeSeekAmount = 0
                     self.isSeeking = false
+                }
+                completionHandler(b)
+            }
+        }
+    }
+
+    /// Seek by a relative amount of time on the currentItem.
+    /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being debounced.
+    func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
+        let currentDuration = self.currentDuration
+        let currentTime = self.currentTime
+        guard currentDuration > 0 else { return }
+
+        isSeeking = true
+        let dateNow = Date()
+
+        relativeSeekAmount += amount
+        _seekingToTime = CMTime(seconds: max(0, min(currentDuration - 1, currentTime + relativeSeekAmount)), preferredTimescale: 1)
+
+        seekDebouncer.minimumDelay = debounceSeconds
+        seekDebouncer.debounce { [weak self] in
+            guard let self = self else { return }
+            self.isSeekingUpdatedAt = dateNow
+
+            // Do not use the currentTime from outside this closure, since it may have been updated since then.
+            // However, currentDuration can be used, since it's more expensive to obtain and doesn't change radically in this timespan.
+
+            let seekAmount = self.relativeSeekAmount
+            let seekTo = CMTime(seconds: max(0, min(currentDuration - 1, self.currentTime + seekAmount)), preferredTimescale: 1)
+
+            self.super_seek(to: seekTo, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter) { [weak self] b in
+                guard let self = self else { return }
+                if self.isSeekingUpdatedAt == dateNow {
+                    self._seekingToTime = nil
+                    self.isSeeking = false
+                    self.relativeSeekAmount = 0
+                } else {
+                    self.relativeSeekAmount -= seekAmount
                 }
                 completionHandler(b)
             }

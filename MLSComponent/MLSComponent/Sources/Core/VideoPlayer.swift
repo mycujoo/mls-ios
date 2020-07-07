@@ -92,6 +92,11 @@ public class VideoPlayer: NSObject {
         return player.currentTime
     }
 
+    /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
+    public var optimisticCurrentTime: Double {
+        return player.optimisticCurrentTime
+    }
+
     /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
     public var currentDuration: Double {
         return player.currentDuration
@@ -111,8 +116,6 @@ public class VideoPlayer: NSObject {
     private var annotationManager: AnnotationManager!
     private var timeObserver: Any?
 
-    /// A private counter to help the skip buttons keep track of how much to seek by after the user stops pressing
-    private var relativeSeekButtonCurrentAmount: Double = 0.0
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
     private lazy var youboraPlugin: YBPlugin = {
@@ -124,6 +127,7 @@ public class VideoPlayer: NSObject {
         return plugin
     }()
 
+    // TODO: Move livestate to mlsavplayer?
     private var liveState: LiveState {
         if isLivestream {
             let currentTime = self.currentTime
@@ -202,7 +206,6 @@ public class VideoPlayer: NSObject {
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
-        relativeSeekButtonCurrentAmount = 0
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
@@ -297,7 +300,7 @@ extension VideoPlayer {
                     let durationSeconds = self.currentDuration
                     let seconds = CMTimeGetSeconds(progressTime)
 
-                    if !self.view.videoSlider.isTracking && self.relativeSeekButtonCurrentAmount == 0 {
+                    if !self.view.videoSlider.isTracking {
                         self.updatePlaytimeIndicators(seconds, totalSeconds: durationSeconds, liveState: self.liveState)
 
                         if durationSeconds > 0 {
@@ -334,10 +337,7 @@ extension VideoPlayer {
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
-        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] finished in
-            if finished {
-                self?.relativeSeekButtonCurrentAmount = 0
-            }
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
         })
     }
 
@@ -371,7 +371,6 @@ extension VideoPlayer {
         else {
             player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
                 if finished {
-                    self?.relativeSeekButtonCurrentAmount = 0
                     self?.state = .readyToPlay
                     self?.play()
                 }
@@ -379,39 +378,16 @@ extension VideoPlayer {
         }
     }
 
-    /// Puts a seek operation on the `relativeSeekDebouncer`. If multiple calls happen within the debounce time, `relativeSeekButtonCurrentAmount` is increased (which is used to calculate the final seek position after debounce).
     private func relativeSeekWithDebouncer(amount: Double) {
         let currentDuration = self.currentDuration
-        let currentTime = self.currentTime
         guard currentDuration > 0 else { return }
 
-        self.relativeSeekButtonCurrentAmount += amount
+        player.seek(by: amount, toleranceBefore: .zero, toleranceAfter: .zero, debounceSeconds: 0.4, completionHandler: { _ in })
 
-        let expectedSeekTo = max(0, min(currentDuration - 1, currentTime + self.relativeSeekButtonCurrentAmount))
+        let optimisticCurrentTime = self.optimisticCurrentTime
 
-        view.videoSlider.value = expectedSeekTo / currentDuration
-        updatePlaytimeIndicators(expectedSeekTo, totalSeconds: currentDuration, liveState: self.liveState)
-
-        relativeSeekDebouncer.debounce { [weak self] in
-            guard let self = self else { return }
-
-            // Do not use the currentTime from outside this closure, since it may have been updated since then.
-            // However, currentDuration can be used, since it's more expensive to obtain and doesn't change radically in this timespan.
-
-            let seekAmount = self.relativeSeekButtonCurrentAmount
-            let seekTo = max(0, min(currentDuration - 1, self.currentTime + seekAmount))
-
-            self.player.seek(to: CMTime(seconds: seekTo, preferredTimescale: 1), toleranceBefore: self.seekTolerance, toleranceAfter: self.seekTolerance) { [weak self] finished in
-                guard let self = self else { return }
-                // Correct relativeSeekButtonCurrentAmount by how much was being seeked.
-                // Do this (rather than setting to 0) because since the last seek was initiated, the debouncer may have been
-                // triggered again, so setting to 0 would lead to a wrong seek operation on that one.
-                self.relativeSeekButtonCurrentAmount -= seekAmount
-                if finished {
-                    self.play()
-                }
-            }
-        }
+        view.videoSlider.value = optimisticCurrentTime / currentDuration
+        updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
     }
 
     private func skipBackButtonTapped() {
@@ -433,7 +409,6 @@ extension VideoPlayer {
         let seekTime = CMTime(value: Int64(currentDuration), timescale: 1)
         player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
             if finished {
-                self?.relativeSeekButtonCurrentAmount = 0
                 self?.play()
             }
         }
