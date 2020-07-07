@@ -194,6 +194,8 @@ class VideoProgressSlider: UIControl {
     //MARK: - Touching
     #if os(tvOS)
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        guard !ignoreTracking else { return false }
+
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
@@ -209,8 +211,6 @@ class VideoProgressSlider: UIControl {
     #endif
 
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        guard !ignoreTracking else { return false }
-
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
@@ -287,13 +287,11 @@ class VideoProgressSlider: UIControl {
             self?.markerBubbleLabel.alpha = 0.0
         }
 
-        if !ignoreTracking {
-            if let visibleMarkerPosition = visibleMarkerPosition {
-                // Stick to the marker that is currently on-screen.
-                _value = visibleMarkerPosition
+        if let visibleMarkerPosition = visibleMarkerPosition {
+            // Stick to the marker that is currently on-screen.
+            _value = visibleMarkerPosition
 
-                sendActions(for: .valueChanged)
-            }
+            sendActions(for: .valueChanged)
         }
 
         super.endTracking(touch, with: event)

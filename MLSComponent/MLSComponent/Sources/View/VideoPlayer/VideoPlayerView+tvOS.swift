@@ -216,7 +216,6 @@ public class VideoPlayerView: UIView  {
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
-        videoSlider.addTarget(self, action: #selector(timeSliderTouchdown), for: .touchDown)
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         videoSlider.addTarget(self, action: #selector(timeSliderRelease), for: [.touchUpInside, .touchUpOutside])
 
@@ -303,10 +302,6 @@ extension VideoPlayerView {
 
             setControlViewVisibility(visible: true)
         }
-    }
-
-    @objc private func timeSliderTouchdown(_ sender: VideoProgressSlider) {
-        videoSlider.ignoreTracking = false
     }
 
     fileprivate func toggleControlViewVisibility() {
@@ -397,14 +392,7 @@ public extension VideoPlayerView {
         case .playPause?:
             playButtonTapped()
         case .select?:
-            videoSlider.ignoreTracking = true
             toggleControlViewVisibility()
-        case .leftArrow?:
-            videoSlider.ignoreTracking = true
-            skipBackButtonTapped()
-        case .rightArrow?:
-            videoSlider.ignoreTracking = true
-            skipForwardButtonTapped()
         default:
             super.pressesBegan(presses, with: event)
         }
