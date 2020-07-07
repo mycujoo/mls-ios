@@ -1093,10 +1093,10 @@
 		64FDE2FF249A175600E6510D /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				6496C3442492308D0099475D /* MLS.swift */,
-				6496C3522492308D0099475D /* VideoPlayer.swift */,
 				4935B1F624A4DB6E0073ED96 /* AnnotationManager.swift */,
+				6496C3442492308D0099475D /* MLS.swift */,
 				495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */,
+				6496C3522492308D0099475D /* VideoPlayer.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

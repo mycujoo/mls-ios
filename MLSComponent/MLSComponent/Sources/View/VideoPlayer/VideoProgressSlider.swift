@@ -41,6 +41,9 @@ class VideoProgressSlider: UIControl {
             _value = newValue
         }
     }
+
+    /// Set to true when the slider should not produce any updates. This is recommended when the slider has focus, but the TV remote is being tapped/selected.
+    var ignoreTracking = false
     
     private let minimumValue = 0.0
     private let maximumValue = 1.0
@@ -206,6 +209,8 @@ class VideoProgressSlider: UIControl {
     #endif
 
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        guard !ignoreTracking else { return false }
+
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
@@ -282,11 +287,13 @@ class VideoProgressSlider: UIControl {
             self?.markerBubbleLabel.alpha = 0.0
         }
 
-        if let visibleMarkerPosition = visibleMarkerPosition {
-            // Stick to the marker that is currently on-screen.
-            _value = visibleMarkerPosition
+        if !ignoreTracking {
+            if let visibleMarkerPosition = visibleMarkerPosition {
+                // Stick to the marker that is currently on-screen.
+                _value = visibleMarkerPosition
 
-            sendActions(for: .valueChanged)
+                sendActions(for: .valueChanged)
+            }
         }
 
         super.endTracking(touch, with: event)

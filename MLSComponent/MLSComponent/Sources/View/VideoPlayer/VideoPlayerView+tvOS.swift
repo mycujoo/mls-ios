@@ -119,11 +119,6 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
-    // MARK: Seek helpers
-
-    /// Should be set to true whenever the slider is being manipulated but the .select event already happened.
-    private var selectButtonTapped = false
-
     //MARK: - Init
 
     init() {
@@ -303,16 +298,15 @@ extension VideoPlayerView {
     }
 
     @objc private func timeSliderRelease(_ sender: VideoProgressSlider) {
-        if !selectButtonTapped {
+        if !videoSlider.ignoreTracking {
             onTimeSliderRelease?(sender.value)
 
-            setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+            setControlViewVisibility(visible: true)
         }
     }
 
     @objc private func timeSliderTouchdown(_ sender: VideoProgressSlider) {
-        // Reset the state.
-        selectButtonTapped = false
+        videoSlider.ignoreTracking = false
     }
 
     fileprivate func toggleControlViewVisibility() {
@@ -403,11 +397,13 @@ public extension VideoPlayerView {
         case .playPause?:
             playButtonTapped()
         case .select?:
-            selectButtonTapped = true
+            videoSlider.ignoreTracking = true
             toggleControlViewVisibility()
         case .leftArrow?:
+            videoSlider.ignoreTracking = true
             skipBackButtonTapped()
         case .rightArrow?:
+            videoSlider.ignoreTracking = true
             skipForwardButtonTapped()
         default:
             super.pressesBegan(presses, with: event)
