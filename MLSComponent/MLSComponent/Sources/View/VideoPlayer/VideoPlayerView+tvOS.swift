@@ -40,6 +40,10 @@ public class VideoPlayerView: UIView  {
         }
     }
 
+    var controlViewIsVisible: Bool {
+        return controlView.alpha > 0
+    }
+
     // MARK: - UI Components
 
     lazy var bufferIcon: NVActivityIndicatorView = {
@@ -112,6 +116,11 @@ public class VideoPlayerView: UIView  {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    // MARK: Seek helpers
+
+    /// Should be set to true whenever the slider is being manipulated but the .select event already happened.
+    private var selectButtonTapped = false
 
     //MARK: - Init
 
@@ -210,6 +219,7 @@ public class VideoPlayerView: UIView  {
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
+        videoSlider.addTarget(self, action: #selector(timeSliderTouchdown), for: .touchDown)
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         videoSlider.addTarget(self, action: #selector(timeSliderRelease), for: [.touchUpInside, .touchUpOutside])
 
@@ -271,13 +281,20 @@ extension VideoPlayerView {
     }
 
     @objc private func timeSliderRelease(_ sender: VideoProgressSlider) {
-        onTimeSliderRelease?(sender.value)
+        if !selectButtonTapped {
+            onTimeSliderRelease?(sender.value)
 
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+            setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+        }
+    }
+
+    @objc private func timeSliderTouchdown(_ sender: VideoProgressSlider) {
+        // Reset the state.
+        selectButtonTapped = false
     }
 
     fileprivate func toggleControlViewVisibility() {
-        setControlViewVisibility(visible: controlView.alpha <= 0)
+        setControlViewVisibility(visible: !controlViewIsVisible)
     }
 
     private func setControlViewVisibility(visible: Bool) {
@@ -361,8 +378,14 @@ extension VideoPlayerView {
 public extension VideoPlayerView {
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         switch(presses.first?.type) {
-        case .playPause?, .select?:
+        case .playPause?:
             playButtonTapped()
+        case .select?:
+            selectButtonTapped = true
+            toggleControlViewVisibility()
+
+            // TODO: Select should hide visibility when it's already there
+            // todo: button taps to seek
         default:
             super.pressesBegan(presses, with: event)
         }
