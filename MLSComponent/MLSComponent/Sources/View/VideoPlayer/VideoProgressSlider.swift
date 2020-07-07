@@ -241,7 +241,8 @@ class VideoProgressSlider: UIControl {
             }
         }
 
-        _value = vTranslated * 2 * abs(valueOnFirstTouch - (vTranslated < 0 ? 0 : 1)) + valueOnFirstTouch
+        // Divide by 4 means that a user needs at most 12 swipes to cross the entire seekbar from start to finish.
+        _value = max(0, min(1, vTranslated / 6 + valueOnFirstTouch))
 
         #else
         _value = v

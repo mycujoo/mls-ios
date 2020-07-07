@@ -87,10 +87,11 @@ class MLSAVPlayer: AVPlayer {
 
         _seekingToTime = (CMTimeGetSeconds(time) * 10).rounded() / 10
 
+        isSeekingUpdatedAt = dateNow
+
         seekDebouncer.minimumDelay = debounceSeconds
         seekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
-            self.isSeekingUpdatedAt = dateNow
             self.super_seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter) { [weak self] b in
                 guard let self = self else { return }
                 if self.isSeekingUpdatedAt == dateNow {
@@ -108,10 +109,11 @@ class MLSAVPlayer: AVPlayer {
         isSeeking = true
         let dateNow = Date()
 
+        isSeekingUpdatedAt = dateNow
+
         seekDebouncer.minimumDelay = debounceSeconds
         seekDebouncer.debounce { [weak self] in
             guard let self = self else { return }
-            self.isSeekingUpdatedAt = dateNow
             self.super_seek(to: date) { [weak self] b in
                 guard let self = self else { return }
                 if self.isSeekingUpdatedAt == dateNow {
@@ -134,10 +136,11 @@ class MLSAVPlayer: AVPlayer {
 
         _seekingToTime = max(0, min(currentDuration - 1, optimisticCurrentTime + amount))
 
+        isSeekingUpdatedAt = dateNow
+
         seekDebouncer.minimumDelay = debounceSeconds
         seekDebouncer.debounce { [weak self] in
             guard let self = self, let _seekingToTime = self._seekingToTime else { return }
-            self.isSeekingUpdatedAt = dateNow
 
             let seekTo = CMTime(seconds: _seekingToTime, preferredTimescale: 1)
 
