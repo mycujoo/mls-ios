@@ -216,6 +216,7 @@ public class VideoPlayerView: UIView  {
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
+        videoSlider.addTarget(self, action: #selector(timeSliderTouchdown), for: .touchDown)
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         videoSlider.addTarget(self, action: #selector(timeSliderRelease), for: [.touchUpInside, .touchUpOutside])
 
@@ -280,6 +281,10 @@ extension VideoPlayerView {
         onSkipForwardButtonTapped?()
 
         setControlViewVisibility(visible: true) // Debounce the hiding of the control view
+    }
+
+    @objc private func timeSliderTouchdown(_ sender: VideoProgressSlider) {
+        videoSlider.ignoreTracking = false
     }
 
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
@@ -392,7 +397,26 @@ public extension VideoPlayerView {
         case .playPause?:
             playButtonTapped()
         case .select?:
+            // Only ignore if visible, because `touchDown` won't be fired if invisible.
+            // This should also be changed in the future if more elements can gain focus in the controlView, besides the slider.
+            if controlViewIsVisible {
+                videoSlider.ignoreTracking = true
+            }
             toggleControlViewVisibility()
+        case .leftArrow?:
+            if controlViewIsVisible {
+                videoSlider.ignoreTracking = true
+                skipBackButtonTapped()
+            } else {
+                super.pressesBegan(presses, with: event)
+            }
+        case .rightArrow?:
+            if controlViewIsVisible {
+                videoSlider.ignoreTracking = true
+                skipForwardButtonTapped()
+            } else {
+                super.pressesBegan(presses, with: event)
+            }
         default:
             super.pressesBegan(presses, with: event)
         }

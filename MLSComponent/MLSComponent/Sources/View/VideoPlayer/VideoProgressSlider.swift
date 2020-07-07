@@ -194,8 +194,7 @@ class VideoProgressSlider: UIControl {
     //MARK: - Touching
     #if os(tvOS)
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        guard !ignoreTracking else { return false }
-
+        // Do not consider ignoreTracking here, because if we return false here, `.touchDown` is never fired, which is useful.
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
@@ -211,6 +210,8 @@ class VideoProgressSlider: UIControl {
     #endif
 
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        guard !ignoreTracking else { return false }
+
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
@@ -241,7 +242,7 @@ class VideoProgressSlider: UIControl {
             }
         }
 
-        // Divide by 4 means that a user needs at most 12 swipes to cross the entire seekbar from start to finish.
+        // Divide by 6 means that a user needs at most 12 swipes to cross the entire seekbar from start to finish.
         _value = max(0, min(1, vTranslated / 6 + valueOnFirstTouch))
 
         #else
@@ -288,11 +289,13 @@ class VideoProgressSlider: UIControl {
             self?.markerBubbleLabel.alpha = 0.0
         }
 
-        if let visibleMarkerPosition = visibleMarkerPosition {
-            // Stick to the marker that is currently on-screen.
-            _value = visibleMarkerPosition
+        if !ignoreTracking {
+            if let visibleMarkerPosition = visibleMarkerPosition {
+                // Stick to the marker that is currently on-screen.
+                _value = visibleMarkerPosition
 
-            sendActions(for: .valueChanged)
+                sendActions(for: .valueChanged)
+            }
         }
 
         super.endTracking(touch, with: event)
