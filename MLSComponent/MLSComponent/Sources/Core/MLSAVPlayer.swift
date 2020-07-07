@@ -141,6 +141,7 @@ class MLSAVPlayer: AVPlayer {
         let dateNow = Date()
 
         relativeSeekAmount += amount
+
         _seekingToTime = CMTime(seconds: max(0, min(currentDuration - 1, currentTime + relativeSeekAmount)), preferredTimescale: 1)
 
         seekDebouncer.minimumDelay = debounceSeconds
@@ -148,14 +149,12 @@ class MLSAVPlayer: AVPlayer {
             guard let self = self else { return }
             self.isSeekingUpdatedAt = dateNow
 
-            // Do not use the currentTime from outside this closure, since it may have been updated since then.
-            // However, currentDuration can be used, since it's more expensive to obtain and doesn't change radically in this timespan.
-
             let seekAmount = self.relativeSeekAmount
-            let seekTo = CMTime(seconds: max(0, min(currentDuration - 1, self.currentTime + seekAmount)), preferredTimescale: 1)
+            let seekTo = CMTime(seconds: max(0, min(currentDuration - 1, currentTime + seekAmount)), preferredTimescale: 1)
 
             self.super_seek(to: seekTo, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter) { [weak self] b in
                 guard let self = self else { return }
+
                 if self.isSeekingUpdatedAt == dateNow {
                     self._seekingToTime = nil
                     self.isSeeking = false
