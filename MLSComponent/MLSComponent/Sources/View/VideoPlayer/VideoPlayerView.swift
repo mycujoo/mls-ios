@@ -168,7 +168,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
         switch animateType {
         case .fadeIn:
             imageView.alpha = 0
-            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            UIView.animate(withDuration: animateDuration / 1000, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
                 imageView.alpha = 1
             }, completion: nil)
 
@@ -209,7 +209,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             // Now animate towards the constraints that determine the final position.
             constraint.isActive = false
             NSLayoutConstraint.activate(finalPositionConstraints.compactMap { $0 })
-            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            UIView.animate(withDuration: animateDuration / 1000, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
                 self?.overlayContainerView.layoutIfNeeded()
             }, completion: nil)
         case .none, .unsupported:
@@ -233,7 +233,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
 
         switch animateType {
         case .fadeOut:
-            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: animateDuration / 1000, delay: 0.0, options: .curveEaseInOut, animations: {
                 containerView.alpha = 0
             }, completion: animationCompleted)
 
@@ -266,7 +266,7 @@ extension VideoPlayerView: AnnotationManagerDelegate {
             constraint.priority = UILayoutPriority(rawValue: 247)
             constraint.isActive = true
 
-            UIView.animate(withDuration: animateDuration, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            UIView.animate(withDuration: animateDuration / 1000, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
                 self?.overlayContainerView.layoutIfNeeded()
             }, completion: animationCompleted)
 

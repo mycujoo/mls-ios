@@ -53,9 +53,9 @@ class AnnotationManager {
                     case .showOverlay(let data):
                         if offsetAsSeconds <= currentTime {
                             if let duration = data.duration {
-                                if currentTime < offsetAsSeconds + duration {
+                                if currentTime < offsetAsSeconds + (duration / 1000) {
                                     if let obj = self.makeShowOverlay(from: action) {
-                                        if currentTime < offsetAsSeconds + duration + obj.animateDuration + 1 {
+                                        if currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
                                             inRangeOverlayActions[obj.overlayId] = obj
                                         } else {
                                             inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -63,7 +63,7 @@ class AnnotationManager {
                                     }
                                 } else {
                                     if let obj = self.makeHideOverlay(from: action) {
-                                        if currentTime < offsetAsSeconds + duration + obj.animateDuration + 1 {
+                                        if currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
                                             inRangeOverlayActions[obj.overlayId] = obj
                                         } else {
                                             inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -72,7 +72,7 @@ class AnnotationManager {
                                 }
                             } else {
                                 if let obj = self.makeShowOverlay(from: action) {
-                                    if currentTime < offsetAsSeconds + obj.animateDuration + 1 {
+                                    if currentTime < offsetAsSeconds + (obj.animateDuration / 1000) + 1 {
                                         inRangeOverlayActions[obj.overlayId] = obj
                                     } else {
                                         inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -84,7 +84,7 @@ class AnnotationManager {
                     case .hideOverlay:
                         if offsetAsSeconds <= currentTime {
                             if let obj = self.makeHideOverlay(from: action) {
-                                if currentTime < offsetAsSeconds + obj.animateDuration + 1 {
+                                if currentTime < offsetAsSeconds + (obj.animateDuration / 1000) + 1 {
                                     inRangeOverlayActions[obj.overlayId] = obj
                                 } else {
                                     inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -168,7 +168,7 @@ fileprivate extension AnnotationManager {
             position: actionData.position,
             size: actionData.size,
             animateType: actionData.animateinType ?? .fadeIn,
-            animateDuration: actionData.animateinDuration ?? 0.3)
+            animateDuration: actionData.animateinDuration ?? 300)
     }
 
     func makeHideOverlay(from action: AnnotationAction) -> HideOverlayAction? {
@@ -192,7 +192,7 @@ fileprivate extension AnnotationManager {
             actionId: action.id,
             overlayId: overlayId ?? action.id,
             animateType: animateType ?? .fadeOut,
-            animateDuration: animateDuration ?? 0.3)
+            animateDuration: animateDuration ?? 300)
     }
 
     /// Removes the animation information. Useful for when the animation should not occur
