@@ -42,6 +42,10 @@ public class VideoPlayerView: UIView  {
         }
     }
 
+    var controlViewIsVisible: Bool {
+        return controlView.alpha > 0
+    }
+
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
     var overlays: [String: UIView] = [:]
@@ -455,7 +459,7 @@ extension VideoPlayerView {
     }
 
     fileprivate func toggleControlViewVisibility() {
-        setControlViewVisibility(visible: controlView.alpha <= 0)
+        setControlViewVisibility(visible: !controlViewIsVisible)
     }
 
     private func setControlViewVisibility(visible: Bool) {
@@ -468,7 +472,7 @@ extension VideoPlayerView {
             }
         }
 
-        if (controlView.alpha <= 0) == visible {
+        if (!controlViewIsVisible) == visible {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.15) {
                     self.controlAlphaView.alpha = visible ? 1 : 0

@@ -323,7 +323,7 @@ extension VideoPlayerView {
             }
         }
 
-        if (controlView.alpha <= 0) == visible {
+        if (!controlViewIsVisible) == visible {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.15) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
