@@ -319,8 +319,9 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint.activate([
             videoSlider.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 14),
             videoSlider.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -14),
-            videoSlider.bottomAnchor.constraint(equalTo: barControlsStackView.topAnchor, constant: 0),
-            videoSlider.heightAnchor.constraint(equalToConstant: 10)
+            // Offset the bottom by 10 to correct for the 30 height (because 20pts of its height are padding for the thumb view)
+            videoSlider.bottomAnchor.constraint(equalTo: barControlsStackView.topAnchor, constant: 10),
+            videoSlider.heightAnchor.constraint(equalToConstant: 30)
         ])
 
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)

@@ -76,6 +76,16 @@ class VideoProgressSlider: UIControl {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
+        view.backgroundColor = nil
+        view.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        return view
+    }()
+
+    let thumbInnerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
         view.backgroundColor = .white
         view.heightAnchor.constraint(equalToConstant: 10).isActive = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
@@ -174,6 +184,9 @@ class VideoProgressSlider: UIControl {
         addSubview(thumbView)
         centerXOfThumbView.isActive = true
         thumbView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        thumbView.addSubview(thumbInnerView)
+        thumbInnerView.centerXAnchor.constraint(equalTo: thumbView.centerXAnchor).isActive = true
+        thumbInnerView.centerYAnchor.constraint(equalTo: thumbView.centerYAnchor).isActive = true
 
         addSubview(markerBubbleLabel)
         markerBubbleLabel.bottomAnchor.constraint(equalTo: topAnchor, constant: -4).isActive = true
