@@ -42,7 +42,7 @@ public class VideoPlayerView: UIView  {
         }
     }
 
-    var controlViewIsVisible: Bool {
+    var controlViewHasAlpha: Bool {
         return controlView.alpha > 0
     }
 
@@ -118,9 +118,6 @@ public class VideoPlayerView: UIView  {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    /// A list of UIView references to UIViews that are used for playback control. Can be used to hide/show playback controls.
-    private var playbackControlViews: [UIView] = []
 
     //MARK: - Init
 
@@ -209,9 +206,6 @@ public class VideoPlayerView: UIView  {
         controlView.addSubview(timeIndicatorLabel)
         controlView.addSubview(liveButton)
         controlView.addSubview(videoSlider)
-
-        playbackControlViews = [playButton, videoSlider, liveButton, skipBackButton, skipForwardButton, fullscreenButton]
-        setPlaybackControlVisibility(visible: false)
 
         NSLayoutConstraint
             .activate(
@@ -316,7 +310,7 @@ extension VideoPlayerView {
     }
 
     fileprivate func toggleControlViewVisibility() {
-        setControlViewVisibility(visible: !controlViewIsVisible)
+        setControlViewVisibility(visible: !controlViewHasAlpha)
     }
 
     private func setControlViewVisibility(visible: Bool) {
@@ -329,20 +323,13 @@ extension VideoPlayerView {
             }
         }
 
-        if (!controlViewIsVisible) == visible {
+        if (!controlViewHasAlpha) == visible {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.15) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
                 }
             }
-        }
-    }
-
-    /// Hides or shows the playback controls (play button, seekbar, etc).
-    func setPlaybackControlVisibility(visible: Bool) {
-        for view in playbackControlViews {
-            view.isHidden = !visible
         }
     }
 
@@ -412,19 +399,19 @@ public extension VideoPlayerView {
         case .select?:
             // Only ignore if visible, because `touchDown` won't be fired if invisible.
             // This should also be changed in the future if more elements can gain focus in the controlView, besides the slider.
-            if controlViewIsVisible {
+            if controlViewHasAlpha {
                 videoSlider.ignoreTracking = true
             }
             toggleControlViewVisibility()
         case .leftArrow?:
-            if controlViewIsVisible {
+            if controlViewHasAlpha {
                 videoSlider.ignoreTracking = true
                 skipBackButtonTapped()
             } else {
                 super.pressesBegan(presses, with: event)
             }
         case .rightArrow?:
-            if controlViewIsVisible {
+            if controlViewHasAlpha {
                 videoSlider.ignoreTracking = true
                 skipForwardButtonTapped()
             } else {

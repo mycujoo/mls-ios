@@ -42,7 +42,8 @@ public class VideoPlayerView: UIView  {
         }
     }
 
-    var controlViewIsVisible: Bool {
+    /// Whether the controlView has an alpha value of more than zero (0) or not.
+    var controlViewHasAlpha: Bool {
         return controlView.alpha > 0
     }
 
@@ -162,9 +163,11 @@ public class VideoPlayerView: UIView  {
     }()
 
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
+    /// - note: The `isHidden` property should not be manipulated except by the VideoPlayer directly.
     public let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true // hide until the VideoPlayer shows it.
         return view
     }()
 
@@ -175,9 +178,6 @@ public class VideoPlayerView: UIView  {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    /// A list of UIView references to UIViews that are used for playback control. Can be used to hide/show playback controls.
-    private var playbackControlViews: [UIView] = []
 
     // MARK: - Public accessors
 
@@ -286,9 +286,6 @@ public class VideoPlayerView: UIView  {
 
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
-
-        playbackControlViews = [playButton, videoSlider, liveButton, skipBackButton, skipForwardButton, fullscreenButton]
-        setPlaybackControlVisibility(visible: false)
 
         // MARK: Play/pause button
 
@@ -465,7 +462,7 @@ extension VideoPlayerView {
     }
 
     fileprivate func toggleControlViewVisibility() {
-        setControlViewVisibility(visible: !controlViewIsVisible)
+        setControlViewVisibility(visible: !controlViewHasAlpha)
     }
 
     private func setControlViewVisibility(visible: Bool) {
@@ -478,20 +475,13 @@ extension VideoPlayerView {
             }
         }
 
-        if (!controlViewIsVisible) == visible {
+        if (!controlViewHasAlpha) == visible {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.15) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
                 }
             }
-        }
-    }
-
-    /// Hides or shows the playback controls (play button, seekbar, etc).
-    func setPlaybackControlVisibility(visible: Bool) {
-        for view in playbackControlViews {
-            view.isHidden = !visible
         }
     }
 

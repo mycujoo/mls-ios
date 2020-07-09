@@ -36,6 +36,7 @@ public class MLS {
         let player = VideoPlayer()
         player.seekTolerance = seekTolerance
 
+        // TODO: Move this logic elsewhere, because it does not trigger now when loading the event on the videoPlayer directly.
         if let event = event {
             var playVideoWasCalled = false
             let playVideoWorkItem = DispatchWorkItem() {
@@ -67,6 +68,7 @@ public class MLS {
                 case .success(let response):
                     let decoder = JSONDecoder()
                     if let annotationWrapper = try? decoder.decode(AnnotationWrapper.self, from: response.data) {
+                        print("Update annotations!", annotationWrapper.annotations)
                         player.updateAnnotations(annotations: annotationWrapper.annotations)
                     }
                 case .failure(_):
@@ -86,12 +88,6 @@ public class MLS {
             switch result {
             case .success(let response):
                 let decoder = JSONDecoder()
-                do {
-                    try decoder.decode(EventWrapper.self, from: response.data)
-                    print("Managed completely")
-                } catch {
-                    print("Could not do it!", error)
-                }
                 if let eventWrapper = try? decoder.decode(EventWrapper.self, from: response.data) {
                     // TODO: Return the pagination tokens as well
                     completionHandler(eventWrapper.events)
