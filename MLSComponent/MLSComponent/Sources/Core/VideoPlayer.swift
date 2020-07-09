@@ -241,7 +241,7 @@ public class VideoPlayer: NSObject {
             }
 
             // Schedule the player to start playing in 3 seconds if the API does not respond by then.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 30.0, execute: playStreamWorkItem)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playStreamWorkItem)
             apiService.fetchPlayerConfig(byEventId: event.id) { [weak self] (playerConfig, _) in
                 if let playerConfig = playerConfig {
                     self?.playerConfig = playerConfig
