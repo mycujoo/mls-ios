@@ -50,7 +50,7 @@ extension API: TargetType {
                 """.utf8)
         case .events:
             return Data("""
-
+                {"events":[{"id":"1eOhF2NnDunfzXdO6E10dVAK2tN","title":"TestwithShervin","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-09T08:52:18Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"full_url":"https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}},{"id":"1e8KVTx5VfG27zJdRWlcZnQUVZY","title":"Fullflowtest","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-04T13:49:47Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"full_url":"https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}}],"next_page_token":"","previous_page_token":""}
                 """.utf8)
         case .playerConfig:
             return Data("""

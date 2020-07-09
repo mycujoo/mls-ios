@@ -4,6 +4,10 @@
 
 import Foundation
 
+public struct EventWrapper: Decodable {
+    public let events: [Event]
+}
+
 public struct Event: Decodable {
     public let id: String
     public let title: String?
@@ -82,8 +86,4 @@ public extension EventStatus {
             self = .unspecified
         }
     }
-}
-
-public struct Stream: Decodable {
-    public let fullUrl: URL
 }

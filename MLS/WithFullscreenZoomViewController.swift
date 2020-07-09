@@ -40,17 +40,7 @@ class WithFullscreenZoomViewController: UIViewController {
     }
 
     lazy var videoPlayer: VideoPlayer = {
-        let player = mls
-            .videoPlayer(
-                with: Event(
-                    id: "",
-                    stream: Stream(
-                        urls: .init(
-                            URL(string: "https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8")!
-                        )
-                    )
-                )
-        )
+        let player = mls.videoPlayer()
         return player
     }()
     
@@ -100,6 +90,10 @@ class WithFullscreenZoomViewController: UIViewController {
         }
 
         updateIsFullscreen(to: isLandscape)
+
+        mls.eventList(completionHandler: { [weak self] (events) in
+            self?.videoPlayer.event = events?.first
+        })
     }
 }
 

@@ -119,6 +119,9 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// A list of UIView references to UIViews that are used for playback control. Can be used to hide/show playback controls.
+    private var playbackControlViews: [UIView] = []
+
     //MARK: - Init
 
     init() {
@@ -206,6 +209,9 @@ public class VideoPlayerView: UIView  {
         controlView.addSubview(timeIndicatorLabel)
         controlView.addSubview(liveButton)
         controlView.addSubview(videoSlider)
+
+        playbackControlViews = [playButton, videoSlider, liveButton, skipBackButton, skipForwardButton, fullscreenButton]
+        setPlaybackControlVisibility(visible: false)
 
         NSLayoutConstraint
             .activate(
@@ -330,6 +336,13 @@ extension VideoPlayerView {
                     self.controlView.alpha = visible ? 1 : 0
                 }
             }
+        }
+    }
+
+    /// Hides or shows the playback controls (play button, seekbar, etc).
+    func setPlaybackControlVisibility(visible: Bool) {
+        for view in playbackControlViews {
+            view.isHidden = !visible
         }
     }
 

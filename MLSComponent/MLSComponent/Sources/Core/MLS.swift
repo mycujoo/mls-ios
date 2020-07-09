@@ -13,11 +13,14 @@ public struct Configuration {
 public class MLS {
     public var publicKey: String
     public let configuration: Configuration
+    private lazy var moyaProviderMocked: MoyaProvider<API> = {
+        return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
+    }()
     private lazy var moyaProvider: MoyaProvider<API> = {
         let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] authType in
             return self?.publicKey ?? ""
         })
-        return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub, plugins: [authPlugin])
+        return MoyaProvider<API>(plugins: [authPlugin])
     }()
 
     public init(publicKey: String, configuration: Configuration) {
@@ -44,7 +47,7 @@ public class MLS {
 
             // Schedule the player to start playing in 3 seconds if the API does not respond by then.
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playVideoWorkItem)
-            moyaProvider.request(.playerConfig(event.id)) { result in
+            moyaProviderMocked.request(.playerConfig(event.id)) { result in
                 switch result {
                 case .success(let response):
                     let decoder = JSONDecoder()
@@ -58,8 +61,8 @@ public class MLS {
             }
 
             // TODO: Should not pass eventId but timelineId
-//            moyaProvider.request(.annotations(event.id)) { result in
-            moyaProvider.request(.annotations("brusquevsmanaus")) { result in
+//            moyaProviderMocked.request(.annotations(event.id)) { result in
+            moyaProviderMocked.request(.annotations("brusquevsmanaus")) { result in
                 switch result {
                 case .success(let response):
                     let decoder = JSONDecoder()
@@ -76,8 +79,29 @@ public class MLS {
         return player
     }
 
-    public func eventList(completionHandler: ([Event]) -> ()) {
-        // server request
+    /// Obtain a list of Events from the MLS API.
+    /// - parameter completionHandler: gets called when the API response is available. Contains the desired list of Events, or nil if the request failed.
+    public func eventList(completionHandler: @escaping ([Event]?) -> ()) {
+        moyaProviderMocked.request(.events) { result in
+            switch result {
+            case .success(let response):
+                let decoder = JSONDecoder()
+                do {
+                    try decoder.decode(EventWrapper.self, from: response.data)
+                    print("Managed completely")
+                } catch {
+                    print("Could not do it!", error)
+                }
+                if let eventWrapper = try? decoder.decode(EventWrapper.self, from: response.data) {
+                    // TODO: Return the pagination tokens as well
+                    completionHandler(eventWrapper.events)
+                    return
+                }
+            case .failure(_):
+                break
+            }
+            completionHandler(nil)
+        }
     }
 }
 

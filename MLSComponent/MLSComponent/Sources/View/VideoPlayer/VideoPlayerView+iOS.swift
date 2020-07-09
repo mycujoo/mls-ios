@@ -176,6 +176,9 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// A list of UIView references to UIViews that are used for playback control. Can be used to hide/show playback controls.
+    private var playbackControlViews: [UIView] = []
+
     // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
@@ -283,6 +286,9 @@ public class VideoPlayerView: UIView  {
 
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
+
+        playbackControlViews = [playButton, videoSlider, liveButton, skipBackButton, skipForwardButton, fullscreenButton]
+        setPlaybackControlVisibility(visible: false)
 
         // MARK: Play/pause button
 
@@ -479,6 +485,13 @@ extension VideoPlayerView {
                     self.controlView.alpha = visible ? 1 : 0
                 }
             }
+        }
+    }
+
+    /// Hides or shows the playback controls (play button, seekbar, etc).
+    func setPlaybackControlVisibility(visible: Bool) {
+        for view in playbackControlViews {
+            view.isHidden = !visible
         }
     }
 

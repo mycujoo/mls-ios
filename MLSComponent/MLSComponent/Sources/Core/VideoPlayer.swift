@@ -206,6 +206,8 @@ public class VideoPlayer: NSObject {
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
+        view.setPlaybackControlVisibility(visible: false)
+
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
@@ -220,6 +222,7 @@ public class VideoPlayer: NSObject {
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
                     self.player.replaceCurrentItem(with: playerItem)
+                    self.view.setPlaybackControlVisibility(visible: true)
                     callback(true)
                 }
             default:
