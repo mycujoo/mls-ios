@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4912850824B79BC300FFCA95 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912850724B79BC300FFCA95 /* APIService.swift */; };
+		4912850924B79BC300FFCA95 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912850724B79BC300FFCA95 /* APIService.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4959C7B4249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */; };
@@ -357,6 +359,7 @@
 /* Begin PBXFileReference section */
 		1F38F614530799BF521F957D /* Pods-MLSComponent-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSComponent-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSComponent-iOS/Pods-MLSComponent-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		433227EAE71557649D4E75B1 /* Pods_MLSComponent_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSComponent_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4912850724B79BC300FFCA95 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4959C789249FC111005212E1 /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		4959C78B249FC111005212E1 /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
@@ -973,11 +976,12 @@
 			isa = PBXGroup;
 			children = (
 				4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */,
+				4912850724B79BC300FFCA95 /* APIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		49E2DF0C24A5538700750C00 /* Networking */ = {
+		49E2DF0C24A5538700750C00 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				49E59028249BCA5B001E0C1C /* Annotation.swift */,
@@ -985,7 +989,7 @@
 				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 				49DD229124B7788D00A4CFF2 /* Stream.swift */,
 			);
-			path = Networking;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		49E2DF0D24A55B2D00750C00 /* Views */ = {
@@ -1000,6 +1004,7 @@
 		49E59023249BC7EE001E0C1C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				49E2DF0C24A5538700750C00 /* Entities */,
 				49E59024249BC809001E0C1C /* API.swift */,
 			);
 			path = Networking;
@@ -1037,7 +1042,6 @@
 			isa = PBXGroup;
 			children = (
 				49E2DF0D24A55B2D00750C00 /* Views */,
-				49E2DF0C24A5538700750C00 /* Networking */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1433,6 +1437,7 @@
 				49736EDD24A9F59C001F3F48 /* TransformAnimation.swift in Sources */,
 				49736EE824A9F59C001F3F48 /* CombinationAnimationGenerator.swift in Sources */,
 				49736F1124A9F59C001F3F48 /* TapEvent.swift in Sources */,
+				4912850824B79BC300FFCA95 /* APIService.swift in Sources */,
 				4959C7B6249FC111005212E1 /* NVActivityIndicatorPresenter.swift in Sources */,
 				49736EF724A9F59C001F3F48 /* AnimOperators.swift in Sources */,
 				49736ED724A9F59C001F3F48 /* MCAMediaTimingFillMode_iOS.swift in Sources */,
@@ -1610,6 +1615,7 @@
 				49A804E724AA0EBB00E30DA8 /* GroupRenderer.swift in Sources */,
 				49A804D724AA0EA100E30DA8 /* LineCap.swift in Sources */,
 				49A804D024AA0EA100E30DA8 /* Gradient.swift in Sources */,
+				4912850924B79BC300FFCA95 /* APIService.swift in Sources */,
 				49A804B224AA0E9800E30DA8 /* Point.swift in Sources */,
 				49A804A324AA0E8D00E30DA8 /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				49A804B824AA0E9800E30DA8 /* Line.swift in Sources */,

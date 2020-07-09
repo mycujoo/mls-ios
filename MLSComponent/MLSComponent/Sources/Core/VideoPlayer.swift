@@ -119,7 +119,8 @@ public class VideoPlayer: NSObject {
     // MARK: - Private properties
 
     private let player = MLSAVPlayer()
-    private var annotationService: AnnotationService!
+    private var apiService: APIServicing
+    private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
@@ -169,8 +170,12 @@ public class VideoPlayer: NSObject {
 
     // MARK: - Methods
 
-    public override init() {
+    init(apiService: APIServicing, annotationService: AnnotationServicing) {
+        self.apiService = apiService
+        self.annotationService = annotationService
+
         super.init()
+
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
@@ -213,8 +218,6 @@ public class VideoPlayer: NSObject {
     /// Also should be called on init().
     private func rebuild() {
         self.view.controlView.isHidden = true
-
-        annotationService = AnnotationService()
 
         if let stream = event?.streams.first ?? stream {
             replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in

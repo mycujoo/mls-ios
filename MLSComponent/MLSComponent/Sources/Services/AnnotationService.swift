@@ -5,8 +5,11 @@
 import Foundation
 import UIKit
 
+protocol AnnotationServicing {
+    func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())
+}
 
-class AnnotationService {
+class AnnotationService: AnnotationServicing {
     struct EvaluationInput {
         /// The annotations being evaluated
         var annotations: [Annotation]

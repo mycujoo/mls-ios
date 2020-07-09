@@ -13,15 +13,25 @@ public struct Configuration {
 public class MLS {
     public var publicKey: String
     public let configuration: Configuration
-    private lazy var moyaProviderMocked: MoyaProvider<API> = {
-        return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
+
+    // MARK: - Depencency injection
+
+    /// An internally available service that can be overwritten for the purpose of testing.
+    lazy var apiService: APIServicing = {
+        var moyaProvider: MoyaProvider<API> = {
+            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
+        }()
+        //        var moyaProvider: MoyaProvider<API> = {
+        //            let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] authType in
+        //                return self?.publicKey ?? ""
+        //            })
+        //            return MoyaProvider<API>(plugins: [authPlugin])
+        //        }()
+
+        return APIService(api: moyaProvider)
     }()
-    private lazy var moyaProvider: MoyaProvider<API> = {
-        let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] authType in
-            return self?.publicKey ?? ""
-        })
-        return MoyaProvider<API>(plugins: [authPlugin])
-    }()
+    /// An internally available service that can be overwritten for the purpose of testing.
+    var annotationService: AnnotationServicing = AnnotationService()
 
     public init(publicKey: String, configuration: Configuration) {
         self.publicKey = publicKey
@@ -33,7 +43,7 @@ public class MLS {
     /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     public func videoPlayer(with event: Event? = nil, seekTolerance: CMTime = .positiveInfinity) -> VideoPlayer {
-        let player = VideoPlayer()
+        let player = VideoPlayer(apiService: apiService, annotationService: annotationService)
         player.seekTolerance = seekTolerance
 
         // TODO: Move this logic elsewhere, because it does not trigger now when loading the event on the videoPlayer directly.
@@ -48,30 +58,16 @@ public class MLS {
 
             // Schedule the player to start playing in 3 seconds if the API does not respond by then.
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playVideoWorkItem)
-            moyaProviderMocked.request(.playerConfig(event.id)) { result in
-                switch result {
-                case .success(let response):
-                    let decoder = JSONDecoder()
-                    if let config = try? decoder.decode(PlayerConfig.self, from: response.data) {
-                        player.playerConfig = config
-                        DispatchQueue.main.async(execute: playVideoWorkItem)
-                    }
-                case .failure(_):
-                    break
+            apiService.fetchPlayerConfig(byEventId: event.id) { (playerConfig, _) in
+                if let playerConfig = playerConfig {
+                    player.playerConfig = playerConfig
                 }
             }
 
             // TODO: Should not pass eventId but timelineId
-//            moyaProviderMocked.request(.annotations(event.id)) { result in
-            moyaProviderMocked.request(.annotations("brusquevsmanaus")) { result in
-                switch result {
-                case .success(let response):
-                    let decoder = JSONDecoder()
-                    if let annotationWrapper = try? decoder.decode(AnnotationWrapper.self, from: response.data) {
-                        player.updateAnnotations(annotations: annotationWrapper.annotations)
-                    }
-                case .failure(_):
-                    break
+            apiService.fetchAnnotations(byTimelineId: "brusquevsmanaus") { (annotations, _) in
+                if let annotations = annotations {
+                    player.updateAnnotations(annotations: annotations)
                 }
             }
         }
@@ -83,17 +79,10 @@ public class MLS {
     /// Obtain a list of Events from the MLS API.
     /// - parameter completionHandler: gets called when the API response is available. Contains the desired list of Events, or nil if the request failed.
     public func eventList(completionHandler: @escaping ([Event]?) -> ()) {
-        moyaProviderMocked.request(.events) { result in
-            switch result {
-            case .success(let response):
-                let decoder = JSONDecoder()
-                if let eventWrapper = try? decoder.decode(EventWrapper.self, from: response.data) {
-                    // TODO: Return the pagination tokens as well
-                    completionHandler(eventWrapper.events)
-                    return
-                }
-            case .failure(_):
-                break
+        apiService.fetchEvents { (events, _) in
+            if let events = events {
+                completionHandler(events)
+                return
             }
             completionHandler(nil)
         }
