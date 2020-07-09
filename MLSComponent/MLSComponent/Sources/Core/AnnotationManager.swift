@@ -9,6 +9,7 @@ import UIKit
 class AnnotationManager {
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
+    private let timelineId: String
     private weak var delegate: AnnotationManagerDelegate?
 
     var annotations: [Annotation] = []
@@ -16,7 +17,8 @@ class AnnotationManager {
     /// A Set of overlayIds that are currently active (i.e. on-screen).
     private var activeOverlayIds: Set<String> = Set()
 
-    init(delegate: AnnotationManagerDelegate) {
+    init(timelineId: String, delegate: AnnotationManagerDelegate) {
+        self.timelineId = timelineId
         self.delegate = delegate
     }
 

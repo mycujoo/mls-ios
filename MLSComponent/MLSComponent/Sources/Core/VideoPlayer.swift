@@ -20,18 +20,20 @@ public class VideoPlayer: NSObject {
     }
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
+    /// - note: This sets `stream` to nil.
     public var event: Event? {
         didSet {
-            guard let stream = event?.streams.first else { return }
+            stream = nil
+            rebuild()
+        }
+    }
 
-            replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
-                guard let self = self else { return }
-                if completed {
-                    if self.playerConfig.autoplay {
-                        self.play()
-                    }
-                }
-            }
+    /// Setting a Stream will automatically switch the player over to this stream.
+    /// - note: This sets `event` to nil.
+    public var stream: Stream? {
+        didSet {
+            event = nil
+            rebuild()
         }
     }
 
@@ -181,8 +183,6 @@ public class VideoPlayer: NSObject {
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
             view.drawPlayer(with: player)
-
-            annotationManager = AnnotationManager(delegate: view!)
         }
 
         if Thread.isMainThread {
@@ -194,6 +194,8 @@ public class VideoPlayer: NSObject {
         }
 
         youboraPlugin.fireInit()
+
+        rebuild()
     }
 
     deinit {
@@ -203,11 +205,30 @@ public class VideoPlayer: NSObject {
         youboraPlugin.fireStop()
     }
 
+    /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
+    /// Also should be called on init().
+    private func rebuild() {
+        self.view.controlView.isHidden = true
+
+        // TODO: Set timelineId
+        annotationManager = AnnotationManager(timelineId: "", delegate: view!)
+
+        if let stream = event?.streams.first ?? stream {
+            replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
+                guard let self = self else { return }
+                self.view.controlView.isHidden = false
+                if completed {
+                    if self.playerConfig.autoplay {
+                        self.play()
+                    }
+                }
+            }
+        }
+    }
+
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
-        self.view.controlView.isHidden = true
-
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
@@ -222,7 +243,6 @@ public class VideoPlayer: NSObject {
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
                     self.player.replaceCurrentItem(with: playerItem)
-                    self.view.controlView.isHidden = false
                     callback(true)
                 }
             default:
