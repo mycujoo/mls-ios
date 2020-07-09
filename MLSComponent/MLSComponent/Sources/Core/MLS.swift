@@ -46,8 +46,8 @@ public class MLS {
         let player = VideoPlayer(apiService: apiService, annotationService: annotationService)
         player.seekTolerance = seekTolerance
 
+        player.event = event
 
-        // configuration attach
         return player
     }
 
