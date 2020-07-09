@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-extension VideoPlayerView: AnnotationManagerDelegate {
+extension VideoPlayerView {
     func setTimelineMarkers(with actions: [ShowTimelineMarkerAction]) {
         videoSlider.setTimelineMarkers(with: actions)
     }

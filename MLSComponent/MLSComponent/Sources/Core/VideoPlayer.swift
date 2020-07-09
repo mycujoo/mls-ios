@@ -23,7 +23,9 @@ public class VideoPlayer: NSObject {
     /// - note: This sets `stream` to nil.
     public var event: Event? {
         didSet {
-            stream = nil
+            if stream != nil {
+                stream = nil
+            }
             rebuild()
         }
     }
@@ -32,7 +34,9 @@ public class VideoPlayer: NSObject {
     /// - note: This sets `event` to nil.
     public var stream: Stream? {
         didSet {
-            event = nil
+            if event != nil {
+                event = nil
+            }
             rebuild()
         }
     }
@@ -106,16 +110,16 @@ public class VideoPlayer: NSObject {
 
     private(set) public var annotations: [Annotation] = [] {
         didSet {
-            annotationManager.annotations = annotations
-            annotationManager.evaluate(currentTime: optimisticCurrentTime, currentDuration: currentDuration)
-            delegate?.playerDidUpdateAnnotations(player: self)
+            evaluateAnnotations()
         }
     }
+
+    private var activeOverlayIds: Set<String> = Set()
 
     // MARK: - Private properties
 
     private let player = MLSAVPlayer()
-    private var annotationManager: AnnotationManager!
+    private var annotationService: AnnotationService!
     private var timeObserver: Any?
 
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
@@ -210,8 +214,7 @@ public class VideoPlayer: NSObject {
     private func rebuild() {
         self.view.controlView.isHidden = true
 
-        // TODO: Set timelineId
-        annotationManager = AnnotationManager(timelineId: "", delegate: view!)
+        annotationService = AnnotationService()
 
         if let stream = event?.streams.first ?? stream {
             replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
@@ -224,6 +227,26 @@ public class VideoPlayer: NSObject {
                 }
             }
         }
+    }
+
+    /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
+    private func evaluateAnnotations() {
+        annotationService.evaluate(AnnotationService.EvaluationInput(annotations: annotations, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime, currentDuration: currentDuration)) { [weak self] output in
+
+            self?.activeOverlayIds = output.activeOverlayIds
+
+            DispatchQueue.main.async { [weak self] in
+                self?.view.setTimelineMarkers(with: output.showTimelineMarkers)
+                if output.showOverlays.count > 0 {
+                    self?.view.showOverlays(with: output.showOverlays)
+                }
+                if output.hideOverlays.count > 0 {
+                    self?.view.hideOverlays(with: output.hideOverlays)
+                }
+            }
+        }
+
+        delegate?.playerDidUpdateAnnotations(player: self)
     }
 
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
@@ -338,7 +361,7 @@ extension VideoPlayer {
 
                     self.delegate?.playerDidUpdateTime(player: self)
 
-                    self.annotationManager.evaluate(currentTime: optimisticCurrentTime, currentDuration: currentDuration)
+                    self.evaluateAnnotations()
         }
     }
 
