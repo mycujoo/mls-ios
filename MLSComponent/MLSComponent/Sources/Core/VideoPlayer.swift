@@ -23,7 +23,9 @@ public class VideoPlayer: NSObject {
     /// - note: This sets `stream` to nil.
     public var event: Event? {
         didSet {
-            stream = nil
+            if stream != nil {
+                stream = nil
+            }
             rebuild()
         }
     }
@@ -32,7 +34,9 @@ public class VideoPlayer: NSObject {
     /// - note: This sets `event` to nil.
     public var stream: Stream? {
         didSet {
-            event = nil
+            if event != nil {
+                event = nil
+            }
             rebuild()
         }
     }
@@ -106,16 +110,15 @@ public class VideoPlayer: NSObject {
 
     private(set) public var annotations: [Annotation] = [] {
         didSet {
-            annotationManager.annotations = annotations
-            annotationManager.evaluate(currentTime: optimisticCurrentTime, currentDuration: currentDuration)
-            delegate?.playerDidUpdateAnnotations(player: self)
+            evaluateAnnotations()
         }
     }
 
     // MARK: - Private properties
 
     private let player = MLSAVPlayer()
-    private var annotationManager: AnnotationManager!
+    private var apiService: APIServicing
+    private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
@@ -142,6 +145,8 @@ public class VideoPlayer: NSObject {
         return .notLive
     }
 
+    private var activeOverlayIds: Set<String> = Set()
+
     // MARK: - Internal properties
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
@@ -165,8 +170,12 @@ public class VideoPlayer: NSObject {
 
     // MARK: - Methods
 
-    public override init() {
+    init(apiService: APIServicing, annotationService: AnnotationServicing) {
+        self.apiService = apiService
+        self.annotationService = annotationService
+
         super.init()
+
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
@@ -208,22 +217,65 @@ public class VideoPlayer: NSObject {
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
     private func rebuild() {
-        self.view.controlView.isHidden = true
+        view.controlView.isHidden = true
 
-        // TODO: Set timelineId
-        annotationManager = AnnotationManager(timelineId: "", delegate: view!)
+        // TODO: Consider how to play streams directly.
+        if let event = event {
+            var workItemCalled = false
+            let playStreamWorkItem = DispatchWorkItem() { [weak self] in
+                if !workItemCalled {
+                    workItemCalled = true
 
-        if let stream = event?.streams.first ?? stream {
-            replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
-                guard let self = self else { return }
-                self.view.controlView.isHidden = false
-                if completed {
-                    if self.playerConfig.autoplay {
-                        self.play()
+                    if let stream = self?.event?.streams.first ?? self?.stream {
+                        self?.replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
+                            guard let self = self else { return }
+                            self.view.controlView.isHidden = false
+                            if completed {
+                                if self.playerConfig.autoplay {
+                                    self.play()
+                                }
+                            }
+                        }
                     }
                 }
             }
+
+            // Schedule the player to start playing in 3 seconds if the API does not respond by then.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 30.0, execute: playStreamWorkItem)
+            apiService.fetchPlayerConfig(byEventId: event.id) { [weak self] (playerConfig, _) in
+                if let playerConfig = playerConfig {
+                    self?.playerConfig = playerConfig
+                    DispatchQueue.main.async(execute: playStreamWorkItem)
+                }
+            }
+
+            // TODO: Should not pass eventId but timelineId
+            apiService.fetchAnnotations(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
+                if let annotations = annotations {
+                    self?.annotations = annotations
+                }
+            }
         }
+    }
+
+    /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
+    private func evaluateAnnotations() {
+        annotationService.evaluate(AnnotationService.EvaluationInput(annotations: annotations, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime, currentDuration: currentDuration)) { [weak self] output in
+
+            self?.activeOverlayIds = output.activeOverlayIds
+
+            DispatchQueue.main.async { [weak self] in
+                self?.view.setTimelineMarkers(with: output.showTimelineMarkers)
+                if output.showOverlays.count > 0 {
+                    self?.view.showOverlays(with: output.showOverlays)
+                }
+                if output.hideOverlays.count > 0 {
+                    self?.view.hideOverlays(with: output.hideOverlays)
+                }
+            }
+        }
+
+        delegate?.playerDidUpdateAnnotations(player: self)
     }
 
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
@@ -305,11 +357,6 @@ public extension VideoPlayer {
 
 // MARK: - Private Methods
 extension VideoPlayer {
-    /// - note: If nil is provided, an empty array is set on the annotations property of the player.
-    func updateAnnotations(annotations: [Annotation]?) {
-        self.annotations = annotations ?? []
-    }
-
     private func trackTime(with player: AVPlayer) -> Any {
         player
             .addPeriodicTimeObserver(
@@ -338,7 +385,7 @@ extension VideoPlayer {
 
                     self.delegate?.playerDidUpdateTime(player: self)
 
-                    self.annotationManager.evaluate(currentTime: optimisticCurrentTime, currentDuration: currentDuration)
+                    self.evaluateAnnotations()
         }
     }
 
