@@ -29,6 +29,8 @@
 		495CB13A249CF98600998FF4 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB138249CF98600998FF4 /* Throttler.swift */; };
 		495CB13C249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */; };
 		495CB13D249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */; };
+		4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
+		4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
 		49736E9524A9F59C001F3F48 /* GroupDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF624A9F599001F3F48 /* GroupDisposable.swift */; };
 		49736E9624A9F59C001F3F48 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF724A9F599001F3F48 /* Disposable.swift */; };
 		49736E9724A9F59C001F3F48 /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF824A9F599001F3F48 /* Variable.swift */; };
@@ -338,8 +340,6 @@
 		641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
 		641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
-		6496C356249230B50099475D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
-		6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
 		6496C359249230B80099475D /* ShowTimelineMarkerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */; };
 		6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */; };
@@ -348,8 +348,6 @@
 		6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
 		64FDE310249A191400E6510D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
-		64FDE312249A191800E6510D /* NonEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3472492308D0099475D /* NonEmpty.swift */; };
-		64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */; };
 		64FDE315249A191B00E6510D /* ShowTimelineMarkerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */; };
 		823AA45D690DCF9357648037 /* Pods_MLSComponent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 771EB2AE64BEBE20FDB5FAEE /* Pods_MLSComponent_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -368,6 +366,7 @@
 		495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+.swift"; sourceTree = "<group>"; };
 		495CB138249CF98600998FF4 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayer.swift; sourceTree = "<group>"; };
+		4966DEFD24B72D7F00BEC403 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		49736DF624A9F599001F3F48 /* GroupDisposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDisposable.swift; sourceTree = "<group>"; };
 		49736DF724A9F599001F3F48 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
 		49736DF824A9F599001F3F48 /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -532,8 +531,6 @@
 		6477C43A2469552A0033435D /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43E2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
-		6496C3472492308D0099475D /* NonEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEmpty.swift; sourceTree = "<group>"; };
-		6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonEmpty+RangeReplaceableCollection.swift"; sourceTree = "<group>"; };
 		6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimelineMarkerAction.swift; sourceTree = "<group>"; };
 		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+iOS.swift"; sourceTree = "<group>"; };
@@ -617,8 +614,6 @@
 				49736DF424A9F588001F3F48 /* Macaw */,
 				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
-				6496C3472492308D0099475D /* NonEmpty.swift */,
-				6496C3482492308D0099475D /* NonEmpty+RangeReplaceableCollection.swift */,
 				495CB138249CF98600998FF4 /* Throttler.swift */,
 				495CB132249CC50E00998FF4 /* UIColor+.swift */,
 				49DDEABA24A29E6900C89DFF /* UIFont+.swift */,
@@ -975,6 +970,7 @@
 			isa = PBXGroup;
 			children = (
 				49E59028249BCA5B001E0C1C /* Annotation.swift */,
+				4966DEFD24B72D7F00BEC403 /* Event.swift */,
 				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 			);
 			path = Networking;
@@ -1392,6 +1388,7 @@
 				49736F0C24A9F59C001F3F48 /* PinchEvent.swift in Sources */,
 				49736EFE24A9F59C001F3F48 /* MCAMediaTimingFunctionName_macOS.swift in Sources */,
 				49736EAF24A9F59C001F3F48 /* Group.swift in Sources */,
+				4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */,
 				49736EAC24A9F59C001F3F48 /* SceneUtils.swift in Sources */,
 				49736EC024A9F59C001F3F48 /* OffsetEffect.swift in Sources */,
 				49736EB424A9F59C001F3F48 /* AlphaEffect.swift in Sources */,
@@ -1408,7 +1405,6 @@
 				4935B1F724A4DB6E0073ED96 /* AnnotationManager.swift in Sources */,
 				49736ECF24A9F59C001F3F48 /* Common_iOS.swift in Sources */,
 				49736F0F24A9F59C001F3F48 /* MacawEvent.swift in Sources */,
-				6496C357249230B50099475D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				49736EC824A9F59C001F3F48 /* MDisplayLink_macOS.swift in Sources */,
 				49A8047624AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
@@ -1438,7 +1434,6 @@
 				49736EF124A9F59C001F3F48 /* Interpolable.swift in Sources */,
 				4959C7BC249FC111005212E1 /* NVActivityIndicatorShape.swift in Sources */,
 				49736ECD24A9F59C001F3F48 /* MView_iOS.swift in Sources */,
-				6496C356249230B50099475D /* NonEmpty.swift in Sources */,
 				49736E9624A9F59C001F3F48 /* Disposable.swift in Sources */,
 				49736E9524A9F59C001F3F48 /* GroupDisposable.swift in Sources */,
 				49736EFC24A9F59C001F3F48 /* MCAShapeLayerLineCap_iOS.swift in Sources */,
@@ -1536,7 +1531,6 @@
 				4959C80A249FD515005212E1 /* NVActivityIndicatorView.swift in Sources */,
 				49A804BE24AA0E9800E30DA8 /* TransformedLocus.swift in Sources */,
 				49A8049824AA0E3400E30DA8 /* GroupDisposable.swift in Sources */,
-				64FDE312249A191800E6510D /* NonEmpty.swift in Sources */,
 				49A8047B24AA0DF000E30DA8 /* AnimationSequence.swift in Sources */,
 				49A8048224AA0DF500E30DA8 /* ShapeAnimationGenerator.swift in Sources */,
 				49B25DE424A5EE4E00CCB14D /* HideOverlayAction.swift in Sources */,
@@ -1569,6 +1563,7 @@
 				49A804FB24AA0ED800E30DA8 /* MacawZoom.swift in Sources */,
 				49A804CC24AA0EA100E30DA8 /* ColorMatrixEffect.swift in Sources */,
 				49A8049A24AA0E3400E30DA8 /* Variable.swift in Sources */,
+				4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */,
 				49A804A924AA0E8D00E30DA8 /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
 				49A8048F24AA0E0700E30DA8 /* FuncBounds.swift in Sources */,
 				49A804C924AA0EA100E30DA8 /* ColorMatrix.swift in Sources */,
@@ -1594,7 +1589,6 @@
 				49A804D324AA0EA100E30DA8 /* OffsetEffect.swift in Sources */,
 				49A804A824AA0E8D00E30DA8 /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
 				49E2DF0B24A54F7000750C00 /* ShowOverlayAction.swift in Sources */,
-				64FDE313249A191800E6510D /* NonEmpty+RangeReplaceableCollection.swift in Sources */,
 				49A804A724AA0E8D00E30DA8 /* MCAShapeLayerLineCap_macOS.swift in Sources */,
 				49A8048324AA0DF500E30DA8 /* OpacityGenerator.swift in Sources */,
 				49A804E024AA0EAC00E30DA8 /* MView_iOS.swift in Sources */,

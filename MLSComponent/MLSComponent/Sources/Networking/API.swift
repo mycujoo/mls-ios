@@ -6,13 +6,28 @@ import Foundation
 import Moya
 
 public enum API {
+    case eventById(String)
+    case events
     case playerConfig(String)
     case annotations(String)
+
+    /// A dateformatter that can be used on Event objects on this API.
+    static var eventDateTimeFormatter: DateFormatter = {
+        var formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
+    }()
 }
 extension API: TargetType {
     public var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
     public var path: String {
         switch self {
+        case .eventById(let eventId):
+            return "/bff/events/v1beta1/\(eventId)"
+        case .events:
+            return "/bff/events/v1beta1"
         case .playerConfig(let eventId):
             return "/bff/player_config/\(eventId)"
         case .annotations(let timelineId):
@@ -22,14 +37,22 @@ extension API: TargetType {
 
     public var method: Moya.Method {
         switch self {
-        case .playerConfig, .annotations:
+        case .eventById, .events, .playerConfig, .annotations:
             return .get
         }
     }
 
     public var sampleData: Data {
         switch self {
-        case .playerConfig(let eventId):
+        case .eventById:
+            return Data("""
+                {"id":"1eOhF2NnDunfzXdO6E10dVAK2tN","title":"TestwithShervin","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-09T08:52:18Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"full_url":"https://rendered-europe-west.mls.mycujoo.tv/mats/ckcd4l84800030108rouubqsj/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}}
+                """.utf8)
+        case .events:
+            return Data("""
+
+                """.utf8)
+        case .playerConfig:
             return Data("""
                 {"primary_color":"#ffffff","secondary_color":"#de4f1f","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
                 """.utf8)
@@ -53,7 +76,7 @@ extension API: TargetType {
 
     public var task: Moya.Task {
         switch self {
-        case .playerConfig, .annotations:
+        case .eventById, .events, .playerConfig, .annotations:
            return .requestPlain
        }
     }

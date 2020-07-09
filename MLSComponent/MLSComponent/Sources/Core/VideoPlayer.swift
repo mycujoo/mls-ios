@@ -22,9 +22,9 @@ public class VideoPlayer: NSObject {
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     public var event: Event? {
         didSet {
-            guard let stream = event?.stream else { return }
+            guard let stream = event?.streams.first else { return }
 
-            replaceCurrentItem(url: stream.urls.first) { [weak self] completed in
+            replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
                 guard let self = self else { return }
                 if completed {
                     if self.playerConfig.autoplay {

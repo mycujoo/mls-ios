@@ -10,36 +10,19 @@ public struct Configuration {
     public init() { }
 }
 
-public struct Stream {
-
-    public let urls: NonEmptyArray<URL>
-
-    /// - Parameter urls: nonempty collection of URLs. Could be initialized with a single URL .init(streamURL)
-    /// or with multiple URLs separated by coma .init(streamURL, streamURL)
-    public init(urls: NonEmptyArray<URL>) {
-        self.urls = urls
-    }
-}
-
-public struct Event {
-    public let id: String
-    public let stream: Stream?
-
-    public init(id: String, stream: Stream?) {
-        self.id = id
-        self.stream = stream
-    }
-}
-
 public class MLS {
-    public let publicKey: String
+    public var publicKey: String
     public let configuration: Configuration
-    private var moyaProvider: MoyaProvider<API>
+    private lazy var moyaProvider: MoyaProvider<API> = {
+        let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] authType in
+            return self?.publicKey ?? ""
+        })
+        return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub, plugins: [authPlugin])
+    }()
 
     public init(publicKey: String, configuration: Configuration) {
         self.publicKey = publicKey
         self.configuration = configuration
-        self.moyaProvider = MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
     }
 
     /// Provides a VideoPlayer object.
