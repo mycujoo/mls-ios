@@ -217,16 +217,42 @@ public class VideoPlayer: NSObject {
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
     private func rebuild() {
-        self.view.controlView.isHidden = true
+        view.controlView.isHidden = true
 
-        if let stream = event?.streams.first ?? stream {
-            replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
-                guard let self = self else { return }
-                self.view.controlView.isHidden = false
-                if completed {
-                    if self.playerConfig.autoplay {
-                        self.play()
+        // TODO: Move this logic elsewhere, because it does not trigger now when loading the event on the videoPlayer directly.
+        if let event = event {
+            var playStreamWasCalled = false
+            let playStreamWorkItem = DispatchWorkItem() { [weak self] in
+                if !playStreamWasCalled {
+                    playStreamWasCalled = true
+
+                    if let stream = self?.event?.streams.first ?? self?.stream {
+                        self?.replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
+                            guard let self = self else { return }
+                            self.view.controlView.isHidden = false
+                            if completed {
+                                if self.playerConfig.autoplay {
+                                    self.play()
+                                }
+                            }
+                        }
                     }
+                }
+            }
+
+            // Schedule the player to start playing in 3 seconds if the API does not respond by then.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 30.0, execute: playStreamWorkItem)
+            apiService.fetchPlayerConfig(byEventId: event.id) { [weak self] (playerConfig, _) in
+                if let playerConfig = playerConfig {
+                    self?.playerConfig = playerConfig
+                    DispatchQueue.main.async(execute: playStreamWorkItem)
+                }
+            }
+
+            // TODO: Should not pass eventId but timelineId
+            apiService.fetchAnnotations(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
+                if let annotations = annotations {
+                    self?.updateAnnotations(annotations: annotations)
                 }
             }
         }
