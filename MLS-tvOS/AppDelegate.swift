@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 import MLSComponent
 class ViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "key", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls
