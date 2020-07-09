@@ -27,21 +27,19 @@ class ViewController: UIViewController {
     private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())
 
     lazy var videoPlayer: VideoPlayer = {
-        let player = mls
-            .videoPlayer(
-                with: Event(
-                    id: "",
-                    stream: Stream(
-                        urls: .init(
-                            URL(string: "https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8")!
-                        )
-                    )
-                )
-        )
+        let player = mls.videoPlayer()
         return player
     }()
 
     override func loadView() {
         view = videoPlayer.view
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        mls.eventList(completionHandler: { [weak self] (events) in
+            self?.videoPlayer.event = events?.first
+        })
     }
 }
