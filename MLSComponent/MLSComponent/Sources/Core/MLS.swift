@@ -68,7 +68,6 @@ public class MLS {
                 case .success(let response):
                     let decoder = JSONDecoder()
                     if let annotationWrapper = try? decoder.decode(AnnotationWrapper.self, from: response.data) {
-                        print("Update annotations!", annotationWrapper.annotations)
                         player.updateAnnotations(annotations: annotationWrapper.annotations)
                     }
                 case .failure(_):

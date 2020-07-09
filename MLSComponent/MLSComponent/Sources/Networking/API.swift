@@ -5,7 +5,7 @@
 import Foundation
 import Moya
 
-public enum API {
+enum API {
     case eventById(String)
     case events
     case playerConfig(String)
@@ -20,9 +20,10 @@ public enum API {
         return formatter
     }()
 }
+
 extension API: TargetType {
-    public var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
-    public var path: String {
+    var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
+    var path: String {
         switch self {
         case .eventById(let eventId):
             return "/bff/events/v1beta1/\(eventId)"
@@ -35,14 +36,14 @@ extension API: TargetType {
         }
     }
 
-    public var method: Moya.Method {
+    var method: Moya.Method {
         switch self {
         case .eventById, .events, .playerConfig, .annotations:
             return .get
         }
     }
 
-    public var sampleData: Data {
+    var sampleData: Data {
         switch self {
         case .eventById:
             return Data("""
@@ -74,14 +75,20 @@ extension API: TargetType {
         }
     }
 
-    public var task: Moya.Task {
+    var task: Moya.Task {
         switch self {
         case .eventById, .events, .playerConfig, .annotations:
            return .requestPlain
        }
     }
 
-    public var headers: [String : String]? {
+    var headers: [String : String]? {
         return [:]
+    }
+}
+
+extension API: AccessTokenAuthorizable {
+    var authorizationType: AuthorizationType? {
+        return .bearer
     }
 }
