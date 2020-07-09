@@ -114,8 +114,6 @@ public class VideoPlayer: NSObject {
         }
     }
 
-    private var activeOverlayIds: Set<String> = Set()
-
     // MARK: - Private properties
 
     private let player = MLSAVPlayer()
@@ -146,6 +144,8 @@ public class VideoPlayer: NSObject {
         }
         return .notLive
     }
+
+    private var activeOverlayIds: Set<String> = Set()
 
     // MARK: - Internal properties
 
@@ -219,12 +219,12 @@ public class VideoPlayer: NSObject {
     private func rebuild() {
         view.controlView.isHidden = true
 
-        // TODO: Move this logic elsewhere, because it does not trigger now when loading the event on the videoPlayer directly.
+        // TODO: Consider how to play streams directly.
         if let event = event {
-            var playStreamWasCalled = false
+            var workItemCalled = false
             let playStreamWorkItem = DispatchWorkItem() { [weak self] in
-                if !playStreamWasCalled {
-                    playStreamWasCalled = true
+                if !workItemCalled {
+                    workItemCalled = true
 
                     if let stream = self?.event?.streams.first ?? self?.stream {
                         self?.replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
@@ -252,7 +252,7 @@ public class VideoPlayer: NSObject {
             // TODO: Should not pass eventId but timelineId
             apiService.fetchAnnotations(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
                 if let annotations = annotations {
-                    self?.updateAnnotations(annotations: annotations)
+                    self?.annotations = annotations
                 }
             }
         }
@@ -357,11 +357,6 @@ public extension VideoPlayer {
 
 // MARK: - Private Methods
 extension VideoPlayer {
-    /// - note: If nil is provided, an empty array is set on the annotations property of the player.
-    func updateAnnotations(annotations: [Annotation]?) {
-        self.annotations = annotations ?? []
-    }
-
     private func trackTime(with player: AVPlayer) -> Any {
         player
             .addPeriodicTimeObserver(
