@@ -7,7 +7,7 @@ import Moya
 
 enum API {
     case eventById(String)
-    case events
+    case events(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?)
     case playerConfig(String)
     case annotations(String)
 
@@ -43,6 +43,8 @@ extension API: TargetType {
         }
     }
 
+
+
     var sampleData: Data {
         switch self {
         case .eventById:
@@ -77,7 +79,26 @@ extension API: TargetType {
 
     var task: Moya.Task {
         switch self {
-        case .eventById, .events, .playerConfig, .annotations:
+        case .events(let pageSize, let pageToken, let hasStream, let status, let orderBy):
+            var params: [String : Any] = [:]
+            if let pageSize = pageSize {
+                params["page_size"] = pageSize
+            }
+            if let pageToken = pageToken {
+                params["page_token"] = pageSize
+            }
+            if let hasStream = hasStream {
+                params["has_stream"] = hasStream
+            }
+            if let status = status {
+                params["status"] = status.map { $0.rawValue }
+            }
+            if let orderBy = orderBy {
+                params["order_by"] = orderBy.rawValue
+            }
+
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .eventById, .playerConfig, .annotations:
            return .requestPlain
        }
     }
