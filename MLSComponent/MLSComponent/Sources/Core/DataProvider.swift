@@ -13,8 +13,8 @@ public class DataProvider {
 
     /// Obtain a list of Events from the MLS API.
     /// - parameter completionHandler: gets called when the API response is available. Contains the desired list of Events, or nil if the request failed.
-    public func eventList(completionHandler: @escaping ([Event]?) -> ()) {
-        apiService.fetchEvents { (events, _) in
+    public func eventList(pageSize: Int? = nil, pageToken: String? = nil, hasStream: Bool? = nil, status: [ParamEventStatus]? = nil, orderBy: ParamEventOrder? = nil, completionHandler: @escaping ([Event]?) -> ()) {
+        apiService.fetchEvents(pageSize: pageSize, pageToken: pageToken, hasStream: hasStream, status: status, orderBy: orderBy) { (events, _) in
             if let events = events {
                 completionHandler(events)
                 return

@@ -172,6 +172,10 @@
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
+		499CBEEF24B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */; };
+		499CBEF024B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */; };
+		499CBEF224B9E75900EE4D7B /* ParamEventOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */; };
+		499CBEF324B9E75900EE4D7B /* ParamEventOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */; };
 		49A73D4524AB315D009CD2DF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A73D4424AB315D009CD2DF /* Action.swift */; };
 		49A73D4624AB315D009CD2DF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A73D4424AB315D009CD2DF /* Action.swift */; };
 		49A73D5124ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
@@ -512,6 +516,8 @@
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamEventStatus.swift; sourceTree = "<group>"; };
+		499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamEventOrder.swift; sourceTree = "<group>"; };
 		49A73D4424AB315D009CD2DF /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		49A73D5524ABD2D5009CD2DF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5624ABD2D9009CD2DF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -958,6 +964,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		499CBEED24B9E6D100EE4D7B /* Params */ = {
+			isa = PBXGroup;
+			children = (
+				499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */,
+				499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */,
+			);
+			path = Params;
+			sourceTree = "<group>";
+		};
 		49A8047224AA0C4000E30DA8 /* SWXMLHash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1007,6 +1022,7 @@
 		49E59023249BC7EE001E0C1C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				499CBEED24B9E6D100EE4D7B /* Params */,
 				49E2DF0C24A5538700750C00 /* Entities */,
 				49E59024249BC809001E0C1C /* API.swift */,
 			);
@@ -1343,6 +1359,7 @@
 				49736EDF24A9F59C001F3F48 /* OpacityAnimation.swift in Sources */,
 				49736E9C24A9F59C001F3F48 /* RoundRect.swift in Sources */,
 				49736E9A24A9F59C001F3F48 /* Ellipse.swift in Sources */,
+				499CBEEF24B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */,
 				49736EED24A9F59C001F3F48 /* FuncBounds.swift in Sources */,
 				49736EE124A9F59C001F3F48 /* TransformHashable.swift in Sources */,
 				49E2DF0F24A55B4900750C00 /* TimelineMarker.swift in Sources */,
@@ -1410,6 +1427,7 @@
 				49736EAF24A9F59C001F3F48 /* Group.swift in Sources */,
 				4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */,
 				49736EAC24A9F59C001F3F48 /* SceneUtils.swift in Sources */,
+				499CBEF224B9E75900EE4D7B /* ParamEventOrder.swift in Sources */,
 				49736EC024A9F59C001F3F48 /* OffsetEffect.swift in Sources */,
 				49736EB424A9F59C001F3F48 /* AlphaEffect.swift in Sources */,
 				49736EBE24A9F59C001F3F48 /* Drawable.swift in Sources */,
@@ -1522,6 +1540,7 @@
 				49A8049B24AA0E3800E30DA8 /* PinchEvent.swift in Sources */,
 				49A8047D24AA0DF000E30DA8 /* TransformAnimation.swift in Sources */,
 				49A8049224AA0E0B00E30DA8 /* TransformInterpolation.swift in Sources */,
+				499CBEF024B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
 				49A8048124AA0DF500E30DA8 /* TransformGenerator.swift in Sources */,
 				49A804EC24AA0ECB00E30DA8 /* CSSParser.swift in Sources */,
@@ -1589,6 +1608,7 @@
 				4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */,
 				49A804A924AA0E8D00E30DA8 /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
 				49A8048F24AA0E0700E30DA8 /* FuncBounds.swift in Sources */,
+				499CBEF324B9E75900EE4D7B /* ParamEventOrder.swift in Sources */,
 				49A804C924AA0EA100E30DA8 /* ColorMatrix.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49A804C224AA0E9D00E30DA8 /* Group.swift in Sources */,

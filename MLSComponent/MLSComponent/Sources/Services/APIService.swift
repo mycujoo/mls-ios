@@ -7,7 +7,7 @@ import Moya
 
 protocol APIServicing {
     func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ())
-    func fetchEvents(callback: @escaping ([Event]?, Error?) -> ())
+    func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())
     func fetchAnnotations(byTimelineId timelineId: String, callback: @escaping ([Annotation]?, Error?) -> ())
     func fetchPlayerConfig(byEventId eventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())
 }
@@ -25,7 +25,7 @@ class APIService: APIServicing {
         }
     }
 
-    func fetchEvents(callback: @escaping ([Event]?, Error?) -> ()) {
+    func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ()) {
         _fetch(.events, type: EventWrapper.self) { (wrapper, err) in
             // TODO: Return the pagination tokens as well
             callback(wrapper?.events, err)
