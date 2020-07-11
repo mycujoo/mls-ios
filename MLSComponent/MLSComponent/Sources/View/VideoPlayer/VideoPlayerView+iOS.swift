@@ -21,6 +21,7 @@ public class VideoPlayerView: UIView  {
     private var onSkipForwardButtonTapped: (() -> Void)?
     private var onLiveButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
+    private var onPIPButtonTapped: (() -> Void)?
 
     // MARK: - Internal properties
 
@@ -60,6 +61,22 @@ public class VideoPlayerView: UIView  {
     private lazy var skipForwardIcon = UIImage(named: "Icon-ForwardBy10", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var startPIPImage: UIImage? = {
+        if #available(iOS 13.0, *) {
+            return AVPictureInPictureController.pictureInPictureButtonStartImage.withTintColor(.white)
+        } else {
+            // TODO
+            return UIImage()
+        }
+    }()
+    private lazy var stopPIPImage: UIImage? = {
+        if #available(iOS 13.0, *) {
+            return AVPictureInPictureController.pictureInPictureButtonStopImage.withTintColor(.white)
+        } else {
+            // TODO
+            return UIImage()
+        }
+    }()
 
     lazy var playButton: UIButton = {
         let button = UIButton()
@@ -144,6 +161,30 @@ public class VideoPlayerView: UIView  {
             button.setImage(image, for: .normal)
         }
         button.imageEdgeInsets = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
+        return button
+    }()
+
+    public let topControlsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = 9
+        if UIView.userInterfaceLayoutDirection(for: stackView.semanticContentAttribute) == .rightToLeft {
+            stackView.semanticContentAttribute = .forceRightToLeft
+        }
+        return stackView
+    }()
+
+    lazy var pipButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if let image = startPIPImage {
+            button.setImage(image, for: .normal)
+        }
+        button.tintColor = .white
+        button.imageEdgeInsets = UIEdgeInsets(top: 11, left: 8.8, bottom: 11, right: 8.8)
         return button
     }()
 
@@ -286,6 +327,7 @@ public class VideoPlayerView: UIView  {
 
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
+        controlView.addSubview(topControlsStackView)
 
         // MARK: Play/pause button
 
@@ -365,6 +407,19 @@ public class VideoPlayerView: UIView  {
         liveButton.addTarget(self, action: #selector(liveButtonTapped), for: .touchUpInside)
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
+        // MARK: Top buttons
+
+        NSLayoutConstraint.activate([
+           topControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
+           topControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
+           pipButton.heightAnchor.constraint(equalToConstant: 40),
+           pipButton.widthAnchor.constraint(equalToConstant: 40)
+        ])
+
+        topControlsStackView.addArrangedSubview(pipButton)
+
+        pipButton.addTarget(self, action: #selector(PIPButtonTapped), for: .touchUpInside)
+
         addGestureRecognizer(tapGestureRecognizer)
     }
 
@@ -430,6 +485,14 @@ extension VideoPlayerView {
 
     @objc private func fullscreenButtonTapped() {
         onFullscreenButtonTapped?()
+    }
+
+    func setOnPIPButtonTapped(_ action: @escaping () -> Void) {
+        onPIPButtonTapped = action
+    }
+
+    @objc private func PIPButtonTapped() {
+        onPIPButtonTapped?()
     }
 
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
