@@ -14,8 +14,6 @@ public class MLS {
     public var publicKey: String
     public let configuration: Configuration
 
-    // MARK: - Depencency injection
-
     /// An internally available service that can be overwritten for the purpose of testing.
     lazy var apiService: APIServicing = {
         var moyaProvider: MoyaProvider<API> = {
@@ -30,8 +28,15 @@ public class MLS {
 
         return APIService(api: moyaProvider)
     }()
+
     /// An internally available service that can be overwritten for the purpose of testing.
-    var annotationService: AnnotationServicing = AnnotationService()
+    lazy var annotationService: AnnotationServicing = {
+        return AnnotationService()
+    }()
+
+    lazy var dataProvider: DataProvider = {
+        return DataProvider(apiService: apiService)
+    }()
 
     public init(publicKey: String, configuration: Configuration) {
         self.publicKey = publicKey
@@ -51,16 +56,9 @@ public class MLS {
         return player
     }
 
-    /// Obtain a list of Events from the MLS API.
-    /// - parameter completionHandler: gets called when the API response is available. Contains the desired list of Events, or nil if the request failed.
-    public func eventList(completionHandler: @escaping ([Event]?) -> ()) {
-        apiService.fetchEvents { (events, _) in
-            if let events = events {
-                completionHandler(events)
-                return
-            }
-            completionHandler(nil)
-        }
+    /// Provides a DataProvider object that can be used to retrieve data from the MLS API directly.
+    public func getDataProvider() -> DataProvider {
+        return dataProvider
     }
 }
 

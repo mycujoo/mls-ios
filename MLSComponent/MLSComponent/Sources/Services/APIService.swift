@@ -20,66 +20,38 @@ class APIService: APIServicing {
     }
 
     func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ()) {
-        api.request(.eventById(id)) { result in
-            switch result {
-            case .success(let response):
-                let decoder = JSONDecoder()
-                do {
-                    let event = try decoder.decode(Event.self, from: response.data)
-                    // TODO: Return the pagination tokens as well
-                    callback(event, nil)
-                } catch {
-                    callback(nil, error)
-                }
-            case .failure(let error):
-                callback(nil, error)
-            }
+        _fetch(.eventById(id), type: Event.self) { (config, err) in
+            callback(config, err)
         }
     }
 
     func fetchEvents(callback: @escaping ([Event]?, Error?) -> ()) {
-        api.request(.events) { result in
-            switch result {
-            case .success(let response):
-                let decoder = JSONDecoder()
-                do {
-                    let eventWrapper = try decoder.decode(EventWrapper.self, from: response.data)
-                    // TODO: Return the pagination tokens as well
-                    callback(eventWrapper.events, nil)
-                } catch {
-                    callback(nil, error)
-                }
-            case .failure(let error):
-                callback(nil, error)
-            }
+        _fetch(.events, type: EventWrapper.self) { (wrapper, err) in
+            // TODO: Return the pagination tokens as well
+            callback(wrapper?.events, err)
         }
     }
 
     func fetchAnnotations(byTimelineId timelineId: String, callback: @escaping ([Annotation]?, Error?) -> ()) {
-        api.request(.annotations(timelineId)) { result in
-            switch result {
-            case .success(let response):
-                let decoder = JSONDecoder()
-                do {
-                    let annotationWrapper = try decoder.decode(AnnotationWrapper.self, from: response.data)
-                    // TODO: Return the pagination tokens as well
-                    callback(annotationWrapper.annotations, nil)
-                } catch {
-                    callback(nil, error)
-                }
-            case .failure(let error):
-                callback(nil, error)
-            }
+        _fetch(.annotations(timelineId), type: AnnotationWrapper.self) { (wrapper, err) in
+            // TODO: Return the pagination tokens as well
+            callback(wrapper?.annotations, err)
         }
     }
 
     func fetchPlayerConfig(byEventId eventId: String, callback: @escaping (PlayerConfig?, Error?) -> ()) {
-        api.request(.playerConfig(eventId)) { result in
+        _fetch(.playerConfig(eventId), type: PlayerConfig.self) { (config, err) in
+            callback(config, err)
+        }
+    }
+
+    private func _fetch<T: Decodable>(_ endpoint: API, type t: T.Type, callback: @escaping (T?, Error?) -> ()) {
+        api.request(endpoint) { result in
             switch result {
             case .success(let response):
                 let decoder = JSONDecoder()
                 do {
-                    let config = try decoder.decode(PlayerConfig.self, from: response.data)
+                    let config = try decoder.decode(t.self, from: response.data)
                     // TODO: Return the pagination tokens as well
                     callback(config, nil)
                 } catch {

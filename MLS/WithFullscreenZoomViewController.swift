@@ -91,7 +91,7 @@ class WithFullscreenZoomViewController: UIViewController {
 
         updateIsFullscreen(to: isLandscape)
 
-        mls.eventList(completionHandler: { [weak self] (events) in
+        mls.getDataProvider().eventList(completionHandler: { [weak self] (events) in
             self?.videoPlayer.event = events?.first
         })
     }

@@ -82,6 +82,10 @@ class WithPictureInPictureViewController: UIViewController {
             )
             pipButton.addTarget(self, action: #selector(pipButtonTapped), for: .touchUpInside)
         }
+
+        mls.getDataProvider().eventList(completionHandler: { [weak self] (events) in
+            self?.videoPlayer.event = events?.first
+        })
     }
 
     // Taken from: https://developer.apple.com/documentation/avkit/adopting_picture_in_picture_in_a_custom_player

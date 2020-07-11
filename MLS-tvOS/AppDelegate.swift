@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        mls.eventList(completionHandler: { [weak self] (events) in
+        mls.getDataProvider().eventList(completionHandler: { [weak self] (events) in
             self?.videoPlayer.event = events?.first
         })
     }
