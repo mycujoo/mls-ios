@@ -34,7 +34,7 @@ public class MLS {
         return AnnotationService()
     }()
 
-    lazy var dataProvider: DataProvider = {
+    lazy var dataProvider_: DataProvider = {
         return DataProvider(apiService: apiService)
     }()
 
@@ -57,8 +57,8 @@ public class MLS {
     }
 
     /// Provides a DataProvider object that can be used to retrieve data from the MLS API directly.
-    public func getDataProvider() -> DataProvider {
-        return dataProvider
+    public func dataProvider() -> DataProvider {
+        return dataProvider_
     }
 }
 
