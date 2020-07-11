@@ -171,13 +171,14 @@ public class VideoPlayer: NSObject {
     }
 
     /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
-    var seekTolerance: CMTime = .positiveInfinity
+    private let seekTolerance: CMTime
 
     // MARK: - Methods
 
-    init(apiService: APIServicing, annotationService: AnnotationServicing) {
+    init(apiService: APIServicing, annotationService: AnnotationServicing, seekTolerance: CMTime = .positiveInfinity) {
         self.apiService = apiService
         self.annotationService = annotationService
+        self.seekTolerance = seekTolerance
 
         super.init()
 

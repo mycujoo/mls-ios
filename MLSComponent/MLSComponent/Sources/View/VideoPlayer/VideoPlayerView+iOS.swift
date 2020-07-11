@@ -21,7 +21,7 @@ public class VideoPlayerView: UIView  {
     private var onSkipForwardButtonTapped: (() -> Void)?
     private var onLiveButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
-    private var onPIPButtonTapped: (() -> Void)?
+    private var onInfoButtonTapped: (() -> Void)?
 
     // MARK: - Internal properties
 
@@ -61,22 +61,7 @@ public class VideoPlayerView: UIView  {
     private lazy var skipForwardIcon = UIImage(named: "Icon-ForwardBy10", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var startPIPImage: UIImage? = {
-        if #available(iOS 13.0, *) {
-            return AVPictureInPictureController.pictureInPictureButtonStartImage.withTintColor(.white)
-        } else {
-            // TODO
-            return UIImage()
-        }
-    }()
-    private lazy var stopPIPImage: UIImage? = {
-        if #available(iOS 13.0, *) {
-            return AVPictureInPictureController.pictureInPictureButtonStopImage.withTintColor(.white)
-        } else {
-            // TODO
-            return UIImage()
-        }
-    }()
+    private lazy var infoIcon = UIImage(named: "Icon-Info", in: Bundle.resourceBundle, compatibleWith: nil)
 
     lazy var playButton: UIButton = {
         let button = UIButton()
@@ -164,6 +149,7 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
+    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
     public let topControlsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -177,14 +163,14 @@ public class VideoPlayerView: UIView  {
         return stackView
     }()
 
-    lazy var pipButton: UIButton = {
+    lazy var infoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        if let image = startPIPImage {
+        if let image = infoIcon {
             button.setImage(image, for: .normal)
         }
         button.tintColor = .white
-        button.imageEdgeInsets = UIEdgeInsets(top: 11, left: 8.8, bottom: 11, right: 8.8)
+        button.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
         return button
     }()
 
@@ -412,13 +398,12 @@ public class VideoPlayerView: UIView  {
         NSLayoutConstraint.activate([
            topControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
            topControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
-           pipButton.heightAnchor.constraint(equalToConstant: 40),
-           pipButton.widthAnchor.constraint(equalToConstant: 40)
+           topControlsStackView.heightAnchor.constraint(equalToConstant: 40)
         ])
 
-        topControlsStackView.addArrangedSubview(pipButton)
+        topControlsStackView.addArrangedSubview(infoButton)
 
-        pipButton.addTarget(self, action: #selector(PIPButtonTapped), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 
         addGestureRecognizer(tapGestureRecognizer)
     }
@@ -487,12 +472,12 @@ extension VideoPlayerView {
         onFullscreenButtonTapped?()
     }
 
-    func setOnPIPButtonTapped(_ action: @escaping () -> Void) {
-        onPIPButtonTapped = action
+    func setOnInfoButtonTapped(_ action: @escaping () -> Void) {
+        onInfoButtonTapped = action
     }
 
-    @objc private func PIPButtonTapped() {
-        onPIPButtonTapped?()
+    @objc private func infoButtonTapped() {
+        onInfoButtonTapped?()
     }
 
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
