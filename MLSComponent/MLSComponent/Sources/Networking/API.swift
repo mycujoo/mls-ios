@@ -85,7 +85,7 @@ extension API: TargetType {
                 params["page_size"] = pageSize
             }
             if let pageToken = pageToken {
-                params["page_token"] = pageSize
+                params["page_token"] = pageToken
             }
             if let hasStream = hasStream {
                 params["has_stream"] = hasStream
