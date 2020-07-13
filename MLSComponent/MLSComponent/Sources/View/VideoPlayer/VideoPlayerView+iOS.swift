@@ -206,6 +206,15 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// The view in which all event/stream information is rendered.
+    let infoView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        view.alpha = 0.0
+        return view
+    }()
+
     // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
@@ -247,6 +256,7 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlAlphaView)
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
+        safeView.addSubview(infoView)
         drawControls()
 
         let safeViewConstraints = [
@@ -289,7 +299,11 @@ public class VideoPlayerView: UIView  {
             controlAlphaView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            infoView.leftAnchor.constraint(equalTo: leftAnchor, constant: 40),
+            infoView.rightAnchor.constraint(equalTo: rightAnchor, constant: -40),
+            infoView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
+            infoView.topAnchor.constraint(equalTo: topAnchor, constant: 40)
         ]
 
         for constraint in constraints {
