@@ -111,7 +111,6 @@ public class VideoPlayerView: UIView  {
     }()
 
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    /// - note: The `isHidden` property should not be manipulated except by the VideoPlayer directly.
     let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false

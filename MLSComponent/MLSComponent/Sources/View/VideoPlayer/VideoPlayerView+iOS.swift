@@ -150,6 +150,7 @@ public class VideoPlayerView: UIView  {
     private let controlAlphaView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
         return view
     }()
 
@@ -163,11 +164,10 @@ public class VideoPlayerView: UIView  {
     }()
 
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    /// - note: The `isHidden` property should not be manipulated except by the VideoPlayer directly.
     public let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true // hide until the VideoPlayer shows it.
+        view.alpha = 0
         return view
     }()
 
