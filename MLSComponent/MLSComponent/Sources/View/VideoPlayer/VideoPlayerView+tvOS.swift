@@ -23,6 +23,8 @@ public class VideoPlayerView: UIView  {
     private var onRightArrowTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
+    private var sliderValueChangedSinceTouchdown = false
+
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
     var overlays: [String: UIView] = [:]
@@ -281,7 +283,8 @@ extension VideoPlayerView {
     }
 
     @objc private func timeSliderTouchdown(_ sender: VideoProgressSlider) {
-
+        sliderValueChangedSinceTouchdown = false
+        videoSlider.ignoreTracking = false
     }
 
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
@@ -290,6 +293,8 @@ extension VideoPlayerView {
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
+
+        sliderValueChangedSinceTouchdown = true
     }
 
     func setOnTimeSliderRelease(_ action: @escaping (Double) -> Void) {
@@ -297,7 +302,9 @@ extension VideoPlayerView {
     }
 
     @objc private func timeSliderRelease(_ sender: VideoProgressSlider) {
-        onTimeSliderRelease?(sender.value)
+        if sliderValueChangedSinceTouchdown {
+            onTimeSliderRelease?(sender.value)
+        }
     }
 
     func setOnSelectPressed(_ action: @escaping () -> Void) {
@@ -305,6 +312,7 @@ extension VideoPlayerView {
     }
 
     private func selectPressed() {
+        videoSlider.ignoreTracking = true
         onSelectPressed?()
     }
 

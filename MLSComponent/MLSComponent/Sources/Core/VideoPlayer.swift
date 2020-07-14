@@ -199,7 +199,7 @@ public class VideoPlayer: NSObject {
             view.setOnRightArrowTapped(rightArrowTapped)
             #endif
             view.drawPlayer(with: player)
-            view.setControlViewVisibility(visible: true, animated: false)
+            setControlViewVisibility(visible: true, animated: false)
         }
 
         if Thread.isMainThread {
