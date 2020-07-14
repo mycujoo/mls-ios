@@ -121,6 +121,7 @@ public class VideoPlayer: NSObject {
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
+    private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
     private lazy var youboraPlugin: YBPlugin = {
@@ -182,6 +183,7 @@ public class VideoPlayer: NSObject {
 
         func initPlayerView() {
             view = VideoPlayerView()
+            view.setOnControlViewTapped(controlViewTapped)
             view.setOnTimeSliderSlide(sliderUpdated)
             view.setOnTimeSliderRelease(sliderReleased)
             view.setOnPlayButtonTapped(playButtonTapped)
@@ -192,6 +194,7 @@ public class VideoPlayer: NSObject {
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
             #endif
             view.drawPlayer(with: player)
+            view.setControlViewVisibility(visible: true, animated: false)
         }
 
         if Thread.isMainThread {
@@ -400,6 +403,8 @@ extension VideoPlayer {
         let elapsedSeconds = Float64(fraction) * currentDuration
 
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
+
+        setControlViewVisibility(visible: true, animated: true)
     }
 
     private func sliderReleased(with fraction: Double) {
@@ -411,8 +416,9 @@ extension VideoPlayer {
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
-        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { [weak self] _ in
-        })
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
+
+        setControlViewVisibility(visible: true, animated: true)
     }
 
     private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: LiveState) {
@@ -438,6 +444,19 @@ extension VideoPlayer {
         }
     }
 
+    private func controlViewTapped() {
+        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+    }
+
+    private func setControlViewVisibility(visible: Bool, animated: Bool) {
+        if visible {
+            controlViewDebouncer.debounce { [weak self] in
+                self?.view.setControlViewVisibility(visible: false, animated: true)
+            }
+        }
+        view.setControlViewVisibility(visible: visible, animated: true)
+    }
+
     private func playButtonTapped() {
         if state != .ended {
             status.toggle()
@@ -450,6 +469,8 @@ extension VideoPlayer {
                 }
             }
         }
+
+        setControlViewVisibility(visible: true, animated: true)
     }
 
     private func relativeSeekWithDebouncer(amount: Double) {
@@ -466,10 +487,14 @@ extension VideoPlayer {
 
     private func skipBackButtonTapped() {
         relativeSeekWithDebouncer(amount: -10)
+
+        setControlViewVisibility(visible: true, animated: true)
     }
 
     private func skipForwardButtonTapped() {
         relativeSeekWithDebouncer(amount: 10)
+
+        setControlViewVisibility(visible: true, animated: true)
     }
 
     #if os(iOS)
@@ -486,10 +511,14 @@ extension VideoPlayer {
                 self?.play()
             }
         }
+
+        setControlViewVisibility(visible: true, animated: true)
     }
 
     private func fullscreenButtonTapped() {
         isFullscreen.toggle()
+
+        setControlViewVisibility(visible: true, animated: true)
     }
     #endif
 }

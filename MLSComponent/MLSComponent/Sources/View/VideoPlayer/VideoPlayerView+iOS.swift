@@ -13,6 +13,7 @@ public class VideoPlayerView: UIView  {
     /// The AVPlayerLayer that is associated with this video player.
     private(set) public var playerLayer: AVPlayerLayer?
 
+    private var onControlViewTapped: (() -> Void)?
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onTimeSliderRelease: ((Double) -> Void)?
     private var onPlayButtonTapped: (() -> Void)?
@@ -20,7 +21,6 @@ public class VideoPlayerView: UIView  {
     private var onSkipForwardButtonTapped: (() -> Void)?
     private var onLiveButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
-    private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     // MARK: - Internal properties
 
@@ -366,8 +366,6 @@ public class VideoPlayerView: UIView  {
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
         addGestureRecognizer(tapGestureRecognizer)
-
-        setControlViewVisibility(visible: true)
     }
 
     //MARK: - Methods
@@ -386,6 +384,13 @@ public class VideoPlayerView: UIView  {
 
 // MARK: - Actions
 extension VideoPlayerView {
+    func setOnControlViewTapped(_ action: @escaping () -> Void) {
+        onControlViewTapped = action
+    }
+
+    @objc private func controlViewTapped() {
+        onControlViewTapped?()
+    }
 
     func setOnPlayButtonTapped(_ action: @escaping () -> Void) {
         onPlayButtonTapped = action
@@ -393,8 +398,6 @@ extension VideoPlayerView {
 
     @objc private func playButtonTapped() {
         onPlayButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnSkipBackButtonTapped(_ action: @escaping () -> Void) {
@@ -403,8 +406,6 @@ extension VideoPlayerView {
 
     @objc private func skipBackButtonTapped() {
         onSkipBackButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void) {
@@ -413,8 +414,6 @@ extension VideoPlayerView {
 
     @objc private func skipForwardButtonTapped() {
         onSkipForwardButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnLiveButtonTapped(_ action: @escaping () -> Void) {
@@ -423,8 +422,6 @@ extension VideoPlayerView {
 
     @objc private func liveButtonTapped() {
         onLiveButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnFullscreenButtonTapped(_ action: @escaping () -> Void) {
@@ -433,8 +430,6 @@ extension VideoPlayerView {
 
     @objc private func fullscreenButtonTapped() {
         onFullscreenButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
@@ -443,8 +438,6 @@ extension VideoPlayerView {
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnTimeSliderRelease(_ action: @escaping (Double) -> Void) {
@@ -453,31 +446,12 @@ extension VideoPlayerView {
 
     @objc private func timeSliderRelease(_ sender: VideoProgressSlider) {
         onTimeSliderRelease?(sender.value)
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
-    @objc private func controlViewTapped() {
-        toggleControlViewVisibility()
-    }
-
-    fileprivate func toggleControlViewVisibility() {
-        setControlViewVisibility(visible: !controlViewHasAlpha)
-    }
-
-    private func setControlViewVisibility(visible: Bool) {
-        if visible {
-            controlViewDebouncer.debounce {
-                UIView.animate(withDuration: 0.3) {
-                    self.controlAlphaView.alpha = 0
-                    self.controlView.alpha = 0
-                }
-            }
-        }
-
+    func setControlViewVisibility(visible: Bool, animated: Bool) {
         if (!controlViewHasAlpha) == visible {
             DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.15) {
+                UIView.animate(withDuration: animated ? 0.2 : 0) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
                 }
