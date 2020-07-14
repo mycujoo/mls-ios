@@ -183,15 +183,20 @@ public class VideoPlayer: NSObject {
 
         func initPlayerView() {
             view = VideoPlayerView()
-            view.setOnControlViewTapped(controlViewTapped)
             view.setOnTimeSliderSlide(sliderUpdated)
             view.setOnTimeSliderRelease(sliderReleased)
             view.setOnPlayButtonTapped(playButtonTapped)
             view.setOnSkipBackButtonTapped(skipBackButtonTapped)
             view.setOnSkipForwardButtonTapped(skipForwardButtonTapped)
             #if os(iOS)
+            view.setOnControlViewTapped(controlViewTapped)
             view.setOnLiveButtonTapped(liveButtonTapped)
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
+            #endif
+            #if os(tvOS)
+            view.setOnSelectPressed(selectPressed)
+            view.setOnLeftArrowTapped(leftArrowTapped)
+            view.setOnRightArrowTapped(rightArrowTapped)
             #endif
             view.drawPlayer(with: player)
             view.setControlViewVisibility(visible: true, animated: false)
@@ -444,10 +449,6 @@ extension VideoPlayer {
         }
     }
 
-    private func controlViewTapped() {
-        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
-    }
-
     private func setControlViewVisibility(visible: Bool, animated: Bool) {
         if visible {
             controlViewDebouncer.debounce { [weak self] in
@@ -498,6 +499,10 @@ extension VideoPlayer {
     }
 
     #if os(iOS)
+    private func controlViewTapped() {
+        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+    }
+
     private func liveButtonTapped() {
         let currentDuration = self.currentDuration
         guard currentDuration > 0, self.liveState != .liveAndLatest else { return }
@@ -519,6 +524,20 @@ extension VideoPlayer {
         isFullscreen.toggle()
 
         setControlViewVisibility(visible: true, animated: true)
+    }
+    #endif
+
+    #if os(tvOS)
+    private func selectPressed() {
+        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+    }
+
+    private func leftArrowTapped() {
+        skipBackButtonTapped()
+    }
+
+    private func rightArrowTapped() {
+        skipForwardButtonTapped()
     }
     #endif
 }

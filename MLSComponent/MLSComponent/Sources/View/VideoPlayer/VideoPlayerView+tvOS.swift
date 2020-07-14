@@ -18,6 +18,9 @@ public class VideoPlayerView: UIView  {
     private var onPlayButtonTapped: (() -> Void)?
     private var onSkipBackButtonTapped: (() -> Void)?
     private var onSkipForwardButtonTapped: (() -> Void)?
+    private var onSelectPressed: (() -> Void)?
+    private var onLeftArrowTapped: (() -> Void)?
+    private var onRightArrowTapped: (() -> Void)?
     private var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
@@ -236,8 +239,6 @@ public class VideoPlayerView: UIView  {
 
         timeIndicatorLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-
-        setControlViewVisibility(visible: true)
     }
 
     //MARK: - Methods
@@ -261,8 +262,6 @@ extension VideoPlayerView {
 
     @objc private func playButtonTapped() {
         onPlayButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnSkipBackButtonTapped(_ action: @escaping () -> Void) {
@@ -271,8 +270,6 @@ extension VideoPlayerView {
 
     private func skipBackButtonTapped() {
         onSkipBackButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void) {
@@ -281,12 +278,10 @@ extension VideoPlayerView {
 
     private func skipForwardButtonTapped() {
         onSkipForwardButtonTapped?()
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     @objc private func timeSliderTouchdown(_ sender: VideoProgressSlider) {
-        videoSlider.ignoreTracking = false
+
     }
 
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
@@ -295,8 +290,6 @@ extension VideoPlayerView {
 
     @objc private func timeSliderSlide(_ sender: VideoProgressSlider) {
         onTimeSliderSlide?(sender.value)
-
-        setControlViewVisibility(visible: true) // Debounce the hiding of the control view
     }
 
     func setOnTimeSliderRelease(_ action: @escaping (Double) -> Void) {
@@ -304,30 +297,37 @@ extension VideoPlayerView {
     }
 
     @objc private func timeSliderRelease(_ sender: VideoProgressSlider) {
-        if !videoSlider.ignoreTracking {
-            onTimeSliderRelease?(sender.value)
-
-            setControlViewVisibility(visible: true)
-        }
+        onTimeSliderRelease?(sender.value)
     }
 
-    fileprivate func toggleControlViewVisibility() {
-        setControlViewVisibility(visible: !controlViewHasAlpha)
+    func setOnSelectPressed(_ action: @escaping () -> Void) {
+        onSelectPressed = action
     }
 
-    private func setControlViewVisibility(visible: Bool) {
-        if visible {
-            controlViewDebouncer.debounce {
-                UIView.animate(withDuration: 0.3) {
-                    self.controlAlphaView.alpha = 0
-                    self.controlView.alpha = 0
-                }
-            }
-        }
+    private func selectPressed() {
+        onSelectPressed?()
+    }
 
+    func setOnLeftArrowTapped(_ action: @escaping () -> Void) {
+        onLeftArrowTapped = action
+    }
+
+    private func leftArrowTapped() {
+        onLeftArrowTapped?()
+    }
+
+    func setOnRightArrowTapped(_ action: @escaping () -> Void) {
+        onRightArrowTapped = action
+    }
+
+    private func rightArrowTapped() {
+        onRightArrowTapped?()
+    }
+
+    func setControlViewVisibility(visible: Bool, animated: Bool) {
         if (!controlViewHasAlpha) == visible {
             DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.15) {
+                UIView.animate(withDuration: animated ? 0.3 : 0) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
                 }
@@ -399,26 +399,11 @@ public extension VideoPlayerView {
         case .playPause?:
             playButtonTapped()
         case .select?:
-            // Only ignore if visible, because `touchDown` won't be fired if invisible.
-            // This should also be changed in the future if more elements can gain focus in the controlView, besides the slider.
-            if controlViewHasAlpha {
-                videoSlider.ignoreTracking = true
-            }
-            toggleControlViewVisibility()
+            selectPressed()
         case .leftArrow?:
-            if controlViewHasAlpha {
-                videoSlider.ignoreTracking = true
-                skipBackButtonTapped()
-            } else {
-                super.pressesBegan(presses, with: event)
-            }
+            leftArrowTapped()
         case .rightArrow?:
-            if controlViewHasAlpha {
-                videoSlider.ignoreTracking = true
-                skipForwardButtonTapped()
-            } else {
-                super.pressesBegan(presses, with: event)
-            }
+            rightArrowTapped()
         default:
             super.pressesBegan(presses, with: event)
         }
