@@ -48,6 +48,11 @@ public class VideoPlayerView: UIView  {
         return controlView.alpha > 0
     }
 
+    /// Whether the infoView has an alpha value of more than zero (0) or not.
+    var infoViewHasAlpha: Bool {
+        return infoView.alpha > 0
+    }
+
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
     var overlays: [String: UIView] = [:]
@@ -210,7 +215,7 @@ public class VideoPlayerView: UIView  {
     let infoView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         view.alpha = 0.0
         return view
     }()
@@ -256,7 +261,6 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlAlphaView)
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
-        safeView.addSubview(infoView)
         drawControls()
 
         let safeViewConstraints = [
@@ -299,11 +303,7 @@ public class VideoPlayerView: UIView  {
             controlAlphaView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            infoView.leftAnchor.constraint(equalTo: leftAnchor, constant: 40),
-            infoView.rightAnchor.constraint(equalTo: rightAnchor, constant: -40),
-            infoView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
-            infoView.topAnchor.constraint(equalTo: topAnchor, constant: 40)
+            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
         ]
 
         for constraint in constraints {
@@ -328,6 +328,16 @@ public class VideoPlayerView: UIView  {
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
         controlView.addSubview(topControlsStackView)
+        controlView.addSubview(infoView)
+
+        // MARK: Info view
+
+        NSLayoutConstraint.activate([
+            infoView.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 40),
+            infoView.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -40),
+            infoView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -40),
+            infoView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 40)
+        ])
 
         // MARK: Play/pause button
 
@@ -516,6 +526,27 @@ extension VideoPlayerView {
                 UIView.animate(withDuration: animated ? 0.2 : 0) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
+                }
+            }
+        }
+    }
+
+    func setInfoViewVisibility(visible: Bool, animated: Bool) {
+        if (!infoViewHasAlpha) == visible {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                UIView.animate(withDuration: animated ? 0.2 : 0) {
+                    self.infoView.alpha = visible ? 1 : 0
+                }
+
+                if visible {
+                    print("Bringing to front")
+                    self.controlView.bringSubviewToFront(self.infoView)
+                    self.controlView.bringSubviewToFront(self.topControlsStackView)
+                } else {
+                    print("Sending to back")
+                    self.controlView.sendSubviewToBack(self.topControlsStackView)
+                    self.controlView.sendSubviewToBack(self.infoView)
                 }
             }
         }

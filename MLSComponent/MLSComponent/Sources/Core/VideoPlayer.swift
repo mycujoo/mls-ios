@@ -197,6 +197,7 @@ public class VideoPlayer: NSObject {
             view.setOnControlViewTapped(controlViewTapped)
             view.setOnLiveButtonTapped(liveButtonTapped)
             view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
+            view.setOnInfoButtonTapped(infoButtonTapped)
             #endif
             #if os(tvOS)
             view.setOnSelectPressed(selectPressed)
@@ -469,12 +470,13 @@ extension VideoPlayer {
         }
         controlViewDirectiveLevel = lock ? directiveLevel : .none
 
-        if visible && directiveLevel.rawValue <= DirectiveLevel.derived.rawValue {
-            controlViewDebouncer.debounce { [weak self] in
-                self?.view.setControlViewVisibility(visible: false, animated: true)
+        controlViewDebouncer.debounce { [weak self] in
+            guard let self = self else { return }
+            if visible && self.controlViewDirectiveLevel.rawValue <= DirectiveLevel.derived.rawValue {
+                self.view.setControlViewVisibility(visible: false, animated: animated)
             }
         }
-        view.setControlViewVisibility(visible: visible, animated: true)
+        view.setControlViewVisibility(visible: visible, animated: animated)
     }
 
     private func playButtonTapped() {
@@ -543,6 +545,13 @@ extension VideoPlayer {
         isFullscreen.toggle()
 
         setControlViewVisibility(visible: true, animated: true)
+    }
+
+    private func infoButtonTapped() {
+        let visible = !view.infoViewHasAlpha
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .userInitiated, lock: visible)
+
+        view.setInfoViewVisibility(visible: visible, animated: true)
     }
     #endif
 
