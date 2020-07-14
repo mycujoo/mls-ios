@@ -202,6 +202,10 @@ public class VideoPlayer: NSObject {
             }
         }
 
+        #if DEBUG
+        player.isMuted = true
+        #endif
+
         youboraPlugin.fireInit()
 
         rebuild()
