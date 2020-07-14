@@ -148,6 +148,10 @@ public class VideoPlayer: NSObject {
 
     private var activeOverlayIds: Set<String> = Set()
 
+    /// A level that indicates which actions are allowed to overwrite the state of the control view visibility.
+    private var controlViewDirectiveLevel: DirectiveLevel = .derived
+    private var controlViewLocked: Bool = false
+
     // MARK: - Internal properties
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
@@ -199,7 +203,7 @@ public class VideoPlayer: NSObject {
             view.setOnRightArrowTapped(rightArrowTapped)
             #endif
             view.drawPlayer(with: player)
-            setControlViewVisibility(visible: true, animated: false)
+            setControlViewVisibility(visible: true, animated: false, directiveLevel: .derived)
         }
 
         if Thread.isMainThread {
@@ -229,6 +233,8 @@ public class VideoPlayer: NSObject {
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
     private func rebuild() {
+        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+
         view.controlView.isHidden = true
 
         // TODO: Consider how to play streams directly.
@@ -241,7 +247,9 @@ public class VideoPlayer: NSObject {
                     if let stream = self?.event?.streams.first ?? self?.stream {
                         self?.replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
                             guard let self = self else { return }
-                            self.view.controlView.isHidden = false
+
+                            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: false)
+                            
                             if completed {
                                 if self.playerConfig.autoplay {
                                     self.play()
@@ -409,7 +417,7 @@ extension VideoPlayer {
 
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
-        setControlViewVisibility(visible: true, animated: true)
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .derived)
     }
 
     private func sliderReleased(with fraction: Double) {
@@ -423,7 +431,7 @@ extension VideoPlayer {
         let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
         player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
 
-        setControlViewVisibility(visible: true, animated: true)
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .derived)
     }
 
     private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: LiveState) {
@@ -449,7 +457,19 @@ extension VideoPlayer {
         }
     }
 
-    private func setControlViewVisibility(visible: Bool, animated: Bool) {
+    /// - parameter visible: What the new state of visibility should be
+    /// - parameter animted: Whether to animate the transition
+    /// - parameter directiveLevel: The level of priority with which this control view visibility should be changed.
+    ///   If a higher directive level is currently in conflict with this call, it will be ignored.
+    ///   For example, if the user tapped the info button, the control view should remain visible until it is actively dismissed. A call to this method with a lower priority for dismissal will be ignored.
+    /// - parameter lock: Whether to set the new directive level globally (true), so that future updates need the same (or higher) directive level.
+    ///   If false is provided, the directive level will be reset to `none`.
+    private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel, lock: Bool = false) {
+        if directiveLevel.rawValue < controlViewDirectiveLevel.rawValue {
+            return
+        }
+        controlViewDirectiveLevel = lock ? directiveLevel : .none
+
         if visible {
             controlViewDebouncer.debounce { [weak self] in
                 self?.view.setControlViewVisibility(visible: false, animated: true)
@@ -471,7 +491,7 @@ extension VideoPlayer {
             }
         }
 
-        setControlViewVisibility(visible: true, animated: true)
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .derived)
     }
 
     private func relativeSeekWithDebouncer(amount: Double) {
@@ -489,18 +509,18 @@ extension VideoPlayer {
     private func skipBackButtonTapped() {
         relativeSeekWithDebouncer(amount: -10)
 
-        setControlViewVisibility(visible: true, animated: true)
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .derived)
     }
 
     private func skipForwardButtonTapped() {
         relativeSeekWithDebouncer(amount: 10)
 
-        setControlViewVisibility(visible: true, animated: true)
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .derived)
     }
 
     #if os(iOS)
     private func controlViewTapped() {
-        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .derived)
     }
 
     private func liveButtonTapped() {
@@ -517,19 +537,19 @@ extension VideoPlayer {
             }
         }
 
-        setControlViewVisibility(visible: true, animated: true)
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .derived)
     }
 
     private func fullscreenButtonTapped() {
         isFullscreen.toggle()
 
-        setControlViewVisibility(visible: true, animated: true)
+        setControlViewVisibility(visible: true, animated: true, directiveLevel: .derived)
     }
     #endif
 
     #if os(tvOS)
     private func selectPressed() {
-        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
     }
 
     private func leftArrowTapped() {
@@ -553,6 +573,19 @@ public extension VideoPlayer {
         case failed = 2
         /// The player has finished playing the media
         case ended = 3
+    }
+}
+
+// MARK: - DirectiveLevel
+extension VideoPlayer {
+    enum DirectiveLevel: Int {
+        /// A directive initiated by the system. This is the highest priority directive.
+        case systemInitiated = 1000
+        /// A directive initiated by the user. This is the highest priority directive except for `systemInitiated`
+        case userInitiated = 750
+        /// A directive that is derived from another action that happened within the system. This is the lowest priority, except `none`.
+        case derived = 250
+        case none = 0
     }
 }
 
