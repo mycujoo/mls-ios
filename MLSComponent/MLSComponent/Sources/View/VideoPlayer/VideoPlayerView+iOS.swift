@@ -224,26 +224,15 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
-    let infoTextStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-//        stackView.alignment = .fill
-//        stackView.distribution = .fill
-        stackView.spacing = 8
-        return stackView
-    }()
-
     /// The view in which all event/stream information is rendered.
     let infoViewTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 2
         label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.font = .boldSystemFont(ofSize: 16)
-        label.text = "Our title. It's quite a long one so it'll wrap to line two"
         label.textColor = .white
         return label
     }()
@@ -253,11 +242,10 @@ public class VideoPlayerView: UIView  {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
         label.font = .boldSystemFont(ofSize: 12)
-        label.text = "Some date"
+        label.minimumScaleFactor = 0.5
         label.textColor = .white
         return label
     }()
@@ -267,11 +255,10 @@ public class VideoPlayerView: UIView  {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 3
         label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.font = .systemFont(ofSize: 12)
-        label.text = "Some description. This one is even longer and so who knows what might end up in this text. I could have copied lorem ipsum but I've got hands to type with."
         label.textColor = .white
         return label
     }()
@@ -318,10 +305,9 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
         safeView.addSubview(infoView)
-        infoView.addSubview(infoTextStackView)
-        infoTextStackView.addArrangedSubview(infoViewTitleLabel)
-        infoTextStackView.addArrangedSubview(infoViewDateLabel)
-        infoTextStackView.addArrangedSubview(infoViewDescriptionLabel)
+        infoView.addSubview(infoViewTitleLabel)
+        infoView.addSubview(infoViewDateLabel)
+        infoView.addSubview(infoViewDescriptionLabel)
         drawControls()
 
         let safeViewConstraints = [
@@ -379,16 +365,33 @@ public class VideoPlayerView: UIView  {
 
         // MARK: InfoView
 
+        infoViewTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoViewDateLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoViewDescriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
         let infoViewConstraints = [
-            infoTextStackView.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 0),
-            infoTextStackView.leftAnchor.constraint(equalTo: infoView.leftAnchor, constant: 0),
-            infoTextStackView.rightAnchor.constraint(equalTo: infoView.rightAnchor, constant: 0),
-            infoTextStackView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 0),
+            infoViewTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 8),
+            infoViewTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoViewTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+
+            infoViewDateLabel.topAnchor.constraint(equalTo: infoViewTitleLabel.bottomAnchor, constant: 4),
+            infoViewDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoViewDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+
+            infoViewDescriptionLabel.topAnchor.constraint(equalTo: infoViewDateLabel.bottomAnchor, constant: 12),
+            infoViewDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoViewDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
         ]
 
         for constraint in infoViewConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 749)
+            constraint.priority = UILayoutPriority(rawValue: 748)
         }
+
+        NSLayoutConstraint.activate(infoViewConstraints)
+
+        let c = infoViewDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -8)
+        c.priority = UILayoutPriority(rawValue: 749)
+        c.isActive = true
 
         // MARK: General
 
