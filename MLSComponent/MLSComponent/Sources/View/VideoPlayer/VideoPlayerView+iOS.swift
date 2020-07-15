@@ -217,6 +217,10 @@ public class VideoPlayerView: UIView  {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         view.alpha = 0.0
+        // user interaction is disabled because the UITapGestureRecognizer on the controlView is used to determine whether
+        // to dismiss the infoView.
+        // If we need interaction in the infoView later on (e.g. a UIButton) then we can no longer rely on this tap gesture recognizer.
+        view.isUserInteractionEnabled = false
         return view
     }()
 
@@ -261,6 +265,7 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlAlphaView)
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
+        safeView.addSubview(infoView)
         drawControls()
 
         let safeViewConstraints = [
@@ -303,7 +308,11 @@ public class VideoPlayerView: UIView  {
             controlAlphaView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 40),
+            infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: -40),
+            infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: -40),
+            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40)
         ]
 
         for constraint in constraints {
@@ -328,16 +337,6 @@ public class VideoPlayerView: UIView  {
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
         controlView.addSubview(topControlsStackView)
-        controlView.addSubview(infoView)
-
-        // MARK: Info view
-
-        NSLayoutConstraint.activate([
-            infoView.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 40),
-            infoView.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -40),
-            infoView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -40),
-            infoView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 40)
-        ])
 
         // MARK: Play/pause button
 
@@ -537,16 +536,6 @@ extension VideoPlayerView {
                 guard let self = self else { return }
                 UIView.animate(withDuration: animated ? 0.2 : 0) {
                     self.infoView.alpha = visible ? 1 : 0
-                }
-
-                if visible {
-                    print("Bringing to front")
-                    self.controlView.bringSubviewToFront(self.infoView)
-                    self.controlView.bringSubviewToFront(self.topControlsStackView)
-                } else {
-                    print("Sending to back")
-                    self.controlView.sendSubviewToBack(self.topControlsStackView)
-                    self.controlView.sendSubviewToBack(self.infoView)
                 }
             }
         }

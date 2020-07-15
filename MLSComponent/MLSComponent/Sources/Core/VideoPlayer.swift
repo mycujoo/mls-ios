@@ -521,7 +521,12 @@ extension VideoPlayer {
 
     #if os(iOS)
     private func controlViewTapped() {
-        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        if view.infoViewHasAlpha {
+            view.setInfoViewVisibility(visible: false, animated: true)
+            setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: false)
+        } else {
+            setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        }
     }
 
     private func liveButtonTapped() {
@@ -549,7 +554,7 @@ extension VideoPlayer {
 
     private func infoButtonTapped() {
         let visible = !view.infoViewHasAlpha
-        setControlViewVisibility(visible: true, animated: true, directiveLevel: .userInitiated, lock: visible)
+        setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: visible)
 
         view.setInfoViewVisibility(visible: visible, animated: true)
     }
