@@ -102,31 +102,31 @@ extension VideoPlayerView {
             constraint.isActive = true
         }
 
-        if let leading = position.leading {
+        if let left = position.left {
             if !rtl {
                 let spacer = makeSpacer()
                 hStackView.insertArrangedSubview(spacer, at: 0)
-                let constraint = spacer.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(leading / 100))
+                let constraint = spacer.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(left / 100))
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
-                vStackView.leadingAnchor.constraint(equalTo: overlayContainerView.leadingAnchor).isActive = true
+                vStackView.leftAnchor.constraint(equalTo: overlayContainerView.leftAnchor).isActive = true
             } else {
-                let multiplier = max(0.0001, CGFloat(1 - (leading / 100)))
-                let constraint = NSLayoutConstraint(item: vStackView, attribute: .leading, relatedBy: .equal, toItem: overlayContainerView, attribute: .leading, multiplier: multiplier, constant: 0)
+                let multiplier = max(0.0001, CGFloat(1 - (left / 100)))
+                let constraint = NSLayoutConstraint(item: vStackView, attribute: .left, relatedBy: .equal, toItem: overlayContainerView, attribute: .left, multiplier: multiplier, constant: 0)
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
             }
-        } else if let trailing = position.trailing {
+        } else if let right = position.right {
             if rtl {
                 let spacer = makeSpacer()
                 hStackView.addArrangedSubview(spacer)
-                let constraint = spacer.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(trailing / 100))
+                let constraint = spacer.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(right / 100))
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
-                vStackView.trailingAnchor.constraint(equalTo: overlayContainerView.trailingAnchor).isActive = true
+                vStackView.rightAnchor.constraint(equalTo: overlayContainerView.rightAnchor).isActive = true
             } else {
-                let multiplier = max(0.0001, CGFloat(1 - (trailing / 100)))
-                let constraint = NSLayoutConstraint(item: vStackView, attribute: .trailing, relatedBy: .equal, toItem: overlayContainerView, attribute: .trailing, multiplier: multiplier, constant: 0)
+                let multiplier = max(0.0001, CGFloat(1 - (right / 100)))
+                let constraint = NSLayoutConstraint(item: vStackView, attribute: .right, relatedBy: .equal, toItem: overlayContainerView, attribute: .right, multiplier: multiplier, constant: 0)
                 constraint.priority = UILayoutPriority(rawValue: 247)
                 constraint.isActive = true
             }
@@ -172,7 +172,7 @@ extension VideoPlayerView {
                 imageView.alpha = 1
             }, completion: nil)
 
-        case .slideFromTop, .slideFromBottom, .slideFromLeading, .slideFromTrailing:
+        case .slideFromTop, .slideFromBottom, .slideFromLeft, .slideFromRight:
             let firstAttribute: NSLayoutConstraint.Attribute
             let secondAttribute: NSLayoutConstraint.Attribute
             var finalPositionConstraints: [NSLayoutConstraint?] = []
@@ -181,21 +181,21 @@ extension VideoPlayerView {
                 secondAttribute = .top
                 finalPositionConstraints.append(vStackView.constraints(on: vStackView.topAnchor).first)
                 finalPositionConstraints.append(vStackView.constraints(on: vStackView.bottomAnchor).first)
-            } else if animateType == .slideFromTop {
+            } else if animateType == .slideFromBottom {
                 firstAttribute = .top
                 secondAttribute = .bottom
                 finalPositionConstraints.append(vStackView.constraints(on: vStackView.topAnchor).first)
                 finalPositionConstraints.append(vStackView.constraints(on: vStackView.bottomAnchor).first)
-            } else if animateType == .slideFromTop {
-                firstAttribute = .trailing
-                secondAttribute = .leading
-                finalPositionConstraints.append(vStackView.constraints(on: vStackView.leadingAnchor).first)
-                finalPositionConstraints.append(vStackView.constraints(on: vStackView.trailingAnchor).first)
+            } else if animateType == .slideFromLeft {
+                firstAttribute = .right
+                secondAttribute = .left
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.leftAnchor).first)
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.rightAnchor).first)
             } else {
-                firstAttribute = .leading
-                secondAttribute = .trailing
-                finalPositionConstraints.append(vStackView.constraints(on: vStackView.leadingAnchor).first)
-                finalPositionConstraints.append(vStackView.constraints(on: vStackView.trailingAnchor).first)
+                firstAttribute = .left
+                secondAttribute = .right
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.leftAnchor).first)
+                finalPositionConstraints.append(vStackView.constraints(on: vStackView.rightAnchor).first)
             }
 
             // Temporarily deactivate the positional constraints that were built before in favor of the constraints
@@ -237,7 +237,7 @@ extension VideoPlayerView {
                 containerView.alpha = 0
             }, completion: animationCompleted)
 
-        case .slideToTop, .slideToBottom, .slideToLeading, .slideToTrailing:
+        case .slideToTop, .slideToBottom, .slideToLeft, .slideToRight:
             let firstAttribute: NSLayoutConstraint.Attribute
             let secondAttribute: NSLayoutConstraint.Attribute
             if animateType == .slideToTop {
@@ -250,16 +250,16 @@ extension VideoPlayerView {
                 secondAttribute = .bottom
                 containerView.constraints(on: containerView.topAnchor).first?.isActive = false
                 containerView.constraints(on: containerView.bottomAnchor).first?.isActive = false
-            } else if animateType == .slideToLeading {
-                firstAttribute = .trailing
-                secondAttribute = .leading
-                containerView.constraints(on: containerView.leadingAnchor).first?.isActive = false
-                containerView.constraints(on: containerView.trailingAnchor).first?.isActive = false
+            } else if animateType == .slideToLeft {
+                firstAttribute = .right
+                secondAttribute = .left
+                containerView.constraints(on: containerView.leftAnchor).first?.isActive = false
+                containerView.constraints(on: containerView.rightAnchor).first?.isActive = false
             } else {
-                firstAttribute = .leading
-                secondAttribute = .trailing
-                containerView.constraints(on: containerView.leadingAnchor).first?.isActive = false
-                containerView.constraints(on: containerView.trailingAnchor).first?.isActive = false
+                firstAttribute = .left
+                secondAttribute = .right
+                containerView.constraints(on: containerView.leftAnchor).first?.isActive = false
+                containerView.constraints(on: containerView.rightAnchor).first?.isActive = false
             }
 
             let constraint = NSLayoutConstraint(item: containerView, attribute: firstAttribute, relatedBy: .equal, toItem: self.overlayContainerView, attribute: secondAttribute, multiplier: 1, constant: 0)

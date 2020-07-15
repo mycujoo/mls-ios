@@ -111,10 +111,6 @@ extension WithFullscreenZoomViewController: PlayerDelegate {
 //        print("new state: ", player.state)
     }
 
-    func playerDidUpdateAnnotations(player: VideoPlayer) {
-//        print("new annotations: ", player.annotations)
-    }
-
     func playerDidUpdateFullscreen(player: VideoPlayer) {
 //        print("fullscreen mode: ", player.isFullscreen)
 

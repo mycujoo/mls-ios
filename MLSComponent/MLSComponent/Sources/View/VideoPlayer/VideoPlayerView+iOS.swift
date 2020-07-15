@@ -21,6 +21,7 @@ public class VideoPlayerView: UIView  {
     private var onSkipForwardButtonTapped: (() -> Void)?
     private var onLiveButtonTapped: (() -> Void)?
     private var onFullscreenButtonTapped: (() -> Void)?
+    private var onInfoButtonTapped: (() -> Void)?
 
     // MARK: - Internal properties
 
@@ -47,6 +48,11 @@ public class VideoPlayerView: UIView  {
         return controlView.alpha > 0
     }
 
+    /// Whether the infoView has an alpha value of more than zero (0) or not.
+    var infoViewHasAlpha: Bool {
+        return infoView.alpha > 0
+    }
+
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
     var overlays: [String: UIView] = [:]
@@ -60,6 +66,7 @@ public class VideoPlayerView: UIView  {
     private lazy var skipForwardIcon = UIImage(named: "Icon-ForwardBy10", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var infoIcon = UIImage(named: "Icon-Info", in: Bundle.resourceBundle, compatibleWith: nil)
 
     lazy var playButton: UIButton = {
         let button = UIButton()
@@ -147,6 +154,31 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
+    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
+    public let topControlsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = 9
+        if UIView.userInterfaceLayoutDirection(for: stackView.semanticContentAttribute) == .rightToLeft {
+            stackView.semanticContentAttribute = .forceRightToLeft
+        }
+        return stackView
+    }()
+
+    lazy var infoButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        if let image = infoIcon {
+            button.setImage(image, for: .normal)
+        }
+        button.tintColor = .white
+        button.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+        return button
+    }()
+
     private let controlAlphaView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -176,6 +208,19 @@ public class VideoPlayerView: UIView  {
         let view = UIView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        view.alpha = 0.0
+        // user interaction is disabled because the UITapGestureRecognizer on the controlView is used to determine whether
+        // to dismiss the infoView.
+        // If we need interaction in the infoView later on (e.g. a UIButton) then we can no longer rely on this tap gesture recognizer.
+        view.isUserInteractionEnabled = false
         return view
     }()
 
@@ -220,6 +265,7 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlAlphaView)
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
+        safeView.addSubview(infoView)
         drawControls()
 
         let safeViewConstraints = [
@@ -262,7 +308,11 @@ public class VideoPlayerView: UIView  {
             controlAlphaView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 40),
+            infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: -40),
+            infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: -40),
+            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40)
         ]
 
         for constraint in constraints {
@@ -286,6 +336,7 @@ public class VideoPlayerView: UIView  {
 
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
+        controlView.addSubview(topControlsStackView)
 
         // MARK: Play/pause button
 
@@ -365,6 +416,18 @@ public class VideoPlayerView: UIView  {
         liveButton.addTarget(self, action: #selector(liveButtonTapped), for: .touchUpInside)
         fullscreenButton.addTarget(self, action: #selector(fullscreenButtonTapped), for: .touchUpInside)
 
+        // MARK: Top buttons
+
+        NSLayoutConstraint.activate([
+           topControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
+           topControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
+           topControlsStackView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
+        topControlsStackView.addArrangedSubview(infoButton)
+
+        infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+
         addGestureRecognizer(tapGestureRecognizer)
     }
 
@@ -432,6 +495,14 @@ extension VideoPlayerView {
         onFullscreenButtonTapped?()
     }
 
+    func setOnInfoButtonTapped(_ action: @escaping () -> Void) {
+        onInfoButtonTapped = action
+    }
+
+    @objc private func infoButtonTapped() {
+        onInfoButtonTapped?()
+    }
+
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void) {
         onTimeSliderSlide = action
     }
@@ -454,6 +525,17 @@ extension VideoPlayerView {
                 UIView.animate(withDuration: animated ? 0.2 : 0) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
+                }
+            }
+        }
+    }
+
+    func setInfoViewVisibility(visible: Bool, animated: Bool) {
+        if (!infoViewHasAlpha) == visible {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                UIView.animate(withDuration: animated ? 0.2 : 0) {
+                    self.infoView.alpha = visible ? 1 : 0
                 }
             }
         }

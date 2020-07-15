@@ -12,7 +12,7 @@ protocol AnnotationServicing {
 class AnnotationService: AnnotationServicing {
     struct EvaluationInput {
         /// The annotations being evaluated
-        var annotations: [Annotation]
+        var actions: [AnnotationAction]
         /// A Set of overlayIds that are currently active (i.e. on-screen). This is obtained through a previous evaluation. Should initially be an empty set.
         var activeOverlayIds: Set<String>
         /// The elapsed time (in seconds) of the currently playing item of the video player.
@@ -58,49 +58,36 @@ class AnnotationService: AnnotationServicing {
 
             // MARK: Evaluate
 
-            for annotation in input.annotations {
-                let offsetAsSeconds = Double(annotation.offset) / 1000
-                for action in annotation.actions {
-                    switch action.data {
-                    case .showTimelineMarker(let data):
-                        let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label)
-                        let position = min(1.0, max(0.0, TimeInterval(annotation.offset / 1000) / input.currentDuration))
+            for action in input.actions {
+                let offsetAsSeconds = Double(action.offset) / 1000
+                switch action.data {
+                case .showTimelineMarker(let data):
+                    let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label)
+                    let position = min(1.0, max(0.0, TimeInterval(action.offset / 1000) / input.currentDuration))
 
-                        showTimelineMarkers.append(ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position))
-                    case .showOverlay(let data):
-                        if offsetAsSeconds <= input.currentTime {
-                            if let duration = data.duration {
-                                if input.currentTime < offsetAsSeconds + (duration / 1000) {
-                                    if let obj = self.makeShowOverlay(from: action) {
-                                        if input.currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
-                                            inRangeOverlayActions[obj.overlayId] = obj
-                                        } else {
-                                            inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
-                                        }
-                                    }
-                                } else {
-                                    if let obj = self.makeHideOverlay(from: action) {
-                                        if input.currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
-                                            inRangeOverlayActions[obj.overlayId] = obj
-                                        } else {
-                                            inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
-                                        }
+                    showTimelineMarkers.append(ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position))
+                case .showOverlay(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        if let duration = data.duration {
+                            if input.currentTime < offsetAsSeconds + (duration / 1000) {
+                                if let obj = self.makeShowOverlay(from: action) {
+                                    if input.currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
+                                        inRangeOverlayActions[obj.overlayId] = obj
+                                    } else {
+                                        inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
                                     }
                                 }
                             } else {
-                                if let obj = self.makeShowOverlay(from: action) {
-                                    if input.currentTime < offsetAsSeconds + (obj.animateDuration / 1000) + 1 {
+                                if let obj = self.makeHideOverlay(from: action) {
+                                    if input.currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
                                         inRangeOverlayActions[obj.overlayId] = obj
                                     } else {
                                         inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
                                     }
                                 }
                             }
-                        }
-
-                    case .hideOverlay:
-                        if offsetAsSeconds <= input.currentTime {
-                            if let obj = self.makeHideOverlay(from: action) {
+                        } else {
+                            if let obj = self.makeShowOverlay(from: action) {
                                 if input.currentTime < offsetAsSeconds + (obj.animateDuration / 1000) + 1 {
                                     inRangeOverlayActions[obj.overlayId] = obj
                                 } else {
@@ -108,6 +95,18 @@ class AnnotationService: AnnotationServicing {
                                 }
                             }
                         }
+                    }
+
+                case .hideOverlay:
+                    if offsetAsSeconds <= input.currentTime {
+                        if let obj = self.makeHideOverlay(from: action) {
+                            if input.currentTime < offsetAsSeconds + (obj.animateDuration / 1000) + 1 {
+                                inRangeOverlayActions[obj.overlayId] = obj
+                            } else {
+                                inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
+                            }
+                        }
+                    }
 //                    case .setVariable(let data):
 //                        break
 //                    case .incrementVariable(let data):
@@ -122,11 +121,11 @@ class AnnotationService: AnnotationServicing {
 //                        break
 //                    case .unsupported:
 //                        break
-                    default:
-                        break
-                    }
+                default:
+                    break
                 }
             }
+
 
             var remainingActiveOverlayIds = activeOverlayIds
             for (_, action) in inRangeOverlayActions {

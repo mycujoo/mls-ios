@@ -1,5 +1,5 @@
 //
-// Copytrailing © 2020 mycujoo. All trailings reserved.
+// Copyright © 2020 mycujoo. All rights reserved.
 //
 
 import Foundation
@@ -11,34 +11,8 @@ import Foundation
 // MARK: - Annotation
 
 
-public struct AnnotationWrapper: Decodable {
-    public let annotations: [Annotation]
-}
-
-public struct Annotation: Decodable {
-    public let id: String
-    public let timelineId: String
-    public let offset: Int64
+public struct AnnotationActionWrapper: Decodable {
     public let actions: [AnnotationAction]
-}
-
-public extension Annotation {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case timelineId = "timeline_id"
-        case offset
-        case actions
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id: String = try container.decode(String.self, forKey: .id)
-        let timelineId: String = try container.decode(String.self, forKey: .timelineId)
-        let offset: Int64 = try container.decode(Int64.self, forKey: .offset)
-        let actions: [AnnotationAction] = try container.decode([AnnotationAction].self, forKey: .actions)
-
-        self.init(id: id, timelineId: timelineId, offset: offset, actions: actions)
-    }
 }
 
 // MARK: - Action
@@ -46,6 +20,7 @@ public extension Annotation {
 public struct AnnotationAction: Hashable {
     let id: String
     private let type: String
+    let offset: Int64
     let data: AnnotationActionData
 
     public static func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
@@ -61,6 +36,7 @@ extension AnnotationAction: Decodable {
     public enum CodingKeys: String, CodingKey {
         case id
         case type
+        case offset
         case data
     }
 
@@ -68,6 +44,7 @@ extension AnnotationAction: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(String.self, forKey: .id)
         let type = try container.decode(String.self, forKey: .type)
+        let offset: Int64 = (try? container.decode(Int64.self, forKey: .offset)) ?? 0
         let data: AnnotationActionData
         switch type.lowercased() {
         case "show_timeline_marker":
@@ -104,7 +81,7 @@ extension AnnotationAction: Decodable {
             data = .unsupported
         }
 
-        self.init(id: id, type: type, data: data)
+        self.init(id: id, type: type, offset: offset, data: data)
     }
 }
 
@@ -133,11 +110,11 @@ public struct AnnotationActionShowTimelineMarker: Decodable {
 // MARK: - AnnotationActionShowOverlay
 
 public enum OverlayAnimateinType {
-    case fadeIn, slideFromTop, slideFromBottom, slideFromLeading, slideFromTrailing, none, unsupported
+    case fadeIn, slideFromTop, slideFromBottom, slideFromLeft, slideFromRight, none, unsupported
 }
 
 public enum OverlayAnimateoutType {
-    case fadeOut, slideToTop, slideToBottom, slideToLeading, slideToTrailing, none, unsupported
+    case fadeOut, slideToTop, slideToBottom, slideToLeft, slideToRight, none, unsupported
 }
 
 public struct AnnotationActionShowOverlay {
@@ -145,8 +122,8 @@ public struct AnnotationActionShowOverlay {
         public let top: Double?
         public let bottom: Double?
         public let vcenter: Double?
-        public let trailing: Double?
-        public let leading: Double?
+        public let right: Double?
+        public let left: Double?
         public let hcenter: Double?
     }
 
@@ -176,10 +153,10 @@ public extension OverlayAnimateinType {
             self = .slideFromTop
         case "slide_from_bottom":
             self = .slideFromBottom
-        case "slide_from_leading":
-            self = .slideFromLeading
-        case "slide_from_trailing":
-            self = .slideFromTrailing
+        case "slide_from_left":
+            self = .slideFromLeft
+        case "slide_from_right":
+            self = .slideFromRight
         case "none":
             self = .none
         default:
@@ -197,10 +174,10 @@ public extension OverlayAnimateoutType {
             self = .slideToTop
         case "slide_to_bottom":
             self = .slideToBottom
-        case "slide_to_leading":
-            self = .slideToLeading
-        case "slide_to_trailing":
-            self = .slideToTrailing
+        case "slide_to_left":
+            self = .slideToLeft
+        case "slide_to_right":
+            self = .slideToRight
         case "none":
             self = .none
         default:
