@@ -1,5 +1,5 @@
 //
-// Copytrailing © 2020 mycujoo. All trailings reserved.
+// Copyright © 2020 mycujoo. All rights reserved.
 //
 
 import Foundation
@@ -110,11 +110,11 @@ public struct AnnotationActionShowTimelineMarker: Decodable {
 // MARK: - AnnotationActionShowOverlay
 
 public enum OverlayAnimateinType {
-    case fadeIn, slideFromTop, slideFromBottom, slideFromLeading, slideFromTrailing, none, unsupported
+    case fadeIn, slideFromTop, slideFromBottom, slideFromLeft, slideFromRight, none, unsupported
 }
 
 public enum OverlayAnimateoutType {
-    case fadeOut, slideToTop, slideToBottom, slideToLeading, slideToTrailing, none, unsupported
+    case fadeOut, slideToTop, slideToBottom, slideToLeft, slideToRight, none, unsupported
 }
 
 public struct AnnotationActionShowOverlay {
@@ -122,8 +122,8 @@ public struct AnnotationActionShowOverlay {
         public let top: Double?
         public let bottom: Double?
         public let vcenter: Double?
-        public let trailing: Double?
-        public let leading: Double?
+        public let right: Double?
+        public let left: Double?
         public let hcenter: Double?
     }
 
@@ -153,10 +153,10 @@ public extension OverlayAnimateinType {
             self = .slideFromTop
         case "slide_from_bottom":
             self = .slideFromBottom
-        case "slide_from_leading":
-            self = .slideFromLeading
-        case "slide_from_trailing":
-            self = .slideFromTrailing
+        case "slide_from_left":
+            self = .slideFromLeft
+        case "slide_from_right":
+            self = .slideFromRight
         case "none":
             self = .none
         default:
@@ -174,10 +174,10 @@ public extension OverlayAnimateoutType {
             self = .slideToTop
         case "slide_to_bottom":
             self = .slideToBottom
-        case "slide_to_leading":
-            self = .slideToLeading
-        case "slide_to_trailing":
-            self = .slideToTrailing
+        case "slide_to_left":
+            self = .slideToLeft
+        case "slide_to_right":
+            self = .slideToRight
         case "none":
             self = .none
         default:

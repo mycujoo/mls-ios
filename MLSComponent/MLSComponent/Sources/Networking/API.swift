@@ -78,7 +78,7 @@ extension API: TargetType {
                                 "animatein_type": "fade_in",
                                 "custom_id": "scoreboard1",
                                 "position": {
-                                    "leading": 5.0,
+                                    "left": 5.0,
                                     "top": 5.0
                                 },
                                 "size": {
@@ -107,13 +107,13 @@ extension API: TargetType {
                         {
                             "data": {
                                 "animatein_duration": 500,
-                                "animatein_type": "slide_from_leading",
+                                "animatein_type": "slide_from_right",
                                 "animateout_duration": 500,
-                                "animateout_type": "slide_to_leading",
+                                "animateout_type": "slide_to_left",
                                 "duration": 5000,
                                 "position": {
                                     "bottom": 10.0,
-                                    "leading": 5.0
+                                    "left": 5.0
                                 },
                                 "size": {
                                     "width": 30.0

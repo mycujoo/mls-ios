@@ -63,7 +63,6 @@ class APIService: APIServicing {
                     // TODO: Return the pagination tokens as well
                     callback(config, nil)
                 } catch {
-                    print("Error decoding: ", error)
                     callback(nil, error)
                 }
             case .failure(let error):
