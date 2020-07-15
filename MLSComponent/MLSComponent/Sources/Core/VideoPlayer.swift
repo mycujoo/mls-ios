@@ -108,7 +108,7 @@ public class VideoPlayer: NSObject {
         return player.currentDuration
     }
 
-    private(set) public var annotations: [Annotation] = [] {
+    private(set) public var annotationActions: [AnnotationAction] = [] {
         didSet {
             evaluateAnnotations()
         }
@@ -270,9 +270,9 @@ public class VideoPlayer: NSObject {
             }
 
             // TODO: Should not pass eventId but timelineId
-            apiService.fetchAnnotations(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
+            apiService.fetchAnnotationActions(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
                 if let annotations = annotations {
-                    self?.annotations = annotations
+                    self?.annotationActions = annotations
                 }
             }
         }
@@ -280,7 +280,7 @@ public class VideoPlayer: NSObject {
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
     private func evaluateAnnotations() {
-        annotationService.evaluate(AnnotationService.EvaluationInput(annotations: annotations, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime, currentDuration: currentDuration)) { [weak self] output in
+        annotationService.evaluate(AnnotationService.EvaluationInput(actions: annotationActions, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime, currentDuration: currentDuration)) { [weak self] output in
 
             self?.activeOverlayIds = output.activeOverlayIds
 
@@ -294,8 +294,6 @@ public class VideoPlayer: NSObject {
                 }
             }
         }
-
-        delegate?.playerDidUpdateAnnotations(player: self)
     }
 
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
@@ -617,7 +615,4 @@ public protocol PlayerDelegate: AnyObject {
     /// To hide the fullscreen button entirely, set `VideoPlayer.fullscreenButtonIsHidden`
     func playerDidUpdateFullscreen(player: VideoPlayer)
     #endif
-    /// The player has updated the list of known annotations. To access the current list of known annotations for the associated timeline, see `VideoPlayer.annotations`
-    /// - note: This does not have any relationship with the annotations that are currently being executed. This method is only called when the datasource refreshes.
-    func playerDidUpdateAnnotations(player: VideoPlayer)
 }

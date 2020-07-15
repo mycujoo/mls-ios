@@ -11,34 +11,8 @@ import Foundation
 // MARK: - Annotation
 
 
-public struct AnnotationWrapper: Decodable {
-    public let annotations: [Annotation]
-}
-
-public struct Annotation: Decodable {
-    public let id: String
-    public let timelineId: String
-    public let offset: Int64
+public struct AnnotationActionWrapper: Decodable {
     public let actions: [AnnotationAction]
-}
-
-public extension Annotation {
-    enum CodingKeys: String, CodingKey {
-        case id
-        case timelineId = "timeline_id"
-        case offset
-        case actions
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id: String = try container.decode(String.self, forKey: .id)
-        let timelineId: String = try container.decode(String.self, forKey: .timelineId)
-        let offset: Int64 = try container.decode(Int64.self, forKey: .offset)
-        let actions: [AnnotationAction] = try container.decode([AnnotationAction].self, forKey: .actions)
-
-        self.init(id: id, timelineId: timelineId, offset: offset, actions: actions)
-    }
 }
 
 // MARK: - Action
@@ -46,6 +20,7 @@ public extension Annotation {
 public struct AnnotationAction: Hashable {
     let id: String
     private let type: String
+    let offset: Int64
     let data: AnnotationActionData
 
     public static func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
@@ -61,6 +36,7 @@ extension AnnotationAction: Decodable {
     public enum CodingKeys: String, CodingKey {
         case id
         case type
+        case offset
         case data
     }
 
@@ -68,6 +44,7 @@ extension AnnotationAction: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(String.self, forKey: .id)
         let type = try container.decode(String.self, forKey: .type)
+        let offset: Int64 = (try? container.decode(Int64.self, forKey: .offset)) ?? 0
         let data: AnnotationActionData
         switch type.lowercased() {
         case "show_timeline_marker":
@@ -104,7 +81,7 @@ extension AnnotationAction: Decodable {
             data = .unsupported
         }
 
-        self.init(id: id, type: type, data: data)
+        self.init(id: id, type: type, offset: offset, data: data)
     }
 }
 

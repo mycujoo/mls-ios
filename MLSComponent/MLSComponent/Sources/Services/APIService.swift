@@ -8,7 +8,7 @@ import Moya
 protocol APIServicing {
     func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ())
     func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())
-    func fetchAnnotations(byTimelineId timelineId: String, callback: @escaping ([Annotation]?, Error?) -> ())
+    func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())
     func fetchPlayerConfig(byEventId eventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())
 }
 
@@ -40,10 +40,10 @@ class APIService: APIServicing {
         }
     }
 
-    func fetchAnnotations(byTimelineId timelineId: String, callback: @escaping ([Annotation]?, Error?) -> ()) {
-        _fetch(.annotations(timelineId), type: AnnotationWrapper.self) { (wrapper, err) in
+    func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ()) {
+        _fetch(.annotations(timelineId), type: AnnotationActionWrapper.self) { (wrapper, err) in
             // TODO: Return the pagination tokens as well
-            callback(wrapper?.annotations, err)
+            callback(wrapper?.actions, err)
         }
     }
 
@@ -63,6 +63,7 @@ class APIService: APIServicing {
                     // TODO: Return the pagination tokens as well
                     callback(config, nil)
                 } catch {
+                    print("Error decoding: ", error)
                     callback(nil, error)
                 }
             case .failure(let error):
