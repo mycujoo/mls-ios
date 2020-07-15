@@ -224,6 +224,58 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    let infoTextStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+//        stackView.alignment = .fill
+//        stackView.distribution = .fill
+        stackView.spacing = 8
+        return stackView
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoViewTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .boldSystemFont(ofSize: 16)
+        label.text = "Our title. It's quite a long one so it'll wrap to line two"
+        label.textColor = .white
+        return label
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoViewDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .boldSystemFont(ofSize: 12)
+        label.text = "Some date"
+        label.textColor = .white
+        return label
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoViewDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .systemFont(ofSize: 12)
+        label.text = "Some description. This one is even longer and so who knows what might end up in this text. I could have copied lorem ipsum but I've got hands to type with."
+        label.textColor = .white
+        return label
+    }()
+
     // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
@@ -266,6 +318,10 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
         safeView.addSubview(infoView)
+        infoView.addSubview(infoTextStackView)
+        infoTextStackView.addArrangedSubview(infoViewTitleLabel)
+        infoTextStackView.addArrangedSubview(infoViewDateLabel)
+        infoTextStackView.addArrangedSubview(infoViewDescriptionLabel)
         drawControls()
 
         let safeViewConstraints = [
@@ -312,7 +368,7 @@ public class VideoPlayerView: UIView  {
             infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 40),
             infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: -40),
             infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: -40),
-            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40)
+            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40),
         ]
 
         for constraint in constraints {
@@ -320,6 +376,21 @@ public class VideoPlayerView: UIView  {
         }
 
         NSLayoutConstraint.activate(constraints)
+
+        // MARK: InfoView
+
+        let infoViewConstraints = [
+            infoTextStackView.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 0),
+            infoTextStackView.leftAnchor.constraint(equalTo: infoView.leftAnchor, constant: 0),
+            infoTextStackView.rightAnchor.constraint(equalTo: infoView.rightAnchor, constant: 0),
+            infoTextStackView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 0),
+        ]
+
+        for constraint in infoViewConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 749)
+        }
+
+        // MARK: General
 
         backgroundColor = .black
 
