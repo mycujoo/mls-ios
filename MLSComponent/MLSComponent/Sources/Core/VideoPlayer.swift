@@ -124,6 +124,13 @@ public class VideoPlayer: NSObject {
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
+    private lazy var humanFriendlyDateFormatter: DateFormatter = {
+        let df =  DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .short
+        return df
+    }()
+
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
         options.accountCode = "mycujoo"
@@ -274,6 +281,18 @@ public class VideoPlayer: NSObject {
                 if let annotations = annotations {
                     self?.annotationActions = annotations
                 }
+            }
+
+            view.infoTitleLabel.text = event.title
+            view.infoDescriptionLabel.text = event.descriptionText
+            if let startTime = event.startTime {
+                var timeStr = humanFriendlyDateFormatter.string(from: startTime)
+                if let timezone = event.timezone {
+                    timeStr += " (\(timezone))"
+                }
+                view.infoDateLabel.text = timeStr
+            } else {
+                view.infoDateLabel.text = nil
             }
         }
     }

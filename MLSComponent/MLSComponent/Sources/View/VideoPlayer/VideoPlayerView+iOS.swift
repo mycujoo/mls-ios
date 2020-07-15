@@ -225,7 +225,7 @@ public class VideoPlayerView: UIView  {
     }()
 
     /// The view in which all event/stream information is rendered.
-    let infoViewTitleLabel: UILabel = {
+    let infoTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -238,7 +238,7 @@ public class VideoPlayerView: UIView  {
     }()
 
     /// The view in which all event/stream information is rendered.
-    let infoViewDateLabel: UILabel = {
+    let infoDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -251,7 +251,7 @@ public class VideoPlayerView: UIView  {
     }()
 
     /// The view in which all event/stream information is rendered.
-    let infoViewDescriptionLabel: UILabel = {
+    let infoDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -305,9 +305,9 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
         safeView.addSubview(infoView)
-        infoView.addSubview(infoViewTitleLabel)
-        infoView.addSubview(infoViewDateLabel)
-        infoView.addSubview(infoViewDescriptionLabel)
+        infoView.addSubview(infoTitleLabel)
+        infoView.addSubview(infoDateLabel)
+        infoView.addSubview(infoDescriptionLabel)
         drawControls()
 
         let safeViewConstraints = [
@@ -365,22 +365,22 @@ public class VideoPlayerView: UIView  {
 
         // MARK: InfoView
 
-        infoViewTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        infoViewDateLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        infoViewDescriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoDateLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoDescriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         let infoViewConstraints = [
-            infoViewTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 8),
-            infoViewTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoViewTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 8),
+            infoTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
 
-            infoViewDateLabel.topAnchor.constraint(equalTo: infoViewTitleLabel.bottomAnchor, constant: 4),
-            infoViewDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoViewDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoDateLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 4),
+            infoDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
 
-            infoViewDescriptionLabel.topAnchor.constraint(equalTo: infoViewDateLabel.bottomAnchor, constant: 12),
-            infoViewDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoViewDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoDescriptionLabel.topAnchor.constraint(equalTo: infoDateLabel.bottomAnchor, constant: 12),
+            infoDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
         ]
 
         for constraint in infoViewConstraints {
@@ -389,7 +389,7 @@ public class VideoPlayerView: UIView  {
 
         NSLayoutConstraint.activate(infoViewConstraints)
 
-        let c = infoViewDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -8)
+        let c = infoDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -8)
         c.priority = UILayoutPriority(rawValue: 749)
         c.isActive = true
 
