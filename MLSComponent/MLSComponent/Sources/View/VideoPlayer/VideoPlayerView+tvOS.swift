@@ -134,6 +134,7 @@ public class VideoPlayerView: UIView  {
     let infoView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
         return view
     }()
 
