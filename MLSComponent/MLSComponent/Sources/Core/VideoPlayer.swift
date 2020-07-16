@@ -481,9 +481,10 @@ extension VideoPlayer {
     ///   For example, if the user tapped the info button, the control view should remain visible until it is actively dismissed. A call to this method with a lower priority for dismissal will be ignored.
     /// - parameter lock: Whether to set the new directive level globally (true), so that future updates need the same (or higher) directive level.
     ///   If false is provided, the directive level will be reset to `none`.
-    private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel = .derived, lock: Bool = false) {
+    /// - returns: Whether this request is honored (true) or not (false).
+    private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel = .derived, lock: Bool = false) -> Bool {
         if directiveLevel.rawValue < controlViewDirectiveLevel.rawValue {
-            return
+            return false
         }
         controlViewDirectiveLevel = lock ? directiveLevel : .none
 
@@ -494,6 +495,8 @@ extension VideoPlayer {
             }
         }
         view.setControlViewVisibility(visible: visible, animated: animated)
+
+        return true
     }
 
     private func playButtonTapped() {
@@ -579,7 +582,10 @@ extension VideoPlayer {
 
     #if os(tvOS)
     private func selectPressed() {
-        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
+        let honored = setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
+        if honored {
+            view.setInfoViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        }
     }
 
     private func leftArrowTapped() {
