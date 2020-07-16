@@ -51,6 +51,11 @@ public class VideoPlayerView: UIView  {
         return controlView.alpha > 0
     }
 
+    /// Whether the infoView has an alpha value of more than zero (0) or not.
+    var infoViewHasAlpha: Bool {
+        return infoView.alpha > 0
+    }
+
     // MARK: - UI Components
 
     lazy var bufferIcon: NVActivityIndicatorView = {
@@ -125,6 +130,52 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// The view in which all event/stream information is rendered.
+    let infoView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .natural
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = .boldSystemFont(ofSize: 28)
+        label.textColor = .white
+        return label
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .natural
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .boldSystemFont(ofSize: 20)
+        label.minimumScaleFactor = 0.5
+        label.textColor = .white
+        return label
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .natural
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = .systemFont(ofSize: 20)
+        label.textColor = .white
+        return label
+    }()
+
     //MARK: - Init
 
     init() {
@@ -145,6 +196,10 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlAlphaView)
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
+        safeView.addSubview(infoView)
+        infoView.addSubview(infoTitleLabel)
+        infoView.addSubview(infoDateLabel)
+        infoView.addSubview(infoDescriptionLabel)
         drawControls()
 
         let safeViewConstraints = [
@@ -187,7 +242,11 @@ public class VideoPlayerView: UIView  {
             controlAlphaView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+            controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 0),
+            infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: 0),
+            infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: 0),
+            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 0),
         ]
 
         for constraint in constraints {
@@ -195,6 +254,38 @@ public class VideoPlayerView: UIView  {
         }
 
         NSLayoutConstraint.activate(constraints)
+
+        // MARK: InfoView
+
+        infoTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoDateLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoDescriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+        let infoViewConstraints = [
+            infoTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 20),
+            infoTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20),
+            infoTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20),
+
+            infoDateLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 10),
+            infoDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20),
+            infoDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20),
+
+            infoDescriptionLabel.topAnchor.constraint(equalTo: infoDateLabel.bottomAnchor, constant: 30),
+            infoDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20),
+            infoDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20),
+        ]
+
+        for constraint in infoViewConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 748)
+        }
+
+        NSLayoutConstraint.activate(infoViewConstraints)
+
+        let c = infoDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -20)
+        c.priority = UILayoutPriority(rawValue: 749)
+        c.isActive = true
+
+        // MARK: General
 
         backgroundColor = .black
 
@@ -337,6 +428,17 @@ extension VideoPlayerView {
                 UIView.animate(withDuration: animated ? 0.3 : 0) {
                     self.controlAlphaView.alpha = visible ? 1 : 0
                     self.controlView.alpha = visible ? 1 : 0
+                }
+            }
+        }
+    }
+
+    func setInfoViewVisibility(visible: Bool, animated: Bool) {
+        if (!infoViewHasAlpha) == visible {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                UIView.animate(withDuration: animated ? 0.2 : 0) {
+                    self.infoView.alpha = visible ? 1 : 0
                 }
             }
         }

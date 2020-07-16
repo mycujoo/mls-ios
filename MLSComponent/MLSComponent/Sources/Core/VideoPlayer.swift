@@ -124,6 +124,13 @@ public class VideoPlayer: NSObject {
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
+    private lazy var humanFriendlyDateFormatter: DateFormatter = {
+        let df =  DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .short
+        return df
+    }()
+
     private lazy var youboraPlugin: YBPlugin = {
         let options = YBOptions()
         options.accountCode = "mycujoo"
@@ -274,6 +281,18 @@ public class VideoPlayer: NSObject {
                 if let annotations = annotations {
                     self?.annotationActions = annotations
                 }
+            }
+
+            view.infoTitleLabel.text = event.title
+            view.infoDescriptionLabel.text = event.descriptionText
+            if let startTime = event.startTime {
+                var timeStr = humanFriendlyDateFormatter.string(from: startTime)
+                if let timezone = event.timezone {
+                    timeStr += " (\(timezone))"
+                }
+                view.infoDateLabel.text = timeStr
+            } else {
+                view.infoDateLabel.text = nil
             }
         }
     }
@@ -462,9 +481,10 @@ extension VideoPlayer {
     ///   For example, if the user tapped the info button, the control view should remain visible until it is actively dismissed. A call to this method with a lower priority for dismissal will be ignored.
     /// - parameter lock: Whether to set the new directive level globally (true), so that future updates need the same (or higher) directive level.
     ///   If false is provided, the directive level will be reset to `none`.
-    private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel = .derived, lock: Bool = false) {
+    /// - returns: Whether this request is honored (true) or not (false).
+    private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel = .derived, lock: Bool = false) -> Bool {
         if directiveLevel.rawValue < controlViewDirectiveLevel.rawValue {
-            return
+            return false
         }
         controlViewDirectiveLevel = lock ? directiveLevel : .none
 
@@ -475,6 +495,8 @@ extension VideoPlayer {
             }
         }
         view.setControlViewVisibility(visible: visible, animated: animated)
+
+        return true
     }
 
     private func playButtonTapped() {
@@ -560,7 +582,10 @@ extension VideoPlayer {
 
     #if os(tvOS)
     private func selectPressed() {
-        setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
+        let honored = setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
+        if honored {
+            view.setInfoViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        }
     }
 
     private func leftArrowTapped() {

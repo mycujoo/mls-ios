@@ -11,7 +11,8 @@ public struct EventWrapper: Decodable {
 public struct Event: Decodable {
     public let id: String
     public let title: String?
-    public let description: String?
+    /// The description of the event (not to be confused with Swift's native `description` property
+    public let descriptionText: String?
     public let thumbnailUrl: URL?
     public let organiser: String?
     public let timezone: String?
@@ -39,7 +40,7 @@ public extension Event {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id: String = try container.decode(String.self, forKey: .id)
         let title: String? = try? container.decode(String.self, forKey: .title)
-        let description: String? = try? container.decode(String.self, forKey: .description)
+        let descriptionText: String? = try? container.decode(String.self, forKey: .description)
         let thumbnailUrl: URL? = try? container.decode(URL.self, forKey: .thumbnailUrl)
         let organiser: String? = try? container.decode(String.self, forKey: .organiser)
         let timezone: String? = try? container.decode(String.self, forKey: .timezone)
@@ -53,7 +54,7 @@ public extension Event {
         let streams: [Stream] = (try? container.decode([Stream].self, forKey: .streams)) ?? []
         let timelineIds: [String] = (try? container.decode([String].self, forKey: .timelineIds)) ?? []
 
-        self.init(id: id, title: title, description: description, thumbnailUrl: thumbnailUrl, organiser: organiser, timezone: timezone, startTime: startTime, status: status, streams: streams, timelineIds: timelineIds)
+        self.init(id: id, title: title, descriptionText: descriptionText, thumbnailUrl: thumbnailUrl, organiser: organiser, timezone: timezone, startTime: startTime, status: status, streams: streams, timelineIds: timelineIds)
     }
 }
 

@@ -224,6 +224,45 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
+    /// The view in which all event/stream information is rendered.
+    let infoTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = .white
+        return label
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .boldSystemFont(ofSize: 12)
+        label.minimumScaleFactor = 0.5
+        label.textColor = .white
+        return label
+    }()
+
+    /// The view in which all event/stream information is rendered.
+    let infoDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .white
+        return label
+    }()
+
     // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
@@ -266,6 +305,9 @@ public class VideoPlayerView: UIView  {
         safeView.addSubview(controlView)
         safeView.addSubview(bufferIcon)
         safeView.addSubview(infoView)
+        infoView.addSubview(infoTitleLabel)
+        infoView.addSubview(infoDateLabel)
+        infoView.addSubview(infoDescriptionLabel)
         drawControls()
 
         let safeViewConstraints = [
@@ -312,7 +354,7 @@ public class VideoPlayerView: UIView  {
             infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 40),
             infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: -40),
             infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: -40),
-            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40)
+            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40),
         ]
 
         for constraint in constraints {
@@ -320,6 +362,38 @@ public class VideoPlayerView: UIView  {
         }
 
         NSLayoutConstraint.activate(constraints)
+
+        // MARK: InfoView
+
+        infoTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoDateLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        infoDescriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+        let infoViewConstraints = [
+            infoTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 8),
+            infoTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+
+            infoDateLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 4),
+            infoDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+
+            infoDescriptionLabel.topAnchor.constraint(equalTo: infoDateLabel.bottomAnchor, constant: 12),
+            infoDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
+            infoDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+        ]
+
+        for constraint in infoViewConstraints {
+            constraint.priority = UILayoutPriority(rawValue: 748)
+        }
+
+        NSLayoutConstraint.activate(infoViewConstraints)
+
+        let c = infoDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -8)
+        c.priority = UILayoutPriority(rawValue: 749)
+        c.isActive = true
+
+        // MARK: General
 
         backgroundColor = .black
 
