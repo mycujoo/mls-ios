@@ -130,7 +130,7 @@ public class VideoPlayerView: UIView  {
         return slider
     }()
 
-    private lazy var liveButton: UIButton = {
+    lazy var liveButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(NSLocalizedString("LIVE", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "LIVE", comment: ""), for: .normal)
@@ -634,13 +634,13 @@ extension VideoPlayerView {
     func setLiveButtonTo(state: VideoPlayer.LiveState) {
         switch state {
         case .liveAndLatest:
-            liveButton.isHidden = false
+            liveButton.alpha = 1
             liveButton.backgroundColor = .red
         case .liveNotLatest:
-            liveButton.isHidden = false
+            liveButton.alpha = 1
             liveButton.backgroundColor = .gray
         case .notLive:
-            liveButton.isHidden = true
+            liveButton.alpha = 0
         }
     }
 

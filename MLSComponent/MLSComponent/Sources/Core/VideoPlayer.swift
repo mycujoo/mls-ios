@@ -169,9 +169,12 @@ public class VideoPlayer: NSObject {
                 guard let `self` = self else { return }
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
+                self.view.liveButton.isHidden = !self.playerConfig.showLiveViewers
                 #if os(iOS)
                 self.view.skipBackButton.isHidden = !self.playerConfig.showBackForwardsButtons
                 self.view.skipForwardButton.isHidden = !self.playerConfig.showBackForwardsButtons
+                self.view.infoButton.isHidden = !self.playerConfig.showEventInfoButton
+                self.view.infoView.isHidden = !self.playerConfig.showEventInfoButton
                 #endif
             }
         }
@@ -528,15 +531,19 @@ extension VideoPlayer {
     }
 
     private func skipBackButtonTapped() {
-        relativeSeekWithDebouncer(amount: -10)
+        if playerConfig.showBackForwardsButtons {
+            relativeSeekWithDebouncer(amount: -10)
 
-        setControlViewVisibility(visible: true, animated: true)
+            setControlViewVisibility(visible: true, animated: true)
+        }
     }
 
     private func skipForwardButtonTapped() {
-        relativeSeekWithDebouncer(amount: 10)
+        if playerConfig.showBackForwardsButtons {
+            relativeSeekWithDebouncer(amount: 10)
 
-        setControlViewVisibility(visible: true, animated: true)
+            setControlViewVisibility(visible: true, animated: true)
+        }
     }
 
     #if os(iOS)
