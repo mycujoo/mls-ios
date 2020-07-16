@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 
+
 protocol AnnotationServicing {
     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())
 }
@@ -32,6 +33,8 @@ class AnnotationService: AnnotationServicing {
         var hideOverlays: [HideOverlayAction] = []
         /// A Set of overlayIds that are currently active (i.e. on-screen). This should be passed on as input to the next evaluation.
         var activeOverlayIds: Set<String>
+        /// A dictionary of known TOVs (Timers or Variables) up to the point of this evaluation. The keys are the names of these TOVs.
+        var tovs: [String: TOVObject]
     }
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
@@ -107,8 +110,8 @@ class AnnotationService: AnnotationServicing {
                             }
                         }
                     }
-//                    case .setVariable(let data):
-//                        break
+                case .setVariable(let data):
+                    break
 //                    case .incrementVariable(let data):
 //                        break
 //                    case .createTimer(let data):
@@ -155,7 +158,8 @@ class AnnotationService: AnnotationServicing {
                 showTimelineMarkers: showTimelineMarkers,
                 showOverlays: showOverlays,
                 hideOverlays: hideOverlays,
-                activeOverlayIds: activeOverlayIds
+                activeOverlayIds: activeOverlayIds,
+                tovs: [:]
             ))
         }
     }
