@@ -408,23 +408,56 @@ public extension VideoPlayer {
 // MARK: - Private Methods
 extension VideoPlayer {
     private func showOverlays(with actions: [ShowOverlayAction]) {
+        func svgParseAndRender(
+                overlayId: String,
+                svgString: String,
+                size: AnnotationActionShowOverlay.Size,
+                position: AnnotationActionShowOverlay.Position,
+                animateType: OverlayAnimateinType,
+                animateDuration: Double,
+                variablePositions: [String: String]) {
+            var svgString = svgString
+            // On every variable/timer change, re-place all variables and timers in the svg again
+            // (because we only have the initial SVG, we don't keep its updated states with the original tokens
+            // included).
+            guard let tovStore = self.tovStore else { return }
+            for it in variablePositions {
+                // Fallback to the variable name if there is no variable defined.
+                // The reason for this is that certain "variable-like" values might have slipped through,
+                // e.g. prices that start with a dollar sign.
+                let resolved = tovStore.get(by: it.value)?.humanFriendlyValue ?? "" // tmp - should be fallback to: it.value
+                svgString = svgString.replacingOccurrences(of: it.key, with: resolved)
+            }
+
+            if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
+            DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+
+                    let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
+                    imageView.clipsToBounds = true
+                    imageView.backgroundColor = .none
+
+                    let containerView = self.view.placeOverlay(imageView: imageView, size: size, position: position, animateType: animateType, animateDuration: animateDuration)
+
+                    self.overlays[overlayId] = containerView
+                }
+            }
+        }
+
         DispatchQueue.global(qos: .background).async { [weak self] in
             for action in actions {
                 AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
+                    guard let self = self else { return }
+
                     if let svgString = response.value {
-                        if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
-                            DispatchQueue.main.async { [weak self] in
-                                guard let self = self else { return }
-
-                                let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
-                                imageView.clipsToBounds = true
-                                imageView.backgroundColor = .none
-
-                                let containerView = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
-
-                                self.overlays[action.overlay.id] = containerView
-                            }
+                        for (_, variableName) in action.variablePositions {
+                            self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { val in
+                                // Re-render the entire SVG (including replacing all tokens with their resolved values)
+                                svgParseAndRender(overlayId: action.overlay.id, svgString: svgString, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration, variablePositions: action.variablePositions)
+                            })
                         }
+                        // Do an initial rendering as well
+                        svgParseAndRender(overlayId: action.overlay.id, svgString: svgString, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration, variablePositions: action.variablePositions)
                     }
                 }
             }
@@ -436,6 +469,10 @@ extension VideoPlayer {
             if let v = self.overlays[action.overlayId] {
                 view?.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
                     self?.overlays[action.overlayId] = nil
+                    // TODO: Remove observers from this overlay. Maybe instead of "videoplayer" as callback id, use overlayId? Not sure if that works yet.
+                    // For this, we need to keep a mapping of which overlays have which observers
+
+//                    self?.tovStore?.removeObserver(tovName: , callbackId: )
                 }
             }
         }
