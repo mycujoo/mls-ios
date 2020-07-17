@@ -27,12 +27,25 @@ extension VideoPlayerView {
 
         let newConstraints = oldImageView.copyConstraints(on: [oldImageView.widthAnchor, oldImageView.heightAnchor], to: imageView)
 
+        print("BEFORE")
+        print("Old svgview", oldImageView)
+        print("Old svgview constraints", oldImageView.constraints)
+        print("----")
+        print("And overlay container view constraints", overlayContainerView.constraints)
+        print("--")
+        print("new svgview", imageView)
+        print("Creating new constraints", newConstraints)
+        print("AND AFTER")
+
         horizontalContainerView.removeArrangedSubview(oldImageView)
         oldImageView.removeFromSuperview()
         horizontalContainerView.insertArrangedSubview(imageView, at: insertPosition)
 
         print("Old svgview", oldImageView)
         print("Old svgview constraints", oldImageView.constraints)
+        print("----")
+        print("And overlay container view constraints", overlayContainerView.constraints)
+        print("--")
         print("new svgview", imageView)
         print("Creating new constraints", newConstraints)
 
