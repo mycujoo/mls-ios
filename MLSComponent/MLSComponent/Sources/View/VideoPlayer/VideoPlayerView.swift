@@ -5,9 +5,38 @@
 import Foundation
 import UIKit
 
+/// A tag that identifies a wrappedView vs the spacer views that get added later.
+/// - seeAlso: `placeOverlay()`
+fileprivate let wrappedViewTag: Int = 321
+
 extension VideoPlayerView {
     func setTimelineMarkers(with actions: [ShowTimelineMarkerAction]) {
         videoSlider.setTimelineMarkers(with: actions)
+    }
+
+    /// Places a new imageView within an existing containerView (which was previously generated using `placeOverlay()`
+    func replaceOverlay(containerView: UIView, imageView: UIView) {
+        guard let verticalContainerView = containerView as? UIStackView,
+            let horizontalContainerView = verticalContainerView.arrangedSubviews.filter { $0.tag == wrappedViewTag }.first as? UIStackView,
+            let oldImageView = horizontalContainerView.arrangedSubviews.filter { $0.tag == wrappedViewTag }.first,
+            let insertPosition = horizontalContainerView.arrangedSubviews.enumerated().filter { $0.element.isEqual(oldImageView) }.first?.offset else {
+                return
+        }
+
+        imageView.tag = wrappedViewTag
+
+        let newConstraints = oldImageView.copyConstraints(on: [oldImageView.widthAnchor, oldImageView.heightAnchor], to: imageView)
+
+        horizontalContainerView.removeArrangedSubview(oldImageView)
+        oldImageView.removeFromSuperview()
+        horizontalContainerView.insertArrangedSubview(imageView, at: insertPosition)
+
+        print("Old svgview", oldImageView)
+        print("Old svgview constraints", oldImageView.constraints)
+        print("new svgview", imageView)
+        print("Creating new constraints", newConstraints)
+
+        NSLayoutConstraint.activate(newConstraints)
     }
 
     /// Places the overlay within a containerView, that is then sized, positioned and animated within the overlayContainerView.
@@ -19,6 +48,7 @@ extension VideoPlayerView {
         animateDuration: Double
     ) -> UIView {
         func wrap(_ v: UIView, axis: NSLayoutConstraint.Axis) -> UIStackView {
+            v.tag = wrappedViewTag
             let stackView = UIStackView(arrangedSubviews: [v])
             stackView.axis = axis
             stackView.distribution = .fill

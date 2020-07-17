@@ -430,9 +430,13 @@ extension VideoPlayer {
                     imageView.clipsToBounds = true
                     imageView.backgroundColor = .none
 
-                    // TODO: The problem is here. Whenever the value changes, it places an overlay again, even though it's already there.
-                    // It should probably remove the old view, or reuse that one.
-                    let containerView = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                    let containerView: UIView
+                    if let v = self.overlays[action.overlayId] {
+                        containerView = v
+                        self.view.replaceOverlay(containerView: containerView, imageView: imageView)
+                    } else {
+                        containerView = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                    }
 
                     self.overlays[action.overlayId] = containerView
                 }
