@@ -7,6 +7,7 @@ import Foundation
 // MARK: TOVStore
 
 /// TOV (Timer Or Variable). This store contains a state of variables and timers (TOVs) defined within.
+/// A single instance of a TOVStore should be tied to a single timeline.
 class TOVStore {
     private var timers: [String: ActionTimer] = [:]
     private var variables: [String: ActionVariable] = [:]
@@ -40,6 +41,7 @@ class TOVStore {
     }
 
     /// Should be called whenever a new dictionary of ActionVariables (and their names as keys) is available.
+    /// The store will internally call any observer whenever a difference with a previous state is detected.
     func new(variables newVariables: [String: ActionVariable]) {
         var oldVariables = self.variables
 

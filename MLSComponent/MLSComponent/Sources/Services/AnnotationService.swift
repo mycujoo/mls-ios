@@ -33,8 +33,8 @@ class AnnotationService: AnnotationServicing {
         var hideOverlays: [HideOverlayAction] = []
         /// A Set of overlayIds that are currently active (i.e. on-screen). This should be passed on as input to the next evaluation.
         var activeOverlayIds: Set<String>
-        /// A dictionary of known TOVs (Timers or Variables) up to the point of this evaluation. The keys are the names of these TOVs.
-        var tovs: [String: TOVObject]
+        /// A dictionary of ActionVariables as they are defined at the current point of evaluation. The keys are the names of these variables.
+        var variables: [String: ActionVariable]
     }
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
@@ -47,18 +47,16 @@ class AnnotationService: AnnotationServicing {
         annotationsQueue.async { [weak self] in
             guard let self = self, input.currentDuration > 0 else { return }
 
-            // MARK: Final actions
+            // MARK: Final output
 
             var showTimelineMarkers: [ShowTimelineMarkerAction] = []
             var showOverlays: [ShowOverlayAction] = []
             var hideOverlays: [HideOverlayAction] = []
+            var variables: [String: ActionVariable] = [:]
 
             // MARK:  Helpers
 
             var activeOverlayIds = input.activeOverlayIds
-
-            var variables: [String: ActionVariable] = [:]
-
             var inRangeOverlayActions: [String: OverlayAction] = [:]
 
             // MARK: Evaluate
@@ -168,14 +166,12 @@ class AnnotationService: AnnotationServicing {
                 activeOverlayIds.remove(overlayId)
             }
 
-            
-
             callback(EvaluationOutput(
                 showTimelineMarkers: showTimelineMarkers,
                 showOverlays: showOverlays,
                 hideOverlays: hideOverlays,
                 activeOverlayIds: activeOverlayIds,
-                tovs: [:]
+                variables: variables
             ))
         }
     }

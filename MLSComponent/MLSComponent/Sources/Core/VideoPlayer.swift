@@ -124,6 +124,8 @@ public class VideoPlayer: NSObject {
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
+    private var tovStore: TOVStore? = nil
+
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
         df.dateStyle = .medium
@@ -277,6 +279,8 @@ public class VideoPlayer: NSObject {
                     DispatchQueue.main.async(execute: playStreamWorkItem)
                 }
             }
+
+            tovStore = TOVStore()
 
             // TODO: Should not pass eventId but timelineId
             apiService.fetchAnnotationActions(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
@@ -484,6 +488,7 @@ extension VideoPlayer {
     /// - parameter lock: Whether to set the new directive level globally (true), so that future updates need the same (or higher) directive level.
     ///   If false is provided, the directive level will be reset to `none`.
     /// - returns: Whether this request is honored (true) or not (false).
+    @discardableResult
     private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel = .derived, lock: Bool = false) -> Bool {
         if directiveLevel.rawValue < controlViewDirectiveLevel.rawValue {
             return false
