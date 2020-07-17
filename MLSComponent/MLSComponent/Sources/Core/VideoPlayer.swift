@@ -309,6 +309,8 @@ public class VideoPlayer: NSObject {
 
             self?.activeOverlayIds = output.activeOverlayIds
 
+            self?.tovStore?.new(variables: output.variables)
+
             DispatchQueue.main.async { [weak self] in
                 self?.view.setTimelineMarkers(with: output.showTimelineMarkers)
                 if output.showOverlays.count > 0 {

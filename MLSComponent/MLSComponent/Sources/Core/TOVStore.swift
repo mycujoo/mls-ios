@@ -14,7 +14,12 @@ class TOVStore {
 
     private var observers: [String: [(callbackId: String, callback: (String) -> Void)]] = [:]
 
-    /// Observe a Timer or Variable.  The observer (target) will be notified of every change to this variable in this store.
+    func get(by name: String) -> TOVObject? {
+        return variables[name] ?? timers[name]
+    }
+
+    /// Observe Timer or Variable changes.  The observer (target) will be notified of every change to this variable in this store.
+    /// `get(by:)` can then be used to obtain the new value.
     /// - parameter tovName: The name of the variable or timer to be observed.
     /// - parameter callbackId: A string that uniquely identifies this callback. Can be used to remove observers.
     /// - parameter callback: A closure that is called whenever a change occurs.
