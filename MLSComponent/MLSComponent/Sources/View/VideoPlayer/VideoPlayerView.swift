@@ -3,49 +3,15 @@
 //
 
 import Foundation
-import Alamofire
+import UIKit
 
 extension VideoPlayerView {
     func setTimelineMarkers(with actions: [ShowTimelineMarkerAction]) {
         videoSlider.setTimelineMarkers(with: actions)
     }
 
-    func showOverlays(with actions: [ShowOverlayAction]) {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            for action in actions {
-                AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
-                    if let svgString = response.value {
-                        if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
-                            DispatchQueue.main.async { [weak self] in
-                                guard let self = self else { return }
-
-                                let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
-                                imageView.clipsToBounds = true
-                                imageView.backgroundColor = .none
-
-                                let containerView = self.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
-
-                                self.overlays[action.overlay.id] = containerView
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    func hideOverlays(with actions: [HideOverlayAction]) {
-        for action in actions {
-            if let v = self.overlays[action.overlayId] {
-                removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
-                    self?.overlays[action.overlayId] = nil
-                }
-            }
-        }
-    }
-
     /// Places the overlay within a containerView, that is then sized, positioned and animated within the overlayContainerView.
-    private func placeOverlay(
+    func placeOverlay(
         imageView: UIView,
         size: AnnotationActionShowOverlay.Size,
         position: AnnotationActionShowOverlay.Position,
@@ -220,7 +186,7 @@ extension VideoPlayerView {
     }
 
     /// Removes an overlay from the overlayContainerView with the proper animations.
-    private func removeOverlay(
+    func removeOverlay(
         containerView: UIView,
         animateType: OverlayAnimateoutType,
         animateDuration: Double,

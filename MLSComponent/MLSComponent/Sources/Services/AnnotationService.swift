@@ -118,7 +118,7 @@ class AnnotationService: AnnotationServicing {
                     }
                 case .incrementVariable(let data):
                     if offsetAsSeconds <= input.currentTime {
-                        guard let variable = variables[data.name] else { return }
+                        guard let variable = variables[data.name] else { continue }
 
                         if variable.longValue != nil {
                             variable.longValue! += Int64(data.amount)

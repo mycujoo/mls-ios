@@ -53,10 +53,6 @@ public class VideoPlayerView: UIView  {
         return infoView.alpha > 0
     }
 
-    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    /// The UIView should be the outer container of the overlay, not the SVGView directly.
-    var overlays: [String: UIView] = [:]
-
     // MARK: - UI Components
 
     private lazy var playIcon = UIImage(named: "Icon-Play", in: Bundle.resourceBundle, compatibleWith: nil)

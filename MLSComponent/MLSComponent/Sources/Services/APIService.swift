@@ -59,9 +59,9 @@ class APIService: APIServicing {
             case .success(let response):
                 let decoder = JSONDecoder()
                 do {
-                    let config = try decoder.decode(t.self, from: response.data)
+                    let data = try decoder.decode(t.self, from: response.data)
                     // TODO: Return the pagination tokens as well
-                    callback(config, nil)
+                    callback(data, nil)
                 } catch {
                     callback(nil, error)
                 }
@@ -78,9 +78,9 @@ class APIService: APIServicing {
             case .success(let response):
                 let decoder = JSONDecoder()
                 do {
-                    let config = try decoder.decode(t.self, from: response.data)
+                    let data = try decoder.decode(t.self, from: response.data)
                     // TODO: Return the pagination tokens as well
-                    callback(config, nil)
+                    callback(data, nil)
                 } catch {
                     callback(nil, error)
                 }

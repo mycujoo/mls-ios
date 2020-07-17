@@ -5,6 +5,7 @@
 import AVFoundation
 import YouboraAVPlayerAdapter
 import YouboraLib
+import Alamofire
 
 public class VideoPlayer: NSObject {
 
@@ -156,6 +157,10 @@ public class VideoPlayer: NSObject {
     }
 
     private var activeOverlayIds: Set<String> = Set()
+
+    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
+    /// The UIView should be the outer container of the overlay, not the SVGView directly.
+    var overlays: [String: UIView] = [:]
 
     /// A level that indicates which actions are allowed to overwrite the state of the control view visibility.
     private var controlViewDirectiveLevel: DirectiveLevel = .none
@@ -314,10 +319,10 @@ public class VideoPlayer: NSObject {
             DispatchQueue.main.async { [weak self] in
                 self?.view.setTimelineMarkers(with: output.showTimelineMarkers)
                 if output.showOverlays.count > 0 {
-                    self?.view.showOverlays(with: output.showOverlays)
+                    self?.showOverlays(with: output.showOverlays)
                 }
                 if output.hideOverlays.count > 0 {
-                    self?.view.hideOverlays(with: output.hideOverlays)
+                    self?.hideOverlays(with: output.hideOverlays)
                 }
             }
         }
@@ -402,6 +407,40 @@ public extension VideoPlayer {
 
 // MARK: - Private Methods
 extension VideoPlayer {
+    private func showOverlays(with actions: [ShowOverlayAction]) {
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            for action in actions {
+                AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
+                    if let svgString = response.value {
+                        if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
+
+                                let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
+                                imageView.clipsToBounds = true
+                                imageView.backgroundColor = .none
+
+                                let containerView = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+
+                                self.overlays[action.overlay.id] = containerView
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func hideOverlays(with actions: [HideOverlayAction]) {
+        for action in actions {
+            if let v = self.overlays[action.overlayId] {
+                view?.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
+                    self?.overlays[action.overlayId] = nil
+                }
+            }
+        }
+    }
+
     private func trackTime(with player: AVPlayer) -> Any {
         player
             .addPeriodicTimeObserver(

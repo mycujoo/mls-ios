@@ -25,10 +25,6 @@ public class VideoPlayerView: UIView  {
 
     private var sliderValueChangedSinceTouchdown = false
 
-    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    /// The UIView should be the outer container of the overlay, not the SVGView directly.
-    var overlays: [String: UIView] = [:]
-
     // MARK: - Internal properties
 
     /// The color that is used throughout various controls and elements of the video player, together with the `secondaryColor`.
