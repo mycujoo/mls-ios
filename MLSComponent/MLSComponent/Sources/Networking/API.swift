@@ -73,23 +73,23 @@ extension API: TargetType {
                             "type": "show_timeline_marker"
                         },
                         {
+                            "offset": 1699000,
                             "id": "43faf4j59595959",
                             "type": "set_variable",
                             "data": {
                                 "name": "$homeScore",
                                 "value": 0,
-                                "type": "double",
-                                "double_precision": 2
+                                "type": "long"
                             }
                         },
                         {
+                            "offset": 1699000,
                             "id": "43faf4j5959fda8f9",
                             "type": "set_variable",
                             "data": {
                                 "name": "$awayScore",
                                 "value": 0,
-                                "type": "double",
-                                "double_precision": 2
+                                "type": "long"
                             }
                         },
                         {
@@ -125,6 +125,7 @@ extension API: TargetType {
                             "type": "show_timeline_marker"
                         },
                         {
+                            "offset": 5891000,
                             "id": "aaa444466agfffag5",
                             "type": "increment_variable",
                             "data": {
