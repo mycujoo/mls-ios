@@ -11,29 +11,65 @@ class TOVStore {
     private var timers: [String: ActionTimer] = [:]
     private var variables: [String: ActionVariable] = [:]
 
-    func get(by name: String) -> TOVObject? {
-        return variables[name] ?? timers[name]
+    private var observers: [String: [(callbackId: String, callback: (String) -> Void)]] = [:]
+
+    /// Observe a Timer or Variable.  The observer (target) will be notified of every change to this variable in this store.
+    /// - parameter tovName: The name of the variable or timer to be observed.
+    /// - parameter callbackId: A string that uniquely identifies this callback. Can be used to remove observers.
+    /// - parameter callback: A closure that is called whenever a change occurs.
+    func addObserver(tovName: String, callbackId: String, callback: @escaping (String) -> Void) {
+        if let arr_ = observers[tovName] {
+            var arr = arr_
+            if arr.contains(where: { tuple -> Bool in
+                tuple.callbackId == callbackId
+            }) {
+                arr = arr.filter { $0.callbackId != callbackId }
+            }
+            observers[tovName] = arr + [(callbackId: callbackId, callback: callback)]
+        } else {
+            observers[tovName] = [(callbackId: callbackId, callback: callback)]
+        }
     }
 
-    func createTimer(name: String, format: ActionTimer.Format, direction: ActionTimer.Direction = .up, startValue: Int64 = 0, capValue: Int64? = nil) {
-        timers[name] = ActionTimer(name: name, format: format, direction: direction, startValue: startValue, capValue: capValue)
+    /// - parameter tovName: The name of the variable or timer to be observed.
+    /// - parameter callbackId: The identifier of the callback that should be removed.
+    func removeObserver(tovName: String, callbackId: String) {
+        guard let arr = observers[tovName] else { return }
+
+        observers[tovName] = arr.filter { $0.callbackId != callbackId }
     }
 
-    func adjustTimer(name: String, newValue value: Int64) {
-        timers[name]?.value = value
+    /// Should be called whenever a new dictionary of ActionVariables (and their names as keys) is available.
+    func new(variables newVariables: [String: ActionVariable]) {
+        var oldVariables = self.variables
+
+        var differentVariableNames: [String] = []
+
+        for (name, newVariable) in newVariables {
+            if let oldVariable = oldVariables[name] {
+                if oldVariable != newVariable {
+                    differentVariableNames.append(name)
+                }
+                oldVariables[name] = nil
+            } else {
+                differentVariableNames.append(name)
+            }
+        }
+
+        differentVariableNames += oldVariables.map { $0.key }
+
+        self.variables = newVariables
+
+        callObservers(names: differentVariableNames)
     }
 
-    func setVariable(name: String, stringValue: String?, doubleValue: Double?, longValue: Int64?, doublePrecision: Int?) {
-        variables[name] = ActionVariable(name: name, stringValue: stringValue, doubleValue: doubleValue, longValue: longValue, doublePrecision: doublePrecision)
-    }
-
-    func incrementVariable(name: String, amount: Double) {
-        guard let variable = variables[name] else { return }
-
-        if variable.longValue != nil {
-            variable.longValue! += Int64(amount)
-        } else if variable.doubleValue != nil {
-            variable.doubleValue! += amount
+    /// Notifies observers of changes to the variables or timers that they are referenced in the `names` parameter.
+    private func callObservers(names: [String]) {
+        for name in names {
+            guard let observers = self.observers[name] else { continue }
+            for observer in observers {
+                observer.callback(name)
+            }
         }
     }
 }
@@ -47,7 +83,16 @@ protocol TOVObject {
 
 // MARK: ActionVariable
 
-class ActionVariable: TOVObject {
+class ActionVariable: TOVObject, Equatable {
+    static func == (lhs: ActionVariable, rhs: ActionVariable) -> Bool {
+        return
+            lhs.name == rhs.name &&
+            lhs.stringValue == rhs.stringValue &&
+            lhs.doubleValue == rhs.doubleValue &&
+            lhs.longValue == rhs.longValue &&
+            lhs.doublePrecision == rhs.doublePrecision
+    }
+
     let name: String
     var stringValue: String?
     var doubleValue: Double?
@@ -78,16 +123,25 @@ class ActionVariable: TOVObject {
 
 // MARK: ActionTimer
 
-class ActionTimer: TOVObject {
-    enum Format {
-        case ms
-        case s
-        case unsupported
+class ActionTimer: TOVObject, Equatable {
+    static func == (lhs: ActionTimer, rhs: ActionTimer) -> Bool {
+        return
+            lhs.name == rhs.name &&
+            lhs.format == rhs.format &&
+            lhs.direction == rhs.direction &&
+            lhs.startValue == rhs.startValue &&
+            lhs.capValue == rhs.capValue
     }
-    enum Direction {
-        case up
-        case down
-        case unsupported
+
+    enum Format: String {
+        case ms = "ms"
+        case s = "s"
+        case unsupported = "unsupported"
+    }
+    enum Direction: String {
+        case up = "up"
+        case down = "down"
+        case unsupported = "unsupported"
     }
 
     let name: String

@@ -57,11 +57,15 @@ class AnnotationService: AnnotationServicing {
 
             var activeOverlayIds = input.activeOverlayIds
 
+            var variables: [String: ActionVariable] = [:]
+
             var inRangeOverlayActions: [String: OverlayAction] = [:]
 
             // MARK: Evaluate
 
-            for action in input.actions {
+            for action in input.actions.sorted(by: { (lhs, rhs) -> Bool in
+                lhs.offset <= rhs.offset
+            }) {
                 let offsetAsSeconds = Double(action.offset) / 1000
                 switch action.data {
                 case .showTimelineMarker(let data):
@@ -111,9 +115,19 @@ class AnnotationService: AnnotationServicing {
                         }
                     }
                 case .setVariable(let data):
-                    break
-//                    case .incrementVariable(let data):
-//                        break
+                    if offsetAsSeconds <= input.currentTime {
+                        variables[data.name] = ActionVariable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)
+                    }
+                case .incrementVariable(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let variable = variables[data.name] else { return }
+
+                        if variable.longValue != nil {
+                            variable.longValue! += Int64(data.amount)
+                        } else if variable.doubleValue != nil {
+                            variable.doubleValue! += data.amount
+                        }
+                    }
 //                    case .createTimer(let data):
 //                        break
 //                    case .startTimer(let data):
@@ -153,6 +167,8 @@ class AnnotationService: AnnotationServicing {
                 hideOverlays.append(HideOverlayAction(actionId: overlayId, overlayId: overlayId, animateType: .none, animateDuration: 0.0))
                 activeOverlayIds.remove(overlayId)
             }
+
+            
 
             callback(EvaluationOutput(
                 showTimelineMarkers: showTimelineMarkers,
