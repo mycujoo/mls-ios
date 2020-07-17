@@ -408,56 +408,52 @@ public extension VideoPlayer {
 // MARK: - Private Methods
 extension VideoPlayer {
     private func showOverlays(with actions: [ShowOverlayAction]) {
-        func svgParseAndRender(
-                overlayId: String,
-                svgString: String,
-                size: AnnotationActionShowOverlay.Size,
-                position: AnnotationActionShowOverlay.Position,
-                animateType: OverlayAnimateinType,
-                animateDuration: Double,
-                variablePositions: [String: String]) {
-            var svgString = svgString
+        func svgParseAndRender(action: ShowOverlayAction, baseSVG: String) {
+            var baseSVG = baseSVG
             // On every variable/timer change, re-place all variables and timers in the svg again
             // (because we only have the initial SVG, we don't keep its updated states with the original tokens
             // included).
             guard let tovStore = self.tovStore else { return }
-            for it in variablePositions {
+            for it in action.variablePositions {
                 // Fallback to the variable name if there is no variable defined.
                 // The reason for this is that certain "variable-like" values might have slipped through,
                 // e.g. prices that start with a dollar sign.
                 let resolved = tovStore.get(by: it.value)?.humanFriendlyValue ?? "" // tmp - should be fallback to: it.value
-                svgString = svgString.replacingOccurrences(of: it.key, with: resolved)
+                baseSVG = baseSVG.replacingOccurrences(of: it.key, with: resolved)
             }
 
-            if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
-            DispatchQueue.main.async { [weak self] in
+            if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
+                DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
 
                     let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
                     imageView.clipsToBounds = true
                     imageView.backgroundColor = .none
 
-                    let containerView = self.view.placeOverlay(imageView: imageView, size: size, position: position, animateType: animateType, animateDuration: animateDuration)
+                    // TODO: The problem is here. Whenever the value changes, it places an overlay again, even though it's already there.
+                    // It should probably remove the old view, or reuse that one.
+                    let containerView = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
 
-                    self.overlays[overlayId] = containerView
+                    self.overlays[action.overlayId] = containerView
                 }
             }
         }
 
         DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
             for action in actions {
                 AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
                     guard let self = self else { return }
 
-                    if let svgString = response.value {
+                    if let baseSVG = response.value {
                         for (_, variableName) in action.variablePositions {
                             self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { val in
                                 // Re-render the entire SVG (including replacing all tokens with their resolved values)
-                                svgParseAndRender(overlayId: action.overlay.id, svgString: svgString, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration, variablePositions: action.variablePositions)
+                                svgParseAndRender(action: action, baseSVG: baseSVG)
                             })
                         }
                         // Do an initial rendering as well
-                        svgParseAndRender(overlayId: action.overlay.id, svgString: svgString, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration, variablePositions: action.variablePositions)
+                        svgParseAndRender(action: action, baseSVG: baseSVG)
                     }
                 }
             }
