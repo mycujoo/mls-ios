@@ -23,6 +23,18 @@ public struct AnnotationAction: Hashable {
     let offset: Int64
     let data: AnnotationActionData
 
+    /// A priority indicates what the order of actions should be when they happen at the same offset. A higher priority means it should go first.
+    var priority: Int {
+        switch type {
+        case "set_variable", "create_timer":
+            return 1000
+        case "start_timer":
+            return 500
+        default:
+            return 0
+        }
+    }
+
     public static func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
         return lhs.id == rhs.id
     }
@@ -308,8 +320,8 @@ public struct AnnotationActionCreateTimer {
     public let name: String
     public let format: Format
     public let direction: Direction
-    public let startValue: Int64
-    public let capValue: Int64?
+    public let startValue: Double
+    public let capValue: Double?
 }
 
 public extension AnnotationActionCreateTimer.Format {
@@ -352,8 +364,8 @@ extension AnnotationActionCreateTimer: Decodable {
         let name: String = try container.decode(String.self, forKey: .name)
         let format: AnnotationActionCreateTimer.Format = AnnotationActionCreateTimer.Format(rawValue: try? container.decode(String.self, forKey: .format))
         let direction: AnnotationActionCreateTimer.Direction = AnnotationActionCreateTimer.Direction(rawValue: try? container.decode(String.self, forKey: .name))
-        let startValue: Int64 = (try? container.decode(Int64.self, forKey: .startValue)) ?? 0
-        let capValue: Int64? = try? container.decode(Int64.self, forKey: .capValue)
+        let startValue: Double = (try? container.decode(Double.self, forKey: .startValue)) ?? 0
+        let capValue: Double? = try? container.decode(Double.self, forKey: .capValue)
 
         self.init(name: name, format: format, direction: direction, startValue: startValue, capValue: capValue)
     }

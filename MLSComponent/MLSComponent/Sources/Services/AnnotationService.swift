@@ -35,6 +35,8 @@ class AnnotationService: AnnotationServicing {
         var activeOverlayIds: Set<String>
         /// A dictionary of ActionVariables as they are defined at the current point of evaluation. The keys are the names of these variables.
         var variables: [String: ActionVariable]
+        /// A dictionary of ActionTimers as they are defined at the current point of evaluation. The keys are the names of these timers.
+        var timers: [String: ActionTimer]
     }
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
@@ -53,6 +55,7 @@ class AnnotationService: AnnotationServicing {
             var showOverlays: [ShowOverlayAction] = []
             var hideOverlays: [HideOverlayAction] = []
             var variables: [String: ActionVariable] = [:]
+            var timers: [String: ActionTimer] = [:]
 
             // MARK:  Helpers
 
@@ -62,7 +65,7 @@ class AnnotationService: AnnotationServicing {
             // MARK: Evaluate
 
             for action in input.actions.sorted(by: { (lhs, rhs) -> Bool in
-                lhs.offset <= rhs.offset
+                lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
             }) {
                 let offsetAsSeconds = Double(action.offset) / 1000
                 switch action.data {
@@ -126,12 +129,38 @@ class AnnotationService: AnnotationServicing {
                             variable.doubleValue! += data.amount
                         }
                     }
-//                    case .createTimer(let data):
-//                        break
-//                    case .startTimer(let data):
-//                        break
-//                    case .pauseTimer(let data):
-//                        break
+                case .createTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        let format: ActionTimer.Format
+                        switch data.format {
+                            case .ms: format = .ms
+                            case .s: format = .s
+                            case .unsupported: format = .unsupported
+                        }
+
+                        let direction: ActionTimer.Direction
+                        switch data.direction {
+                            case .up: direction = .up
+                            case .down: direction = .down
+                            case .unsupported: direction = .unsupported
+                        }
+
+                        timers[data.name] = ActionTimer(name: data.name, format: format, direction: direction, startValue: data.startValue, capValue: data.capValue)
+                    }
+                case .startTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let timer = timers[data.name] else { continue }
+
+                        timer.update(isRunning: true, at: offsetAsSeconds)
+                    }
+
+                case .pauseTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let timer = timers[data.name] else { continue }
+
+                        timer.update(isRunning: false, at: offsetAsSeconds)
+                    }
+
 //                    case .adjustTimer(let data):
 //                        break
 //                    case .unsupported:
@@ -166,12 +195,18 @@ class AnnotationService: AnnotationServicing {
                 activeOverlayIds.remove(overlayId)
             }
 
+            for (_, timer) in timers {
+                // Ensure that the timers are up-to-date with the offset of this evaluation cycle.
+                timer.reconsile(at: input.currentTime)
+            }
+
             callback(EvaluationOutput(
                 showTimelineMarkers: showTimelineMarkers,
                 showOverlays: showOverlays,
                 hideOverlays: hideOverlays,
                 activeOverlayIds: activeOverlayIds,
-                variables: variables
+                variables: variables,
+                timers: timers
             ))
         }
     }
