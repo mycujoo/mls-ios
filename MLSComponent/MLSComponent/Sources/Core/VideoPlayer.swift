@@ -418,7 +418,7 @@ extension VideoPlayer {
                 // Fallback to the variable name if there is no variable defined.
                 // The reason for this is that certain "variable-like" values might have slipped through,
                 // e.g. prices that start with a dollar sign.
-                let resolved = tovStore.get(by: it.value)?.humanFriendlyValue ?? "" // tmp - should be fallback to: it.value
+                let resolved = tovStore.get(by: it.value)?.humanFriendlyValue ?? it.value
                 baseSVG = baseSVG.replacingOccurrences(of: it.key, with: resolved)
             }
 
@@ -430,15 +430,11 @@ extension VideoPlayer {
                     imageView.clipsToBounds = true
                     imageView.backgroundColor = .none
 
-                    let containerView: UIView
-                    if let v = self.overlays[action.overlayId] {
-                        containerView = v
+                    if let containerView = self.overlays[action.overlayId] {
                         self.view.replaceOverlay(containerView: containerView, imageView: imageView)
                     } else {
-                        containerView = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                        self.overlays[action.overlayId] = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
                     }
-
-                    self.overlays[action.overlayId] = containerView
                 }
             }
         }
