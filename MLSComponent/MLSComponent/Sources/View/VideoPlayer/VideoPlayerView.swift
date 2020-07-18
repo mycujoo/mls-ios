@@ -17,37 +17,23 @@ extension VideoPlayerView {
     /// Places a new imageView within an existing containerView (which was previously generated using `placeOverlay()`
     func replaceOverlay(containerView: UIView, imageView: UIView) {
         guard let verticalContainerView = containerView as? UIStackView,
-            let horizontalContainerView = verticalContainerView.arrangedSubviews.filter { $0.tag == wrappedViewTag }.first as? UIStackView,
-            let oldImageView = horizontalContainerView.arrangedSubviews.filter { $0.tag == wrappedViewTag }.first,
-            let insertPosition = horizontalContainerView.arrangedSubviews.enumerated().filter { $0.element.isEqual(oldImageView) }.first?.offset else {
+            let horizontalContainerView = verticalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first as? UIStackView,
+            let oldImageView = horizontalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first,
+            let oldConstraints = copyableOverlayConstraints[oldImageView.hash],
+            let insertPosition = horizontalContainerView.arrangedSubviews.enumerated().filter({ $0.element.isEqual(oldImageView) }).first?.offset else {
                 return
         }
 
         imageView.tag = wrappedViewTag
 
-        let newConstraints = oldImageView.copyConstraints(on: [oldImageView.widthAnchor, oldImageView.heightAnchor], to: imageView)
+        let newConstraints = UIView.copyConstraints(constraints: oldConstraints, from: oldImageView, to: imageView)
 
-        print("BEFORE")
-        print("Old svgview", oldImageView)
-        print("Old svgview constraints", oldImageView.constraints)
-        print("----")
-        print("And overlay container view constraints", overlayContainerView.constraints)
-        print("--")
-        print("new svgview", imageView)
-        print("Creating new constraints", newConstraints)
-        print("AND AFTER")
+        copyableOverlayConstraints[oldImageView.hash] = nil
+        copyableOverlayConstraints[imageView.hash] = newConstraints
 
         horizontalContainerView.removeArrangedSubview(oldImageView)
         oldImageView.removeFromSuperview()
         horizontalContainerView.insertArrangedSubview(imageView, at: insertPosition)
-
-        print("Old svgview", oldImageView)
-        print("Old svgview constraints", oldImageView.constraints)
-        print("----")
-        print("And overlay container view constraints", overlayContainerView.constraints)
-        print("--")
-        print("new svgview", imageView)
-        print("Creating new constraints", newConstraints)
 
         NSLayoutConstraint.activate(newConstraints)
     }
@@ -150,16 +136,20 @@ extension VideoPlayerView {
 
         // NOTE: Keep in mind that these constraints only work consistently because intrinsicContentSize was disabled within Macaw!
 
+        var copyableConstraints = [NSLayoutConstraint]()
+
         if let width = size.width {
             let constraint = imageView.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(width / 100))
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
+            copyableConstraints.append(constraint)
         }
 
         if let height = size.height {
             let constraint = imageView.heightAnchor.constraint(equalTo: overlayContainerView.heightAnchor, multiplier: CGFloat(height / 100))
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
+            copyableConstraints.append(constraint)
         }
 
         if size.width == nil || size.height == nil {
@@ -170,7 +160,12 @@ extension VideoPlayerView {
             let constraint = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: multiplier, constant: 0)
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
+            copyableConstraints.append(constraint)
         }
+
+        // The only copyable constraints are the size constraints. The positional constraints are on the containerView, so when
+        // we replace the SVG with another (e.g. when a score changes), only the size constraints need to be copied onto the new one.
+        self.copyableOverlayConstraints[imageView.hash] = copyableConstraints
 
         // MARK: Animations
 

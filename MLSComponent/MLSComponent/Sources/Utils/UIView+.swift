@@ -46,20 +46,20 @@ public extension UIView {
 
     /// Copies all constraints on one or more anchors from this view to another view.
     /// - returns: The copied constraints. These are not yet activated!
-    func copyConstraints(on anchors: [NSLayoutDimension], to otherView: UIView) -> [NSLayoutConstraint] {
+    static func copyConstraints(constraints sourceConstraints: [NSLayoutConstraint], from sourceView: UIView, to otherView: UIView) -> [NSLayoutConstraint] {
         var new: [NSLayoutConstraint] = []
 
-        for c in Array(Set(anchors.map { constraints(on: $0) }.flatMap { $0 })) {
-            let firstItem: AnyObject?
+        for c in sourceConstraints {
+            let firstItem: AnyObject
             if let firstItem_ = c.firstItem {
-                firstItem = firstItem_.isEqual(self) ? otherView : firstItem_
+                firstItem = firstItem_.isEqual(sourceView) ? otherView : firstItem_
             } else {
-                firstItem = nil
+                continue
             }
 
             let secondItem: AnyObject?
             if let secondItem_ = c.secondItem {
-                secondItem = secondItem_.isEqual(self) ? otherView : secondItem_
+                secondItem = secondItem_.isEqual(sourceView) ? otherView : secondItem_
             } else {
                 secondItem = nil
             }

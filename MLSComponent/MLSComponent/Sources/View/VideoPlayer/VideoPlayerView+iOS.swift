@@ -259,6 +259,10 @@ public class VideoPlayerView: UIView  {
         return label
     }()
 
+    /// A dictionary of arrays, where each array is the set of constraints of a single overlay. These constraints should be
+    /// copied when the UIView is exchanged for a newer one. The key is the `hash` of the UIView that the constraints belong to.
+    var copyableOverlayConstraints: [Int: [NSLayoutConstraint]] = [:]
+
     // MARK: - Public accessors
 
     /// Sets the visibility of the fullscreen button.
