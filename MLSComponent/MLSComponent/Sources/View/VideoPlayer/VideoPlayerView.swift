@@ -3,49 +3,43 @@
 //
 
 import Foundation
-import Alamofire
+import UIKit
+
+/// A tag that identifies a wrappedView vs the spacer views that get added later.
+/// - seeAlso: `placeOverlay()`
+fileprivate let wrappedViewTag: Int = 321
 
 extension VideoPlayerView {
     func setTimelineMarkers(with actions: [ShowTimelineMarkerAction]) {
         videoSlider.setTimelineMarkers(with: actions)
     }
 
-    func showOverlays(with actions: [ShowOverlayAction]) {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            for action in actions {
-                AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
-                    if let svgString = response.value {
-                        if let node = try? SVGParser.parse(text: svgString), let bounds = node.bounds {
-                            DispatchQueue.main.async { [weak self] in
-                                guard let self = self else { return }
-
-                                let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
-                                imageView.clipsToBounds = true
-                                imageView.backgroundColor = .none
-
-                                let containerView = self.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
-
-                                self.overlays[action.overlay.id] = containerView
-                            }
-                        }
-                    }
-                }
-            }
+    /// Places a new imageView within an existing containerView (which was previously generated using `placeOverlay()`
+    func replaceOverlay(containerView: UIView, imageView: UIView) {
+        guard let verticalContainerView = containerView as? UIStackView,
+            let horizontalContainerView = verticalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first as? UIStackView,
+            let oldImageView = horizontalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first,
+            let oldConstraints = copyableOverlayConstraints[oldImageView.hash],
+            let insertPosition = horizontalContainerView.arrangedSubviews.enumerated().filter({ $0.element.isEqual(oldImageView) }).first?.offset else {
+                return
         }
-    }
 
-    func hideOverlays(with actions: [HideOverlayAction]) {
-        for action in actions {
-            if let v = self.overlays[action.overlayId] {
-                removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
-                    self?.overlays[action.overlayId] = nil
-                }
-            }
-        }
+        imageView.tag = wrappedViewTag
+
+        let newConstraints = UIView.copyConstraints(constraints: oldConstraints, from: oldImageView, to: imageView)
+
+        copyableOverlayConstraints[oldImageView.hash] = nil
+        copyableOverlayConstraints[imageView.hash] = newConstraints
+
+        horizontalContainerView.removeArrangedSubview(oldImageView)
+        oldImageView.removeFromSuperview()
+        horizontalContainerView.insertArrangedSubview(imageView, at: insertPosition)
+
+        NSLayoutConstraint.activate(newConstraints)
     }
 
     /// Places the overlay within a containerView, that is then sized, positioned and animated within the overlayContainerView.
-    private func placeOverlay(
+    func placeOverlay(
         imageView: UIView,
         size: AnnotationActionShowOverlay.Size,
         position: AnnotationActionShowOverlay.Position,
@@ -53,6 +47,7 @@ extension VideoPlayerView {
         animateDuration: Double
     ) -> UIView {
         func wrap(_ v: UIView, axis: NSLayoutConstraint.Axis) -> UIStackView {
+            v.tag = wrappedViewTag
             let stackView = UIStackView(arrangedSubviews: [v])
             stackView.axis = axis
             stackView.distribution = .fill
@@ -141,16 +136,20 @@ extension VideoPlayerView {
 
         // NOTE: Keep in mind that these constraints only work consistently because intrinsicContentSize was disabled within Macaw!
 
+        var copyableConstraints = [NSLayoutConstraint]()
+
         if let width = size.width {
             let constraint = imageView.widthAnchor.constraint(equalTo: overlayContainerView.widthAnchor, multiplier: CGFloat(width / 100))
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
+            copyableConstraints.append(constraint)
         }
 
         if let height = size.height {
             let constraint = imageView.heightAnchor.constraint(equalTo: overlayContainerView.heightAnchor, multiplier: CGFloat(height / 100))
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
+            copyableConstraints.append(constraint)
         }
 
         if size.width == nil || size.height == nil {
@@ -161,7 +160,12 @@ extension VideoPlayerView {
             let constraint = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: imageView, attribute: .width, multiplier: multiplier, constant: 0)
             constraint.priority = UILayoutPriority(rawValue: 748) // lower than constraints of overlay against its superview
             constraint.isActive = true
+            copyableConstraints.append(constraint)
         }
+
+        // The only copyable constraints are the size constraints. The positional constraints are on the containerView, so when
+        // we replace the SVG with another (e.g. when a score changes), only the size constraints need to be copied onto the new one.
+        self.copyableOverlayConstraints[imageView.hash] = copyableConstraints
 
         // MARK: Animations
 
@@ -220,7 +224,7 @@ extension VideoPlayerView {
     }
 
     /// Removes an overlay from the overlayContainerView with the proper animations.
-    private func removeOverlay(
+    func removeOverlay(
         containerView: UIView,
         animateType: OverlayAnimateoutType,
         animateDuration: Double,

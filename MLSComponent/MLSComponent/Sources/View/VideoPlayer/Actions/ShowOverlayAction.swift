@@ -11,6 +11,7 @@ struct ShowOverlayAction: OverlayAction {
     let size: AnnotationActionShowOverlay.Size
     let animateType: OverlayAnimateinType
     let animateDuration: Double
+    let variablePositions: [String: String]
 
     var overlayId: String {
         return overlay.id

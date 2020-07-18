@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 
+
 protocol AnnotationServicing {
     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())
 }
@@ -32,6 +33,8 @@ class AnnotationService: AnnotationServicing {
         var hideOverlays: [HideOverlayAction] = []
         /// A Set of overlayIds that are currently active (i.e. on-screen). This should be passed on as input to the next evaluation.
         var activeOverlayIds: Set<String>
+        /// A dictionary of ActionVariables as they are defined at the current point of evaluation. The keys are the names of these variables.
+        var variables: [String: ActionVariable]
     }
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
@@ -44,21 +47,23 @@ class AnnotationService: AnnotationServicing {
         annotationsQueue.async { [weak self] in
             guard let self = self, input.currentDuration > 0 else { return }
 
-            // MARK: Final actions
+            // MARK: Final output
 
             var showTimelineMarkers: [ShowTimelineMarkerAction] = []
             var showOverlays: [ShowOverlayAction] = []
             var hideOverlays: [HideOverlayAction] = []
+            var variables: [String: ActionVariable] = [:]
 
             // MARK:  Helpers
 
             var activeOverlayIds = input.activeOverlayIds
-
             var inRangeOverlayActions: [String: OverlayAction] = [:]
 
             // MARK: Evaluate
 
-            for action in input.actions {
+            for action in input.actions.sorted(by: { (lhs, rhs) -> Bool in
+                lhs.offset <= rhs.offset
+            }) {
                 let offsetAsSeconds = Double(action.offset) / 1000
                 switch action.data {
                 case .showTimelineMarker(let data):
@@ -107,10 +112,20 @@ class AnnotationService: AnnotationServicing {
                             }
                         }
                     }
-//                    case .setVariable(let data):
-//                        break
-//                    case .incrementVariable(let data):
-//                        break
+                case .setVariable(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        variables[data.name] = ActionVariable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)
+                    }
+                case .incrementVariable(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let variable = variables[data.name] else { continue }
+
+                        if variable.longValue != nil {
+                            variable.longValue! += Int64(data.amount)
+                        } else if variable.doubleValue != nil {
+                            variable.doubleValue! += data.amount
+                        }
+                    }
 //                    case .createTimer(let data):
 //                        break
 //                    case .startTimer(let data):
@@ -155,7 +170,8 @@ class AnnotationService: AnnotationServicing {
                 showTimelineMarkers: showTimelineMarkers,
                 showOverlays: showOverlays,
                 hideOverlays: hideOverlays,
-                activeOverlayIds: activeOverlayIds
+                activeOverlayIds: activeOverlayIds,
+                variables: variables
             ))
         }
     }
@@ -181,7 +197,8 @@ fileprivate extension AnnotationService {
             position: actionData.position,
             size: actionData.size,
             animateType: actionData.animateinType ?? .fadeIn,
-            animateDuration: actionData.animateinDuration ?? 300)
+            animateDuration: actionData.animateinDuration ?? 300,
+            variablePositions: actionData.variablePositions ?? [:])
     }
 
     func makeHideOverlay(from action: AnnotationAction) -> HideOverlayAction? {
@@ -211,7 +228,7 @@ fileprivate extension AnnotationService {
     /// Removes the animation information. Useful for when the animation should not occur
     /// because the user jumped between different sections of the video and the overlay should be hidden instantly.
     func removeAnimation(from action: ShowOverlayAction) -> ShowOverlayAction {
-        return ShowOverlayAction(actionId: action.actionId, overlay: action.overlay, position: action.position, size: action.size, animateType: .none, animateDuration: 0)
+        return ShowOverlayAction(actionId: action.actionId, overlay: action.overlay, position: action.position, size: action.size, animateType: .none, animateDuration: 0, variablePositions: action.variablePositions)
     }
 
     /// Removes the animation information. Useful for when the animation should not occur

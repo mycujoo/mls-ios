@@ -73,6 +73,26 @@ extension API: TargetType {
                             "type": "show_timeline_marker"
                         },
                         {
+                            "offset": 1699000,
+                            "id": "43faf4j59595959",
+                            "type": "set_variable",
+                            "data": {
+                                "name": "$homeScore",
+                                "value": 0,
+                                "type": "long"
+                            }
+                        },
+                        {
+                            "offset": 1699000,
+                            "id": "43faf4j5959fda8f9",
+                            "type": "set_variable",
+                            "data": {
+                                "name": "$awayScore",
+                                "value": 0,
+                                "type": "long"
+                            }
+                        },
+                        {
                             "data": {
                                 "animatein_duration": 300,
                                 "animatein_type": "fade_in",
@@ -86,9 +106,9 @@ extension API: TargetType {
                                 },
                                 "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg",
                                 "variable_positions": {
-                                    "###_AWAYSCORE_###": "awayScore",
-                                    "###_HOMESCORE_###": "homeScore",
-                                    "###_TIMER_###": "timer1"
+                                    "###_AWAYSCORE_###": "$awayScore",
+                                    "###_HOMESCORE_###": "$homeScore",
+                                    "###_TIMER_###": "$timer1"
                                 }
                             },
                             "offset": 1699000,
@@ -103,6 +123,15 @@ extension API: TargetType {
                             "offset": 5891000,
                             "id": "fda43t943f9a",
                             "type": "show_timeline_marker"
+                        },
+                        {
+                            "offset": 5891000,
+                            "id": "aaa444466agfffag5",
+                            "type": "increment_variable",
+                            "data": {
+                                "name": "$homeScore",
+                                "amount": 1.0
+                            }
                         },
                         {
                             "data": {

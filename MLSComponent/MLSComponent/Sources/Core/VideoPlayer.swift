@@ -5,6 +5,7 @@
 import AVFoundation
 import YouboraAVPlayerAdapter
 import YouboraLib
+import Alamofire
 
 public class VideoPlayer: NSObject {
 
@@ -124,6 +125,8 @@ public class VideoPlayer: NSObject {
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
+    private var tovStore: TOVStore? = nil
+
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
         df.dateStyle = .medium
@@ -154,6 +157,10 @@ public class VideoPlayer: NSObject {
     }
 
     private var activeOverlayIds: Set<String> = Set()
+
+    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
+    /// The UIView should be the outer container of the overlay, not the SVGView directly.
+    var overlays: [String: UIView] = [:]
 
     /// A level that indicates which actions are allowed to overwrite the state of the control view visibility.
     private var controlViewDirectiveLevel: DirectiveLevel = .none
@@ -278,6 +285,8 @@ public class VideoPlayer: NSObject {
                 }
             }
 
+            tovStore = TOVStore()
+
             // TODO: Should not pass eventId but timelineId
             apiService.fetchAnnotationActions(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
                 if let annotations = annotations {
@@ -305,13 +314,15 @@ public class VideoPlayer: NSObject {
 
             self?.activeOverlayIds = output.activeOverlayIds
 
+            self?.tovStore?.new(variables: output.variables)
+
             DispatchQueue.main.async { [weak self] in
                 self?.view.setTimelineMarkers(with: output.showTimelineMarkers)
                 if output.showOverlays.count > 0 {
-                    self?.view.showOverlays(with: output.showOverlays)
+                    self?.showOverlays(with: output.showOverlays)
                 }
                 if output.hideOverlays.count > 0 {
-                    self?.view.hideOverlays(with: output.hideOverlays)
+                    self?.hideOverlays(with: output.hideOverlays)
                 }
             }
         }
@@ -396,6 +407,77 @@ public extension VideoPlayer {
 
 // MARK: - Private Methods
 extension VideoPlayer {
+    private func showOverlays(with actions: [ShowOverlayAction]) {
+        func svgParseAndRender(action: ShowOverlayAction, baseSVG: String) {
+            var baseSVG = baseSVG
+            // On every variable/timer change, re-place all variables and timers in the svg again
+            // (because we only have the initial SVG, we don't keep its updated states with the original tokens
+            // included).
+            guard let tovStore = self.tovStore else { return }
+            for it in action.variablePositions {
+                // Fallback to the variable name if there is no variable defined.
+                // The reason for this is that certain "variable-like" values might have slipped through,
+                // e.g. prices that start with a dollar sign.
+                let resolved = tovStore.get(by: it.value)?.humanFriendlyValue ?? "" // tmp - should be fallback to: it.value
+                baseSVG = baseSVG.replacingOccurrences(of: it.key, with: resolved)
+            }
+
+            if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+
+                    let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
+                    imageView.clipsToBounds = true
+                    imageView.backgroundColor = .none
+
+                    let containerView: UIView
+                    if let v = self.overlays[action.overlayId] {
+                        containerView = v
+                        self.view.replaceOverlay(containerView: containerView, imageView: imageView)
+                    } else {
+                        containerView = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                    }
+
+                    self.overlays[action.overlayId] = containerView
+                }
+            }
+        }
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
+            for action in actions {
+                AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
+                    guard let self = self else { return }
+
+                    if let baseSVG = response.value {
+                        for (_, variableName) in action.variablePositions {
+                            self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { val in
+                                // Re-render the entire SVG (including replacing all tokens with their resolved values)
+                                svgParseAndRender(action: action, baseSVG: baseSVG)
+                            })
+                        }
+                        // Do an initial rendering as well
+                        svgParseAndRender(action: action, baseSVG: baseSVG)
+                    }
+                }
+            }
+        }
+    }
+
+    private func hideOverlays(with actions: [HideOverlayAction]) {
+        for action in actions {
+            if let v = self.overlays[action.overlayId] {
+                view?.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
+                    self?.overlays[action.overlayId] = nil
+                    // TODO: Remove observers from this overlay. Maybe instead of "videoplayer" as callback id, use overlayId? Not sure if that works yet.
+                    // For this, we need to keep a mapping of which overlays have which observers
+
+//                    self?.tovStore?.removeObserver(tovName: , callbackId: )
+                }
+            }
+        }
+    }
+
     private func trackTime(with player: AVPlayer) -> Any {
         player
             .addPeriodicTimeObserver(
@@ -484,6 +566,7 @@ extension VideoPlayer {
     /// - parameter lock: Whether to set the new directive level globally (true), so that future updates need the same (or higher) directive level.
     ///   If false is provided, the directive level will be reset to `none`.
     /// - returns: Whether this request is honored (true) or not (false).
+    @discardableResult
     private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel = .derived, lock: Bool = false) -> Bool {
         if directiveLevel.rawValue < controlViewDirectiveLevel.rawValue {
             return false

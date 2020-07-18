@@ -25,10 +25,6 @@ public class VideoPlayerView: UIView  {
 
     private var sliderValueChangedSinceTouchdown = false
 
-    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    /// The UIView should be the outer container of the overlay, not the SVGView directly.
-    var overlays: [String: UIView] = [:]
-
     // MARK: - Internal properties
 
     /// The color that is used throughout various controls and elements of the video player, together with the `secondaryColor`.
@@ -177,6 +173,10 @@ public class VideoPlayerView: UIView  {
         label.textColor = .white
         return label
     }()
+
+    /// A dictionary of arrays, where each array is the set of constraints of a single overlay. These constraints should be
+    /// copied when the UIView is exchanged for a newer one. The key is the `hash` of the UIView that the constraints belong to.
+    var copyableOverlayConstraints: [Int: [NSLayoutConstraint]] = [:]
 
     //MARK: - Init
 
