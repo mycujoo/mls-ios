@@ -77,6 +77,31 @@ class TOVStore {
         callObservers(names: differentVariableNames)
     }
 
+    /// Should be called whenever a new dictionary of ActionTimer (and their names as keys) is available.
+    /// The store will internally call any observer whenever a difference with a previous state is detected.
+    func new(timers newTimers: [String: ActionTimer]) {
+        var oldTimers = self.timers
+
+        var differentTimerNames: [String] = []
+
+        for (name, newTimer) in newTimers {
+            if let oldTimer = oldTimers[name] {
+                if oldTimer != newTimer {
+                    differentTimerNames.append(name)
+                }
+                oldTimers[name] = nil
+            } else {
+                differentTimerNames.append(name)
+            }
+        }
+
+        differentTimerNames += oldTimers.map { $0.key }
+
+        self.timers = newTimers
+
+        callObservers(names: differentTimerNames)
+    }
+
     /// Notifies observers of changes to the variables or timers that they are referenced in the `names` parameter.
     private func callObservers(names: [String]) {
         for name in names {
@@ -139,12 +164,16 @@ class ActionVariable: TOVObject, Equatable {
 
 class ActionTimer: TOVObject, Equatable {
     static func == (lhs: ActionTimer, rhs: ActionTimer) -> Bool {
+        // TODO: Consider whether we don't just need a single value comparison instead.
         return
             lhs.name == rhs.name &&
             lhs.format == rhs.format &&
             lhs.direction == rhs.direction &&
             lhs.startValue == rhs.startValue &&
-            lhs.capValue == rhs.capValue
+            lhs.capValue == rhs.capValue &&
+            lhs.isRunning == rhs.isRunning &&
+            lhs.lastUpdatedAtOffset == rhs.lastUpdatedAtOffset &&
+            lhs.value == rhs.value
     }
 
     enum Format: String {
@@ -161,12 +190,14 @@ class ActionTimer: TOVObject, Equatable {
     let name: String
     let format: Format
     let direction: Direction
-    let startValue: Int64
-    let capValue: Int64?
+    let startValue: Double
+    let capValue: Double?
 
-    var value: Int64
+    var value: Double
+    private var isRunning = false
+    private var lastUpdatedAtOffset: Double? = nil
 
-    init(name: String, format: Format, direction: Direction, startValue: Int64, capValue: Int64? = nil) {
+    init(name: String, format: Format, direction: Direction, startValue: Double, capValue: Double? = nil) {
         self.name = name
         self.format = format
         self.direction = direction
@@ -177,7 +208,28 @@ class ActionTimer: TOVObject, Equatable {
     }
 
     var humanFriendlyValue: String {
-        return "\(startValue)" // TODO: Adhere to formatting.
+//        return "\(value)" // TODO: Adhere to formatting, and apply up-down rules, and capvalue.
+        return String(format: "%.1f", value) // tmp
+    }
+
+    /// Should be called whenever the state of the timer changes. This internally updates the `value` property.
+    func update(isRunning: Bool, at offset: Double) {
+        if isRunning {
+            lastUpdatedAtOffset = offset
+            self.isRunning = true
+        } else {
+            self.value += offset - (lastUpdatedAtOffset ?? 0)
+            self.lastUpdatedAtOffset = offset
+            self.isRunning = false
+        }
+    }
+
+    /// Should be called to calculate the final value of this timer at a specific offset. This internally updates the `value` property.
+    func reconsile(at offset: Double) {
+        guard isRunning else { return }
+
+        self.value += offset - (lastUpdatedAtOffset ?? 0)
+        self.lastUpdatedAtOffset = offset
     }
 }
 

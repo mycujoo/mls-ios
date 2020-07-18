@@ -288,7 +288,7 @@ public class VideoPlayer: NSObject {
             tovStore = TOVStore()
 
             // TODO: Should not pass eventId but timelineId
-            apiService.fetchAnnotationActions(byTimelineId: "lots_of_increases") { [weak self] (annotations, _) in
+            apiService.fetchAnnotationActions(byTimelineId: "standard") { [weak self] (annotations, _) in
                 if let annotations = annotations {
                     self?.annotationActions = annotations
                 }
@@ -315,6 +315,7 @@ public class VideoPlayer: NSObject {
             self?.activeOverlayIds = output.activeOverlayIds
 
             self?.tovStore?.new(variables: output.variables)
+            self?.tovStore?.new(timers: output.timers)
 
             DispatchQueue.main.async { [weak self] in
                 self?.view.setTimelineMarkers(with: output.showTimelineMarkers)

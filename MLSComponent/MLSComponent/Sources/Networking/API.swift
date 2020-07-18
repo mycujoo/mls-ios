@@ -61,149 +61,6 @@ extension API: TargetType {
                 """.utf8)
         case .annotations(let timelineId):
             switch timelineId {
-            case "lots_of_increases":
-                return Data("""
-                    {
-                        "actions": [
-                            {
-                                "data": {
-                                    "color": "#ffffff",
-                                    "label": "Kickoff"
-                                },
-                                "offset": 1699000,
-                                "id": "f4354364q6afd",
-                                "type": "show_timeline_marker"
-                            },
-                            {
-                                "offset": 1699000,
-                                "id": "43faf4j59595959",
-                                "type": "set_variable",
-                                "data": {
-                                    "name": "$homeScore",
-                                    "value": 0,
-                                    "type": "long"
-                                }
-                            },
-                            {
-                                "offset": 1699000,
-                                "id": "43faf4j5959fda8f9",
-                                "type": "set_variable",
-                                "data": {
-                                    "name": "$awayScore",
-                                    "value": 0,
-                                    "type": "long"
-                                }
-                            },
-                            {
-                                "offset": 1799000,
-                                "id": "aaa444466agfffag5",
-                                "type": "increment_variable",
-                                "data": {
-                                    "name": "$homeScore",
-                                    "amount": 2.0
-                                }
-                            },
-                            {
-                                "offset": 1809000,
-                                "id": "aaa444466agfffag5",
-                                "type": "increment_variable",
-                                "data": {
-                                    "name": "$homeScore",
-                                    "amount": 3.0
-                                }
-                            },
-                            {
-                                "offset": 2009000,
-                                "id": "aaa444466agfffag5",
-                                "type": "increment_variable",
-                                "data": {
-                                    "name": "$homeScore",
-                                    "amount": 3.0
-                                }
-                            },
-                            {
-                                "data": {
-                                    "animatein_duration": 300,
-                                    "animatein_type": "fade_in",
-                                    "custom_id": "scoreboard1",
-                                    "position": {
-                                        "left": 5.0,
-                                        "top": 5.0
-                                    },
-                                    "size": {
-                                        "width": 25.0
-                                    },
-                                    "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg",
-                                    "variable_positions": {
-                                        "###_AWAYSCORE_###": "$awayScore",
-                                        "###_HOMESCORE_###": "$homeScore",
-                                        "###_TIMER_###": "$timer1"
-                                    }
-                                },
-                                "offset": 1699000,
-                                "id": "54afag35yag",
-                                "type": "show_overlay"
-                            },
-                            {
-                                "data": {
-                                    "color": "#ffff01",
-                                    "label": "Goal"
-                                },
-                                "offset": 5891000,
-                                "id": "fda43t943f9a",
-                                "type": "show_timeline_marker"
-                            },
-                            {
-                                "offset": 5891000,
-                                "id": "aaa444466agfffag5",
-                                "type": "increment_variable",
-                                "data": {
-                                    "name": "$homeScore",
-                                    "amount": 1.0
-                                }
-                            },
-                            {
-                                "data": {
-                                    "animatein_duration": 500,
-                                    "animatein_type": "slide_from_right",
-                                    "animateout_duration": 500,
-                                    "animateout_type": "slide_to_left",
-                                    "duration": 5000,
-                                    "position": {
-                                        "bottom": 10.0,
-                                        "left": 5.0
-                                    },
-                                    "size": {
-                                        "width": 30.0
-                                    },
-                                    "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/announcement_overlay.svg"
-                                },
-                                "offset": 5891000,
-                                "id": "gagj9j9agj9a",
-                                "type": "show_overlay"
-                            },
-                            {
-                                "data": {
-                                    "color": "#de4f1f",
-                                    "label": "Fulltime"
-                                },
-                                "offset": 8850000,
-                                "id": "bmb9t49bm34t",
-                                "type": "show_timeline_marker"
-                            },
-                            {
-                                "data": {
-                                    "animateout_duration": 300,
-                                    "animateout_type": "fade_out",
-                                    "custom_id": "scoreboard1"
-                                },
-                                "offset": 8850000,
-                                "id": "f43f9ajf9dfjSX",
-                                "type": "hide_overlay"
-                            }
-                        ]
-                    }
-                """.utf8)
             default:
                 return Data("""
                     {
@@ -238,6 +95,25 @@ extension API: TargetType {
                                 }
                             },
                             {
+                                "offset": 1699000,
+                                "id": "bbaaaa4444sssstg",
+                                "type": "create_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer",
+                                    "format": "mm:ss",
+                                    "direction": "up",
+                                    "start_value": 0
+                                }
+                            },
+                            {
+                                "offset": 1699000,
+                                "id": "4fdaf5tygfhfhffha",
+                                "type": "start_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer"
+                                }
+                            },
+                            {
                                 "data": {
                                     "animatein_duration": 300,
                                     "animatein_type": "fade_in",
@@ -253,7 +129,7 @@ extension API: TargetType {
                                     "variable_positions": {
                                         "###_AWAYSCORE_###": "$awayScore",
                                         "###_HOMESCORE_###": "$homeScore",
-                                        "###_TIMER_###": "$timer1"
+                                        "###_TIMER_###": "$scoreboardTimer"
                                     }
                                 },
                                 "offset": 1699000,
@@ -308,12 +184,20 @@ extension API: TargetType {
                                 "type": "show_timeline_marker"
                             },
                             {
+                                "offset": 8850000,
+                                "id": "asaafafafa53",
+                                "type": "pause_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer"
+                                }
+                            },
+                            {
                                 "data": {
                                     "animateout_duration": 300,
                                     "animateout_type": "fade_out",
                                     "custom_id": "scoreboard1"
                                 },
-                                "offset": 8850000,
+                                "offset": 8855000,
                                 "id": "f43f9ajf9dfjSX",
                                 "type": "hide_overlay"
                             }

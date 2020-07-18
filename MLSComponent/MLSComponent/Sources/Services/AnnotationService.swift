@@ -35,6 +35,8 @@ class AnnotationService: AnnotationServicing {
         var activeOverlayIds: Set<String>
         /// A dictionary of ActionVariables as they are defined at the current point of evaluation. The keys are the names of these variables.
         var variables: [String: ActionVariable]
+        /// A dictionary of ActionTimers as they are defined at the current point of evaluation. The keys are the names of these timers.
+        var timers: [String: ActionTimer]
     }
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
@@ -63,7 +65,7 @@ class AnnotationService: AnnotationServicing {
             // MARK: Evaluate
 
             for action in input.actions.sorted(by: { (lhs, rhs) -> Bool in
-                lhs.offset <= rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
+                lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
             }) {
                 let offsetAsSeconds = Double(action.offset) / 1000
                 switch action.data {
@@ -149,12 +151,14 @@ class AnnotationService: AnnotationServicing {
                     if offsetAsSeconds <= input.currentTime {
                         guard let timer = timers[data.name] else { continue }
 
+                        timer.update(isRunning: true, at: offsetAsSeconds)
                     }
 
                 case .pauseTimer(let data):
                     if offsetAsSeconds <= input.currentTime {
                         guard let timer = timers[data.name] else { continue }
 
+                        timer.update(isRunning: false, at: offsetAsSeconds)
                     }
 
 //                    case .adjustTimer(let data):
@@ -191,12 +195,18 @@ class AnnotationService: AnnotationServicing {
                 activeOverlayIds.remove(overlayId)
             }
 
+            for (_, timer) in timers {
+                // Ensure that the timers are up-to-date with the offset of this evaluation cycle.
+                timer.reconsile(at: input.currentTime)
+            }
+
             callback(EvaluationOutput(
                 showTimelineMarkers: showTimelineMarkers,
                 showOverlays: showOverlays,
                 hideOverlays: hideOverlays,
                 activeOverlayIds: activeOverlayIds,
-                variables: variables
+                variables: variables,
+                timers: timers
             ))
         }
     }
