@@ -164,7 +164,6 @@ class ActionVariable: TOVObject, Equatable {
 
 class ActionTimer: TOVObject, Equatable {
     static func == (lhs: ActionTimer, rhs: ActionTimer) -> Bool {
-        // TODO: Consider whether we don't just need a single value comparison instead.
         return
             lhs.name == rhs.name &&
             lhs.format == rhs.format &&
@@ -172,7 +171,7 @@ class ActionTimer: TOVObject, Equatable {
             lhs.startValue == rhs.startValue &&
             lhs.capValue == rhs.capValue &&
             lhs.isRunning == rhs.isRunning &&
-            lhs.lastUpdatedAtOffset == rhs.lastUpdatedAtOffset &&
+            // Do not include lastUpdatedAtOffset, since that unnecessary makes this seem like a different timer.
             lhs.value == rhs.value
     }
 
@@ -208,8 +207,27 @@ class ActionTimer: TOVObject, Equatable {
     }
 
     var humanFriendlyValue: String {
-//        return "\(value)" // TODO: Adhere to formatting, and apply up-down rules, and capvalue.
-        return String(format: "%.1f", value) // tmp
+        var actualValue = value
+        switch direction {
+        case .down:
+            actualValue = startValue - value
+            if let capValue = capValue {
+                actualValue = min(capValue, actualValue)
+            }
+        case .up, .unsupported:
+            if let capValue = capValue {
+                actualValue = max(capValue, actualValue)
+            }
+        }
+
+        switch format {
+        case .ms:
+            let seconds = actualValue.truncatingRemainder(dividingBy: 60)
+            let minutes = (actualValue - seconds) / 60
+            return String(format: "%02.0f:%02.0f", minutes, seconds)
+        case .s, .unsupported:
+            return String(format: "%.0f", actualValue)
+        }
     }
 
     /// Should be called whenever the state of the timer changes. This internally updates the `value` property.

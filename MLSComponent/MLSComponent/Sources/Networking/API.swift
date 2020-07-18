@@ -100,7 +100,7 @@ extension API: TargetType {
                                 "type": "create_timer",
                                 "data": {
                                     "name": "$scoreboardTimer",
-                                    "format": "mm:ss",
+                                    "format": "ms",
                                     "direction": "up",
                                     "start_value": 0
                                 }
