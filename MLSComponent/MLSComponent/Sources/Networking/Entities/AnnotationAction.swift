@@ -23,6 +23,16 @@ public struct AnnotationAction: Hashable {
     let offset: Int64
     let data: AnnotationActionData
 
+    /// A priority indicates what the order of actions should be when they happen at the same offset. A higher priority means it should go first.
+    var priority: Int {
+        switch type {
+        case "set_variable", "create_timer":
+            return 1000
+        default:
+            return 0
+        }
+    }
+
     public static func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
         return lhs.id == rhs.id
     }

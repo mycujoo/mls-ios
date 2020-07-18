@@ -53,6 +53,7 @@ class AnnotationService: AnnotationServicing {
             var showOverlays: [ShowOverlayAction] = []
             var hideOverlays: [HideOverlayAction] = []
             var variables: [String: ActionVariable] = [:]
+            var timers: [String: ActionTimer] = [:]
 
             // MARK:  Helpers
 
@@ -62,7 +63,7 @@ class AnnotationService: AnnotationServicing {
             // MARK: Evaluate
 
             for action in input.actions.sorted(by: { (lhs, rhs) -> Bool in
-                lhs.offset <= rhs.offset
+                lhs.offset <= rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
             }) {
                 let offsetAsSeconds = Double(action.offset) / 1000
                 switch action.data {
@@ -126,12 +127,36 @@ class AnnotationService: AnnotationServicing {
                             variable.doubleValue! += data.amount
                         }
                     }
-//                    case .createTimer(let data):
-//                        break
-//                    case .startTimer(let data):
-//                        break
-//                    case .pauseTimer(let data):
-//                        break
+                case .createTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        let format: ActionTimer.Format
+                        switch data.format {
+                            case .ms: format = .ms
+                            case .s: format = .s
+                            case .unsupported: format = .unsupported
+                        }
+
+                        let direction: ActionTimer.Direction
+                        switch data.direction {
+                            case .up: direction = .up
+                            case .down: direction = .down
+                            case .unsupported: direction = .unsupported
+                        }
+
+                        timers[data.name] = ActionTimer(name: data.name, format: format, direction: direction, startValue: data.startValue, capValue: data.capValue)
+                    }
+                case .startTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let timer = timers[data.name] else { continue }
+
+                    }
+
+                case .pauseTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let timer = timers[data.name] else { continue }
+
+                    }
+
 //                    case .adjustTimer(let data):
 //                        break
 //                    case .unsupported:
