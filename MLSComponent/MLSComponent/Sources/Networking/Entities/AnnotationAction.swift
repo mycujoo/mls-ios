@@ -30,6 +30,10 @@ public struct AnnotationAction: Hashable {
             return 1000
         case "start_timer":
             return 500
+        case "pause_timer":
+            return 400
+        case "adjust_timer":
+            return 300
         default:
             return 0
         }
@@ -86,6 +90,9 @@ extension AnnotationAction: Decodable {
         case "adjust_timer":
             let rawData = try container.decode(AnnotationActionAdjustTimer.self, forKey: .data)
             data = .adjustTimer(rawData)
+        case "skip_timer":
+            let rawData = try container.decode(AnnotationActionSkipTimer.self, forKey: .data)
+            data = .skipTimer(rawData)
         case "create_clock":
             let rawData = try container.decode(AnnotationActionCreateClock.self, forKey: .data)
             data = .createClock(rawData)
@@ -107,6 +114,7 @@ public enum AnnotationActionData {
     case startTimer(AnnotationActionStartTimer)
     case pauseTimer(AnnotationActionPauseTimer)
     case adjustTimer(AnnotationActionAdjustTimer)
+    case skipTimer(AnnotationActionSkipTimer)
     case createClock(AnnotationActionCreateClock)
     case unsupported
 }
@@ -387,7 +395,14 @@ public struct AnnotationActionPauseTimer: Decodable {
 
 public struct AnnotationActionAdjustTimer: Decodable {
     public let name: String
-    public let value: Int64
+    public let value: Double
+}
+
+// MARK: - AnnotationActionSkipTimer
+
+public struct AnnotationActionSkipTimer: Decodable {
+    public let name: String
+    public let value: Double
 }
 
 // MARK: - AnnotationActionCreateClock

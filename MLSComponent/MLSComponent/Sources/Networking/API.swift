@@ -138,6 +138,49 @@ extension API: TargetType {
                             },
                             {
                                 "data": {
+                                    "color": "#ffffff",
+                                    "label": "Halftime"
+                                },
+                                "offset": 4720000,
+                                "id": "fda43t943f9b",
+                                "type": "show_timeline_marker"
+                            },
+                            {
+                                "offset": 4720000,
+                                "id": "4fdaf5tygfhfhffhb",
+                                "type": "pause_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer"
+                                }
+                            },
+                            {
+                                "offset": 4720000,
+                                "id": "5cdaf5tygfhfhffhb",
+                                "type": "adjust_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer",
+                                    "value": 2700000
+                                }
+                            },
+                            {
+                                "data": {
+                                    "color": "#ffffff",
+                                    "label": "Kickoff"
+                                },
+                                "offset": 5711000,
+                                "id": "fda43t943f3c",
+                                "type": "show_timeline_marker"
+                            },
+                            {
+                                "offset": 5711000,
+                                "id": "4fdaf5tygfhfhffhc",
+                                "type": "start_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer"
+                                }
+                            },
+                            {
+                                "data": {
                                     "color": "#ffff01",
                                     "label": "Goal"
                                 },
@@ -152,6 +195,24 @@ extension API: TargetType {
                                 "data": {
                                     "name": "$homeScore",
                                     "amount": 1.0
+                                }
+                            },
+                            {
+                                "offset": 5891000,
+                                "id": "5cdaf5tygfhfhfno4",
+                                "type": "adjust_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer",
+                                    "value": 2940000
+                                }
+                            },
+                            {
+                                "offset": 5895000,
+                                "id": "5cdaf5tygfhfhfno5",
+                                "type": "skip_timer",
+                                "data": {
+                                    "name": "$scoreboardTimer",
+                                    "value": -60000
                                 }
                             },
                             {

@@ -153,18 +153,24 @@ class AnnotationService: AnnotationServicing {
 
                         timer.update(isRunning: true, at: offsetAsSeconds)
                     }
-
                 case .pauseTimer(let data):
                     if offsetAsSeconds <= input.currentTime {
                         guard let timer = timers[data.name] else { continue }
 
                         timer.update(isRunning: false, at: offsetAsSeconds)
                     }
+                case .adjustTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let timer = timers[data.name] else { continue }
 
-//                    case .adjustTimer(let data):
-//                        break
-//                    case .unsupported:
-//                        break
+                        timer.forceAdjustTo(value: data.value / 1000, at: offsetAsSeconds)
+                    }
+                case .skipTimer(let data):
+                    if offsetAsSeconds <= input.currentTime {
+                        guard let timer = timers[data.name] else { continue }
+
+                        timer.forceAdjustBy(value: data.value / 1000, at: offsetAsSeconds)
+                    }
                 default:
                     break
                 }

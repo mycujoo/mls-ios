@@ -192,7 +192,7 @@ class ActionTimer: TOVObject, Equatable {
     let startValue: Double
     let capValue: Double?
 
-    var value: Double
+    private var value: Double
     private var isRunning = false
     private var lastUpdatedAtOffset: Double? = nil
 
@@ -242,7 +242,22 @@ class ActionTimer: TOVObject, Equatable {
         }
     }
 
-    /// Should be called to calculate the final value of this timer at a specific offset. This internally updates the `value` property.
+    /// Forces the timer to take on a new absolute value, regardless of anything that happened previously.
+    func forceAdjustTo(value: Double, at offset: Double) {
+        self.value = value
+        self.lastUpdatedAtOffset = offset
+    }
+
+    /// Forces the timer to be adjusted by a relative value.
+    func forceAdjustBy(value: Double, at offset: Double) {
+        // Reconsile this
+        reconsile(at: offset)
+        self.value += value
+    }
+
+    /// Should be called to materialize the value of this timer at a specific offset. This internally updates the `value` property.
+    /// This is useful e.g. to calculate the final value x seconds after the last update to the timer,
+    /// or when adjusting the timer value and an intermediate value needs to be available.
     func reconsile(at offset: Double) {
         guard isRunning else { return }
 
