@@ -21,7 +21,7 @@ class TOVStore {
     /// Observe Timer or Variable changes.  The observer (target) will be notified of every change to this variable in this store.
     /// `get(by:)` can then be used to obtain the new value.
     /// - parameter tovName: The name of the variable or timer to be observed.
-    /// - parameter callbackId: A string that uniquely identifies this callback. Can be used to remove observers.
+    /// - parameter callbackId: A string that uniquely identifies this callback in the context of this tovName. Can be used to remove observers.
     /// - parameter callback: A closure that is called whenever a change occurs.
     func addObserver(tovName: String, callbackId: String, callback: @escaping (String) -> Void) {
         if let arr_ = observers[tovName] {
@@ -43,6 +43,13 @@ class TOVStore {
         guard let arr = observers[tovName] else { return }
 
         observers[tovName] = arr.filter { $0.callbackId != callbackId }
+    }
+
+    /// Unlike `removeObserver(tovName:callbackId:)`, this method removes all observers with this callbackId from all tovNames.
+    func removeObservers(callbackId: String) {
+        for (tovName, _) in observers {
+            removeObserver(tovName: tovName, callbackId: callbackId)
+        }
     }
 
     /// Should be called whenever a new dictionary of ActionVariables (and their names as keys) is available.

@@ -288,7 +288,7 @@ public class VideoPlayer: NSObject {
             tovStore = TOVStore()
 
             // TODO: Should not pass eventId but timelineId
-            apiService.fetchAnnotationActions(byTimelineId: "brusquevsmanaus") { [weak self] (annotations, _) in
+            apiService.fetchAnnotationActions(byTimelineId: "lots_of_increases") { [weak self] (annotations, _) in
                 if let annotations = annotations {
                     self?.annotationActions = annotations
                 }
@@ -442,6 +442,7 @@ extension VideoPlayer {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
             for action in actions {
+                // TODO: Find out if this is reading from network cache layer.
                 AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
                     guard let self = self else { return }
 
@@ -465,10 +466,7 @@ extension VideoPlayer {
             if let v = self.overlays[action.overlayId] {
                 view?.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
                     self?.overlays[action.overlayId] = nil
-                    // TODO: Remove observers from this overlay. Maybe instead of "videoplayer" as callback id, use overlayId? Not sure if that works yet.
-                    // For this, we need to keep a mapping of which overlays have which observers
-
-//                    self?.tovStore?.removeObserver(tovName: , callbackId: )
+                    self?.tovStore?.removeObservers(callbackId: action.overlayId)
                 }
             }
         }
