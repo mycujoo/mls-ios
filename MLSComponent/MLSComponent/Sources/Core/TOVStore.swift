@@ -207,61 +207,77 @@ class ActionTimer: TOVObject, Equatable {
     }
 
     var humanFriendlyValue: String {
-        var actualValue = value
-        switch direction {
-        case .down:
-            actualValue = startValue - value
-            if let capValue = capValue {
-                actualValue = min(capValue, actualValue)
-            }
-        case .up, .unsupported:
-            if let capValue = capValue {
-                actualValue = max(capValue, actualValue)
-            }
-        }
-
         switch format {
         case .ms:
-            let seconds = actualValue.truncatingRemainder(dividingBy: 60)
-            let minutes = (actualValue - seconds) / 60
+            let seconds = value.truncatingRemainder(dividingBy: 60)
+            let minutes = (value - seconds) / 60
             return String(format: "%02.0f:%02.0f", minutes, seconds)
         case .s, .unsupported:
-            return String(format: "%.0f", actualValue)
+            return String(format: "%.0f", value)
         }
     }
 
     /// Should be called whenever the state of the timer changes. This internally updates the `value` property.
     func update(isRunning: Bool, at offset: Double) {
-        if isRunning {
-            lastUpdatedAtOffset = offset
-            self.isRunning = true
-        } else {
-            self.value += offset - (lastUpdatedAtOffset ?? 0)
-            self.lastUpdatedAtOffset = offset
-            self.isRunning = false
-        }
+        reconsile(at: offset)
+        self.isRunning = isRunning
     }
 
     /// Forces the timer to take on a new absolute value, regardless of anything that happened previously.
     func forceAdjustTo(value: Double, at offset: Double) {
-        self.value = value
+        updateValueWithRulesApplied(v: value, absolute: true)
         self.lastUpdatedAtOffset = offset
     }
 
     /// Forces the timer to be adjusted by a relative value.
     func forceAdjustBy(value: Double, at offset: Double) {
         reconsile(at: offset)
-        self.value += value
+        updateValueWithRulesApplied(v: value, absolute: false)
     }
 
     /// Should be called to materialize the value of this timer at a specific offset. This internally updates the `value` property.
-    /// This is useful e.g. to calculate the final value x seconds after the last update to the timer,
-    /// or when adjusting the timer value and an intermediate value needs to be available.
     func reconsile(at offset: Double) {
-        guard isRunning else { return }
-
-        self.value += offset - (lastUpdatedAtOffset ?? 0)
+        if isRunning {
+            switch direction {
+            case .down:
+                self.value = self.value - (offset - (lastUpdatedAtOffset ?? 0))
+                if let capValue = capValue {
+                    value = max(capValue, value)
+                }
+            case .up, .unsupported:
+            self.value = self.value + (offset - (lastUpdatedAtOffset ?? 0))
+                if let capValue = capValue {
+                    value = min(capValue, value)
+                }
+            }
+        }
         self.lastUpdatedAtOffset = offset
+    }
+
+    /// Manipulates the `value` variable based while respecting the direction and capValue.
+    /// - parameter v: The value that `value` should have if `absolute` is true, or the value that `value` should be updated by if `absolute` is false.
+    /// - parameter absolute: Whether the value is being replaced (true) or added (false).
+    private func updateValueWithRulesApplied(v: Double, absolute: Bool) {
+        switch direction {
+        case .down:
+            if absolute {
+                self.value = v
+            } else {
+                self.value -= v
+            }
+            if let capValue = capValue {
+                self.value = max(capValue, self.value)
+            }
+        case .up, .unsupported:
+            if absolute {
+                self.value = v
+            } else {
+                self.value += v
+            }
+            if let capValue = capValue {
+                self.value = min(capValue, self.value)
+            }
+        }
     }
 }
 
