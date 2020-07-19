@@ -14,30 +14,6 @@ extension VideoPlayerView {
         videoSlider.setTimelineMarkers(with: actions)
     }
 
-    /// Places a new imageView within an existing containerView (which was previously generated using `placeOverlay()`
-    func replaceOverlay(containerView: UIView, imageView: UIView) {
-        guard let verticalContainerView = containerView as? UIStackView,
-            let horizontalContainerView = verticalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first as? UIStackView,
-            let oldImageView = horizontalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first,
-            let oldConstraints = copyableOverlayConstraints[oldImageView.hash],
-            let insertPosition = horizontalContainerView.arrangedSubviews.enumerated().filter({ $0.element.isEqual(oldImageView) }).first?.offset else {
-                return
-        }
-
-        imageView.tag = wrappedViewTag
-
-        let newConstraints = UIView.copyConstraints(constraints: oldConstraints, from: oldImageView, to: imageView)
-
-        copyableOverlayConstraints[oldImageView.hash] = nil
-        copyableOverlayConstraints[imageView.hash] = newConstraints
-
-        horizontalContainerView.removeArrangedSubview(oldImageView)
-        oldImageView.removeFromSuperview()
-        horizontalContainerView.insertArrangedSubview(imageView, at: insertPosition)
-
-        NSLayoutConstraint.activate(newConstraints)
-    }
-
     /// Places the overlay within a containerView, that is then sized, positioned and animated within the overlayContainerView.
     func placeOverlay(
         imageView: UIView,
@@ -221,6 +197,32 @@ extension VideoPlayerView {
         }
 
         return vStackView
+    }
+
+    /// Places a new imageView within an existing containerView (which was previously generated using `placeOverlay()`
+    func replaceOverlay(containerView: UIView, imageView: UIView) {
+        guard let verticalContainerView = containerView as? UIStackView,
+            let horizontalContainerView = verticalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first as? UIStackView,
+            let oldImageView = horizontalContainerView.arrangedSubviews.filter({ $0.tag == wrappedViewTag }).first,
+            let oldConstraints = copyableOverlayConstraints[oldImageView.hash],
+            let insertPosition = horizontalContainerView.arrangedSubviews.enumerated().filter({ $0.element.isEqual(oldImageView) }).first?.offset else {
+                return
+        }
+
+        imageView.tag = wrappedViewTag
+
+        let newConstraints = UIView.copyConstraints(constraints: oldConstraints, from: oldImageView, to: imageView)
+
+        copyableOverlayConstraints[oldImageView.hash] = nil
+        copyableOverlayConstraints[imageView.hash] = newConstraints
+
+        horizontalContainerView.removeArrangedSubview(oldImageView)
+        oldImageView.removeFromSuperview()
+        horizontalContainerView.insertArrangedSubview(imageView, at: insertPosition)
+
+        NSLayoutConstraint.activate(newConstraints)
+
+        verticalContainerView.layoutIfNeeded()
     }
 
     /// Removes an overlay from the overlayContainerView with the proper animations.

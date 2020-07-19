@@ -250,7 +250,6 @@ class ActionTimer: TOVObject, Equatable {
 
     /// Forces the timer to be adjusted by a relative value.
     func forceAdjustBy(value: Double, at offset: Double) {
-        // Reconsile this
         reconsile(at: offset)
         self.value += value
     }
