@@ -371,7 +371,7 @@ extension AnnotationActionCreateTimer: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let name: String = try container.decode(String.self, forKey: .name)
         let format: AnnotationActionCreateTimer.Format = AnnotationActionCreateTimer.Format(rawValue: try? container.decode(String.self, forKey: .format))
-        let direction: AnnotationActionCreateTimer.Direction = AnnotationActionCreateTimer.Direction(rawValue: try? container.decode(String.self, forKey: .name))
+        let direction: AnnotationActionCreateTimer.Direction = AnnotationActionCreateTimer.Direction(rawValue: try? container.decode(String.self, forKey: .direction))
         let startValue: Double = (try? container.decode(Double.self, forKey: .startValue)) ?? 0
         let capValue: Double? = try? container.decode(Double.self, forKey: .capValue)
 

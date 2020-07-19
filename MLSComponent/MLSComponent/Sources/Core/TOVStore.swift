@@ -200,10 +200,10 @@ class ActionTimer: TOVObject, Equatable {
         self.name = name
         self.format = format
         self.direction = direction
-        self.startValue = startValue
-        self.capValue = capValue
+        self.startValue = (startValue / 1000)
+        self.capValue = capValue != nil ? (capValue! / 1000) : nil
 
-        self.value = startValue
+        self.value = (startValue / 1000)
     }
 
     var humanFriendlyValue: String {
