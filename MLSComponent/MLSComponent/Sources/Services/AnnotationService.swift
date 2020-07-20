@@ -203,7 +203,7 @@ class AnnotationService: AnnotationServicing {
 
             for (_, timer) in timers {
                 // Ensure that the timers are up-to-date with the offset of this evaluation cycle.
-                timer.reconsile(at: input.currentTime)
+                timer.materialize(at: input.currentTime)
             }
 
             callback(EvaluationOutput(

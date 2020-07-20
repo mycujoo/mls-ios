@@ -219,7 +219,7 @@ class ActionTimer: TOVObject, Equatable {
 
     /// Should be called whenever the state of the timer changes. This internally updates the `value` property.
     func update(isRunning: Bool, at offset: Double) {
-        reconsile(at: offset)
+        materialize(at: offset)
         self.isRunning = isRunning
     }
 
@@ -231,12 +231,12 @@ class ActionTimer: TOVObject, Equatable {
 
     /// Forces the timer to be adjusted by a relative value.
     func forceAdjustBy(value: Double, at offset: Double) {
-        reconsile(at: offset)
+        materialize(at: offset)
         updateValueWithRulesApplied(v: value, absolute: false)
     }
 
     /// Should be called to materialize the value of this timer at a specific offset. This internally updates the `value` property.
-    func reconsile(at offset: Double) {
+    func materialize(at offset: Double) {
         if isRunning {
             switch direction {
             case .down:
