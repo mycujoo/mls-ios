@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		46C61B9F072B061CD76C7ABC /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 387E8305F9892836BF6AA015 /* Pods_MLS.framework */; };
 		49A9F52124A1549F00D00143 /* WithPictureInPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */; };
 		49B3B65524A0E3C8000E02AB /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */; };
+		4A31935C960FF41CAA25238D /* Pods_MLS_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545F562D0A2ED6676886DE62 /* Pods_MLS_tvOS.framework */; };
 		6418F6DA246951050013A9EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6D9246951050013A9EE /* AppDelegate.swift */; };
 		6418F6DE246951050013A9EE /* WithFullscreenZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */; };
 		6418F6E3246951060013A9EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E2246951060013A9EE /* Assets.xcassets */; };
@@ -18,13 +18,12 @@
 		643B5EBE247BE93B00A46A77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EBD247BE93B00A46A77 /* Assets.xcassets */; };
 		643B5EC1247BE93B00A46A77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC0247BE93B00A46A77 /* Preview Assets.xcassets */; };
 		643B5EC4247BE93B00A46A77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC2247BE93B00A46A77 /* LaunchScreen.storyboard */; };
-		797E532E746E122DCEE81BED /* Pods_MLS_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA82F7C8B31C949E788EB2C /* Pods_MLS_tvOS.framework */; };
+		927F295018E9B00AC0C8F82D /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B253DA784B7511B50FA8A881 /* Pods_MLS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		387E8305F9892836BF6AA015 /* Pods_MLS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3CEE6C114FC8DAA26151F930 /* Pods-MLS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS.release.xcconfig"; path = "Target Support Files/Pods-MLS/Pods-MLS.release.xcconfig"; sourceTree = "<group>"; };
-		3FA82F7C8B31C949E788EB2C /* Pods_MLS_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		19D1480ED54018D6F809CDC6 /* Pods-MLS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS.release.xcconfig"; path = "Target Support Files/Pods-MLS/Pods-MLS.release.xcconfig"; sourceTree = "<group>"; };
+		41D109EF593E66EAFB15B0E0 /* Pods-MLS-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		492B6BC024B3662C0003C5B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		492B6BC124B3662C0003C5B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		492B6BC224B3664A0003C5B1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -45,7 +44,8 @@
 		492B6BD124B3666D0003C5B1 /* id */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = id; path = id.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPictureInPictureViewController.swift; sourceTree = "<group>"; };
 		49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
-		60EE2C2CEC9ACCD56ACD3238 /* Pods-MLS-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		4FA838346310A9F68968FBEB /* Pods-MLS-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		545F562D0A2ED6676886DE62 /* Pods_MLS_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6418F6D6246951050013A9EE /* MLS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6418F6D9246951050013A9EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithFullscreenZoomViewController.swift; sourceTree = "<group>"; };
@@ -58,9 +58,9 @@
 		643B5EBD247BE93B00A46A77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		643B5EC0247BE93B00A46A77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		643B5EC5247BE93B00A46A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		649CC83959EBCC3FC1BA5BD7 /* Pods-MLS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS.debug.xcconfig"; path = "Target Support Files/Pods-MLS/Pods-MLS.debug.xcconfig"; sourceTree = "<group>"; };
+		644F57AE545E9020E3F9CB3E /* Pods-MLS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS.debug.xcconfig"; path = "Target Support Files/Pods-MLS/Pods-MLS.debug.xcconfig"; sourceTree = "<group>"; };
 		64A54E44246955C700D365FE /* MLSComponent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSComponent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8D82991A46B6FA4DE420B49 /* Pods-MLS-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B253DA784B7511B50FA8A881 /* Pods_MLS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46C61B9F072B061CD76C7ABC /* Pods_MLS.framework in Frameworks */,
+				927F295018E9B00AC0C8F82D /* Pods_MLS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797E532E746E122DCEE81BED /* Pods_MLS_tvOS.framework in Frameworks */,
+				4A31935C960FF41CAA25238D /* Pods_MLS_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,8 +151,8 @@
 				641C9184249A1C63000E4E63 /* MLSComponent.framework */,
 				643B5EAF247BE6B400A46A77 /* MLSComponent.framework */,
 				64A54E44246955C700D365FE /* MLSComponent.framework */,
-				387E8305F9892836BF6AA015 /* Pods_MLS.framework */,
-				3FA82F7C8B31C949E788EB2C /* Pods_MLS_tvOS.framework */,
+				B253DA784B7511B50FA8A881 /* Pods_MLS.framework */,
+				545F562D0A2ED6676886DE62 /* Pods_MLS_tvOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,10 +160,10 @@
 		C7BCA08E238484A6F3150C60 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				649CC83959EBCC3FC1BA5BD7 /* Pods-MLS.debug.xcconfig */,
-				3CEE6C114FC8DAA26151F930 /* Pods-MLS.release.xcconfig */,
-				F8D82991A46B6FA4DE420B49 /* Pods-MLS-tvOS.debug.xcconfig */,
-				60EE2C2CEC9ACCD56ACD3238 /* Pods-MLS-tvOS.release.xcconfig */,
+				644F57AE545E9020E3F9CB3E /* Pods-MLS.debug.xcconfig */,
+				19D1480ED54018D6F809CDC6 /* Pods-MLS.release.xcconfig */,
+				4FA838346310A9F68968FBEB /* Pods-MLS-tvOS.debug.xcconfig */,
+				41D109EF593E66EAFB15B0E0 /* Pods-MLS-tvOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -175,11 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6418F6F5246951070013A9EE /* Build configuration list for PBXNativeTarget "MLS" */;
 			buildPhases = (
-				724799825B13CC5C65B5391C /* [CP] Check Pods Manifest.lock */,
+				BF4FE7774BA320162D6E07A2 /* [CP] Check Pods Manifest.lock */,
 				6418F6D2246951050013A9EE /* Sources */,
 				6418F6D3246951050013A9EE /* Frameworks */,
 				6418F6D4246951050013A9EE /* Resources */,
-				0B8D78ACEECA2B67473ABE70 /* [CP] Embed Pods Frameworks */,
+				D6FDD13650DD1ABD95E05D1F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -194,11 +194,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 643B5EC6247BE93B00A46A77 /* Build configuration list for PBXNativeTarget "MLS-tvOS" */;
 			buildPhases = (
-				3FE20D896E3784667327B1B8 /* [CP] Check Pods Manifest.lock */,
+				5D0C08298F24A98DF07FDAE5 /* [CP] Check Pods Manifest.lock */,
 				643B5EB3247BE93900A46A77 /* Sources */,
 				643B5EB4247BE93900A46A77 /* Frameworks */,
 				643B5EB5247BE93900A46A77 /* Resources */,
-				3A5862F7AD8D27399496D95D /* [CP] Embed Pods Frameworks */,
+				AC8A01299C6C6743E680AF19 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -276,41 +276,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B8D78ACEECA2B67473ABE70 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3A5862F7AD8D27399496D95D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3FE20D896E3784667327B1B8 /* [CP] Check Pods Manifest.lock */ = {
+		5D0C08298F24A98DF07FDAE5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -332,7 +298,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		724799825B13CC5C65B5391C /* [CP] Check Pods Manifest.lock */ = {
+		AC8A01299C6C6743E680AF19 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF4FE7774BA320162D6E07A2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -352,6 +335,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6FDD13650DD1ABD95E05D1F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -532,7 +532,7 @@
 		};
 		6418F6F6246951070013A9EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 649CC83959EBCC3FC1BA5BD7 /* Pods-MLS.debug.xcconfig */;
+			baseConfigurationReference = 644F57AE545E9020E3F9CB3E /* Pods-MLS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -552,7 +552,7 @@
 		};
 		6418F6F7246951070013A9EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3CEE6C114FC8DAA26151F930 /* Pods-MLS.release.xcconfig */;
+			baseConfigurationReference = 19D1480ED54018D6F809CDC6 /* Pods-MLS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -572,7 +572,7 @@
 		};
 		643B5EC7247BE93B00A46A77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F8D82991A46B6FA4DE420B49 /* Pods-MLS-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 4FA838346310A9F68968FBEB /* Pods-MLS-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				CODE_SIGN_STYLE = Automatic;
@@ -595,7 +595,7 @@
 		};
 		643B5EC8247BE93B00A46A77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60EE2C2CEC9ACCD56ACD3238 /* Pods-MLS-tvOS.release.xcconfig */;
+			baseConfigurationReference = 41D109EF593E66EAFB15B0E0 /* Pods-MLS-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				CODE_SIGN_STYLE = Automatic;
