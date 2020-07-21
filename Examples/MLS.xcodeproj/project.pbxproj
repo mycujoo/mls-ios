@@ -119,7 +119,7 @@
 				4943B96D24C6F2610006F81C /* iOS */,
 				643B5EB8247BE93900A46A77 /* tvOS */,
 			);
-			path = Examples;
+			name = Examples;
 			sourceTree = "<group>";
 		};
 		643B5EB8247BE93900A46A77 /* tvOS */ = {
