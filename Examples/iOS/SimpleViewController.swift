@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import MLSComponent
+import MLSSDK
 
 class SimpleViewController: UIViewController {
 

@@ -1042,7 +1042,8 @@
 		6477C4302469552A0033435D = {
 			isa = PBXGroup;
 			children = (
-				6477C43C2469552A0033435D /* MLSSDK */,
+				64CACD51249A367100CEE111 /* Sources */,
+				64FDE300249A177C00E6510D /* Support Files */,
 				6477C43B2469552A0033435D /* Products */,
 				38E3DB3D8BFEFB8CAF7A545C /* Pods */,
 				9D6E2BB4D90E230C4BDE83E8 /* Frameworks */,
@@ -1056,15 +1057,6 @@
 				64FDE308249A189000E6510D /* MLSSDK.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6477C43C2469552A0033435D /* MLSSDK */ = {
-			isa = PBXGroup;
-			children = (
-				64CACD51249A367100CEE111 /* Sources */,
-				64FDE300249A177C00E6510D /* Support Files */,
-			);
-			path = MLSSDK;
 			sourceTree = "<group>";
 		};
 		6496C3452492308D0099475D /* Models */ = {
@@ -1866,7 +1858,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/MLSSDK/Support Files/iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Support Files/iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1895,7 +1887,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/MLSSDK/Support Files/iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Support Files/iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1922,7 +1914,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/MLSSDK/Support Files/tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Support Files/tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1949,7 +1941,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/MLSSDK/Support Files/tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Support Files/tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

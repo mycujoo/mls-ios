@@ -1,7 +1,7 @@
 /* 
   Localizable.strings
-  MLSComponent
+  MLSSDK
 
   Copyright © 2020 mycujoo. All rights reserved.
 */
-"LIVE" = "AO VIVO";
+"LIVE" = "LANGSUNG";

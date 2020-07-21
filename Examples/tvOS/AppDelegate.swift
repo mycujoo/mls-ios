@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-import MLSComponent
+import MLSSDK
 class ViewController: UIViewController {
 
     private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())

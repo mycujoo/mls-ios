@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import MLSComponent
+import MLSSDK
 import AVKit
 
 class WithPictureInPictureViewController: UIViewController {
