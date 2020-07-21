@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Services/APIServicing.swift at 2020-07-21 21:59:04 +0000
+// MARK: - Mocks generated from file: Sources/Services/APIServicing.swift at 2020-07-21 22:17:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -190,7 +190,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Services/AnnotationServicing.swift at 2020-07-21 21:59:04 +0000
+// MARK: - Mocks generated from file: Sources/Services/AnnotationServicing.swift at 2020-07-21 22:17:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

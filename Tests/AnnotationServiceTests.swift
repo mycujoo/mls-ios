@@ -9,48 +9,40 @@ import Cuckoo
 class AnnotationServiceTests: XCTestCase {
 
     var annotationService: AnnotationService!
+    var annotationActions: [AnnotationAction]!
 
     var currentTestName: String {
-        // get the name and remove the class name and what comes before the class name
-        var currentTestName = self.name.replacingOccurrences(of: "-[AnnotationServiceTests ", with: "")
-
-        // And then you'll need to remove the closing square bracket at the end of the test name
-
-        currentTestName = currentTestName.replacingOccurrences(of: "]", with: "")
+        return self.name.replacingOccurrences(of: "-[AnnotationServiceTests ", with: "").replacingOccurrences(of: "]", with: "")
     }
 
     override func setUpWithError() throws {
         annotationService = AnnotationService()
+        annotationActions = makeAnnotationActionsFromJSON()
     }
 
     override func tearDownWithError() throws {
     }
 
     func testAnnotationService_basic() throws {
-        print("Running basic stuff:", self.name)
-
-
+        
     }
 
 }
 
 extension AnnotationServiceTests {
-//    private func makeAnnotationActionsFrom(jsonName: String) -> [AnnotationAction] {
-//        if let path = Bundle.main.path(forResource: "test", ofType: "json") {
-//            do {
-//                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-//
-//            } catch {
-//                print("Caught", error)
-//                return []
-//            }
-//        }
-//
-//
-//
-//        let decoder = JSONDecoder()
-//        let _ = (try? decoder.decode(AnnotationActionWrapper.self, from: Data()))
-//
-//        return []
-//    }
+    /// Makes AnnotationAction objects from a JSON file. If no jsonFileName is provided, the test name is used as the JSON file name.
+    private func makeAnnotationActionsFromJSON(jsonFileName: String? = nil) -> [AnnotationAction] {
+        if let path = Bundle(for: type(of: self)).path(forResource: (jsonFileName ?? currentTestName), ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+
+                let decoder = JSONDecoder()
+                let decoded = (try? decoder.decode(AnnotationActionWrapper.self, from: data))
+
+                return decoded?.actions ?? []
+            } catch {}
+        }
+
+        return []
+    }
 }
