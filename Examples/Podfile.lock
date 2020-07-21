@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (5.2.1)
+  - Cuckoo (1.4.1):
+    - Cuckoo/Swift (= 1.4.1)
+  - Cuckoo/Swift (1.4.1)
   - MLSSDK (0.0.1):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
@@ -17,6 +20,7 @@ PODS:
   - YouboraLib (6.5.27)
 
 DEPENDENCIES:
+  - Cuckoo (~> 1.4)
   - MLSSDK (from `..`)
   - Moya (~> 14.0)
   - YouboraAVPlayerAdapter
@@ -25,6 +29,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Cuckoo
     - Moya
     - YouboraAVPlayerAdapter
     - YouboraLib
@@ -35,11 +40,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  Cuckoo: 4625f7f54d9bb880123270e8969898d6c1d036b5
   MLSSDK: 7e122f13eae3bbea6215d25fd35b7baf188a8001
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: 3d0861ceb61b25dbaeaa846368d2de6714c3e42d
+PODFILE CHECKSUM: cc1c16a3799dca1c60c07bb26043e1ca21190661
 
 COCOAPODS: 1.9.3

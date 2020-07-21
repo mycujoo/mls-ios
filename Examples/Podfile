@@ -24,12 +24,22 @@ end
 
 # // MARK: - Tests
 
+target 'Tests' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
+  pod 'Cuckoo', '~> 1.4'
+end
+
 target 'iOSTests' do
   platform :ios, '11.0'
   project '../MLSSDK.xcodeproj'
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
+  pod 'Cuckoo', '~> 1.4'
 end
 
 target 'tvOSTests' do
@@ -38,6 +48,7 @@ target 'tvOSTests' do
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
+  pod 'Cuckoo', '~> 1.4'
 end
 
 # // MARK: - Example projects
