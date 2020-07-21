@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D58641219EAD23159B77E00BF7AF2BF7"
-               BuildableName = "MLSComponent.framework"
-               BlueprintName = "MLSComponent-tvOS"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+               BlueprintIdentifier = "64FDE307249A189000E6510D"
+               BuildableName = "MLSSDK.framework"
+               BlueprintName = "MLSSDK-tvOS"
+               ReferencedContainer = "container:../MLSSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
