@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6477C4392469552A0033435D"
-               BuildableName = "MLSComponent.framework"
-               BlueprintName = "MLSComponent-iOS"
-               ReferencedContainer = "container:MLSComponent.xcodeproj">
+               BuildableName = "MLSSDK.framework"
+               BlueprintName = "MLSSDK-iOS"
+               ReferencedContainer = "container:MLSSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6477C4392469552A0033435D"
-            BuildableName = "MLSComponent.framework"
-            BlueprintName = "MLSComponent-iOS"
-            ReferencedContainer = "container:MLSComponent.xcodeproj">
+            BuildableName = "MLSSDK.framework"
+            BlueprintName = "MLSSDK-iOS"
+            ReferencedContainer = "container:MLSSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -6,17 +6,17 @@ use_frameworks!
 
 # // MARK: - Frameworks
 
-target 'MLSComponent-iOS' do
+target 'MLSSDK-iOS' do
   platform :ios, '11.0'
-  project 'MLSComponent/MLSComponent.xcodeproj'
+  project 'MLSSDK/MLSSDK.xcodeproj'
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
 end
 
-target 'MLSComponent-tvOS' do
+target 'MLSSDK-tvOS' do
   platform :tvos, '11.0'
-  project 'MLSComponent/MLSComponent.xcodeproj'
+  project 'MLSSDK/MLSSDK.xcodeproj'
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
@@ -26,10 +26,10 @@ end
 
 target 'MLS' do
   platform :ios, '11.0'
-  pod 'MLSComponent', :path => 'MLSComponent'
+  pod 'MLSSDK', :path => 'MLSSDK'
 end
 
 target 'MLS-tvOS' do
   platform :tvos, '11.0'
-  pod 'MLSComponent', :path => 'MLSComponent'
+  pod 'MLSSDK', :path => 'MLSSDK'
 end

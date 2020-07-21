@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
 
-  spec.name         = "MLSComponent"
+  spec.name         = "MLSSDK"
   spec.version      = "0.0.1"
   spec.summary      = "An SDK for MLS (MyCujoo Live Services) to help build an amazing video experience"
   spec.description  = "An SDK for MLS (MyCujoo Live Services) to help build an amazing video experience"
@@ -10,12 +10,12 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = "11.0"
   spec.tvos.deployment_target = "11.0"
   spec.source       = { :git => "git@github.com:mycujoo/mls-ios.git", :tag => "#{spec.name}-#{spec.version}" }
-  spec.source_files  = "MLSComponent/Sources/**/*.swift"
+  spec.source_files  = "MLSSDK/Sources/**/*.swift"
   spec.ios.resource_bundles = {
-    'MLSResources' => ["MLSComponent/Sources/Resources/**/*.{xcassets,strings}"]
+    'MLSResources' => ["MLSSDK/Sources/Resources/**/*.{xcassets,strings}"]
   }
   spec.tvos.resource_bundles = {
-    'MLSResources' => ["MLSComponent/Sources/Resources/**/*.{strings}"]
+    'MLSResources' => ["MLSSDK/Sources/Resources/**/*.{strings}"]
   }
   spec.frameworks = "Foundation", "AVFoundation", "UIKit"
 
