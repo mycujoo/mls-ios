@@ -545,7 +545,6 @@
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
 		49EFD24C249E0CC700ED417B /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6477C43E2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimelineMarkerAction.swift; sourceTree = "<group>"; };
 		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
@@ -972,6 +971,14 @@
 			path = SWXMLHash;
 			sourceTree = "<group>";
 		};
+		49AE76F824C720AE00E40C41 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				64FDE30B249A189100E6510D /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
 		49C12D5D24A3B109002CCDF5 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,7 +1031,6 @@
 			children = (
 				4989B1F2249D74E4006CBB47 /* Resources */,
 				64CACD51249A367100CEE111 /* Sources */,
-				64FDE300249A177C00E6510D /* Support Files */,
 				6477C43B2469552A0033435D /* Products */,
 				A039FBE77729821837C57285 /* Pods */,
 				648C53CDAEBB80435B3832A7 /* Frameworks */,
@@ -1103,6 +1109,7 @@
 		64CACD51249A367100CEE111 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				49AE76F824C720AE00E40C41 /* Support Files */,
 				49DD229424B793C000A4CFF2 /* Services */,
 				495CB131249CC4F800998FF4 /* Utils */,
 				49E59023249BC7EE001E0C1C /* Networking */,
@@ -1123,31 +1130,6 @@
 				6496C3522492308D0099475D /* VideoPlayer.swift */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		64FDE300249A177C00E6510D /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				64FDE302249A183C00E6510D /* tvOS */,
-				64FDE301249A178800E6510D /* iOS */,
-			);
-			path = "Support Files";
-			sourceTree = "<group>";
-		};
-		64FDE301249A178800E6510D /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				6477C43E2469552A0033435D /* Info.plist */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		64FDE302249A183C00E6510D /* tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				64FDE30B249A189100E6510D /* Info.plist */,
-			);
-			path = tvOS;
 			sourceTree = "<group>";
 		};
 		A039FBE77729821837C57285 /* Pods */ = {
@@ -1850,7 +1832,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1879,7 +1861,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1906,7 +1888,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1933,7 +1915,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
