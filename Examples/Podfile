@@ -1,0 +1,35 @@
+use_frameworks!
+inhibit_all_warnings!
+source 'https://cdn.cocoapods.org/'
+workspace 'MLS'
+use_frameworks!
+
+# // MARK: - Frameworks
+
+target 'MLSSDK-iOS' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
+end
+
+target 'MLSSDK-tvOS' do
+  platform :tvos, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
+end
+
+# // MARK: - Example projects
+
+target 'MLS' do
+  platform :ios, '11.0'
+  pod 'MLSSDK', :path => '..'
+end
+
+target 'MLS-tvOS' do
+  platform :tvos, '11.0'
+  pod 'MLSSDK', :path => '..'
+end

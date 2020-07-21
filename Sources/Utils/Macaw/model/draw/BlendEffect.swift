@@ -1,0 +1,3 @@
+class BlendEffect: Effect {
+
+}
