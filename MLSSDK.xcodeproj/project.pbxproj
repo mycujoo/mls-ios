@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -345,6 +345,10 @@
 		49E59026249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59028249BCA5B001E0C1C /* AnnotationAction.swift */; };
 		49E5902A249BCA5B001E0C1C /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59028249BCA5B001E0C1C /* AnnotationAction.swift */; };
+		49EA069524C72CE100C7AB10 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA069424C72CE100C7AB10 /* iOSTests.swift */; };
+		49EA069724C72CE100C7AB10 /* MLSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6477C43A2469552A0033435D /* MLSSDK.framework */; platformFilter = ios; };
+		49EA06A424C72D0E00C7AB10 /* tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */; };
+		49EA06A624C72D0F00C7AB10 /* MLSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64FDE308249A189000E6510D /* MLSSDK.framework */; };
 		49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EFD24C249E0CC700ED417B /* Bundle+.swift */; };
 		49EFD24E249E0CC700ED417B /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EFD24C249E0CC700ED417B /* Bundle+.swift */; };
 		641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
@@ -363,6 +367,23 @@
 		9DBE39528421ABA8D5E45F6C /* Pods_MLSSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDEF3DF5400D6F472DCFE39 /* Pods_MLSSDK_iOS.framework */; };
 		DCE4CEC9FA18B65267627580 /* Pods_MLSSDK_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		49EA069824C72CE100C7AB10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6477C4312469552A0033435D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6477C4392469552A0033435D;
+			remoteInfo = "MLSSDK-iOS";
+		};
+		49EA06A724C72D0F00C7AB10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6477C4312469552A0033435D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64FDE307249A189000E6510D;
+			remoteInfo = "MLSSDK-tvOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1BDD372F0E9EE3C4F60F4EB4 /* Pods-MLSSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-iOS/Pods-MLSSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -545,6 +566,12 @@
 		49E2DF1124A55B5400750C00 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
+		49EA069224C72CE100C7AB10 /* iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49EA069424C72CE100C7AB10 /* iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTests.swift; sourceTree = "<group>"; };
+		49EA069624C72CE100C7AB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49EA06A124C72D0E00C7AB10 /* tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tvOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOSTests.swift; sourceTree = "<group>"; };
+		49EA06A524C72D0F00C7AB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49EFD24C249E0CC700ED417B /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
 		58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -563,6 +590,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		49EA068F24C72CE100C7AB10 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49EA069724C72CE100C7AB10 /* MLSSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49EA069E24C72D0E00C7AB10 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49EA06A624C72D0F00C7AB10 /* MLSSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6477C4372469552A0033435D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1038,11 +1081,31 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		49EA069324C72CE100C7AB10 /* iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				49EA069424C72CE100C7AB10 /* iOSTests.swift */,
+				49EA069624C72CE100C7AB10 /* Info.plist */,
+			);
+			path = iOSTests;
+			sourceTree = "<group>";
+		};
+		49EA06A224C72D0E00C7AB10 /* tvOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */,
+				49EA06A524C72D0F00C7AB10 /* Info.plist */,
+			);
+			path = tvOSTests;
+			sourceTree = "<group>";
+		};
 		6477C4302469552A0033435D = {
 			isa = PBXGroup;
 			children = (
 				4989B1F2249D74E4006CBB47 /* Resources */,
 				64CACD51249A367100CEE111 /* Sources */,
+				49EA069324C72CE100C7AB10 /* iOSTests */,
+				49EA06A224C72D0E00C7AB10 /* tvOSTests */,
 				6477C43B2469552A0033435D /* Products */,
 				42CE5821E6C80041DCC9C72A /* Pods */,
 				A8A2BFE9BAE337AC6B1B4006 /* Frameworks */,
@@ -1054,6 +1117,8 @@
 			children = (
 				6477C43A2469552A0033435D /* MLSSDK.framework */,
 				64FDE308249A189000E6510D /* MLSSDK.framework */,
+				49EA069224C72CE100C7AB10 /* iOSTests.xctest */,
+				49EA06A124C72D0E00C7AB10 /* tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1164,6 +1229,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		49EA069124C72CE100C7AB10 /* iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49EA069C24C72CE100C7AB10 /* Build configuration list for PBXNativeTarget "iOSTests" */;
+			buildPhases = (
+				49EA068E24C72CE100C7AB10 /* Sources */,
+				49EA068F24C72CE100C7AB10 /* Frameworks */,
+				49EA069024C72CE100C7AB10 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49EA069924C72CE100C7AB10 /* PBXTargetDependency */,
+			);
+			name = iOSTests;
+			productName = iOSTests;
+			productReference = 49EA069224C72CE100C7AB10 /* iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		49EA06A024C72D0E00C7AB10 /* tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49EA06A924C72D0F00C7AB10 /* Build configuration list for PBXNativeTarget "tvOSTests" */;
+			buildPhases = (
+				49EA069D24C72D0E00C7AB10 /* Sources */,
+				49EA069E24C72D0E00C7AB10 /* Frameworks */,
+				49EA069F24C72D0E00C7AB10 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49EA06A824C72D0F00C7AB10 /* PBXTargetDependency */,
+			);
+			name = tvOSTests;
+			productName = tvOSTests;
+			productReference = 49EA06A124C72D0E00C7AB10 /* tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6477C4392469552A0033435D /* MLSSDK-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6477C44E2469552A0033435D /* Build configuration list for PBXNativeTarget "MLSSDK-iOS" */;
@@ -1208,10 +1309,16 @@
 		6477C4312469552A0033435D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = mycujoo;
 				TargetAttributes = {
+					49EA069124C72CE100C7AB10 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					49EA06A024C72D0E00C7AB10 = {
+						CreatedOnToolsVersion = 11.6;
+					};
 					6477C4392469552A0033435D = {
 						CreatedOnToolsVersion = 11.4.1;
 						LastSwiftMigration = 1140;
@@ -1243,11 +1350,27 @@
 			targets = (
 				6477C4392469552A0033435D /* MLSSDK-iOS */,
 				64FDE307249A189000E6510D /* MLSSDK-tvOS */,
+				49EA069124C72CE100C7AB10 /* iOSTests */,
+				49EA06A024C72D0E00C7AB10 /* tvOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		49EA069024C72CE100C7AB10 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49EA069F24C72D0E00C7AB10 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6477C4382469552A0033435D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1315,6 +1438,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		49EA068E24C72CE100C7AB10 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49EA069524C72CE100C7AB10 /* iOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49EA069D24C72D0E00C7AB10 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49EA06A424C72D0E00C7AB10 /* tvOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6477C4362469552A0033435D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1681,6 +1820,20 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		49EA069924C72CE100C7AB10 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 6477C4392469552A0033435D /* MLSSDK-iOS */;
+			targetProxy = 49EA069824C72CE100C7AB10 /* PBXContainerItemProxy */;
+		};
+		49EA06A824C72D0F00C7AB10 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64FDE307249A189000E6510D /* MLSSDK-tvOS */;
+			targetProxy = 49EA06A724C72D0F00C7AB10 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		49A73D5424ABD2C5009CD2DF /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -1701,6 +1854,84 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		49EA069A24C72CE100C7AB10 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C99B648ZLJ;
+				INFOPLIST_FILE = iOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK.iOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		49EA069B24C72CE100C7AB10 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C99B648ZLJ;
+				INFOPLIST_FILE = iOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK.iOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		49EA06AA24C72D0F00C7AB10 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C99B648ZLJ;
+				INFOPLIST_FILE = tvOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK.tvOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.4;
+			};
+			name = Debug;
+		};
+		49EA06AB24C72D0F00C7AB10 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C99B648ZLJ;
+				INFOPLIST_FILE = tvOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK.tvOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.4;
+			};
+			name = Release;
+		};
 		6477C44C2469552A0033435D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1935,6 +2166,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		49EA069C24C72CE100C7AB10 /* Build configuration list for PBXNativeTarget "iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49EA069A24C72CE100C7AB10 /* Debug */,
+				49EA069B24C72CE100C7AB10 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49EA06A924C72D0F00C7AB10 /* Build configuration list for PBXNativeTarget "tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49EA06AA24C72D0F00C7AB10 /* Debug */,
+				49EA06AB24C72D0F00C7AB10 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6477C4342469552A0033435D /* Build configuration list for PBXProject "MLSSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
