@@ -5,12 +5,6 @@
 import Foundation
 import Moya
 
-protocol APIServicing {
-    func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ())
-    func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())
-    func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())
-    func fetchPlayerConfig(byEventId eventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())
-}
 
 class APIService: APIServicing {
     private let api: MoyaProvider<API>
