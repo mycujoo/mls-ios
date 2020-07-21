@@ -18,13 +18,35 @@ class AnnotationServiceTests: XCTestCase {
     override func setUpWithError() throws {
         annotationService = AnnotationService()
         annotationActions = makeAnnotationActionsFromJSON()
+
+        continueAfterFailure = false
     }
 
     override func tearDownWithError() throws {
     }
 
-    func testAnnotationService_basic() throws {
-        
+    func testAnnotationService_timelineMarkers() throws {
+        let expectation = XCTestExpectation(description: "Timeline markers are included in response")
+
+        let input = AnnotationService.EvaluationInput(
+            actions: annotationActions,
+            activeOverlayIds: Set(),
+            currentTime: 10,
+            currentDuration: 20)
+
+        annotationService.evaluate(input) { (output) in
+            XCTAssertEqual(output.showTimelineMarkers.count, 2)
+            XCTAssertEqual(output.showTimelineMarkers[0].position, 0.25)
+            XCTAssertEqual(output.showTimelineMarkers[1].position, 0.75)
+            XCTAssertEqual(output.showTimelineMarkers[0].timelineMarker.color, UIColor(hex: "#ffffff"))
+            XCTAssertEqual(output.showTimelineMarkers[1].timelineMarker.color, UIColor(hex: "#cccccc"))
+
+            output.showTimelineMarkers[0].position
+
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 1.0)
     }
 
 }
