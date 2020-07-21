@@ -1,0 +1,45 @@
+PODS:
+  - Alamofire (5.2.1)
+  - MLSSDK (0.0.1):
+    - Alamofire (~> 5.0)
+    - Moya (~> 14.0)
+    - YouboraAVPlayerAdapter
+    - YouboraLib
+  - Moya (14.0.0):
+    - Moya/Core (= 14.0.0)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - YouboraAVPlayerAdapter (6.5.17):
+    - YouboraAVPlayerAdapter/Default (= 6.5.17)
+    - YouboraLib (~> 6.5.19)
+  - YouboraAVPlayerAdapter/Default (6.5.17):
+    - YouboraLib (~> 6.5.19)
+  - YouboraLib (6.5.27)
+
+DEPENDENCIES:
+  - MLSSDK (from `..`)
+  - Moya (~> 14.0)
+  - YouboraAVPlayerAdapter
+  - YouboraLib
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Moya
+    - YouboraAVPlayerAdapter
+    - YouboraLib
+
+EXTERNAL SOURCES:
+  MLSSDK:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  MLSSDK: d6678a7a7c3b8501ec5788fb58afbc9c7dfd79b6
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
+  YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
+
+PODFILE CHECKSUM: 9e16bd77e39b20c48dd7d43fda84f3245f244b24
+
+COCOAPODS: 1.9.3
