@@ -3,3 +3,8 @@
 //
 
 import Foundation
+
+
+protocol AnnotationServicing {
+    func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())
+}

@@ -3,6 +3,8 @@
 //
 
 import XCTest
+@testable import MLSSDK
+import Cuckoo
 
 class iOSTests: XCTestCase {
 
