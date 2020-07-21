@@ -5,7 +5,7 @@
       location = "group:MLS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MLSComponent/MLSSDK.xcodeproj">
+      location = "group:MLSSDK/MLSSDK.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

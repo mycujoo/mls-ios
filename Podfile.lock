@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (5.2.1)
-  - MLSComponent (0.0.1):
+  - MLSSDK (0.0.1):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - YouboraAVPlayerAdapter
@@ -17,7 +17,7 @@ PODS:
   - YouboraLib (6.5.27)
 
 DEPENDENCIES:
-  - MLSComponent (from `MLSComponent`)
+  - MLSSDK (from `MLSSDK`)
   - Moya (~> 14.0)
   - YouboraAVPlayerAdapter
   - YouboraLib
@@ -30,16 +30,16 @@ SPEC REPOS:
     - YouboraLib
 
 EXTERNAL SOURCES:
-  MLSComponent:
-    :path: MLSComponent
+  MLSSDK:
+    :path: MLSSDK
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
-  MLSComponent: 22f90179bf80046900c6d062be0f7a0b0d7e6c08
+  MLSSDK: 36b2f13030b45d365b87bea6c72abb584664b91c
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: 5dcff02b4faa95cc276d652dae8c41f1120d33cb
+PODFILE CHECKSUM: 5b6f2e4cbfb206744d4662d38e8411c3bcb95b47
 
 COCOAPODS: 1.9.3
