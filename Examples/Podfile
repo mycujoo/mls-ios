@@ -22,6 +22,35 @@ target 'MLSSDK-tvOS' do
   pod 'Moya', '~> 14.0'
 end
 
+# // MARK: - Tests
+
+target 'Tests' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
+  pod 'Cuckoo', '~> 1.4'
+end
+
+target 'iOSTests' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
+  pod 'Cuckoo', '~> 1.4'
+end
+
+target 'tvOSTests' do
+  platform :tvos, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'YouboraLib'
+  pod 'YouboraAVPlayerAdapter'
+  pod 'Moya', '~> 14.0'
+  pod 'Cuckoo', '~> 1.4'
+end
+
 # // MARK: - Example projects
 
 target 'MLS' do

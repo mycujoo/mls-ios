@@ -134,7 +134,7 @@ public class VideoPlayerView: UIView  {
         button.layer.cornerRadius = 2
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .bold)
         button.titleLabel?.textColor = .white
-        button.isHidden = true
+        button.alpha = 0
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
         return button
     }()

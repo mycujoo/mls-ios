@@ -1,0 +1,22 @@
+{
+    "actions": [
+        {
+            "data": {
+                "color": "#ffffff",
+                "label": "Kickoff"
+            },
+            "offset": 5000,
+            "id": "f4354364q6afd",
+            "type": "show_timeline_marker"
+        },
+        {
+            "data": {
+                "color": "#cccccc",
+                "label": "Second half"
+            },
+            "offset": 15000,
+            "id": "fda43t943f3c",
+            "type": "show_timeline_marker"
+        }
+    ]
+}
