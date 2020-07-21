@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E047579E1A363E766B3763F /* Pods_MLSSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1BE50BB05128ACA001ACB0 /* Pods_MLSSDK_iOS.framework */; };
 		4912850824B79BC300FFCA95 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912850724B79BC300FFCA95 /* APIService.swift */; };
 		4912850924B79BC300FFCA95 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912850724B79BC300FFCA95 /* APIService.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
@@ -361,10 +360,13 @@
 		64FDE310249A191400E6510D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
 		64FDE315249A191B00E6510D /* ShowTimelineMarkerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */; };
-		F857B449B6ED2504153AD0E4 /* Pods_MLSSDK_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1244677A9B6E3228C299909 /* Pods_MLSSDK_tvOS.framework */; };
+		9DBE39528421ABA8D5E45F6C /* Pods_MLSSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDEF3DF5400D6F472DCFE39 /* Pods_MLSSDK_iOS.framework */; };
+		DCE4CEC9FA18B65267627580 /* Pods_MLSSDK_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1BDD372F0E9EE3C4F60F4EB4 /* Pods-MLSSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-iOS/Pods-MLSSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4890C55696297F99AD58AE02 /* Pods-MLSSDK-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		4912850724B79BC300FFCA95 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
@@ -544,8 +546,8 @@
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
 		49EFD24C249E0CC700ED417B /* Bundle+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+.swift"; sourceTree = "<group>"; };
+		58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6477C43E2469552A0033435D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C34B2492308D0099475D /* ShowTimelineMarkerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimelineMarkerAction.swift; sourceTree = "<group>"; };
 		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
@@ -555,12 +557,9 @@
 		6496C3542492308D0099475D /* VideoPlayStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayStatus.swift; sourceTree = "<group>"; };
 		64FDE308249A189000E6510D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64FDE30B249A189100E6510D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		72851C70F34ABF749977215A /* Pods-MLSSDK-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-iOS/Pods-MLSSDK-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		92BC5BBC5CE53A72A4E69F76 /* Pods-MLSSDK-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		9BE4561991A81A7F3DB1AA78 /* Pods-MLSSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-iOS/Pods-MLSSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		9CB8055BC39D3218797C9CAB /* Pods-MLSSDK-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		B1244677A9B6E3228C299909 /* Pods_MLSSDK_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE1BE50BB05128ACA001ACB0 /* Pods_MLSSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EDEF3DF5400D6F472DCFE39 /* Pods_MLSSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8AB27DF91887301D03D88B7 /* Pods-MLSSDK-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		D11CB1A7ADB2288F4D10EEDF /* Pods-MLSSDK-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-iOS/Pods-MLSSDK-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -568,7 +567,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E047579E1A363E766B3763F /* Pods_MLSSDK_iOS.framework in Frameworks */,
+				9DBE39528421ABA8D5E45F6C /* Pods_MLSSDK_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,13 +575,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F857B449B6ED2504153AD0E4 /* Pods_MLSSDK_tvOS.framework in Frameworks */,
+				DCE4CEC9FA18B65267627580 /* Pods_MLSSDK_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42CE5821E6C80041DCC9C72A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1BDD372F0E9EE3C4F60F4EB4 /* Pods-MLSSDK-iOS.debug.xcconfig */,
+				D11CB1A7ADB2288F4D10EEDF /* Pods-MLSSDK-iOS.release.xcconfig */,
+				A8AB27DF91887301D03D88B7 /* Pods-MLSSDK-tvOS.debug.xcconfig */,
+				4890C55696297F99AD58AE02 /* Pods-MLSSDK-tvOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Examples/Pods;
+			sourceTree = "<group>";
+		};
 		4943B95824C6F08A0006F81C /* NVActivityIndicatorView */ = {
 			isa = PBXGroup;
 			children = (
@@ -972,6 +983,14 @@
 			path = SWXMLHash;
 			sourceTree = "<group>";
 		};
+		49AE76F824C720AE00E40C41 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				64FDE30B249A189100E6510D /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
 		49C12D5D24A3B109002CCDF5 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,10 +1043,9 @@
 			children = (
 				4989B1F2249D74E4006CBB47 /* Resources */,
 				64CACD51249A367100CEE111 /* Sources */,
-				64FDE300249A177C00E6510D /* Support Files */,
 				6477C43B2469552A0033435D /* Products */,
-				A039FBE77729821837C57285 /* Pods */,
-				648C53CDAEBB80435B3832A7 /* Frameworks */,
+				42CE5821E6C80041DCC9C72A /* Pods */,
+				A8A2BFE9BAE337AC6B1B4006 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1038,15 +1056,6 @@
 				64FDE308249A189000E6510D /* MLSSDK.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		648C53CDAEBB80435B3832A7 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EE1BE50BB05128ACA001ACB0 /* Pods_MLSSDK_iOS.framework */,
-				B1244677A9B6E3228C299909 /* Pods_MLSSDK_tvOS.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6496C3452492308D0099475D /* Models */ = {
@@ -1103,6 +1112,7 @@
 		64CACD51249A367100CEE111 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				49AE76F824C720AE00E40C41 /* Support Files */,
 				49DD229424B793C000A4CFF2 /* Services */,
 				495CB131249CC4F800998FF4 /* Utils */,
 				49E59023249BC7EE001E0C1C /* Networking */,
@@ -1125,41 +1135,13 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		64FDE300249A177C00E6510D /* Support Files */ = {
+		A8A2BFE9BAE337AC6B1B4006 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				64FDE302249A183C00E6510D /* tvOS */,
-				64FDE301249A178800E6510D /* iOS */,
+				6EDEF3DF5400D6F472DCFE39 /* Pods_MLSSDK_iOS.framework */,
+				58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */,
 			);
-			path = "Support Files";
-			sourceTree = "<group>";
-		};
-		64FDE301249A178800E6510D /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				6477C43E2469552A0033435D /* Info.plist */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		64FDE302249A183C00E6510D /* tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				64FDE30B249A189100E6510D /* Info.plist */,
-			);
-			path = tvOS;
-			sourceTree = "<group>";
-		};
-		A039FBE77729821837C57285 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9BE4561991A81A7F3DB1AA78 /* Pods-MLSSDK-iOS.debug.xcconfig */,
-				72851C70F34ABF749977215A /* Pods-MLSSDK-iOS.release.xcconfig */,
-				9CB8055BC39D3218797C9CAB /* Pods-MLSSDK-tvOS.debug.xcconfig */,
-				92BC5BBC5CE53A72A4E69F76 /* Pods-MLSSDK-tvOS.release.xcconfig */,
-			);
-			name = Pods;
-			path = Examples/Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1186,7 +1168,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6477C44E2469552A0033435D /* Build configuration list for PBXNativeTarget "MLSSDK-iOS" */;
 			buildPhases = (
-				EB7D1AA1C87E0EC2B180A719 /* [CP] Check Pods Manifest.lock */,
+				C6A0DF016FE2C4B5DB5C8F29 /* [CP] Check Pods Manifest.lock */,
 				6477C4352469552A0033435D /* Headers */,
 				6477C4362469552A0033435D /* Sources */,
 				6477C4372469552A0033435D /* Frameworks */,
@@ -1205,7 +1187,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64FDE30D249A189100E6510D /* Build configuration list for PBXNativeTarget "MLSSDK-tvOS" */;
 			buildPhases = (
-				AEA648BD5C762741BAFC8406 /* [CP] Check Pods Manifest.lock */,
+				214FE6A9B355F65CAE99728E /* [CP] Check Pods Manifest.lock */,
 				64FDE303249A189000E6510D /* Headers */,
 				64FDE304249A189000E6510D /* Sources */,
 				64FDE305249A189000E6510D /* Frameworks */,
@@ -1286,7 +1268,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		AEA648BD5C762741BAFC8406 /* [CP] Check Pods Manifest.lock */ = {
+		214FE6A9B355F65CAE99728E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1308,7 +1290,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EB7D1AA1C87E0EC2B180A719 /* [CP] Check Pods Manifest.lock */ = {
+		C6A0DF016FE2C4B5DB5C8F29 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1841,7 +1823,7 @@
 		};
 		6477C44F2469552A0033435D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BE4561991A81A7F3DB1AA78 /* Pods-MLSSDK-iOS.debug.xcconfig */;
+			baseConfigurationReference = 1BDD372F0E9EE3C4F60F4EB4 /* Pods-MLSSDK-iOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1850,7 +1832,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1870,7 +1852,7 @@
 		};
 		6477C4502469552A0033435D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72851C70F34ABF749977215A /* Pods-MLSSDK-iOS.release.xcconfig */;
+			baseConfigurationReference = D11CB1A7ADB2288F4D10EEDF /* Pods-MLSSDK-iOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1879,7 +1861,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1898,7 +1880,7 @@
 		};
 		64FDE30E249A189100E6510D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CB8055BC39D3218797C9CAB /* Pods-MLSSDK-tvOS.debug.xcconfig */;
+			baseConfigurationReference = A8AB27DF91887301D03D88B7 /* Pods-MLSSDK-tvOS.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1906,7 +1888,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1925,7 +1907,7 @@
 		};
 		64FDE30F249A189100E6510D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92BC5BBC5CE53A72A4E69F76 /* Pods-MLSSDK-tvOS.release.xcconfig */;
+			baseConfigurationReference = 4890C55696297F99AD58AE02 /* Pods-MLSSDK-tvOS.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1933,7 +1915,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Support Files/tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
