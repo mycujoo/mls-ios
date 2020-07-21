@@ -579,10 +579,8 @@
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
 		49EA069224C72CE100C7AB10 /* iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49EA069424C72CE100C7AB10 /* iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTests.swift; sourceTree = "<group>"; };
-		49EA069624C72CE100C7AB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49EA06A124C72D0E00C7AB10 /* tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tvOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOSTests.swift; sourceTree = "<group>"; };
-		49EA06A524C72D0F00C7AB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49EA06B324C78C5E00C7AB10 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49EA06B524C78C5E00C7AB10 /* AnnotationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationServiceTests.swift; sourceTree = "<group>"; };
 		49EA06B724C78C5E00C7AB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1084,6 +1082,32 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		49CFDF9724C7A9A8003F16B1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				49EA06C524C79B5500C7AB10 /* Stubs */,
+				49EA06C424C792B300C7AB10 /* Mocks */,
+				49EA06B524C78C5E00C7AB10 /* AnnotationServiceTests.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		49CFDF9824C7A9AF003F16B1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				49EA069424C72CE100C7AB10 /* iOSTests.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		49CFDF9924C7A9B6003F16B1 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
 		49DD229424B793C000A4CFF2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1125,30 +1149,12 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		49EA069324C72CE100C7AB10 /* iOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				49EA069424C72CE100C7AB10 /* iOSTests.swift */,
-				49EA069624C72CE100C7AB10 /* Info.plist */,
-			);
-			path = iOSTests;
-			sourceTree = "<group>";
-		};
-		49EA06A224C72D0E00C7AB10 /* tvOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */,
-				49EA06A524C72D0F00C7AB10 /* Info.plist */,
-			);
-			path = tvOSTests;
-			sourceTree = "<group>";
-		};
 		49EA06B424C78C5E00C7AB10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				49EA06C524C79B5500C7AB10 /* Stubs */,
-				49EA06C424C792B300C7AB10 /* Mocks */,
-				49EA06B524C78C5E00C7AB10 /* AnnotationServiceTests.swift */,
+				49CFDF9724C7A9A8003F16B1 /* Common */,
+				49CFDF9824C7A9AF003F16B1 /* iOS */,
+				49CFDF9924C7A9B6003F16B1 /* tvOS */,
 				49EA06B724C78C5E00C7AB10 /* Info.plist */,
 			);
 			path = Tests;
@@ -1176,8 +1182,6 @@
 				4989B1F2249D74E4006CBB47 /* Resources */,
 				64CACD51249A367100CEE111 /* Sources */,
 				49EA06B424C78C5E00C7AB10 /* Tests */,
-				49EA069324C72CE100C7AB10 /* iOSTests */,
-				49EA06A224C72D0E00C7AB10 /* tvOSTests */,
 				6477C43B2469552A0033435D /* Products */,
 				42CE5821E6C80041DCC9C72A /* Pods */,
 				A8A2BFE9BAE337AC6B1B4006 /* Frameworks */,
@@ -1350,11 +1354,11 @@
 			buildConfigurationList = 49EA06B824C78C5E00C7AB10 /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */,
+				49EA06C124C7924C00C7AB10 /* Generate mocks (Cuckoo) */,
 				49EA06AF24C78C5E00C7AB10 /* Sources */,
 				49EA06B024C78C5E00C7AB10 /* Frameworks */,
 				49EA06B124C78C5E00C7AB10 /* Resources */,
 				3FFC773874575030240CEAD7 /* [CP] Embed Pods Frameworks */,
-				49EA06C124C7924C00C7AB10 /* Generate mocks (Cuckoo) */,
 			);
 			buildRules = (
 			);
@@ -1592,7 +1596,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Services/AnnotationServicing.swift\" \\\n\"${INPUT_DIR}/Services/APIServicing.swift\"\n";
+			shellScript = "# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Services/AnnotationServicing.swift\" \\\n\"${INPUT_DIR}/Services/APIServicing.swift\"\n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2120,7 +2124,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C99B648ZLJ;
-				INFOPLIST_FILE = iOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2140,7 +2144,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C99B648ZLJ;
-				INFOPLIST_FILE = iOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2160,7 +2164,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C99B648ZLJ;
-				INFOPLIST_FILE = tvOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2181,7 +2185,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C99B648ZLJ;
-				INFOPLIST_FILE = tvOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

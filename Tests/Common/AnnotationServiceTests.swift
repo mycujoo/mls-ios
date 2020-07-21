@@ -41,8 +41,6 @@ class AnnotationServiceTests: XCTestCase {
             XCTAssertEqual(output.showTimelineMarkers[0].timelineMarker.color, UIColor(hex: "#ffffff"))
             XCTAssertEqual(output.showTimelineMarkers[1].timelineMarker.color, UIColor(hex: "#cccccc"))
 
-            output.showTimelineMarkers[0].position
-
             expectation.fulfill()
         }
 
