@@ -11,13 +11,12 @@
             }
         },
         {
-            "offset": 12000,
-            "id": "43faf4j5959fda8f9",
-            "type": "set_variable",
+            "offset": 4000,
+            "id": "aaa444466agfffag5",
+            "type": "increment_variable",
             "data": {
-                "name": "$awayScore",
-                "value": 0,
-                "type": "long"
+                "name": "$someOtherVariable",
+                "amount": 1.0
             }
         }
     ]
