@@ -507,6 +507,50 @@ class AnnotationServiceSpec: QuickSpec {
                         }
                     }
                 }
+
+                it("does not increment a non-existing variable") {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementMissingVariable")
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 4,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("does not increment a string variable") {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementStringVariableDoesntWork")
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 4,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.variables["$homeScore"]!.stringValue).to(equal("0"))
+                            expect(output.variables["$homeScore"]!.longValue).to(beNil())
+                            expect(output.variables["$homeScore"]!.doubleValue).to(beNil())
+
+                            done()
+                        }
+                    }
+                }
             }
         }
     }
