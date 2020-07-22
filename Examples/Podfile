@@ -31,6 +31,8 @@ target 'Tests' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Cuckoo', '~> 1.4'
+  pod 'Quick', '~> 3.0'
+  pod 'Nimble', '~> 8.0'
 end
 
 target 'iOSTests' do
@@ -40,6 +42,8 @@ target 'iOSTests' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Cuckoo', '~> 1.4'
+  pod 'Quick', '~> 3.0'
+  pod 'Nimble', '~> 8.0'
 end
 
 target 'tvOSTests' do
@@ -49,6 +53,8 @@ target 'tvOSTests' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Cuckoo', '~> 1.4'
+  pod 'Quick', '~> 3.0'
+  pod 'Nimble', '~> 8.0'
 end
 
 # // MARK: - Example projects

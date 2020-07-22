@@ -180,6 +180,7 @@
 		4988B9C424C847FF00352529 /* testAnnotationService_incrementVariables.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9C324C847FF00352529 /* testAnnotationService_incrementVariables.json */; };
 		4988B9C624C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9C524C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json */; };
 		4988B9CA24C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9C924C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json */; };
+		4988B9CC24C87BCC00352529 /* AnnotationServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */; };
 		4989B1EC249D3750006CBB47 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4989B1EB249D3750006CBB47 /* Media.xcassets */; };
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
@@ -359,7 +360,6 @@
 		49EA069724C72CE100C7AB10 /* MLSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6477C43A2469552A0033435D /* MLSSDK.framework */; platformFilter = ios; };
 		49EA06A424C72D0E00C7AB10 /* tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */; };
 		49EA06A624C72D0F00C7AB10 /* MLSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64FDE308249A189000E6510D /* MLSSDK.framework */; };
-		49EA06B624C78C5E00C7AB10 /* AnnotationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA06B524C78C5E00C7AB10 /* AnnotationServiceTests.swift */; };
 		49EA06BC24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA06BB24C7912F00C7AB10 /* AnnotationServicing.swift */; };
 		49EA06BD24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA06BB24C7912F00C7AB10 /* AnnotationServicing.swift */; };
 		49EA06BF24C7913A00C7AB10 /* APIServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA06BE24C7913A00C7AB10 /* APIServicing.swift */; };
@@ -568,6 +568,7 @@
 		4988B9C324C847FF00352529 /* testAnnotationService_incrementVariables.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_incrementVariables.json; sourceTree = "<group>"; };
 		4988B9C524C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_incrementStringVariableDoesntWork.json; sourceTree = "<group>"; };
 		4988B9C924C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_updateVariableToDifferentType.json; sourceTree = "<group>"; };
+		4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationServiceSpec.swift; sourceTree = "<group>"; };
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -602,7 +603,6 @@
 		49EA06A124C72D0E00C7AB10 /* tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tvOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOSTests.swift; sourceTree = "<group>"; };
 		49EA06B324C78C5E00C7AB10 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		49EA06B524C78C5E00C7AB10 /* AnnotationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationServiceTests.swift; sourceTree = "<group>"; };
 		49EA06B724C78C5E00C7AB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49EA06BB24C7912F00C7AB10 /* AnnotationServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationServicing.swift; sourceTree = "<group>"; };
 		49EA06BE24C7913A00C7AB10 /* APIServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServicing.swift; sourceTree = "<group>"; };
@@ -1107,7 +1107,7 @@
 			children = (
 				49EA06C524C79B5500C7AB10 /* Stubs */,
 				49EA06C424C792B300C7AB10 /* Mocks */,
-				49EA06B524C78C5E00C7AB10 /* AnnotationServiceTests.swift */,
+				4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1749,8 +1749,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49EA06B624C78C5E00C7AB10 /* AnnotationServiceTests.swift in Sources */,
 				49EA06C324C792A100C7AB10 /* GeneratedMocks.swift in Sources */,
+				4988B9CC24C87BCC00352529 /* AnnotationServiceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
