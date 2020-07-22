@@ -203,8 +203,58 @@ class AnnotationServiceSpec: QuickSpec {
             }
 
             describe("by show overlay duration expiration") {
-                it("hides correctly") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_hideOverlayAfterDuration")
+                }
 
+                it("does not hide overlays when none are active yet") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 0,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            expect(output.hideOverlays.count).to(equal(0))
+                            done()
+                        }
+                    }
+                }
+
+                it("does not hide too soon") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(["gagj9j9agj9a"]),
+                        currentTime: 11,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            expect(output.hideOverlays.count).to(equal(0))
+                            done()
+                        }
+                    }
+                }
+
+                it("hides correctly") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(["gagj9j9agj9a"]),
+                        currentTime: 15,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.hideOverlays.count == 1 else { fail("Wrong array count"); done(); return }
+
+                            expect(output.hideOverlays[0].overlayId).to(equal("gagj9j9agj9a"))
+                            expect(output.hideOverlays[0].animateDuration).to(equal(500))
+                            expect(output.hideOverlays[0].animateType).to(equal(OverlayAnimateoutType.slideToLeft))
+
+                            done()
+                        }
+                    }
                 }
             }
         }

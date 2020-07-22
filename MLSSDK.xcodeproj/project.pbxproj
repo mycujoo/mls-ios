@@ -181,6 +181,7 @@
 		4988B9C624C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9C524C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json */; };
 		4988B9CA24C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9C924C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json */; };
 		4988B9CC24C87BCC00352529 /* AnnotationServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */; };
+		4988B9CE24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9CD24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json */; };
 		4989B1EC249D3750006CBB47 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4989B1EB249D3750006CBB47 /* Media.xcassets */; };
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
@@ -569,6 +570,7 @@
 		4988B9C524C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_incrementStringVariableDoesntWork.json; sourceTree = "<group>"; };
 		4988B9C924C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_updateVariableToDifferentType.json; sourceTree = "<group>"; };
 		4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationServiceSpec.swift; sourceTree = "<group>"; };
+		4988B9CD24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_hideOverlayAfterDuration.json; sourceTree = "<group>"; };
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -1195,6 +1197,7 @@
 				4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */,
 				4988B9B924C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json */,
 				4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */,
+				4988B9CD24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json */,
 				4988B9BB24C8477000352529 /* testAnnotationService_updatesActiveOverlayIds.json */,
 				4988B9BD24C847C500352529 /* testAnnotationService_createVariables.json */,
 				4988B9BF24C847E000352529 /* testAnnotationService_variablesMissing.json */,
@@ -1519,6 +1522,7 @@
 				4988B9B824C846FB00352529 /* testAnnotationService_basicHideOverlay.json in Resources */,
 				49EA06C724C79B7C00C7AB10 /* testAnnotationService_timelineMarkers.json in Resources */,
 				4988B9BC24C8477000352529 /* testAnnotationService_updatesActiveOverlayIds.json in Resources */,
+				4988B9CE24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json in Resources */,
 				4988B9C224C847EE00352529 /* testAnnotationService_updateVariables.json in Resources */,
 				4988B9CA24C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json in Resources */,
 				4988B9B424C846D000352529 /* testAnnotationService_basicShowOverlay.json in Resources */,
@@ -1636,7 +1640,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Services/AnnotationServicing.swift\" \\\n\"${INPUT_DIR}/Services/APIServicing.swift\"\n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Services/AnnotationServicing.swift\" \\\n\"${INPUT_DIR}/Services/APIServicing.swift\"\n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
