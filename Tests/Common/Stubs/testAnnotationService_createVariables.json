@@ -16,7 +16,7 @@
             "type": "set_variable",
             "data": {
                 "name": "$awayScore",
-                "value": 0,
+                "value": 2,
                 "type": "long"
             }
         }

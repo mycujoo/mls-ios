@@ -258,6 +258,63 @@ class AnnotationServiceSpec: QuickSpec {
                 }
             }
         }
+
+        describe("variables") {
+            var actions: [AnnotationAction]!
+            var input: AnnotationService.EvaluationInput!
+
+            describe("setting") {
+                describe("basic case") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_createVariables")
+                    }
+
+                    it("creates variable at the right time") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 0,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.stringValue).to(beNil())
+                                expect(output.variables["$homeScore"]!.doubleValue).to(beNil())
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("creates variable at the right time later in timeline") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 15,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 2 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$awayScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$awayScore"]!.stringValue).to(beNil())
+                                expect(output.variables["$awayScore"]!.doubleValue).to(beNil())
+                                expect(output.variables["$awayScore"]!.longValue).to(equal(2))
+
+                                done()
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        }
     }
 }
 
