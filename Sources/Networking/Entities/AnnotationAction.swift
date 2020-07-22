@@ -292,7 +292,7 @@ extension AnnotationActionSetVariable: Decodable {
                 stringValue = try? container.decode(String.self, forKey: .value)
             case "float", "double":
                 doubleValue = try? container.decode(Double.self, forKey: .value)
-                doublePrecision = try container.decode(Int.self, forKey: .doublePrecision)
+                doublePrecision = (try? container.decode(Int.self, forKey: .doublePrecision)) ?? 2
             case "int", "long":
                 longValue = try? container.decode(Int64.self, forKey: .value)
             default:

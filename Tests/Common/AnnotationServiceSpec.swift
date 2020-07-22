@@ -418,6 +418,96 @@ class AnnotationServiceSpec: QuickSpec {
                     }
                 }
             }
+
+            describe("incrementing") {
+                describe("increments a long") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementLongVariables")
+                    }
+
+                    it("updates after the set variable") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 4,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(1))
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("updates a series of values") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 12,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(-4))
+
+                                done()
+                            }
+                        }
+                    }
+                }
+
+                describe("increments a double") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementDoubleVariables")
+                    }
+
+                    it("updates after the set variable") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 4,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.doubleValue).to(equal(1))
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("updates a series of values") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 12,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.doubleValue).to(equal(12.529))
+
+                                done()
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
