@@ -553,6 +553,189 @@ class AnnotationServiceSpec: QuickSpec {
                 }
             }
         }
+
+        describe("timers") {
+            var actions: [AnnotationAction]!
+            var input: AnnotationService.EvaluationInput!
+
+            it("creates") {
+                actions = self.makeAnnotationActionsFromJSON("testAnnotationService_basicCreateTimer")
+                input = AnnotationService.EvaluationInput(
+                    actions: actions,
+                    activeOverlayIds: Set(),
+                    currentTime: 0,
+                    currentDuration: 20)
+
+                waitUntil { done in
+                    self.annotationService.evaluate(input) { (output) in
+                        guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                        guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                        expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("0"))
+
+                        done()
+                    }
+                }
+            }
+
+            describe("recreation") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_recreateTimer")
+                }
+
+                it("has a value before recreation") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 5,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("has a value after recreation, but does not keep running") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 11,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("prioritization") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_timerPrioritization")
+                }
+
+                it("correctly orders timer actions at the same offset") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 5,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("2640"))
+                            expect(output.timers["$scoreboardTimer"]!.isRunning).to(beFalse())
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("formatting") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_createMultipleTimers")
+                }
+
+                it("formats single values correctly") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 700,
+                        currentDuration: 800)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer1"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer1"]!.humanFriendlyValue).to(equal("695"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("formats minutes:seconds correctly") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 700,
+                        currentDuration: 800)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer2"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer2"]!.humanFriendlyValue).to(equal("11:35"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("downwards timers") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_createMultipleTimers")
+                }
+
+                it("counts down instead of up") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 700,
+                        currentDuration: 3600)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer3"]!.humanFriendlyValue).to(equal("2005"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("stops at the cap value") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 3200,
+                        currentDuration: 3600)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer3"]!.humanFriendlyValue).to(equal("400"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

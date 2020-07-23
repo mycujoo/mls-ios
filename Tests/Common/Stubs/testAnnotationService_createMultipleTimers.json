@@ -5,8 +5,8 @@
             "id": "bbaaaa4444sssstg",
             "type": "create_timer",
             "data": {
-                "name": "$scoreboardTimer",
-                "format": "ms",
+                "name": "$timer1",
+                "format": "s",
                 "direction": "up",
                 "start_value": 0
             }
@@ -17,8 +17,8 @@
             "type": "create_timer",
             "data": {
                 "name": "$timer2",
-                "format": "s",
-                "direction": "down",
+                "format": "ms",
+                "direction": "up",
                 "start_value": 0
             }
         },
@@ -28,9 +28,46 @@
             "type": "create_timer",
             "data": {
                 "name": "$timer3",
+                "format": "s",
+                "direction": "down",
+                "start_value": 2700000,
+                "cap_value": 400000
+            }
+        },
+        {
+            "offset": 4500,
+            "id": "bbaaaa4444aass",
+            "type": "create_timer",
+            "data": {
+                "name": "$timer4",
                 "format": "ms",
-                "direction": "up",
-                "start_value": 0
+                "direction": "down",
+                "start_value": 2700000,
+                "cap_value": 400000
+            }
+        },
+        {
+            "offset": 5000,
+            "id": "4fdaf5tygfhfhffhc",
+            "type": "start_timer",
+            "data": {
+                "name": "$timer1"
+            }
+        },
+        {
+            "offset": 5000,
+            "id": "4fdaf5tygfhfhffhd",
+            "type": "start_timer",
+            "data": {
+                "name": "$timer2"
+            }
+        },
+        {
+            "offset": 5000,
+            "id": "4fdaf5tygfhfhffhe",
+            "type": "start_timer",
+            "data": {
+                "name": "$timer3"
             }
         }
     ]

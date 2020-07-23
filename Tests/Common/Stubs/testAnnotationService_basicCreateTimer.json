@@ -6,17 +6,9 @@
             "type": "create_timer",
             "data": {
                 "name": "$scoreboardTimer",
-                "format": "ms",
+                "format": "s",
                 "direction": "up",
                 "start_value": 0
-            }
-        },
-        {
-            "offset": 10000,
-            "id": "4fdaf5tygfhfhffhc",
-            "type": "start_timer",
-            "data": {
-                "name": "$scoreboardTimer"
             }
         }
     ]

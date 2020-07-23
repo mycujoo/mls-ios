@@ -193,7 +193,7 @@ class ActionTimer: TOVObject, Equatable {
     let capValue: Double?
 
     private var value: Double
-    private var isRunning = false
+    private(set) var isRunning = false
     private var lastUpdatedAtOffset: Double? = nil
 
     init(name: String, format: Format, direction: Direction, startValue: Double, capValue: Double? = nil) {

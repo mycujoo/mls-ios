@@ -6,7 +6,7 @@
             "type": "create_timer",
             "data": {
                 "name": "$scoreboardTimer",
-                "format": "ms",
+                "format": "s",
                 "direction": "up",
                 "start_value": 0
             }
@@ -20,14 +20,14 @@
             }
         },
         {
-            "offset": 3000,
+            "offset": 8000,
             "id": "bbaaaa4444sssstf",
             "type": "create_timer",
             "data": {
                 "name": "$scoreboardTimer",
                 "format": "s",
                 "direction": "down",
-                "start_value": 2000
+                "start_value": 15000
             }
         }
     ]

@@ -32,7 +32,7 @@
             "type": "create_timer",
             "data": {
                 "name": "$scoreboardTimer",
-                "format": "ms",
+                "format": "s",
                 "direction": "up",
                 "start_value": 0
             }
