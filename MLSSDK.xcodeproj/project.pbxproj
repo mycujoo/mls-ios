@@ -183,6 +183,14 @@
 		4988B9CE24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9CD24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json */; };
 		4988B9D024C89C4600352529 /* testAnnotationService_incrementMissingVariable.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9CF24C89C4600352529 /* testAnnotationService_incrementMissingVariable.json */; };
 		4988B9D224C8EE2F00352529 /* testAnnotationService_incrementDoubleVariables.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9D124C8EE2F00352529 /* testAnnotationService_incrementDoubleVariables.json */; };
+		4988B9D424C98BC600352529 /* testAnnotationService_basicCreateTimer.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9D324C98BC600352529 /* testAnnotationService_basicCreateTimer.json */; };
+		4988B9D624C98BD300352529 /* testAnnotationService_createMultipleTimers.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9D524C98BD300352529 /* testAnnotationService_createMultipleTimers.json */; };
+		4988B9D824C98BE400352529 /* testAnnotationService_downwardsTimer.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9D724C98BE400352529 /* testAnnotationService_downwardsTimer.json */; };
+		4988B9DA24C98C1C00352529 /* testAnnotationService_cappedTimer.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9D924C98C1C00352529 /* testAnnotationService_cappedTimer.json */; };
+		4988B9DC24C98C3100352529 /* testAnnotationService_adjustedAndSkippedTimer.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9DB24C98C3100352529 /* testAnnotationService_adjustedAndSkippedTimer.json */; };
+		4988B9DE24C98FB800352529 /* testAnnotationService_recreateTimer.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9DD24C98FB800352529 /* testAnnotationService_recreateTimer.json */; };
+		4988B9E024C9A47100352529 /* testAnnotationService_timerPrioritization.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9DF24C9A47100352529 /* testAnnotationService_timerPrioritization.json */; };
+		4988B9E224C9A4B300352529 /* testAnnotationService_pauseTimer.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9E124C9A4B300352529 /* testAnnotationService_pauseTimer.json */; };
 		4989B1EC249D3750006CBB47 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4989B1EB249D3750006CBB47 /* Media.xcassets */; };
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
@@ -573,6 +581,14 @@
 		4988B9CD24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_hideOverlayAfterDuration.json; sourceTree = "<group>"; };
 		4988B9CF24C89C4600352529 /* testAnnotationService_incrementMissingVariable.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_incrementMissingVariable.json; sourceTree = "<group>"; };
 		4988B9D124C8EE2F00352529 /* testAnnotationService_incrementDoubleVariables.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_incrementDoubleVariables.json; sourceTree = "<group>"; };
+		4988B9D324C98BC600352529 /* testAnnotationService_basicCreateTimer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicCreateTimer.json; sourceTree = "<group>"; };
+		4988B9D524C98BD300352529 /* testAnnotationService_createMultipleTimers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_createMultipleTimers.json; sourceTree = "<group>"; };
+		4988B9D724C98BE400352529 /* testAnnotationService_downwardsTimer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_downwardsTimer.json; sourceTree = "<group>"; };
+		4988B9D924C98C1C00352529 /* testAnnotationService_cappedTimer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_cappedTimer.json; sourceTree = "<group>"; };
+		4988B9DB24C98C3100352529 /* testAnnotationService_adjustedAndSkippedTimer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_adjustedAndSkippedTimer.json; sourceTree = "<group>"; };
+		4988B9DD24C98FB800352529 /* testAnnotationService_recreateTimer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_recreateTimer.json; sourceTree = "<group>"; };
+		4988B9DF24C9A47100352529 /* testAnnotationService_timerPrioritization.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_timerPrioritization.json; sourceTree = "<group>"; };
+		4988B9E124C9A4B300352529 /* testAnnotationService_pauseTimer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_pauseTimer.json; sourceTree = "<group>"; };
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -1208,6 +1224,14 @@
 				4988B9D124C8EE2F00352529 /* testAnnotationService_incrementDoubleVariables.json */,
 				4988B9CF24C89C4600352529 /* testAnnotationService_incrementMissingVariable.json */,
 				4988B9C524C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json */,
+				4988B9D324C98BC600352529 /* testAnnotationService_basicCreateTimer.json */,
+				4988B9DD24C98FB800352529 /* testAnnotationService_recreateTimer.json */,
+				4988B9DF24C9A47100352529 /* testAnnotationService_timerPrioritization.json */,
+				4988B9D524C98BD300352529 /* testAnnotationService_createMultipleTimers.json */,
+				4988B9D724C98BE400352529 /* testAnnotationService_downwardsTimer.json */,
+				4988B9D924C98C1C00352529 /* testAnnotationService_cappedTimer.json */,
+				4988B9E124C9A4B300352529 /* testAnnotationService_pauseTimer.json */,
+				4988B9DB24C98C3100352529 /* testAnnotationService_adjustedAndSkippedTimer.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1519,12 +1543,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4988B9D824C98BE400352529 /* testAnnotationService_downwardsTimer.json in Resources */,
+				4988B9E024C9A47100352529 /* testAnnotationService_timerPrioritization.json in Resources */,
 				4988B9C624C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json in Resources */,
 				4988B9BE24C847C500352529 /* testAnnotationService_createVariables.json in Resources */,
+				4988B9DA24C98C1C00352529 /* testAnnotationService_cappedTimer.json in Resources */,
 				4988B9B824C846FB00352529 /* testAnnotationService_basicHideOverlay.json in Resources */,
+				4988B9DE24C98FB800352529 /* testAnnotationService_recreateTimer.json in Resources */,
+				4988B9E224C9A4B300352529 /* testAnnotationService_pauseTimer.json in Resources */,
+				4988B9DC24C98C3100352529 /* testAnnotationService_adjustedAndSkippedTimer.json in Resources */,
+				4988B9D424C98BC600352529 /* testAnnotationService_basicCreateTimer.json in Resources */,
 				4988B9D024C89C4600352529 /* testAnnotationService_incrementMissingVariable.json in Resources */,
 				49EA06C724C79B7C00C7AB10 /* testAnnotationService_timelineMarkers.json in Resources */,
 				4988B9D224C8EE2F00352529 /* testAnnotationService_incrementDoubleVariables.json in Resources */,
+				4988B9D624C98BD300352529 /* testAnnotationService_createMultipleTimers.json in Resources */,
 				4988B9BC24C8477000352529 /* testAnnotationService_updatesActiveOverlayIds.json in Resources */,
 				4988B9CE24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json in Resources */,
 				4988B9C224C847EE00352529 /* testAnnotationService_updateVariables.json in Resources */,

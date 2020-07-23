@@ -1,0 +1,24 @@
+{
+    "actions": [
+        {
+            "offset": 3000,
+            "id": "bbaaaa4444sssstg",
+            "type": "create_timer",
+            "data": {
+                "name": "$timer2",
+                "format": "s",
+                "direction": "down",
+                "start_value": 50000,
+                "cap_value": 0
+            }
+        },
+        {
+            "offset": 10000,
+            "id": "4fdaf5tygfhfhffhc",
+            "type": "start_timer",
+            "data": {
+                "name": "$scoreboardTimer"
+            }
+        }
+    ]
+}
