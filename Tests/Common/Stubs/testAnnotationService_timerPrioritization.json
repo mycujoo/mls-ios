@@ -14,7 +14,7 @@
             "type": "skip_timer",
             "data": {
                 "name": "$scoreboardTimer",
-                "value": -60000
+                "value": -10000
             }
         },
         {
@@ -23,7 +23,7 @@
             "type": "adjust_timer",
             "data": {
                 "name": "$scoreboardTimer",
-                "value": 2700000
+                "value": 30000
             }
         },
         {
@@ -34,7 +34,8 @@
                 "name": "$scoreboardTimer",
                 "format": "s",
                 "direction": "up",
-                "start_value": 0
+                "start_value": 0,
+                "cap_value": 25000
             }
         },
         {

@@ -631,7 +631,7 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 5,
+                        currentTime: 2,
                         currentDuration: 20)
 
                     waitUntil { done in
@@ -639,7 +639,7 @@ class AnnotationServiceSpec: QuickSpec {
                             guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
                             guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("2640"))
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
                             expect(output.timers["$scoreboardTimer"]!.isRunning).to(beFalse())
 
                             done()
