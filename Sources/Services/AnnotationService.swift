@@ -12,9 +12,9 @@ class AnnotationService: AnnotationServicing {
         var actions: [AnnotationAction]
         /// A Set of overlayIds that are currently active (i.e. on-screen). This is obtained through a previous evaluation. Should initially be an empty set.
         var activeOverlayIds: Set<String>
-        /// The elapsed time (in seconds) of the currently playing item of the video player.
+        /// The elapsed time (in milliseconds) of the currently playing item of the video player.
         var currentTime: Double
-        /// The total duration (in seconds) of the currently playing item of the video player (this changes for live streams).
+        /// The total duration (in milliseconds) of the currently playing item of the video player (this changes for live streams).
         var currentDuration: Double
     }
 
@@ -63,19 +63,19 @@ class AnnotationService: AnnotationServicing {
             for action in input.actions.sorted(by: { (lhs, rhs) -> Bool in
                 lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
             }) {
-                let offsetAsSeconds = Double(action.offset) / 1000
+                let offset = Double(action.offset)
                 switch action.data {
                 case .showTimelineMarker(let data):
                     let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label)
-                    let position = min(1.0, max(0.0, TimeInterval(action.offset / 1000) / input.currentDuration))
+                    let position = min(1.0, max(0.0, offset / input.currentDuration))
 
                     showTimelineMarkers.append(ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position))
                 case .showOverlay(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         if let duration = data.duration {
-                            if input.currentTime < offsetAsSeconds + (duration / 1000) {
+                            if input.currentTime < offset + duration {
                                 if let obj = self.makeShowOverlay(from: action) {
-                                    if input.currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
+                                    if input.currentTime < offset + duration + obj.animateDuration + 1000 {
                                         inRangeOverlayActions[obj.overlayId] = obj
                                     } else {
                                         inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -83,7 +83,7 @@ class AnnotationService: AnnotationServicing {
                                 }
                             } else {
                                 if let obj = self.makeHideOverlay(from: action) {
-                                    if input.currentTime < offsetAsSeconds + (duration / 1000) + (obj.animateDuration / 1000) + 1 {
+                                    if input.currentTime < offset + duration + obj.animateDuration + 1000 {
                                         inRangeOverlayActions[obj.overlayId] = obj
                                     } else {
                                         inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -92,7 +92,7 @@ class AnnotationService: AnnotationServicing {
                             }
                         } else {
                             if let obj = self.makeShowOverlay(from: action) {
-                                if input.currentTime < offsetAsSeconds + (obj.animateDuration / 1000) + 1 {
+                                if input.currentTime < offset + obj.animateDuration + 1000 {
                                     inRangeOverlayActions[obj.overlayId] = obj
                                 } else {
                                     inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -102,9 +102,9 @@ class AnnotationService: AnnotationServicing {
                     }
 
                 case .hideOverlay:
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         if let obj = self.makeHideOverlay(from: action) {
-                            if input.currentTime < offsetAsSeconds + (obj.animateDuration / 1000) + 1 {
+                            if input.currentTime < offset + obj.animateDuration + 1000 {
                                 inRangeOverlayActions[obj.overlayId] = obj
                             } else {
                                 inRangeOverlayActions[obj.overlayId] = self.removeAnimation(from: obj)
@@ -112,11 +112,11 @@ class AnnotationService: AnnotationServicing {
                         }
                     }
                 case .setVariable(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         variables[data.name] = ActionVariable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)
                     }
                 case .incrementVariable(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         guard let variable = variables[data.name] else { continue }
 
                         if variable.longValue != nil {
@@ -126,7 +126,7 @@ class AnnotationService: AnnotationServicing {
                         }
                     }
                 case .createTimer(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         let format: ActionTimer.Format
                         switch data.format {
                             case .ms: format = .ms
@@ -144,28 +144,28 @@ class AnnotationService: AnnotationServicing {
                         timers[data.name] = ActionTimer(name: data.name, format: format, direction: direction, startValue: data.startValue, capValue: data.capValue)
                     }
                 case .startTimer(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         guard let timer = timers[data.name] else { continue }
 
-                        timer.update(isRunning: true, at: offsetAsSeconds)
+                        timer.update(isRunning: true, at: offset)
                     }
                 case .pauseTimer(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         guard let timer = timers[data.name] else { continue }
 
-                        timer.update(isRunning: false, at: offsetAsSeconds)
+                        timer.update(isRunning: false, at: offset)
                     }
                 case .adjustTimer(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         guard let timer = timers[data.name] else { continue }
 
-                        timer.forceAdjustTo(value: data.value / 1000, at: offsetAsSeconds)
+                        timer.forceAdjustTo(value: data.value, at: offset)
                     }
                 case .skipTimer(let data):
-                    if offsetAsSeconds <= input.currentTime {
+                    if offset <= input.currentTime {
                         guard let timer = timers[data.name] else { continue }
 
-                        timer.forceAdjustBy(value: data.value / 1000, at: offsetAsSeconds)
+                        timer.forceAdjustBy(value: data.value, at: offset)
                     }
                 default:
                     break

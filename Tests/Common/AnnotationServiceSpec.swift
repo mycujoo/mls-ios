@@ -30,8 +30,8 @@ class AnnotationServiceSpec: QuickSpec {
                 input = AnnotationService.EvaluationInput(
                     actions: actions,
                     activeOverlayIds: Set(),
-                    currentTime: 10,
-                    currentDuration: 20)
+                    currentTime: 10000,
+                    currentDuration: 20000)
             }
 
             it("returns correct position") {
@@ -73,8 +73,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 10,
-                        currentDuration: 20)
+                        currentTime: 10000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -92,8 +92,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(["scoreboard1"]),
-                        currentTime: 15,
-                        currentDuration: 20)
+                        currentTime: 15000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -111,8 +111,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 15,
-                        currentDuration: 20)
+                        currentTime: 15000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -136,8 +136,8 @@ class AnnotationServiceSpec: QuickSpec {
                 input = AnnotationService.EvaluationInput(
                     actions: actions,
                     activeOverlayIds: Set(),
-                    currentTime: 16,
-                    currentDuration: 20)
+                    currentTime: 16000,
+                    currentDuration: 20000)
 
                 waitUntil { done in
                     self.annotationService.evaluate(input) { (output) in
@@ -171,7 +171,7 @@ class AnnotationServiceSpec: QuickSpec {
                         actions: actions,
                         activeOverlayIds: Set(),
                         currentTime: 0,
-                        currentDuration: 20)
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -185,8 +185,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(["scoreboard1"]),
-                        currentTime: 16,
-                        currentDuration: 20)
+                        currentTime: 16000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -212,7 +212,7 @@ class AnnotationServiceSpec: QuickSpec {
                         actions: actions,
                         activeOverlayIds: Set(),
                         currentTime: 0,
-                        currentDuration: 20)
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -226,8 +226,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(["gagj9j9agj9a"]),
-                        currentTime: 11,
-                        currentDuration: 20)
+                        currentTime: 11000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -241,8 +241,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(["gagj9j9agj9a"]),
-                        currentTime: 15,
-                        currentDuration: 20)
+                        currentTime: 15000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -274,7 +274,7 @@ class AnnotationServiceSpec: QuickSpec {
                             actions: actions,
                             activeOverlayIds: Set(),
                             currentTime: 0,
-                            currentDuration: 20)
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -294,8 +294,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 15,
-                            currentDuration: 20)
+                            currentTime: 15000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -322,7 +322,7 @@ class AnnotationServiceSpec: QuickSpec {
                             actions: actions,
                             activeOverlayIds: Set(),
                             currentTime: 0,
-                            currentDuration: 20)
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -336,8 +336,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 5,
-                            currentDuration: 20)
+                            currentTime: 5000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -355,8 +355,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 15,
-                            currentDuration: 20)
+                            currentTime: 15000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -382,7 +382,7 @@ class AnnotationServiceSpec: QuickSpec {
                             actions: actions,
                             activeOverlayIds: Set(),
                             currentTime: 0,
-                            currentDuration: 20)
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -401,8 +401,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 12,
-                            currentDuration: 20)
+                            currentTime: 12000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -429,8 +429,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 4,
-                            currentDuration: 20)
+                            currentTime: 4000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -448,8 +448,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 12,
-                            currentDuration: 20)
+                            currentTime: 12000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -473,8 +473,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 4,
-                            currentDuration: 20)
+                            currentTime: 4000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -492,8 +492,8 @@ class AnnotationServiceSpec: QuickSpec {
                         input = AnnotationService.EvaluationInput(
                             actions: actions,
                             activeOverlayIds: Set(),
-                            currentTime: 12,
-                            currentDuration: 20)
+                            currentTime: 12000,
+                            currentDuration: 20000)
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
@@ -514,8 +514,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 4,
-                        currentDuration: 20)
+                        currentTime: 4000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -535,8 +535,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 4,
-                        currentDuration: 20)
+                        currentTime: 4000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -564,7 +564,7 @@ class AnnotationServiceSpec: QuickSpec {
                     actions: actions,
                     activeOverlayIds: Set(),
                     currentTime: 0,
-                    currentDuration: 20)
+                    currentDuration: 20000)
 
                 waitUntil { done in
                     self.annotationService.evaluate(input) { (output) in
@@ -587,8 +587,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 5,
-                        currentDuration: 20)
+                        currentTime: 5000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -606,8 +606,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 11,
-                        currentDuration: 20)
+                        currentTime: 11000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -631,8 +631,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 2,
-                        currentDuration: 20)
+                        currentTime: 2000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -657,8 +657,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 700,
-                        currentDuration: 800)
+                        currentTime: 700000,
+                        currentDuration: 800000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -676,8 +676,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 700,
-                        currentDuration: 800)
+                        currentTime: 700000,
+                        currentDuration: 800000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -701,8 +701,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 700,
-                        currentDuration: 3600)
+                        currentTime: 700000,
+                        currentDuration: 3600000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -720,8 +720,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 3200,
-                        currentDuration: 3600)
+                        currentTime: 3200000,
+                        currentDuration: 3600000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -745,8 +745,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 2,
-                        currentDuration: 20)
+                        currentTime: 2000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -764,8 +764,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 4,
-                        currentDuration: 20)
+                        currentTime: 4000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -783,8 +783,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 13,
-                        currentDuration: 20)
+                        currentTime: 13000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
@@ -802,8 +802,8 @@ class AnnotationServiceSpec: QuickSpec {
                     input = AnnotationService.EvaluationInput(
                         actions: actions,
                         activeOverlayIds: Set(),
-                        currentTime: 14,
-                        currentDuration: 20)
+                        currentTime: 14000,
+                        currentDuration: 20000)
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in

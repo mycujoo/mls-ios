@@ -196,24 +196,27 @@ class ActionTimer: TOVObject, Equatable {
     private(set) var isRunning = false
     private var lastUpdatedAtOffset: Double? = nil
 
+    /// - parameter startValue: A value in milliseconds that indicates the initial value of the timer.
+    /// - parameter capValue: A value in milliseconds that indicates the limit value of the timer (either higher or lower than startValue, depending on the direction)
     init(name: String, format: Format, direction: Direction, startValue: Double, capValue: Double? = nil) {
         self.name = name
         self.format = format
         self.direction = direction
-        self.startValue = (startValue / 1000)
-        self.capValue = capValue != nil ? (capValue! / 1000) : nil
+        self.startValue = startValue
+        self.capValue = capValue
 
-        self.value = (startValue / 1000)
+        self.value = startValue
     }
 
     var humanFriendlyValue: String {
+        let valueAsSeconds = value / 1000
         switch format {
         case .ms:
-            let seconds = value.truncatingRemainder(dividingBy: 60)
-            let minutes = (value - seconds) / 60
+            let seconds = valueAsSeconds.truncatingRemainder(dividingBy: 60)
+            let minutes = (valueAsSeconds - seconds) / 60
             return String(format: "%02.0f:%02.0f", minutes, seconds)
         case .s, .unsupported:
-            return String(format: "%.0f", value)
+            return String(format: "%.0f", valueAsSeconds)
         }
     }
 
