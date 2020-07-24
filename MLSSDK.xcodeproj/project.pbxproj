@@ -168,7 +168,7 @@
 		49736F1C24A9F59C001F3F48 /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9224A9F59B001F3F48 /* SVGSerializer.swift */; };
 		49736F1D24A9F59C001F3F48 /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9324A9F59B001F3F48 /* SVGView.swift */; };
 		49736F1E24A9F59C001F3F48 /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9424A9F59B001F3F48 /* SVGParser.swift */; };
-		497A034E24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimer.json in Resources */ = {isa = PBXBuildFile; fileRef = 497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimer.json */; };
+		497A034E24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json in Resources */ = {isa = PBXBuildFile; fileRef = 497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */; };
 		497FD2C624C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
 		497FD2C724C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
 		4988B9B424C846D000352529 /* testAnnotationService_basicShowOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */; };
@@ -564,7 +564,7 @@
 		49736E9224A9F59B001F3F48 /* SVGSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGSerializer.swift; sourceTree = "<group>"; };
 		49736E9324A9F59B001F3F48 /* SVGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGView.swift; sourceTree = "<group>"; };
 		49736E9424A9F59B001F3F48 /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParser.swift; sourceTree = "<group>"; };
-		497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_adjustAndSkipTimer.json; sourceTree = "<group>"; };
+		497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_adjustAndSkipTimers.json; sourceTree = "<group>"; };
 		497FD2C524C0981F0027E708 /* TOVStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStore.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
 		4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicHideOverlay.json; sourceTree = "<group>"; };
@@ -1222,7 +1222,7 @@
 				4988B9DD24C98FB800352529 /* testAnnotationService_recreateTimer.json */,
 				4988B9DF24C9A47100352529 /* testAnnotationService_timerPrioritization.json */,
 				4988B9D524C98BD300352529 /* testAnnotationService_createMultipleTimers.json */,
-				497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimer.json */,
+				497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1548,7 +1548,7 @@
 				4988B9CE24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json in Resources */,
 				4988B9C224C847EE00352529 /* testAnnotationService_updateVariables.json in Resources */,
 				4988B9CA24C84E3C00352529 /* testAnnotationService_updateVariableToDifferentType.json in Resources */,
-				497A034E24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimer.json in Resources */,
+				497A034E24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json in Resources */,
 				4988B9B424C846D000352529 /* testAnnotationService_basicShowOverlay.json in Resources */,
 				4988B9C424C847FF00352529 /* testAnnotationService_incrementLongVariables.json in Resources */,
 				4988B9BA24C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json in Resources */,

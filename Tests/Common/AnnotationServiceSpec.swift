@@ -735,6 +735,88 @@ class AnnotationServiceSpec: QuickSpec {
                     }
                 }
             }
+
+            describe("adjusting and skipping timers") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_adjustAndSkipTimers")
+                }
+
+                it("skips") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 2,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("adjusts") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 4,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("skips negatively") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 13,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("drops into negative amounts") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 14,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("-27"))
+
+                            done()
+                        }
+                    }
+                }
+            }
         }
     }
 }
