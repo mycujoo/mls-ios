@@ -193,7 +193,7 @@ class ActionTimer: TOVObject, Equatable {
     let capValue: Double?
 
     private var value: Double
-    private var isRunning = false
+    private(set) var isRunning = false
     private var lastUpdatedAtOffset: Double? = nil
 
     init(name: String, format: Format, direction: Direction, startValue: Double, capValue: Double? = nil) {
@@ -242,12 +242,12 @@ class ActionTimer: TOVObject, Equatable {
             case .down:
                 self.value = self.value - (offset - (lastUpdatedAtOffset ?? 0))
                 if let capValue = capValue {
-                    value = max(capValue, value)
+                    self.value = max(capValue, self.value)
                 }
             case .up, .unsupported:
             self.value = self.value + (offset - (lastUpdatedAtOffset ?? 0))
                 if let capValue = capValue {
-                    value = min(capValue, value)
+                    self.value = min(capValue, self.value)
                 }
             }
         }

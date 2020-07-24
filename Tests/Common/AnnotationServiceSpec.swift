@@ -258,6 +258,566 @@ class AnnotationServiceSpec: QuickSpec {
                 }
             }
         }
+
+        describe("variables") {
+            var actions: [AnnotationAction]!
+            var input: AnnotationService.EvaluationInput!
+
+            describe("setting") {
+                describe("basic case") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_createVariables")
+                    }
+
+                    it("creates variable at the right time") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 0,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.stringValue).to(beNil())
+                                expect(output.variables["$homeScore"]!.doubleValue).to(beNil())
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("creates variable at the right time later in timeline") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 15,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 2 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$awayScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$awayScore"]!.stringValue).to(beNil())
+                                expect(output.variables["$awayScore"]!.doubleValue).to(beNil())
+                                expect(output.variables["$awayScore"]!.longValue).to(equal(2))
+
+                                done()
+                            }
+                        }
+                    }
+                }
+
+                describe("overwriting existing variables") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_updateVariables")
+                    }
+
+                    it("does not exist before declaration") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 0,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 0 else { fail("Wrong array count"); done(); return }
+                                done()
+                            }
+                        }
+                    }
+
+                    it("has correct value before overwrite") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 5,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("has correct value after overwrite") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 15,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(20))
+
+                                done()
+                            }
+                        }
+                    }
+
+                }
+
+                describe("overwrite existing variables to other type") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_updateVariableToDifferentType")
+                    }
+
+                    it("starts as one type") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 0,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+                                expect(output.variables["$homeScore"]!.stringValue).to(beNil())
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("updates to other type") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 12,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.stringValue).to(equal("1"))
+                                expect(output.variables["$homeScore"]!.longValue).to(beNil())
+
+                                done()
+                            }
+                        }
+                    }
+                }
+            }
+
+            describe("incrementing") {
+                describe("increments a long") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementLongVariables")
+                    }
+
+                    it("updates after the set variable") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 4,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(1))
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("updates a series of values") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 12,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.longValue).to(equal(-4))
+
+                                done()
+                            }
+                        }
+                    }
+                }
+
+                describe("increments a double") {
+                    beforeEach {
+                        actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementDoubleVariables")
+                    }
+
+                    it("updates after the set variable") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 4,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.doubleValue).to(equal(1))
+
+                                done()
+                            }
+                        }
+                    }
+
+                    it("updates a series of values") {
+                        input = AnnotationService.EvaluationInput(
+                            actions: actions,
+                            activeOverlayIds: Set(),
+                            currentTime: 12,
+                            currentDuration: 20)
+
+                        waitUntil { done in
+                            self.annotationService.evaluate(input) { (output) in
+                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                                expect(output.variables["$homeScore"]!.doubleValue).to(equal(12.529))
+
+                                done()
+                            }
+                        }
+                    }
+                }
+
+                it("does not increment a non-existing variable") {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementMissingVariable")
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 4,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("does not increment a string variable") {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_incrementStringVariableDoesntWork")
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 4,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.variables["$homeScore"]!.stringValue).to(equal("0"))
+                            expect(output.variables["$homeScore"]!.longValue).to(beNil())
+                            expect(output.variables["$homeScore"]!.doubleValue).to(beNil())
+
+                            done()
+                        }
+                    }
+                }
+            }
+        }
+
+        describe("timers") {
+            var actions: [AnnotationAction]!
+            var input: AnnotationService.EvaluationInput!
+
+            it("creates") {
+                actions = self.makeAnnotationActionsFromJSON("testAnnotationService_basicCreateTimer")
+                input = AnnotationService.EvaluationInput(
+                    actions: actions,
+                    activeOverlayIds: Set(),
+                    currentTime: 0,
+                    currentDuration: 20)
+
+                waitUntil { done in
+                    self.annotationService.evaluate(input) { (output) in
+                        guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                        guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                        expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("0"))
+
+                        done()
+                    }
+                }
+            }
+
+            describe("recreation") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_recreateTimer")
+                }
+
+                it("has a value before recreation") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 5,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("has a value after recreation, but does not keep running") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 11,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("prioritization") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_timerPrioritization")
+                }
+
+                it("correctly orders timer actions at the same offset") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 2,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
+                            expect(output.timers["$scoreboardTimer"]!.isRunning).to(beFalse())
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("formatting") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_createMultipleTimers")
+                }
+
+                it("formats single values correctly") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 700,
+                        currentDuration: 800)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer1"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer1"]!.humanFriendlyValue).to(equal("695"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("formats minutes:seconds correctly") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 700,
+                        currentDuration: 800)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer2"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer2"]!.humanFriendlyValue).to(equal("11:35"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("downwards timers") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_createMultipleTimers")
+                }
+
+                it("counts down instead of up") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 700,
+                        currentDuration: 3600)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer3"]!.humanFriendlyValue).to(equal("2005"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("stops at the cap value") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 3200,
+                        currentDuration: 3600)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$timer3"]!.humanFriendlyValue).to(equal("400"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("adjusting and skipping timers") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_adjustAndSkipTimers")
+                }
+
+                it("skips") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 2,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("adjusts") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 4,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("skips negatively") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 13,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("drops into negative amounts") {
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        activeOverlayIds: Set(),
+                        currentTime: 14,
+                        currentDuration: 20)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("-27"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -1,0 +1,59 @@
+{
+    "actions": [
+        {
+            "offset": 0,
+            "id": "bbaaaa4444sssstg",
+            "type": "create_timer",
+            "data": {
+                "name": "$scoreboardTimer",
+                "format": "s",
+                "direction": "up",
+                "start_value": 0
+            }
+        },
+        {
+            "offset": 0,
+            "id": "4fdaf5tygfhfhffhc",
+            "type": "start_timer",
+            "data": {
+                "name": "$scoreboardTimer"
+            }
+        },
+        {
+            "offset": 2000,
+            "id": "5cdaf5tygfhfhfno5",
+            "type": "skip_timer",
+            "data": {
+                "name": "$scoreboardTimer",
+                "value": 10000
+            }
+        },
+        {
+            "offset": 4000,
+            "id": "5cdaf5tygfhfhffhb",
+            "type": "adjust_timer",
+            "data": {
+                "name": "$scoreboardTimer",
+                "value": 5000
+            }
+        },
+        {
+            "offset": 13000,
+            "id": "5cdaf5tygfhfhfno5",
+            "type": "skip_timer",
+            "data": {
+                "name": "$scoreboardTimer",
+                "value": -2000
+            }
+        },
+        {
+            "offset": 14000,
+            "id": "5cdaf5tygfhfhfno5",
+            "type": "skip_timer",
+            "data": {
+                "name": "$scoreboardTimer",
+                "value": -40000
+            }
+        }
+    ]
+}
