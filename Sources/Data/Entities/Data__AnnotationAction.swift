@@ -23,22 +23,6 @@ extension DataLayer {
         let offset: Int64
         let data: AnnotationActionData
 
-        /// A priority indicates what the order of actions should be when they happen at the same offset. A higher priority means it should go first.
-        var priority: Int {
-            switch type {
-            case "set_variable", "create_timer":
-                return 1000
-            case "start_timer":
-                return 500
-            case "pause_timer":
-                return 400
-            case "adjust_timer":
-                return 300
-            default:
-                return 0
-            }
-        }
-
         static func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
             return lhs.id == rhs.id
         }
@@ -450,3 +434,14 @@ extension DataLayer.AnnotationActionCreateClock: Decodable {
         self.init(name: name, format: format)
     }
 }
+
+// MARK: - Mappers
+
+extension DataLayer.AnnotationAction {
+    var toDomain: MLSSDK.AnnotationAction {
+        let data = MLSSDK.AnnotationActionData.unsupported // tmp
+        return MLSSDK.AnnotationAction(id: self.id, type: self.type, offset: self.offset, data: data)
+    }
+}
+
+//extension DataLayer

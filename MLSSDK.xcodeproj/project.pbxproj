@@ -29,8 +29,6 @@
 		4926CE0F24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */; };
 		4926CE1124CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */; };
 		4926CE1224CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */; };
-		4926CE1424CDEE3000419A42 /* BaseDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1324CDEE3000419A42 /* BaseDomain.swift */; };
-		4926CE1524CDEE3000419A42 /* BaseDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1324CDEE3000419A42 /* BaseDomain.swift */; };
 		4926CE2724CE046D00419A42 /* Data__AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2224CE046D00419A42 /* Data__AnnotationAction.swift */; };
 		4926CE2824CE046D00419A42 /* Data__AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2224CE046D00419A42 /* Data__AnnotationAction.swift */; };
 		4926CE2924CE046D00419A42 /* Data__PlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2324CE046D00419A42 /* Data__PlayerConfig.swift */; };
@@ -453,7 +451,6 @@
 		4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfigRepository.swift; sourceTree = "<group>"; };
 		4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlayerConfigForEventUseCase.swift; sourceTree = "<group>"; };
 		4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAnnotationActionsForTimelineUseCase.swift; sourceTree = "<group>"; };
-		4926CE1324CDEE3000419A42 /* BaseDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDomain.swift; sourceTree = "<group>"; };
 		4926CE2224CE046D00419A42 /* Data__AnnotationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data__AnnotationAction.swift; sourceTree = "<group>"; };
 		4926CE2324CE046D00419A42 /* Data__PlayerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data__PlayerConfig.swift; sourceTree = "<group>"; };
 		4926CE2424CE046D00419A42 /* BaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseData.swift; sourceTree = "<group>"; };
@@ -754,8 +751,8 @@
 			isa = PBXGroup;
 			children = (
 				49E59024249BC809001E0C1C /* API.swift */,
-				4926CE2124CE03E600419A42 /* Repositories */,
 				4926CE1624CE03E200419A42 /* Entities */,
+				4926CE2124CE03E600419A42 /* Repositories */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -834,6 +831,24 @@
 				4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		4926CE3124CE076F00419A42 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				4966DEFD24B72D7F00BEC403 /* Event.swift */,
+				49DD229124B7788D00A4CFF2 /* Stream.swift */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		4926CE3224CE077600419A42 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				49E59028249BCA5B001E0C1C /* AnnotationAction.swift */,
+				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
+			);
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		4943B95824C6F08A0006F81C /* NVActivityIndicatorView */ = {
@@ -1261,11 +1276,8 @@
 		49E2DF0C24A5538700750C00 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				4926CE1324CDEE3000419A42 /* BaseDomain.swift */,
-				49E59028249BCA5B001E0C1C /* AnnotationAction.swift */,
-				4966DEFD24B72D7F00BEC403 /* Event.swift */,
-				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
-				49DD229124B7788D00A4CFF2 /* Stream.swift */,
+				4926CE3224CE077600419A42 /* Internal */,
+				4926CE3124CE076F00419A42 /* Public */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1901,7 +1913,6 @@
 				49736EDF24A9F59C001F3F48 /* OpacityAnimation.swift in Sources */,
 				49736E9C24A9F59C001F3F48 /* RoundRect.swift in Sources */,
 				49736E9A24A9F59C001F3F48 /* Ellipse.swift in Sources */,
-				4926CE1424CDEE3000419A42 /* BaseDomain.swift in Sources */,
 				49736EED24A9F59C001F3F48 /* FuncBounds.swift in Sources */,
 				49736EE124A9F59C001F3F48 /* TransformHashable.swift in Sources */,
 				4926CE2B24CE046D00419A42 /* BaseData.swift in Sources */,
@@ -2098,7 +2109,6 @@
 				49A8047D24AA0DF000E30DA8 /* TransformAnimation.swift in Sources */,
 				49A8049224AA0E0B00E30DA8 /* TransformInterpolation.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
-				4926CE1524CDEE3000419A42 /* BaseDomain.swift in Sources */,
 				49A8048124AA0DF500E30DA8 /* TransformGenerator.swift in Sources */,
 				49A804EC24AA0ECB00E30DA8 /* CSSParser.swift in Sources */,
 				4926CE2C24CE046D00419A42 /* BaseData.swift in Sources */,

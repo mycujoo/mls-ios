@@ -5,12 +5,12 @@
 import Foundation
 
 struct PlayerConfig: Decodable {
-    public let primaryColor: String
-    public let secondaryColor: String
-    public let autoplay: Bool
-    public let showBackForwardsButtons: Bool
-    public let showLiveViewers: Bool
-    public let showEventInfoButton: Bool
+    let primaryColor: String
+    let secondaryColor: String
+    let autoplay: Bool
+    let showBackForwardsButtons: Bool
+    let showLiveViewers: Bool
+    let showEventInfoButton: Bool
 }
 
 extension PlayerConfig {
