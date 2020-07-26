@@ -118,7 +118,8 @@ public class VideoPlayer: NSObject {
     // MARK: - Private properties
 
     private let player = MLSAVPlayer()
-    private var apiService: APIServicing
+    private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
+    private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
@@ -191,8 +192,13 @@ public class VideoPlayer: NSObject {
 
     // MARK: - Methods
 
-    init(apiService: APIServicing, annotationService: AnnotationServicing, seekTolerance: CMTime = .positiveInfinity) {
-        self.apiService = apiService
+    init(
+            getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
+            getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
+            annotationService: AnnotationServicing,
+            seekTolerance: CMTime = .positiveInfinity) {
+        self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
+        self.getPlayerConfigForEventUseCase = getPlayerConfigForEventUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
 
@@ -278,7 +284,7 @@ public class VideoPlayer: NSObject {
 
             // Schedule the player to start playing in 3 seconds if the API does not respond by then.
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playStreamWorkItem)
-            apiService.fetchPlayerConfig(byEventId: event.id) { [weak self] (playerConfig, _) in
+            getPlayerConfigForEventUseCase.execute(eventId: event.id) { [weak self] (playerConfig, _) in
                 if let playerConfig = playerConfig {
                     self?.playerConfig = playerConfig
                     DispatchQueue.main.async(execute: playStreamWorkItem)
@@ -288,7 +294,7 @@ public class VideoPlayer: NSObject {
             tovStore = TOVStore()
 
             // TODO: Should not pass eventId but timelineId
-            apiService.fetchAnnotationActions(byTimelineId: "standard") { [weak self] (annotations, _) in
+            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (annotations, _) in
                 if let annotations = annotations {
                     self?.annotationActions = annotations
                 }

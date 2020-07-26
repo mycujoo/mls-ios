@@ -62,7 +62,11 @@ public class MLS {
     /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     public func videoPlayer(with event: Event? = nil, seekTolerance: CMTime = .positiveInfinity) -> VideoPlayer {
-        let player = VideoPlayer(apiService: apiService, annotationService: annotationService, seekTolerance: seekTolerance)
+        let player = VideoPlayer(
+            getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
+            getPlayerConfigForEventUseCase: getPlayerConfigForEventUseCase,
+            annotationService: annotationService,
+            seekTolerance: seekTolerance)
 
         player.event = event
 
