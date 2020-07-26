@@ -7,7 +7,7 @@ import Moya
 
 enum API {
     case eventById(String)
-    case events(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?)
+    case events(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
     case playerConfig(String)
     case annotations(String)
 
@@ -42,8 +42,6 @@ extension API: TargetType {
             return .get
         }
     }
-
-
 
     var sampleData: Data {
         switch self {

@@ -145,8 +145,8 @@ extension DataLayer.EventStatus {
 }
 
 extension DataLayer.ParamEventStatus {
-    func fromDomain(_ obj: MLSSDK.ParamEventStatus) -> DataLayer.ParamEventStatus {
-        switch self {
+    static func fromDomain(_ obj: MLSSDK.ParamEventStatus) -> DataLayer.ParamEventStatus {
+        switch obj {
             case .scheduled:   return .scheduled
             case .rescheduled: return .rescheduled
             case .cancelled:   return .cancelled
@@ -162,8 +162,8 @@ extension DataLayer.ParamEventStatus {
 }
 
 extension DataLayer.ParamEventOrder {
-    func fromDomain(_ obj: MLSSDK.ParamEventOrder) -> DataLayer.ParamEventOrder {
-        switch self {
+    static func fromDomain(_ obj: MLSSDK.ParamEventOrder) -> DataLayer.ParamEventOrder {
+        switch obj {
             case .startTimeAsc:  return .startTimeAsc
             case .startTimeDesc: return .startTimeDesc
             case .titleAsc:      return .titleAsc
