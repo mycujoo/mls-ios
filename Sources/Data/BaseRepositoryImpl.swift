@@ -1,0 +1,32 @@
+//
+// Copyright © 2020 mycujoo. All rights reserved.
+//
+
+import Foundation
+import Moya
+
+class BaseRepositoryImpl {
+    let api: MoyaProvider<API>
+
+    init(api: MoyaProvider<API>) {
+        self.api = api
+    }
+
+    func _fetch<T: Decodable>(_ endpoint: API, type t: T.Type, callback: @escaping (T?, Error?) -> ()) {
+        api.request(endpoint) { result in
+            switch result {
+            case .success(let response):
+                let decoder = JSONDecoder()
+                do {
+                    let data = try decoder.decode(t.self, from: response.data)
+                    // TODO: Return the pagination tokens as well
+                    callback(data, nil)
+                } catch {
+                    callback(nil, error)
+                }
+            case .failure(let error):
+                callback(nil, error)
+            }
+        }
+    }
+}

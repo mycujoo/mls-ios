@@ -3,3 +3,7 @@
 //
 
 import Foundation
+
+
+/// All domain entties will be namespaced to this Domain.
+class Domain {}

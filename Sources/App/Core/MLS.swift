@@ -14,19 +14,33 @@ public class MLS {
     public var publicKey: String
     public let configuration: Configuration
 
-    /// An internally available service that can be overwritten for the purpose of testing.
-    lazy var apiService: APIServicing = {
-        var moyaProvider: MoyaProvider<API> = {
-            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
-        }()
-        //        var moyaProvider: MoyaProvider<API> = {
-        //            let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] authType in
-        //                return self?.publicKey ?? ""
-        //            })
-        //            return MoyaProvider<API>(plugins: [authPlugin])
-        //        }()
+    // TODO: Inject this dependency graph, rather than building it here.
 
-        return APIService(api: moyaProvider)
+    private lazy var api: MoyaProvider<API> = {
+        return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
+    }()
+
+    private lazy var annotationActionRepository: AnnotationActionRepository = {
+        return AnnotationActionRepositoryImpl(api: api)
+    }()
+    private lazy var eventRepository: EventRepository = {
+        return EventRepositoryImpl(api: api)
+    }()
+    private lazy var playerConfigRepository: PlayerConfigRepository = {
+        return PlayerConfigRepositoryImpl(api: api)
+    }()
+
+    lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
+        return GetAnnotationActionsForTimelineUseCase(annotationActionRepository: annotationActionRepository)
+    }()
+    lazy var getEventUseCase: GetEventUseCase = {
+        return GetEventUseCase(eventRepository: eventRepository)
+    }()
+    lazy var getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase = {
+        return GetPlayerConfigForEventUseCase(playerConfigRepository: playerConfigRepository)
+    }()
+    lazy var listEventsUseCase: ListEventsUseCase = {
+        return ListEventsUseCase(eventRepository: eventRepository)
     }()
 
     /// An internally available service that can be overwritten for the purpose of testing.
@@ -35,7 +49,7 @@ public class MLS {
     }()
 
     lazy var dataProvider_: DataProvider = {
-        return DataProvider(apiService: apiService)
+        return DataProvider(listEventsUseCase: listEventsUseCase)
     }()
 
     public init(publicKey: String, configuration: Configuration) {
