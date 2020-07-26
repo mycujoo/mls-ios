@@ -414,8 +414,8 @@ public extension VideoPlayer {
 
 // MARK: - Private Methods
 extension VideoPlayer {
-    private func showOverlays(with actions: [ShowOverlayAction]) {
-        func svgParseAndRender(action: ShowOverlayAction, baseSVG: String) {
+    private func showOverlays(with actions: [MLSUI.ShowOverlayAction]) {
+        func svgParseAndRender(action: MLSUI.ShowOverlayAction, baseSVG: String) {
             var baseSVG = baseSVG
             // On every variable/timer change, re-place all variables and timers in the svg again
             // (because we only have the initial SVG, we don't keep its updated states with the original tokens
@@ -468,7 +468,7 @@ extension VideoPlayer {
         }
     }
 
-    private func hideOverlays(with actions: [HideOverlayAction]) {
+    private func hideOverlays(with actions: [MLSUI.HideOverlayAction]) {
         for action in actions {
             if let v = self.overlays[action.overlayId] {
                 view?.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in

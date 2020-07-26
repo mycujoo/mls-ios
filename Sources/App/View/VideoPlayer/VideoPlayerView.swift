@@ -10,7 +10,7 @@ import UIKit
 fileprivate let wrappedViewTag: Int = 321
 
 extension VideoPlayerView {
-    func setTimelineMarkers(with actions: [ShowTimelineMarkerAction]) {
+    func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction]) {
         videoSlider.setTimelineMarkers(with: actions)
     }
 
