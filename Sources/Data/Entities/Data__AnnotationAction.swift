@@ -444,4 +444,148 @@ extension DataLayer.AnnotationAction {
     }
 }
 
-//extension DataLayer
+extension DataLayer.AnnotationActionShowTimelineMarker {
+    var toDomain: MLSSDK.AnnotationActionShowTimelineMarker {
+        return MLSSDK.AnnotationActionShowTimelineMarker(color: self.color, label: self.label)
+    }
+}
+
+extension DataLayer.OverlayAnimateinType {
+    var toDomain: MLSSDK.OverlayAnimateinType {
+        switch self {
+            case .fadeIn:          return .fadeIn
+            case .slideFromTop:    return .slideFromTop
+            case .slideFromBottom: return .slideFromBottom
+            case .slideFromLeft:   return .slideFromLeft
+            case .slideFromRight:  return .slideFromRight
+            case .none:            return .none
+            case .unsupported:     return .unsupported
+        }
+    }
+}
+
+extension DataLayer.OverlayAnimateoutType {
+    var toDomain: MLSSDK.OverlayAnimateoutType {
+        switch self {
+            case .fadeOut:       return .fadeOut
+            case .slideToTop:    return .slideToTop
+            case .slideToBottom: return .slideToBottom
+            case .slideToLeft:   return .slideToLeft
+            case .slideToRight:  return .slideToRight
+            case .none:          return .none
+            case .unsupported:   return .unsupported
+        }
+    }
+}
+
+extension DataLayer.AnnotationActionShowOverlay.Position {
+    var toDomain: MLSSDK.AnnotationActionShowOverlay.Position {
+        return MLSSDK.AnnotationActionShowOverlay.Position(top: self.top, bottom: self.bottom, vcenter: self.vcenter, right: self.right, left: self.left, hcenter: self.hcenter)
+    }
+}
+
+extension DataLayer.AnnotationActionShowOverlay.Size {
+    var toDomain: MLSSDK.AnnotationActionShowOverlay.Size {
+        return MLSSDK.AnnotationActionShowOverlay.Size(width: self.width, height: self.height)
+    }
+}
+
+extension DataLayer.AnnotationActionShowOverlay {
+    var toDomain: MLSSDK.AnnotationActionShowOverlay {
+        return MLSSDK.AnnotationActionShowOverlay(
+            customId: self.customId,
+            svgURL: self.svgURL,
+            position: self.position.toDomain,
+            size: self.size.toDomain,
+            animateinType: self.animateinType?.toDomain,
+            animateoutType: self.animateoutType?.toDomain,
+            animateinDuration: self.animateinDuration,
+            animateoutDuration: self.animateoutDuration,
+            duration: self.duration,
+            variablePositions: self.variablePositions)
+    }
+}
+
+extension DataLayer.AnnotationActionHideOverlay {
+    var toDomain: MLSSDK.AnnotationActionHideOverlay {
+        return MLSSDK.AnnotationActionHideOverlay(customId: self.customId, animateoutType: self.animateoutType?.toDomain, animateoutDuration: self.animateoutDuration)
+    }
+}
+
+extension DataLayer.AnnotationActionSetVariable {
+    var toDomain: MLSSDK.AnnotationActionSetVariable {
+        return MLSSDK.AnnotationActionSetVariable(name: self.name, stringValue: self.stringValue, doubleValue: self.doubleValue, longValue: self.longValue, doublePrecision: self.doublePrecision)
+    }
+}
+
+extension DataLayer.AnnotationActionIncrementVariable {
+    var toDomain: MLSSDK.AnnotationActionIncrementVariable {
+        return MLSSDK.AnnotationActionIncrementVariable(name: self.name, amount: self.amount)
+    }
+}
+
+extension DataLayer.AnnotationActionCreateTimer.Format {
+    var toDomain: MLSSDK.AnnotationActionCreateTimer.Format {
+        switch self {
+            case .ms:          return .ms
+            case .s:           return .s
+            case .unsupported: return .unsupported
+        }
+    }
+}
+
+extension DataLayer.AnnotationActionCreateTimer.Direction {
+    var toDomain: MLSSDK.AnnotationActionCreateTimer.Direction {
+        switch self {
+            case .up:          return .up
+            case .down:        return .down
+            case .unsupported: return .unsupported
+        }
+    }
+}
+
+extension DataLayer.AnnotationActionCreateTimer {
+    var toDomain: MLSSDK.AnnotationActionCreateTimer {
+        return MLSSDK.AnnotationActionCreateTimer(name: self.name, format: self.format.toDomain, direction: self.direction.toDomain, startValue: self.startValue, capValue: self.capValue)
+    }
+}
+
+extension DataLayer.AnnotationActionStartTimer {
+    var toDomain: MLSSDK.AnnotationActionStartTimer {
+        return MLSSDK.AnnotationActionStartTimer(name: self.name)
+    }
+}
+
+extension DataLayer.AnnotationActionPauseTimer {
+    var toDomain: MLSSDK.AnnotationActionPauseTimer {
+        return MLSSDK.AnnotationActionPauseTimer(name: self.name)
+    }
+}
+
+extension DataLayer.AnnotationActionAdjustTimer {
+    var toDomain: MLSSDK.AnnotationActionAdjustTimer {
+        return MLSSDK.AnnotationActionAdjustTimer(name: self.name, value: self.value)
+    }
+}
+
+extension DataLayer.AnnotationActionSkipTimer {
+    var toDomain: MLSSDK.AnnotationActionSkipTimer {
+        return MLSSDK.AnnotationActionSkipTimer(name: self.name, value: self.value)
+    }
+}
+
+extension DataLayer.AnnotationActionCreateClock.Format {
+    var toDomain: MLSSDK.AnnotationActionCreateClock.Format {
+        switch self {
+            case .twelveHours:     return .twelveHours
+            case .twentyfourHours: return .twentyfourHours
+            case .unsupported:     return .unsupported
+        }
+    }
+}
+
+extension DataLayer.AnnotationActionCreateClock {
+    var toDomain: MLSSDK.AnnotationActionCreateClock {
+        return MLSSDK.AnnotationActionCreateClock(name: self.name, format: self.format.toDomain)
+    }
+}

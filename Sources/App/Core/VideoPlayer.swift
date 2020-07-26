@@ -109,7 +109,7 @@ public class VideoPlayer: NSObject {
         return player.currentDuration
     }
 
-    private(set) public var annotationActions: [AnnotationAction] = [] {
+    private(set) var annotationActions: [AnnotationAction] = [] {
         didSet {
             evaluateAnnotations()
         }
