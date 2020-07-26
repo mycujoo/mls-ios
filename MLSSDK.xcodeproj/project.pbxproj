@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		4912850824B79BC300FFCA95 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912850724B79BC300FFCA95 /* APIService.swift */; };
 		4912850924B79BC300FFCA95 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4912850724B79BC300FFCA95 /* APIService.swift */; };
+		4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
+		4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
+		4926CDF524CDE6DF00419A42 /* EventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF424CDE6DF00419A42 /* EventsUseCase.swift */; };
+		4926CDF624CDE6DF00419A42 /* EventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF424CDE6DF00419A42 /* EventsUseCase.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4943B96124C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */; };
@@ -192,10 +196,6 @@
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
-		499CBEEF24B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */; };
-		499CBEF024B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */; };
-		499CBEF224B9E75900EE4D7B /* ParamEventOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */; };
-		499CBEF324B9E75900EE4D7B /* ParamEventOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */; };
 		49A73D4524AB315D009CD2DF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A73D4424AB315D009CD2DF /* Action.swift */; };
 		49A73D4624AB315D009CD2DF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A73D4424AB315D009CD2DF /* Action.swift */; };
 		49A73D5124ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
@@ -417,6 +417,8 @@
 		1F6FED60E290A93870CE75EB /* Pods_tvOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4890C55696297F99AD58AE02 /* Pods-MLSSDK-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		4912850724B79BC300FFCA95 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		4926CDF024CDE64600419A42 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
+		4926CDF424CDE6DF00419A42 /* EventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsUseCase.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		4943B95B24C6F08A0006F81C /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
@@ -586,8 +588,6 @@
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamEventStatus.swift; sourceTree = "<group>"; };
-		499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamEventOrder.swift; sourceTree = "<group>"; };
 		49A73D4424AB315D009CD2DF /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		49A73D5524ABD2D5009CD2DF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5624ABD2D9009CD2DF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -714,6 +714,9 @@
 		4926CDEC24CDDAB900419A42 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				49E59024249BC809001E0C1C /* API.swift */,
+				49EA06BE24C7913A00C7AB10 /* APIServicing.swift */,
+				4912850724B79BC300FFCA95 /* APIService.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -721,6 +724,10 @@
 		4926CDED24CDDACC00419A42 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				4926CDF724CDE7EE00419A42 /* Services */,
+				4926CDF324CDE64B00419A42 /* UseCases */,
+				4926CDEF24CDE63300419A42 /* UseCaseProviders */,
+				49E2DF0C24A5538700750C00 /* Entities */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -729,14 +736,37 @@
 			isa = PBXGroup;
 			children = (
 				49AE76F824C720AE00E40C41 /* Support Files */,
-				49DD229424B793C000A4CFF2 /* Services */,
 				495CB131249CC4F800998FF4 /* Utils */,
-				49E59023249BC7EE001E0C1C /* Networking */,
 				64FDE2FF249A175600E6510D /* Core */,
 				6496C3452492308D0099475D /* Models */,
 				6496C34D2492308D0099475D /* View */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		4926CDEF24CDE63300419A42 /* UseCaseProviders */ = {
+			isa = PBXGroup;
+			children = (
+				4926CDF024CDE64600419A42 /* EventRepository.swift */,
+			);
+			path = UseCaseProviders;
+			sourceTree = "<group>";
+		};
+		4926CDF324CDE64B00419A42 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				4926CDF424CDE6DF00419A42 /* EventsUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		4926CDF724CDE7EE00419A42 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				49EA06BB24C7912F00C7AB10 /* AnnotationServicing.swift */,
+				4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4943B95824C6F08A0006F81C /* NVActivityIndicatorView */ = {
@@ -1110,15 +1140,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		499CBEED24B9E6D100EE4D7B /* Params */ = {
-			isa = PBXGroup;
-			children = (
-				499CBEEE24B9E6F200EE4D7B /* ParamEventStatus.swift */,
-				499CBEF124B9E75900EE4D7B /* ParamEventOrder.swift */,
-			);
-			path = Params;
-			sourceTree = "<group>";
-		};
 		49A8047224AA0C4000E30DA8 /* SWXMLHash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,17 +1191,6 @@
 			path = tvOS;
 			sourceTree = "<group>";
 		};
-		49DD229424B793C000A4CFF2 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */,
-				49EA06BB24C7912F00C7AB10 /* AnnotationServicing.swift */,
-				4912850724B79BC300FFCA95 /* APIService.swift */,
-				49EA06BE24C7913A00C7AB10 /* APIServicing.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		49E2DF0C24A5538700750C00 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1199,16 +1209,6 @@
 				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		49E59023249BC7EE001E0C1C /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				499CBEED24B9E6D100EE4D7B /* Params */,
-				49E2DF0C24A5538700750C00 /* Entities */,
-				49E59024249BC809001E0C1C /* API.swift */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		49EA06B424C78C5E00C7AB10 /* Tests */ = {
@@ -1831,13 +1831,13 @@
 				49736EDF24A9F59C001F3F48 /* OpacityAnimation.swift in Sources */,
 				49736E9C24A9F59C001F3F48 /* RoundRect.swift in Sources */,
 				49736E9A24A9F59C001F3F48 /* Ellipse.swift in Sources */,
-				499CBEEF24B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */,
 				49736EED24A9F59C001F3F48 /* FuncBounds.swift in Sources */,
 				49736EE124A9F59C001F3F48 /* TransformHashable.swift in Sources */,
 				49E2DF0F24A55B4900750C00 /* TimelineMarker.swift in Sources */,
 				49736ED824A9F59C001F3F48 /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				49736EC124A9F59C001F3F48 /* Stop.swift in Sources */,
 				49736ECE24A9F59C001F3F48 /* MDisplayLink_iOS.swift in Sources */,
+				4926CDF524CDE6DF00419A42 /* EventsUseCase.swift in Sources */,
 				49736EB124A9F59C001F3F48 /* Node.swift in Sources */,
 				49736EAE24A9F59C001F3F48 /* Shape.swift in Sources */,
 				49736EFA24A9F59C001F3F48 /* AnimationUtils.swift in Sources */,
@@ -1858,6 +1858,7 @@
 				49736EC424A9F59C001F3F48 /* LineCap.swift in Sources */,
 				49736ED524A9F59C001F3F48 /* MacawView.swift in Sources */,
 				49736ED424A9F59C001F3F48 /* ShapeLayer.swift in Sources */,
+				4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */,
 				4943B96324C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
 				49736EBA24A9F59C001F3F48 /* Baseline.swift in Sources */,
 				49736EC224A9F59C001F3F48 /* Font.swift in Sources */,
@@ -1899,7 +1900,6 @@
 				49736EAF24A9F59C001F3F48 /* Group.swift in Sources */,
 				4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */,
 				49736EAC24A9F59C001F3F48 /* SceneUtils.swift in Sources */,
-				499CBEF224B9E75900EE4D7B /* ParamEventOrder.swift in Sources */,
 				49736EC024A9F59C001F3F48 /* OffsetEffect.swift in Sources */,
 				49736EB424A9F59C001F3F48 /* AlphaEffect.swift in Sources */,
 				49736EBE24A9F59C001F3F48 /* Drawable.swift in Sources */,
@@ -2014,7 +2014,6 @@
 				49A8049B24AA0E3800E30DA8 /* PinchEvent.swift in Sources */,
 				49A8047D24AA0DF000E30DA8 /* TransformAnimation.swift in Sources */,
 				49A8049224AA0E0B00E30DA8 /* TransformInterpolation.swift in Sources */,
-				499CBEF024B9E6F200EE4D7B /* ParamEventStatus.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
 				49A8048124AA0DF500E30DA8 /* TransformGenerator.swift in Sources */,
 				49A804EC24AA0ECB00E30DA8 /* CSSParser.swift in Sources */,
@@ -2022,6 +2021,7 @@
 				49A804BD24AA0E9800E30DA8 /* Insets.swift in Sources */,
 				49A8047E24AA0DF000E30DA8 /* CombineAnimation.swift in Sources */,
 				49A804BC24AA0E9800E30DA8 /* Circle.swift in Sources */,
+				4926CDF624CDE6DF00419A42 /* EventsUseCase.swift in Sources */,
 				49A804B124AA0E9800E30DA8 /* Transform.swift in Sources */,
 				49A8049124AA0E0B00E30DA8 /* DoubleInterpolation.swift in Sources */,
 				49A804C124AA0E9D00E30DA8 /* Shape.swift in Sources */,
@@ -2042,6 +2042,7 @@
 				49A804EA24AA0EBB00E30DA8 /* RenderUtils.swift in Sources */,
 				49A8048C24AA0E0000E30DA8 /* Easing.swift in Sources */,
 				49A804B424AA0E9800E30DA8 /* Locus.swift in Sources */,
+				4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */,
 				4943B96424C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
 				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
 				49A804BE24AA0E9800E30DA8 /* TransformedLocus.swift in Sources */,
@@ -2082,7 +2083,6 @@
 				4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */,
 				49A804A924AA0E8D00E30DA8 /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
 				49A8048F24AA0E0700E30DA8 /* FuncBounds.swift in Sources */,
-				499CBEF324B9E75900EE4D7B /* ParamEventOrder.swift in Sources */,
 				49A804C924AA0EA100E30DA8 /* ColorMatrix.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49A804C224AA0E9D00E30DA8 /* Group.swift in Sources */,

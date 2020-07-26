@@ -4,6 +4,8 @@
 
 import Foundation
 
+// MARK: Decodables
+
 public struct EventWrapper: Decodable {
     public let events: [Event]
 }
@@ -87,4 +89,27 @@ public extension EventStatus {
             self = .unspecified
         }
     }
+}
+
+// MARK: Encodables
+
+public enum ParamEventStatus: String {
+    case scheduled    = "EVENT_STATUS_SCHEDULED"
+    case rescheduled  = "EVENT_STATUS_RESCHEDULED"
+    case cancelled    = "EVENT_STATUS_CANCELLED"
+    case postponed    = "EVENT_STATUS_POSTPONED"
+    case delayed      = "EVENT_STATUS_DELAYED"
+    case started      = "EVENT_STATUS_STARTED"
+    case paused       = "EVENT_STATUS_PAUSED"
+    case suspended    = "EVENT_STATUS_SUSPENDED"
+    case finished     = "EVENT_STATUS_FINISHED"
+    case unspecified  = "EVENT_STATUS_UNSPECIFIED"
+}
+
+public enum ParamEventOrder: String {
+    case startTimeAsc  = "ORDER_START_TIME_ASC"
+    case startTimeDesc = "ORDER_START_TIME_DESC"
+    case titleAsc      = "ORDER_TITLE_ASC"
+    case titleDesc     = "ORDER_TITLE_DESC"
+    case unspecified   = "ORDER_UNSPECIFIED"
 }
