@@ -19,7 +19,6 @@ class BaseRepositoryImpl {
                 let decoder = JSONDecoder()
                 do {
                     let data = try decoder.decode(t.self, from: response.data)
-                    // TODO: Return the pagination tokens as well
                     callback(data, nil)
                 } catch {
                     callback(nil, error)

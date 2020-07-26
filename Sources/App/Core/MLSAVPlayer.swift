@@ -128,7 +128,6 @@ class MLSAVPlayer: AVPlayer {
     /// - note: `isSeeking` will be set to `true` even when the actual seek operation is still being debounced.
     func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
         let currentDuration = self.currentDuration
-        let currentTime = self.currentTime
         guard currentDuration > 0 else { return }
 
         isSeeking = true
