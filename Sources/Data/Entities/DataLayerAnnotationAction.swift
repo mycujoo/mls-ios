@@ -17,19 +17,11 @@ extension DataLayer {
 
     // MARK: - Action
 
-    struct AnnotationAction: Hashable {
+    struct AnnotationAction {
         let id: String
         private let type: String
         let offset: Int64
         let data: AnnotationActionData
-
-        static func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
-            return lhs.id == rhs.id
-        }
-
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
-        }
     }
 
     enum AnnotationActionData {
