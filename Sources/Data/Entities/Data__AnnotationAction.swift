@@ -439,7 +439,21 @@ extension DataLayer.AnnotationActionCreateClock: Decodable {
 
 extension DataLayer.AnnotationAction {
     var toDomain: MLSSDK.AnnotationAction {
-        let data = MLSSDK.AnnotationActionData.unsupported // tmp
+        let data: MLSSDK.AnnotationActionData
+        switch self.data {
+        case .showTimelineMarker(let d): data = .showTimelineMarker(d.toDomain)
+        case .showOverlay(let d):        data = .showOverlay(d.toDomain)
+        case .hideOverlay(let d):        data = .hideOverlay(d.toDomain)
+        case .setVariable(let d):        data = .setVariable(d.toDomain)
+        case .incrementVariable(let d):  data = .incrementVariable(d.toDomain)
+        case .createTimer(let d):        data = .createTimer(d.toDomain)
+        case .startTimer(let d):         data = .startTimer(d.toDomain)
+        case .pauseTimer(let d):         data = .pauseTimer(d.toDomain)
+        case .adjustTimer(let d):        data = .adjustTimer(d.toDomain)
+        case .skipTimer(let d):          data = .skipTimer(d.toDomain)
+        case .createClock(let d):        data = .createClock(d.toDomain)
+        case .unsupported:               data = .unsupported
+        }
         return MLSSDK.AnnotationAction(id: self.id, type: self.type, offset: self.offset, data: data)
     }
 }
