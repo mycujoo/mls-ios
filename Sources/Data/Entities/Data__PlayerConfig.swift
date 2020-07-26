@@ -43,3 +43,12 @@ extension DataLayer.PlayerConfig {
         return config
     }
 }
+
+
+// - MARK: Mappers
+
+extension DataLayer.PlayerConfig {
+    var toDomain: MLSSDK.PlayerConfig {
+        return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showEventInfoButton: self.showEventInfoButton)
+    }
+}

@@ -118,3 +118,57 @@ extension DataLayer.EventStatus {
         }
     }
 }
+
+// - MARK: Mappers
+
+extension DataLayer.Event {
+    var toDomain: MLSSDK.Event {
+        return MLSSDK.Event(id: self.id, title: self.title, descriptionText: self.descriptionText, thumbnailUrl: self.thumbnailUrl, organiser: self.organiser, timezone: self.timezone, startTime: self.startTime, status: self.status.toDomain, streams: self.streams.map { $0.toDomain }, timelineIds: self.timelineIds)
+    }
+}
+
+extension DataLayer.EventStatus {
+    var toDomain: MLSSDK.EventStatus {
+        switch self {
+            case .scheduled:   return .scheduled
+            case .rescheduled: return .rescheduled
+            case .cancelled:   return .cancelled
+            case .postponed:   return .postponed
+            case .delayed:     return .delayed
+            case .started:     return .started
+            case .paused:      return .paused
+            case .suspended:   return .suspended
+            case .finished:    return .finished
+            case .unspecified: return .unspecified
+        }
+    }
+}
+
+extension DataLayer.ParamEventStatus {
+    func fromDomain(_ obj: MLSSDK.ParamEventStatus) -> DataLayer.ParamEventStatus {
+        switch self {
+            case .scheduled:   return .scheduled
+            case .rescheduled: return .rescheduled
+            case .cancelled:   return .cancelled
+            case .postponed:   return .postponed
+            case .delayed:     return .delayed
+            case .started:     return .started
+            case .paused:      return .paused
+            case .suspended:   return .suspended
+            case .finished:    return .finished
+            case .unspecified: return .unspecified
+        }
+    }
+}
+
+extension DataLayer.ParamEventOrder {
+    func fromDomain(_ obj: MLSSDK.ParamEventOrder) -> DataLayer.ParamEventOrder {
+        switch self {
+            case .startTimeAsc:  return .startTimeAsc
+            case .startTimeDesc: return .startTimeDesc
+            case .titleAsc:      return .titleAsc
+            case .titleDesc:     return .titleDesc
+            case .unspecified:   return .unspecified
+        }
+    }
+}

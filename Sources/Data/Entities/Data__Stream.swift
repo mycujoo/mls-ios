@@ -22,3 +22,11 @@ extension DataLayer.Stream {
         self.init(fullUrl: fullUrl)
     }
 }
+
+// - MARK: Mappers
+
+extension DataLayer.Stream {
+    var toDomain: MLSSDK.Stream {
+        return MLSSDK.Stream(fullUrl: self.fullUrl)
+    }
+}

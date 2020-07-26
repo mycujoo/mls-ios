@@ -7,15 +7,15 @@ import Foundation
 
 class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
     func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ()) {
-        _fetch(.eventById(id), type: Event.self) { (config, err) in
-            callback(config, err)
+        _fetch(.eventById(id), type: DataLayer.Event.self) { (event, err) in
+            callback(event?.toDomain, err)
         }
     }
     
     func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ()) {
-        _fetch(.events(pageSize: pageSize, pageToken: pageToken, hasStream: hasStream, status: status, orderBy: orderBy), type: EventWrapper.self) { (wrapper, err) in
+        _fetch(.events(pageSize: pageSize, pageToken: pageToken, hasStream: hasStream, status: status, orderBy: orderBy), type: DataLayer.EventWrapper.self) { (wrapper, err) in
             // TODO: Return the pagination tokens as well
-            callback(wrapper?.events, err)
+            callback(wrapper?.events.map { $0.toDomain }, err)
         }
     }
 }
