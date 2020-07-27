@@ -22,7 +22,6 @@ class TOVStoreSpec: QuickSpec {
         }
 
         describe("saving and retrieving") {
-
             it("saves and retrieves variables") {
                 let variables = [
                     "variable1": TOVStore.Variable(name: "variable1", stringValue: "abc", doubleValue: nil, longValue: nil, doublePrecision: nil),
@@ -49,6 +48,17 @@ class TOVStoreSpec: QuickSpec {
                 expect(self.tovStore.get(by: "timer1")?.humanFriendlyValue).to(equal(timers["timer1"]?.humanFriendlyValue))
                 expect(self.tovStore.get(by: "timer2")?.humanFriendlyValue).to(equal(timers["timer2"]?.humanFriendlyValue))
                 expect(self.tovStore.get(by: "timer3")?.humanFriendlyValue).to(beNil())
+            }
+        }
+
+        describe("observing") {
+
+            beforeEach {
+
+            }
+
+            it("") {
+
             }
         }
     }

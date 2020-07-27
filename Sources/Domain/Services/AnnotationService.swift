@@ -235,7 +235,7 @@ fileprivate extension AnnotationService {
             size: actionData.size,
             animateType: actionData.animateinType ?? .fadeIn,
             animateDuration: actionData.animateinDuration ?? 300,
-            variablePositions: actionData.variablePositions ?? [:])
+            variables: actionData.variables ?? [])
     }
 
     func makeHideOverlay(from action: AnnotationAction) -> MLSUI.HideOverlayAction? {
@@ -265,7 +265,7 @@ fileprivate extension AnnotationService {
     /// Removes the animation information. Useful for when the animation should not occur
     /// because the user jumped between different sections of the video and the overlay should be hidden instantly.
     func removeAnimation(from action: MLSUI.ShowOverlayAction) -> MLSUI.ShowOverlayAction {
-        return MLSUI.ShowOverlayAction(actionId: action.actionId, overlay: action.overlay, position: action.position, size: action.size, animateType: .none, animateDuration: 0, variablePositions: action.variablePositions)
+        return MLSUI.ShowOverlayAction(actionId: action.actionId, overlay: action.overlay, position: action.position, size: action.size, animateType: .none, animateDuration: 0, variables: action.variables)
     }
 
     /// Removes the animation information. Useful for when the animation should not occur

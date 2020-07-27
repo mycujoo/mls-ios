@@ -124,11 +124,7 @@ extension API: TargetType {
                                         "width": 25.0
                                     },
                                     "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg",
-                                    "variable_positions": {
-                                        "###_AWAYSCORE_###": "$awayScore",
-                                        "###_HOMESCORE_###": "$homeScore",
-                                        "###_TIMER_###": "$scoreboardTimer"
-                                    }
+                                    "variables": ["$awayScore", "$homeScore", "$scoreboardTimer"]
                                 },
                                 "offset": 1699000,
                                 "id": "54afag35yag",

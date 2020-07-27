@@ -125,7 +125,7 @@ struct AnnotationActionShowOverlay {
     let animateinDuration: Double?
     let animateoutDuration: Double?
     let duration: Double?
-    let variablePositions: [String: String]?
+    let variables: [String]?
 
     init(
             customId: String?,
@@ -137,7 +137,7 @@ struct AnnotationActionShowOverlay {
             animateinDuration: Double?,
             animateoutDuration: Double?,
             duration: Double?,
-            variablePositions: [String: String]?
+            variables: [String]?
     ) {
         self.customId = customId
         self.svgURL = svgURL
@@ -148,7 +148,7 @@ struct AnnotationActionShowOverlay {
         self.animateinDuration = animateinDuration
         self.animateoutDuration = animateoutDuration
         self.duration = duration
-        self.variablePositions = variablePositions
+        self.variables = variables
     }
 }
 

@@ -421,12 +421,12 @@ extension VideoPlayer {
             // (because we only have the initial SVG, we don't keep its updated states with the original tokens
             // included).
             guard let tovStore = self.tovStore else { return }
-            for it in action.variablePositions {
+            for variableName in action.variables {
                 // Fallback to the variable name if there is no variable defined.
                 // The reason for this is that certain "variable-like" values might have slipped through,
                 // e.g. prices that start with a dollar sign.
-                let resolved = tovStore.get(by: it.value)?.humanFriendlyValue ?? it.value
-                baseSVG = baseSVG.replacingOccurrences(of: it.key, with: resolved)
+                let resolved = tovStore.get(by: variableName)?.humanFriendlyValue ?? variableName
+                baseSVG = baseSVG.replacingOccurrences(of: variableName, with: resolved)
             }
 
             if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
@@ -454,7 +454,7 @@ extension VideoPlayer {
                     guard let self = self else { return }
 
                     if let baseSVG = response.value {
-                        for (_, variableName) in action.variablePositions {
+                        for variableName in action.variables {
                             self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { val in
                                 // Re-render the entire SVG (including replacing all tokens with their resolved values)
                                 svgParseAndRender(action: action, baseSVG: baseSVG)
