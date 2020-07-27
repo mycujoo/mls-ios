@@ -65,6 +65,7 @@
 		495CB13D249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */; };
 		4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
 		4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
+		496ECB0124CF0E7A001A9431 /* TOVStoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */; };
 		49736E9524A9F59C001F3F48 /* GroupDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF624A9F599001F3F48 /* GroupDisposable.swift */; };
 		49736E9624A9F59C001F3F48 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF724A9F599001F3F48 /* Disposable.swift */; };
 		49736E9724A9F59C001F3F48 /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF824A9F599001F3F48 /* Variable.swift */; };
@@ -463,6 +464,7 @@
 		495CB138249CF98600998FF4 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayer.swift; sourceTree = "<group>"; };
 		4966DEFD24B72D7F00BEC403 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStoreSpec.swift; sourceTree = "<group>"; };
 		49736DF624A9F599001F3F48 /* GroupDisposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDisposable.swift; sourceTree = "<group>"; };
 		49736DF724A9F599001F3F48 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
 		49736DF824A9F599001F3F48 /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -1248,6 +1250,7 @@
 				49EA06C524C79B5500C7AB10 /* Stubs */,
 				49EA06C424C792B300C7AB10 /* Mocks */,
 				4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */,
+				496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1845,6 +1848,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				496ECB0124CF0E7A001A9431 /* TOVStoreSpec.swift in Sources */,
 				49EA06C324C792A100C7AB10 /* GeneratedMocks.swift in Sources */,
 				4988B9CC24C87BCC00352529 /* AnnotationServiceSpec.swift in Sources */,
 			);
