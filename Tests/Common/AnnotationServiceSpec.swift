@@ -829,9 +829,9 @@ extension AnnotationServiceSpec {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
 
                 let decoder = JSONDecoder()
-                let decoded = (try? decoder.decode(AnnotationActionWrapper.self, from: data))
+                let decoded = (try? decoder.decode(DataLayer.AnnotationActionWrapper.self, from: data))
 
-                return decoded?.actions ?? []
+                return decoded?.actions.map { $0.toDomain } ?? []
             } catch {}
         }
 
