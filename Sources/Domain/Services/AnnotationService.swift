@@ -30,9 +30,9 @@ class AnnotationService: AnnotationServicing {
         /// A Set of overlayIds that are currently active (i.e. on-screen). This should be passed on as input to the next evaluation.
         var activeOverlayIds: Set<String>
         /// A dictionary of ActionVariables as they are defined at the current point of evaluation. The keys are the names of these variables.
-        var variables: [String: ActionVariable]
+        var variables: [String: TOVStore.Variable]
         /// A dictionary of ActionTimers as they are defined at the current point of evaluation. The keys are the names of these timers.
-        var timers: [String: ActionTimer]
+        var timers: [String: TOVStore.Timer]
     }
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
@@ -50,8 +50,8 @@ class AnnotationService: AnnotationServicing {
             var showTimelineMarkers: [MLSUI.ShowTimelineMarkerAction] = []
             var showOverlays: [MLSUI.ShowOverlayAction] = []
             var hideOverlays: [MLSUI.HideOverlayAction] = []
-            var variables: [String: ActionVariable] = [:]
-            var timers: [String: ActionTimer] = [:]
+            var variables: [String: TOVStore.Variable] = [:]
+            var timers: [String: TOVStore.Timer] = [:]
 
             // MARK:  Helpers
 
@@ -113,7 +113,7 @@ class AnnotationService: AnnotationServicing {
                     }
                 case .setVariable(let data):
                     if offset <= input.currentTime {
-                        variables[data.name] = ActionVariable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)
+                        variables[data.name] = TOVStore.Variable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)
                     }
                 case .incrementVariable(let data):
                     if offset <= input.currentTime {
@@ -127,21 +127,21 @@ class AnnotationService: AnnotationServicing {
                     }
                 case .createTimer(let data):
                     if offset <= input.currentTime {
-                        let format: ActionTimer.Format
+                        let format: TOVStore.Timer.Format
                         switch data.format {
                             case .ms: format = .ms
                             case .s: format = .s
                             case .unsupported: format = .unsupported
                         }
 
-                        let direction: ActionTimer.Direction
+                        let direction: TOVStore.Timer.Direction
                         switch data.direction {
                             case .up: direction = .up
                             case .down: direction = .down
                             case .unsupported: direction = .unsupported
                         }
 
-                        timers[data.name] = ActionTimer(name: data.name, format: format, direction: direction, startValue: data.startValue, capValue: data.capValue)
+                        timers[data.name] = TOVStore.Timer(name: data.name, format: format, direction: direction, startValue: data.startValue, capValue: data.capValue)
                     }
                 case .startTimer(let data):
                     if offset <= input.currentTime {
