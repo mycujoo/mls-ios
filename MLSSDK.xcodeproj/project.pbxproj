@@ -847,11 +847,11 @@
 		4943B95824C6F08A0006F81C /* NVActivityIndicatorView */ = {
 			isa = PBXGroup;
 			children = (
-				4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */,
+				4943B95F24C6F08A0006F81C /* Animations */,
 				4943B95A24C6F08A0006F81C /* Presenter */,
+				4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */,
 				4943B95D24C6F08A0006F81C /* NVActivityIndicatorShape.swift */,
 				4943B95E24C6F08A0006F81C /* NVActivityIndicatorView.swift */,
-				4943B95F24C6F08A0006F81C /* Animations */,
 			);
 			path = NVActivityIndicatorView;
 			sourceTree = "<group>";
@@ -880,6 +880,7 @@
 				49736DF424A9F588001F3F48 /* Macaw */,
 				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
+				495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */,
 				495CB138249CF98600998FF4 /* Throttler.swift */,
 				495CB132249CC50E00998FF4 /* UIColor+.swift */,
 				49DDEABA24A29E6900C89DFF /* UIFont+.swift */,
@@ -1389,7 +1390,6 @@
 			children = (
 				6496C3442492308D0099475D /* MLS.swift */,
 				499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */,
-				495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */,
 				497FD2C524C0981F0027E708 /* TOVStore.swift */,
 				6496C3522492308D0099475D /* VideoPlayer.swift */,
 			);

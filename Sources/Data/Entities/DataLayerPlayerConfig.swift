@@ -36,12 +36,6 @@ extension DataLayer.PlayerConfig {
 
         self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showEventInfoButton: showEventInfoButton)
     }
-
-    /// Generates a standard player configuration, with default values.
-    static func standard() -> DataLayer.PlayerConfig {
-        let config = self.init(primaryColor: "#ffffff", secondaryColor: "#000000", autoplay: true, showBackForwardsButtons: true, showLiveViewers: true, showEventInfoButton: true)
-        return config
-    }
 }
 
 
