@@ -278,12 +278,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.stringValue).to(beNil())
-                                expect(output.variables["$homeScore"]!.doubleValue).to(beNil())
-                                expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("0"))
 
                                 done()
                             }
@@ -299,12 +297,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 2 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$awayScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 2 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$awayScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$awayScore"]!.stringValue).to(beNil())
-                                expect(output.variables["$awayScore"]!.doubleValue).to(beNil())
-                                expect(output.variables["$awayScore"]!.longValue).to(equal(2))
+                                expect(output.tovs["$awayScore"]!.humanFriendlyValue).to(equal("2"))
 
                                 done()
                             }
@@ -326,7 +322,7 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 0 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs.count == 0 else { fail("Wrong array count"); done(); return }
                                 done()
                             }
                         }
@@ -341,10 +337,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("0"))
 
                                 done()
                             }
@@ -360,10 +356,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.longValue).to(equal(20))
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("20"))
 
                                 done()
                             }
@@ -386,11 +382,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.longValue).to(equal(0))
-                                expect(output.variables["$homeScore"]!.stringValue).to(beNil())
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("0"))
 
                                 done()
                             }
@@ -406,11 +401,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.stringValue).to(equal("1"))
-                                expect(output.variables["$homeScore"]!.longValue).to(beNil())
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("1"))
 
                                 done()
                             }
@@ -434,10 +428,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.longValue).to(equal(1))
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("1"))
 
                                 done()
                             }
@@ -453,10 +447,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.longValue).to(equal(-4))
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("-4"))
 
                                 done()
                             }
@@ -478,10 +472,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.doubleValue).to(equal(1))
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("1.00"))
 
                                 done()
                             }
@@ -497,10 +491,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                         waitUntil { done in
                             self.annotationService.evaluate(input) { (output) in
-                                guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                                guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                                guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                                guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                                expect(output.variables["$homeScore"]!.doubleValue).to(equal(12.529))
+                                expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("12.53"))
 
                                 done()
                             }
@@ -519,10 +513,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.variables["$homeScore"]!.longValue).to(equal(0))
+                            expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("0"))
 
                             done()
                         }
@@ -540,12 +534,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.variables.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.variables["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$homeScore"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.variables["$homeScore"]!.stringValue).to(equal("0"))
-                            expect(output.variables["$homeScore"]!.longValue).to(beNil())
-                            expect(output.variables["$homeScore"]!.doubleValue).to(beNil())
+                            expect(output.tovs["$homeScore"]!.humanFriendlyValue).to(equal("0"))
 
                             done()
                         }
@@ -568,10 +560,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                 waitUntil { done in
                     self.annotationService.evaluate(input) { (output) in
-                        guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                        guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                        guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                        guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                        expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("0"))
+                        expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("0"))
 
                         done()
                     }
@@ -592,10 +584,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
 
                             done()
                         }
@@ -611,10 +603,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
 
                             done()
                         }
@@ -636,11 +628,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
-                            expect(output.timers["$scoreboardTimer"]!.isRunning).to(beFalse())
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("15"))
 
                             done()
                         }
@@ -662,10 +653,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$timer1"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$timer1"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$timer1"]!.humanFriendlyValue).to(equal("695"))
+                            expect(output.tovs["$timer1"]!.humanFriendlyValue).to(equal("695"))
 
                             done()
                         }
@@ -681,10 +672,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$timer2"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$timer2"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$timer2"]!.humanFriendlyValue).to(equal("11:35"))
+                            expect(output.tovs["$timer2"]!.humanFriendlyValue).to(equal("11:35"))
 
                             done()
                         }
@@ -706,10 +697,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$timer3"]!.humanFriendlyValue).to(equal("2005"))
+                            expect(output.tovs["$timer3"]!.humanFriendlyValue).to(equal("2005"))
 
                             done()
                         }
@@ -725,10 +716,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 4 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 4 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$timer3"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$timer3"]!.humanFriendlyValue).to(equal("400"))
+                            expect(output.tovs["$timer3"]!.humanFriendlyValue).to(equal("400"))
 
                             done()
                         }
@@ -750,10 +741,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
 
                             done()
                         }
@@ -769,10 +760,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("5"))
 
                             done()
                         }
@@ -788,10 +779,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("12"))
 
                             done()
                         }
@@ -807,10 +798,10 @@ class AnnotationServiceSpec: QuickSpec {
 
                     waitUntil { done in
                         self.annotationService.evaluate(input) { (output) in
-                            guard output.timers.count == 1 else { fail("Wrong array count"); done(); return }
-                            guard output.timers["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
-                            expect(output.timers["$scoreboardTimer"]!.humanFriendlyValue).to(equal("-27"))
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("-27"))
 
                             done()
                         }

@@ -349,7 +349,7 @@ extension AnnotationService {
         let capValue: Double?
 
         private var value: Double
-        private(set) var isRunning = false
+        private var isRunning = false
         private var lastUpdatedAtOffset: Double? = nil
 
         /// - parameter startValue: A value in milliseconds that indicates the initial value of the timer.
