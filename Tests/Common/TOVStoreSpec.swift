@@ -52,12 +52,44 @@ class TOVStoreSpec: QuickSpec {
         }
 
         describe("observing") {
-
             beforeEach {
-
+                self.tovStore.new(variables: [:])
+                self.tovStore.new(timers: [:])
             }
 
-            it("") {
+            it("calls single observer for timer-changes") {
+                var calledAmount = 0
+                waitUntil { done in
+                    self.tovStore.addObserver(tovName: "timer1", callbackId: "callback1") { val in
+                        switch calledAmount {
+                        case 0:
+                            expect(val).to(equal("timer1"))
+                            expect(self.tovStore.get(by: val)?.humanFriendlyValue).to(equal("100"))
+                        case 1:
+                            expect(val).to(equal("timer1"))
+                            expect(self.tovStore.get(by: val)?.humanFriendlyValue).to(equal("50"))
+                        default:
+                            break
+                        }
+
+                        calledAmount += 1
+                        if calledAmount == 2 {
+                            done()
+                        }
+                    }
+                    // Set a new timer
+                    self.tovStore.new(timers: [
+                        "timer1": TOVStore.Timer(name: "timer1", format: .s, direction: .up, startValue: 100000),
+                    ])
+                    // Set the same timer with all new same properties (should not trigger a new call to the observer)
+                    self.tovStore.new(timers: [
+                        "timer1": TOVStore.Timer(name: "timer1", format: .s, direction: .up, startValue: 100000),
+                    ])
+                    // Change the properties, thus triggering a new call to the observer
+                    self.tovStore.new(timers: [
+                        "timer1": TOVStore.Timer(name: "timer1", format: .s, direction: .up, startValue: 50000),
+                    ])
+                }
 
             }
         }
