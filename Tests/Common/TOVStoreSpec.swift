@@ -142,6 +142,58 @@ class TOVStoreSpec: QuickSpec {
                         ])
                     }
                 }
+
+                it("keeps observers that are not removed by removeObserver") {
+                    waitUntil { done in
+                        var removedWasCalled = false
+                        var keptWasCalled = false
+                        self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { _ in
+                            removedWasCalled = true
+                        }
+                        self.tovStore.addObserver(tovName: "tov1", callbackId: "callback2") { _ in
+                            keptWasCalled = true
+                        }
+                        self.tovStore.removeObserver(tovName: "tov1", callbackId: "callback1")
+
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                            expect(removedWasCalled).to(beFalse())
+                            expect(keptWasCalled).to(beTrue())
+                            done()
+                        }
+
+                        self.tovStore.new(tovs: [
+                            "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "foo")
+                        ])
+                    }
+                }
+
+                it("keeps observers that are not removed by removeObservers") {
+                    waitUntil { done in
+                        var removedWasCalled = false
+                        var keptWasCalled = false
+                        self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { _ in
+                            removedWasCalled = true
+                        }
+                        self.tovStore.addObserver(tovName: "tov2", callbackId: "callback1") { _ in
+                            removedWasCalled = true
+                        }
+                        self.tovStore.addObserver(tovName: "tov1", callbackId: "callback2") { _ in
+                            keptWasCalled = true
+                        }
+                        self.tovStore.removeObservers(callbackId: "callback1")
+
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                            expect(removedWasCalled).to(beFalse())
+                            expect(keptWasCalled).to(beTrue())
+                            done()
+                        }
+
+                        self.tovStore.new(tovs: [
+                            "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "foo"),
+                            "tov2": TOVStore.TOV(name: "tov2", humanFriendlyValue: "bar")
+                        ])
+                    }
+                }
             }
         }
     }
