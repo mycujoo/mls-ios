@@ -36,11 +36,7 @@ class TOVStoreSpec: QuickSpec {
 
 
         describe("observing") {
-            beforeEach {
-                self.tovStore.new(tovs: [:])
-            }
-
-            it("calls single observer for timer-changes") {
+            it("calls single observer for tov-changes") {
                 var calledAmount = 0
                 waitUntil { done in
                     self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { val in
@@ -60,11 +56,11 @@ class TOVStoreSpec: QuickSpec {
                             done()
                         }
                     }
-                    // Set a new timer
+                    // Set a new tov
                     self.tovStore.new(tovs: [
                         "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "foo"),
                     ])
-                    // Set the same timer with all same properties (should not trigger a new call to the observer)
+                    // Set the same tov with all same properties (should not trigger a new call to the observer)
                     self.tovStore.new(tovs: [
                         "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "foo"),
                     ])
@@ -73,7 +69,79 @@ class TOVStoreSpec: QuickSpec {
                         "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "bar"),
                     ])
                 }
+            }
 
+            it("calls multiple observers for tov-changes") {
+                var calledAmount = 0
+                waitUntil { done in
+                    // Add a new observer
+                    self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { val in
+                        fail("Should not be called, as it will be overwritten by new observer with same callbackId")
+                    }
+                    // Overwrite the same observer
+                    self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { val in
+                        expect(self.tovStore.get(by: val)?.humanFriendlyValue).to(equal("foo"))
+                        calledAmount += 1
+                        if calledAmount == 2 {
+                            done()
+                        }
+                    }
+                    self.tovStore.addObserver(tovName: "tov1", callbackId: "callback2") { val in
+                        expect(self.tovStore.get(by: val)?.humanFriendlyValue).to(equal("foo"))
+                        calledAmount += 1
+                        if calledAmount == 2 {
+                            done()
+                        }
+                    }
+                    // Set a new tov
+                    self.tovStore.new(tovs: [
+                        "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "foo"),
+                    ])
+                }
+            }
+
+            describe("observer removal") {
+                it("removes single observer") {
+                    waitUntil(timeout: 1.0) { done in
+                        var wasCalled = false
+                        self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { _ in
+                            wasCalled = true
+                        }
+                        self.tovStore.removeObserver(tovName: "tov1", callbackId: "callback1")
+
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                            expect(wasCalled).to(beFalse())
+                            done()
+                        }
+
+                        self.tovStore.new(tovs: [
+                            "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "foo")
+                        ])
+                    }
+                }
+
+                it("removes multiple observers by callbackId") {
+                    waitUntil { done in
+                        var wasCalled = false
+                        self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { _ in
+                            wasCalled = true
+                        }
+                        self.tovStore.addObserver(tovName: "tov2", callbackId: "callback1") { _ in
+                            wasCalled = true
+                        }
+                        self.tovStore.removeObservers(callbackId: "callback1")
+
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                            expect(wasCalled).to(beFalse())
+                            done()
+                        }
+
+                        self.tovStore.new(tovs: [
+                            "tov1": TOVStore.TOV(name: "tov1", humanFriendlyValue: "foo"),
+                            "tov2": TOVStore.TOV(name: "tov2", humanFriendlyValue: "bar")
+                        ])
+                    }
+                }
             }
         }
     }
