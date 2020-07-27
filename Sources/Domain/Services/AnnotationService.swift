@@ -30,9 +30,7 @@ class AnnotationService: AnnotationServicing {
         /// A Set of overlayIds that are currently active (i.e. on-screen). This should be passed on as input to the next evaluation.
         var activeOverlayIds: Set<String>
         /// A dictionary of ActionVariables as they are defined at the current point of evaluation. The keys are the names of these variables.
-        var variables: [String: TOVStore.Variable]
-        /// A dictionary of ActionTimers as they are defined at the current point of evaluation. The keys are the names of these timers.
-        var timers: [String: TOVStore.Timer]
+        var tovs: [String: TOVStore.TOV]
     }
 
     private lazy var annotationsQueue = DispatchQueue(label: "tv.mycujoo.mls.annotations-queue")
@@ -50,8 +48,8 @@ class AnnotationService: AnnotationServicing {
             var showTimelineMarkers: [MLSUI.ShowTimelineMarkerAction] = []
             var showOverlays: [MLSUI.ShowOverlayAction] = []
             var hideOverlays: [MLSUI.HideOverlayAction] = []
-            var variables: [String: TOVStore.Variable] = [:]
-            var timers: [String: TOVStore.Timer] = [:]
+            var variables: [String: AnnotationService.Variable] = [:]
+            var timers: [String: AnnotationService.Timer] = [:]
 
             // MARK:  Helpers
 
@@ -113,7 +111,7 @@ class AnnotationService: AnnotationServicing {
                     }
                 case .setVariable(let data):
                     if offset <= input.currentTime {
-                        variables[data.name] = TOVStore.Variable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)
+                        variables[data.name] = AnnotationService.Variable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)
                     }
                 case .incrementVariable(let data):
                     if offset <= input.currentTime {
@@ -127,21 +125,21 @@ class AnnotationService: AnnotationServicing {
                     }
                 case .createTimer(let data):
                     if offset <= input.currentTime {
-                        let format: TOVStore.Timer.Format
+                        let format: AnnotationService.Timer.Format
                         switch data.format {
                             case .ms: format = .ms
                             case .s: format = .s
                             case .unsupported: format = .unsupported
                         }
 
-                        let direction: TOVStore.Timer.Direction
+                        let direction: AnnotationService.Timer.Direction
                         switch data.direction {
                             case .up: direction = .up
                             case .down: direction = .down
                             case .unsupported: direction = .unsupported
                         }
 
-                        timers[data.name] = TOVStore.Timer(name: data.name, format: format, direction: direction, startValue: data.startValue, capValue: data.capValue)
+                        timers[data.name] = AnnotationService.Timer(name: data.name, format: format, direction: direction, startValue: data.startValue, capValue: data.capValue)
                     }
                 case .startTimer(let data):
                     if offset <= input.currentTime {
@@ -202,13 +200,14 @@ class AnnotationService: AnnotationServicing {
                 timer.materialize(at: input.currentTime)
             }
 
+            let tovs = Dictionary(uniqueKeysWithValues: (variables.map { ($0.key, TOVStore.TOV(name: $0.value.name, humanFriendlyValue: $0.value.humanFriendlyValue)) }) + (timers.map { ($0.key, TOVStore.TOV(name: $0.value.name, humanFriendlyValue: $0.value.humanFriendlyValue)) }))
+
             callback(EvaluationOutput(
                 showTimelineMarkers: showTimelineMarkers,
                 showOverlays: showOverlays,
                 hideOverlays: hideOverlays,
                 activeOverlayIds: activeOverlayIds,
-                variables: variables,
-                timers: timers
+                tovs: tovs
             ))
         }
     }
@@ -275,3 +274,169 @@ fileprivate extension AnnotationService {
     }
 }
 
+fileprivate extension AnnotationService {
+
+    // MARK: Variable
+
+    class Variable: Equatable {
+        static func == (lhs: Variable, rhs: Variable) -> Bool {
+            return
+                lhs.name == rhs.name &&
+                lhs.stringValue == rhs.stringValue &&
+                lhs.doubleValue == rhs.doubleValue &&
+                lhs.longValue == rhs.longValue &&
+                lhs.doublePrecision == rhs.doublePrecision
+        }
+
+        let name: String
+        var stringValue: String?
+        var doubleValue: Double?
+        var longValue: Int64?
+        var doublePrecision: Int?
+
+        init(name: String, stringValue: String?, doubleValue: Double?, longValue: Int64?, doublePrecision: Int?) {
+            self.name = name
+            self.stringValue = stringValue
+            self.doubleValue = doubleValue
+            self.longValue = longValue
+            self.doublePrecision = doublePrecision
+        }
+
+        var humanFriendlyValue: String {
+            if let stringValue = stringValue {
+                return stringValue
+            }
+            else if let longValue = longValue {
+                return String(describing: longValue)
+            }
+            else if let doubleValue = doubleValue {
+                return String(format: "%.\(min(15, doublePrecision ?? 2))f", doubleValue)
+            }
+            return ""
+        }
+    }
+
+    // MARK: Timer
+
+    class Timer: Equatable {
+        static func == (lhs: Timer, rhs: Timer) -> Bool {
+            return
+                lhs.name == rhs.name &&
+                lhs.format == rhs.format &&
+                lhs.direction == rhs.direction &&
+                lhs.startValue == rhs.startValue &&
+                lhs.capValue == rhs.capValue &&
+                lhs.isRunning == rhs.isRunning &&
+                // Do not include lastUpdatedAtOffset, since that unnecessary makes this seem like a different timer.
+                lhs.value == rhs.value
+        }
+
+        enum Format: String {
+            case ms = "ms"
+            case s = "s"
+            case unsupported = "unsupported"
+        }
+        enum Direction: String {
+            case up = "up"
+            case down = "down"
+            case unsupported = "unsupported"
+        }
+
+        let name: String
+        let format: Format
+        let direction: Direction
+        let startValue: Double
+        let capValue: Double?
+
+        private var value: Double
+        private var isRunning = false
+        private var lastUpdatedAtOffset: Double? = nil
+
+        /// - parameter startValue: A value in milliseconds that indicates the initial value of the timer.
+        /// - parameter capValue: A value in milliseconds that indicates the limit value of the timer (either higher or lower than startValue, depending on the direction)
+        init(name: String, format: Format, direction: Direction, startValue: Double, capValue: Double? = nil) {
+            self.name = name
+            self.format = format
+            self.direction = direction
+            self.startValue = startValue
+            self.capValue = capValue
+
+            self.value = startValue
+        }
+
+        var humanFriendlyValue: String {
+            let valueAsSeconds = value / 1000
+            switch format {
+            case .ms:
+                let seconds = valueAsSeconds.truncatingRemainder(dividingBy: 60)
+                let minutes = (valueAsSeconds - seconds) / 60
+                return String(format: "%02.0f:%02.0f", minutes, seconds)
+            case .s, .unsupported:
+                return String(format: "%.0f", valueAsSeconds)
+            }
+        }
+
+        /// Should be called whenever the state of the timer changes. This internally updates the `value` property.
+        func update(isRunning: Bool, at offset: Double) {
+            materialize(at: offset)
+            self.isRunning = isRunning
+        }
+
+        /// Forces the timer to take on a new absolute value, regardless of anything that happened previously.
+        func forceAdjustTo(value: Double, at offset: Double) {
+            updateValueWithRulesApplied(v: value, absolute: true)
+            self.lastUpdatedAtOffset = offset
+        }
+
+        /// Forces the timer to be adjusted by a relative value.
+        func forceAdjustBy(value: Double, at offset: Double) {
+            materialize(at: offset)
+            updateValueWithRulesApplied(v: value, absolute: false)
+        }
+
+        /// Should be called to materialize the value of this timer at a specific offset. This internally updates the `value` property.
+        func materialize(at offset: Double) {
+            if isRunning {
+                switch direction {
+                case .down:
+                    self.value = self.value - (offset - (lastUpdatedAtOffset ?? 0))
+                    if let capValue = capValue {
+                        self.value = max(capValue, self.value)
+                    }
+                case .up, .unsupported:
+                self.value = self.value + (offset - (lastUpdatedAtOffset ?? 0))
+                    if let capValue = capValue {
+                        self.value = min(capValue, self.value)
+                    }
+                }
+            }
+            self.lastUpdatedAtOffset = offset
+        }
+
+        /// Manipulates the `value` variable based while respecting the direction and capValue.
+        /// - parameter v: The value that `value` should have if `absolute` is true, or the value that `value` should be updated by if `absolute` is false.
+        /// - parameter absolute: Whether the value is being replaced (true) or added (false).
+        private func updateValueWithRulesApplied(v: Double, absolute: Bool) {
+            switch direction {
+            case .down:
+                if absolute {
+                    self.value = v
+                } else {
+                    self.value -= v
+                }
+                if let capValue = capValue {
+                    self.value = max(capValue, self.value)
+                }
+            case .up, .unsupported:
+                if absolute {
+                    self.value = v
+                } else {
+                    self.value += v
+                }
+                if let capValue = capValue {
+                    self.value = min(capValue, self.value)
+                }
+            }
+        }
+    }
+}

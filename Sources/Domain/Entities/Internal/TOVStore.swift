@@ -4,25 +4,17 @@
 
 import Foundation
 
-// MARK: TOVStoreObject protocol
-
-protocol TOVStoreObject {
-    var name: String { get }
-    var humanFriendlyValue: String { get }
-}
-
 // MARK: TOVStore
 
 /// TOV (Timer Or Variable). This store contains a state of variables and timers (TOVs) defined within.
 /// A single instance of a TOVStore should be tied to a single timeline.
 class TOVStore {
-    private var timers: [String: Timer] = [:]
-    private var variables: [String: Variable] = [:]
+    private var tovs: [String: TOV] = [:]
 
     private var observers: [String: [(callbackId: String, callback: (String) -> Void)]] = [:]
 
-    func get(by name: String) -> TOVStoreObject? {
-        return variables[name] ?? timers[name]
+    func get(by name: String) -> TOV? {
+        return tovs[name]
     }
 
     /// Observe Timer or Variable changes.  The observer (target) will be notified of every change to this variable in this store.
@@ -59,54 +51,29 @@ class TOVStore {
         }
     }
 
-    /// Should be called whenever a new dictionary of ActionVariables (and their names as keys) is available.
+    /// Should be called whenever a new dictionary of TOVs (and their names as keys) is available.
     /// The store will internally call any observer whenever a difference with a previous state is detected.
-    func new(variables newVariables: [String: Variable]) {
-        var oldVariables = self.variables
+    func new(tovs newTovs: [String: TOV]) {
+        var oldTovs = self.tovs
 
-        var differentVariableNames: [String] = []
+        var differentTovNames: [String] = []
 
-        for (name, newVariable) in newVariables {
-            if let oldVariable = oldVariables[name] {
-                if oldVariable != newVariable {
-                    differentVariableNames.append(name)
+        for (name, newTov) in newTovs {
+            if let oldTov = oldTovs[name] {
+                if oldTov != newTov {
+                    differentTovNames.append(name)
                 }
-                oldVariables[name] = nil
+                oldTovs[name] = nil
             } else {
-                differentVariableNames.append(name)
+                differentTovNames.append(name)
             }
         }
 
-        differentVariableNames += oldVariables.map { $0.key }
+        differentTovNames += oldTovs.map { $0.key }
 
-        self.variables = newVariables
+        self.tovs = newTovs
 
-        callObservers(names: differentVariableNames)
-    }
-
-    /// Should be called whenever a new dictionary of ActionTimer (and their names as keys) is available.
-    /// The store will internally call any observer whenever a difference with a previous state is detected.
-    func new(timers newTimers: [String: Timer]) {
-        var oldTimers = self.timers
-
-        var differentTimerNames: [String] = []
-
-        for (name, newTimer) in newTimers {
-            if let oldTimer = oldTimers[name] {
-                if oldTimer != newTimer {
-                    differentTimerNames.append(name)
-                }
-                oldTimers[name] = nil
-            } else {
-                differentTimerNames.append(name)
-            }
-        }
-
-        differentTimerNames += oldTimers.map { $0.key }
-
-        self.timers = newTimers
-
-        callObservers(names: differentTimerNames)
+        callObservers(names: differentTovNames)
     }
 
     /// Notifies observers of changes to the variables or timers that they are referenced in the `names` parameter.
@@ -121,170 +88,17 @@ class TOVStore {
 }
 
 extension TOVStore {
-    // MARK: Variable
-
-    class Variable: TOVStoreObject, Equatable {
-        static func == (lhs: Variable, rhs: Variable) -> Bool {
-            return
-                lhs.name == rhs.name &&
-                lhs.stringValue == rhs.stringValue &&
-                lhs.doubleValue == rhs.doubleValue &&
-                lhs.longValue == rhs.longValue &&
-                lhs.doublePrecision == rhs.doublePrecision
+    class TOV: Equatable {
+        static func == (lhs: TOVStore.TOV, rhs: TOVStore.TOV) -> Bool {
+            return lhs.name == rhs.name && lhs.humanFriendlyValue == rhs.humanFriendlyValue
         }
 
         let name: String
-        var stringValue: String?
-        var doubleValue: Double?
-        var longValue: Int64?
-        var doublePrecision: Int?
+        let humanFriendlyValue: String
 
-        init(name: String, stringValue: String?, doubleValue: Double?, longValue: Int64?, doublePrecision: Int?) {
+        init(name: String, humanFriendlyValue: String) {
             self.name = name
-            self.stringValue = stringValue
-            self.doubleValue = doubleValue
-            self.longValue = longValue
-            self.doublePrecision = doublePrecision
-        }
-
-        var humanFriendlyValue: String {
-            if let stringValue = stringValue {
-                return stringValue
-            }
-            else if let longValue = longValue {
-                return String(describing: longValue)
-            }
-            else if let doubleValue = doubleValue {
-                return String(format: "%.\(min(15, doublePrecision ?? 2))f", doubleValue)
-            }
-            return ""
+            self.humanFriendlyValue = humanFriendlyValue
         }
     }
-
-    // MARK: Timer
-
-    class Timer: TOVStoreObject, Equatable {
-        static func == (lhs: Timer, rhs: Timer) -> Bool {
-            return
-                lhs.name == rhs.name &&
-                lhs.format == rhs.format &&
-                lhs.direction == rhs.direction &&
-                lhs.startValue == rhs.startValue &&
-                lhs.capValue == rhs.capValue &&
-                lhs.isRunning == rhs.isRunning &&
-                // Do not include lastUpdatedAtOffset, since that unnecessary makes this seem like a different timer.
-                lhs.value == rhs.value
-        }
-
-        enum Format: String {
-            case ms = "ms"
-            case s = "s"
-            case unsupported = "unsupported"
-        }
-        enum Direction: String {
-            case up = "up"
-            case down = "down"
-            case unsupported = "unsupported"
-        }
-
-        let name: String
-        let format: Format
-        let direction: Direction
-        let startValue: Double
-        let capValue: Double?
-
-        private var value: Double
-        private(set) var isRunning = false
-        private var lastUpdatedAtOffset: Double? = nil
-
-        /// - parameter startValue: A value in milliseconds that indicates the initial value of the timer.
-        /// - parameter capValue: A value in milliseconds that indicates the limit value of the timer (either higher or lower than startValue, depending on the direction)
-        init(name: String, format: Format, direction: Direction, startValue: Double, capValue: Double? = nil) {
-            self.name = name
-            self.format = format
-            self.direction = direction
-            self.startValue = startValue
-            self.capValue = capValue
-
-            self.value = startValue
-        }
-
-        var humanFriendlyValue: String {
-            let valueAsSeconds = value / 1000
-            switch format {
-            case .ms:
-                let seconds = valueAsSeconds.truncatingRemainder(dividingBy: 60)
-                let minutes = (valueAsSeconds - seconds) / 60
-                return String(format: "%02.0f:%02.0f", minutes, seconds)
-            case .s, .unsupported:
-                return String(format: "%.0f", valueAsSeconds)
-            }
-        }
-
-        /// Should be called whenever the state of the timer changes. This internally updates the `value` property.
-        func update(isRunning: Bool, at offset: Double) {
-            materialize(at: offset)
-            self.isRunning = isRunning
-        }
-
-        /// Forces the timer to take on a new absolute value, regardless of anything that happened previously.
-        func forceAdjustTo(value: Double, at offset: Double) {
-            updateValueWithRulesApplied(v: value, absolute: true)
-            self.lastUpdatedAtOffset = offset
-        }
-
-        /// Forces the timer to be adjusted by a relative value.
-        func forceAdjustBy(value: Double, at offset: Double) {
-            materialize(at: offset)
-            updateValueWithRulesApplied(v: value, absolute: false)
-        }
-
-        /// Should be called to materialize the value of this timer at a specific offset. This internally updates the `value` property.
-        func materialize(at offset: Double) {
-            if isRunning {
-                switch direction {
-                case .down:
-                    self.value = self.value - (offset - (lastUpdatedAtOffset ?? 0))
-                    if let capValue = capValue {
-                        self.value = max(capValue, self.value)
-                    }
-                case .up, .unsupported:
-                self.value = self.value + (offset - (lastUpdatedAtOffset ?? 0))
-                    if let capValue = capValue {
-                        self.value = min(capValue, self.value)
-                    }
-                }
-            }
-            self.lastUpdatedAtOffset = offset
-        }
-
-        /// Manipulates the `value` variable based while respecting the direction and capValue.
-        /// - parameter v: The value that `value` should have if `absolute` is true, or the value that `value` should be updated by if `absolute` is false.
-        /// - parameter absolute: Whether the value is being replaced (true) or added (false).
-        private func updateValueWithRulesApplied(v: Double, absolute: Bool) {
-            switch direction {
-            case .down:
-                if absolute {
-                    self.value = v
-                } else {
-                    self.value -= v
-                }
-                if let capValue = capValue {
-                    self.value = max(capValue, self.value)
-                }
-            case .up, .unsupported:
-                if absolute {
-                    self.value = v
-                } else {
-                    self.value += v
-                }
-                if let capValue = capValue {
-                    self.value = min(capValue, self.value)
-                }
-            }
-        }
-    }
-
-
-
 }
