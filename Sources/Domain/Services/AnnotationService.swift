@@ -274,7 +274,7 @@ fileprivate extension AnnotationService {
     }
 }
 
-extension AnnotationService {
+fileprivate extension AnnotationService {
 
     // MARK: Variable
 
