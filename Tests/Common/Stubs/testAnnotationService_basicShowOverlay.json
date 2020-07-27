@@ -1,0 +1,42 @@
+{
+    "actions": [
+        {
+            "data": {
+                "animatein_duration": 300,
+                "animatein_type": "fade_in",
+                "custom_id": "scoreboard1",
+                "position": {
+                    "left": 5.0,
+                    "top": 5.0
+                },
+                "size": {
+                    "width": 25.0
+                },
+                "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg"
+            },
+            "offset": 10000,
+            "id": "54afag35yag",
+            "type": "show_overlay"
+        },
+        {
+            "data": {
+                "animatein_duration": 500,
+                "animatein_type": "slide_from_right",
+                "animateout_duration": 500,
+                "animateout_type": "slide_to_left",
+                "duration": 5000,
+                "position": {
+                    "bottom": 10.0,
+                    "left": 5.0
+                },
+                "size": {
+                    "width": 30.0
+                },
+                "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/announcement_overlay.svg"
+            },
+            "offset": 15000,
+            "id": "gagj9j9agj9a",
+            "type": "show_overlay"
+        }
+    ]
+}

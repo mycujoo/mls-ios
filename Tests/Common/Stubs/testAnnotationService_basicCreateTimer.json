@@ -1,0 +1,15 @@
+{
+    "actions": [
+        {
+            "offset": 0,
+            "id": "bbaaaa4444sssstg",
+            "type": "create_timer",
+            "data": {
+                "name": "$scoreboardTimer",
+                "format": "s",
+                "direction": "up",
+                "start_value": 0
+            }
+        }
+    ]
+}
