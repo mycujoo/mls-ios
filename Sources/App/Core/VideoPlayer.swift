@@ -117,7 +117,7 @@ public class VideoPlayer: NSObject {
 
     // MARK: - Private properties
 
-    private let player: MLSAVPlayerProtocol = MLSAVPlayer()
+    private let player: MLSAVPlayerProtocol
     private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
     private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
     private let annotationService: AnnotationServicing
@@ -198,10 +198,12 @@ public class VideoPlayer: NSObject {
     // MARK: - Methods
 
     init(
+            player: MLSAVPlayerProtocol,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity) {
+        self.player = player
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
         self.getPlayerConfigForEventUseCase = getPlayerConfigForEventUseCase
         self.annotationService = annotationService
