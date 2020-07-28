@@ -29,6 +29,9 @@ public class MLS {
     private lazy var playerConfigRepository: PlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
     }()
+    private lazy var arbitraryDataRepository: ArbitraryDataRepository = {
+        return ArbitraryDataRepositoryImpl()
+    }()
 
     lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
         return GetAnnotationActionsForTimelineUseCase(annotationActionRepository: annotationActionRepository)
@@ -41,6 +44,9 @@ public class MLS {
     }()
     lazy var listEventsUseCase: ListEventsUseCase = {
         return ListEventsUseCase(eventRepository: eventRepository)
+    }()
+    lazy var getSVGUseCase: GetSVGUseCase = {
+        return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
     }()
 
     /// An internally available service that can be overwritten for the purpose of testing.
@@ -70,6 +76,7 @@ public class MLS {
             player: avPlayer,
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: getPlayerConfigForEventUseCase,
+            getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,
             seekTolerance: seekTolerance)
 

@@ -225,6 +225,12 @@
 		4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */; };
 		498E48F024D033630040502D /* MLSAVPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */; };
 		498E48F124D033630040502D /* MLSAVPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */; };
+		498E48F324D056CC0040502D /* ArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */; };
+		498E48F424D056CC0040502D /* ArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */; };
+		498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */; };
+		498E48F724D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */; };
+		498E48F924D057FF0040502D /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F824D057FF0040502D /* GetSVGUseCase.swift */; };
+		498E48FA24D057FF0040502D /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F824D057FF0040502D /* GetSVGUseCase.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		49A73D5124ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
@@ -624,6 +630,9 @@
 		4989B1EB249D3750006CBB47 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+tvOS.swift"; sourceTree = "<group>"; };
 		498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayerProtocol.swift; sourceTree = "<group>"; };
+		498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepository.swift; sourceTree = "<group>"; };
+		498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepositoryImpl.swift; sourceTree = "<group>"; };
+		498E48F824D057FF0040502D /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		49A73D5524ABD2D5009CD2DF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5624ABD2D9009CD2DF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -779,6 +788,7 @@
 			isa = PBXGroup;
 			children = (
 				4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */,
+				498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */,
 				4926CDF024CDE64600419A42 /* EventRepository.swift */,
 				4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */,
 			);
@@ -791,6 +801,7 @@
 				4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */,
 				4926CDF824CDE96700419A42 /* GetEventUseCase.swift */,
 				4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */,
+				498E48F824D057FF0040502D /* GetSVGUseCase.swift */,
 				4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */,
 			);
 			path = UseCases;
@@ -821,6 +832,7 @@
 			isa = PBXGroup;
 			children = (
 				4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */,
+				498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */,
 				4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */,
 				4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */,
 				4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */,
@@ -1864,6 +1876,7 @@
 			files = (
 				4926CE0224CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */,
 				49736EFD24A9F59C001F3F48 /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
+				498E48F324D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
 				49736ED324A9F59C001F3F48 /* Touchable.swift in Sources */,
 				4943B96124C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				49736EF524A9F59C001F3F48 /* ShapeInterpolation.swift in Sources */,
@@ -1980,6 +1993,7 @@
 				49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				4926CE0524CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */,
 				49736EC824A9F59C001F3F48 /* MDisplayLink_macOS.swift in Sources */,
+				498E48F924D057FF0040502D /* GetSVGUseCase.swift in Sources */,
 				49A8047624AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
 				49736F0824A9F59C001F3F48 /* BoundsUtils.swift in Sources */,
 				49736ED224A9F59C001F3F48 /* MacawZoom.swift in Sources */,
@@ -2045,6 +2059,7 @@
 				498E48F024D033630040502D /* MLSAVPlayerProtocol.swift in Sources */,
 				6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */,
 				49736F1824A9F59C001F3F48 /* SVGNodeLayout.swift in Sources */,
+				498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
 				49736F0A24A9F59C001F3F48 /* DescriptionExtensions.swift in Sources */,
 				49A9F52324A15B9200D00143 /* UIView+.swift in Sources */,
 				49736EBD24A9F59C001F3F48 /* Gradient.swift in Sources */,
@@ -2058,6 +2073,7 @@
 			files = (
 				4926CE0324CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */,
 				49A804AC24AA0E9800E30DA8 /* Arc.swift in Sources */,
+				498E48F424D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
 				49A804A224AA0E8D00E30DA8 /* MCAMediaTimingFillMode_iOS.swift in Sources */,
 				4943B96224C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				49A804E824AA0EBB00E30DA8 /* ImageRenderer.swift in Sources */,
@@ -2174,6 +2190,7 @@
 				4926CE0624CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */,
 				49A804BB24AA0E9800E30DA8 /* Polygon.swift in Sources */,
 				49A804D324AA0EA100E30DA8 /* OffsetEffect.swift in Sources */,
+				498E48FA24D057FF0040502D /* GetSVGUseCase.swift in Sources */,
 				49A804A824AA0E8D00E30DA8 /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
 				49A804A724AA0E8D00E30DA8 /* MCAShapeLayerLineCap_macOS.swift in Sources */,
 				49A8048324AA0DF500E30DA8 /* OpacityGenerator.swift in Sources */,
@@ -2239,6 +2256,7 @@
 				498E48F124D033630040502D /* MLSAVPlayerProtocol.swift in Sources */,
 				49A804BA24AA0E9800E30DA8 /* Polyline.swift in Sources */,
 				49A804A624AA0E8D00E30DA8 /* MCAShapeLayerLineCap_iOS.swift in Sources */,
+				498E48F724D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
 				49A804D124AA0EA100E30DA8 /* Drawable.swift in Sources */,
 				49A804BF24AA0E9D00E30DA8 /* SceneUtils.swift in Sources */,
 				49A804F124AA0ECB00E30DA8 /* SVGSerializer.swift in Sources */,

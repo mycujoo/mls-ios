@@ -5,7 +5,6 @@
 import AVFoundation
 import YouboraAVPlayerAdapter
 import YouboraLib
-import Alamofire
 
 public class VideoPlayer: NSObject {
 
@@ -120,6 +119,7 @@ public class VideoPlayer: NSObject {
     private let player: MLSAVPlayerProtocol
     private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
     private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
+    private let getSVGUseCase: GetSVGUseCase
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
@@ -201,11 +201,13 @@ public class VideoPlayer: NSObject {
             player: MLSAVPlayerProtocol,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
+            getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity) {
         self.player = player
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
         self.getPlayerConfigForEventUseCase = getPlayerConfigForEventUseCase
+        self.getSVGUseCase = getSVGUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
 
@@ -456,10 +458,10 @@ extension VideoPlayer {
             guard let self = self else { return }
             for action in actions {
                 // TODO: Find out if this is reading from network cache layer.
-                AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
+                self.getSVGUseCase.execute(url: action.overlay.svgURL) { [weak self] (baseSVG, _) in
                     guard let self = self else { return }
 
-                    if let baseSVG = response.value {
+                    if let baseSVG = baseSVG {
                         for variableName in action.variables {
                             self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { val in
                                 // Re-render the entire SVG (including replacing all tokens with their resolved values)
