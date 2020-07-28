@@ -507,13 +507,16 @@ public class VideoPlayerView: UIView  {
 
     //MARK: - Methods
 
-    func drawPlayer(with player: AVPlayer) {
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspect
-        playerLayer.needsDisplayOnBoundsChange = true
-        self.playerLayer = playerLayer
-        layer.addSublayer(playerLayer)
-        playerLayer.frame = bounds
+    func drawPlayer(with player: MLSAVPlayerProtocol) {
+        if let avPlayer = player as? AVPlayer {
+            // Only add the playerlayer in real scenarios. When running unit tests with a mocked player, this will not work.
+            let playerLayer = AVPlayerLayer(player: avPlayer)
+            playerLayer.videoGravity = .resizeAspect
+            playerLayer.needsDisplayOnBoundsChange = true
+            self.playerLayer = playerLayer
+            layer.addSublayer(playerLayer)
+            playerLayer.frame = bounds
+        }
 
         bringSubviewToFront(safeView)
     }

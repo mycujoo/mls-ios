@@ -117,7 +117,7 @@ public class VideoPlayer: NSObject {
 
     // MARK: - Private properties
 
-    private let player = MLSAVPlayer()
+    private let player: MLSAVPlayerProtocol = MLSAVPlayer()
     private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
     private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
     private let annotationService: AnnotationServicing
@@ -140,7 +140,12 @@ public class VideoPlayer: NSObject {
         options.accountCode = "mycujoo"
         options.username = "mls"
         let plugin = YBPlugin(options: options)
-        plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: player))
+
+        if let avPlayer = self.player as? AVPlayer {
+            // Only add the adapter in real scenarios. When running unit tests with a mocked player, this will not work.
+            plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
+        }
+
         return plugin
     }()
 
@@ -478,7 +483,7 @@ extension VideoPlayer {
         }
     }
 
-    private func trackTime(with player: AVPlayer) -> Any {
+    private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
         player
             .addPeriodicTimeObserver(
                 forInterval: CMTime(value: 1, timescale: 1),

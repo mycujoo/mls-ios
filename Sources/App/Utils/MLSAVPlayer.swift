@@ -6,7 +6,7 @@ import Foundation
 import AVFoundation
 
 /// A subclass of AVPlayer to improve visibility of such things as seeking states.
-class MLSAVPlayer: AVPlayer {
+class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private(set) var isSeeking = false
 
     /// - returns: The current time (in seconds) of the currentItem.
