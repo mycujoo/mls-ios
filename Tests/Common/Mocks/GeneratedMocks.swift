@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-28 16:36:08 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-28 19:16:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-28 16:36:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-28 19:16:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -709,7 +709,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-28 16:36:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-28 19:16:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -811,7 +811,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-28 16:36:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-28 19:16:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -943,7 +943,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-28 16:36:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-28 19:16:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1045,7 +1045,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-28 16:36:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-28 19:16:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

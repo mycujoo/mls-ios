@@ -72,7 +72,10 @@ class VideoPlayerSpec: QuickSpec {
             fit("replaces avplayer item") {
                 self.videoPlayer.event = self.event
 
-                verify(self.mockAVPlayer).replaceCurrentItem(with: any(), headers: any(), callback: any())
+                // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
+                let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                    verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
+                }
             }
         }
 
