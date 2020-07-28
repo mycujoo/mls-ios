@@ -345,6 +345,12 @@ public class VideoPlayer: NSObject {
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
+        guard player is AVPlayer else {
+            // Since the player is being mocked, we should not load a real asset. Pretend like it was loaded.
+            callback(true)
+            return
+        }
+
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])

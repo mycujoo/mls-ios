@@ -231,6 +231,8 @@
 		498E48F724D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */; };
 		498E48F924D057FF0040502D /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F824D057FF0040502D /* GetSVGUseCase.swift */; };
 		498E48FA24D057FF0040502D /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F824D057FF0040502D /* GetSVGUseCase.swift */; };
+		498E48FC24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
+		498E48FD24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		49A73D5124ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
@@ -633,6 +635,7 @@
 		498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepository.swift; sourceTree = "<group>"; };
 		498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepositoryImpl.swift; sourceTree = "<group>"; };
 		498E48F824D057FF0040502D /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
+		498E48FB24D062D90040502D /* Thread+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thread+.swift"; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		49A73D5524ABD2D5009CD2DF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5624ABD2D9009CD2DF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -900,6 +903,7 @@
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
 				495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */,
 				498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */,
+				498E48FB24D062D90040502D /* Thread+.swift */,
 				495CB138249CF98600998FF4 /* Throttler.swift */,
 				495CB132249CC50E00998FF4 /* UIColor+.swift */,
 				49DDEABA24A29E6900C89DFF /* UIFont+.swift */,
@@ -1751,7 +1755,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\"\n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/AnnotationActionRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\"\n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1940,6 +1944,7 @@
 				49736F1D24A9F59C001F3F48 /* SVGView.swift in Sources */,
 				49736EA824A9F59C001F3F48 /* Polygon.swift in Sources */,
 				49736EF024A9F59C001F3F48 /* TransformInterpolation.swift in Sources */,
+				498E48FC24D062D90040502D /* Thread+.swift in Sources */,
 				49736ED024A9F59C001F3F48 /* Graphics_iOS.swift in Sources */,
 				4943B96524C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
 				49736EA924A9F59C001F3F48 /* Circle.swift in Sources */,
@@ -2137,6 +2142,7 @@
 				49A804AB24AA0E9800E30DA8 /* Rect.swift in Sources */,
 				49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4943B96624C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
+				498E48FD24D062D90040502D /* Thread+.swift in Sources */,
 				49A804C724AA0EA100E30DA8 /* AlphaEffect.swift in Sources */,
 				497FD2C724C0981F0027E708 /* TOVStore.swift in Sources */,
 				49A804F024AA0ECB00E30DA8 /* SVGCanvas.swift in Sources */,
