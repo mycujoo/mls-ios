@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-28 13:57:31 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-28 16:36:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -234,16 +234,16 @@ import Foundation
     
     
     
-     func replaceCurrentItem(with item: AVPlayerItem?)  {
+     func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ())  {
         
-    return cuckoo_manager.call("replaceCurrentItem(with: AVPlayerItem?)",
-            parameters: (item),
-            escapingParameters: (item),
+    return cuckoo_manager.call("replaceCurrentItem(with: URL, headers: [String: String], callback: @escaping (Bool) -> ())",
+            parameters: (assetUrl, headers, callback),
+            escapingParameters: (assetUrl, headers, callback),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.replaceCurrentItem(with: item))
+            defaultCall: __defaultImplStub!.replaceCurrentItem(with: assetUrl, headers: headers, callback: callback))
         
     }
     
@@ -366,9 +366,9 @@ import Foundation
 	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "removeObserver(_: NSObject, forKeyPath: String)", parameterMatchers: matchers))
 	    }
 	    
-	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable>(with item: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(AVPlayerItem?)> where M1.OptionalMatchedType == AVPlayerItem {
-	        let matchers: [Cuckoo.ParameterMatcher<(AVPlayerItem?)>] = [wrap(matchable: item) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "replaceCurrentItem(with: AVPlayerItem?)", parameterMatchers: matchers))
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, [String: String], (Bool) -> ())> where M1.MatchedType == URL, M2.MatchedType == [String: String], M3.MatchedType == (Bool) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL, [String: String], (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "replaceCurrentItem(with: URL, headers: [String: String], callback: @escaping (Bool) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
@@ -474,9 +474,9 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable>(with item: M1) -> Cuckoo.__DoNotUse<(AVPlayerItem?), Void> where M1.OptionalMatchedType == AVPlayerItem {
-	        let matchers: [Cuckoo.ParameterMatcher<(AVPlayerItem?)>] = [wrap(matchable: item) { $0 }]
-	        return cuckoo_manager.verify("replaceCurrentItem(with: AVPlayerItem?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, callback: M3) -> Cuckoo.__DoNotUse<(URL, [String: String], (Bool) -> ()), Void> where M1.MatchedType == URL, M2.MatchedType == [String: String], M3.MatchedType == (Bool) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL, [String: String], (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return cuckoo_manager.verify("replaceCurrentItem(with: URL, headers: [String: String], callback: @escaping (Bool) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -588,7 +588,7 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func replaceCurrentItem(with item: AVPlayerItem?)   {
+     func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-28 13:57:31 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-28 16:36:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -709,7 +709,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-28 13:57:31 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-28 16:36:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -811,7 +811,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-28 13:57:31 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-28 16:36:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -943,7 +943,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-28 13:57:31 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-28 16:36:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1045,7 +1045,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-28 13:57:31 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-28 16:36:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

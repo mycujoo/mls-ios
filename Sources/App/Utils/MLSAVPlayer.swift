@@ -164,4 +164,29 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private func super_seek(to date: Date, completionHandler: @escaping (Bool) -> Void) {
         super.seek(to: date, completionHandler: completionHandler)
     }
+
+    /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.
+    /// - parameter item: The item to play
+    /// - parameter headers: The headers to attach to the network requests when playing this item
+    /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
+    func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ()) {
+        let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
+        asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
+            guard let `self` = self else { return }
+
+            var error: NSError?
+            let status = asset.statusOfValue(forKey: "playable", error: &error)
+            switch status {
+            case .loaded:
+                let playerItem = AVPlayerItem(asset: asset)
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.replaceCurrentItem(with: playerItem)
+                    callback(true)
+                }
+            default:
+                callback(false)
+            }
+        }
+    }
 }

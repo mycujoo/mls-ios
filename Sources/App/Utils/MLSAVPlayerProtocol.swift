@@ -27,7 +27,7 @@ protocol MLSAVPlayerProtocol: class {
     func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue?, using block: @escaping (CMTime) -> Void) -> Any
     func removeTimeObserver(_ observer: Any)
     func removeObserver(_ observer: NSObject, forKeyPath keyPath: String)
-    func replaceCurrentItem(with item: AVPlayerItem?)
+    func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ())
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
 
 
