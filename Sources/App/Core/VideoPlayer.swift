@@ -135,16 +135,15 @@ public class VideoPlayer: NSObject {
         return df
     }()
 
-    private lazy var youboraPlugin: YBPlugin = {
+    private lazy var youboraPlugin: YBPlugin? = {
+        // Only add the adapter in real scenarios. When running unit tests with a mocked player, there will not be a youbora plugin.
+        guard let avPlayer = self.player as? AVPlayer else { return nil }
+
         let options = YBOptions()
         options.accountCode = "mycujoo"
         options.username = "mls"
         let plugin = YBPlugin(options: options)
-
-        if let avPlayer = self.player as? AVPlayer {
-            // Only add the adapter in real scenarios. When running unit tests with a mocked player, this will not work.
-            plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
-        }
+        plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
 
         return plugin
     }()
@@ -251,7 +250,7 @@ public class VideoPlayer: NSObject {
         player.isMuted = true
         #endif
 
-        youboraPlugin.fireInit()
+        youboraPlugin?.fireInit()
 
         rebuild()
     }
@@ -260,7 +259,7 @@ public class VideoPlayer: NSObject {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "status")
         player.removeObserver(self, forKeyPath: "timeControlStatus")
-        youboraPlugin.fireStop()
+        youboraPlugin?.fireStop()
     }
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
