@@ -54,13 +54,20 @@ public class MLS {
         return AnnotationService()
     }()
 
-    lazy var avPlayer: MLSAVPlayerProtocol = {
-        return MLSAVPlayer()
-    }()
-
     lazy var dataProvider_: DataProvider = {
         return DataProvider(listEventsUseCase: listEventsUseCase)
     }()
+
+    private var _injectedAVPlayer: MLSAVPlayerProtocol? = nil
+    /// Injects an AVPlayer into the MLS component. Will be used by `buildAVPlayer()`
+    func inject(avPlayer: MLSAVPlayerProtocol) {
+        _injectedAVPlayer = avPlayer
+    }
+
+    /// - returns: A new instance of MLSAVPlayerProtocol, unless an AVPlayer was injected at some point, then that injected value is returned instead.
+    func buildAVPlayer() -> MLSAVPlayerProtocol {
+        return _injectedAVPlayer ?? MLSAVPlayer()
+    }
 
     public init(publicKey: String, configuration: Configuration) {
         self.publicKey = publicKey
@@ -73,7 +80,7 @@ public class MLS {
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     public func videoPlayer(with event: Event? = nil, seekTolerance: CMTime = .positiveInfinity) -> VideoPlayer {
         let player = VideoPlayer(
-            player: avPlayer,
+            player: buildAVPlayer(),
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: getPlayerConfigForEventUseCase,
             getSVGUseCase: getSVGUseCase,
