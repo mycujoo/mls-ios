@@ -233,6 +233,7 @@
 		498E48FA24D057FF0040502D /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F824D057FF0040502D /* GetSVGUseCase.swift */; };
 		498E48FC24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
 		498E48FD24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
+		498E48FF24D0670F0040502D /* VideoPlayerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		49A73D5124ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
@@ -636,6 +637,7 @@
 		498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepositoryImpl.swift; sourceTree = "<group>"; };
 		498E48F824D057FF0040502D /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
 		498E48FB24D062D90040502D /* Thread+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thread+.swift"; sourceTree = "<group>"; };
+		498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerSpec.swift; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		49A73D5524ABD2D5009CD2DF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5624ABD2D9009CD2DF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1271,6 +1273,7 @@
 				49EA06C424C792B300C7AB10 /* Mocks */,
 				4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */,
 				496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */,
+				498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1871,6 +1874,7 @@
 				496ECB0124CF0E7A001A9431 /* TOVStoreSpec.swift in Sources */,
 				49EA06C324C792A100C7AB10 /* GeneratedMocks.swift in Sources */,
 				4988B9CC24C87BCC00352529 /* AnnotationServiceSpec.swift in Sources */,
+				498E48FF24D0670F0040502D /* VideoPlayerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
