@@ -58,6 +58,8 @@ class VideoPlayerSpec: QuickSpec {
 
             self.mockView = MockVideoPlayerViewProtocol()
             stub(self.mockView) { mock in
+                when(mock).videoSlider.get.thenReturn(VideoProgressSlider())
+
                 when(mock).primaryColor.get.thenReturn(.white)
                 when(mock).primaryColor.set(any()).thenDoNothing()
                 when(mock).secondaryColor.get.thenReturn(.red)
@@ -113,12 +115,16 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).currentDuration.get.then { _ -> Double in
                     return currentDuration
                 }
+                when(mock).currentDurationAsCMTime.get.then { _ -> CMTime? in
+                    return CMTime(seconds: currentDuration, preferredTimescale: 1)
+                }
                 when(mock).currentTime.get.then { _ -> Double in
                     return currentTime
                 }
                 when(mock).optimisticCurrentTime.get.then { _ -> Double in
                     return optimisticCurrentTime
                 }
+                when(mock).isSeeking.get.thenReturn(false)
                 when(mock).isMuted.get.thenReturn(true)
                 when(mock).isMuted.set(any()).thenDoNothing()
                 when(mock).play().thenDoNothing()
@@ -126,6 +132,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).replaceCurrentItem(with: any(), headers: any(), callback: any()).then { (tuple) in
                     (tuple.2)(true)
                 }
+                when(mock).currentItem
             }
 
             self.mockAnnotationService = MockAnnotationServicing()
@@ -167,7 +174,7 @@ class VideoPlayerSpec: QuickSpec {
         }
 
         describe("loading events") {
-            fit("replaces avplayer item") {
+            it("replaces avplayer item") {
                 self.videoPlayer.event = self.event
 
                 // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.

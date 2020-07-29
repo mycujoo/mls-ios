@@ -6,6 +6,7 @@ import Foundation
 import AVFoundation
 import UIKit
 
+#if os(iOS)
 protocol VideoPlayerViewProtocol: class {
     var videoSlider: VideoProgressSlider { get }
 
@@ -81,3 +82,4 @@ protocol VideoPlayerViewProtocol: class {
         completion: @escaping (() -> Void)
     )
 }
+#endif

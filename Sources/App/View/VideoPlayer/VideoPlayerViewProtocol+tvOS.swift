@@ -5,6 +5,7 @@ import Foundation
 import AVFoundation
 import UIKit
 
+#if os(tvOS)
 protocol VideoPlayerViewProtocol: class {
     var videoSlider: VideoProgressSlider { get }
 
@@ -69,3 +70,4 @@ protocol VideoPlayerViewProtocol: class {
     func setOnLeftArrowTapped(_ action: @escaping () -> Void)
     func setOnRightArrowTapped(_ action: @escaping () -> Void)
 }
+#endif

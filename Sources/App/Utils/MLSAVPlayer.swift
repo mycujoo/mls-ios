@@ -9,12 +9,12 @@ import AVFoundation
 class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private(set) var isSeeking = false
 
-    /// - returns: The current time (in seconds) of the currentItem.
+    /// The current time (in seconds) of the currentItem.
     var currentTime: Double {
         return (CMTimeGetSeconds(currentTime()) * 10).rounded() / 10
     }
 
-    /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
+    /// The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double {
         return _seekingToTime ?? currentTime
     }
@@ -22,7 +22,8 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
     private var _seekingToTime: Double? = nil
 
-    /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
+    /// The duration (in seconds) of the currentItem. If unknown, returns 0.
+    /// - seeAlso: `cmDuration`
     var currentDuration: Double {
         guard let duration = currentItem?.duration else { return 0 }
         let seconds = CMTimeGetSeconds(duration)
@@ -43,6 +44,11 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         }
 
         return seconds
+    }
+
+    /// The duration reported by the currentItem, without any further manipulation. Typically, it is better to use `currentDuration`.
+    var currentDurationAsCMTime: CMTime? {
+        return currentItem?.duration
     }
 
     private var isSeekingUpdatedAt = Date()

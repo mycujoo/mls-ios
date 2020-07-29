@@ -93,7 +93,7 @@ public class VideoPlayer: NSObject {
 
     /// Indicates whether the current item is a live stream.
     public var isLivestream: Bool {
-        guard let duration = player.currentItem?.duration else {
+        guard let duration = player.currentDurationAsCMTime else {
             return false
         }
         let seconds = CMTimeGetSeconds(duration)

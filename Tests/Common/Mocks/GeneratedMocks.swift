@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-29 16:52:48 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-29 21:54:43 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -92,6 +92,20 @@ import Foundation
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.currentDuration)
+        }
+        
+    }
+    
+    
+    
+     var currentDurationAsCMTime: CMTime? {
+        get {
+            return cuckoo_manager.getter("currentDurationAsCMTime",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentDurationAsCMTime)
         }
         
     }
@@ -321,6 +335,11 @@ import Foundation
 	    }
 	    
 	    
+	    var currentDurationAsCMTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, CMTime?> {
+	        return .init(manager: cuckoo_manager, name: "currentDurationAsCMTime")
+	    }
+	    
+	    
 	    var currentTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, Double> {
 	        return .init(manager: cuckoo_manager, name: "currentTime")
 	    }
@@ -418,6 +437,11 @@ import Foundation
 	    
 	    var currentDuration: Cuckoo.VerifyReadOnlyProperty<Double> {
 	        return .init(manager: cuckoo_manager, name: "currentDuration", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentDurationAsCMTime: Cuckoo.VerifyReadOnlyProperty<CMTime?> {
+	        return .init(manager: cuckoo_manager, name: "currentDurationAsCMTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -537,6 +561,14 @@ import Foundation
     }
     
     
+     var currentDurationAsCMTime: CMTime? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (CMTime?).self)
+        }
+        
+    }
+    
+    
      var currentTime: Double {
         get {
             return DefaultValueRegistry.defaultValue(for: (Double).self)
@@ -607,7 +639,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-07-29 16:52:48 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-07-29 21:54:43 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1008,111 +1040,6 @@ import UIKit
     
     
     
-     func setBufferIcon(hidden: Bool)  {
-        
-    return cuckoo_manager.call("setBufferIcon(hidden: Bool)",
-            parameters: (hidden),
-            escapingParameters: (hidden),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.setBufferIcon(hidden: hidden))
-        
-    }
-    
-    
-    
-     func setInfoButtonAndView(hidden: Bool)  {
-        
-    return cuckoo_manager.call("setInfoButtonAndView(hidden: Bool)",
-            parameters: (hidden),
-            escapingParameters: (hidden),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.setInfoButtonAndView(hidden: hidden))
-        
-    }
-    
-    
-    
-     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?)  {
-        
-    return cuckoo_manager.call("setTimeIndicatorLabel(elapsedText: String?, totalText: String?)",
-            parameters: (elapsedText, totalText),
-            escapingParameters: (elapsedText, totalText),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.setTimeIndicatorLabel(elapsedText: elapsedText, totalText: totalText))
-        
-    }
-    
-    
-    
-     func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])  {
-        
-    return cuckoo_manager.call("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])",
-            parameters: (actions),
-            escapingParameters: (actions),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.setTimelineMarkers(with: actions))
-        
-    }
-    
-    
-    
-     func placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView {
-        
-    return cuckoo_manager.call("placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView",
-            parameters: (imageView, size, position, animateType, animateDuration),
-            escapingParameters: (imageView, size, position, animateType, animateDuration),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.placeOverlay(imageView: imageView, size: size, position: position, animateType: animateType, animateDuration: animateDuration))
-        
-    }
-    
-    
-    
-     func replaceOverlay(containerView: UIView, imageView: UIView)  {
-        
-    return cuckoo_manager.call("replaceOverlay(containerView: UIView, imageView: UIView)",
-            parameters: (containerView, imageView),
-            escapingParameters: (containerView, imageView),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.replaceOverlay(containerView: containerView, imageView: imageView))
-        
-    }
-    
-    
-    
-     func removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))  {
-        
-    return cuckoo_manager.call("removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))",
-            parameters: (containerView, animateType, animateDuration, completion),
-            escapingParameters: (containerView, animateType, animateDuration, completion),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.removeOverlay(containerView: containerView, animateType: animateType, animateDuration: animateDuration, completion: completion))
-        
-    }
-    
-    
-    
      func setOnControlViewTapped(_ action: @escaping () -> Void)  {
         
     return cuckoo_manager.call("setOnControlViewTapped(_: @escaping () -> Void)",
@@ -1188,6 +1115,36 @@ import UIKit
     
     
     
+     func setBufferIcon(hidden: Bool)  {
+        
+    return cuckoo_manager.call("setBufferIcon(hidden: Bool)",
+            parameters: (hidden),
+            escapingParameters: (hidden),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setBufferIcon(hidden: hidden))
+        
+    }
+    
+    
+    
+     func setInfoButtonAndView(hidden: Bool)  {
+        
+    return cuckoo_manager.call("setInfoButtonAndView(hidden: Bool)",
+            parameters: (hidden),
+            escapingParameters: (hidden),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setInfoButtonAndView(hidden: hidden))
+        
+    }
+    
+    
+    
      func setSkipButtons(hidden: Bool)  {
         
     return cuckoo_manager.call("setSkipButtons(hidden: Bool)",
@@ -1198,6 +1155,81 @@ import UIKit
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
             defaultCall: __defaultImplStub!.setSkipButtons(hidden: hidden))
+        
+    }
+    
+    
+    
+     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?)  {
+        
+    return cuckoo_manager.call("setTimeIndicatorLabel(elapsedText: String?, totalText: String?)",
+            parameters: (elapsedText, totalText),
+            escapingParameters: (elapsedText, totalText),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setTimeIndicatorLabel(elapsedText: elapsedText, totalText: totalText))
+        
+    }
+    
+    
+    
+     func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])  {
+        
+    return cuckoo_manager.call("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])",
+            parameters: (actions),
+            escapingParameters: (actions),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setTimelineMarkers(with: actions))
+        
+    }
+    
+    
+    
+     func placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView {
+        
+    return cuckoo_manager.call("placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView",
+            parameters: (imageView, size, position, animateType, animateDuration),
+            escapingParameters: (imageView, size, position, animateType, animateDuration),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.placeOverlay(imageView: imageView, size: size, position: position, animateType: animateType, animateDuration: animateDuration))
+        
+    }
+    
+    
+    
+     func replaceOverlay(containerView: UIView, imageView: UIView)  {
+        
+    return cuckoo_manager.call("replaceOverlay(containerView: UIView, imageView: UIView)",
+            parameters: (containerView, imageView),
+            escapingParameters: (containerView, imageView),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.replaceOverlay(containerView: containerView, imageView: imageView))
+        
+    }
+    
+    
+    
+     func removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))  {
+        
+    return cuckoo_manager.call("removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))",
+            parameters: (containerView, animateType, animateDuration, completion),
+            escapingParameters: (containerView, animateType, animateDuration, completion),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.removeOverlay(containerView: containerView, animateType: animateType, animateDuration: animateDuration, completion: completion))
         
     }
     
@@ -1325,41 +1357,6 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setLiveButtonTo(state: VideoPlayer.LiveState)", parameterMatchers: matchers))
 	    }
 	    
-	    func setBufferIcon<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setBufferIcon(hidden: Bool)", parameterMatchers: matchers))
-	    }
-	    
-	    func setInfoButtonAndView<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setInfoButtonAndView(hidden: Bool)", parameterMatchers: matchers))
-	    }
-	    
-	    func setTimeIndicatorLabel<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(elapsedText: M1, totalText: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String?, String?)> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
-	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: elapsedText) { $0.0 }, wrap(matchable: totalText) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setTimeIndicatorLabel(elapsedText: String?, totalText: String?)", parameterMatchers: matchers))
-	    }
-	    
-	    func setTimelineMarkers<M1: Cuckoo.Matchable>(with actions: M1) -> Cuckoo.ProtocolStubNoReturnFunction<([MLSUI.ShowTimelineMarkerAction])> where M1.MatchedType == [MLSUI.ShowTimelineMarkerAction] {
-	        let matchers: [Cuckoo.ParameterMatcher<([MLSUI.ShowTimelineMarkerAction])>] = [wrap(matchable: actions) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", parameterMatchers: matchers))
-	    }
-	    
-	    func placeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(imageView: M1, size: M2, position: M3, animateType: M4, animateDuration: M5) -> Cuckoo.ProtocolStubFunction<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double), UIView> where M1.MatchedType == UIView, M2.MatchedType == AnnotationActionShowOverlay.Size, M3.MatchedType == AnnotationActionShowOverlay.Position, M4.MatchedType == OverlayAnimateinType, M5.MatchedType == Double {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double)>] = [wrap(matchable: imageView) { $0.0 }, wrap(matchable: size) { $0.1 }, wrap(matchable: position) { $0.2 }, wrap(matchable: animateType) { $0.3 }, wrap(matchable: animateDuration) { $0.4 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView", parameterMatchers: matchers))
-	    }
-	    
-	    func replaceOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(containerView: M1, imageView: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(UIView, UIView)> where M1.MatchedType == UIView, M2.MatchedType == UIView {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, UIView)>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: imageView) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "replaceOverlay(containerView: UIView, imageView: UIView)", parameterMatchers: matchers))
-	    }
-	    
-	    func removeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(containerView: M1, animateType: M2, animateDuration: M3, completion: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(UIView, OverlayAnimateoutType, Double, (() -> Void))> where M1.MatchedType == UIView, M2.MatchedType == OverlayAnimateoutType, M3.MatchedType == Double, M4.MatchedType == (() -> Void) {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, OverlayAnimateoutType, Double, (() -> Void))>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: animateType) { $0.1 }, wrap(matchable: animateDuration) { $0.2 }, wrap(matchable: completion) { $0.3 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))", parameterMatchers: matchers))
-	    }
-	    
 	    func setOnControlViewTapped<M1: Cuckoo.Matchable>(_ action: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(() -> Void)> where M1.MatchedType == () -> Void {
 	        let matchers: [Cuckoo.ParameterMatcher<(() -> Void)>] = [wrap(matchable: action) { $0 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setOnControlViewTapped(_: @escaping () -> Void)", parameterMatchers: matchers))
@@ -1385,9 +1382,44 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setFullscreenButtonTo(fullscreen: Bool)", parameterMatchers: matchers))
 	    }
 	    
+	    func setBufferIcon<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setBufferIcon(hidden: Bool)", parameterMatchers: matchers))
+	    }
+	    
+	    func setInfoButtonAndView<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setInfoButtonAndView(hidden: Bool)", parameterMatchers: matchers))
+	    }
+	    
 	    func setSkipButtons<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setSkipButtons(hidden: Bool)", parameterMatchers: matchers))
+	    }
+	    
+	    func setTimeIndicatorLabel<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(elapsedText: M1, totalText: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String?, String?)> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: elapsedText) { $0.0 }, wrap(matchable: totalText) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setTimeIndicatorLabel(elapsedText: String?, totalText: String?)", parameterMatchers: matchers))
+	    }
+	    
+	    func setTimelineMarkers<M1: Cuckoo.Matchable>(with actions: M1) -> Cuckoo.ProtocolStubNoReturnFunction<([MLSUI.ShowTimelineMarkerAction])> where M1.MatchedType == [MLSUI.ShowTimelineMarkerAction] {
+	        let matchers: [Cuckoo.ParameterMatcher<([MLSUI.ShowTimelineMarkerAction])>] = [wrap(matchable: actions) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", parameterMatchers: matchers))
+	    }
+	    
+	    func placeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(imageView: M1, size: M2, position: M3, animateType: M4, animateDuration: M5) -> Cuckoo.ProtocolStubFunction<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double), UIView> where M1.MatchedType == UIView, M2.MatchedType == AnnotationActionShowOverlay.Size, M3.MatchedType == AnnotationActionShowOverlay.Position, M4.MatchedType == OverlayAnimateinType, M5.MatchedType == Double {
+	        let matchers: [Cuckoo.ParameterMatcher<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double)>] = [wrap(matchable: imageView) { $0.0 }, wrap(matchable: size) { $0.1 }, wrap(matchable: position) { $0.2 }, wrap(matchable: animateType) { $0.3 }, wrap(matchable: animateDuration) { $0.4 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView", parameterMatchers: matchers))
+	    }
+	    
+	    func replaceOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(containerView: M1, imageView: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(UIView, UIView)> where M1.MatchedType == UIView, M2.MatchedType == UIView {
+	        let matchers: [Cuckoo.ParameterMatcher<(UIView, UIView)>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: imageView) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "replaceOverlay(containerView: UIView, imageView: UIView)", parameterMatchers: matchers))
+	    }
+	    
+	    func removeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(containerView: M1, animateType: M2, animateDuration: M3, completion: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(UIView, OverlayAnimateoutType, Double, (() -> Void))> where M1.MatchedType == UIView, M2.MatchedType == OverlayAnimateoutType, M3.MatchedType == Double, M4.MatchedType == (() -> Void) {
+	        let matchers: [Cuckoo.ParameterMatcher<(UIView, OverlayAnimateoutType, Double, (() -> Void))>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: animateType) { $0.1 }, wrap(matchable: animateDuration) { $0.2 }, wrap(matchable: completion) { $0.3 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -1532,48 +1564,6 @@ import UIKit
 	    }
 	    
 	    @discardableResult
-	    func setBufferIcon<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
-	        return cuckoo_manager.verify("setBufferIcon(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func setInfoButtonAndView<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
-	        return cuckoo_manager.verify("setInfoButtonAndView(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func setTimeIndicatorLabel<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(elapsedText: M1, totalText: M2) -> Cuckoo.__DoNotUse<(String?, String?), Void> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
-	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: elapsedText) { $0.0 }, wrap(matchable: totalText) { $0.1 }]
-	        return cuckoo_manager.verify("setTimeIndicatorLabel(elapsedText: String?, totalText: String?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func setTimelineMarkers<M1: Cuckoo.Matchable>(with actions: M1) -> Cuckoo.__DoNotUse<([MLSUI.ShowTimelineMarkerAction]), Void> where M1.MatchedType == [MLSUI.ShowTimelineMarkerAction] {
-	        let matchers: [Cuckoo.ParameterMatcher<([MLSUI.ShowTimelineMarkerAction])>] = [wrap(matchable: actions) { $0 }]
-	        return cuckoo_manager.verify("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func placeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(imageView: M1, size: M2, position: M3, animateType: M4, animateDuration: M5) -> Cuckoo.__DoNotUse<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double), UIView> where M1.MatchedType == UIView, M2.MatchedType == AnnotationActionShowOverlay.Size, M3.MatchedType == AnnotationActionShowOverlay.Position, M4.MatchedType == OverlayAnimateinType, M5.MatchedType == Double {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double)>] = [wrap(matchable: imageView) { $0.0 }, wrap(matchable: size) { $0.1 }, wrap(matchable: position) { $0.2 }, wrap(matchable: animateType) { $0.3 }, wrap(matchable: animateDuration) { $0.4 }]
-	        return cuckoo_manager.verify("placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func replaceOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(containerView: M1, imageView: M2) -> Cuckoo.__DoNotUse<(UIView, UIView), Void> where M1.MatchedType == UIView, M2.MatchedType == UIView {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, UIView)>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: imageView) { $0.1 }]
-	        return cuckoo_manager.verify("replaceOverlay(containerView: UIView, imageView: UIView)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func removeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(containerView: M1, animateType: M2, animateDuration: M3, completion: M4) -> Cuckoo.__DoNotUse<(UIView, OverlayAnimateoutType, Double, (() -> Void)), Void> where M1.MatchedType == UIView, M2.MatchedType == OverlayAnimateoutType, M3.MatchedType == Double, M4.MatchedType == (() -> Void) {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, OverlayAnimateoutType, Double, (() -> Void))>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: animateType) { $0.1 }, wrap(matchable: animateDuration) { $0.2 }, wrap(matchable: completion) { $0.3 }]
-	        return cuckoo_manager.verify("removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
 	    func setOnControlViewTapped<M1: Cuckoo.Matchable>(_ action: M1) -> Cuckoo.__DoNotUse<(() -> Void), Void> where M1.MatchedType == () -> Void {
 	        let matchers: [Cuckoo.ParameterMatcher<(() -> Void)>] = [wrap(matchable: action) { $0 }]
 	        return cuckoo_manager.verify("setOnControlViewTapped(_: @escaping () -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
@@ -1604,9 +1594,51 @@ import UIKit
 	    }
 	    
 	    @discardableResult
+	    func setBufferIcon<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return cuckoo_manager.verify("setBufferIcon(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setInfoButtonAndView<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return cuckoo_manager.verify("setInfoButtonAndView(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
 	    func setSkipButtons<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
 	        return cuckoo_manager.verify("setSkipButtons(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setTimeIndicatorLabel<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(elapsedText: M1, totalText: M2) -> Cuckoo.__DoNotUse<(String?, String?), Void> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: elapsedText) { $0.0 }, wrap(matchable: totalText) { $0.1 }]
+	        return cuckoo_manager.verify("setTimeIndicatorLabel(elapsedText: String?, totalText: String?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setTimelineMarkers<M1: Cuckoo.Matchable>(with actions: M1) -> Cuckoo.__DoNotUse<([MLSUI.ShowTimelineMarkerAction]), Void> where M1.MatchedType == [MLSUI.ShowTimelineMarkerAction] {
+	        let matchers: [Cuckoo.ParameterMatcher<([MLSUI.ShowTimelineMarkerAction])>] = [wrap(matchable: actions) { $0 }]
+	        return cuckoo_manager.verify("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func placeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(imageView: M1, size: M2, position: M3, animateType: M4, animateDuration: M5) -> Cuckoo.__DoNotUse<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double), UIView> where M1.MatchedType == UIView, M2.MatchedType == AnnotationActionShowOverlay.Size, M3.MatchedType == AnnotationActionShowOverlay.Position, M4.MatchedType == OverlayAnimateinType, M5.MatchedType == Double {
+	        let matchers: [Cuckoo.ParameterMatcher<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double)>] = [wrap(matchable: imageView) { $0.0 }, wrap(matchable: size) { $0.1 }, wrap(matchable: position) { $0.2 }, wrap(matchable: animateType) { $0.3 }, wrap(matchable: animateDuration) { $0.4 }]
+	        return cuckoo_manager.verify("placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func replaceOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(containerView: M1, imageView: M2) -> Cuckoo.__DoNotUse<(UIView, UIView), Void> where M1.MatchedType == UIView, M2.MatchedType == UIView {
+	        let matchers: [Cuckoo.ParameterMatcher<(UIView, UIView)>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: imageView) { $0.1 }]
+	        return cuckoo_manager.verify("replaceOverlay(containerView: UIView, imageView: UIView)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func removeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(containerView: M1, animateType: M2, animateDuration: M3, completion: M4) -> Cuckoo.__DoNotUse<(UIView, OverlayAnimateoutType, Double, (() -> Void)), Void> where M1.MatchedType == UIView, M2.MatchedType == OverlayAnimateoutType, M3.MatchedType == Double, M4.MatchedType == (() -> Void) {
+	        let matchers: [Cuckoo.ParameterMatcher<(UIView, OverlayAnimateoutType, Double, (() -> Void))>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: animateType) { $0.1 }, wrap(matchable: animateDuration) { $0.2 }, wrap(matchable: completion) { $0.3 }]
+	        return cuckoo_manager.verify("removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
@@ -1768,11 +1800,35 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+     func setOnControlViewTapped(_ action: @escaping () -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func setOnLiveButtonTapped(_ action: @escaping () -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func setOnInfoButtonTapped(_ action: @escaping () -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func setFullscreenButtonTo(fullscreen: Bool)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
      func setBufferIcon(hidden: Bool)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
      func setInfoButtonAndView(hidden: Bool)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func setSkipButtons(hidden: Bool)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -1796,34 +1852,10 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func setOnControlViewTapped(_ action: @escaping () -> Void)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func setOnLiveButtonTapped(_ action: @escaping () -> Void)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func setOnInfoButtonTapped(_ action: @escaping () -> Void)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func setFullscreenButtonTo(fullscreen: Bool)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func setSkipButtons(hidden: Bool)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-29 16:52:48 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-29 21:54:43 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1925,7 +1957,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-29 16:52:48 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-29 21:54:43 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2027,7 +2059,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-29 16:52:48 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-29 21:54:43 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2159,7 +2191,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-29 16:52:48 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-29 21:54:43 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2261,7 +2293,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-29 16:52:48 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-29 21:54:43 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
