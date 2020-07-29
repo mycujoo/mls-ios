@@ -11,7 +11,6 @@ public class VideoPlayer: NSObject {
     // MARK: - Public properties
 
     public weak var delegate: PlayerDelegate?
-    public private(set) var view: VideoPlayerView!
 
     public private(set) var state: State = .unknown {
         didSet {
@@ -68,6 +67,14 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// The view of the VideoPlayer.
+    public var playerView: UIView {
+        if let view = view as? UIView {
+            return view
+        }
+        fatalError("When running unit tests, this property cannot be accessed. Use `view` directly.")
+    }
+
     #if os(iOS)
     /// This property changes when the fullscreen button is tapped. SDK implementors can update this state directly, which will update the visual of the button.
     /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
@@ -112,6 +119,33 @@ public class VideoPlayer: NSObject {
         didSet {
             evaluateAnnotations()
         }
+    }
+
+    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
+    public var topControlsStackView: UIStackView {
+        return view.topControlsStackView
+    }
+
+    /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
+    public var controlView: UIView {
+        return view.controlView
+    }
+    /// Sets the visibility of the fullscreen button.
+    public var fullscreenButtonIsHidden: Bool {
+        get {
+            return view.fullscreenButtonIsHidden
+        }
+        set {
+            view.fullscreenButtonIsHidden = newValue
+        }
+    }
+    /// The AVPlayerLayer of the associated AVPlayer
+    public var playerLayer: AVPlayerLayer? {
+        return view.playerLayer
+    }
+    /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
+    public var tapGestureRecognizer: UITapGestureRecognizer {
+        return view.tapGestureRecognizer
     }
 
     // MARK: - Private properties
@@ -165,13 +199,18 @@ public class VideoPlayer: NSObject {
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
-    var overlays: [String: UIView] = [:]
+    private var overlays: [String: UIView] = [:]
 
     /// A level that indicates which actions are allowed to overwrite the state of the control view visibility.
     private var controlViewDirectiveLevel: DirectiveLevel = .none
     private var controlViewLocked: Bool = false
 
+    /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
+    private let seekTolerance: CMTime
+
     // MARK: - Internal properties
+
+    var view: VideoPlayerViewProtocol!
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
@@ -189,12 +228,10 @@ public class VideoPlayer: NSObject {
         }
     }
 
-    /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
-    private let seekTolerance: CMTime
-
     // MARK: - Methods
 
     init(
+            view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
@@ -215,7 +252,7 @@ public class VideoPlayer: NSObject {
         timeObserver = trackTime(with: player)
 
         func initPlayerView() {
-            view = VideoPlayerView()
+            self.view = view
             view.setOnTimeSliderSlide(sliderUpdated)
             view.setOnTimeSliderRelease(sliderReleased)
             view.setOnPlayButtonTapped(playButtonTapped)

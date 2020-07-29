@@ -6,7 +6,7 @@
 import UIKit
 import AVKit
 
-public class VideoPlayerView: UIView  {
+public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
     // MARK: - Properties
 
@@ -199,7 +199,6 @@ public class VideoPlayerView: UIView  {
         return view
     }()
 
-    // SPECIAL: Does not have to be added to the protocol.
     /// The view in which all dynamic overlays are rendered.
     let overlayContainerView: UIView = {
         let view = UIView()
@@ -260,7 +259,6 @@ public class VideoPlayerView: UIView  {
         return label
     }()
 
-    // SPECIAL: Does not have to be added to the protocol.
     /// A dictionary of arrays, where each array is the set of constraints of a single overlay. These constraints should be
     /// copied when the UIView is exchanged for a newer one. The key is the `hash` of the UIView that the constraints belong to.
     var copyableOverlayConstraints: [Int: [NSLayoutConstraint]] = [:]
@@ -279,7 +277,7 @@ public class VideoPlayerView: UIView  {
     }
 
     /// Exposes the `UITapGestureRecognizer` on the VideoPlayerView, which is used to determine whether to hide or show the controls.
-    public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+    private(set) public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
         let gr = UITapGestureRecognizer(target: self, action: #selector(controlViewTapped))
         gr.numberOfTapsRequired = 1
         gr.delegate = self

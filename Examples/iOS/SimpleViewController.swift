@@ -31,18 +31,18 @@ class SimpleViewController: UIViewController {
         if !didLayoutPlayerView {
             didLayoutPlayerView = true
 
-            view.addSubview(videoPlayer.view)
-            videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
-            videoPlayer.view.fullscreenButtonIsHidden = true
+            view.addSubview(videoPlayer.playerView)
+            videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
+            videoPlayer.fullscreenButtonIsHidden = true
 
             let playerConstraints = [
-                videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                videoPlayer.playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                 // Note that this heightAnchor approach will not look good on some devices in landscape.
                 // For a more complete solution, see `WithFullscreenZoomViewController.swift`
-                videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+                videoPlayer.playerView.heightAnchor.constraint(equalTo: videoPlayer.playerView.widthAnchor, multiplier: 9 / 16),
+                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                videoPlayer.playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
             NSLayoutConstraint.activate(playerConstraints)
