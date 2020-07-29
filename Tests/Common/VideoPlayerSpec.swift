@@ -12,6 +12,7 @@ import AVFoundation
 
 class VideoPlayerSpec: QuickSpec {
 
+    var mockView: MockVideoPlayerViewProtocol!
     var mockAVPlayer: MockMLSAVPlayerProtocol!
     var mockAnnotationService: MockAnnotationServicing!
 
@@ -54,6 +55,8 @@ class VideoPlayerSpec: QuickSpec {
             optimisticCurrentTime = 100
 
             self.event = MLSSDK.Event(id: "mockevent", title: "Mock Event", descriptionText: "This is a mock event", thumbnailUrl: nil, organiser: nil, timezone: nil, startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24), status: .started, streams: [MLSSDK.Stream(fullUrl: URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8")!)], timelineIds: [])
+
+            self.mockView = MockVideoPlayerViewProtocol()
 
             self.mockAVPlayer = MockMLSAVPlayerProtocol()
             stub(self.mockAVPlayer) { mock in
@@ -117,7 +120,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.videoPlayer = VideoPlayer(player: self.mockAVPlayer, getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(annotationActionRepository: self.mockAnnotationActionRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
+            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(annotationActionRepository: self.mockAnnotationActionRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
         }
 
         describe("loading events") {

@@ -28,14 +28,13 @@ protocol VideoPlayerViewProtocol: class {
     var controlView: UIView { get }
     /// The AVPlayerLayer of the associated AVPlayer
     var playerLayer: AVPlayerLayer? { get }
-    #if os(iOS)
+
     /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
     var topControlsStackView: UIStackView { get }
     /// Sets the visibility of the fullscreen button.
     var fullscreenButtonIsHidden: Bool { get set }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     var tapGestureRecognizer: UITapGestureRecognizer { get }
-    #endif
 
     func drawPlayer(with player: MLSAVPlayerProtocol)
     func setOnPlayButtonTapped(_ action: @escaping () -> Void)
@@ -74,7 +73,6 @@ protocol VideoPlayerViewProtocol: class {
         completion: @escaping (() -> Void)
     )
 
-    #if os(iOS)
     func setOnControlViewTapped(_ action: @escaping () -> Void)
     func setOnLiveButtonTapped(_ action: @escaping () -> Void)
     func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)
@@ -82,10 +80,4 @@ protocol VideoPlayerViewProtocol: class {
     func setFullscreenButtonTo(fullscreen: Bool)
     /// Sets the `isHidden` property of the skip backwards/forwards buttons.
     func setSkipButtons(hidden: Bool)
-    #endif
-    #if os(tvOS)
-    func setOnSelectPressed(_ action: @escaping () -> Void)
-    func setOnLeftArrowTapped(_ action: @escaping () -> Void)
-    func setOnRightArrowTapped(_ action: @escaping () -> Void)
-    #endif
 }
