@@ -234,9 +234,9 @@
 		498E48FC24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
 		498E48FD24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
 		498E48FF24D0670F0040502D /* VideoPlayerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */; };
-		498E490224D07A1C0040502D /* flame.avi in Resources */ = {isa = PBXBuildFile; fileRef = 498E490124D07A1C0040502D /* flame.avi */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
+		499D0E2C24D1898D0021A961 /* scoreboard_and_timer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */; };
 		49A73D5124ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
 		49A73D5224ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
 		49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
@@ -639,8 +639,8 @@
 		498E48F824D057FF0040502D /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
 		498E48FB24D062D90040502D /* Thread+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thread+.swift"; sourceTree = "<group>"; };
 		498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerSpec.swift; sourceTree = "<group>"; };
-		498E490124D07A1C0040502D /* flame.avi */ = {isa = PBXFileReference; lastKnownFileType = video.avi; path = flame.avi; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = scoreboard_and_timer.svg; sourceTree = "<group>"; };
 		49A73D5524ABD2D5009CD2DF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5624ABD2D9009CD2DF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5724ABD2F0009CD2DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1246,7 +1246,7 @@
 		498E490024D07A0F0040502D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				498E490124D07A1C0040502D /* flame.avi */,
+				499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1639,8 +1639,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				499D0E2C24D1898D0021A961 /* scoreboard_and_timer.svg in Resources */,
 				4988B9E024C9A47100352529 /* testAnnotationService_timerPrioritization.json in Resources */,
-				498E490224D07A1C0040502D /* flame.avi in Resources */,
 				4988B9C624C8480F00352529 /* testAnnotationService_incrementStringVariableDoesntWork.json in Resources */,
 				4988B9BE24C847C500352529 /* testAnnotationService_createVariables.json in Resources */,
 				4988B9B824C846FB00352529 /* testAnnotationService_basicHideOverlay.json in Resources */,
@@ -1770,7 +1770,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/AnnotationActionRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\"\n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/AnnotationActionRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
