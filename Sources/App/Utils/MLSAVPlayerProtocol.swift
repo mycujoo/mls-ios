@@ -12,7 +12,6 @@ protocol MLSAVPlayerProtocol: class {
     // MARK: AVPlayer properties
     var status: AVPlayer.Status { get }
     var isMuted: Bool { get set }
-    var currentItem: AVPlayerItem? { get }
 
     // MARK: MLSAVPlayer properties
     /// The duration (in seconds) of the currentItem. If unknown, returns 0.

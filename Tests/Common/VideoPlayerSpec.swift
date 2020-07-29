@@ -132,7 +132,6 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).replaceCurrentItem(with: any(), headers: any(), callback: any()).then { (tuple) in
                     (tuple.2)(true)
                 }
-                when(mock).currentItem
             }
 
             self.mockAnnotationService = MockAnnotationServicing()
