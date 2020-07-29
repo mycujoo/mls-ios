@@ -121,15 +121,21 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
+    public var controlView: UIView {
+        return view.controlView
+    }
+    /// The AVPlayerLayer of the associated AVPlayer
+    public var playerLayer: AVPlayerLayer? {
+        return view.playerLayer
+    }
+
+    #if os(iOS)
     /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
     public var topControlsStackView: UIStackView {
         return view.topControlsStackView
     }
 
-    /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    public var controlView: UIView {
-        return view.controlView
-    }
     /// Sets the visibility of the fullscreen button.
     public var fullscreenButtonIsHidden: Bool {
         get {
@@ -139,14 +145,11 @@ public class VideoPlayer: NSObject {
             view.fullscreenButtonIsHidden = newValue
         }
     }
-    /// The AVPlayerLayer of the associated AVPlayer
-    public var playerLayer: AVPlayerLayer? {
-        return view.playerLayer
-    }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     public var tapGestureRecognizer: UITapGestureRecognizer {
         return view.tapGestureRecognizer
     }
+    #endif
 
     // MARK: - Private properties
 

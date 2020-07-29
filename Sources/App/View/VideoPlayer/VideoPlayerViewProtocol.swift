@@ -24,38 +24,32 @@ protocol VideoPlayerViewProtocol: class {
     /// The view in which all event/stream information is rendered.
     var infoDescriptionLabel: UILabel { get }
 
-    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    var topControlsStackView: UIStackView { get }
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
     var controlView: UIView { get }
-    /// Sets the visibility of the fullscreen button.
-    var fullscreenButtonIsHidden: Bool { get set }
     /// The AVPlayerLayer of the associated AVPlayer
     var playerLayer: AVPlayerLayer? { get }
+    #if os(iOS)
+    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
+    var topControlsStackView: UIStackView { get }
+    /// Sets the visibility of the fullscreen button.
+    var fullscreenButtonIsHidden: Bool { get set }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     var tapGestureRecognizer: UITapGestureRecognizer { get }
-
+    #endif
 
     func drawPlayer(with player: MLSAVPlayerProtocol)
-    func setOnControlViewTapped(_ action: @escaping () -> Void)
     func setOnPlayButtonTapped(_ action: @escaping () -> Void)
     func setOnSkipBackButtonTapped(_ action: @escaping () -> Void)
     func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void)
-    func setOnLiveButtonTapped(_ action: @escaping () -> Void)
-    func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)
-    func setOnInfoButtonTapped(_ action: @escaping () -> Void)
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void)
     func setOnTimeSliderRelease(_ action: @escaping (Double) -> Void)
     func setControlViewVisibility(visible: Bool, animated: Bool)
     func setInfoViewVisibility(visible: Bool, animated: Bool)
     func setPlayButtonTo(state: VideoPlayer.PlayButtonState)
     func setLiveButtonTo(state: VideoPlayer.LiveState)
-    func setFullscreenButtonTo(fullscreen: Bool)
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool)
-    /// Sets the `isHidden` property of the skip backwards/forwards buttons.
-    func setSkipButtons(hidden: Bool)
     /// Sets the `isHidden` property of the info button and the info view.
     func setInfoButtonAndView(hidden: Bool)
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
@@ -79,4 +73,19 @@ protocol VideoPlayerViewProtocol: class {
         animateDuration: Double,
         completion: @escaping (() -> Void)
     )
+
+    #if os(iOS)
+    func setOnControlViewTapped(_ action: @escaping () -> Void)
+    func setOnLiveButtonTapped(_ action: @escaping () -> Void)
+    func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)
+    func setOnInfoButtonTapped(_ action: @escaping () -> Void)
+    func setFullscreenButtonTo(fullscreen: Bool)
+    /// Sets the `isHidden` property of the skip backwards/forwards buttons.
+    func setSkipButtons(hidden: Bool)
+    #endif
+    #if os(tvOS)
+    func setOnSelectPressed(_ action: @escaping () -> Void)
+    func setOnLeftArrowTapped(_ action: @escaping () -> Void)
+    func setOnRightArrowTapped(_ action: @escaping () -> Void)
+    #endif
 }
