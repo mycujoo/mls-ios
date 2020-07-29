@@ -17,11 +17,11 @@ protocol VideoPlayerViewProtocol: class {
     var controlViewHasAlpha: Bool { get }
     /// Whether the infoView has an alpha value of more than zero (0) or not.
     var infoViewHasAlpha: Bool { get }
-    /// The view in which all event/stream information is rendered.
+    /// The view in which all event/stream title information is rendered.
     var infoTitleLabel: UILabel { get }
-    /// The view in which all event/stream information is rendered.
+    /// The view in which all event/stream date information is rendered.
     var infoDateLabel: UILabel { get }
-    /// The view in which all event/stream information is rendered.
+    /// The view in which event/stream description information is rendered.
     var infoDescriptionLabel: UILabel { get }
 
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
@@ -46,11 +46,19 @@ protocol VideoPlayerViewProtocol: class {
     func setInfoViewVisibility(visible: Bool, animated: Bool)
     func setPlayButtonTo(state: VideoPlayer.PlayButtonState)
     func setLiveButtonTo(state: VideoPlayer.LiveState)
+    func setOnControlViewTapped(_ action: @escaping () -> Void)
+    func setOnLiveButtonTapped(_ action: @escaping () -> Void)
+    func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)
+    func setOnInfoButtonTapped(_ action: @escaping () -> Void)
+    func setFullscreenButtonTo(fullscreen: Bool)
+
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool)
     /// Sets the `isHidden` property of the info button and the info view.
     func setInfoButtonAndView(hidden: Bool)
+    /// Sets the `isHidden` property of the skip backwards/forwards buttons.
+    func setSkipButtons(hidden: Bool)
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?)
 
@@ -72,12 +80,4 @@ protocol VideoPlayerViewProtocol: class {
         animateDuration: Double,
         completion: @escaping (() -> Void)
     )
-
-    func setOnControlViewTapped(_ action: @escaping () -> Void)
-    func setOnLiveButtonTapped(_ action: @escaping () -> Void)
-    func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)
-    func setOnInfoButtonTapped(_ action: @escaping () -> Void)
-    func setFullscreenButtonTo(fullscreen: Bool)
-    /// Sets the `isHidden` property of the skip backwards/forwards buttons.
-    func setSkipButtons(hidden: Bool)
 }
