@@ -237,6 +237,8 @@
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499D0E2C24D1898D0021A961 /* scoreboard_and_timer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */; };
+		499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift */; };
+		499D0E2F24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift */; };
 		49A73D5124ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
 		49A73D5224ABD2C5009CD2DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49A73D5424ABD2C5009CD2DF /* Localizable.strings */; };
 		49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
@@ -641,6 +643,7 @@
 		498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerSpec.swift; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = scoreboard_and_timer.svg; sourceTree = "<group>"; };
+		499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewProtocol.swift; sourceTree = "<group>"; };
 		49A73D5524ABD2D5009CD2DF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5624ABD2D9009CD2DF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		49A73D5724ABD2F0009CD2DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1407,6 +1410,7 @@
 				6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */,
 				4989B1ED249D39E8006CBB47 /* VideoPlayerView+tvOS.swift */,
 				49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */,
+				499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift */,
 				6496C3532492308D0099475D /* VideoProgressSlider.swift */,
 				6496C3542492308D0099475D /* VideoPlayStatus.swift */,
 			);
@@ -1903,6 +1907,7 @@
 				49736EEB24A9F59C001F3F48 /* AnimationProducer.swift in Sources */,
 				49736EEF24A9F59C001F3F48 /* DoubleInterpolation.swift in Sources */,
 				49736EFB24A9F59C001F3F48 /* ContentLayout.swift in Sources */,
+				499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift in Sources */,
 				4943B96924C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
 				49736E9D24A9F59C001F3F48 /* Size.swift in Sources */,
 				4926CE0B24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */,
@@ -2101,6 +2106,7 @@
 				49A804ED24AA0ECB00E30DA8 /* SVGNodeLayout.swift in Sources */,
 				49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */,
 				4943B96A24C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
+				499D0E2F24D1C6FC0021A961 /* VideoPlayerViewProtocol.swift in Sources */,
 				49A8049924AA0E3400E30DA8 /* Disposable.swift in Sources */,
 				4926CE0C24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */,
 				49EA06BD24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */,

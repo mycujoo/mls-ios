@@ -182,10 +182,8 @@ public class VideoPlayer: NSObject {
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
-                self.view.skipBackButton.isHidden = !self.playerConfig.showBackForwardsButtons
-                self.view.skipForwardButton.isHidden = !self.playerConfig.showBackForwardsButtons
-                self.view.infoButton.isHidden = !self.playerConfig.showEventInfoButton
-                self.view.infoView.isHidden = !self.playerConfig.showEventInfoButton
+                self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
+                self.view.setInfoButtonAndView(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
             }
         }
@@ -377,9 +375,9 @@ public class VideoPlayer: NSObject {
 
                     DispatchQueue.main.async { [weak self] in
                         if newStatus == .playing || newStatus == .paused {
-                            self?.view.setBufferIcon(visible: false)
+                            self?.view.setBufferIcon(hidden: true)
                         } else {
-                            self?.view.setBufferIcon(visible: true)
+                            self?.view.setBufferIcon(hidden: false)
                         }
                     }
                 }
