@@ -184,16 +184,69 @@ class VideoPlayerSpec: QuickSpec {
         }
 
         describe("updates as consequence of current time change") {
-            it("correctly sets videoslider value") {
+            beforeEach {
+                self.videoPlayer.event = self.event
+            }
+
+            it("sets the correct slider value on event load") {
+                expect(self.mockView.videoSlider.value).to(equal(0.0))
+            }
+
+            describe("slider value") {
+                it("it updaets the slider value when the duration/current time changes") {
+                    updatePeriodicTimeObserver()
+                    expect(self.mockView.videoSlider.value).toEventually(equal(optimisticCurrentTime / currentDuration))
+                }
+                it("it does not update the slider value while seeking and the time changes") {
+                    let sliderValueBefore = self.mockView.videoSlider.value
+                    stub(self.mockAVPlayer) { mock in
+                        when(mock).isSeeking.get.thenReturn(true)
+                    }
+                    updatePeriodicTimeObserver()
+                    expect(self.mockView.videoSlider.value).toEventually(equal(sliderValueBefore))
+                }
+            }
+
+            describe("live state") {
+                it("gets live state correctly") {
+                     stub(self.mockAVPlayer) { mock in
+                        when(mock).currentDuration.get.thenReturn(500)
+                        when(mock).currentTime.get.thenReturn(500)
+                        when(mock).optimisticCurrentTime.get.thenReturn(500)
+                        when(mock).currentDurationAsCMTime.get.thenReturn(CMTime.positiveInfinity)
+                    }
+
+                    expect(self.videoPlayer.isLivestream).to(beTrue())
+
+                    stub(self.mockAVPlayer) { mock in
+                        when(mock).currentDuration.get.thenReturn(500)
+                        when(mock).currentTime.get.thenReturn(0)
+                        when(mock).optimisticCurrentTime.get.thenReturn(0)
+                        when(mock).currentDurationAsCMTime.get.thenReturn(CMTime(seconds: 500, preferredTimescale: 1))
+                    }
+
+                    expect(self.videoPlayer.isLivestream).to(beFalse())
+                }
 
             }
 
-            it("calls delegate with slider update") {
+            fit("calls delegate with slider update") {
+                class Delegate: PlayerDelegate {
+                    var called = false
 
-            }
+                    func playerDidUpdatePlaying(player: VideoPlayer) {}
+                    func playerDidUpdateState(player: VideoPlayer) {}
+                    func playerDidUpdateFullscreen(player: VideoPlayer) {}
+                    func playerDidUpdateTime(player: VideoPlayer) {
+                        called = true
+                    }
+                }
+                let delegate = Delegate()
+                self.videoPlayer.delegate = delegate
 
-            it("does not change anything when seeking") {
+                updatePeriodicTimeObserver()
 
+                expect(delegate.called).toEventually(beTrue())
             }
         }
 
@@ -202,7 +255,7 @@ class VideoPlayerSpec: QuickSpec {
                 self.videoPlayer.event = self.event
             }
 
-            fit("places, removes and replaces overlays when currentTime changes and annotation actions are triggered") {
+            it("places, removes and replaces overlays when currentTime changes and annotation actions are triggered") {
                 stub(self.mockAnnotationService) { mock in
                     var calledAmount = 0
                     when(mock).evaluate(any(), callback: any()).then { (tuple) in
