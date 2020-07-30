@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     }()
 
     override func loadView() {
-        view = videoPlayer.view
+        view = videoPlayer.playerView
     }
 
     override func viewDidAppear(_ animated: Bool) {

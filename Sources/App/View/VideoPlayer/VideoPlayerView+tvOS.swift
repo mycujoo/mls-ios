@@ -6,8 +6,7 @@
 import UIKit
 import AVKit
 
-public class VideoPlayerView: UIView  {
-
+public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
     // MARK: - Properties
 
     /// The AVPlayerLayer that is associated with this video player.
@@ -451,7 +450,6 @@ extension VideoPlayerView {
     }
 
     func setPlayButtonTo(state: VideoPlayer.PlayButtonState) {
-        let icon: UIImage?
         switch state {
         case .play:
             playButton.setTitle("Play", for: .normal)
@@ -475,15 +473,22 @@ extension VideoPlayerView {
         }
     }
 
-    func setBufferIcon(visible: Bool) {
-        if visible {
-            bufferIcon.startAnimating()
-            bringSubviewToFront(bufferIcon)
-        } else {
+    /// Sets the `isHidden` property of the buffer icon.
+    /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
+    func setBufferIcon(hidden: Bool) {
+        if hidden {
             sendSubviewToBack(bufferIcon)
             bufferIcon.stopAnimating()
+        } else {
+            bufferIcon.startAnimating()
+            bringSubviewToFront(bufferIcon)
         }
-        bufferIcon.isHidden = !visible
+        bufferIcon.isHidden = hidden
+    }
+
+    /// Sets the `isHidden` property of the info button and the info view.
+    func setInfoButtonAndView(hidden: Bool) {
+        infoView.isHidden = hidden
     }
 
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.

@@ -12,12 +12,18 @@ protocol MLSAVPlayerProtocol: class {
     // MARK: AVPlayer properties
     var status: AVPlayer.Status { get }
     var isMuted: Bool { get set }
-    var currentItem: AVPlayerItem? { get }
 
     // MARK: MLSAVPlayer properties
+    /// The duration (in seconds) of the currentItem. If unknown, returns 0.
+    /// - seeAlso: `currentDurationAsCMTime`
     var currentDuration: Double { get }
+    /// The duration reported by the currentItem, without any further manipulation. Typically, it is better to use `currentDuration`.
+    var currentDurationAsCMTime: CMTime? { get }
+    /// The current time (in seconds) of the currentItem.
     var currentTime: Double { get }
+    /// The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double { get }
+    /// Whether the player is currently busy with a seeking operation, or is about to seek.
     var isSeeking: Bool { get }
 
     // MARK: AVPlayer methods
@@ -27,7 +33,7 @@ protocol MLSAVPlayerProtocol: class {
     func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue?, using block: @escaping (CMTime) -> Void) -> Any
     func removeTimeObserver(_ observer: Any)
     func removeObserver(_ observer: NSObject, forKeyPath keyPath: String)
-    func replaceCurrentItem(with item: AVPlayerItem?)
+    func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ())
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
 
 

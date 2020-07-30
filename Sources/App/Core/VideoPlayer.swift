@@ -11,7 +11,6 @@ public class VideoPlayer: NSObject {
     // MARK: - Public properties
 
     public weak var delegate: PlayerDelegate?
-    public private(set) var view: VideoPlayerView!
 
     public private(set) var state: State = .unknown {
         didSet {
@@ -68,6 +67,14 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// The view of the VideoPlayer.
+    public var playerView: UIView {
+        if let view = view as? UIView {
+            return view
+        }
+        fatalError("When running unit tests, this property cannot be accessed. Use `view` directly.")
+    }
+
     #if os(iOS)
     /// This property changes when the fullscreen button is tapped. SDK implementors can update this state directly, which will update the visual of the button.
     /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
@@ -86,7 +93,7 @@ public class VideoPlayer: NSObject {
 
     /// Indicates whether the current item is a live stream.
     public var isLivestream: Bool {
-        guard let duration = player.currentItem?.duration else {
+        guard let duration = player.currentDurationAsCMTime else {
             return false
         }
         let seconds = CMTimeGetSeconds(duration)
@@ -113,6 +120,36 @@ public class VideoPlayer: NSObject {
             evaluateAnnotations()
         }
     }
+
+    /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
+    public var controlView: UIView {
+        return view.controlView
+    }
+    /// The AVPlayerLayer of the associated AVPlayer
+    public var playerLayer: AVPlayerLayer? {
+        return view.playerLayer
+    }
+
+    #if os(iOS)
+    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
+    public var topControlsStackView: UIStackView {
+        return view.topControlsStackView
+    }
+
+    /// Sets the visibility of the fullscreen button.
+    public var fullscreenButtonIsHidden: Bool {
+        get {
+            return view.fullscreenButtonIsHidden
+        }
+        set {
+            view.fullscreenButtonIsHidden = newValue
+        }
+    }
+    /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
+    public var tapGestureRecognizer: UITapGestureRecognizer {
+        return view.tapGestureRecognizer
+    }
+    #endif
 
     // MARK: - Private properties
 
@@ -165,13 +202,18 @@ public class VideoPlayer: NSObject {
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
-    var overlays: [String: UIView] = [:]
+    private var overlays: [String: UIView] = [:]
 
     /// A level that indicates which actions are allowed to overwrite the state of the control view visibility.
     private var controlViewDirectiveLevel: DirectiveLevel = .none
     private var controlViewLocked: Bool = false
 
+    /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
+    private let seekTolerance: CMTime
+
     // MARK: - Internal properties
+
+    var view: VideoPlayerViewProtocol!
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
@@ -182,21 +224,17 @@ public class VideoPlayer: NSObject {
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
-                self.view.skipBackButton.isHidden = !self.playerConfig.showBackForwardsButtons
-                self.view.skipForwardButton.isHidden = !self.playerConfig.showBackForwardsButtons
-                self.view.infoButton.isHidden = !self.playerConfig.showEventInfoButton
-                self.view.infoView.isHidden = !self.playerConfig.showEventInfoButton
+                self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
+                self.view.setInfoButtonAndView(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
             }
         }
     }
 
-    /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
-    private let seekTolerance: CMTime
-
     // MARK: - Methods
 
     init(
+            view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
@@ -217,7 +255,7 @@ public class VideoPlayer: NSObject {
         timeObserver = trackTime(with: player)
 
         func initPlayerView() {
-            view = VideoPlayerView()
+            self.view = view
             view.setOnTimeSliderSlide(sliderUpdated)
             view.setOnTimeSliderRelease(sliderReleased)
             view.setOnPlayButtonTapped(playButtonTapped)
@@ -302,9 +340,9 @@ public class VideoPlayer: NSObject {
             tovStore = TOVStore()
 
             // TODO: Should not pass eventId but timelineId
-            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (annotations, _) in
-                if let annotations = annotations {
-                    self?.annotationActions = annotations
+            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
+                if let actions = actions {
+                    self?.annotationActions = actions
                 }
             }
 
@@ -345,32 +383,9 @@ public class VideoPlayer: NSObject {
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
-        guard player is AVPlayer else {
-            // Since the player is being mocked, we should not load a real asset. Pretend like it was loaded.
-            callback(true)
-            return
-        }
-
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
-        asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
-            guard let `self` = self else { return }
-
-            var error: NSError?
-            let status = asset.statusOfValue(forKey: "playable", error: &error)
-            switch status {
-            case .loaded:
-                let playerItem = AVPlayerItem(asset: asset)
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    self.player.replaceCurrentItem(with: playerItem)
-                    callback(true)
-                }
-            default:
-                callback(false)
-            }
-        }
+        player.replaceCurrentItem(with: url, headers: headerFields, callback: callback)
     }
     
     //MARK: - KVO
@@ -400,9 +415,9 @@ public class VideoPlayer: NSObject {
 
                     DispatchQueue.main.async { [weak self] in
                         if newStatus == .playing || newStatus == .paused {
-                            self?.view.setBufferIcon(visible: false)
+                            self?.view.setBufferIcon(hidden: true)
                         } else {
-                            self?.view.setBufferIcon(visible: true)
+                            self?.view.setBufferIcon(hidden: false)
                         }
                     }
                 }

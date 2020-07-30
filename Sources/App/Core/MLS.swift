@@ -54,10 +54,6 @@ public class MLS {
         return AnnotationService()
     }()
 
-    lazy var avPlayer: MLSAVPlayerProtocol = {
-        return MLSAVPlayer()
-    }()
-
     lazy var dataProvider_: DataProvider = {
         return DataProvider(listEventsUseCase: listEventsUseCase)
     }()
@@ -73,7 +69,8 @@ public class MLS {
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     public func videoPlayer(with event: Event? = nil, seekTolerance: CMTime = .positiveInfinity) -> VideoPlayer {
         let player = VideoPlayer(
-            player: avPlayer,
+            view: VideoPlayerView(),
+            player: MLSAVPlayer(),
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: getPlayerConfigForEventUseCase,
             getSVGUseCase: getSVGUseCase,

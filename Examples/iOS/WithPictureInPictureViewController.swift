@@ -44,18 +44,18 @@ class WithPictureInPictureViewController: UIViewController {
         if !didLayoutPlayerView {
             didLayoutPlayerView = true
 
-            view.addSubview(videoPlayer.view)
-            videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
-            videoPlayer.view.fullscreenButtonIsHidden = true
+            view.addSubview(videoPlayer.playerView)
+            videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
+            videoPlayer.fullscreenButtonIsHidden = true
 
             let playerConstraints = [
-                videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                videoPlayer.playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                 // Note that this heightAnchor approach will not look good on some devices in landscape.
                 // For a more complete solution, see `WithFullscreenZoomViewController.swift`
-                videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+                videoPlayer.playerView.heightAnchor.constraint(equalTo: videoPlayer.playerView.widthAnchor, multiplier: 9 / 16),
+                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                videoPlayer.playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
             NSLayoutConstraint.activate(playerConstraints)
@@ -71,11 +71,11 @@ class WithPictureInPictureViewController: UIViewController {
                 // Fallback on earlier versions
             }
 
-            videoPlayer.view.controlView.addSubview(pipButton)
+            videoPlayer.controlView.addSubview(pipButton)
             NSLayoutConstraint.activate(
                 [
-                    pipButton.topAnchor.constraint(equalTo: videoPlayer.view.controlView.topAnchor, constant: 12),
-                    pipButton.rightAnchor.constraint(equalTo: videoPlayer.view.controlView.rightAnchor, constant: -12),
+                    pipButton.topAnchor.constraint(equalTo: videoPlayer.controlView.topAnchor, constant: 12),
+                    pipButton.rightAnchor.constraint(equalTo: videoPlayer.controlView.rightAnchor, constant: -12),
                     pipButton.heightAnchor.constraint(equalToConstant: 40),
                     pipButton.widthAnchor.constraint(equalToConstant: 40)
                 ]
@@ -91,7 +91,7 @@ class WithPictureInPictureViewController: UIViewController {
     // Taken from: https://developer.apple.com/documentation/avkit/adopting_picture_in_picture_in_a_custom_player
     func setupPictureInPicture() {
         // Ensure PiP is supported by current device.
-        if AVPictureInPictureController.isPictureInPictureSupported(), let playerLayer = videoPlayer.view.playerLayer {
+        if AVPictureInPictureController.isPictureInPictureSupported(), let playerLayer = videoPlayer.playerLayer {
             // Create a new controller, passing the reference to the AVPlayerLayer.
             pictureInPictureController = AVPictureInPictureController(playerLayer: playerLayer)
             pictureInPictureController?.delegate = self
