@@ -448,6 +448,7 @@ extension VideoPlayer {
             // On every variable/timer change, re-place all variables and timers in the svg again
             // (because we only have the initial SVG, we don't keep its updated states with the original tokens
             // included).
+            print("Got a store?", self.tovStore)
             guard let tovStore = self.tovStore else { return }
             for variableName in action.variables {
                 // Fallback to the variable name if there is no variable defined.
@@ -465,10 +466,14 @@ extension VideoPlayer {
                     imageView.clipsToBounds = true
                     imageView.backgroundColor = .none
 
+                    print("Got to the point where place an overlay with actionId", action)
+
                     if let containerView = self.overlays[action.overlayId] {
+                        print("WE HAVE THIS ALREDY!")
                         self.view.replaceOverlay(containerView: containerView, imageView: imageView)
                     } else {
                         self.overlays[action.overlayId] = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                        print("STORED SOMETHING FOR action.overlayId", action.overlayId, "which is", self.overlays[action.overlayId])
                     }
                 }
             }

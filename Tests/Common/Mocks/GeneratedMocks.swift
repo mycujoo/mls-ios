@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-29 21:54:43 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-30 12:46:19 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -64,20 +64,6 @@ import Foundation
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.isMuted = newValue)
-        }
-        
-    }
-    
-    
-    
-     var currentItem: AVPlayerItem? {
-        get {
-            return cuckoo_manager.getter("currentItem",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.currentItem)
         }
         
     }
@@ -325,11 +311,6 @@ import Foundation
 	    }
 	    
 	    
-	    var currentItem: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, AVPlayerItem?> {
-	        return .init(manager: cuckoo_manager, name: "currentItem")
-	    }
-	    
-	    
 	    var currentDuration: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, Double> {
 	        return .init(manager: cuckoo_manager, name: "currentDuration")
 	    }
@@ -427,11 +408,6 @@ import Foundation
 	    
 	    var isMuted: Cuckoo.VerifyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "isMuted", callMatcher: callMatcher, sourceLocation: sourceLocation)
-	    }
-	    
-	    
-	    var currentItem: Cuckoo.VerifyReadOnlyProperty<AVPlayerItem?> {
-	        return .init(manager: cuckoo_manager, name: "currentItem", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -545,14 +521,6 @@ import Foundation
     }
     
     
-     var currentItem: AVPlayerItem? {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (AVPlayerItem?).self)
-        }
-        
-    }
-    
-    
      var currentDuration: Double {
         get {
             return DefaultValueRegistry.defaultValue(for: (Double).self)
@@ -639,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-07-29 21:54:43 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-07-30 12:46:19 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1855,7 +1823,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-29 21:54:43 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-30 12:46:19 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1957,7 +1925,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-29 21:54:43 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-30 12:46:19 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2059,7 +2027,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-29 21:54:43 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-30 12:46:19 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2191,7 +2159,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-29 21:54:43 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-30 12:46:19 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2293,7 +2261,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-29 21:54:43 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-30 12:46:19 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

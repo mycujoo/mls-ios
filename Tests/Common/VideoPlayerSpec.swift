@@ -197,45 +197,105 @@ class VideoPlayerSpec: QuickSpec {
             }
         }
 
-        describe("showing overlays") {
+        describe("showing and hiding overlays") {
+            beforeEach {
+                self.videoPlayer.event = self.event
+            }
 
-            it("shows an overlay as a consequence of a current time change") {
-                var calledAmount = 0
-
+            fit("places, removes and replaces overlays when currentTime changes and annotation actions are triggered") {
                 stub(self.mockAnnotationService) { mock in
+                    var calledAmount = 0
                     when(mock).evaluate(any(), callback: any()).then { (tuple) in
                         let showOverlays: [MLSUI.ShowOverlayAction]
-                        if calledAmount == 0 {
-                            // On the first time change, do NOT set any show overlays.
+                        let hideOverlays: [MLSUI.HideOverlayAction]
+                        switch calledAmount {
+                        case 0:
                             showOverlays = []
-                        }
-                        else {
+                            hideOverlays = []
+                        case 1:
                             showOverlays = [MLSUI.ShowOverlayAction(
-                                actionId: "abc",
+                                actionId: "randshowaction1",
                                 overlay: Overlay(id: "abc", svgURL: URL(string: "https://mocked.mycujoo.tv/mocked.svg")!),
                                 position: AnnotationActionShowOverlay.Position(top: 5, bottom: nil, vcenter: nil, right: nil, left: 5, hcenter: nil),
                                 size: AnnotationActionShowOverlay.Size(width: 20, height: nil),
                                 animateType: .none,
                                 animateDuration: 0.0,
                                 variables: [])]
+                            hideOverlays = []
+                        case 2:
+                            showOverlays = []
+                            hideOverlays = [MLSUI.HideOverlayAction(
+                                actionId: "randhideaction1",
+                                overlayId: "abc",
+                                animateType: .none,
+                                animateDuration: 0.0)]
+                        case 3:
+                            showOverlays = [MLSUI.ShowOverlayAction(
+                                actionId: "randshowaction2",
+                                overlay: Overlay(id: "abc", svgURL: URL(string: "https://mocked.mycujoo.tv/mocked.svg")!),
+                                position: AnnotationActionShowOverlay.Position(top: 5, bottom: nil, vcenter: nil, right: nil, left: 5, hcenter: nil),
+                                size: AnnotationActionShowOverlay.Size(width: 20, height: nil),
+                                animateType: .none,
+                                animateDuration: 0.0,
+                                variables: [])]
+                            hideOverlays = []
+                        case 4:
+                            showOverlays = [MLSUI.ShowOverlayAction(
+                                actionId: "randshowaction2",
+                                overlay: Overlay(id: "abc", svgURL: URL(string: "https://mocked.mycujoo.tv/mocked.svg")!),
+                                position: AnnotationActionShowOverlay.Position(top: 5, bottom: nil, vcenter: nil, right: nil, left: 5, hcenter: nil),
+                                size: AnnotationActionShowOverlay.Size(width: 20, height: nil),
+                                animateType: .none,
+                                animateDuration: 0.0,
+                                variables: [])]
+                            hideOverlays = []
+                        default:
+                            hideOverlays = []
+                            showOverlays = []
                         }
 
                         calledAmount += 1
 
-                        (tuple.1)(AnnotationService.EvaluationOutput(showTimelineMarkers: [], showOverlays: showOverlays, hideOverlays: [], activeOverlayIds: Set(), tovs: [:]))
+                        (tuple.1)(AnnotationService.EvaluationOutput(showTimelineMarkers: [], showOverlays: showOverlays, hideOverlays: hideOverlays, activeOverlayIds: Set(), tovs: [:]))
                     }
                 }
 
-                updatePeriodicTimeObserver()
+                waitUntil { done in
+                    // The first call should not trigger a show overlay at all.
+                    updatePeriodicTimeObserver()
 
-                // TODO: Mock the view so that it can be spied.
+                    // The showOverlays method may make calls asynchronously, so wait for a brief period.
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                        verify(self.mockView, times(0)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
 
+                        // The second call should trigger a show overlay, which PLACES an overlay.
+                        updatePeriodicTimeObserver()
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                            verify(self.mockView, times(1)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
 
+                            // The third call should trigger a hide overlay.
+                            updatePeriodicTimeObserver()
+                            let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                                verify(self.mockView, times(1)).removeOverlay(containerView: any(), animateType: any(), animateDuration: any(), completion: any())
+
+                                // The fourth call should trigger a show overlay, with PLACES an overlay again (because it was removed before).
+                                updatePeriodicTimeObserver()
+                                let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                                    verify(self.mockView, times(2)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
+
+                                    // The fifth call should trigger a show overlay, with REPLACES an overlay (because it already exists onscreen)
+                                    updatePeriodicTimeObserver()
+                                    let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                                        verify(self.mockView, times(1)).replaceOverlay(containerView: any(), imageView: any())
+                                        done()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-
         }
-
     }
 }
 
