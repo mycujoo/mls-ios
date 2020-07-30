@@ -230,7 +230,7 @@ class VideoPlayerSpec: QuickSpec {
 
             }
 
-            fit("calls delegate with slider update") {
+            it("calls delegate with slider update") {
                 class Delegate: PlayerDelegate {
                     var called = false
 
