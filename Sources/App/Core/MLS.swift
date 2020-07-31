@@ -20,11 +20,15 @@ public class MLS {
         return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
     }()
 
+    private lazy var ws: WebSocketConnection = {
+        return WebSocketConnection()
+    }()
+
     private lazy var annotationActionRepository: AnnotationActionRepository = {
         return AnnotationActionRepositoryImpl(api: api)
     }()
     private lazy var eventRepository: EventRepository = {
-        return EventRepositoryImpl(api: api)
+        return EventRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var playerConfigRepository: PlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
@@ -38,6 +42,9 @@ public class MLS {
     }()
     lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
+    }()
+    lazy var getEventUpdatesUseCase: GetEventUpdatesUseCase = {
+        return GetEventUpdatesUseCase(eventRepository: eventRepository)
     }()
     lazy var getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase = {
         return GetPlayerConfigForEventUseCase(playerConfigRepository: playerConfigRepository)
@@ -71,6 +78,7 @@ public class MLS {
         let player = VideoPlayer(
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
+            getEventUpdatesUseCase: getEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: getPlayerConfigForEventUseCase,
             getSVGUseCase: getSVGUseCase,

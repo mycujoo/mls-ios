@@ -154,6 +154,7 @@ public class VideoPlayer: NSObject {
     // MARK: - Private properties
 
     private let player: MLSAVPlayerProtocol
+    private let getEventUpdatesUseCase: GetEventUpdatesUseCase
     private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
     private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
     private let getSVGUseCase: GetSVGUseCase
@@ -236,12 +237,14 @@ public class VideoPlayer: NSObject {
     init(
             view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
+            getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
             getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
             getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity) {
         self.player = player
+        self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
         self.getPlayerConfigForEventUseCase = getPlayerConfigForEventUseCase
         self.getSVGUseCase = getSVGUseCase
@@ -325,6 +328,18 @@ public class VideoPlayer: NSObject {
                             }
                         }
                     }
+                }
+            }
+
+            getEventUpdatesUseCase.start(id: event.id) { update in
+                switch update {
+                case .eventTotal(let total):
+                    // TODO: Handle event total
+                    break
+                case .eventUpdate(let updatedEvent):
+                    // TODO: Ensure that updating the event to the same id updates only the relevant parts.
+                    // Consider a `new: Bool` parameter on rebuild() that either rebuilds completely or only relevant parts.
+                    self.event = updatedEvent
                 }
             }
 

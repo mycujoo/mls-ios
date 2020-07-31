@@ -6,7 +6,7 @@ import Foundation
 import Moya
 
 enum API {
-    case eventById(String)
+    case eventById(id: String, updateId: String?)
     case events(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
     case playerConfig(String)
     case annotations(String)
@@ -25,7 +25,10 @@ extension API: TargetType {
     var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
     var path: String {
         switch self {
-        case .eventById(let eventId):
+        case .eventById(let eventId, let updateId):
+            if let updateId = updateId {
+                return "/bff/events/v1beta1/\(eventId)?updateId=\(updateId)"
+            }
             return "/bff/events/v1beta1/\(eventId)"
         case .events:
             return "/bff/events/v1beta1"

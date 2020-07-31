@@ -15,8 +15,8 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
         super.init(api: api)
     }
 
-    func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ()) {
-        _fetch(.eventById(id), type: DataLayer.Event.self) { (event, err) in
+    func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ()) {
+        _fetch(.eventById(id: id, updateId: updateId), type: DataLayer.Event.self) { (event, err) in
             callback(event?.toDomain, err)
         }
     }
@@ -38,13 +38,17 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
 
     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ()) {
         // TODO: Determine sessionId
-        ws.subscribe(eventId: id, sessionId: "") { update in
+        ws.subscribe(eventId: id, sessionId: "") { [weak self] update in
             switch update {
             case .eventTotal(let total):
                 callback(.eventTotal(total: total))
             case .eventUpdate(let updateId):
-                // TODO: Pass to Moya
-                break
+                // Fetch the event again and do the callback after that.
+                self?.fetchEvent(byId: id, updateId: updateId, callback: { updatedEvent, _ in
+                    if let updatedEvent = updatedEvent {
+                        callback(.eventUpdate(event: updatedEvent))
+                    }
+                })
             }
         }
     }

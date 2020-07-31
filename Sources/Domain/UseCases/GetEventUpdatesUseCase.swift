@@ -17,8 +17,10 @@ class GetEventUpdatesUseCase {
             switch update {
             case .eventTotal(let total):
                 completionHandler(.eventTotal(total: total))
-            case .eventUpdate(let event):
-                completionHandler(.eventUpdate(event: event))
+            case .eventUpdate(let updatedEvent):
+                // TODO: Compare the updatedEvent with some properties of the current event (which may have to be an input param of this method).
+                // That way, we don't do an update callback on every property change.
+                completionHandler(.eventUpdate(event: updatedEvent))
             }
         }
     }
