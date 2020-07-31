@@ -424,7 +424,7 @@ class VideoPlayerSpec: QuickSpec {
             }
         }
 
-        fdescribe("button interactions") {
+        describe("button interactions") {
 
             beforeEach {
                 self.videoPlayer.event = self.event
