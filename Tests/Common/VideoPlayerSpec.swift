@@ -49,6 +49,8 @@ class VideoPlayerSpec: QuickSpec {
             _periodicTimeObserverCallback?(CMTime(value: CMTimeValue(currentTime), timescale: 1))
         }
 
+        var playButtonTapped: (() -> Void)? = nil
+
         beforeEach {
             currentDuration = 200
             currentTime = 90
@@ -58,13 +60,17 @@ class VideoPlayerSpec: QuickSpec {
 
             self.mockView = MockVideoPlayerViewProtocol()
             stub(self.mockView) { mock in
+                var controlViewHasAlpha = false
+
                 when(mock).videoSlider.get.thenReturn(VideoProgressSlider())
 
                 when(mock).primaryColor.get.thenReturn(.white)
                 when(mock).primaryColor.set(any()).thenDoNothing()
                 when(mock).secondaryColor.get.thenReturn(.red)
                 when(mock).secondaryColor.set(any()).thenDoNothing()
-                when(mock).controlViewHasAlpha.get.thenReturn(false)
+                when(mock).controlViewHasAlpha.get.then { _ -> Bool in
+                    return controlViewHasAlpha
+                }
                 when(mock).infoViewHasAlpha.get.thenReturn(false)
                 when(mock).infoTitleLabel.get.thenReturn(UILabel())
                 when(mock).infoDateLabel.get.thenReturn(UILabel())
@@ -77,12 +83,16 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).tapGestureRecognizer.get.thenReturn(UITapGestureRecognizer())
 
                 when(mock).drawPlayer(with: any()).thenDoNothing()
-                when(mock).setOnPlayButtonTapped(any()).thenDoNothing()
+                when(mock).setOnPlayButtonTapped(any()).then { action in
+                    playButtonTapped = action
+                }
                 when(mock).setOnSkipBackButtonTapped(any()).thenDoNothing()
                 when(mock).setOnSkipForwardButtonTapped(any()).thenDoNothing()
                 when(mock).setOnTimeSliderSlide(any()).thenDoNothing()
                 when(mock).setOnTimeSliderRelease(any()).thenDoNothing()
-                when(mock).setControlViewVisibility(visible: any(), animated: any()).thenDoNothing()
+                when(mock).setControlViewVisibility(visible: any(), animated: any()).then { (tuple) in
+                    controlViewHasAlpha = tuple.0
+                }
                 when(mock).setInfoViewVisibility(visible: any(), animated: any()).thenDoNothing()
                 when(mock).setPlayButtonTo(state: any()).thenDoNothing()
                 when(mock).setLiveButtonTo(state: any()).thenDoNothing()
@@ -227,7 +237,16 @@ class VideoPlayerSpec: QuickSpec {
 
                     expect(self.videoPlayer.isLivestream).to(beFalse())
                 }
+            }
 
+            describe("player state") {
+                it("does not set state to ended when duration and currenttime match but it is a livestream") {
+
+                }
+
+                it("sets state to ended when duration and currenttime match and it is not a livestream") {
+
+                }
             }
 
             it("calls delegate with slider update") {
@@ -346,6 +365,43 @@ class VideoPlayerSpec: QuickSpec {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        describe("control view visibility") {
+            it("remains invisible after an event is loaded") {
+                expect(self.mockView.controlViewHasAlpha).to(beFalse())
+
+                self.videoPlayer.event = self.event
+
+                expect(self.mockView.controlViewHasAlpha).toEventually(beFalse())
+            }
+        }
+
+        describe("button interactions") {
+
+            beforeEach {
+                self.videoPlayer.event = self.event
+            }
+
+            describe("play button taps") {
+                it("switches from pause to play") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    playButtonTapped?()
+                    expect(self.videoPlayer.status).to(equal(.play))
+                }
+
+                it("switches from play to pause") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    playButtonTapped?()
+                    playButtonTapped?()
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                }
+
+                it("Seeks to beginning if state is currently ended") {
+                    // TODO: Set state to ended on videoPlayer.
+                    // Then, evaluate behavior on play button tap.
                 }
             }
         }
