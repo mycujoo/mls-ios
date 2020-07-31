@@ -39,6 +39,8 @@
 		4926CE2E24CE046D00419A42 /* DataLayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2524CE046D00419A42 /* DataLayerEvent.swift */; };
 		4926CE2F24CE046D00419A42 /* DataLayerStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2624CE046D00419A42 /* DataLayerStream.swift */; };
 		4926CE3024CE046D00419A42 /* DataLayerStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2624CE046D00419A42 /* DataLayerStream.swift */; };
+		4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
+		4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938012B24CE19B0008AFC64 /* MLSUIAction.swift */; };
@@ -465,6 +467,7 @@
 		4926CE2424CE046D00419A42 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
 		4926CE2524CE046D00419A42 /* DataLayerEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerEvent.swift; sourceTree = "<group>"; };
 		4926CE2624CE046D00419A42 /* DataLayerStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerStream.swift; sourceTree = "<group>"; };
+		4930180F24D494AE009312B0 /* WebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketConnection.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4938012B24CE19B0008AFC64 /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
 		4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
@@ -767,6 +770,7 @@
 			isa = PBXGroup;
 			children = (
 				49E59024249BC809001E0C1C /* API.swift */,
+				4930180F24D494AE009312B0 /* WebsocketConnection.swift */,
 				4926CE1624CE03E200419A42 /* Entities */,
 				4926CE2124CE03E600419A42 /* Repositories */,
 			);
@@ -1941,6 +1945,7 @@
 				6496C3552492308D0099475D /* MLS.swift in Sources */,
 				6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */,
 				49736ED124A9F59C001F3F48 /* MDisplayLink.swift in Sources */,
+				4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				495CB139249CF98600998FF4 /* Throttler.swift in Sources */,
 				49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */,
 				495CB13C249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */,
@@ -2140,6 +2145,7 @@
 				49C12D5924A35204002CCDF5 /* PlayerConfig.swift in Sources */,
 				49A804E624AA0EBB00E30DA8 /* NodeRenderer.swift in Sources */,
 				49A804A524AA0E8D00E30DA8 /* MCAMediaTimingFunctionName_macOS.swift in Sources */,
+				4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				49A8049724AA0E0B00E30DA8 /* AnimOperators.swift in Sources */,
 				49A8047F24AA0DF000E30DA8 /* OpacityAnimation.swift in Sources */,
 				49A8049C24AA0E3800E30DA8 /* PanEvent.swift in Sources */,
