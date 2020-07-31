@@ -41,6 +41,8 @@
 		4926CE3024CE046D00419A42 /* DataLayerStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2624CE046D00419A42 /* DataLayerStream.swift */; };
 		4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
 		4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
+		4930181324D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */; };
+		4930181424D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938012B24CE19B0008AFC64 /* MLSUIAction.swift */; };
@@ -468,6 +470,7 @@
 		4926CE2524CE046D00419A42 /* DataLayerEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerEvent.swift; sourceTree = "<group>"; };
 		4926CE2624CE046D00419A42 /* DataLayerStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerStream.swift; sourceTree = "<group>"; };
 		4930180F24D494AE009312B0 /* WebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketConnection.swift; sourceTree = "<group>"; };
+		4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUpdatesUseCase.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4938012B24CE19B0008AFC64 /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
 		4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
@@ -815,6 +818,7 @@
 			children = (
 				4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */,
 				4926CDF824CDE96700419A42 /* GetEventUseCase.swift */,
+				4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */,
 				4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */,
 				498E48F824D057FF0040502D /* GetSVGUseCase.swift */,
 				4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */,
@@ -2018,6 +2022,7 @@
 				49736EFF24A9F59C001F3F48 /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				49736F1424A9F59C001F3F48 /* CGFloat+Double.swift in Sources */,
 				49736EBC24A9F59C001F3F48 /* GaussianBlur.swift in Sources */,
+				4930181324D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */,
 				49736F0224A9F59C001F3F48 /* NodeRenderer.swift in Sources */,
 				49736EEA24A9F59C001F3F48 /* AnimatableVariable.swift in Sources */,
 				4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */,
@@ -2218,6 +2223,7 @@
 				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
 				49A804B324AA0E9800E30DA8 /* Path.swift in Sources */,
 				49A804EB24AA0EBF00E30DA8 /* MDisplayLink.swift in Sources */,
+				4930181424D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */,
 				49A804D224AA0EA100E30DA8 /* BlendEffect.swift in Sources */,
 				49A804B524AA0E9800E30DA8 /* PathBuilder.swift in Sources */,
 				49A804B624AA0E9800E30DA8 /* MoveTo.swift in Sources */,
