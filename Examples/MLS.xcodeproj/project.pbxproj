@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3B51DCCB6BB4C56425E47B98 /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790E542CE2FF1EA128704FD7 /* Pods_MLS.framework */; };
+		491C8CEB24D5C33A008A7B9D /* WithEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */; };
+		491C8CED24D5C3CD008A7B9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491C8CEC24D5C3CD008A7B9D /* Main.storyboard */; };
+		491C8CEF24D5D1BF008A7B9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */; };
 		4925AA8D24C6FF8600F13832 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6D9246951050013A9EE /* AppDelegate.swift */; };
 		4925AA8E24C6FF8600F13832 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */; };
 		4925AA8F24C6FF8600F13832 /* WithPictureInPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */; };
@@ -22,6 +25,9 @@
 
 /* Begin PBXFileReference section */
 		1FC2BF32B19D31A5D3EE2704 /* Pods-MLS-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithEventListViewController.swift; sourceTree = "<group>"; };
+		491C8CEC24D5C3CD008A7B9D /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		492B6BC024B3662C0003C5B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		492B6BC124B3662C0003C5B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		492B6BC224B3664A0003C5B1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -88,7 +94,10 @@
 				49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */,
 				49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */,
 				6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */,
+				491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */,
 				6418F6E4246951060013A9EE /* LaunchScreen.storyboard */,
+				491C8CEC24D5C3CD008A7B9D /* Main.storyboard */,
+				491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */,
 				6418F6E7246951060013A9EE /* Info.plist */,
 			);
 			path = iOS;
@@ -256,6 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */,
+				491C8CEF24D5D1BF008A7B9D /* Assets.xcassets in Resources */,
+				491C8CED24D5C3CD008A7B9D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +371,7 @@
 				4925AA8D24C6FF8600F13832 /* AppDelegate.swift in Sources */,
 				4925AA8E24C6FF8600F13832 /* SimpleViewController.swift in Sources */,
 				4925AA8F24C6FF8600F13832 /* WithPictureInPictureViewController.swift in Sources */,
+				491C8CEB24D5C33A008A7B9D /* WithEventListViewController.swift in Sources */,
 				4925AA9024C6FF8600F13832 /* WithFullscreenZoomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
