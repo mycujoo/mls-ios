@@ -305,6 +305,7 @@ public class VideoPlayer: NSObject {
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
+    // TODO: Refactor this whole method.
     private func rebuild() {
         setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
 
@@ -327,6 +328,8 @@ public class VideoPlayer: NSObject {
                                 }
                             }
                         }
+                    } else {
+                        self?.replaceCurrentItem(url: nil) { _ in }
                     }
                 }
             }
@@ -397,7 +400,7 @@ public class VideoPlayer: NSObject {
 
     /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
-    private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
+    private func replaceCurrentItem(url: URL?, callback: @escaping (Bool) -> ()) {
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         player.replaceCurrentItem(with: url, headers: headerFields, callback: callback)
@@ -582,8 +585,14 @@ extension VideoPlayer {
     private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: LiveState) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
-            self.view.setLiveButtonTo(state: liveState)
+
+            if elapsedSeconds.isNaN {
+                self.view.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
+                self.view.setLiveButtonTo(state: .notLive)
+            } else {
+                self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
+                self.view.setLiveButtonTo(state: liveState)
+            }
         }
     }
 

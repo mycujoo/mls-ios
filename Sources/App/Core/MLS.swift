@@ -24,7 +24,8 @@ public class MLS {
         let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] _ in
             return self?.publicKey ?? ""
         })
-        return MoyaProvider<API>(plugins: [authPlugin, NetworkLoggerPlugin()])
+//        return MoyaProvider<API>(plugins: [authPlugin, NetworkLoggerPlugin()])
+        return MoyaProvider<API>(plugins: [authPlugin])
     }()
 
     private lazy var ws: WebSocketConnection = {

@@ -33,7 +33,11 @@ protocol MLSAVPlayerProtocol: class {
     func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue?, using block: @escaping (CMTime) -> Void) -> Any
     func removeTimeObserver(_ observer: Any)
     func removeObserver(_ observer: NSObject, forKeyPath keyPath: String)
-    func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ())
+    /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.
+    /// - parameter item: The item to play. If nil is provided, the current item is removed.
+    /// - parameter headers: The headers to attach to the network requests when playing this item
+    /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
+    func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], callback: @escaping (Bool) -> ())
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
 
 

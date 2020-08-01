@@ -28,6 +28,7 @@ class WebSocketConnection {
             case .connected(_):
                 self?.socket.write(string: Constants.joinEventMessage(with: eventId))
             case .text(let text):
+                print("Websocket update:", text)
                 let components = text.components(separatedBy: Constants.messageSeparator)
                 guard components.count >= 2 else { return }
 
@@ -35,7 +36,7 @@ class WebSocketConnection {
 
                 let updateType = components[0]
                 switch updateType {
-                case "eventTotal":
+                case "eventStatus":
                     let targetEventId = components[1]
                     guard eventId == targetEventId, let total = Int(components[2]) else { return }
 
