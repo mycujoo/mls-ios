@@ -20,6 +20,13 @@ public class MLS {
         return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
     }()
 
+    private lazy var realApi: MoyaProvider<API> = {
+        let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] _ in
+            return self?.publicKey ?? ""
+        })
+        return MoyaProvider<API>(plugins: [authPlugin, NetworkLoggerPlugin()])
+    }()
+
     private lazy var ws: WebSocketConnection = {
         return WebSocketConnection()
     }()
@@ -28,7 +35,7 @@ public class MLS {
         return AnnotationActionRepositoryImpl(api: api)
     }()
     private lazy var eventRepository: EventRepository = {
-        return EventRepositoryImpl(api: api, ws: ws)
+        return EventRepositoryImpl(api: realApi, ws: ws)
     }()
     private lazy var playerConfigRepository: PlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
