@@ -45,31 +45,31 @@ public class MLS {
         return ArbitraryDataRepositoryImpl()
     }()
 
-    lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
+    private lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
         return GetAnnotationActionsForTimelineUseCase(timelineRepository: timelineRepository)
     }()
-    lazy var getEventUseCase: GetEventUseCase = {
+    private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
     }()
-    lazy var getEventUpdatesUseCase: GetEventUpdatesUseCase = {
+    private lazy var getEventUpdatesUseCase: GetEventUpdatesUseCase = {
         return GetEventUpdatesUseCase(eventRepository: eventRepository)
     }()
-    lazy var getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase = {
+    private lazy var getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase = {
         return GetPlayerConfigForEventUseCase(playerConfigRepository: playerConfigRepository)
     }()
-    lazy var listEventsUseCase: ListEventsUseCase = {
+    private lazy var listEventsUseCase: ListEventsUseCase = {
         return ListEventsUseCase(eventRepository: eventRepository)
     }()
-    lazy var getSVGUseCase: GetSVGUseCase = {
+    private lazy var getSVGUseCase: GetSVGUseCase = {
         return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
     }()
 
     /// An internally available service that can be overwritten for the purpose of testing.
-    lazy var annotationService: AnnotationServicing = {
+    private lazy var annotationService: AnnotationServicing = {
         return AnnotationService()
     }()
 
-    lazy var dataProvider_: DataProvider = {
+    private lazy var dataProvider_: DataProvider = {
         return DataProvider(listEventsUseCase: listEventsUseCase)
     }()
 

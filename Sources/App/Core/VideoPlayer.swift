@@ -166,6 +166,15 @@ public class VideoPlayer: NSObject {
 
     private var tovStore: TOVStore? = nil
 
+    /// The stream that is currently represented on-screen. Different from the `stream` property because it is used internally for state-keeping.
+    private var currentStream: Stream? = nil {
+        didSet {
+            if currentStream?.id != oldValue?.id {
+                placeCurrentStream()
+            }
+        }
+    }
+
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
         df.dateStyle = .medium
@@ -253,6 +262,13 @@ public class VideoPlayer: NSObject {
 
         super.init()
 
+        // TODO: Update usecase to not depend on eventId.
+        getPlayerConfigForEventUseCase.execute(eventId: "") { [weak self] (playerConfig, _) in
+            if let playerConfig = playerConfig {
+                self?.playerConfig = playerConfig
+            }
+        }
+
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
@@ -307,33 +323,20 @@ public class VideoPlayer: NSObject {
     /// Also should be called on init().
     // TODO: Refactor this whole method.
     private func rebuild() {
-        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+        currentStream = event?.streams.first ?? stream
+
+        tovStore = TOVStore()
+
+        // TODO: Should not pass eventId but timelineId
+        // TODO: Should use the startUpdating usecase.
+        getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
+            if let actions = actions {
+                self?.annotationActions = actions
+            }
+        }
 
         // TODO: Consider how to play streams directly.
         if let event = event {
-            var workItemCalled = false
-            let playStreamWorkItem = DispatchWorkItem() { [weak self] in
-                if !workItemCalled {
-                    workItemCalled = true
-
-                    if let stream = self?.event?.streams.first ?? self?.stream {
-                        self?.replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
-                            guard let self = self else { return }
-
-                            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: false)
-
-                            if completed {
-                                if self.playerConfig.autoplay {
-                                    self.play()
-                                }
-                            }
-                        }
-                    } else {
-                        self?.replaceCurrentItem(url: nil) { _ in }
-                    }
-                }
-            }
-
             getEventUpdatesUseCase.start(id: event.id) { update in
                 switch update {
                 case .eventTotal(let total):
@@ -343,24 +346,6 @@ public class VideoPlayer: NSObject {
                     // TODO: Ensure that updating the event to the same id updates only the relevant parts.
                     // Consider a `new: Bool` parameter on rebuild() that either rebuilds completely or only relevant parts.
                     self.event = updatedEvent
-                }
-            }
-
-            // Schedule the player to start playing in 3 seconds if the API does not respond by then.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playStreamWorkItem)
-            getPlayerConfigForEventUseCase.execute(eventId: event.id) { [weak self] (playerConfig, _) in
-                if let playerConfig = playerConfig {
-                    self?.playerConfig = playerConfig
-                    DispatchQueue.main.async(execute: playStreamWorkItem)
-                }
-            }
-
-            tovStore = TOVStore()
-
-            // TODO: Should not pass eventId but timelineId
-            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
-                if let actions = actions {
-                    self?.annotationActions = actions
                 }
             }
 
@@ -398,12 +383,27 @@ public class VideoPlayer: NSObject {
         }
     }
 
-    /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
-    /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
-    private func replaceCurrentItem(url: URL?, callback: @escaping (Bool) -> ()) {
+    /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.
+    /// Also calls the callback when it actually removes the currentItem because there is no appropriate stream to play.
+    /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
+    private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
+        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+
+        let url = currentStream?.fullUrl
+
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        player.replaceCurrentItem(with: url, headers: headerFields, callback: callback)
+        player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
+            guard let self = self else { return }
+            let added = url != nil
+            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+            if added && completed {
+                if self.playerConfig.autoplay {
+                    self.play()
+                }
+            }
+            callback?(completed)
+        }
     }
     
     //MARK: - KVO
