@@ -324,6 +324,14 @@ public class VideoPlayer: NSObject {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "status")
         player.removeObserver(self, forKeyPath: "timeControlStatus")
+
+        if let event = event {
+            cleanup(oldEvent: event)
+        }
+        if let stream = stream {
+            cleanup(oldStream: stream)
+        }
+
         youboraPlugin?.fireStop()
     }
 
@@ -335,6 +343,12 @@ public class VideoPlayer: NSObject {
         currentStream = event?.streams.first ?? stream
 
         updateInfoTexts()
+
+        if let currentStream = currentStream, currentStream.fullUrl == nil {
+            // TODO: Show the info layer or the thumbnail view.
+        } else {
+            // TODO: Remove info layer and thumbnail view.
+        }
 
         if new {
             tovStore = TOVStore()
@@ -355,6 +369,7 @@ public class VideoPlayer: NSObject {
                         // TODO: Handle event total
                         break
                     case .eventUpdate(let updatedEvent):
+                        // TODO: Always fetch at least one update on the event after it is initally loaded.
                         if updatedEvent.id == event.id {
                             self.event = updatedEvent
                         }
@@ -372,9 +387,7 @@ public class VideoPlayer: NSObject {
 
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
     /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
-    private func cleanup(oldStream: Stream) {
-
-    }
+    private func cleanup(oldStream: Stream) {}
 
     /// Sets the correct labels on the info layer.
     private func updateInfoTexts() {
