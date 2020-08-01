@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-07-30 12:46:19 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-01 18:19:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -234,9 +234,9 @@ import Foundation
     
     
     
-     func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ())  {
+     func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], callback: @escaping (Bool) -> ())  {
         
-    return cuckoo_manager.call("replaceCurrentItem(with: URL, headers: [String: String], callback: @escaping (Bool) -> ())",
+    return cuckoo_manager.call("replaceCurrentItem(with: URL?, headers: [String: String], callback: @escaping (Bool) -> ())",
             parameters: (assetUrl, headers, callback),
             escapingParameters: (assetUrl, headers, callback),
             superclassCall:
@@ -366,9 +366,9 @@ import Foundation
 	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "removeObserver(_: NSObject, forKeyPath: String)", parameterMatchers: matchers))
 	    }
 	    
-	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, [String: String], (Bool) -> ())> where M1.MatchedType == URL, M2.MatchedType == [String: String], M3.MatchedType == (Bool) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(URL, [String: String], (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: callback) { $0.2 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "replaceCurrentItem(with: URL, headers: [String: String], callback: @escaping (Bool) -> ())", parameterMatchers: matchers))
+	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(URL?, [String: String], (Bool) -> ())> where M1.OptionalMatchedType == URL, M2.MatchedType == [String: String], M3.MatchedType == (Bool) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL?, [String: String], (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "replaceCurrentItem(with: URL?, headers: [String: String], callback: @escaping (Bool) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
@@ -474,9 +474,9 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, callback: M3) -> Cuckoo.__DoNotUse<(URL, [String: String], (Bool) -> ()), Void> where M1.MatchedType == URL, M2.MatchedType == [String: String], M3.MatchedType == (Bool) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(URL, [String: String], (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: callback) { $0.2 }]
-	        return cuckoo_manager.verify("replaceCurrentItem(with: URL, headers: [String: String], callback: @escaping (Bool) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, callback: M3) -> Cuckoo.__DoNotUse<(URL?, [String: String], (Bool) -> ()), Void> where M1.OptionalMatchedType == URL, M2.MatchedType == [String: String], M3.MatchedType == (Bool) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL?, [String: String], (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return cuckoo_manager.verify("replaceCurrentItem(with: URL?, headers: [String: String], callback: @escaping (Bool) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -588,7 +588,7 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ())   {
+     func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], callback: @escaping (Bool) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-07-30 12:46:19 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-01 18:19:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1823,7 +1823,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-07-30 12:46:19 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-08-01 18:19:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1925,7 +1925,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-07-30 12:46:19 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-01 18:19:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2027,7 +2027,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-07-30 12:46:19 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-01 18:19:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2064,16 +2064,16 @@ import Foundation
     
     
     
-     func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ())  {
+     func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())  {
         
-    return cuckoo_manager.call("fetchEvent(byId: String, callback: @escaping (Event?, Error?) -> ())",
-            parameters: (id, callback),
-            escapingParameters: (id, callback),
+    return cuckoo_manager.call("fetchEvent(byId: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())",
+            parameters: (id, updateId, callback),
+            escapingParameters: (id, updateId, callback),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.fetchEvent(byId: id, callback: callback))
+            defaultCall: __defaultImplStub!.fetchEvent(byId: id, updateId: updateId, callback: callback))
         
     }
     
@@ -2092,6 +2092,36 @@ import Foundation
         
     }
     
+    
+    
+     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())  {
+        
+    return cuckoo_manager.call("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())",
+            parameters: (id, callback),
+            escapingParameters: (id, callback),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.startEventUpdates(for: id, callback: callback))
+        
+    }
+    
+    
+    
+     func stopEventUpdates(for id: String)  {
+        
+    return cuckoo_manager.call("stopEventUpdates(for: String)",
+            parameters: (id),
+            escapingParameters: (id),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.stopEventUpdates(for: id))
+        
+    }
+    
 
 	 struct __StubbingProxy_EventRepository: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
@@ -2101,14 +2131,24 @@ import Foundation
 	    }
 	    
 	    
-	    func fetchEvent<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byId id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (Event?, Error?) -> ())> where M1.MatchedType == String, M2.MatchedType == (Event?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (Event?, Error?) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvent(byId: String, callback: @escaping (Event?, Error?) -> ())", parameterMatchers: matchers))
+	    func fetchEvent<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(byId id: M1, updateId: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String?, (Event?, Error?) -> ())> where M1.MatchedType == String, M2.OptionalMatchedType == String, M3.MatchedType == (Event?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String?, (Event?, Error?) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: updateId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvent(byId: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func fetchEvents<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.OptionalMatchable, M6: Cuckoo.Matchable>(pageSize: M1, pageToken: M2, hasStream: M3, status: M4, orderBy: M5, callback: M6) -> Cuckoo.ProtocolStubNoReturnFunction<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ())> where M1.OptionalMatchedType == Int, M2.OptionalMatchedType == String, M3.OptionalMatchedType == Bool, M4.OptionalMatchedType == [ParamEventStatus], M5.OptionalMatchedType == ParamEventOrder, M6.MatchedType == ([Event]?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ())>] = [wrap(matchable: pageSize) { $0.0 }, wrap(matchable: pageToken) { $0.1 }, wrap(matchable: hasStream) { $0.2 }, wrap(matchable: status) { $0.3 }, wrap(matchable: orderBy) { $0.4 }, wrap(matchable: callback) { $0.5 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	    func stopEventUpdates<M1: Cuckoo.Matchable>(for id: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: id) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "stopEventUpdates(for: String)", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -2128,15 +2168,27 @@ import Foundation
 	
 	    
 	    @discardableResult
-	    func fetchEvent<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byId id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (Event?, Error?) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (Event?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (Event?, Error?) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("fetchEvent(byId: String, callback: @escaping (Event?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func fetchEvent<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(byId id: M1, updateId: M2, callback: M3) -> Cuckoo.__DoNotUse<(String, String?, (Event?, Error?) -> ()), Void> where M1.MatchedType == String, M2.OptionalMatchedType == String, M3.MatchedType == (Event?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String?, (Event?, Error?) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: updateId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return cuckoo_manager.verify("fetchEvent(byId: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
 	    func fetchEvents<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.OptionalMatchable, M6: Cuckoo.Matchable>(pageSize: M1, pageToken: M2, hasStream: M3, status: M4, orderBy: M5, callback: M6) -> Cuckoo.__DoNotUse<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ()), Void> where M1.OptionalMatchedType == Int, M2.OptionalMatchedType == String, M3.OptionalMatchedType == Bool, M4.OptionalMatchedType == [ParamEventStatus], M5.OptionalMatchedType == ParamEventOrder, M6.MatchedType == ([Event]?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ())>] = [wrap(matchable: pageSize) { $0.0 }, wrap(matchable: pageToken) { $0.1 }, wrap(matchable: hasStream) { $0.2 }, wrap(matchable: status) { $0.3 }, wrap(matchable: orderBy) { $0.4 }, wrap(matchable: callback) { $0.5 }]
 	        return cuckoo_manager.verify("fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func stopEventUpdates<M1: Cuckoo.Matchable>(for id: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: id) { $0 }]
+	        return cuckoo_manager.verify("stopEventUpdates(for: String)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
@@ -2148,7 +2200,7 @@ import Foundation
     
 
     
-     func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ())   {
+     func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -2156,10 +2208,18 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func stopEventUpdates(for id: String)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-07-30 12:46:19 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-01 18:19:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2261,7 +2321,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-07-30 12:46:19 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-01 18:19:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

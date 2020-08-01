@@ -176,6 +176,11 @@ class VideoPlayerSpec: QuickSpec {
             self.mockEventRepository = MockEventRepository()
             self.mockPlayerConfigRepository = MockPlayerConfigRepository()
 
+            stub(self.mockEventRepository) { mock in
+                when(mock).startEventUpdates(for: any(), callback: any()).thenDoNothing()
+                when(mock).stopEventUpdates(for: any()).thenDoNothing()
+            }
+
             stub(self.mockPlayerConfigRepository) { mock in
                 when(mock).fetchPlayerConfig(byEventId: any(), callback: any()).then { (tuple) in
                     (tuple.1)(MLSSDK.PlayerConfig.standard(), nil)
@@ -199,7 +204,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(annotationActionRepository: self.mockAnnotationActionRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
+            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(annotationActionRepository: self.mockAnnotationActionRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
         }
 
         describe("loading events") {
