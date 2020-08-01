@@ -16,7 +16,7 @@ class VideoPlayerSpec: QuickSpec {
     var mockAVPlayer: MockMLSAVPlayerProtocol!
     var mockAnnotationService: MockAnnotationServicing!
 
-    var mockAnnotationActionRepository: MockAnnotationActionRepository!
+    var mockTimelineRepository: MockTimelineRepository!
     var mockArbitraryDataRepository: MockArbitraryDataRepository!
     var mockEventRepository: MockEventRepository!
     var mockPlayerConfigRepository: MockPlayerConfigRepository!
@@ -171,7 +171,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.mockAnnotationActionRepository = MockAnnotationActionRepository()
+            self.mockTimelineRepository = MockTimelineRepository()
             self.mockArbitraryDataRepository = MockArbitraryDataRepository()
             self.mockEventRepository = MockEventRepository()
             self.mockPlayerConfigRepository = MockPlayerConfigRepository()
@@ -187,10 +187,12 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            stub(self.mockAnnotationActionRepository) { mock in
+            stub(self.mockTimelineRepository) { mock in
                 when(mock).fetchAnnotationActions(byTimelineId: any(), callback: any()).then { tuple in
                     (tuple.1)([], nil)
                 }
+                when(mock).startTimelineUpdates(for: any(), callback: any()).thenDoNothing()
+                when(mock).stopTimelineUpdates(for: any()).thenDoNothing()
             }
 
             stub(self.mockArbitraryDataRepository) { mock in
@@ -204,7 +206,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(annotationActionRepository: self.mockAnnotationActionRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
+            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
         }
 
         describe("loading events") {

@@ -17,12 +17,12 @@
 		4926CDFD24CDEAF000419A42 /* EventRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */; };
 		4926CDFF24CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */; };
 		4926CE0024CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */; };
-		4926CE0224CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */; };
-		4926CE0324CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */; };
+		4926CE0224CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */; };
+		4926CE0324CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */; };
 		4926CE0524CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */; };
 		4926CE0624CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */; };
-		4926CE0824CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */; };
-		4926CE0924CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */; };
+		4926CE0824CDEC1300419A42 /* TimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* TimelineRepository.swift */; };
+		4926CE0924CDEC1300419A42 /* TimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* TimelineRepository.swift */; };
 		4926CE0B24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */; };
 		4926CE0C24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */; };
 		4926CE0E24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */; };
@@ -458,9 +458,9 @@
 		4926CDF824CDE96700419A42 /* GetEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUseCase.swift; sourceTree = "<group>"; };
 		4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryImpl.swift; sourceTree = "<group>"; };
 		4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepositoryImpl.swift; sourceTree = "<group>"; };
-		4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationActionRepositoryImpl.swift; sourceTree = "<group>"; };
+		4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRepositoryImpl.swift; sourceTree = "<group>"; };
 		4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfigRepositoryImpl.swift; sourceTree = "<group>"; };
-		4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationActionRepository.swift; sourceTree = "<group>"; };
+		4926CE0724CDEC1300419A42 /* TimelineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRepository.swift; sourceTree = "<group>"; };
 		4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfigRepository.swift; sourceTree = "<group>"; };
 		4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlayerConfigForEventUseCase.swift; sourceTree = "<group>"; };
 		4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAnnotationActionsForTimelineUseCase.swift; sourceTree = "<group>"; };
@@ -805,10 +805,10 @@
 		4926CDEF24CDE63300419A42 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */,
 				498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */,
 				4926CDF024CDE64600419A42 /* EventRepository.swift */,
 				4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */,
+				4926CE0724CDEC1300419A42 /* TimelineRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -850,11 +850,11 @@
 		4926CE2124CE03E600419A42 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */,
 				498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */,
 				4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */,
 				4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */,
 				4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */,
+				4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1784,7 +1784,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/AnnotationActionRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1908,7 +1908,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4926CE0224CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */,
+				4926CE0224CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
 				49736EFD24A9F59C001F3F48 /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
 				498E48F324D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
 				49736ED324A9F59C001F3F48 /* Touchable.swift in Sources */,
@@ -1938,7 +1938,7 @@
 				4926CE2B24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDF924CDE96700419A42 /* GetEventUseCase.swift in Sources */,
 				49E2DF0F24A55B4900750C00 /* TimelineMarker.swift in Sources */,
-				4926CE0824CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */,
+				4926CE0824CDEC1300419A42 /* TimelineRepository.swift in Sources */,
 				49736ED824A9F59C001F3F48 /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				49736EC124A9F59C001F3F48 /* Stop.swift in Sources */,
 				49736ECE24A9F59C001F3F48 /* MDisplayLink_iOS.swift in Sources */,
@@ -2109,7 +2109,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4926CE0324CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */,
+				4926CE0324CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
 				49A804AC24AA0E9800E30DA8 /* Arc.swift in Sources */,
 				498E48F424D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
 				49A804A224AA0E8D00E30DA8 /* MCAMediaTimingFillMode_iOS.swift in Sources */,
@@ -2137,7 +2137,7 @@
 				4926CE2C24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDFA24CDE96700419A42 /* GetEventUseCase.swift in Sources */,
 				49A804F724AA0ED400E30DA8 /* UIImage2Image.swift in Sources */,
-				4926CE0924CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */,
+				4926CE0924CDEC1300419A42 /* TimelineRepository.swift in Sources */,
 				49A804BD24AA0E9800E30DA8 /* Insets.swift in Sources */,
 				49A8047E24AA0DF000E30DA8 /* CombineAnimation.swift in Sources */,
 				49A804BC24AA0E9800E30DA8 /* Circle.swift in Sources */,

@@ -32,8 +32,8 @@ public class MLS {
         return WebSocketConnection()
     }()
 
-    private lazy var annotationActionRepository: AnnotationActionRepository = {
-        return AnnotationActionRepositoryImpl(api: api)
+    private lazy var timelineRepository: TimelineRepository = {
+        return TimelineRepositoryImpl(api: api)
     }()
     private lazy var eventRepository: EventRepository = {
         return EventRepositoryImpl(api: realApi, ws: ws)
@@ -46,7 +46,7 @@ public class MLS {
     }()
 
     lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
-        return GetAnnotationActionsForTimelineUseCase(annotationActionRepository: annotationActionRepository)
+        return GetAnnotationActionsForTimelineUseCase(timelineRepository: timelineRepository)
     }()
     lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)

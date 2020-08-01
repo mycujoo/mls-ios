@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-01 18:19:11 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-01 21:39:16 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-01 18:19:11 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-01 21:39:16 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1823,109 +1823,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/AnnotationActionRepository.swift at 2020-08-01 18:19:11 +0000
-
-//
-// Copyright © 2020 mycujoo. All rights reserved.
-//
-
-import Cuckoo
-@testable import MLSSDK
-
-import Foundation
-
-
- class MockAnnotationActionRepository: AnnotationActionRepository, Cuckoo.ProtocolMock {
-    
-     typealias MocksType = AnnotationActionRepository
-    
-     typealias Stubbing = __StubbingProxy_AnnotationActionRepository
-     typealias Verification = __VerificationProxy_AnnotationActionRepository
-
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
-
-    
-    private var __defaultImplStub: AnnotationActionRepository?
-
-     func enableDefaultImplementation(_ stub: AnnotationActionRepository) {
-        __defaultImplStub = stub
-        cuckoo_manager.enableDefaultStubImplementation()
-    }
-    
-
-    
-
-    
-
-    
-    
-    
-     func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())  {
-        
-    return cuckoo_manager.call("fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())",
-            parameters: (timelineId, callback),
-            escapingParameters: (timelineId, callback),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.fetchAnnotationActions(byTimelineId: timelineId, callback: callback))
-        
-    }
-    
-
-	 struct __StubbingProxy_AnnotationActionRepository: Cuckoo.StubbingProxy {
-	    private let cuckoo_manager: Cuckoo.MockManager
-	
-	     init(manager: Cuckoo.MockManager) {
-	        self.cuckoo_manager = manager
-	    }
-	    
-	    
-	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byTimelineId timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, ([AnnotationAction]?, Error?) -> ())> where M1.MatchedType == String, M2.MatchedType == ([AnnotationAction]?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationActionRepository.self, method: "fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())", parameterMatchers: matchers))
-	    }
-	    
-	}
-
-	 struct __VerificationProxy_AnnotationActionRepository: Cuckoo.VerificationProxy {
-	    private let cuckoo_manager: Cuckoo.MockManager
-	    private let callMatcher: Cuckoo.CallMatcher
-	    private let sourceLocation: Cuckoo.SourceLocation
-	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
-	        self.cuckoo_manager = manager
-	        self.callMatcher = callMatcher
-	        self.sourceLocation = sourceLocation
-	    }
-	
-	    
-	
-	    
-	    @discardableResult
-	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byTimelineId timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, ([AnnotationAction]?, Error?) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == ([AnnotationAction]?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	}
-}
-
- class AnnotationActionRepositoryStub: AnnotationActionRepository {
-    
-
-    
-
-    
-     func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-}
-
-
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-01 18:19:11 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-01 21:39:16 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2027,7 +1925,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-01 18:19:11 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-01 21:39:16 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2219,7 +2117,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-01 18:19:11 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-01 21:39:16 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2321,7 +2219,169 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-01 18:19:11 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-08-01 21:39:16 +0000
+
+//
+// Copyright © 2020 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+
+import Foundation
+
+
+ class MockTimelineRepository: TimelineRepository, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = TimelineRepository
+    
+     typealias Stubbing = __StubbingProxy_TimelineRepository
+     typealias Verification = __VerificationProxy_TimelineRepository
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: TimelineRepository?
+
+     func enableDefaultImplementation(_ stub: TimelineRepository) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+     func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())  {
+        
+    return cuckoo_manager.call("fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())",
+            parameters: (timelineId, callback),
+            escapingParameters: (timelineId, callback),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.fetchAnnotationActions(byTimelineId: timelineId, callback: callback))
+        
+    }
+    
+    
+    
+     func startTimelineUpdates(for timelineId: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())  {
+        
+    return cuckoo_manager.call("startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())",
+            parameters: (timelineId, callback),
+            escapingParameters: (timelineId, callback),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.startTimelineUpdates(for: timelineId, callback: callback))
+        
+    }
+    
+    
+    
+     func stopTimelineUpdates(for timelineId: String)  {
+        
+    return cuckoo_manager.call("stopTimelineUpdates(for: String)",
+            parameters: (timelineId),
+            escapingParameters: (timelineId),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.stopTimelineUpdates(for: timelineId))
+        
+    }
+    
+
+	 struct __StubbingProxy_TimelineRepository: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byTimelineId timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, ([AnnotationAction]?, Error?) -> ())> where M1.MatchedType == String, M2.MatchedType == ([AnnotationAction]?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (TimelineRepositoryTimelineUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (TimelineRepositoryTimelineUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (TimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	    func stopTimelineUpdates<M1: Cuckoo.Matchable>(for timelineId: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: timelineId) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "stopTimelineUpdates(for: String)", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	 struct __VerificationProxy_TimelineRepository: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byTimelineId timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, ([AnnotationAction]?, Error?) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == ([AnnotationAction]?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (TimelineRepositoryTimelineUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (TimelineRepositoryTimelineUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (TimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func stopTimelineUpdates<M1: Cuckoo.Matchable>(for timelineId: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: timelineId) { $0 }]
+	        return cuckoo_manager.verify("stopTimelineUpdates(for: String)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+ class TimelineRepositoryStub: TimelineRepository {
+    
+
+    
+
+    
+     func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func startTimelineUpdates(for timelineId: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func stopTimelineUpdates(for timelineId: String)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-01 21:39:16 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
