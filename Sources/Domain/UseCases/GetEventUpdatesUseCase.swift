@@ -15,8 +15,8 @@ class GetEventUpdatesUseCase {
     func start(id: String, completionHandler: @escaping (EventUpdate) -> ()) {
         eventRepository.startEventUpdates(for: id) { update in
             switch update {
-            case .eventTotal(let total):
-                completionHandler(.eventTotal(total: total))
+            case .eventLiveViewers(let amount):
+                completionHandler(.eventLiveViewers(amount: amount))
             case .eventUpdate(let updatedEvent):
                 // TODO: Compare the updatedEvent with some properties of the current event (which may have to be an input param of this method).
                 // That way, we don't do an update callback on every property change.
@@ -32,7 +32,7 @@ class GetEventUpdatesUseCase {
 
 extension GetEventUpdatesUseCase {
     enum EventUpdate {
-        case eventTotal(total: Int)
+        case eventLiveViewers(amount: Int)
         case eventUpdate(event: Event)
     }
 }

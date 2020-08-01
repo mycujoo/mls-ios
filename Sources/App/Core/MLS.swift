@@ -54,8 +54,8 @@ public class MLS {
     private lazy var getEventUpdatesUseCase: GetEventUpdatesUseCase = {
         return GetEventUpdatesUseCase(eventRepository: eventRepository)
     }()
-    private lazy var getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase = {
-        return GetPlayerConfigForEventUseCase(playerConfigRepository: playerConfigRepository)
+    private lazy var getPlayerConfigUseCase: GetPlayerConfigUseCase = {
+        return GetPlayerConfigUseCase(playerConfigRepository: playerConfigRepository)
     }()
     private lazy var listEventsUseCase: ListEventsUseCase = {
         return ListEventsUseCase(eventRepository: eventRepository)
@@ -88,7 +88,7 @@ public class MLS {
             player: MLSAVPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
-            getPlayerConfigForEventUseCase: getPlayerConfigForEventUseCase,
+            getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,
             seekTolerance: seekTolerance)

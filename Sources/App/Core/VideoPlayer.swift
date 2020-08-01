@@ -25,7 +25,11 @@ public class VideoPlayer: NSObject {
             if stream != nil {
                 stream = nil
             }
-            rebuild()
+            let new = event?.id != oldValue?.id
+            if new, let oldEvent = oldValue {
+                cleanup(oldEvent: oldEvent)
+            }
+            rebuild(new: new)
         }
     }
 
@@ -36,7 +40,11 @@ public class VideoPlayer: NSObject {
             if event != nil {
                 event = nil
             }
-            rebuild()
+            let new = stream?.id != oldValue?.id
+            if new, let oldStream = oldValue {
+                cleanup(oldStream: oldStream)
+            }
+            rebuild(new: new)
         }
     }
 
@@ -156,7 +164,7 @@ public class VideoPlayer: NSObject {
     private let player: MLSAVPlayerProtocol
     private let getEventUpdatesUseCase: GetEventUpdatesUseCase
     private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
-    private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
+    private let getPlayerConfigUseCase: GetPlayerConfigUseCase
     private let getSVGUseCase: GetSVGUseCase
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
@@ -248,14 +256,14 @@ public class VideoPlayer: NSObject {
             player: MLSAVPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
-            getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
+            getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity) {
         self.player = player
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
-        self.getPlayerConfigForEventUseCase = getPlayerConfigForEventUseCase
+        self.getPlayerConfigUseCase = getPlayerConfigUseCase
         self.getSVGUseCase = getSVGUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
@@ -263,7 +271,7 @@ public class VideoPlayer: NSObject {
         super.init()
 
         // TODO: Update usecase to not depend on eventId.
-        getPlayerConfigForEventUseCase.execute(eventId: "") { [weak self] (playerConfig, _) in
+        getPlayerConfigUseCase.execute { [weak self] (playerConfig, _) in
             if let playerConfig = playerConfig {
                 self?.playerConfig = playerConfig
             }
@@ -309,7 +317,7 @@ public class VideoPlayer: NSObject {
 
         youboraPlugin?.fireInit()
 
-        rebuild()
+        rebuild(new: true)
     }
 
     deinit {
@@ -321,36 +329,59 @@ public class VideoPlayer: NSObject {
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
-    // TODO: Refactor this whole method.
-    private func rebuild() {
+    /// - parameter new: Boolean that indicates whether the newly loaded Event or Stream has a different id than the current one.
+    ///   If false, only some VideoPlayer changes are rebuilt.
+    private func rebuild(new: Bool) {
         currentStream = event?.streams.first ?? stream
 
-        tovStore = TOVStore()
+        updateInfoTexts()
 
-        // TODO: Should not pass eventId but timelineId
-        // TODO: Should use the startUpdating usecase.
-        getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
-            if let actions = actions {
-                self?.annotationActions = actions
-            }
-        }
+        if new {
+            tovStore = TOVStore()
 
-        // TODO: Consider how to play streams directly.
-        if let event = event {
-            getEventUpdatesUseCase.start(id: event.id) { update in
-                switch update {
-                case .eventTotal(let total):
-                    // TODO: Handle event total
-                    break
-                case .eventUpdate(let updatedEvent):
-                    // TODO: Ensure that updating the event to the same id updates only the relevant parts.
-                    // Consider a `new: Bool` parameter on rebuild() that either rebuilds completely or only relevant parts.
-                    self.event = updatedEvent
+            // TODO: Should not pass eventId but timelineId
+            // TODO: Should use the startUpdating usecase.
+            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
+                if let actions = actions {
+                    self?.annotationActions = actions
                 }
             }
 
-            view.infoTitleLabel.text = event.title
-            view.infoDescriptionLabel.text = event.descriptionText
+            if let event = event {
+                getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
+                    guard let self = self else { return }
+                    switch update {
+                    case .eventLiveViewers(_):
+                        // TODO: Handle event total
+                        break
+                    case .eventUpdate(let updatedEvent):
+                        if updatedEvent.id == event.id {
+                            self.event = updatedEvent
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
+    /// - parameter oldEvent: The Event that was previously associated with the VideoPlayer.
+    private func cleanup(oldEvent: Event) {
+        getEventUpdatesUseCase.stop(id: oldEvent.id)
+    }
+
+    /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
+    /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
+    private func cleanup(oldStream: Stream) {
+
+    }
+
+    /// Sets the correct labels on the info layer.
+    private func updateInfoTexts() {
+        view.infoTitleLabel.text = event?.title
+        view.infoDescriptionLabel.text = event?.descriptionText
+
+        if let event = event {
             if let startTime = event.startTime {
                 var timeStr = humanFriendlyDateFormatter.string(from: startTime)
                 if let timezone = event.timezone {
@@ -360,6 +391,8 @@ public class VideoPlayer: NSObject {
             } else {
                 view.infoDateLabel.text = nil
             }
+        } else {
+            view.infoDateLabel.text = nil
         }
     }
 

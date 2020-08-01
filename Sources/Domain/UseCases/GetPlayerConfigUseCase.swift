@@ -5,15 +5,15 @@
 import Foundation
 
 
-class GetPlayerConfigForEventUseCase {
+class GetPlayerConfigUseCase {
     private let playerConfigRepository: PlayerConfigRepository
 
     init(playerConfigRepository: PlayerConfigRepository) {
         self.playerConfigRepository = playerConfigRepository
     }
 
-    func execute(eventId: String, completionHandler: @escaping (PlayerConfig?, Error?) -> ()) {
-        playerConfigRepository.fetchPlayerConfig(byEventId: eventId) { (config, error) in
+    func execute(completionHandler: @escaping (PlayerConfig?, Error?) -> ()) {
+        playerConfigRepository.fetchPlayerConfig { (config, error) in
             completionHandler(config, error)
         }
     }

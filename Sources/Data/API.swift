@@ -8,7 +8,7 @@ import Moya
 enum API {
     case eventById(id: String, updateId: String?)
     case events(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
-    case playerConfig(String)
+    case playerConfig
     case annotations(String)
 
     /// A dateformatter that can be used on Event objects on this API.
@@ -32,8 +32,8 @@ extension API: TargetType {
             return "/bff/events/v1beta1/\(eventId)"
         case .events:
             return "/bff/events/v1beta1"
-        case .playerConfig(let eventId):
-            return "/bff/player_config/\(eventId)"
+        case .playerConfig:
+            return "/bff/player_config"
         case .annotations(let timelineId):
             return "/bff/annotations/\(timelineId)"
         }

@@ -15,6 +15,6 @@ protocol EventRepository {
 
 /// An enum that represents updates on an Event
 enum EventRepositoryEventUpdate {
-    case eventTotal(total: Int)
+    case eventLiveViewers(amount: Int)
     case eventUpdate(event: Event)
 }

@@ -40,8 +40,8 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
         // TODO: Determine sessionId
         ws.subscribe(eventId: id, sessionId: "") { [weak self] update in
             switch update {
-            case .eventTotal(let total):
-                callback(.eventTotal(total: total))
+            case .eventStatus(let total):
+                callback(.eventLiveViewers(amount: total))
             case .eventUpdate(let updateId):
                 // Fetch the event again and do the callback after that.
                 self?.fetchEvent(byId: id, updateId: updateId, callback: { updatedEvent, _ in
