@@ -465,10 +465,11 @@ public class VideoPlayer: NSObject {
                     }
 
                     DispatchQueue.main.async { [weak self] in
-                        if newStatus == .playing || newStatus == .paused {
-                            self?.view.setBufferIcon(hidden: true)
+                        guard let self = self else { return }
+                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream != nil {
+                            self.view.setBufferIcon(hidden: false)
                         } else {
-                            self?.view.setBufferIcon(hidden: false)
+                            self.view.setBufferIcon(hidden: true)
                         }
                     }
                 }
