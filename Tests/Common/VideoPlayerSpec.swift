@@ -270,11 +270,18 @@ class VideoPlayerSpec: QuickSpec {
                 self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
 
                 // TODO: Figure out the correct desired behavior.
-                //verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
             }
 
             it("does not show info layer again when the same event/stream is updated") {
+                let event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false)
+                self.videoPlayer.event = event
 
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                self.videoPlayer.event = event
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
             }
 
             it("shows an upcoming poster and no info view when it is available and there is no stream") {

@@ -177,6 +177,7 @@ public class VideoPlayer: NSObject {
     /// The stream that is currently represented on-screen. Different from the `stream` property because it is used internally for state-keeping.
     private var currentStream: Stream? = nil {
         didSet {
+            // TODO: Handle scenario where there previously was a different stream url.
             if currentStream?.id != oldValue?.id {
                 placeCurrentStream()
             }
@@ -368,14 +369,6 @@ public class VideoPlayer: NSObject {
                     }
                 }
             }
-            
-            if currentStream?.fullUrl == nil {
-                // TODO: Show the info layer or the thumbnail view.
-                view.setInfoViewVisibility(visible: true, animated: false)
-            } else {
-                // TODO: Remove info layer and thumbnail view.
-                view.setInfoViewVisibility(visible: false, animated: false)
-            }
         }
     }
 
@@ -443,6 +436,15 @@ public class VideoPlayer: NSObject {
             guard let self = self else { return }
             let added = url != nil
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+
+            if !added {
+                // TODO: Show the info layer or the thumbnail view.
+                self.view.setInfoViewVisibility(visible: true, animated: false)
+            } else {
+                // TODO: Remove info layer and thumbnail view.
+                self.view.setInfoViewVisibility(visible: false, animated: false)
+            }
+
             if added && completed {
                 if self.playerConfig.autoplay {
                     self.play()
