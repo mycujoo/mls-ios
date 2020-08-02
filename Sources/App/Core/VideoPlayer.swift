@@ -344,12 +344,6 @@ public class VideoPlayer: NSObject {
 
         updateInfoTexts()
 
-        if let currentStream = currentStream, currentStream.fullUrl == nil {
-            // TODO: Show the info layer or the thumbnail view.
-        } else {
-            // TODO: Remove info layer and thumbnail view.
-        }
-
         if new {
             tovStore = TOVStore()
 
@@ -391,6 +385,12 @@ public class VideoPlayer: NSObject {
 
     /// Sets the correct labels on the info layer.
     private func updateInfoTexts() {
+        if let currentStream = currentStream, currentStream.fullUrl == nil {
+            // TODO: Show the info layer or the thumbnail view.
+        } else {
+            // TODO: Remove info layer and thumbnail view.
+        }
+
         view.infoTitleLabel.text = event?.title
         view.infoDescriptionLabel.text = event?.descriptionText
 

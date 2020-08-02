@@ -34,6 +34,14 @@ class WithEventListViewController: UIViewController {
         return true
     }
 
+    override var shouldAutorotate: Bool {
+        return false
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,18 +62,15 @@ class WithEventListViewController: UIViewController {
             didLayoutPlayerView = true
 
             playerContainerView.addSubview(videoPlayer.playerView)
-            videoPlayer.playerView.backgroundColor = .clear
+            videoPlayer.playerView.isHidden = true
             videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
             videoPlayer.fullscreenButtonIsHidden = true
 
             let playerConstraints = [
-                videoPlayer.playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                // Note that this heightAnchor approach will not look good on some devices in landscape.
-                // For a more complete solution, see `WithFullscreenZoomViewController.swift`
-                videoPlayer.playerView.heightAnchor.constraint(equalTo: videoPlayer.playerView.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+                videoPlayer.playerView.topAnchor.constraint(equalTo: playerContainerView.topAnchor),
+                videoPlayer.playerView.leftAnchor.constraint(equalTo: playerContainerView.leftAnchor),
+                videoPlayer.playerView.rightAnchor.constraint(equalTo: playerContainerView.rightAnchor),
+                videoPlayer.playerView.bottomAnchor.constraint(equalTo: playerContainerView.bottomAnchor)
             ]
 
             NSLayoutConstraint.activate(playerConstraints)
@@ -102,7 +107,10 @@ extension WithEventListViewController: UITableViewDelegate, UITableViewDataSourc
         accessoryView.image = UIImage(named: "Play")
         accessoryView.tintColor = .white
         cell.accessoryView = accessoryView
-        cell.selectionStyle = .none
+
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = UIColor.init(red: 0, green: 91.0 / 255, blue: 171.0 / 255, alpha: 255)
+        cell.selectedBackgroundView = selectedBackgroundView
 
         return cell
     }
@@ -110,6 +118,7 @@ extension WithEventListViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.row < events.count else { return }
 
+        videoPlayer.playerView.isHidden = false
         videoPlayer.event = events[indexPath.row]
     }
 }
