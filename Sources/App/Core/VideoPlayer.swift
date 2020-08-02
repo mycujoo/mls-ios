@@ -177,8 +177,12 @@ public class VideoPlayer: NSObject {
     /// The stream that is currently represented on-screen. Different from the `stream` property because it is used internally for state-keeping.
     private var currentStream: Stream? = nil {
         didSet {
-            // TODO: Handle scenario where there previously was a different stream url.
             if currentStream?.id != oldValue?.id {
+                // A different stream should be played.
+                placeCurrentStream()
+            } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, oldValue.fullUrl == nil && currentStream.fullUrl != nil {
+                // This is still the same stream, but the url was previously not known and now it is.
+                // This is relevant in cases like PPV, where previously a user may not have been entitled but now they are.
                 placeCurrentStream()
             }
         }
@@ -429,18 +433,20 @@ public class VideoPlayer: NSObject {
         setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
 
         let url = currentStream?.fullUrl
+        let added = url != nil
+
+        if !added {
+            // TODO: Show the info layer or the thumbnail view.
+            self.view.setInfoViewVisibility(visible: true, animated: false)
+        }
 
         // TODO: generate the user-agent elsewhere.
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
         player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
             guard let self = self else { return }
-            let added = url != nil
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
-            if !added {
-                // TODO: Show the info layer or the thumbnail view.
-                self.view.setInfoViewVisibility(visible: true, animated: false)
-            } else {
+            if added {
                 // TODO: Remove info layer and thumbnail view.
                 self.view.setInfoViewVisibility(visible: false, animated: false)
             }
@@ -481,7 +487,7 @@ public class VideoPlayer: NSObject {
 
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
-                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream != nil {
+                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream?.fullUrl != nil {
                             self.view.setBufferIcon(hidden: false)
                         } else {
                             self.view.setBufferIcon(hidden: true)
@@ -732,7 +738,7 @@ extension VideoPlayer {
 
     #if os(iOS)
     private func controlViewTapped() {
-        // Do not register taps on the control view when there is no stream.
+        // Do not register taps on the control view when there is no stream url.
         guard currentStream?.fullUrl != nil else { return }
 
         if view.infoViewHasAlpha {

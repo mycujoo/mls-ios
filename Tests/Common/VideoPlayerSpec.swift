@@ -269,7 +269,6 @@ class VideoPlayerSpec: QuickSpec {
 
                 self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
 
-                // TODO: Figure out the correct desired behavior.
                 verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
             }
 
