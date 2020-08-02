@@ -376,6 +376,37 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.
+    /// Also calls the callback when it actually removes the currentItem because there is no appropriate stream to play.
+    /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
+    private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
+        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+
+        let url = currentStream?.fullUrl
+        let added = url != nil
+
+        if !added {
+            // TODO: Show the info layer or the thumbnail view.
+            self.view.setInfoViewVisibility(visible: true, animated: false)
+        } else {
+            // TODO: Remove info layer and thumbnail view.
+            self.view.setInfoViewVisibility(visible: false, animated: false)
+        }
+
+        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
+        player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
+            guard let self = self else { return }
+            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+
+            if added && completed {
+                if self.playerConfig.autoplay {
+                    self.play()
+                }
+            }
+            callback?(completed)
+        }
+    }
+
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
     /// - parameter oldEvent: The Event that was previously associated with the VideoPlayer.
     private func cleanup(oldEvent: Event) {
@@ -423,38 +454,6 @@ public class VideoPlayer: NSObject {
                     self?.hideOverlays(with: output.hideOverlays)
                 }
             }
-        }
-    }
-
-    /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.
-    /// Also calls the callback when it actually removes the currentItem because there is no appropriate stream to play.
-    /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
-    private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
-        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-
-        let url = currentStream?.fullUrl
-        let added = url != nil
-
-        if !added {
-            // TODO: Show the info layer or the thumbnail view.
-            self.view.setInfoViewVisibility(visible: true, animated: false)
-        } else {
-            // TODO: Remove info layer and thumbnail view.
-            self.view.setInfoViewVisibility(visible: false, animated: false)
-        }
-
-        // TODO: generate the user-agent elsewhere.
-        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
-            guard let self = self else { return }
-            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
-
-            if added && completed {
-                if self.playerConfig.autoplay {
-                    self.play()
-                }
-            }
-            callback?(completed)
         }
     }
     

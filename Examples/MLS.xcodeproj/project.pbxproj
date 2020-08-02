@@ -14,6 +14,7 @@
 		4925AA8E24C6FF8600F13832 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */; };
 		4925AA8F24C6FF8600F13832 /* WithPictureInPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */; };
 		4925AA9024C6FF8600F13832 /* WithFullscreenZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */; };
+		49DD558C24D763850080E105 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD558B24D763850080E105 /* SimpleViewController.swift */; };
 		6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E4246951060013A9EE /* LaunchScreen.storyboard */; };
 		643B5EBA247BE93900A46A77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643B5EB9247BE93900A46A77 /* AppDelegate.swift */; };
 		643B5EBE247BE93B00A46A77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EBD247BE93B00A46A77 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		492B6BD124B3666D0003C5B1 /* id */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = id; path = id.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPictureInPictureViewController.swift; sourceTree = "<group>"; };
 		49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
+		49DD558B24D763850080E105 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		4A1FDDFA3830E5AACBB7F0AD /* Pods-MLS-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLS-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		6418F6D6246951050013A9EE /* MLS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6418F6D9246951050013A9EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				643B5EB9247BE93900A46A77 /* AppDelegate.swift */,
+				49DD558B24D763850080E105 /* SimpleViewController.swift */,
 				643B5EBD247BE93B00A46A77 /* Assets.xcassets */,
 				643B5EC2247BE93B00A46A77 /* LaunchScreen.storyboard */,
 				643B5EC5247BE93B00A46A77 /* Info.plist */,
@@ -380,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49DD558C24D763850080E105 /* SimpleViewController.swift in Sources */,
 				643B5EBA247BE93900A46A77 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
