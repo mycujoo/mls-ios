@@ -316,8 +316,6 @@ public class VideoPlayer: NSObject {
         #endif
 
         youboraPlugin?.fireInit()
-
-        rebuild(new: true)
     }
 
     deinit {

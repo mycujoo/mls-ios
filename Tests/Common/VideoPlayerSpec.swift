@@ -64,7 +64,7 @@ class VideoPlayerSpec: QuickSpec {
             currentTime = 90
             optimisticCurrentTime = 100
 
-            self.event = MLSSDK.Event(id: "mockevent", title: "Mock Event", descriptionText: "This is a mock event", thumbnailUrl: nil, organiser: nil, timezone: nil, startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24), status: .started, streams: [MLSSDK.Stream(id: "mockstream", fullUrl: URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8")!)], timelineIds: [])
+            self.event = EntityBuilder.buildEvent()
 
             self.mockView = MockVideoPlayerViewProtocol()
             stub(self.mockView) { mock in
@@ -219,8 +219,12 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            it("shows the info layer when there is no stream") {
+            fit("shows the info layer when there is no stream") {
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
 
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
             }
 
             it("does not alow info layer dismissal when there is no stream") {
@@ -232,6 +236,10 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             it("does not show info layer again when the same event/stream is updated") {
+
+            }
+
+            it("shows an upcoming poster and no info view when it is available and there is no stream") {
 
             }
         }
