@@ -111,7 +111,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setPlayButtonTo(state: any()).thenDoNothing()
                 when(mock).setLiveButtonTo(state: any()).thenDoNothing()
                 when(mock).setBufferIcon(hidden: any()).thenDoNothing()
-                when(mock).setInfoButtonAndView(hidden: any()).thenDoNothing()
+                when(mock).setInfoButton(hidden: any()).thenDoNothing()
                 when(mock).setTimeIndicatorLabel(elapsedText: any(), totalText: any()).thenDoNothing()
                 when(mock).setTimelineMarkers(with: any()).thenDoNothing()
                 when(mock).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any()).thenReturn(UIView())

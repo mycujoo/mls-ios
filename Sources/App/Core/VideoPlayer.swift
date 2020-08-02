@@ -248,7 +248,7 @@ public class VideoPlayer: NSObject {
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
                 self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
-                self.view.setInfoButtonAndView(hidden: !self.playerConfig.showEventInfoButton)
+                self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
             }
         }

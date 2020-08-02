@@ -57,7 +57,7 @@ protocol VideoPlayerViewProtocol: class {
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool)
     /// Sets the `isHidden` property of the info button and the info view.
-    func setInfoButtonAndView(hidden: Bool)
+    func setInfoButton(hidden: Bool)
     /// Sets the `isHidden` property of the skip backwards/forwards buttons.
     func setSkipButtons(hidden: Bool)
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.

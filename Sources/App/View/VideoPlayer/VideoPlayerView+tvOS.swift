@@ -487,7 +487,7 @@ extension VideoPlayerView {
     }
 
     /// Sets the `isHidden` property of the info button and the info view.
-    func setInfoButtonAndView(hidden: Bool) {
+    func setInfoButton(hidden: Bool) {
         infoView.isHidden = hidden
     }
 
