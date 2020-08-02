@@ -64,7 +64,7 @@ class VideoPlayerSpec: QuickSpec {
             currentTime = 90
             optimisticCurrentTime = 100
 
-            self.event = MLSSDK.Event(id: "mockevent", title: "Mock Event", descriptionText: "This is a mock event", thumbnailUrl: nil, organiser: nil, timezone: nil, startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24), status: .started, streams: [MLSSDK.Stream(fullUrl: URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8")!)], timelineIds: [])
+            self.event = MLSSDK.Event(id: "mockevent", title: "Mock Event", descriptionText: "This is a mock event", thumbnailUrl: nil, organiser: nil, timezone: nil, startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24), status: .started, streams: [MLSSDK.Stream(id: "mockstream", fullUrl: URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8")!)], timelineIds: [])
 
             self.mockView = MockVideoPlayerViewProtocol()
             stub(self.mockView) { mock in
@@ -182,8 +182,8 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             stub(self.mockPlayerConfigRepository) { mock in
-                when(mock).fetchPlayerConfig(byEventId: any(), callback: any()).then { (tuple) in
-                    (tuple.1)(MLSSDK.PlayerConfig.standard(), nil)
+                when(mock).fetchPlayerConfig(callback: any()).then { callback in
+                    callback(MLSSDK.PlayerConfig.standard(), nil)
                 }
             }
 
@@ -206,7 +206,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
+            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
         }
 
         describe("loading events") {
@@ -217,6 +217,22 @@ class VideoPlayerSpec: QuickSpec {
                 let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                     verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
                 }
+            }
+
+            it("shows the info layer when there is no stream") {
+
+            }
+
+            it("does not alow info layer dismissal when there is no stream") {
+
+            }
+
+            it("hides the info layer when a stream appears") {
+
+            }
+
+            it("does not show info layer again when the same event/stream is updated") {
+
             }
         }
 
@@ -439,16 +455,17 @@ class VideoPlayerSpec: QuickSpec {
 
             describe("play button taps") {
                 it("switches from pause to play") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
-                    playButtonTapped?()
+                    // Keep in mind that this is initial status is dependent on autoplay being set on the PlayerConfig.
                     expect(self.videoPlayer.status).to(equal(.play))
+                    playButtonTapped?()
+                    expect(self.videoPlayer.status).to(equal(.pause))
                 }
 
                 it("switches from play to pause") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.play))
                     playButtonTapped?()
                     playButtonTapped?()
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.play))
                 }
 
                 it("Seeks to beginning if state is currently ended") {

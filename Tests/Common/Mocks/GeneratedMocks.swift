@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-01 21:39:16 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-02 15:09:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-01 21:39:16 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-02 15:09:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1823,7 +1823,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-01 21:39:16 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-02 15:09:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1925,7 +1925,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-01 21:39:16 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-02 15:09:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2117,7 +2117,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-01 21:39:16 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-02 15:09:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2154,16 +2154,16 @@ import Foundation
     
     
     
-     func fetchPlayerConfig(byEventId eventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())  {
+     func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())  {
         
-    return cuckoo_manager.call("fetchPlayerConfig(byEventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())",
-            parameters: (eventId, callback),
-            escapingParameters: (eventId, callback),
+    return cuckoo_manager.call("fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())",
+            parameters: (callback),
+            escapingParameters: (callback),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.fetchPlayerConfig(byEventId: eventId, callback: callback))
+            defaultCall: __defaultImplStub!.fetchPlayerConfig(callback: callback))
         
     }
     
@@ -2176,9 +2176,9 @@ import Foundation
 	    }
 	    
 	    
-	    func fetchPlayerConfig<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byEventId eventId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (PlayerConfig?, Error?) -> ())> where M1.MatchedType == String, M2.MatchedType == (PlayerConfig?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (PlayerConfig?, Error?) -> ())>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerConfigRepository.self, method: "fetchPlayerConfig(byEventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())", parameterMatchers: matchers))
+	    func fetchPlayerConfig<M1: Cuckoo.Matchable>(callback: M1) -> Cuckoo.ProtocolStubNoReturnFunction<((PlayerConfig?, Error?) -> ())> where M1.MatchedType == (PlayerConfig?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<((PlayerConfig?, Error?) -> ())>] = [wrap(matchable: callback) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerConfigRepository.self, method: "fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -2198,9 +2198,9 @@ import Foundation
 	
 	    
 	    @discardableResult
-	    func fetchPlayerConfig<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byEventId eventId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (PlayerConfig?, Error?) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (PlayerConfig?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (PlayerConfig?, Error?) -> ())>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("fetchPlayerConfig(byEventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func fetchPlayerConfig<M1: Cuckoo.Matchable>(callback: M1) -> Cuckoo.__DoNotUse<((PlayerConfig?, Error?) -> ()), Void> where M1.MatchedType == (PlayerConfig?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<((PlayerConfig?, Error?) -> ())>] = [wrap(matchable: callback) { $0 }]
+	        return cuckoo_manager.verify("fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
@@ -2212,14 +2212,14 @@ import Foundation
     
 
     
-     func fetchPlayerConfig(byEventId eventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())   {
+     func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-08-01 21:39:16 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-08-02 15:09:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2381,7 +2381,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-01 21:39:16 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-02 15:09:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
