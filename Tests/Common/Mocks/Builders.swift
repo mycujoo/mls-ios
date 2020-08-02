@@ -6,7 +6,7 @@ import Foundation
 @testable import MLSSDK
 
 class EntityBuilder {
-    static func buildEvent(withRandomId: Bool = true, withStream: Bool = true, withStreamURL: Bool = true) -> MLSSDK.Event {
+    static func buildEvent(withRandomId: Bool = true, withStream: Bool = true, withStreamURL: Bool = true, withRandomStreamURL: Bool = false) -> MLSSDK.Event {
         return MLSSDK.Event(
             id: withRandomId ? randomString(length: 20) : "mockevent",
             title: "Mock Event",
@@ -16,14 +16,14 @@ class EntityBuilder {
             timezone: nil,
             startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24),
             status: .started,
-            streams: withStream ? [buildStream(withRandomId: true, withURL: withStreamURL)] : [],
+            streams: withStream ? [buildStream(withRandomId: withRandomId, withURL: withStreamURL, withRandomURL: withRandomStreamURL)] : [],
             timelineIds: [])
     }
 
-    static func buildStream(withRandomId: Bool = true, withURL: Bool = true) -> MLSSDK.Stream {
+    static func buildStream(withRandomId: Bool = true, withURL: Bool = true, withRandomURL: Bool = false) -> MLSSDK.Stream {
         return MLSSDK.Stream(
             id: withRandomId ? randomString(length: 20) : "mockstream",
-            fullUrl: withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8")! : nil)
+            fullUrl: withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8" + (withRandomURL ? "?randomizer=" + randomString(length: 20) : ""))! : nil)
     }
 
     private static func randomString(length: Int) -> String {

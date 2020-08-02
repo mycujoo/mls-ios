@@ -438,6 +438,9 @@ public class VideoPlayer: NSObject {
         if !added {
             // TODO: Show the info layer or the thumbnail view.
             self.view.setInfoViewVisibility(visible: true, animated: false)
+        } else {
+            // TODO: Remove info layer and thumbnail view.
+            self.view.setInfoViewVisibility(visible: false, animated: false)
         }
 
         // TODO: generate the user-agent elsewhere.
@@ -445,11 +448,6 @@ public class VideoPlayer: NSObject {
         player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
             guard let self = self else { return }
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
-
-            if added {
-                // TODO: Remove info layer and thumbnail view.
-                self.view.setInfoViewVisibility(visible: false, animated: false)
-            }
 
             if added && completed {
                 if self.playerConfig.autoplay {
