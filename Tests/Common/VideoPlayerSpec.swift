@@ -219,19 +219,31 @@ class VideoPlayerSpec: QuickSpec {
             self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
         }
 
-        describe("loading events") {
-            it("replaces avplayer item") {
+        describe("loading streams and events") {
+            it("replaces avplayer item when setting a stream") {
+                waitUntil { done in
+                    self.videoPlayer.stream = EntityBuilder.buildStream(withURL: true)
+
+                    // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
+
+                        done()
+                    }
+                }
+            }
+
+            it("replaces avplayer item when setting an event") {
                 waitUntil { done in
                     self.videoPlayer.event = self.event
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
 
                         done()
                     }
                 }
-
             }
 
             it("it replaces avplayer item when the stream id is the same but the url became available") {
