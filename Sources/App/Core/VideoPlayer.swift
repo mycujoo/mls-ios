@@ -731,7 +731,7 @@ extension VideoPlayer {
     #if os(iOS)
     private func controlViewTapped() {
         // Do not register taps on the control view when there is no stream.
-        guard currentStream != nil else { return }
+        guard currentStream?.fullUrl != nil else { return }
 
         if view.infoViewHasAlpha {
             view.setInfoViewVisibility(visible: false, animated: true)

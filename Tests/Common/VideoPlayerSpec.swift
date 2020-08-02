@@ -56,8 +56,9 @@ class VideoPlayerSpec: QuickSpec {
             self.videoPlayer.observeValue(forKeyPath: "status", of: self.mockAVPlayer, change: [:], context: nil)
         }
 
-
         var playButtonTapped: (() -> Void)? = nil
+        var infoButtonTapped: (() -> Void)? = nil
+        var controlViewTapped: (() -> Void)? = nil
 
         beforeEach {
             currentDuration = 200
@@ -69,6 +70,7 @@ class VideoPlayerSpec: QuickSpec {
             self.mockView = MockVideoPlayerViewProtocol()
             stub(self.mockView) { mock in
                 var controlViewHasAlpha = false
+                var infoViewHasAlpha = false
 
                 when(mock).videoSlider.get.thenReturn(VideoProgressSlider())
 
@@ -79,7 +81,9 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).controlViewHasAlpha.get.then { _ -> Bool in
                     return controlViewHasAlpha
                 }
-                when(mock).infoViewHasAlpha.get.thenReturn(false)
+                when(mock).infoViewHasAlpha.get.then { _ -> Bool in
+                    return infoViewHasAlpha
+                }
                 when(mock).infoTitleLabel.get.thenReturn(UILabel())
                 when(mock).infoDateLabel.get.thenReturn(UILabel())
                 when(mock).infoDescriptionLabel.get.thenReturn(UILabel())
@@ -98,10 +102,12 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setOnSkipForwardButtonTapped(any()).thenDoNothing()
                 when(mock).setOnTimeSliderSlide(any()).thenDoNothing()
                 when(mock).setOnTimeSliderRelease(any()).thenDoNothing()
-                when(mock).setControlViewVisibility(visible: any(), animated: any()).then { (tuple) in
+                when(mock).setControlViewVisibility(visible: any(), animated: any()).then { tuple in
                     controlViewHasAlpha = tuple.0
                 }
-                when(mock).setInfoViewVisibility(visible: any(), animated: any()).thenDoNothing()
+                when(mock).setInfoViewVisibility(visible: any(), animated: any()).then { tuple in
+                    infoViewHasAlpha = tuple.0
+                }
                 when(mock).setPlayButtonTo(state: any()).thenDoNothing()
                 when(mock).setLiveButtonTo(state: any()).thenDoNothing()
                 when(mock).setBufferIcon(hidden: any()).thenDoNothing()
@@ -113,10 +119,14 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).removeOverlay(containerView: any(), animateType: any(), animateDuration: any(), completion: any()).then { (tuple) in
                     (tuple.3)()
                 }
-                when(mock).setOnControlViewTapped(any()).thenDoNothing()
+                when(mock).setOnControlViewTapped(any()).then { action in
+                    controlViewTapped = action
+                }
                 when(mock).setOnLiveButtonTapped(any()).thenDoNothing()
                 when(mock).setOnFullscreenButtonTapped(any()).thenDoNothing()
-                when(mock).setOnInfoButtonTapped(any()).thenDoNothing()
+                when(mock).setOnInfoButtonTapped(any()).then { action in
+                    infoButtonTapped = action
+                }
                 when(mock).setFullscreenButtonTo(fullscreen: any()).thenDoNothing()
                 when(mock).setSkipButtons(hidden: any()).thenDoNothing()
             }
@@ -219,7 +229,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            fit("shows the info layer when there is no stream") {
+            it("shows the info layer when there is no stream") {
                 verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
 
                 self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
@@ -227,12 +237,40 @@ class VideoPlayerSpec: QuickSpec {
                 verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
             }
 
-            it("does not alow info layer dismissal when there is no stream") {
+            it("does not allow info layer dismissal when there is no stream") {
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
 
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                controlViewTapped?()
+
+                // Verify the count did not go up.
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
             }
 
-            it("hides the info layer when a stream appears") {
+            it("dismisses info layer on controlview tapped when there is a stream") {
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: true)
 
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
+
+                infoButtonTapped?()
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                controlViewTapped?()
+
+                verify(self.mockView, times(2)).setInfoViewVisibility(visible: false, animated: any())
+            }
+
+            it("hides the info layer when a stream url appears on a previously loaded event") {
+                self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
+
+                // TODO: Figure out the correct desired behavior.
+                //verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
             }
 
             it("does not show info layer again when the same event/stream is updated") {
