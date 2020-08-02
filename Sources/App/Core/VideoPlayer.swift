@@ -338,7 +338,7 @@ public class VideoPlayer: NSObject {
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
     /// - parameter new: Boolean that indicates whether the newly loaded Event or Stream has a different id than the current one.
-    ///   If false, only some VideoPlayer changes are rebuilt.
+    ///   If false, only some VideoPlayer changes are applied.
     private func rebuild(new: Bool) {
         currentStream = event?.streams.first ?? stream
 
@@ -370,6 +370,14 @@ public class VideoPlayer: NSObject {
                     }
                 }
             }
+            
+            if currentStream?.fullUrl == nil {
+                // TODO: Show the info layer or the thumbnail view.
+                view.setInfoViewVisibility(visible: true, animated: false)
+            } else {
+                // TODO: Remove info layer and thumbnail view.
+                view.setInfoViewVisibility(visible: false, animated: false)
+            }
         }
     }
 
@@ -385,12 +393,6 @@ public class VideoPlayer: NSObject {
 
     /// Sets the correct labels on the info layer.
     private func updateInfoTexts() {
-        if let currentStream = currentStream, currentStream.fullUrl == nil {
-            // TODO: Show the info layer or the thumbnail view.
-        } else {
-            // TODO: Remove info layer and thumbnail view.
-        }
-
         view.infoTitleLabel.text = event?.title
         view.infoDescriptionLabel.text = event?.descriptionText
 
@@ -730,6 +732,9 @@ extension VideoPlayer {
 
     #if os(iOS)
     private func controlViewTapped() {
+        // Do not register taps on the control view when there is no stream.
+        guard currentStream != nil else { return }
+
         if view.infoViewHasAlpha {
             view.setInfoViewVisibility(visible: false, animated: true)
             setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: false)

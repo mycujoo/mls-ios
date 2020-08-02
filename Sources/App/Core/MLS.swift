@@ -10,6 +10,8 @@ public struct Configuration {
     public init() { }
 }
 
+/// The class that should be used to interact with MLS components.
+/// - note: Make sure to retain an instance of this class as long as you use any of its components.
 public class MLS {
     public var publicKey: String
     public let configuration: Configuration

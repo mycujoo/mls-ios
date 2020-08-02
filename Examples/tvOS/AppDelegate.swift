@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
 
         mls.dataProvider().eventList(completionHandler: { [weak self] (events) in
-            self?.videoPlayer.event = events?.first
+            self?.videoPlayer.event = events?.filter { $0.streams.compactMap { $0.fullUrl }.first != nil }.first
         })
     }
 }
