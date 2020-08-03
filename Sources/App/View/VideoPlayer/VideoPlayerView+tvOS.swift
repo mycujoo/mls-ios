@@ -486,11 +486,6 @@ extension VideoPlayerView {
         bufferIcon.isHidden = hidden
     }
 
-    /// Sets the `isHidden` property of the info button and the info view.
-    func setInfoButton(hidden: Bool) {
-        infoView.isHidden = hidden
-    }
-
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?) {
         guard let elapsedText = elapsedText else {

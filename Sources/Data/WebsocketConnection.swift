@@ -7,7 +7,7 @@ import Starscream
 /// Represents a single connection with the MLS web socket service.
 class WebSocketConnection {
     enum UpdateMessage {
-        case eventStatus(total: Int)
+        case eventTotal(total: Int)
         /// The updateId is a cache-busting key to be used to bypass potentially outdated cached responses on the CDN.
         case eventUpdate(updateId: String)
     }
@@ -36,11 +36,11 @@ class WebSocketConnection {
 
                 let updateType = components[0]
                 switch updateType {
-                case "eventStatus":
+                case "eventTotal":
                     let targetEventId = components[1]
                     guard eventId == targetEventId, let total = Int(components[2]) else { return }
 
-                    update = .eventStatus(total: total)
+                    update = .eventTotal(total: total)
                 case "eventUpdate":
                     let targetEventId = components[1]
                     guard eventId == targetEventId else { return }

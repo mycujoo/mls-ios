@@ -25,10 +25,7 @@ extension API: TargetType {
     var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
     var path: String {
         switch self {
-        case .eventById(let eventId, let updateId):
-            if let updateId = updateId {
-                return "/bff/events/v1beta1/\(eventId)?updateId=\(updateId)"
-            }
+        case .eventById(let eventId, _):
             return "/bff/events/v1beta1/\(eventId)"
         case .events:
             return "/bff/events/v1beta1"
@@ -287,7 +284,13 @@ extension API: TargetType {
             }
 
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        case .eventById, .playerConfig, .annotations:
+        case .eventById(_, let updateId):
+            var params: [String : Any] = [:]
+            if let updateId = updateId {
+                params["update_id"] = updateId
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .playerConfig, .annotations:
            return .requestPlain
        }
     }
