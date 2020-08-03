@@ -289,6 +289,14 @@ class VideoPlayerSpec: QuickSpec {
             it("shows the info layer when there is no stream") {
                 verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
 
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: false, withStreamURL: false)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+            }
+
+            it("shows the info layer when there is no stream url") {
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
+
                 self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
 
                 verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())

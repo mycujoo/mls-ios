@@ -177,8 +177,9 @@ public class VideoPlayer: NSObject {
     /// The stream that is currently represented on-screen. Different from the `stream` property because it is used internally for state-keeping.
     private var currentStream: Stream? = nil {
         didSet {
-            if currentStream?.id != oldValue?.id {
+            if currentStream == nil || currentStream?.id != oldValue?.id {
                 // A different stream should be played.
+                // Note: also trigger when nil is being set again, because this will trigger secondary actions like updating info layer visibility.
                 placeCurrentStream()
             } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, oldValue.fullUrl == nil && currentStream.fullUrl != nil {
                 // This is still the same stream, but the url was previously not known and now it is.
