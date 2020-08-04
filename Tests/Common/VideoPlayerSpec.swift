@@ -310,7 +310,7 @@ class VideoPlayerSpec: QuickSpec {
                 controlViewTapped?()
 
                 // Verify the count did not go up.
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: false, animated: any())
             }
 
             it("dismisses info layer on controlview tapped when there is a stream") {
