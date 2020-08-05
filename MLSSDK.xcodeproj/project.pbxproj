@@ -17,16 +17,16 @@
 		4926CDFD24CDEAF000419A42 /* EventRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */; };
 		4926CDFF24CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */; };
 		4926CE0024CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */; };
-		4926CE0224CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */; };
-		4926CE0324CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */; };
+		4926CE0224CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */; };
+		4926CE0324CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */; };
 		4926CE0524CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */; };
 		4926CE0624CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */; };
-		4926CE0824CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */; };
-		4926CE0924CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */; };
+		4926CE0824CDEC1300419A42 /* TimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* TimelineRepository.swift */; };
+		4926CE0924CDEC1300419A42 /* TimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* TimelineRepository.swift */; };
 		4926CE0B24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */; };
 		4926CE0C24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */; };
-		4926CE0E24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */; };
-		4926CE0F24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */; };
+		4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */; };
+		4926CE0F24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */; };
 		4926CE1124CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */; };
 		4926CE1224CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */; };
 		4926CE2724CE046D00419A42 /* DataLayerAnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2224CE046D00419A42 /* DataLayerAnnotationAction.swift */; };
@@ -39,6 +39,10 @@
 		4926CE2E24CE046D00419A42 /* DataLayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2524CE046D00419A42 /* DataLayerEvent.swift */; };
 		4926CE2F24CE046D00419A42 /* DataLayerStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2624CE046D00419A42 /* DataLayerStream.swift */; };
 		4926CE3024CE046D00419A42 /* DataLayerStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2624CE046D00419A42 /* DataLayerStream.swift */; };
+		4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
+		4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
+		4930181324D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */; };
+		4930181424D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938012B24CE19B0008AFC64 /* MLSUIAction.swift */; };
@@ -234,6 +238,7 @@
 		498E48FC24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
 		498E48FD24D062D90040502D /* Thread+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FB24D062D90040502D /* Thread+.swift */; };
 		498E48FF24D0670F0040502D /* VideoPlayerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */; };
+		4990BCB224D720D3009D7DFA /* Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4990BCB124D720D3009D7DFA /* Builders.swift */; };
 		499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */; };
 		499D0E2C24D1898D0021A961 /* scoreboard_and_timer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */; };
@@ -454,17 +459,19 @@
 		4926CDF824CDE96700419A42 /* GetEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUseCase.swift; sourceTree = "<group>"; };
 		4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryImpl.swift; sourceTree = "<group>"; };
 		4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepositoryImpl.swift; sourceTree = "<group>"; };
-		4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationActionRepositoryImpl.swift; sourceTree = "<group>"; };
+		4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRepositoryImpl.swift; sourceTree = "<group>"; };
 		4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfigRepositoryImpl.swift; sourceTree = "<group>"; };
-		4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationActionRepository.swift; sourceTree = "<group>"; };
+		4926CE0724CDEC1300419A42 /* TimelineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRepository.swift; sourceTree = "<group>"; };
 		4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfigRepository.swift; sourceTree = "<group>"; };
-		4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlayerConfigForEventUseCase.swift; sourceTree = "<group>"; };
+		4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlayerConfigUseCase.swift; sourceTree = "<group>"; };
 		4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAnnotationActionsForTimelineUseCase.swift; sourceTree = "<group>"; };
 		4926CE2224CE046D00419A42 /* DataLayerAnnotationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerAnnotationAction.swift; sourceTree = "<group>"; };
 		4926CE2324CE046D00419A42 /* DataLayerPlayerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerPlayerConfig.swift; sourceTree = "<group>"; };
 		4926CE2424CE046D00419A42 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
 		4926CE2524CE046D00419A42 /* DataLayerEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerEvent.swift; sourceTree = "<group>"; };
 		4926CE2624CE046D00419A42 /* DataLayerStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerStream.swift; sourceTree = "<group>"; };
+		4930180F24D494AE009312B0 /* WebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketConnection.swift; sourceTree = "<group>"; };
+		4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUpdatesUseCase.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4938012B24CE19B0008AFC64 /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
 		4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
@@ -641,6 +648,7 @@
 		498E48F824D057FF0040502D /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
 		498E48FB24D062D90040502D /* Thread+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thread+.swift"; sourceTree = "<group>"; };
 		498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerSpec.swift; sourceTree = "<group>"; };
+		4990BCB124D720D3009D7DFA /* Builders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builders.swift; sourceTree = "<group>"; };
 		499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = scoreboard_and_timer.svg; sourceTree = "<group>"; };
 		499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerViewProtocol+iOS.swift"; sourceTree = "<group>"; };
@@ -767,6 +775,7 @@
 			isa = PBXGroup;
 			children = (
 				49E59024249BC809001E0C1C /* API.swift */,
+				4930180F24D494AE009312B0 /* WebsocketConnection.swift */,
 				4926CE1624CE03E200419A42 /* Entities */,
 				4926CE2124CE03E600419A42 /* Repositories */,
 			);
@@ -798,10 +807,10 @@
 		4926CDEF24CDE63300419A42 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				4926CE0724CDEC1300419A42 /* AnnotationActionRepository.swift */,
 				498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */,
 				4926CDF024CDE64600419A42 /* EventRepository.swift */,
 				4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */,
+				4926CE0724CDEC1300419A42 /* TimelineRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -811,7 +820,8 @@
 			children = (
 				4926CE1024CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift */,
 				4926CDF824CDE96700419A42 /* GetEventUseCase.swift */,
-				4926CE0D24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift */,
+				4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */,
+				4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */,
 				498E48F824D057FF0040502D /* GetSVGUseCase.swift */,
 				4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */,
 			);
@@ -842,11 +852,11 @@
 		4926CE2124CE03E600419A42 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				4926CE0124CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift */,
 				498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */,
 				4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */,
 				4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */,
 				4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */,
+				4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1333,6 +1343,7 @@
 			isa = PBXGroup;
 			children = (
 				49EA06C224C792A100C7AB10 /* GeneratedMocks.swift */,
+				4990BCB124D720D3009D7DFA /* Builders.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1776,7 +1787,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/AnnotationActionRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1893,6 +1904,7 @@
 				49EA06C324C792A100C7AB10 /* GeneratedMocks.swift in Sources */,
 				4988B9CC24C87BCC00352529 /* AnnotationServiceSpec.swift in Sources */,
 				498E48FF24D0670F0040502D /* VideoPlayerSpec.swift in Sources */,
+				4990BCB224D720D3009D7DFA /* Builders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1900,7 +1912,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4926CE0224CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */,
+				4926CE0224CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
 				49736EFD24A9F59C001F3F48 /* MCAShapeLayerLineJoin_macOS.swift in Sources */,
 				498E48F324D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
 				49736ED324A9F59C001F3F48 /* Touchable.swift in Sources */,
@@ -1930,7 +1942,7 @@
 				4926CE2B24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDF924CDE96700419A42 /* GetEventUseCase.swift in Sources */,
 				49E2DF0F24A55B4900750C00 /* TimelineMarker.swift in Sources */,
-				4926CE0824CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */,
+				4926CE0824CDEC1300419A42 /* TimelineRepository.swift in Sources */,
 				49736ED824A9F59C001F3F48 /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				49736EC124A9F59C001F3F48 /* Stop.swift in Sources */,
 				49736ECE24A9F59C001F3F48 /* MDisplayLink_iOS.swift in Sources */,
@@ -1941,6 +1953,7 @@
 				6496C3552492308D0099475D /* MLS.swift in Sources */,
 				6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */,
 				49736ED124A9F59C001F3F48 /* MDisplayLink.swift in Sources */,
+				4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				495CB139249CF98600998FF4 /* Throttler.swift in Sources */,
 				49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */,
 				495CB13C249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */,
@@ -1978,7 +1991,7 @@
 				49736F0E24A9F59C001F3F48 /* TouchEvent.swift in Sources */,
 				49736EC624A9F59C001F3F48 /* AspectRatio.swift in Sources */,
 				49736EB624A9F59C001F3F48 /* ColorMatrix.swift in Sources */,
-				4926CE0E24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift in Sources */,
+				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				4926CE1124CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */,
 				49736EF324A9F59C001F3F48 /* ContentsInterpolation.swift in Sources */,
@@ -2013,6 +2026,7 @@
 				49736EFF24A9F59C001F3F48 /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				49736F1424A9F59C001F3F48 /* CGFloat+Double.swift in Sources */,
 				49736EBC24A9F59C001F3F48 /* GaussianBlur.swift in Sources */,
+				4930181324D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */,
 				49736F0224A9F59C001F3F48 /* NodeRenderer.swift in Sources */,
 				49736EEA24A9F59C001F3F48 /* AnimatableVariable.swift in Sources */,
 				4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */,
@@ -2099,7 +2113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4926CE0324CDEBFE00419A42 /* AnnotationActionRepositoryImpl.swift in Sources */,
+				4926CE0324CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
 				49A804AC24AA0E9800E30DA8 /* Arc.swift in Sources */,
 				498E48F424D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
 				49A804A224AA0E8D00E30DA8 /* MCAMediaTimingFillMode_iOS.swift in Sources */,
@@ -2127,7 +2141,7 @@
 				4926CE2C24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDFA24CDE96700419A42 /* GetEventUseCase.swift in Sources */,
 				49A804F724AA0ED400E30DA8 /* UIImage2Image.swift in Sources */,
-				4926CE0924CDEC1300419A42 /* AnnotationActionRepository.swift in Sources */,
+				4926CE0924CDEC1300419A42 /* TimelineRepository.swift in Sources */,
 				49A804BD24AA0E9800E30DA8 /* Insets.swift in Sources */,
 				49A8047E24AA0DF000E30DA8 /* CombineAnimation.swift in Sources */,
 				49A804BC24AA0E9800E30DA8 /* Circle.swift in Sources */,
@@ -2140,6 +2154,7 @@
 				49C12D5924A35204002CCDF5 /* PlayerConfig.swift in Sources */,
 				49A804E624AA0EBB00E30DA8 /* NodeRenderer.swift in Sources */,
 				49A804A524AA0E8D00E30DA8 /* MCAMediaTimingFunctionName_macOS.swift in Sources */,
+				4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				49A8049724AA0E0B00E30DA8 /* AnimOperators.swift in Sources */,
 				49A8047F24AA0DF000E30DA8 /* OpacityAnimation.swift in Sources */,
 				49A8049C24AA0E3800E30DA8 /* PanEvent.swift in Sources */,
@@ -2175,7 +2190,7 @@
 				49A8048E24AA0E0300E30DA8 /* AnimationUtils.swift in Sources */,
 				49A804F524AA0ED000E30DA8 /* CAAnimationClosure.swift in Sources */,
 				49A8049524AA0E0B00E30DA8 /* LocusInterpolation.swift in Sources */,
-				4926CE0F24CDECEA00419A42 /* GetPlayerConfigForEventUseCase.swift in Sources */,
+				4926CE0F24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				4926CE1224CDED0000419A42 /* GetAnnotationActionsForTimelineUseCase.swift in Sources */,
 				49A804B724AA0E9800E30DA8 /* PathSegmentType.swift in Sources */,
 				49A8048824AA0DF900E30DA8 /* AnimationCache.swift in Sources */,
@@ -2212,6 +2227,7 @@
 				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
 				49A804B324AA0E9800E30DA8 /* Path.swift in Sources */,
 				49A804EB24AA0EBF00E30DA8 /* MDisplayLink.swift in Sources */,
+				4930181424D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */,
 				49A804D224AA0EA100E30DA8 /* BlendEffect.swift in Sources */,
 				49A804B524AA0E9800E30DA8 /* PathBuilder.swift in Sources */,
 				49A804B624AA0E9800E30DA8 /* MoveTo.swift in Sources */,

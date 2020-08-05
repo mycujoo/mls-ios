@@ -25,7 +25,11 @@ public class VideoPlayer: NSObject {
             if stream != nil {
                 stream = nil
             }
-            rebuild()
+            let new = event?.id != oldValue?.id
+            if new, let oldEvent = oldValue {
+                cleanup(oldEvent: oldEvent)
+            }
+            rebuild(new: new)
         }
     }
 
@@ -36,7 +40,11 @@ public class VideoPlayer: NSObject {
             if event != nil {
                 event = nil
             }
-            rebuild()
+            let new = stream?.id != oldValue?.id
+            if new, let oldStream = oldValue {
+                cleanup(oldStream: oldStream)
+            }
+            rebuild(new: new)
         }
     }
 
@@ -154,8 +162,9 @@ public class VideoPlayer: NSObject {
     // MARK: - Private properties
 
     private let player: MLSAVPlayerProtocol
+    private let getEventUpdatesUseCase: GetEventUpdatesUseCase
     private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
-    private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
+    private let getPlayerConfigUseCase: GetPlayerConfigUseCase
     private let getSVGUseCase: GetSVGUseCase
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
@@ -164,6 +173,21 @@ public class VideoPlayer: NSObject {
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
     private var tovStore: TOVStore? = nil
+
+    /// The stream that is currently represented on-screen. Different from the `stream` property because it is used internally for state-keeping.
+    private var currentStream: Stream? = nil {
+        didSet {
+            if currentStream == nil || currentStream?.id != oldValue?.id {
+                // A different stream should be played.
+                // Note: also trigger when nil is being set again, because this will trigger secondary actions like updating info layer visibility.
+                placeCurrentStream()
+            } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, oldValue.fullUrl == nil && currentStream.fullUrl != nil {
+                // This is still the same stream, but the url was previously not known and now it is.
+                // This is relevant in cases like PPV, where previously a user may not have been entitled but now they are.
+                placeCurrentStream()
+            }
+        }
+    }
 
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
@@ -225,7 +249,7 @@ public class VideoPlayer: NSObject {
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
                 self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
-                self.view.setInfoButtonAndView(hidden: !self.playerConfig.showEventInfoButton)
+                self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
             }
         }
@@ -236,19 +260,28 @@ public class VideoPlayer: NSObject {
     init(
             view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
+            getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
-            getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
+            getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity) {
         self.player = player
+        self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
-        self.getPlayerConfigForEventUseCase = getPlayerConfigForEventUseCase
+        self.getPlayerConfigUseCase = getPlayerConfigUseCase
         self.getSVGUseCase = getSVGUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
 
         super.init()
+
+        // TODO: Update usecase to not depend on eventId.
+        getPlayerConfigUseCase.execute { [weak self] (playerConfig, _) in
+            if let playerConfig = playerConfig {
+                self?.playerConfig = playerConfig
+            }
+        }
 
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
@@ -289,65 +322,108 @@ public class VideoPlayer: NSObject {
         #endif
 
         youboraPlugin?.fireInit()
-
-        rebuild()
     }
 
     deinit {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "status")
         player.removeObserver(self, forKeyPath: "timeControlStatus")
+
+        if let event = event {
+            cleanup(oldEvent: event)
+        }
+        if let stream = stream {
+            cleanup(oldStream: stream)
+        }
+
         youboraPlugin?.fireStop()
     }
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
-    private func rebuild() {
-        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+    /// - parameter new: Boolean that indicates whether the newly loaded Event or Stream has a different id than the current one.
+    ///   If false, only some VideoPlayer changes are applied.
+    private func rebuild(new: Bool) {
+        currentStream = event?.streams.first ?? stream
 
-        // TODO: Consider how to play streams directly.
-        if let event = event {
-            var workItemCalled = false
-            let playStreamWorkItem = DispatchWorkItem() { [weak self] in
-                if !workItemCalled {
-                    workItemCalled = true
+        updateInfoTexts()
 
-                    if let stream = self?.event?.streams.first ?? self?.stream {
-                        self?.replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
-                            guard let self = self else { return }
-
-                            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: false)
-
-                            if completed {
-                                if self.playerConfig.autoplay {
-                                    self.play()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Schedule the player to start playing in 3 seconds if the API does not respond by then.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playStreamWorkItem)
-            getPlayerConfigForEventUseCase.execute(eventId: event.id) { [weak self] (playerConfig, _) in
-                if let playerConfig = playerConfig {
-                    self?.playerConfig = playerConfig
-                    DispatchQueue.main.async(execute: playStreamWorkItem)
-                }
-            }
-
+        if new {
             tovStore = TOVStore()
 
             // TODO: Should not pass eventId but timelineId
+            // TODO: Should use the startUpdating usecase.
             getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
                 if let actions = actions {
                     self?.annotationActions = actions
                 }
             }
 
-            view.infoTitleLabel.text = event.title
-            view.infoDescriptionLabel.text = event.descriptionText
+            if let event = event {
+                getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
+                    guard let self = self else { return }
+                    switch update {
+                    case .eventLiveViewers(_):
+                        // TODO: Handle event total
+                        break
+                    case .eventUpdate(let updatedEvent):
+                        // TODO: Always fetch at least one update on the event after it is initally loaded.
+                        if updatedEvent.id == event.id {
+                            self.event = updatedEvent
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.
+    /// Also calls the callback when it actually removes the currentItem because there is no appropriate stream to play.
+    /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
+    private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
+        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+
+        let url = currentStream?.fullUrl
+        let added = url != nil
+
+        if !added {
+            // TODO: Show the info layer or the thumbnail view.
+            self.view.setInfoViewVisibility(visible: true, animated: false)
+        } else {
+            // TODO: Remove info layer and thumbnail view.
+            self.view.setInfoViewVisibility(visible: false, animated: false)
+        }
+
+        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
+        player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
+            guard let self = self else { return }
+            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+
+            if added && completed {
+                if self.playerConfig.autoplay {
+                    self.play()
+                }
+            }
+            callback?(completed)
+        }
+    }
+
+    /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
+    /// - parameter oldEvent: The Event that was previously associated with the VideoPlayer.
+    private func cleanup(oldEvent: Event) {
+        getEventUpdatesUseCase.stop(id: oldEvent.id)
+    }
+
+    /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
+    /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
+    private func cleanup(oldStream: Stream) {}
+
+    /// Sets the correct labels on the info layer.
+    private func updateInfoTexts() {
+        view.infoTitleLabel.text = event?.title
+        view.infoDescriptionLabel.text = event?.descriptionText
+
+        if let event = event {
             if let startTime = event.startTime {
                 var timeStr = humanFriendlyDateFormatter.string(from: startTime)
                 if let timezone = event.timezone {
@@ -357,6 +433,8 @@ public class VideoPlayer: NSObject {
             } else {
                 view.infoDateLabel.text = nil
             }
+        } else {
+            view.infoDateLabel.text = nil
         }
     }
 
@@ -378,14 +456,6 @@ public class VideoPlayer: NSObject {
                 }
             }
         }
-    }
-
-    /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
-    /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
-    private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
-        // TODO: generate the user-agent elsewhere.
-        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        player.replaceCurrentItem(with: url, headers: headerFields, callback: callback)
     }
     
     //MARK: - KVO
@@ -414,10 +484,11 @@ public class VideoPlayer: NSObject {
                     }
 
                     DispatchQueue.main.async { [weak self] in
-                        if newStatus == .playing || newStatus == .paused {
-                            self?.view.setBufferIcon(hidden: true)
+                        guard let self = self else { return }
+                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream?.fullUrl != nil {
+                            self.view.setBufferIcon(hidden: false)
                         } else {
-                            self?.view.setBufferIcon(hidden: false)
+                            self.view.setBufferIcon(hidden: true)
                         }
                     }
                 }
@@ -567,8 +638,14 @@ extension VideoPlayer {
     private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: LiveState) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
-            self.view.setLiveButtonTo(state: liveState)
+
+            if elapsedSeconds.isNaN {
+                self.view.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
+                self.view.setLiveButtonTo(state: .notLive)
+            } else {
+                self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
+                self.view.setLiveButtonTo(state: liveState)
+            }
         }
     }
 
@@ -659,6 +736,9 @@ extension VideoPlayer {
 
     #if os(iOS)
     private func controlViewTapped() {
+        // Do not register taps on the control view when there is no stream url.
+        guard currentStream?.fullUrl != nil else { return }
+
         if view.infoViewHasAlpha {
             view.setInfoViewVisibility(visible: false, animated: true)
             setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: false)

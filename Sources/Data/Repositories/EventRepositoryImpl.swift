@@ -3,11 +3,20 @@
 //
 
 import Foundation
+import Moya
 
 
 class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
-    func fetchEvent(byId id: String, callback: @escaping (Event?, Error?) -> ()) {
-        _fetch(.eventById(id), type: DataLayer.Event.self) { (event, err) in
+    let ws: WebSocketConnection
+
+    init(api: MoyaProvider<API>, ws: WebSocketConnection) {
+        self.ws = ws
+
+        super.init(api: api)
+    }
+
+    func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ()) {
+        _fetch(.eventById(id: id, updateId: updateId), type: DataLayer.Event.self) { (event, err) in
             callback(event?.toDomain, err)
         }
     }
@@ -25,5 +34,26 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
             // TODO: Return the pagination tokens as well
             callback(wrapper?.events.map { $0.toDomain }, err)
         }
+    }
+
+    func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ()) {
+        // TODO: Determine sessionId
+        ws.subscribe(eventId: id, sessionId: "") { [weak self] update in
+            switch update {
+            case .eventTotal(let total):
+                callback(.eventLiveViewers(amount: total))
+            case .eventUpdate(let updateId):
+                // Fetch the event again and do the callback after that.
+                self?.fetchEvent(byId: id, updateId: updateId, callback: { updatedEvent, _ in
+                    if let updatedEvent = updatedEvent {
+                        callback(.eventUpdate(event: updatedEvent))
+                    }
+                })
+            }
+        }
+    }
+    
+    func stopEventUpdates(for id: String) {
+        ws.unsubscribe(eventId: id)
     }
 }

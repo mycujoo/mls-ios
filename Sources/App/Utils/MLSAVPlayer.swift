@@ -172,10 +172,16 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     }
 
     /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.
-    /// - parameter item: The item to play
+    /// - parameter item: The item to play. If nil is provided, the current item is removed.
     /// - parameter headers: The headers to attach to the network requests when playing this item
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
-    func replaceCurrentItem(with assetUrl: URL, headers: [String: String], callback: @escaping (Bool) -> ()) {
+    func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], callback: @escaping (Bool) -> ()) {
+        guard let assetUrl = assetUrl else {
+            self.replaceCurrentItem(with: nil)
+            callback(true)
+            return
+        }
+
         let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
             guard let `self` = self else { return }

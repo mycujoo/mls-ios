@@ -6,9 +6,9 @@ import Foundation
 import Moya
 
 enum API {
-    case eventById(String)
+    case eventById(id: String, updateId: String?)
     case events(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
-    case playerConfig(String)
+    case playerConfig
     case annotations(String)
 
     /// A dateformatter that can be used on Event objects on this API.
@@ -25,12 +25,12 @@ extension API: TargetType {
     var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
     var path: String {
         switch self {
-        case .eventById(let eventId):
+        case .eventById(let eventId, _):
             return "/bff/events/v1beta1/\(eventId)"
         case .events:
             return "/bff/events/v1beta1"
-        case .playerConfig(let eventId):
-            return "/bff/player_config/\(eventId)"
+        case .playerConfig:
+            return "/bff/player_config"
         case .annotations(let timelineId):
             return "/bff/annotations/\(timelineId)"
         }
@@ -284,7 +284,13 @@ extension API: TargetType {
             }
 
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        case .eventById, .playerConfig, .annotations:
+        case .eventById(_, let updateId):
+            var params: [String : Any] = [:]
+            if let updateId = updateId {
+                params["update_id"] = updateId
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .playerConfig, .annotations:
            return .requestPlain
        }
     }

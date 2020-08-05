@@ -16,7 +16,7 @@ class VideoPlayerSpec: QuickSpec {
     var mockAVPlayer: MockMLSAVPlayerProtocol!
     var mockAnnotationService: MockAnnotationServicing!
 
-    var mockAnnotationActionRepository: MockAnnotationActionRepository!
+    var mockTimelineRepository: MockTimelineRepository!
     var mockArbitraryDataRepository: MockArbitraryDataRepository!
     var mockEventRepository: MockEventRepository!
     var mockPlayerConfigRepository: MockPlayerConfigRepository!
@@ -56,19 +56,21 @@ class VideoPlayerSpec: QuickSpec {
             self.videoPlayer.observeValue(forKeyPath: "status", of: self.mockAVPlayer, change: [:], context: nil)
         }
 
-
         var playButtonTapped: (() -> Void)? = nil
+        var infoButtonTapped: (() -> Void)? = nil
+        var controlViewTapped: (() -> Void)? = nil
 
         beforeEach {
             currentDuration = 200
             currentTime = 90
             optimisticCurrentTime = 100
 
-            self.event = MLSSDK.Event(id: "mockevent", title: "Mock Event", descriptionText: "This is a mock event", thumbnailUrl: nil, organiser: nil, timezone: nil, startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24), status: .started, streams: [MLSSDK.Stream(fullUrl: URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8")!)], timelineIds: [])
+            self.event = EntityBuilder.buildEvent()
 
             self.mockView = MockVideoPlayerViewProtocol()
             stub(self.mockView) { mock in
                 var controlViewHasAlpha = false
+                var infoViewHasAlpha = false
 
                 when(mock).videoSlider.get.thenReturn(VideoProgressSlider())
 
@@ -79,7 +81,9 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).controlViewHasAlpha.get.then { _ -> Bool in
                     return controlViewHasAlpha
                 }
-                when(mock).infoViewHasAlpha.get.thenReturn(false)
+                when(mock).infoViewHasAlpha.get.then { _ -> Bool in
+                    return infoViewHasAlpha
+                }
                 when(mock).infoTitleLabel.get.thenReturn(UILabel())
                 when(mock).infoDateLabel.get.thenReturn(UILabel())
                 when(mock).infoDescriptionLabel.get.thenReturn(UILabel())
@@ -98,14 +102,16 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setOnSkipForwardButtonTapped(any()).thenDoNothing()
                 when(mock).setOnTimeSliderSlide(any()).thenDoNothing()
                 when(mock).setOnTimeSliderRelease(any()).thenDoNothing()
-                when(mock).setControlViewVisibility(visible: any(), animated: any()).then { (tuple) in
+                when(mock).setControlViewVisibility(visible: any(), animated: any()).then { tuple in
                     controlViewHasAlpha = tuple.0
                 }
-                when(mock).setInfoViewVisibility(visible: any(), animated: any()).thenDoNothing()
+                when(mock).setInfoViewVisibility(visible: any(), animated: any()).then { tuple in
+                    infoViewHasAlpha = tuple.0
+                }
                 when(mock).setPlayButtonTo(state: any()).thenDoNothing()
                 when(mock).setLiveButtonTo(state: any()).thenDoNothing()
                 when(mock).setBufferIcon(hidden: any()).thenDoNothing()
-                when(mock).setInfoButtonAndView(hidden: any()).thenDoNothing()
+                when(mock).setInfoButton(hidden: any()).thenDoNothing()
                 when(mock).setTimeIndicatorLabel(elapsedText: any(), totalText: any()).thenDoNothing()
                 when(mock).setTimelineMarkers(with: any()).thenDoNothing()
                 when(mock).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any()).thenReturn(UIView())
@@ -113,10 +119,14 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).removeOverlay(containerView: any(), animateType: any(), animateDuration: any(), completion: any()).then { (tuple) in
                     (tuple.3)()
                 }
-                when(mock).setOnControlViewTapped(any()).thenDoNothing()
+                when(mock).setOnControlViewTapped(any()).then { action in
+                    controlViewTapped = action
+                }
                 when(mock).setOnLiveButtonTapped(any()).thenDoNothing()
                 when(mock).setOnFullscreenButtonTapped(any()).thenDoNothing()
-                when(mock).setOnInfoButtonTapped(any()).thenDoNothing()
+                when(mock).setOnInfoButtonTapped(any()).then { action in
+                    infoButtonTapped = action
+                }
                 when(mock).setFullscreenButtonTo(fullscreen: any()).thenDoNothing()
                 when(mock).setSkipButtons(hidden: any()).thenDoNothing()
             }
@@ -171,21 +181,28 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.mockAnnotationActionRepository = MockAnnotationActionRepository()
+            self.mockTimelineRepository = MockTimelineRepository()
             self.mockArbitraryDataRepository = MockArbitraryDataRepository()
             self.mockEventRepository = MockEventRepository()
             self.mockPlayerConfigRepository = MockPlayerConfigRepository()
 
+            stub(self.mockEventRepository) { mock in
+                when(mock).startEventUpdates(for: any(), callback: any()).thenDoNothing()
+                when(mock).stopEventUpdates(for: any()).thenDoNothing()
+            }
+
             stub(self.mockPlayerConfigRepository) { mock in
-                when(mock).fetchPlayerConfig(byEventId: any(), callback: any()).then { (tuple) in
-                    (tuple.1)(MLSSDK.PlayerConfig.standard(), nil)
+                when(mock).fetchPlayerConfig(callback: any()).then { callback in
+                    callback(MLSSDK.PlayerConfig.standard(), nil)
                 }
             }
 
-            stub(self.mockAnnotationActionRepository) { mock in
+            stub(self.mockTimelineRepository) { mock in
                 when(mock).fetchAnnotationActions(byTimelineId: any(), callback: any()).then { tuple in
                     (tuple.1)([], nil)
                 }
+                when(mock).startTimelineUpdates(for: any(), callback: any()).thenDoNothing()
+                when(mock).stopTimelineUpdates(for: any()).thenDoNothing()
             }
 
             stub(self.mockArbitraryDataRepository) { mock in
@@ -199,17 +216,140 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(annotationActionRepository: self.mockAnnotationActionRepository), getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
+            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
         }
 
-        describe("loading events") {
-            it("replaces avplayer item") {
-                self.videoPlayer.event = self.event
+        describe("loading streams and events") {
+            it("replaces avplayer item when setting a stream") {
+                waitUntil { done in
+                    self.videoPlayer.stream = EntityBuilder.buildStream(withURL: true)
 
-                // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
-                let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                    verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
+                    // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
+
+                        done()
+                    }
                 }
+            }
+
+            it("replaces avplayer item when setting an event") {
+                waitUntil { done in
+                    self.videoPlayer.event = self.event
+
+                    // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
+
+                        done()
+                    }
+                }
+            }
+
+            it("it replaces avplayer item when the stream id is the same but the url became available") {
+                waitUntil { done in
+                    self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false)
+
+                    // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.isNil(), headers: any(), callback: any())
+
+                        self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            it("does not replace avplayer item when the stream url for the same stream id changes to another stream url") {
+                waitUntil { done in
+                    self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true)
+
+                    // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
+
+                        self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true)
+
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                            // The item should not have been replaced.
+                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
+
+                            done()
+                        }
+                    }
+                }
+            }
+        }
+
+        describe("info layer") {
+            it("shows the info layer when there is no stream") {
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
+
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: false, withStreamURL: false)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+            }
+
+            it("shows the info layer when there is no stream url") {
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
+
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+            }
+
+            it("does not allow info layer dismissal when there is no stream") {
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                controlViewTapped?()
+
+                // Verify the count did not go up.
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: false, animated: any())
+            }
+
+            it("dismisses info layer on controlview tapped when there is a stream") {
+                self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: true)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
+
+                infoButtonTapped?()
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                controlViewTapped?()
+
+                verify(self.mockView, times(2)).setInfoViewVisibility(visible: false, animated: any())
+            }
+
+            it("hides the info layer when a stream url appears on a previously loaded event") {
+                self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
+            }
+
+            it("does not show info layer again when the same event/stream is updated") {
+                let event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false)
+                self.videoPlayer.event = event
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+
+                self.videoPlayer.event = event
+
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+            }
+
+            it("shows an upcoming poster and no info view when it is available and there is no stream") {
+
             }
         }
 
@@ -432,16 +572,17 @@ class VideoPlayerSpec: QuickSpec {
 
             describe("play button taps") {
                 it("switches from pause to play") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
-                    playButtonTapped?()
+                    // Keep in mind that this is initial status is dependent on autoplay being set on the PlayerConfig.
                     expect(self.videoPlayer.status).to(equal(.play))
+                    playButtonTapped?()
+                    expect(self.videoPlayer.status).to(equal(.pause))
                 }
 
                 it("switches from play to pause") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.play))
                     playButtonTapped?()
                     playButtonTapped?()
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.play))
                 }
 
                 it("Seeks to beginning if state is currently ended") {
