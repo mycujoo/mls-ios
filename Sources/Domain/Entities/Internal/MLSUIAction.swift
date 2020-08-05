@@ -33,7 +33,7 @@ extension MLSUI {
         let size: AnnotationActionShowOverlay.Size
         let animateType: OverlayAnimateinType
         let animateDuration: Double
-        let variablePositions: [String: String]
+        let variables: [String]
 
         var overlayId: String {
             return overlay.id

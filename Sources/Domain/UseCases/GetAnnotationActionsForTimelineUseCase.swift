@@ -6,14 +6,14 @@ import Foundation
 
 
 class GetAnnotationActionsForTimelineUseCase {
-    private let annotationActionRepository: AnnotationActionRepository
+    private let timelineRepository: TimelineRepository
 
-    init(annotationActionRepository: AnnotationActionRepository) {
-        self.annotationActionRepository = annotationActionRepository
+    init(timelineRepository: TimelineRepository) {
+        self.timelineRepository = timelineRepository
     }
 
     func execute(timelineId: String, completionHandler: @escaping ([AnnotationAction]?, Error?) -> ()) {
-        annotationActionRepository.fetchAnnotationActions(byTimelineId: timelineId) { (actions, error) in
+        timelineRepository.fetchAnnotationActions(byTimelineId: timelineId) { (actions, error) in
             completionHandler(actions, error)
         }
     }

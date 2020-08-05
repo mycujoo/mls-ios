@@ -5,14 +5,12 @@
 import AVFoundation
 import YouboraAVPlayerAdapter
 import YouboraLib
-import Alamofire
 
 public class VideoPlayer: NSObject {
 
     // MARK: - Public properties
 
     public weak var delegate: PlayerDelegate?
-    public private(set) var view: VideoPlayerView!
 
     public private(set) var state: State = .unknown {
         didSet {
@@ -27,7 +25,11 @@ public class VideoPlayer: NSObject {
             if stream != nil {
                 stream = nil
             }
-            rebuild()
+            let new = event?.id != oldValue?.id
+            if new, let oldEvent = oldValue {
+                cleanup(oldEvent: oldEvent)
+            }
+            rebuild(new: new)
         }
     }
 
@@ -38,7 +40,11 @@ public class VideoPlayer: NSObject {
             if event != nil {
                 event = nil
             }
-            rebuild()
+            let new = stream?.id != oldValue?.id
+            if new, let oldStream = oldValue {
+                cleanup(oldStream: oldStream)
+            }
+            rebuild(new: new)
         }
     }
 
@@ -69,6 +75,14 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// The view of the VideoPlayer.
+    public var playerView: UIView {
+        if let view = view as? UIView {
+            return view
+        }
+        fatalError("When running unit tests, this property cannot be accessed. Use `view` directly.")
+    }
+
     #if os(iOS)
     /// This property changes when the fullscreen button is tapped. SDK implementors can update this state directly, which will update the visual of the button.
     /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
@@ -87,7 +101,7 @@ public class VideoPlayer: NSObject {
 
     /// Indicates whether the current item is a live stream.
     public var isLivestream: Bool {
-        guard let duration = player.currentItem?.duration else {
+        guard let duration = player.currentDurationAsCMTime else {
             return false
         }
         let seconds = CMTimeGetSeconds(duration)
@@ -115,11 +129,43 @@ public class VideoPlayer: NSObject {
         }
     }
 
+    /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
+    public var controlView: UIView {
+        return view.controlView
+    }
+    /// The AVPlayerLayer of the associated AVPlayer
+    public var playerLayer: AVPlayerLayer? {
+        return view.playerLayer
+    }
+
+    #if os(iOS)
+    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
+    public var topControlsStackView: UIStackView {
+        return view.topControlsStackView
+    }
+
+    /// Sets the visibility of the fullscreen button.
+    public var fullscreenButtonIsHidden: Bool {
+        get {
+            return view.fullscreenButtonIsHidden
+        }
+        set {
+            view.fullscreenButtonIsHidden = newValue
+        }
+    }
+    /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
+    public var tapGestureRecognizer: UITapGestureRecognizer {
+        return view.tapGestureRecognizer
+    }
+    #endif
+
     // MARK: - Private properties
 
-    private let player = MLSAVPlayer()
+    private let player: MLSAVPlayerProtocol
+    private let getEventUpdatesUseCase: GetEventUpdatesUseCase
     private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
-    private let getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase
+    private let getPlayerConfigUseCase: GetPlayerConfigUseCase
+    private let getSVGUseCase: GetSVGUseCase
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
@@ -128,6 +174,21 @@ public class VideoPlayer: NSObject {
 
     private var tovStore: TOVStore? = nil
 
+    /// The stream that is currently represented on-screen. Different from the `stream` property because it is used internally for state-keeping.
+    private var currentStream: Stream? = nil {
+        didSet {
+            if currentStream == nil || currentStream?.id != oldValue?.id {
+                // A different stream should be played.
+                // Note: also trigger when nil is being set again, because this will trigger secondary actions like updating info layer visibility.
+                placeCurrentStream()
+            } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, oldValue.fullUrl == nil && currentStream.fullUrl != nil {
+                // This is still the same stream, but the url was previously not known and now it is.
+                // This is relevant in cases like PPV, where previously a user may not have been entitled but now they are.
+                placeCurrentStream()
+            }
+        }
+    }
+
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
         df.dateStyle = .medium
@@ -135,12 +196,16 @@ public class VideoPlayer: NSObject {
         return df
     }()
 
-    private lazy var youboraPlugin: YBPlugin = {
+    private lazy var youboraPlugin: YBPlugin? = {
+        // Only add the adapter in real scenarios. When running unit tests with a mocked player, there will not be a youbora plugin.
+        guard let avPlayer = self.player as? AVPlayer else { return nil }
+
         let options = YBOptions()
         options.accountCode = "mycujoo"
         options.username = "mls"
         let plugin = YBPlugin(options: options)
-        plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: player))
+        plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
+
         return plugin
     }()
 
@@ -161,13 +226,18 @@ public class VideoPlayer: NSObject {
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
-    var overlays: [String: UIView] = [:]
+    private var overlays: [String: UIView] = [:]
 
     /// A level that indicates which actions are allowed to overwrite the state of the control view visibility.
     private var controlViewDirectiveLevel: DirectiveLevel = .none
     private var controlViewLocked: Bool = false
 
+    /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
+    private let seekTolerance: CMTime
+
     // MARK: - Internal properties
+
+    var view: VideoPlayerViewProtocol!
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
@@ -178,38 +248,47 @@ public class VideoPlayer: NSObject {
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
-                self.view.skipBackButton.isHidden = !self.playerConfig.showBackForwardsButtons
-                self.view.skipForwardButton.isHidden = !self.playerConfig.showBackForwardsButtons
-                self.view.infoButton.isHidden = !self.playerConfig.showEventInfoButton
-                self.view.infoView.isHidden = !self.playerConfig.showEventInfoButton
+                self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
+                self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
             }
         }
     }
 
-    /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
-    private let seekTolerance: CMTime
-
     // MARK: - Methods
 
     init(
+            view: VideoPlayerViewProtocol,
+            player: MLSAVPlayerProtocol,
+            getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
-            getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase,
+            getPlayerConfigUseCase: GetPlayerConfigUseCase,
+            getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity) {
+        self.player = player
+        self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
-        self.getPlayerConfigForEventUseCase = getPlayerConfigForEventUseCase
+        self.getPlayerConfigUseCase = getPlayerConfigUseCase
+        self.getSVGUseCase = getSVGUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
 
         super.init()
+
+        // TODO: Update usecase to not depend on eventId.
+        getPlayerConfigUseCase.execute { [weak self] (playerConfig, _) in
+            if let playerConfig = playerConfig {
+                self?.playerConfig = playerConfig
+            }
+        }
 
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
 
         func initPlayerView() {
-            view = VideoPlayerView()
+            self.view = view
             view.setOnTimeSliderSlide(sliderUpdated)
             view.setOnTimeSliderRelease(sliderReleased)
             view.setOnPlayButtonTapped(playButtonTapped)
@@ -242,66 +321,109 @@ public class VideoPlayer: NSObject {
         player.isMuted = true
         #endif
 
-        youboraPlugin.fireInit()
-
-        rebuild()
+        youboraPlugin?.fireInit()
     }
 
     deinit {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "status")
         player.removeObserver(self, forKeyPath: "timeControlStatus")
-        youboraPlugin.fireStop()
+
+        if let event = event {
+            cleanup(oldEvent: event)
+        }
+        if let stream = stream {
+            cleanup(oldStream: stream)
+        }
+
+        youboraPlugin?.fireStop()
     }
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
     /// Also should be called on init().
-    private func rebuild() {
-        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+    /// - parameter new: Boolean that indicates whether the newly loaded Event or Stream has a different id than the current one.
+    ///   If false, only some VideoPlayer changes are applied.
+    private func rebuild(new: Bool) {
+        currentStream = event?.streams.first ?? stream
 
-        // TODO: Consider how to play streams directly.
-        if let event = event {
-            var workItemCalled = false
-            let playStreamWorkItem = DispatchWorkItem() { [weak self] in
-                if !workItemCalled {
-                    workItemCalled = true
+        updateInfoTexts()
 
-                    if let stream = self?.event?.streams.first ?? self?.stream {
-                        self?.replaceCurrentItem(url: stream.fullUrl) { [weak self] completed in
-                            guard let self = self else { return }
+        if new {
+            tovStore = TOVStore()
 
-                            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: false)
+            // TODO: Should not pass eventId but timelineId
+            // TODO: Should use the startUpdating usecase.
+            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
+                if let actions = actions {
+                    self?.annotationActions = actions
+                }
+            }
 
-                            if completed {
-                                if self.playerConfig.autoplay {
-                                    self.play()
-                                }
-                            }
+            if let event = event {
+                getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
+                    guard let self = self else { return }
+                    switch update {
+                    case .eventLiveViewers(_):
+                        // TODO: Handle event total
+                        break
+                    case .eventUpdate(let updatedEvent):
+                        // TODO: Always fetch at least one update on the event after it is initally loaded.
+                        if updatedEvent.id == event.id {
+                            self.event = updatedEvent
                         }
                     }
                 }
             }
+        }
+    }
 
-            // Schedule the player to start playing in 3 seconds if the API does not respond by then.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: playStreamWorkItem)
-            getPlayerConfigForEventUseCase.execute(eventId: event.id) { [weak self] (playerConfig, _) in
-                if let playerConfig = playerConfig {
-                    self?.playerConfig = playerConfig
-                    DispatchQueue.main.async(execute: playStreamWorkItem)
+    /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.
+    /// Also calls the callback when it actually removes the currentItem because there is no appropriate stream to play.
+    /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
+    private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
+        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+
+        let url = currentStream?.fullUrl
+        let added = url != nil
+
+        if !added {
+            // TODO: Show the info layer or the thumbnail view.
+            self.view.setInfoViewVisibility(visible: true, animated: false)
+        } else {
+            // TODO: Remove info layer and thumbnail view.
+            self.view.setInfoViewVisibility(visible: false, animated: false)
+        }
+
+        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
+        player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
+            guard let self = self else { return }
+            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+
+            if added && completed {
+                if self.playerConfig.autoplay {
+                    self.play()
                 }
             }
+            callback?(completed)
+        }
+    }
 
-            tovStore = TOVStore()
+    /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
+    /// - parameter oldEvent: The Event that was previously associated with the VideoPlayer.
+    private func cleanup(oldEvent: Event) {
+        getEventUpdatesUseCase.stop(id: oldEvent.id)
+    }
 
-            // TODO: Should not pass eventId but timelineId
-            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (annotations, _) in
-                if let annotations = annotations {
-                    self?.annotationActions = annotations
-                }
-            }
+    /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
+    /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
+    private func cleanup(oldStream: Stream) {}
 
-            view.infoTitleLabel.text = event.title
-            view.infoDescriptionLabel.text = event.descriptionText
+    /// Sets the correct labels on the info layer.
+    private func updateInfoTexts() {
+        view.infoTitleLabel.text = event?.title
+        view.infoDescriptionLabel.text = event?.descriptionText
+
+        if let event = event {
             if let startTime = event.startTime {
                 var timeStr = humanFriendlyDateFormatter.string(from: startTime)
                 if let timezone = event.timezone {
@@ -311,6 +433,8 @@ public class VideoPlayer: NSObject {
             } else {
                 view.infoDateLabel.text = nil
             }
+        } else {
+            view.infoDateLabel.text = nil
         }
     }
 
@@ -320,8 +444,7 @@ public class VideoPlayer: NSObject {
 
             self?.activeOverlayIds = output.activeOverlayIds
 
-            self?.tovStore?.new(variables: output.variables)
-            self?.tovStore?.new(timers: output.timers)
+            self?.tovStore?.new(tovs: output.tovs)
 
             DispatchQueue.main.async { [weak self] in
                 self?.view.setTimelineMarkers(with: output.showTimelineMarkers)
@@ -331,31 +454,6 @@ public class VideoPlayer: NSObject {
                 if output.hideOverlays.count > 0 {
                     self?.hideOverlays(with: output.hideOverlays)
                 }
-            }
-        }
-    }
-
-    /// Use this method instead of calling replaceCurrentItem() directly on the AVPlayer.
-    /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
-    private func replaceCurrentItem(url: URL, callback: @escaping (Bool) -> ()) {
-        // TODO: generate the user-agent elsewhere.
-        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        let asset = AVURLAsset(url: url, options: ["AVURLAssetHTTPHeaderFieldsKey": headerFields, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
-        asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
-            guard let `self` = self else { return }
-
-            var error: NSError?
-            let status = asset.statusOfValue(forKey: "playable", error: &error)
-            switch status {
-            case .loaded:
-                let playerItem = AVPlayerItem(asset: asset)
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    self.player.replaceCurrentItem(with: playerItem)
-                    callback(true)
-                }
-            default:
-                callback(false)
             }
         }
     }
@@ -386,10 +484,11 @@ public class VideoPlayer: NSObject {
                     }
 
                     DispatchQueue.main.async { [weak self] in
-                        if newStatus == .playing || newStatus == .paused {
-                            self?.view.setBufferIcon(visible: false)
+                        guard let self = self else { return }
+                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream?.fullUrl != nil {
+                            self.view.setBufferIcon(hidden: false)
                         } else {
-                            self?.view.setBufferIcon(visible: true)
+                            self.view.setBufferIcon(hidden: true)
                         }
                     }
                 }
@@ -421,12 +520,12 @@ extension VideoPlayer {
             // (because we only have the initial SVG, we don't keep its updated states with the original tokens
             // included).
             guard let tovStore = self.tovStore else { return }
-            for it in action.variablePositions {
+            for variableName in action.variables {
                 // Fallback to the variable name if there is no variable defined.
                 // The reason for this is that certain "variable-like" values might have slipped through,
                 // e.g. prices that start with a dollar sign.
-                let resolved = tovStore.get(by: it.value)?.humanFriendlyValue ?? it.value
-                baseSVG = baseSVG.replacingOccurrences(of: it.key, with: resolved)
+                let resolved = tovStore.get(by: variableName)?.humanFriendlyValue ?? variableName
+                baseSVG = baseSVG.replacingOccurrences(of: variableName, with: resolved)
             }
 
             if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
@@ -450,11 +549,11 @@ extension VideoPlayer {
             guard let self = self else { return }
             for action in actions {
                 // TODO: Find out if this is reading from network cache layer.
-                AF.request(action.overlay.svgURL, method: .get).responseString{ [weak self] response in
+                self.getSVGUseCase.execute(url: action.overlay.svgURL) { [weak self] (baseSVG, _) in
                     guard let self = self else { return }
 
-                    if let baseSVG = response.value {
-                        for (_, variableName) in action.variablePositions {
+                    if let baseSVG = baseSVG {
+                        for variableName in action.variables {
                             self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { val in
                                 // Re-render the entire SVG (including replacing all tokens with their resolved values)
                                 svgParseAndRender(action: action, baseSVG: baseSVG)
@@ -479,7 +578,7 @@ extension VideoPlayer {
         }
     }
 
-    private func trackTime(with player: AVPlayer) -> Any {
+    private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
         player
             .addPeriodicTimeObserver(
                 forInterval: CMTime(value: 1, timescale: 1),
@@ -539,8 +638,14 @@ extension VideoPlayer {
     private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: LiveState) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
-            self.view.setLiveButtonTo(state: liveState)
+
+            if elapsedSeconds.isNaN {
+                self.view.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
+                self.view.setLiveButtonTo(state: .notLive)
+            } else {
+                self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
+                self.view.setLiveButtonTo(state: liveState)
+            }
         }
     }
 
@@ -631,6 +736,9 @@ extension VideoPlayer {
 
     #if os(iOS)
     private func controlViewTapped() {
+        // Do not register taps on the control view when there is no stream url.
+        guard currentStream?.fullUrl != nil else { return }
+
         if view.infoViewHasAlpha {
             view.setInfoViewVisibility(visible: false, animated: true)
             setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: false)

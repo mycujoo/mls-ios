@@ -6,5 +6,5 @@ import Foundation
 
 
 protocol PlayerConfigRepository {
-    func fetchPlayerConfig(byEventId eventId: String, callback: @escaping (PlayerConfig?, Error?) -> ())
+    func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())
 }

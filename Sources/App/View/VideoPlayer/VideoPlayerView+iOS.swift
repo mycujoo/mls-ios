@@ -6,7 +6,7 @@
 import UIKit
 import AVKit
 
-public class VideoPlayerView: UIView  {
+public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
     // MARK: - Properties
 
@@ -64,7 +64,7 @@ public class VideoPlayerView: UIView  {
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var infoIcon = UIImage(named: "Icon-Info", in: Bundle.resourceBundle, compatibleWith: nil)
 
-    lazy var playButton: UIButton = {
+    private lazy var playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         if let image = playIcon {
@@ -74,7 +74,7 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    lazy var bufferIcon: NVActivityIndicatorView = {
+    private lazy var bufferIcon: NVActivityIndicatorView = {
         let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         indicator.color = .white
         indicator.type = .circleStrokeSpin
@@ -82,7 +82,7 @@ public class VideoPlayerView: UIView  {
         return indicator
     }()
 
-    lazy var skipBackButton: UIButton = {
+    private lazy var skipBackButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         if let image = skipBackIcon {
@@ -92,7 +92,7 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    lazy var skipForwardButton: UIButton = {
+    private lazy var skipForwardButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         if let image = skipForwardIcon {
@@ -102,7 +102,7 @@ public class VideoPlayerView: UIView  {
         return button
     }()
 
-    let barControlsStackView: UIStackView = {
+    private let barControlsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -126,7 +126,7 @@ public class VideoPlayerView: UIView  {
         return slider
     }()
 
-    lazy var liveButton: UIButton = {
+    private lazy var liveButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(NSLocalizedString("LIVE", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "LIVE", comment: ""), for: .normal)
@@ -164,7 +164,7 @@ public class VideoPlayerView: UIView  {
         return stackView
     }()
 
-    lazy var infoButton: UIButton = {
+    private lazy var infoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         if let image = infoIcon {
@@ -208,7 +208,7 @@ public class VideoPlayerView: UIView  {
     }()
 
     /// The view in which all event/stream information is rendered.
-    let infoView: UIView = {
+    private let infoView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
@@ -277,7 +277,7 @@ public class VideoPlayerView: UIView  {
     }
 
     /// Exposes the `UITapGestureRecognizer` on the VideoPlayerView, which is used to determine whether to hide or show the controls.
-    public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+    private(set) public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
         let gr = UITapGestureRecognizer(target: self, action: #selector(controlViewTapped))
         gr.numberOfTapsRequired = 1
         gr.delegate = self
@@ -507,13 +507,16 @@ public class VideoPlayerView: UIView  {
 
     //MARK: - Methods
 
-    func drawPlayer(with player: AVPlayer) {
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = .resizeAspect
-        playerLayer.needsDisplayOnBoundsChange = true
-        self.playerLayer = playerLayer
-        layer.addSublayer(playerLayer)
-        playerLayer.frame = bounds
+    func drawPlayer(with player: MLSAVPlayerProtocol) {
+        if let avPlayer = player as? AVPlayer {
+            // Only add the playerlayer in real scenarios. When running unit tests with a mocked player, this will not work.
+            let playerLayer = AVPlayerLayer(player: avPlayer)
+            playerLayer.videoGravity = .resizeAspect
+            playerLayer.needsDisplayOnBoundsChange = true
+            self.playerLayer = playerLayer
+            layer.addSublayer(playerLayer)
+            playerLayer.frame = bounds
+        }
 
         bringSubviewToFront(safeView)
     }
@@ -658,17 +661,29 @@ extension VideoPlayerView {
         }
     }
 
+    /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
-    func setBufferIcon(visible: Bool) {
-        if visible {
-            bufferIcon.startAnimating()
-            bringSubviewToFront(bufferIcon)
-        } else {
+    func setBufferIcon(hidden: Bool) {
+        if hidden {
             sendSubviewToBack(bufferIcon)
             bufferIcon.stopAnimating()
+        } else {
+            bufferIcon.startAnimating()
+            bringSubviewToFront(bufferIcon)
         }
-        bufferIcon.isHidden = !visible
-        playButton.isHidden = visible
+        bufferIcon.isHidden = hidden
+        playButton.isHidden = !hidden
+    }
+
+    /// Sets the `isHidden` property of the skip backwards/forwards buttons.
+    func setSkipButtons(hidden: Bool) {
+        skipBackButton.isHidden = hidden
+        skipForwardButton.isHidden = hidden
+    }
+
+    /// Sets the `isHidden` property of the info button and the info view.
+    func setInfoButton(hidden: Bool) {
+        infoButton.isHidden = hidden
     }
 
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.

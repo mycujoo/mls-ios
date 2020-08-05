@@ -10,6 +10,8 @@ public struct Configuration {
     public init() { }
 }
 
+/// The class that should be used to interact with MLS components.
+/// - note: Make sure to retain an instance of this class as long as you use any of its components.
 public class MLS {
     public var publicKey: String
     public let configuration: Configuration
@@ -20,35 +22,56 @@ public class MLS {
         return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
     }()
 
-    private lazy var annotationActionRepository: AnnotationActionRepository = {
-        return AnnotationActionRepositoryImpl(api: api)
+    private lazy var realApi: MoyaProvider<API> = {
+        let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] _ in
+            return self?.publicKey ?? ""
+        })
+//        return MoyaProvider<API>(plugins: [authPlugin, NetworkLoggerPlugin()])
+        return MoyaProvider<API>(plugins: [authPlugin])
+    }()
+
+    private lazy var ws: WebSocketConnection = {
+        return WebSocketConnection()
+    }()
+
+    private lazy var timelineRepository: TimelineRepository = {
+        return TimelineRepositoryImpl(api: api)
     }()
     private lazy var eventRepository: EventRepository = {
-        return EventRepositoryImpl(api: api)
+        return EventRepositoryImpl(api: realApi, ws: ws)
     }()
     private lazy var playerConfigRepository: PlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
     }()
-
-    lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
-        return GetAnnotationActionsForTimelineUseCase(annotationActionRepository: annotationActionRepository)
+    private lazy var arbitraryDataRepository: ArbitraryDataRepository = {
+        return ArbitraryDataRepositoryImpl()
     }()
-    lazy var getEventUseCase: GetEventUseCase = {
+
+    private lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
+        return GetAnnotationActionsForTimelineUseCase(timelineRepository: timelineRepository)
+    }()
+    private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
     }()
-    lazy var getPlayerConfigForEventUseCase: GetPlayerConfigForEventUseCase = {
-        return GetPlayerConfigForEventUseCase(playerConfigRepository: playerConfigRepository)
+    private lazy var getEventUpdatesUseCase: GetEventUpdatesUseCase = {
+        return GetEventUpdatesUseCase(eventRepository: eventRepository)
     }()
-    lazy var listEventsUseCase: ListEventsUseCase = {
+    private lazy var getPlayerConfigUseCase: GetPlayerConfigUseCase = {
+        return GetPlayerConfigUseCase(playerConfigRepository: playerConfigRepository)
+    }()
+    private lazy var listEventsUseCase: ListEventsUseCase = {
         return ListEventsUseCase(eventRepository: eventRepository)
+    }()
+    private lazy var getSVGUseCase: GetSVGUseCase = {
+        return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
     }()
 
     /// An internally available service that can be overwritten for the purpose of testing.
-    lazy var annotationService: AnnotationServicing = {
+    private lazy var annotationService: AnnotationServicing = {
         return AnnotationService()
     }()
 
-    lazy var dataProvider_: DataProvider = {
+    private lazy var dataProvider_: DataProvider = {
         return DataProvider(listEventsUseCase: listEventsUseCase)
     }()
 
@@ -63,8 +86,12 @@ public class MLS {
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     public func videoPlayer(with event: Event? = nil, seekTolerance: CMTime = .positiveInfinity) -> VideoPlayer {
         let player = VideoPlayer(
+            view: VideoPlayerView(),
+            player: MLSAVPlayer(),
+            getEventUpdatesUseCase: getEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
-            getPlayerConfigForEventUseCase: getPlayerConfigForEventUseCase,
+            getPlayerConfigUseCase: getPlayerConfigUseCase,
+            getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,
             seekTolerance: seekTolerance)
 

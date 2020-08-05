@@ -20,22 +20,22 @@ class WithFullscreenZoomViewController: UIViewController {
         didSet {
             switch playerConstraintMode {
             case .portrait:
-                videoPlayer.view.playerLayer?.videoGravity = .resizeAspect
+                videoPlayer.playerLayer?.videoGravity = .resizeAspect
                 NSLayoutConstraint.deactivate(landscapePlayerConstraints)
                 NSLayoutConstraint.activate(portraitPlayerConstraints)
             case .landscape:
-                videoPlayer.view.playerLayer?.videoGravity = .resizeAspect
+                videoPlayer.playerLayer?.videoGravity = .resizeAspect
                 NSLayoutConstraint.deactivate(portraitPlayerConstraints)
                 NSLayoutConstraint.activate(landscapePlayerConstraints)
             case .zoomedLandscape:
-                videoPlayer.view.playerLayer?.videoGravity = .resizeAspectFill
+                videoPlayer.playerLayer?.videoGravity = .resizeAspectFill
                 NSLayoutConstraint.deactivate(portraitPlayerConstraints)
                 NSLayoutConstraint.activate(landscapePlayerConstraints)
             default:
                 break
             }
-            videoPlayer.view.setNeedsLayout()
-            videoPlayer.view.layoutIfNeeded()
+            videoPlayer.playerView.setNeedsLayout()
+            videoPlayer.playerView.layoutIfNeeded()
         }
     }
 
@@ -61,22 +61,22 @@ class WithFullscreenZoomViewController: UIViewController {
         if videoPlayer.delegate == nil {
             videoPlayer.delegate = self
 
-            view.addSubview(videoPlayer.view)
-            videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(videoPlayer.playerView)
+            videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
 
             portraitPlayerConstraints = [
-                videoPlayer.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                videoPlayer.view.heightAnchor.constraint(equalTo: videoPlayer.view.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.view.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+                videoPlayer.playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                videoPlayer.playerView.heightAnchor.constraint(equalTo: videoPlayer.playerView.widthAnchor, multiplier: 9 / 16),
+                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                videoPlayer.playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
             landscapePlayerConstraints = [
-                videoPlayer.view.topAnchor.constraint(equalTo: view.topAnchor),
-                videoPlayer.view.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.view.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                videoPlayer.playerView.topAnchor.constraint(equalTo: view.topAnchor),
+                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                videoPlayer.playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
 
             for constraint in (portraitPlayerConstraints + landscapePlayerConstraints) {
@@ -86,13 +86,13 @@ class WithFullscreenZoomViewController: UIViewController {
             doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(playerViewDoubleTapped))
             doubleTapGestureRecognizer!.numberOfTapsRequired = 2
             doubleTapGestureRecognizer!.delegate = self
-            videoPlayer.view.addGestureRecognizer(doubleTapGestureRecognizer!)
+            videoPlayer.playerView.addGestureRecognizer(doubleTapGestureRecognizer!)
         }
 
         updateIsFullscreen(to: isLandscape)
 
         mls.dataProvider().eventList(hasStream: true, orderBy: .titleDesc, completionHandler: { [weak self] (events) in
-            self?.videoPlayer.event = events?.first
+            self?.videoPlayer.event = events?.filter { $0.streams.compactMap { $0.fullUrl }.first != nil }.first
         })
     }
 }
@@ -121,7 +121,7 @@ extension WithFullscreenZoomViewController: PlayerDelegate {
 extension WithFullscreenZoomViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let doubleTapGestureRecognizer = self.doubleTapGestureRecognizer else { return false }
-        if gestureRecognizer == doubleTapGestureRecognizer && otherGestureRecognizer == videoPlayer.view.tapGestureRecognizer {
+        if gestureRecognizer == doubleTapGestureRecognizer && otherGestureRecognizer == videoPlayer.tapGestureRecognizer {
             // Could return true here. However, we only want to register double-taps in landscape mode in this demo.
             return videoPlayer.isFullscreen
         }

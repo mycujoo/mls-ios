@@ -6,15 +6,15 @@ import Foundation
 import AVFoundation
 
 /// A subclass of AVPlayer to improve visibility of such things as seeking states.
-class MLSAVPlayer: AVPlayer {
+class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private(set) var isSeeking = false
 
-    /// - returns: The current time (in seconds) of the currentItem.
+    /// The current time (in seconds) of the currentItem.
     var currentTime: Double {
         return (CMTimeGetSeconds(currentTime()) * 10).rounded() / 10
     }
 
-    /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
+    /// The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double {
         return _seekingToTime ?? currentTime
     }
@@ -22,7 +22,8 @@ class MLSAVPlayer: AVPlayer {
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
     private var _seekingToTime: Double? = nil
 
-    /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
+    /// The duration (in seconds) of the currentItem. If unknown, returns 0.
+    /// - seeAlso: `cmDuration`
     var currentDuration: Double {
         guard let duration = currentItem?.duration else { return 0 }
         let seconds = CMTimeGetSeconds(duration)
@@ -43,6 +44,11 @@ class MLSAVPlayer: AVPlayer {
         }
 
         return seconds
+    }
+
+    /// The duration reported by the currentItem, without any further manipulation. Typically, it is better to use `currentDuration`.
+    var currentDurationAsCMTime: CMTime? {
+        return currentItem?.duration
     }
 
     private var isSeekingUpdatedAt = Date()
@@ -163,5 +169,36 @@ class MLSAVPlayer: AVPlayer {
     /// Helper to avoid error: Using 'super' in a closure where 'self' is explicitly captured is not yet supported
     private func super_seek(to date: Date, completionHandler: @escaping (Bool) -> Void) {
         super.seek(to: date, completionHandler: completionHandler)
+    }
+
+    /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.
+    /// - parameter item: The item to play. If nil is provided, the current item is removed.
+    /// - parameter headers: The headers to attach to the network requests when playing this item
+    /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
+    func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], callback: @escaping (Bool) -> ()) {
+        guard let assetUrl = assetUrl else {
+            self.replaceCurrentItem(with: nil)
+            callback(true)
+            return
+        }
+
+        let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
+        asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
+            guard let `self` = self else { return }
+
+            var error: NSError?
+            let status = asset.statusOfValue(forKey: "playable", error: &error)
+            switch status {
+            case .loaded:
+                let playerItem = AVPlayerItem(asset: asset)
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.replaceCurrentItem(with: playerItem)
+                    callback(true)
+                }
+            default:
+                callback(false)
+            }
+        }
     }
 }

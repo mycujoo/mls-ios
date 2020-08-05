@@ -80,7 +80,7 @@ extension DataLayer {
         let animateinDuration: Double?
         let animateoutDuration: Double?
         let duration: Double?
-        let variablePositions: [String: String]?
+        let variables: [String]?
     }
 
     // MARK: - AnnotationActionHideOverlay
@@ -282,7 +282,7 @@ extension DataLayer.AnnotationActionShowOverlay: Decodable {
         case animateinDuration = "animatein_duration"
         case animateoutDuration = "animateout_duration"
         case duration
-        case variablePositions = "variable_positions"
+        case variables = "variables"
     }
 
     init(from decoder: Decoder) throws {
@@ -296,9 +296,9 @@ extension DataLayer.AnnotationActionShowOverlay: Decodable {
         let animateinDuration: Double? = try? container.decode(Double.self, forKey: .animateinDuration)
         let animateoutDuration: Double? = try? container.decode(Double.self, forKey: .animateoutDuration)
         let duration: Double? = try? container.decode(Double.self, forKey: .duration)
-        let variablePositions: [String: String]? = try? container.decode([String: String].self, forKey: .variablePositions)
+        let variables: [String]? = try? container.decode([String].self, forKey: .variables)
 
-        self.init(customId: customId, svgURL: svgURL, position: position, size: size, animateinType: animateinType, animateoutType: animateoutType, animateinDuration: animateinDuration, animateoutDuration: animateoutDuration, duration: duration, variablePositions: variablePositions)
+        self.init(customId: customId, svgURL: svgURL, position: position, size: size, animateinType: animateinType, animateoutType: animateoutType, animateinDuration: animateinDuration, animateoutDuration: animateoutDuration, duration: duration, variables: variables)
     }
 }
 extension DataLayer.AnnotationActionHideOverlay: Decodable {
@@ -508,7 +508,7 @@ extension DataLayer.AnnotationActionShowOverlay {
             animateinDuration: self.animateinDuration,
             animateoutDuration: self.animateoutDuration,
             duration: self.duration,
-            variablePositions: self.variablePositions)
+            variables: self.variables)
     }
 }
 

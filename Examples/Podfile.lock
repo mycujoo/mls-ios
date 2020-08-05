@@ -6,6 +6,7 @@ PODS:
   - MLSSDK (0.0.1):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
+    - Starscream (~> 4.0)
     - YouboraAVPlayerAdapter
     - YouboraLib
   - Moya (14.0.0):
@@ -14,6 +15,7 @@ PODS:
     - Alamofire (~> 5.0)
   - Nimble (8.1.1)
   - Quick (3.0.0)
+  - Starscream (4.0.3)
   - YouboraAVPlayerAdapter (6.5.17):
     - YouboraAVPlayerAdapter/Default (= 6.5.17)
     - YouboraLib (~> 6.5.19)
@@ -27,6 +29,7 @@ DEPENDENCIES:
   - Moya (~> 14.0)
   - Nimble (~> 8.0)
   - Quick (~> 3.0)
+  - Starscream (~> 4.0)
   - YouboraAVPlayerAdapter
   - YouboraLib
 
@@ -37,6 +40,7 @@ SPEC REPOS:
     - Moya
     - Nimble
     - Quick
+    - Starscream
     - YouboraAVPlayerAdapter
     - YouboraLib
 
@@ -47,13 +51,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   Cuckoo: 4625f7f54d9bb880123270e8969898d6c1d036b5
-  MLSSDK: 7e122f13eae3bbea6215d25fd35b7baf188a8001
+  MLSSDK: 74fa196fded3d7a0bde9169d80e59851532a3dc5
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Nimble: 5f8a2fb6fa343a7242dfdd9d42f7267419d464b2
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
+  Starscream: ef06f0961fff0880bca0604416d61141e4faca67
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: 289e7865bcf6791a6828849ecc28892af9a461bb
+PODFILE CHECKSUM: 3328de4b5aa15b2dee2063219dbafcac41fe72b8
 
 COCOAPODS: 1.9.3

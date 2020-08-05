@@ -13,7 +13,7 @@ class GetEventUseCase {
     }
 
     func execute(id: String, completionHandler: @escaping (Event?, Error?) -> ()) {
-        eventRepository.fetchEvent(byId: id) { (event, error) in
+        eventRepository.fetchEvent(byId: id, updateId: nil) { (event, error) in
             completionHandler(event, error)
         }
     }

@@ -12,6 +12,7 @@ target 'MLSSDK-iOS' do
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
+  pod 'Starscream', '~> 4.0'
 end
 
 target 'MLSSDK-tvOS' do
@@ -20,6 +21,7 @@ target 'MLSSDK-tvOS' do
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
+  pod 'Starscream', '~> 4.0'
 end
 
 # // MARK: - Tests
@@ -30,6 +32,7 @@ target 'Tests' do
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
+  pod 'Starscream', '~> 4.0'
   pod 'Cuckoo', '~> 1.4'
   pod 'Quick', '~> 3.0'
   pod 'Nimble', '~> 8.0'
@@ -41,6 +44,7 @@ target 'iOSTests' do
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
+  pod 'Starscream', '~> 4.0'
   pod 'Cuckoo', '~> 1.4'
   pod 'Quick', '~> 3.0'
   pod 'Nimble', '~> 8.0'
@@ -52,6 +56,7 @@ target 'tvOSTests' do
   pod 'YouboraLib'
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
+  pod 'Starscream', '~> 4.0'
   pod 'Cuckoo', '~> 1.4'
   pod 'Quick', '~> 3.0'
   pod 'Nimble', '~> 8.0'
