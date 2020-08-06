@@ -224,11 +224,11 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     let infoTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.numberOfLines = 2
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 24, weight: .black)
         label.textColor = .white
         return label
     }()
@@ -237,7 +237,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     let infoDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
         label.font = .boldSystemFont(ofSize: 12)
@@ -250,7 +250,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     let infoDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.numberOfLines = 3
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -351,10 +351,10 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
             controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 40),
-            infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: -40),
-            infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: -40),
-            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40),
+            infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 0),
+            infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: 0),
+            infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: 0),
+            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 0),
         ]
 
         for constraint in constraints {
@@ -370,17 +370,17 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         infoDescriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         let infoViewConstraints = [
-            infoTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 8),
-            infoTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 24),
+            infoTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 16),
+            infoTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -16),
 
-            infoDateLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 4),
-            infoDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoDateLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 8),
+            infoDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 16),
+            infoDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -16),
 
-            infoDescriptionLabel.topAnchor.constraint(equalTo: infoDateLabel.bottomAnchor, constant: 12),
-            infoDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoDescriptionLabel.topAnchor.constraint(equalTo: infoDateLabel.bottomAnchor, constant: 8),
+            infoDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 16),
+            infoDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -16),
         ]
 
         for constraint in infoViewConstraints {
@@ -389,7 +389,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
         NSLayoutConstraint.activate(infoViewConstraints)
 
-        let c = infoDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -8)
+        let c = infoDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -16)
         c.priority = UILayoutPriority(rawValue: 749)
         c.isActive = true
 

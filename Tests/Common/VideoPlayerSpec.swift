@@ -347,10 +347,6 @@ class VideoPlayerSpec: QuickSpec {
 
                 verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
             }
-
-            it("shows an upcoming poster and no info view when it is available and there is no stream") {
-
-            }
         }
 
         describe("updates as consequence of current time change") {

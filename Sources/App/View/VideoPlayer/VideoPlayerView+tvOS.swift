@@ -142,7 +142,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
         label.numberOfLines = 2
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.font = .boldSystemFont(ofSize: 28)
+        label.font = UIFont.systemFont(ofSize: 40, weight: .black)
         label.textColor = .white
         return label
     }()

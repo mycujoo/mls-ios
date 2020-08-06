@@ -346,7 +346,7 @@ public class VideoPlayer: NSObject {
     private func rebuild(new: Bool) {
         currentStream = event?.streams.first ?? stream
 
-        updateInfoTexts()
+        updateInfo()
 
         if new {
             tovStore = TOVStore()
@@ -382,6 +382,7 @@ public class VideoPlayer: NSObject {
     /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
     private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
         setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+        view.setBufferIcon(hidden: true)
 
         let url = currentStream?.fullUrl
         let added = url != nil
@@ -419,7 +420,7 @@ public class VideoPlayer: NSObject {
     private func cleanup(oldStream: Stream) {}
 
     /// Sets the correct labels on the info layer.
-    private func updateInfoTexts() {
+    private func updateInfo() {
         view.infoTitleLabel.text = event?.title
         view.infoDescriptionLabel.text = event?.descriptionText
 
