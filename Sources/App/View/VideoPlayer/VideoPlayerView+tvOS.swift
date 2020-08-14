@@ -473,6 +473,10 @@ extension VideoPlayerView {
         }
     }
 
+    func setNumberOfViewersTo(amount: String?) {
+
+    }
+
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool) {

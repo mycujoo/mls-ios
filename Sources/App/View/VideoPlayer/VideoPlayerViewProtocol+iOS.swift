@@ -47,6 +47,8 @@ protocol VideoPlayerViewProtocol: class {
     func setInfoViewVisibility(visible: Bool, animated: Bool)
     func setPlayButtonTo(state: VideoPlayer.PlayButtonState)
     func setLiveButtonTo(state: VideoPlayer.LiveState)
+    /// Shows the number of viewers on the video player. If <= 1 or nil, the element is hidden entirely.
+    func setNumberOfViewersTo(amount: String?)
     func setOnControlViewTapped(_ action: @escaping () -> Void)
     func setOnLiveButtonTapped(_ action: @escaping () -> Void)
     func setOnFullscreenButtonTapped(_ action: @escaping () -> Void)

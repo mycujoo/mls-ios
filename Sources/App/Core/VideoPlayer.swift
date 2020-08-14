@@ -363,9 +363,9 @@ public class VideoPlayer: NSObject {
                 getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
-                    case .eventLiveViewers(_):
-                        // TODO: Handle event total
-                        break
+                    case .eventLiveViewers(let amount):
+                        // TODO: Set to nil if the stream is not live
+                        self.view.setNumberOfViewersTo(amount: !self.isLivestream || amount < 2 ? nil : self.formatLiveViewers(2806584)) // tmp set to actual amount
                     case .eventUpdate(let updatedEvent):
                         // TODO: Always fetch at least one update on the event after it is initally loaded.
                         if updatedEvent.id == event.id {
@@ -663,6 +663,12 @@ extension VideoPlayer {
 
             return "\(minutesString):\(secondsString)"
         }
+    }
+
+    private func formatLiveViewers(_ n: Int) -> String {
+        if n < 1000 { return String(describing: n) }
+        if n >= 1000 && n < 1000000 { return String(describing: round(Double(n) / 100) / 10) + "K" }
+        return String(describing: round(Double(n) / 100000) / 10) + "M"
     }
 
     /// - parameter visible: What the new state of visibility should be

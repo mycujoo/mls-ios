@@ -63,6 +63,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var infoIcon = UIImage(named: "Icon-Info", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var eyeIcon = UIImage(named: "Icon-Eye", in: Bundle.resourceBundle, compatibleWith: nil)
 
     private lazy var playButton: UIButton = {
         let button = UIButton()
@@ -136,7 +137,37 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         button.titleLabel?.textColor = .white
         button.alpha = 0
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+        button.clipsToBounds = true
         return button
+    }()
+
+    private let numberOfViewersView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.isHidden = true
+        view.layer.cornerRadius = 2
+        view.clipsToBounds = true
+        return view
+    }()
+
+    private lazy var numberOfViewersEyeImage: UIImageView = {
+        let view = UIImageView()
+        view.image = eyeIcon
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    let numberOfViewersLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .natural
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.textColor = .white
+        return label
     }()
 
     private lazy var fullscreenButton: UIButton = {
@@ -459,12 +490,26 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         videoSlider.addTarget(self, action: #selector(timeSliderRelease), for: [.touchUpInside, .touchUpOutside])
 
+        // MARK: Number of live viewers
+
+        numberOfViewersView.addSubview(numberOfViewersEyeImage)
+        numberOfViewersView.addSubview(numberOfViewersLabel)
+        NSLayoutConstraint.activate([
+            numberOfViewersEyeImage.centerYAnchor.constraint(equalTo: numberOfViewersView.centerYAnchor),
+            numberOfViewersEyeImage.leftAnchor.constraint(equalTo: numberOfViewersView.leftAnchor, constant: 4),
+            numberOfViewersEyeImage.rightAnchor.constraint(equalTo: numberOfViewersLabel.leftAnchor, constant: -4),
+            numberOfViewersLabel.topAnchor.constraint(equalTo: numberOfViewersView.topAnchor, constant: 4),
+            numberOfViewersLabel.bottomAnchor.constraint(equalTo: numberOfViewersView.bottomAnchor, constant: -4),
+            numberOfViewersLabel.rightAnchor.constraint(equalTo: numberOfViewersView.rightAnchor, constant: -4)
+        ])
+
         // MARK: Below seekbar
 
         let spacer = UIView()
         barControlsStackView.addArrangedSubview(timeIndicatorLabel)
         barControlsStackView.addArrangedSubview(spacer)
         barControlsStackView.addArrangedSubview(liveButton)
+        barControlsStackView.addArrangedSubview(numberOfViewersView)
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
         NSLayoutConstraint.activate([
@@ -484,6 +529,8 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         liveButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         liveButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        numberOfViewersView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        numberOfViewersView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
@@ -645,6 +692,15 @@ extension VideoPlayerView {
         case .notLive:
             liveButton.alpha = 0
         }
+    }
+
+    func setNumberOfViewersTo(amount: String?) {
+        guard let amount = amount else {
+            numberOfViewersView.isHidden = true
+            return
+        }
+        numberOfViewersLabel.text = amount
+        numberOfViewersView.isHidden = false
     }
 
     func setFullscreenButtonTo(fullscreen: Bool) {

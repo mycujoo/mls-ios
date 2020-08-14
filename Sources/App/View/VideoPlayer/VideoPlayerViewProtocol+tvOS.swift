@@ -35,10 +35,13 @@ protocol VideoPlayerViewProtocol: class {
     func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void)
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void)
     func setOnTimeSliderRelease(_ action: @escaping (Double) -> Void)
+    /// - note: On tvOS, this method automatically also triggers the infoView to become visible.
     func setControlViewVisibility(visible: Bool, animated: Bool)
     func setInfoViewVisibility(visible: Bool, animated: Bool)
     func setPlayButtonTo(state: VideoPlayer.PlayButtonState)
     func setLiveButtonTo(state: VideoPlayer.LiveState)
+    /// Shows the number of viewers on the video player. If <= 1 or nil, the element is hidden entirely.
+    func setNumberOfViewersTo(amount: String?)
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool)
