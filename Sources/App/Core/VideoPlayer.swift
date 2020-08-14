@@ -364,8 +364,11 @@ public class VideoPlayer: NSObject {
                     guard let self = self else { return }
                     switch update {
                     case .eventLiveViewers(let amount):
-                        // TODO: Set to nil if the stream is not live
-                        self.view.setNumberOfViewersTo(amount: !self.isLivestream || amount < 2 ? nil : self.formatLiveViewers(2806584)) // tmp set to actual amount
+                        if !self.playerConfig.showLiveViewers || !self.isLivestream || amount < 2 {
+                            self.view.setNumberOfViewersTo(amount: nil)
+                        } else {
+                            self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
+                        }
                     case .eventUpdate(let updatedEvent):
                         // TODO: Always fetch at least one update on the event after it is initally loaded.
                         if updatedEvent.id == event.id {
