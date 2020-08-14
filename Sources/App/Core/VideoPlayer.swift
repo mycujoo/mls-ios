@@ -202,7 +202,7 @@ public class VideoPlayer: NSObject {
 
         let options = YBOptions()
         options.accountCode = "mycujoo"
-        options.username = "mls"
+        options.username = pseudoUserId
         let plugin = YBPlugin(options: options)
         plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
 
@@ -235,6 +235,9 @@ public class VideoPlayer: NSObject {
     /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
     private let seekTolerance: CMTime
 
+    /// A string that uniquely identifies this user.
+    private let pseudoUserId: String
+
     // MARK: - Internal properties
 
     var view: VideoPlayerViewProtocol!
@@ -265,7 +268,8 @@ public class VideoPlayer: NSObject {
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
-            seekTolerance: CMTime = .positiveInfinity) {
+            seekTolerance: CMTime = .positiveInfinity,
+            pseudoUserId: String) {
         self.player = player
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
@@ -273,6 +277,7 @@ public class VideoPlayer: NSObject {
         self.getSVGUseCase = getSVGUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
+        self.pseudoUserId = pseudoUserId
 
         super.init()
 
@@ -320,8 +325,6 @@ public class VideoPlayer: NSObject {
         #if DEBUG
         player.isMuted = true
         #endif
-
-        youboraPlugin?.fireInit()
     }
 
     deinit {
@@ -337,6 +340,8 @@ public class VideoPlayer: NSObject {
         }
 
         youboraPlugin?.fireStop()
+        youboraPlugin?.removeAdapter()
+        youboraPlugin?.adapter?.dispose()
     }
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
@@ -347,6 +352,7 @@ public class VideoPlayer: NSObject {
         currentStream = event?.streams.first ?? stream
 
         updateInfo()
+        updateYouboraMetadata()
 
         if new {
             tovStore = TOVStore()
@@ -440,6 +446,17 @@ public class VideoPlayer: NSObject {
         } else {
             view.infoDateLabel.text = nil
         }
+    }
+
+    private func updateYouboraMetadata() {
+        let NA = "N/A"
+        youboraPlugin?.options.contentResource = currentStream?.fullUrl?.absoluteString ?? NA
+        youboraPlugin?.options.contentTitle = event?.title ?? NA
+        youboraPlugin?.options.contentCustomDimension2 = event?.id ?? NA
+        youboraPlugin?.options.contentCustomDimension14 = "MLS"
+        youboraPlugin?.options.contentCustomDimension15 = currentStream?.id ?? NA
+
+        // Note: "contentIsLive" is updated elsewhere, since that is a more dynamic property.
     }
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
@@ -603,10 +620,13 @@ extension VideoPlayer {
                         }
                     }
 
-                    if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !self.isLivestream {
+                    let isLivestream = self.isLivestream
+                    if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream {
                         self.state = .ended
                         self.view.setPlayButtonTo(state: .replay)
                     }
+
+                    self.youboraPlugin?.options.contentIsLive = isLivestream as NSValue
 
                     self.delegate?.playerDidUpdateTime(player: self)
 

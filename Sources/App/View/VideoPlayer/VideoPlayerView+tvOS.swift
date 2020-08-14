@@ -61,11 +61,23 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
         return indicator
     }()
 
+    private lazy var eyeIcon = UIImage(named: "Icon-Eye", in: Bundle.resourceBundle, compatibleWith: nil)
+
     let playButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Play", for: .normal)
         return button
+    }()
+
+    private let barControlsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = 9
+        return stackView
     }()
 
     private let timeIndicatorLabel: UILabel! = {
@@ -93,6 +105,35 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
         button.alpha = 0
         button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
         return button
+    }()
+
+    private let numberOfViewersView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.isHidden = true
+        view.layer.cornerRadius = 2
+        view.clipsToBounds = true
+        return view
+    }()
+
+    private lazy var numberOfViewersEyeImage: UIImageView = {
+        let view = UIImageView()
+        view.image = eyeIcon
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    let numberOfViewersLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .natural
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.textColor = .white
+        return label
     }()
 
     private let controlAlphaView: UIView = {
@@ -301,8 +342,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
     private func drawControls() {
 
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
-        controlView.addSubview(timeIndicatorLabel)
-        controlView.addSubview(liveButton)
+        controlView.addSubview(barControlsStackView)
         controlView.addSubview(videoSlider)
 
         NSLayoutConstraint
@@ -310,7 +350,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
                 [
                     videoSlider.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 96),
                     videoSlider.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -96),
-                    videoSlider.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -130),
+                    videoSlider.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -140),
                     videoSlider.heightAnchor.constraint(equalToConstant: 16)
                 ]
         )
@@ -318,20 +358,41 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         videoSlider.addTarget(self, action: #selector(timeSliderRelease), for: [.touchUpInside, .touchUpOutside])
 
-        NSLayoutConstraint
-            .activate(
-                [
-                    timeIndicatorLabel.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 96),
-                    timeIndicatorLabel.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96),
+        // MARK: Below seekbar
 
-                    liveButton.leftAnchor.constraint(greaterThanOrEqualTo: timeIndicatorLabel.rightAnchor, constant: 96),
-                    liveButton.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -96),
-                    liveButton.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96),
-                ]
-        )
+        let spacer = UIView()
+        barControlsStackView.addArrangedSubview(timeIndicatorLabel)
+        barControlsStackView.addArrangedSubview(spacer)
+        barControlsStackView.addArrangedSubview(liveButton)
+        barControlsStackView.addArrangedSubview(numberOfViewersView)
+
+        NSLayoutConstraint.activate([
+           barControlsStackView.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 96),
+           barControlsStackView.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -96),
+           barControlsStackView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -96),
+           barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
+        ])
+
+        numberOfViewersView.addSubview(numberOfViewersEyeImage)
+        numberOfViewersView.addSubview(numberOfViewersLabel)
+        NSLayoutConstraint.activate([
+            numberOfViewersEyeImage.centerYAnchor.constraint(equalTo: numberOfViewersView.centerYAnchor),
+            numberOfViewersEyeImage.leftAnchor.constraint(equalTo: numberOfViewersView.leftAnchor, constant: 5),
+            numberOfViewersEyeImage.rightAnchor.constraint(equalTo: numberOfViewersLabel.leftAnchor, constant: -5),
+            numberOfViewersLabel.topAnchor.constraint(equalTo: numberOfViewersView.topAnchor, constant: 5),
+            numberOfViewersLabel.bottomAnchor.constraint(equalTo: numberOfViewersView.bottomAnchor, constant: -5),
+            numberOfViewersLabel.rightAnchor.constraint(equalTo: numberOfViewersView.rightAnchor, constant: -5)
+        ])
+
+        barControlsStackView.semanticContentAttribute = .forceLeftToRight
 
         timeIndicatorLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        liveButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        liveButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        numberOfViewersView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        numberOfViewersView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+
     }
 
     //MARK: - Methods
@@ -474,7 +535,12 @@ extension VideoPlayerView {
     }
 
     func setNumberOfViewersTo(amount: String?) {
-
+        guard let amount = amount else {
+            numberOfViewersView.isHidden = true
+            return
+        }
+        numberOfViewersLabel.text = amount
+        numberOfViewersView.isHidden = false
     }
 
     /// Sets the `isHidden` property of the buffer icon.

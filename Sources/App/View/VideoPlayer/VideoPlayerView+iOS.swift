@@ -490,19 +490,6 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         videoSlider.addTarget(self, action: #selector(timeSliderSlide), for: .valueChanged)
         videoSlider.addTarget(self, action: #selector(timeSliderRelease), for: [.touchUpInside, .touchUpOutside])
 
-        // MARK: Number of live viewers
-
-        numberOfViewersView.addSubview(numberOfViewersEyeImage)
-        numberOfViewersView.addSubview(numberOfViewersLabel)
-        NSLayoutConstraint.activate([
-            numberOfViewersEyeImage.centerYAnchor.constraint(equalTo: numberOfViewersView.centerYAnchor),
-            numberOfViewersEyeImage.leftAnchor.constraint(equalTo: numberOfViewersView.leftAnchor, constant: 4),
-            numberOfViewersEyeImage.rightAnchor.constraint(equalTo: numberOfViewersLabel.leftAnchor, constant: -4),
-            numberOfViewersLabel.topAnchor.constraint(equalTo: numberOfViewersView.topAnchor, constant: 4),
-            numberOfViewersLabel.bottomAnchor.constraint(equalTo: numberOfViewersView.bottomAnchor, constant: -4),
-            numberOfViewersLabel.rightAnchor.constraint(equalTo: numberOfViewersView.rightAnchor, constant: -4)
-        ])
-
         // MARK: Below seekbar
 
         let spacer = UIView()
@@ -517,6 +504,17 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
            barControlsStackView.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -5),
            barControlsStackView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8),
            barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
+        ])
+
+        numberOfViewersView.addSubview(numberOfViewersEyeImage)
+        numberOfViewersView.addSubview(numberOfViewersLabel)
+        NSLayoutConstraint.activate([
+            numberOfViewersEyeImage.centerYAnchor.constraint(equalTo: numberOfViewersView.centerYAnchor),
+            numberOfViewersEyeImage.leftAnchor.constraint(equalTo: numberOfViewersView.leftAnchor, constant: 4),
+            numberOfViewersEyeImage.rightAnchor.constraint(equalTo: numberOfViewersLabel.leftAnchor, constant: -4),
+            numberOfViewersLabel.topAnchor.constraint(equalTo: numberOfViewersView.topAnchor, constant: 4),
+            numberOfViewersLabel.bottomAnchor.constraint(equalTo: numberOfViewersView.bottomAnchor, constant: -4),
+            numberOfViewersLabel.rightAnchor.constraint(equalTo: numberOfViewersView.rightAnchor, constant: -4)
         ])
 
         barControlsStackView.semanticContentAttribute = .forceLeftToRight

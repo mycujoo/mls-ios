@@ -12,10 +12,10 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "git@github.com:mycujoo/mls-ios.git", :tag => "#{spec.name}-#{spec.version}" }
   spec.source_files  = "Sources/**/*.swift"
   spec.ios.resource_bundles = {
-    'MLSResources' => ["Resources/**/*.{xcassets,strings}"]
+    'MLSResources' => ["Resources/**/*.{strings}", "Resources/**/ios.xcassets"]
   }
   spec.tvos.resource_bundles = {
-    'MLSResources' => ["Resources/**/*.{strings}"]
+    'MLSResources' => ["Resources/**/*.{strings}", "Resources/**/tvos.xcassets"]
   }
   spec.frameworks = "Foundation", "AVFoundation", "UIKit"
 
