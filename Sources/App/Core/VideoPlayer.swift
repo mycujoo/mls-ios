@@ -435,10 +435,7 @@ public class VideoPlayer: NSObject {
 
         if let event = event {
             if let startTime = event.startTime {
-                var timeStr = humanFriendlyDateFormatter.string(from: startTime)
-                if let timezone = event.timezone {
-                    timeStr += " (\(timezone))"
-                }
+                let timeStr = humanFriendlyDateFormatter.string(from: startTime)
                 view.infoDateLabel.text = timeStr
             } else {
                 view.infoDateLabel.text = nil
