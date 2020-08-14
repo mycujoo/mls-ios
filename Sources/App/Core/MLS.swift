@@ -6,6 +6,10 @@ import Foundation
 import AVFoundation
 import Moya
 
+fileprivate struct UserDefaultsContracts {
+    static let PseudoUserId = "mls_pseudo_user_id"
+}
+
 public struct Configuration {
     public init() { }
 }
@@ -32,6 +36,15 @@ public class MLS {
 
     private lazy var ws: WebSocketConnection = {
         return WebSocketConnection()
+    }()
+
+    private lazy var pseudoUserId: String = {
+        if let v = UserDefaults.standard.string(forKey: UserDefaultsContracts.PseudoUserId) {
+            return v
+        }
+        let v = UUID().uuidString
+        UserDefaults.standard.setValue(v, forKey: UserDefaultsContracts.PseudoUserId)
+        return v
     }()
 
     private lazy var timelineRepository: TimelineRepository = {
@@ -93,7 +106,8 @@ public class MLS {
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,
-            seekTolerance: seekTolerance)
+            seekTolerance: seekTolerance,
+            pseudoUserId: pseudoUserId)
 
         player.event = event
 

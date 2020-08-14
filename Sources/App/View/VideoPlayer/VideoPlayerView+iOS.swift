@@ -63,6 +63,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
     private lazy var infoIcon = UIImage(named: "Icon-Info", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var eyeIcon = UIImage(named: "Icon-Eye", in: Bundle.resourceBundle, compatibleWith: nil)
 
     private lazy var playButton: UIButton = {
         let button = UIButton()
@@ -136,7 +137,37 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         button.titleLabel?.textColor = .white
         button.alpha = 0
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+        button.clipsToBounds = true
         return button
+    }()
+
+    private let numberOfViewersView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.isHidden = true
+        view.layer.cornerRadius = 2
+        view.clipsToBounds = true
+        return view
+    }()
+
+    private lazy var numberOfViewersEyeImage: UIImageView = {
+        let view = UIImageView()
+        view.image = eyeIcon
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    let numberOfViewersLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .natural
+        label.numberOfLines = 1
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.textColor = .white
+        return label
     }()
 
     private lazy var fullscreenButton: UIButton = {
@@ -224,11 +255,11 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     let infoTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.numberOfLines = 2
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 24, weight: .black)
         label.textColor = .white
         return label
     }()
@@ -237,7 +268,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     let infoDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
         label.font = .boldSystemFont(ofSize: 12)
@@ -250,7 +281,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     let infoDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.numberOfLines = 3
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -351,10 +382,10 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
             controlAlphaView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             controlAlphaView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             controlAlphaView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 40),
-            infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: -40),
-            infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: -40),
-            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 40),
+            infoView.leftAnchor.constraint(equalTo: safeView.leftAnchor, constant: 0),
+            infoView.rightAnchor.constraint(equalTo: safeView.rightAnchor, constant: 0),
+            infoView.bottomAnchor.constraint(equalTo: safeView.bottomAnchor, constant: 0),
+            infoView.topAnchor.constraint(equalTo: safeView.topAnchor, constant: 0),
         ]
 
         for constraint in constraints {
@@ -370,17 +401,17 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         infoDescriptionLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         let infoViewConstraints = [
-            infoTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 8),
-            infoTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoTitleLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 24),
+            infoTitleLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 16),
+            infoTitleLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -16),
 
-            infoDateLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 4),
-            infoDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoDateLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 8),
+            infoDateLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 16),
+            infoDateLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -16),
 
-            infoDescriptionLabel.topAnchor.constraint(equalTo: infoDateLabel.bottomAnchor, constant: 12),
-            infoDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 8),
-            infoDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -8),
+            infoDescriptionLabel.topAnchor.constraint(equalTo: infoDateLabel.bottomAnchor, constant: 8),
+            infoDescriptionLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 16),
+            infoDescriptionLabel.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -16),
         ]
 
         for constraint in infoViewConstraints {
@@ -389,7 +420,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
         NSLayoutConstraint.activate(infoViewConstraints)
 
-        let c = infoDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -8)
+        let c = infoDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: infoView.bottomAnchor, constant: -16)
         c.priority = UILayoutPriority(rawValue: 749)
         c.isActive = true
 
@@ -465,6 +496,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         barControlsStackView.addArrangedSubview(timeIndicatorLabel)
         barControlsStackView.addArrangedSubview(spacer)
         barControlsStackView.addArrangedSubview(liveButton)
+        barControlsStackView.addArrangedSubview(numberOfViewersView)
         barControlsStackView.addArrangedSubview(fullscreenButton)
 
         NSLayoutConstraint.activate([
@@ -472,6 +504,17 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
            barControlsStackView.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -5),
            barControlsStackView.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8),
            barControlsStackView.heightAnchor.constraint(equalToConstant: 32)
+        ])
+
+        numberOfViewersView.addSubview(numberOfViewersEyeImage)
+        numberOfViewersView.addSubview(numberOfViewersLabel)
+        NSLayoutConstraint.activate([
+            numberOfViewersEyeImage.centerYAnchor.constraint(equalTo: numberOfViewersView.centerYAnchor),
+            numberOfViewersEyeImage.leftAnchor.constraint(equalTo: numberOfViewersView.leftAnchor, constant: 4),
+            numberOfViewersEyeImage.rightAnchor.constraint(equalTo: numberOfViewersLabel.leftAnchor, constant: -4),
+            numberOfViewersLabel.topAnchor.constraint(equalTo: numberOfViewersView.topAnchor, constant: 4),
+            numberOfViewersLabel.bottomAnchor.constraint(equalTo: numberOfViewersView.bottomAnchor, constant: -4),
+            numberOfViewersLabel.rightAnchor.constraint(equalTo: numberOfViewersView.rightAnchor, constant: -4)
         ])
 
         barControlsStackView.semanticContentAttribute = .forceLeftToRight
@@ -484,6 +527,8 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         timeIndicatorLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         liveButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         liveButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        numberOfViewersView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        numberOfViewersView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         fullscreenButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
         fullscreenButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
@@ -645,6 +690,15 @@ extension VideoPlayerView {
         case .notLive:
             liveButton.alpha = 0
         }
+    }
+
+    func setNumberOfViewersTo(amount: String?) {
+        guard let amount = amount else {
+            numberOfViewersView.isHidden = true
+            return
+        }
+        numberOfViewersLabel.text = amount
+        numberOfViewersView.isHidden = false
     }
 
     func setFullscreenButtonTo(fullscreen: Bool) {

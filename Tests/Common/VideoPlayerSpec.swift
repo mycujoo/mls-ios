@@ -216,7 +216,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService)
+            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService, pseudoUserId: "test_account")
         }
 
         describe("loading streams and events") {
@@ -346,10 +346,6 @@ class VideoPlayerSpec: QuickSpec {
                 self.videoPlayer.event = event
 
                 verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
-            }
-
-            it("shows an upcoming poster and no info view when it is available and there is no stream") {
-
             }
         }
 

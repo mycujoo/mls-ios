@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-02 21:19:02 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-14 15:48:56 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-02 21:19:02 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-14 15:48:56 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1008,6 +1008,21 @@ import UIKit
     
     
     
+     func setNumberOfViewersTo(amount: String?)  {
+        
+    return cuckoo_manager.call("setNumberOfViewersTo(amount: String?)",
+            parameters: (amount),
+            escapingParameters: (amount),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setNumberOfViewersTo(amount: amount))
+        
+    }
+    
+    
+    
      func setOnControlViewTapped(_ action: @escaping () -> Void)  {
         
     return cuckoo_manager.call("setOnControlViewTapped(_: @escaping () -> Void)",
@@ -1325,6 +1340,11 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setLiveButtonTo(state: VideoPlayer.LiveState)", parameterMatchers: matchers))
 	    }
 	    
+	    func setNumberOfViewersTo<M1: Cuckoo.OptionalMatchable>(amount: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String?)> where M1.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?)>] = [wrap(matchable: amount) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setNumberOfViewersTo(amount: String?)", parameterMatchers: matchers))
+	    }
+	    
 	    func setOnControlViewTapped<M1: Cuckoo.Matchable>(_ action: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(() -> Void)> where M1.MatchedType == () -> Void {
 	        let matchers: [Cuckoo.ParameterMatcher<(() -> Void)>] = [wrap(matchable: action) { $0 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setOnControlViewTapped(_: @escaping () -> Void)", parameterMatchers: matchers))
@@ -1529,6 +1549,12 @@ import UIKit
 	    func setLiveButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.__DoNotUse<(VideoPlayer.LiveState), Void> where M1.MatchedType == VideoPlayer.LiveState {
 	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayer.LiveState)>] = [wrap(matchable: state) { $0 }]
 	        return cuckoo_manager.verify("setLiveButtonTo(state: VideoPlayer.LiveState)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setNumberOfViewersTo<M1: Cuckoo.OptionalMatchable>(amount: M1) -> Cuckoo.__DoNotUse<(String?), Void> where M1.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?)>] = [wrap(matchable: amount) { $0 }]
+	        return cuckoo_manager.verify("setNumberOfViewersTo(amount: String?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -1768,6 +1794,10 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+     func setNumberOfViewersTo(amount: String?)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
      func setOnControlViewTapped(_ action: @escaping () -> Void)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
@@ -1823,7 +1853,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-02 21:19:02 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-14 15:48:56 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1925,7 +1955,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-02 21:19:02 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-14 15:48:56 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2117,7 +2147,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-02 21:19:02 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-14 15:48:56 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2219,7 +2249,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-08-02 21:19:02 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-08-14 15:48:56 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2381,7 +2411,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-02 21:19:02 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-14 15:48:56 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

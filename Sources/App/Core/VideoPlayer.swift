@@ -202,7 +202,7 @@ public class VideoPlayer: NSObject {
 
         let options = YBOptions()
         options.accountCode = "mycujoo"
-        options.username = "mls"
+        options.username = pseudoUserId
         let plugin = YBPlugin(options: options)
         plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
 
@@ -235,6 +235,9 @@ public class VideoPlayer: NSObject {
     /// Configures the tolerance with which the player seeks (for both `toleranceBefore` and `toleranceAfter`).
     private let seekTolerance: CMTime
 
+    /// A string that uniquely identifies this user.
+    private let pseudoUserId: String
+
     // MARK: - Internal properties
 
     var view: VideoPlayerViewProtocol!
@@ -265,7 +268,8 @@ public class VideoPlayer: NSObject {
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
-            seekTolerance: CMTime = .positiveInfinity) {
+            seekTolerance: CMTime = .positiveInfinity,
+            pseudoUserId: String) {
         self.player = player
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
@@ -273,6 +277,7 @@ public class VideoPlayer: NSObject {
         self.getSVGUseCase = getSVGUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
+        self.pseudoUserId = pseudoUserId
 
         super.init()
 
@@ -320,8 +325,6 @@ public class VideoPlayer: NSObject {
         #if DEBUG
         player.isMuted = true
         #endif
-
-        youboraPlugin?.fireInit()
     }
 
     deinit {
@@ -337,6 +340,8 @@ public class VideoPlayer: NSObject {
         }
 
         youboraPlugin?.fireStop()
+        youboraPlugin?.removeAdapter()
+        youboraPlugin?.adapter?.dispose()
     }
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
@@ -346,7 +351,8 @@ public class VideoPlayer: NSObject {
     private func rebuild(new: Bool) {
         currentStream = event?.streams.first ?? stream
 
-        updateInfoTexts()
+        updateInfo()
+        updateYouboraMetadata()
 
         if new {
             tovStore = TOVStore()
@@ -363,9 +369,12 @@ public class VideoPlayer: NSObject {
                 getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
-                    case .eventLiveViewers(_):
-                        // TODO: Handle event total
-                        break
+                    case .eventLiveViewers(let amount):
+                        if !self.playerConfig.showLiveViewers || !self.isLivestream || amount < 2 {
+                            self.view.setNumberOfViewersTo(amount: nil)
+                        } else {
+                            self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
+                        }
                     case .eventUpdate(let updatedEvent):
                         // TODO: Always fetch at least one update on the event after it is initally loaded.
                         if updatedEvent.id == event.id {
@@ -382,6 +391,7 @@ public class VideoPlayer: NSObject {
     /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
     private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
         setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+        view.setBufferIcon(hidden: true)
 
         let url = currentStream?.fullUrl
         let added = url != nil
@@ -419,7 +429,7 @@ public class VideoPlayer: NSObject {
     private func cleanup(oldStream: Stream) {}
 
     /// Sets the correct labels on the info layer.
-    private func updateInfoTexts() {
+    private func updateInfo() {
         view.infoTitleLabel.text = event?.title
         view.infoDescriptionLabel.text = event?.descriptionText
 
@@ -436,6 +446,17 @@ public class VideoPlayer: NSObject {
         } else {
             view.infoDateLabel.text = nil
         }
+    }
+
+    private func updateYouboraMetadata() {
+        let NA = "N/A"
+        youboraPlugin?.options.contentResource = currentStream?.fullUrl?.absoluteString ?? NA
+        youboraPlugin?.options.contentTitle = event?.title ?? NA
+        youboraPlugin?.options.contentCustomDimension2 = event?.id ?? NA
+        youboraPlugin?.options.contentCustomDimension14 = "MLS"
+        youboraPlugin?.options.contentCustomDimension15 = currentStream?.id ?? NA
+
+        // Note: "contentIsLive" is updated elsewhere, since that is a more dynamic property.
     }
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
@@ -599,10 +620,13 @@ extension VideoPlayer {
                         }
                     }
 
-                    if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !self.isLivestream {
+                    let isLivestream = self.isLivestream
+                    if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream {
                         self.state = .ended
                         self.view.setPlayButtonTo(state: .replay)
                     }
+
+                    self.youboraPlugin?.options.contentIsLive = isLivestream as NSValue
 
                     self.delegate?.playerDidUpdateTime(player: self)
 
@@ -662,6 +686,12 @@ extension VideoPlayer {
 
             return "\(minutesString):\(secondsString)"
         }
+    }
+
+    private func formatLiveViewers(_ n: Int) -> String {
+        if n < 1000 { return String(describing: n) }
+        if n >= 1000 && n < 1000000 { return String(describing: round(Double(n) / 100) / 10) + "K" }
+        return String(describing: round(Double(n) / 100000) / 10) + "M"
     }
 
     /// - parameter visible: What the new state of visibility should be
