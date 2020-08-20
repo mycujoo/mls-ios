@@ -133,7 +133,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffffff",
-                                    "label": "Kickoff"
+                                    "label": "Kickoff",
+                                    "seek_offset": -1500000
                                 },
                                 "offset": 1699000,
                                 "id": "f4354364q6afd",
@@ -200,7 +201,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffffff",
-                                    "label": "Halftime"
+                                    "label": "Halftime",
+                                    "seek_offset": -5000
                                 },
                                 "offset": 4720000,
                                 "id": "fda43t943f9b",
@@ -226,7 +228,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffffff",
-                                    "label": "Kickoff"
+                                    "label": "Kickoff",
+                                    "seek_offset": 2000
                                 },
                                 "offset": 5711000,
                                 "id": "fda43t943f3c",
@@ -243,7 +246,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffff01",
-                                    "label": "Goal"
+                                    "label": "Goal",
+                                    "seek_offset": -3000
                                 },
                                 "offset": 5891000,
                                 "id": "fda43t943f9a",
@@ -299,7 +303,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#de4f1f",
-                                    "label": "Fulltime"
+                                    "label": "Fulltime",
+                                    "seek_offset": 0
                                 },
                                 "offset": 8850000,
                                 "id": "bmb9t49bm34t",

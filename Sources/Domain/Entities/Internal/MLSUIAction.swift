@@ -24,6 +24,7 @@ extension MLSUI {
         let actionId: String
         let timelineMarker: TimelineMarker
         let position: Double
+        let seekPosition: Double
     }
 
     struct ShowOverlayAction: MLSUIOverlayAction {

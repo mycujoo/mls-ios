@@ -31,8 +31,8 @@ class VideoProgressSlider: UIControl {
     private var isFirstContinueAfterBeginTracking = true
     #endif
 
-    /// Marks the position of the currently visible marker bubble (if one is on-screen, nil otherwise).
-    private var visibleMarkerPosition: Double? = nil
+    /// Marks the seek position of the currently visible marker bubble (if one is on-screen, nil otherwise).
+    private var visibleMarkerSeekPosition: Double? = nil
 
     var value: Double {
         get { _value }
@@ -138,8 +138,9 @@ class VideoProgressSlider: UIControl {
     /// * the TimelineMarker object itself
     /// * a UIView that represents the timeline marker
     /// * a position (between 0 and 1) that describes its relative position on the seekbar
+    /// * a seek position (between 0 and 1) that describes its relative position on the seekbar  that it should seek to when selected
     /// * a constraint that is used to set its position. This could be derived from the markerView's layoutAnchors but its quicker to access this way.
-    private var markers: [String: (marker: TimelineMarker, markerView: UIView, position: Double, constraint: NSLayoutConstraint)] = [:]
+    private var markers: [String: (marker: TimelineMarker, markerView: UIView, position: Double, seekPosition: Double, constraint: NSLayoutConstraint)] = [:]
     
     //MARK: - Init
     
@@ -282,14 +283,14 @@ class VideoProgressSlider: UIControl {
                     self?.markerBubbleLabel.alpha = 1.0
                 }
             }
-            visibleMarkerPosition = marker.value.position
+            visibleMarkerSeekPosition = marker.value.seekPosition
         } else {
             if markerBubbleLabel.alpha > 0 {
                 UIView.animate(withDuration: 0.15) { [weak self] in
                     self?.markerBubbleLabel.alpha = 0.0
                 }
             }
-            visibleMarkerPosition = nil
+            visibleMarkerSeekPosition = nil
         }
 
         sendActions(for: .valueChanged)
@@ -303,9 +304,9 @@ class VideoProgressSlider: UIControl {
         }
 
         if !ignoreTracking {
-            if let visibleMarkerPosition = visibleMarkerPosition {
+            if let visibleMarkerSeekPosition = visibleMarkerSeekPosition {
                 // Stick to the marker that is currently on-screen.
-                _value = visibleMarkerPosition
+                _value = visibleMarkerSeekPosition
 
                 sendActions(for: .valueChanged)
             }
@@ -349,7 +350,7 @@ extension VideoProgressSlider {
                 oldConstraint.isActive = false
                 newConstraint.isActive = true
 
-                self.markers[operation.actionId] = (marker: operation.timelineMarker, markerView: oldMarker.markerView, position: operation.position, constraint: newConstraint)
+                self.markers[operation.actionId] = (marker: operation.timelineMarker, markerView: oldMarker.markerView, position: operation.position, seekPosition: operation.seekPosition, constraint: newConstraint)
             } else {
                 let markerView = UIView()
                 markerView.isUserInteractionEnabled = false
@@ -378,7 +379,7 @@ extension VideoProgressSlider {
                 constraint.priority = .defaultLow
                 constraint.isActive = true
 
-                self.markers[operation.actionId] = (marker: operation.timelineMarker, markerView: markerView, position: operation.position, constraint: constraint)
+                self.markers[operation.actionId] = (marker: operation.timelineMarker, markerView: markerView, position: operation.position, seekPosition: operation.seekPosition, constraint: constraint)
             }
         }
 

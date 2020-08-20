@@ -419,9 +419,7 @@
 		5DCC0E6C059137E3F19196CC /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F403CA24167D40EC8DD7C5 /* Pods_iOSTests.framework */; };
 		641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
 		641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
-		641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
-		6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C34F2492308D0099475D /* SingleLineOverlayView.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */; };
 		6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
 		6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
@@ -690,7 +688,6 @@
 		58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
-		6496C34F2492308D0099475D /* SingleLineOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineOverlayView.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+iOS.swift"; sourceTree = "<group>"; };
 		6496C3522492308D0099475D /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		6496C3532492308D0099475D /* VideoProgressSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProgressSlider.swift; sourceTree = "<group>"; };
@@ -1405,18 +1402,9 @@
 			children = (
 				4943B95824C6F08A0006F81C /* NVActivityIndicatorView */,
 				49C12D5D24A3B109002CCDF5 /* General */,
-				6496C34E2492308D0099475D /* OverlayViews */,
 				6496C3502492308D0099475D /* VideoPlayer */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		6496C34E2492308D0099475D /* OverlayViews */ = {
-			isa = PBXGroup;
-			children = (
-				6496C34F2492308D0099475D /* SingleLineOverlayView.swift */,
-			);
-			path = OverlayViews;
 			sourceTree = "<group>";
 		};
 		6496C3502492308D0099475D /* VideoPlayer */ = {
@@ -1955,7 +1943,6 @@
 				49736EAE24A9F59C001F3F48 /* Shape.swift in Sources */,
 				49736EFA24A9F59C001F3F48 /* AnimationUtils.swift in Sources */,
 				6496C3552492308D0099475D /* MLS.swift in Sources */,
-				6496C35B249230BB0099475D /* SingleLineOverlayView.swift in Sources */,
 				49736ED124A9F59C001F3F48 /* MDisplayLink.swift in Sources */,
 				4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				495CB139249CF98600998FF4 /* Throttler.swift in Sources */,
@@ -2228,7 +2215,6 @@
 				49A804F824AA0ED400E30DA8 /* BoundsUtils.swift in Sources */,
 				49A8048D24AA0E0300E30DA8 /* AnimationImpl.swift in Sources */,
 				49A8049E24AA0E3800E30DA8 /* MacawEvent.swift in Sources */,
-				641C9183249A1C28000E4E63 /* SingleLineOverlayView.swift in Sources */,
 				49A804B324AA0E9800E30DA8 /* Path.swift in Sources */,
 				49A804EB24AA0EBF00E30DA8 /* MDisplayLink.swift in Sources */,
 				4930181424D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */,
