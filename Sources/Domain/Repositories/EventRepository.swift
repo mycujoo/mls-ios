@@ -7,7 +7,7 @@ import Foundation
 
 protocol EventRepository {
     func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())
-    func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())
+    func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())
 
     func startEventUpdates(for id: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())
     func stopEventUpdates(for id: String)

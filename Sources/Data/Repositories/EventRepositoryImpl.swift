@@ -21,12 +21,11 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
         }
     }
     
-    func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ()) {
+    func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ()) {
             _fetch(
                 .events(
                     pageSize: pageSize,
                     pageToken: pageToken,
-                    hasStream: hasStream,
                     status: status?.map { DataLayer.ParamEventStatus.fromDomain($0) },
                     orderBy: orderBy != nil ? DataLayer.ParamEventOrder.fromDomain(orderBy!) : nil),
                 type: DataLayer.EventWrapper.self
@@ -57,10 +56,6 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
                 }
             }
         }
-
-
-
-
     }
     
     func stopEventUpdates(for id: String) {

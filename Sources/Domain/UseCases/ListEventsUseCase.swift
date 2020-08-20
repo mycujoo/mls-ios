@@ -11,9 +11,9 @@ class ListEventsUseCase {
         self.eventRepository = eventRepository
     }
 
-    func execute(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, completionHandler: @escaping ([Event]?, Error?) -> ()) {
+    func execute(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, completionHandler: @escaping ([Event]?, Error?) -> ()) {
 
-        eventRepository.fetchEvents(pageSize: pageSize, pageToken: pageToken, hasStream: hasStream, status: status, orderBy: orderBy) { (events, error) in
+        eventRepository.fetchEvents(pageSize: pageSize, pageToken: pageToken, status: status, orderBy: orderBy) { (events, error) in
             completionHandler(events, error)
         }
     }

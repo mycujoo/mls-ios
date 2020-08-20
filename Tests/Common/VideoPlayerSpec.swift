@@ -187,7 +187,7 @@ class VideoPlayerSpec: QuickSpec {
             self.mockPlayerConfigRepository = MockPlayerConfigRepository()
 
             stub(self.mockEventRepository) { mock in
-                when(mock).startEventUpdates(for: any(), callback: any()).thenDoNothing()
+                when(mock).startEventUpdates(for: any(), pseudoUserId: any(), callback: any()).thenDoNothing()
                 when(mock).stopEventUpdates(for: any()).thenDoNothing()
             }
 
