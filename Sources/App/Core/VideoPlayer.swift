@@ -366,7 +366,7 @@ public class VideoPlayer: NSObject {
             }
 
             if let event = event {
-                getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
+                getEventUpdatesUseCase.start(id: event.id, pseudoUserId: pseudoUserId) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
                     case .eventLiveViewers(let amount):
@@ -376,7 +376,6 @@ public class VideoPlayer: NSObject {
                             self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
                         }
                     case .eventUpdate(let updatedEvent):
-                        // TODO: Always fetch at least one update on the event after it is initally loaded.
                         if updatedEvent.id == event.id {
                             self.event = updatedEvent
                         }

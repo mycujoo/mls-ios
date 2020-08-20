@@ -73,12 +73,7 @@ extension API: TargetType {
                             "organiser": "",
                             "start_time": "2020-07-09T08:52:18Z",
                             "status": "EVENT_STATUS_SCHEDULED",
-                            "streams": [
-                                {
-                                    "id": "1234",
-                                    "full_url": "https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8"
-                                }
-                            ],
+                            "streams": [],
                             "thumbnail_url": "",
                             "timeline_ids": [],
                             "timezone": "America/Los_Angeles",
@@ -104,12 +99,7 @@ extension API: TargetType {
                             "organiser": "",
                             "start_time": "2020-07-04T13:49:47Z",
                             "status": "EVENT_STATUS_SCHEDULED",
-                            "streams": [
-                                {
-                                    "id": "12345",
-                                    "full_url": "https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8"
-                                }
-                            ],
+                            "streams": [],
                             "thumbnail_url": "",
                             "timeline_ids": [],
                             "timezone": "America/Los_Angeles",

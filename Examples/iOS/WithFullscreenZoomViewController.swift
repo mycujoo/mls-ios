@@ -92,7 +92,7 @@ class WithFullscreenZoomViewController: UIViewController {
         updateIsFullscreen(to: isLandscape)
 
         mls.dataProvider().eventList(hasStream: true, orderBy: .titleDesc, completionHandler: { [weak self] (events) in
-            self?.videoPlayer.event = events?.filter { $0.streams.compactMap { $0.fullUrl }.first != nil }.first
+            self?.videoPlayer.event = events?.first
         })
     }
 }
