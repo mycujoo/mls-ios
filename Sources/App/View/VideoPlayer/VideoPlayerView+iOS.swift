@@ -642,23 +642,19 @@ extension VideoPlayerView {
     }
 
     func setControlViewVisibility(visible: Bool, animated: Bool) {
-        if (!controlViewHasAlpha) == visible {
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: animated ? 0.2 : 0) {
-                    self.controlAlphaView.alpha = visible ? 1 : 0
-                    self.controlView.alpha = visible ? 1 : 0
-                }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: animated ? 0.2 : 0) {
+                self.controlAlphaView.alpha = visible ? 1 : 0
+                self.controlView.alpha = visible ? 1 : 0
             }
         }
     }
 
     func setInfoViewVisibility(visible: Bool, animated: Bool) {
-        if (!infoViewHasAlpha) == visible {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                UIView.animate(withDuration: animated ? 0.2 : 0) {
-                    self.infoView.alpha = visible ? 1 : 0
-                }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            UIView.animate(withDuration: animated ? 0.2 : 0) {
+                self.infoView.alpha = visible ? 1 : 0
             }
         }
     }
