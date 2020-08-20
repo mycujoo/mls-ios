@@ -51,7 +51,7 @@ public class MLS {
         return TimelineRepositoryImpl(api: api)
     }()
     private lazy var eventRepository: EventRepository = {
-        return EventRepositoryImpl(api: realApi, ws: ws)
+        return EventRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var playerConfigRepository: PlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
