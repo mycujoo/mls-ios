@@ -70,10 +70,12 @@ enum AnnotationActionData {
 struct AnnotationActionShowTimelineMarker {
     let color: String
     let label: String
+    let seekOffset: Int
 
-    init(color: String, label: String) {
+    init(color: String, label: String, seekOffset: Int) {
         self.color = color
         self.label = label
+        self.seekOffset = seekOffset
     }
 }
 

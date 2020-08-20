@@ -64,10 +64,11 @@ class AnnotationService: AnnotationServicing {
                 let offset = Double(action.offset)
                 switch action.data {
                 case .showTimelineMarker(let data):
-                    let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label)
+                    let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label, seekOffset: data.seekOffset)
                     let position = min(1.0, max(0.0, offset / input.currentDuration))
+                    let seekPosition = min(1.0, max(0.0, (offset + Double(data.seekOffset)) / input.currentDuration))
 
-                    showTimelineMarkers.append(MLSUI.ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position))
+                    showTimelineMarkers.append(MLSUI.ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position, seekPosition: seekPosition))
                 case .showOverlay(let data):
                     if offset <= input.currentTime {
                         if let duration = data.duration {
