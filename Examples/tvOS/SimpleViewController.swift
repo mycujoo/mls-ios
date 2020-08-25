@@ -8,7 +8,7 @@ import MLSSDK
 
 
 class SimpleViewController: UIViewController {
-    private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
@@ -22,8 +22,8 @@ class SimpleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        mls.dataProvider().eventList(completionHandler: { [weak self] (events) in
-            self?.videoPlayer.event = events?.filter { $0.streams.compactMap { $0.fullUrl }.first != nil }.first
+        mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
+            self?.videoPlayer.event = events?.first
         })
     }
 }

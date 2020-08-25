@@ -10,10 +10,13 @@ class WithEventListViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 
     // Make sure to set your organization's public key here!
-    private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
+        #if DEBUG
+        player.isMuted = true
+        #endif
         return player
     }()
 
@@ -48,8 +51,9 @@ class WithEventListViewController: UIViewController {
         view.backgroundColor = .black
         tableView.tableFooterView = UIView()
 
-        mls.dataProvider().eventList(orderBy: .startTimeDesc, completionHandler: { [weak self] (events) in
+        mls.dataProvider().eventList(orderBy: .startTimeDesc, completionHandler: { [weak self] (events, nextPageToken, previousPageToken) in
             guard let events = events else { return }
+            
             self?.events = events
         })
     }

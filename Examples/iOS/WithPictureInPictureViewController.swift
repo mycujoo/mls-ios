@@ -8,7 +8,7 @@ import AVKit
 
 class WithPictureInPictureViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
 
     private var pictureInPictureController: AVPictureInPictureController? = nil
 
@@ -83,8 +83,8 @@ class WithPictureInPictureViewController: UIViewController {
             pipButton.addTarget(self, action: #selector(pipButtonTapped), for: .touchUpInside)
         }
 
-        mls.dataProvider().eventList(completionHandler: { [weak self] (events) in
-            self?.videoPlayer.event = events?.filter { $0.streams.compactMap { $0.fullUrl }.first != nil }.first
+        mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
+            self?.videoPlayer.event = events?.first
         })
     }
 

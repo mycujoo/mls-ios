@@ -7,7 +7,7 @@ import Moya
 
 enum API {
     case eventById(id: String, updateId: String?)
-    case events(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
+    case events(pageSize: Int?, pageToken: String?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
     case playerConfig
     case annotations(String)
 
@@ -47,11 +47,68 @@ extension API: TargetType {
         switch self {
         case .eventById:
             return Data("""
-                {"id":"1eOhF2NnDunfzXdO6E10dVAK2tN","title":"TestwithShervin","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-09T08:52:18Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"full_url":"https://rendered-europe-west.mls.mycujoo.tv/mats/ckcd4l84800030108rouubqsj/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}}
+                {"id":"1eOhF2NnDunfzXdO6E10dVAK2tN","title":"TestwithShervin","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-09T08:52:18Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"id":"1234", "full_url":"https://rendered-europe-west.mls.mycujoo.tv/mats/ckcd4l84800030108rouubqsj/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}}
                 """.utf8)
         case .events:
             return Data("""
-                {"events":[{"id":"1eOhF2NnDunfzXdO6E10dVAK2tN","title":"TestwithShervin","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-09T08:52:18Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"full_url":"https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}},{"id":"1e8KVTx5VfG27zJdRWlcZnQUVZY","title":"Fullflowtest","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-04T13:49:47Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"full_url":"https://live.mycujoo.tv/sa/gcs/cjz1ycawc1hjn0gd7f8pjvs7l/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}}],"next_page_token":"","previous_page_token":""}
+                {
+                    "events": [
+                        {
+                            "description": "",
+                            "id": "1eOhF2NnDunfzXdO6E10dVAK2tN",
+                            "is_test": false,
+                            "location": {
+                                "physical": {
+                                    "city": "Amsterdam",
+                                    "continent_code": "EU",
+                                    "coordinates": {
+                                        "latitude": 52.3666969,
+                                        "longitude": 4.8945398
+                                    },
+                                    "country_code": "NL",
+                                    "venue": ""
+                                }
+                            },
+                            "metadata": {},
+                            "organiser": "",
+                            "start_time": "2020-07-09T08:52:18Z",
+                            "status": "EVENT_STATUS_SCHEDULED",
+                            "streams": [],
+                            "thumbnail_url": "",
+                            "timeline_ids": [],
+                            "timezone": "America/Los_Angeles",
+                            "title": "TestwithShervin"
+                        },
+                        {
+                            "description": "",
+                            "id": "1e8KVTx5VfG27zJdRWlcZnQUVZY",
+                            "is_test": false,
+                            "location": {
+                                "physical": {
+                                    "city": "Amsterdam",
+                                    "continent_code": "EU",
+                                    "coordinates": {
+                                        "latitude": 52.3666969,
+                                        "longitude": 4.8945398
+                                    },
+                                    "country_code": "NL",
+                                    "venue": ""
+                                }
+                            },
+                            "metadata": {},
+                            "organiser": "",
+                            "start_time": "2020-07-04T13:49:47Z",
+                            "status": "EVENT_STATUS_SCHEDULED",
+                            "streams": [],
+                            "thumbnail_url": "",
+                            "timeline_ids": [],
+                            "timezone": "America/Los_Angeles",
+                            "title": "Fullflowtest"
+                        }
+                    ],
+                    "next_page_token": "",
+                    "previous_page_token": ""
+                }
                 """.utf8)
         case .playerConfig:
             return Data("""
@@ -66,7 +123,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffffff",
-                                    "label": "Kickoff"
+                                    "label": "Kickoff",
+                                    "seek_offset": -1500000
                                 },
                                 "offset": 1699000,
                                 "id": "f4354364q6afd",
@@ -133,7 +191,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffffff",
-                                    "label": "Halftime"
+                                    "label": "Halftime",
+                                    "seek_offset": -5000
                                 },
                                 "offset": 4720000,
                                 "id": "fda43t943f9b",
@@ -159,7 +218,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffffff",
-                                    "label": "Kickoff"
+                                    "label": "Kickoff",
+                                    "seek_offset": 2000
                                 },
                                 "offset": 5711000,
                                 "id": "fda43t943f3c",
@@ -176,7 +236,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#ffff01",
-                                    "label": "Goal"
+                                    "label": "Goal",
+                                    "seek_offset": -3000
                                 },
                                 "offset": 5891000,
                                 "id": "fda43t943f9a",
@@ -232,7 +293,8 @@ extension API: TargetType {
                             {
                                 "data": {
                                     "color": "#de4f1f",
-                                    "label": "Fulltime"
+                                    "label": "Fulltime",
+                                    "seek_offset": 0
                                 },
                                 "offset": 8850000,
                                 "id": "bmb9t49bm34t",
@@ -265,16 +327,13 @@ extension API: TargetType {
 
     var task: Moya.Task {
         switch self {
-        case .events(let pageSize, let pageToken, let hasStream, let status, let orderBy):
+        case .events(let pageSize, let pageToken, let status, let orderBy):
             var params: [String : Any] = [:]
             if let pageSize = pageSize {
                 params["page_size"] = pageSize
             }
             if let pageToken = pageToken {
                 params["page_token"] = pageToken
-            }
-            if let hasStream = hasStream {
-                params["has_stream"] = hasStream
             }
             if let status = status {
                 params["status"] = status.map { $0.rawValue }

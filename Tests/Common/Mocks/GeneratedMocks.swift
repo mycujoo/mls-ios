@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-14 15:48:56 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-08-25 10:29:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-14 15:48:56 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-08-25 10:29:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1853,7 +1853,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-14 15:48:56 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-08-25 10:29:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1955,7 +1955,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-14 15:48:56 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-08-25 10:29:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2007,31 +2007,31 @@ import Foundation
     
     
     
-     func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())  {
+     func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())  {
         
-    return cuckoo_manager.call("fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())",
-            parameters: (pageSize, pageToken, hasStream, status, orderBy, callback),
-            escapingParameters: (pageSize, pageToken, hasStream, status, orderBy, callback),
+    return cuckoo_manager.call("fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())",
+            parameters: (pageSize, pageToken, status, orderBy, callback),
+            escapingParameters: (pageSize, pageToken, status, orderBy, callback),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.fetchEvents(pageSize: pageSize, pageToken: pageToken, hasStream: hasStream, status: status, orderBy: orderBy, callback: callback))
+            defaultCall: __defaultImplStub!.fetchEvents(pageSize: pageSize, pageToken: pageToken, status: status, orderBy: orderBy, callback: callback))
         
     }
     
     
     
-     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())  {
+     func startEventUpdates(for id: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())  {
         
-    return cuckoo_manager.call("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())",
-            parameters: (id, callback),
-            escapingParameters: (id, callback),
+    return cuckoo_manager.call("startEventUpdates(for: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())",
+            parameters: (id, pseudoUserId, callback),
+            escapingParameters: (id, pseudoUserId, callback),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.startEventUpdates(for: id, callback: callback))
+            defaultCall: __defaultImplStub!.startEventUpdates(for: id, pseudoUserId: pseudoUserId, callback: callback))
         
     }
     
@@ -2064,14 +2064,14 @@ import Foundation
 	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvent(byId: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func fetchEvents<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.OptionalMatchable, M6: Cuckoo.Matchable>(pageSize: M1, pageToken: M2, hasStream: M3, status: M4, orderBy: M5, callback: M6) -> Cuckoo.ProtocolStubNoReturnFunction<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ())> where M1.OptionalMatchedType == Int, M2.OptionalMatchedType == String, M3.OptionalMatchedType == Bool, M4.OptionalMatchedType == [ParamEventStatus], M5.OptionalMatchedType == ParamEventOrder, M6.MatchedType == ([Event]?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ())>] = [wrap(matchable: pageSize) { $0.0 }, wrap(matchable: pageToken) { $0.1 }, wrap(matchable: hasStream) { $0.2 }, wrap(matchable: status) { $0.3 }, wrap(matchable: orderBy) { $0.4 }, wrap(matchable: callback) { $0.5 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())", parameterMatchers: matchers))
+	    func fetchEvents<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(pageSize: M1, pageToken: M2, status: M3, orderBy: M4, callback: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(Int?, String?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, String?, String?, Error?) -> ())> where M1.OptionalMatchedType == Int, M2.OptionalMatchedType == String, M3.OptionalMatchedType == [ParamEventStatus], M4.OptionalMatchedType == ParamEventOrder, M5.MatchedType == ([Event]?, String?, String?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int?, String?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, String?, String?, Error?) -> ())>] = [wrap(matchable: pageSize) { $0.0 }, wrap(matchable: pageToken) { $0.1 }, wrap(matchable: status) { $0.2 }, wrap(matchable: orderBy) { $0.3 }, wrap(matchable: callback) { $0.4 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(for id: M1, pseudoUserId: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == String, M3.MatchedType == (EventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "startEventUpdates(for: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func stopEventUpdates<M1: Cuckoo.Matchable>(for id: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
@@ -2102,15 +2102,15 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func fetchEvents<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.OptionalMatchable, M6: Cuckoo.Matchable>(pageSize: M1, pageToken: M2, hasStream: M3, status: M4, orderBy: M5, callback: M6) -> Cuckoo.__DoNotUse<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ()), Void> where M1.OptionalMatchedType == Int, M2.OptionalMatchedType == String, M3.OptionalMatchedType == Bool, M4.OptionalMatchedType == [ParamEventStatus], M5.OptionalMatchedType == ParamEventOrder, M6.MatchedType == ([Event]?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(Int?, String?, Bool?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, Error?) -> ())>] = [wrap(matchable: pageSize) { $0.0 }, wrap(matchable: pageToken) { $0.1 }, wrap(matchable: hasStream) { $0.2 }, wrap(matchable: status) { $0.3 }, wrap(matchable: orderBy) { $0.4 }, wrap(matchable: callback) { $0.5 }]
-	        return cuckoo_manager.verify("fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func fetchEvents<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(pageSize: M1, pageToken: M2, status: M3, orderBy: M4, callback: M5) -> Cuckoo.__DoNotUse<(Int?, String?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, String?, String?, Error?) -> ()), Void> where M1.OptionalMatchedType == Int, M2.OptionalMatchedType == String, M3.OptionalMatchedType == [ParamEventStatus], M4.OptionalMatchedType == ParamEventOrder, M5.MatchedType == ([Event]?, String?, String?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int?, String?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, String?, String?, Error?) -> ())>] = [wrap(matchable: pageSize) { $0.0 }, wrap(matchable: pageToken) { $0.1 }, wrap(matchable: status) { $0.2 }, wrap(matchable: orderBy) { $0.3 }, wrap(matchable: callback) { $0.4 }]
+	        return cuckoo_manager.verify("fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(for id: M1, pseudoUserId: M2, callback: M3) -> Cuckoo.__DoNotUse<(String, String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == String, M3.MatchedType == (EventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return cuckoo_manager.verify("startEventUpdates(for: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -2132,11 +2132,11 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func fetchEvents(pageSize: Int?, pageToken: String?, hasStream: Bool?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ())   {
+     func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())   {
+     func startEventUpdates(for id: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -2147,7 +2147,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-14 15:48:56 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-08-25 10:29:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2249,7 +2249,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-08-14 15:48:56 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-08-25 10:29:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2411,7 +2411,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-14 15:48:56 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-08-25 10:29:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

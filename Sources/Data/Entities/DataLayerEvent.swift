@@ -11,6 +11,8 @@ extension DataLayer {
 
     struct EventWrapper: Decodable {
         let events: [Event]
+        let nextPageToken: String?
+        let previousPageToken: String?
     }
 
     struct Event: Decodable {
@@ -55,6 +57,22 @@ extension DataLayer {
 
 }
 
+extension DataLayer.EventWrapper {
+    enum CodingKeys: String, CodingKey {
+        case events
+        case nextPageToken = "next_page_token"
+        case previousPageToken = "previous_page_token"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let events: [DataLayer.Event] = try container.decode([DataLayer.Event].self, forKey: .events)
+        let nextPageToken: String? = try? container.decode(String.self, forKey: .nextPageToken)
+        let previousPageToken: String? = try? container.decode(String.self, forKey: .previousPageToken)
+
+        self.init(events: events, nextPageToken: nextPageToken, previousPageToken: previousPageToken)
+    }
+}
 
 extension DataLayer.Event {
     enum CodingKeys: String, CodingKey {

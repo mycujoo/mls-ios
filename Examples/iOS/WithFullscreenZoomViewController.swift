@@ -5,8 +5,9 @@
 import UIKit
 import MLSSDK
 
+
 class WithFullscreenZoomViewController: UIViewController {
-    private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
 
     private var doubleTapGestureRecognizer: UITapGestureRecognizer? = nil
 
@@ -91,8 +92,8 @@ class WithFullscreenZoomViewController: UIViewController {
 
         updateIsFullscreen(to: isLandscape)
 
-        mls.dataProvider().eventList(hasStream: true, orderBy: .titleDesc, completionHandler: { [weak self] (events) in
-            self?.videoPlayer.event = events?.filter { $0.streams.compactMap { $0.fullUrl }.first != nil }.first
+        mls.dataProvider().eventList(orderBy: .titleDesc, completionHandler: { [weak self] (events, _, _) in
+            self?.videoPlayer.event = events?.first
         })
     }
 }

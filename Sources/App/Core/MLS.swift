@@ -11,7 +11,13 @@ fileprivate struct UserDefaultsContracts {
 }
 
 public struct Configuration {
-    public init() { }
+    let seekTolerance: CMTime
+
+    /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
+    ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
+    public init(seekTolerance: CMTime = .positiveInfinity) {
+        self.seekTolerance = seekTolerance
+    }
 }
 
 /// The class that should be used to interact with MLS components.
@@ -22,15 +28,16 @@ public class MLS {
 
     // TODO: Inject this dependency graph, rather than building it here.
 
-    private lazy var api: MoyaProvider<API> = {
+    #if DEBUG
+    private lazy var mockApi: MoyaProvider<API> = {
         return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
     }()
+    #endif
 
-    private lazy var realApi: MoyaProvider<API> = {
+    private lazy var api: MoyaProvider<API> = {
         let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] _ in
             return self?.publicKey ?? ""
         })
-//        return MoyaProvider<API>(plugins: [authPlugin, NetworkLoggerPlugin()])
         return MoyaProvider<API>(plugins: [authPlugin])
     }()
 
@@ -51,7 +58,7 @@ public class MLS {
         return TimelineRepositoryImpl(api: api)
     }()
     private lazy var eventRepository: EventRepository = {
-        return EventRepositoryImpl(api: realApi, ws: ws)
+        return EventRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var playerConfigRepository: PlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
@@ -95,9 +102,7 @@ public class MLS {
 
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
-    /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
-    ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
-    public func videoPlayer(with event: Event? = nil, seekTolerance: CMTime = .positiveInfinity) -> VideoPlayer {
+    public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
         let player = VideoPlayer(
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
@@ -106,7 +111,7 @@ public class MLS {
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,
-            seekTolerance: seekTolerance,
+            seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)
 
         player.event = event

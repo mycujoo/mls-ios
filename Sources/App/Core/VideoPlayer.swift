@@ -99,6 +99,16 @@ public class VideoPlayer: NSObject {
     }
     #endif
 
+    /// Get or set the `isMuted` property of the underlying AVPlayer.
+    public var isMuted: Bool {
+        get {
+            return player.isMuted
+        }
+        set {
+            player.isMuted = newValue
+        }
+    }
+
     /// Indicates whether the current item is a live stream.
     public var isLivestream: Bool {
         guard let duration = player.currentDurationAsCMTime else {
@@ -281,12 +291,12 @@ public class VideoPlayer: NSObject {
 
         super.init()
 
-        // TODO: Update usecase to not depend on eventId.
-        getPlayerConfigUseCase.execute { [weak self] (playerConfig, _) in
-            if let playerConfig = playerConfig {
-                self?.playerConfig = playerConfig
-            }
-        }
+        // Disabled until the API is ready.
+//        getPlayerConfigUseCase.execute { [weak self] (playerConfig, _) in
+//            if let playerConfig = playerConfig {
+//                self?.playerConfig = playerConfig
+//            }
+//        }
 
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
@@ -321,10 +331,6 @@ public class VideoPlayer: NSObject {
                 initPlayerView()
             }
         }
-
-        #if DEBUG
-        player.isMuted = true
-        #endif
     }
 
     deinit {
@@ -357,16 +363,17 @@ public class VideoPlayer: NSObject {
         if new {
             tovStore = TOVStore()
 
-            // TODO: Should not pass eventId but timelineId
-            // TODO: Should use the startUpdating usecase.
-            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
-                if let actions = actions {
-                    self?.annotationActions = actions
-                }
-            }
+            // Disabled until the API is ready.
+//            // TODO: Should not pass eventId but timelineId
+//            // TODO: Should use the startUpdating usecase.
+//            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
+//                if let actions = actions {
+//                    self?.annotationActions = actions
+//                }
+//            }
 
             if let event = event {
-                getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
+                getEventUpdatesUseCase.start(id: event.id, pseudoUserId: pseudoUserId) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
                     case .eventLiveViewers(let amount):
@@ -376,7 +383,6 @@ public class VideoPlayer: NSObject {
                             self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
                         }
                     case .eventUpdate(let updatedEvent):
-                        // TODO: Always fetch at least one update on the event after it is initally loaded.
                         if updatedEvent.id == event.id {
                             self.event = updatedEvent
                         }
@@ -435,10 +441,7 @@ public class VideoPlayer: NSObject {
 
         if let event = event {
             if let startTime = event.startTime {
-                var timeStr = humanFriendlyDateFormatter.string(from: startTime)
-                if let timezone = event.timezone {
-                    timeStr += " (\(timezone))"
-                }
+                let timeStr = humanFriendlyDateFormatter.string(from: startTime)
                 view.infoDateLabel.text = timeStr
             } else {
                 view.infoDateLabel.text = nil

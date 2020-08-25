@@ -41,9 +41,10 @@ extension DataLayer {
 
     // MARK: - ActionShowTimelineMarker
 
-    struct AnnotationActionShowTimelineMarker: Decodable {
+    struct AnnotationActionShowTimelineMarker {
         let color: String
         let label: String
+        let seekOffset: Int
     }
 
     // MARK: - AnnotationActionShowOverlay
@@ -271,6 +272,23 @@ extension DataLayer.OverlayAnimateoutType {
     }
 }
 
+extension DataLayer.AnnotationActionShowTimelineMarker: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case color
+        case label
+        case seekOffset = "seek_offset"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let color: String = try container.decode(String.self, forKey: .color)
+        let label: String = try container.decode(String.self, forKey: .label)
+        let seekOffset: Int = (try? container.decode(Int.self, forKey: .seekOffset)) ?? 0
+
+        self.init(color: color, label: label, seekOffset: seekOffset)
+    }
+}
+
 extension DataLayer.AnnotationActionShowOverlay: Decodable {
     enum CodingKeys: String, CodingKey {
         case customId = "custom_id"
@@ -452,7 +470,7 @@ extension DataLayer.AnnotationAction {
 
 extension DataLayer.AnnotationActionShowTimelineMarker {
     var toDomain: MLSSDK.AnnotationActionShowTimelineMarker {
-        return MLSSDK.AnnotationActionShowTimelineMarker(color: self.color, label: self.label)
+        return MLSSDK.AnnotationActionShowTimelineMarker(color: self.color, label: self.label, seekOffset: self.seekOffset)
     }
 }
 
