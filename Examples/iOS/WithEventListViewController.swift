@@ -50,8 +50,7 @@ class WithEventListViewController: UIViewController {
 
         mls.dataProvider().eventList(orderBy: .startTimeDesc, completionHandler: { [weak self] (events, nextPageToken, previousPageToken) in
             guard let events = events else { return }
-            print("Page tokens:", nextPageToken, previousPageToken)
-            print("Events:", events)
+            
             self?.events = events
         })
     }
