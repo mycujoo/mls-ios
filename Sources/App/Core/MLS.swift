@@ -13,6 +13,8 @@ fileprivate struct UserDefaultsContracts {
 public struct Configuration {
     let seekTolerance: CMTime
 
+    /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
+    ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     public init(seekTolerance: CMTime = .positiveInfinity) {
         self.seekTolerance = seekTolerance
     }
@@ -100,8 +102,6 @@ public class MLS {
 
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
-    /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
-    ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
         let player = VideoPlayer(
             view: VideoPlayerView(),
