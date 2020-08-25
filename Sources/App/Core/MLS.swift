@@ -11,7 +11,11 @@ fileprivate struct UserDefaultsContracts {
 }
 
 public struct Configuration {
-    public init() { }
+    let seekTolerance: CMTime
+
+    public init(seekTolerance: CMTime = .positiveInfinity) {
+        self.seekTolerance = seekTolerance
+    }
 }
 
 /// The class that should be used to interact with MLS components.
@@ -97,7 +101,7 @@ public class MLS {
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
     /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
-    public func videoPlayer(with event: Event? = nil, seekTolerance: CMTime = .positiveInfinity) -> VideoPlayer {
+    public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
         let player = VideoPlayer(
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
@@ -106,7 +110,7 @@ public class MLS {
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,
-            seekTolerance: seekTolerance,
+            seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)
 
         player.event = event

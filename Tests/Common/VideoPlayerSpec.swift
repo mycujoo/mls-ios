@@ -513,32 +513,32 @@ class VideoPlayerSpec: QuickSpec {
                     }
                 }
 
-                waitUntil(timeout: 2.0) { done in
+                waitUntil(timeout: 3.0) { done in
                     // The first call should not trigger a show overlay at all.
                     updatePeriodicTimeObserver()
 
                     // The showOverlays method may make calls asynchronously, so wait for a brief period.
-                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
                         verify(self.mockView, times(0)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
 
                         // The second call should trigger a show overlay, which PLACES an overlay.
                         updatePeriodicTimeObserver()
-                        let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
                             verify(self.mockView, times(1)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
 
                             // The third call should trigger a hide overlay.
                             updatePeriodicTimeObserver()
-                            let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                            let _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
                                 verify(self.mockView, times(1)).removeOverlay(containerView: any(), animateType: any(), animateDuration: any(), completion: any())
 
                                 // The fourth call should trigger a show overlay, with PLACES an overlay again (because it was removed before).
                                 updatePeriodicTimeObserver()
-                                let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                                let _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
                                     verify(self.mockView, times(2)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
 
                                     // The fifth call should trigger a show overlay, with REPLACES an overlay (because it already exists onscreen)
                                     updatePeriodicTimeObserver()
-                                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                                    let _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
                                         verify(self.mockView, times(1)).replaceOverlay(containerView: any(), imageView: any())
                                         done()
                                     }
