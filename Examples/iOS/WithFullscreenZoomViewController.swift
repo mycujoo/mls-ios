@@ -5,8 +5,9 @@
 import UIKit
 import MLSSDK
 
+
 class WithFullscreenZoomViewController: UIViewController {
-    private lazy var mls = MLS(publicKey: "F20E0UNTM29R0K5A30JAAE2L87URF2VO", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
 
     private var doubleTapGestureRecognizer: UITapGestureRecognizer? = nil
 
