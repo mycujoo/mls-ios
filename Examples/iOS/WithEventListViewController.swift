@@ -48,8 +48,10 @@ class WithEventListViewController: UIViewController {
         view.backgroundColor = .black
         tableView.tableFooterView = UIView()
 
-        mls.dataProvider().eventList(orderBy: .startTimeDesc, completionHandler: { [weak self] (events) in
+        mls.dataProvider().eventList(orderBy: .startTimeDesc, completionHandler: { [weak self] (events, nextPageToken, previousPageToken) in
             guard let events = events else { return }
+            print("Page tokens:", nextPageToken, previousPageToken)
+            print("Events:", events)
             self?.events = events
         })
     }

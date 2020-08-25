@@ -22,7 +22,7 @@ class SimpleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        mls.dataProvider().eventList(completionHandler: { [weak self] (events) in
+        mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
             self?.videoPlayer.event = events?.first
         })
     }

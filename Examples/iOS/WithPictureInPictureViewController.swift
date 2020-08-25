@@ -83,7 +83,7 @@ class WithPictureInPictureViewController: UIViewController {
             pipButton.addTarget(self, action: #selector(pipButtonTapped), for: .touchUpInside)
         }
 
-        mls.dataProvider().eventList(completionHandler: { [weak self] (events) in
+        mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
             self?.videoPlayer.event = events?.first
         })
     }

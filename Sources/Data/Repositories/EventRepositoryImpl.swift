@@ -21,7 +21,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
         }
     }
     
-    func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, Error?) -> ()) {
+    func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ()) {
             _fetch(
                 .events(
                     pageSize: pageSize,
@@ -31,7 +31,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
                 type: DataLayer.EventWrapper.self
         ) { (wrapper, err) in
             // TODO: Return the pagination tokens as well
-            callback(wrapper?.events.map { $0.toDomain }, err)
+            callback(wrapper?.events.map { $0.toDomain }, wrapper?.nextPageToken, wrapper?.previousPageToken, err)
         }
     }
 

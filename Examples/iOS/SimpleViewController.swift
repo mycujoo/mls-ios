@@ -48,7 +48,7 @@ class SimpleViewController: UIViewController {
             NSLayoutConstraint.activate(playerConstraints)
         }
 
-        mls.dataProvider().eventList(completionHandler: { [weak self] (events) in
+        mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
             self?.videoPlayer.event = events?.first
         })
     }
