@@ -64,6 +64,13 @@
             ReferencedContainer = "container:MLS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "PUBLIC_KEY"
+            value = "WTEWY2HD8Y2D4AKVDR6V6PCJZDBJBFFW"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
