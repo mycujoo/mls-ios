@@ -214,8 +214,6 @@ class VideoProgressSlider: UIControl {
 
         valueOnFirstTouch = _value
 
-        let v = max(0, min(Double(touch.location(in: self).x), width)) / width
-
         // Reset `isFirstContinueAfterBeginTracking`.
         isFirstContinueAfterBeginTracking = true
 

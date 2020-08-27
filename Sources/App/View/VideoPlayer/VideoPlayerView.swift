@@ -148,7 +148,7 @@ extension VideoPlayerView {
         switch animateType {
         case .fadeIn:
             imageView.alpha = 0
-            UIView.animate(withDuration: animateDuration / 1000, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            UIView.animate(withDuration: animateDuration / 1000, delay: 0.0, options: .curveEaseInOut, animations: {
                 imageView.alpha = 1
             }, completion: nil)
 
@@ -232,7 +232,7 @@ extension VideoPlayerView {
         animateDuration: Double,
         completion: @escaping (() -> Void)
     ) {
-        let animationCompleted: ((Bool) -> Void) = { [weak self] _ in
+        let animationCompleted: ((Bool) -> Void) = { _ in
             containerView.removeFromSuperview()
             completion()
         }
