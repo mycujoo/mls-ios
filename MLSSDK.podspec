@@ -3,7 +3,7 @@ Pod::Spec.new do |spec|
   spec.name         = "MLSSDK"
   spec.version      = "1.0.0"
   spec.summary      = "An SDK for MyCujoo Live Services to help build an amazing video experience"
-  spec.description  = "This SDK is intended for customers MyCujoo Live Services. It offers a video player, overlays, analytics and more."
+  spec.description  = "This SDK is intended for customers of MyCujoo Live Services. It offers a video player, overlays, analytics and more."
   spec.homepage     = "https://mls.mycujoo.tv"
   spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.author       = { "Mats ten Bohmer" => "" }
