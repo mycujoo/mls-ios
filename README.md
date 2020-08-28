@@ -1,4 +1,4 @@
-This SDK is intended for customers MyCujoo Live Services. It offers a video player, overlays, analytics and more. It currently supports iOS and tvOS.
+This SDK is intended for customers of MyCujoo Live Services. It offers a video player, overlays, analytics and more. It currently supports iOS and tvOS.
 
 ## Installation
 
