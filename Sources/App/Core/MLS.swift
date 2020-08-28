@@ -86,7 +86,7 @@ public class MLS {
     }()
 
     private lazy var dataProvider_: DataProvider = {
-        return DataProvider(listEventsUseCase: listEventsUseCase)
+        return DataProvider(getEventUseCase: getEventUseCase, listEventsUseCase: listEventsUseCase)
     }()
 
     public init(publicKey: String, configuration: Configuration) {
