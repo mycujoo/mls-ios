@@ -28,12 +28,6 @@ public class MLS {
 
     // TODO: Inject this dependency graph, rather than building it here.
 
-    #if DEBUG
-    private lazy var mockApi: MoyaProvider<API> = {
-        return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub)
-    }()
-    #endif
-
     private lazy var api: MoyaProvider<API> = {
         let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] _ in
             return self?.publicKey ?? ""
@@ -92,7 +86,7 @@ public class MLS {
     }()
 
     private lazy var dataProvider_: DataProvider = {
-        return DataProvider(listEventsUseCase: listEventsUseCase)
+        return DataProvider(getEventUseCase: getEventUseCase, listEventsUseCase: listEventsUseCase)
     }()
 
     public init(publicKey: String, configuration: Configuration) {

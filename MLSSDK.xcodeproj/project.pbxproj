@@ -474,6 +474,7 @@
 		4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUpdatesUseCase.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4938012B24CE19B0008AFC64 /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
+		493C017F24F945F8002E9DA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4943B95924C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationDelegate.swift; sourceTree = "<group>"; };
 		4943B95B24C6F08A0006F81C /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
 		4943B95C24C6F08A0006F81C /* NVActivityIndicatorViewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorViewable.swift; sourceTree = "<group>"; };
@@ -1376,6 +1377,7 @@
 		6477C4302469552A0033435D = {
 			isa = PBXGroup;
 			children = (
+				493C017F24F945F8002E9DA0 /* README.md */,
 				4989B1F2249D74E4006CBB47 /* Resources */,
 				64CACD51249A367100CEE111 /* Sources */,
 				49EA06B424C78C5E00C7AB10 /* Tests */,
