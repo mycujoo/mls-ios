@@ -90,6 +90,9 @@ public class MLS {
     }()
 
     public init(publicKey: String, configuration: Configuration) {
+        if publicKey.isEmpty {
+            fatalError("Please insert your publicKey in the MLS component. You can obtain one through https://mls.mycujoo.tv")
+        }
         self.publicKey = publicKey
         self.configuration = configuration
     }

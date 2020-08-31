@@ -3,6 +3,22 @@ inhibit_all_warnings!
 source 'https://cdn.cocoapods.org/'
 workspace 'MLS'
 
+# // MARK: - Example projects
+
+target 'MLS' do
+  platform :ios, '11.0'
+  pod 'MLSSDK', :path => '..'
+end
+
+target 'MLS-tvOS' do
+  platform :tvos, '11.0'
+  pod 'MLSSDK', :path => '..'
+end
+
+
+#####################################################################
+######## THE FOLLOWING IS NOT NEEDED IN YOUR IMPLEMENTATION! ########
+#####################################################################
 
 # // MARK: - Frameworks
 
@@ -60,16 +76,4 @@ target 'tvOSTests' do
   pod 'Cuckoo', '~> 1.4'
   pod 'Quick', '~> 3.0'
   pod 'Nimble', '~> 8.0'
-end
-
-# // MARK: - Example projects
-
-target 'MLS' do
-  platform :ios, '11.0'
-  pod 'MLSSDK', :path => '..'
-end
-
-target 'MLS-tvOS' do
-  platform :tvos, '11.0'
-  pod 'MLSSDK', :path => '..'
 end
