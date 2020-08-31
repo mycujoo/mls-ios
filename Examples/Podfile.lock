@@ -3,7 +3,7 @@ PODS:
   - Cuckoo (1.4.1):
     - Cuckoo/Swift (= 1.4.1)
   - Cuckoo/Swift (1.4.1)
-  - MLSSDK (0.0.1):
+  - MLSSDK (1.0.0):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - Starscream (~> 4.0)
@@ -51,7 +51,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   Cuckoo: 4625f7f54d9bb880123270e8969898d6c1d036b5
-  MLSSDK: f75988446c4cc9caa21729f030b2960b7ccbedf1
+  MLSSDK: 950bc233432aa6b2c722e9a9a3901340ab3cf516
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Nimble: 5f8a2fb6fa343a7242dfdd9d42f7267419d464b2
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
@@ -59,6 +59,6 @@ SPEC CHECKSUMS:
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: 3328de4b5aa15b2dee2063219dbafcac41fe72b8
+PODFILE CHECKSUM: 2197c2b3702495142b5e3f96573aa95108c1db80
 
 COCOAPODS: 1.9.3
