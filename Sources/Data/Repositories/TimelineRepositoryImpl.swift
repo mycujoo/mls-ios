@@ -5,8 +5,8 @@
 import Foundation
 
 class TimelineRepositoryImpl: BaseRepositoryImpl, TimelineRepository {
-    func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ()) {
-        _fetch(.annotations(timelineId), type: DataLayer.AnnotationActionWrapper.self) { (wrapper, err) in
+    func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ()) {
+        _fetch(.timelineActions(id: timelineId, updateId: nil), type: DataLayer.AnnotationActionWrapper.self) { (wrapper, err) in
             // TODO: Return the pagination tokens as well
             callback(wrapper?.actions.map { $0.toDomain }, err)
         }

@@ -8,8 +8,8 @@ import Moya
 enum API {
     case eventById(id: String, updateId: String?)
     case events(pageSize: Int?, pageToken: String?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
+    case timelineActions(id: String, updateId: String?)
     case playerConfig
-    case annotations(String)
 
     /// A dateformatter that can be used on Event objects on this API.
     static var eventDateTimeFormatter: DateFormatter = {
@@ -29,16 +29,16 @@ extension API: TargetType {
             return "/bff/events/v1beta1/\(eventId)"
         case .events:
             return "/bff/events/v1beta1"
+        case .timelineActions(let timelineId, _):
+            return "/bff/timeline/v1beta1/\(timelineId)"
         case .playerConfig:
             return "/bff/player_config"
-        case .annotations(let timelineId):
-            return "/bff/annotations/\(timelineId)"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .eventById, .events, .playerConfig, .annotations:
+        case .eventById, .events, .timelineActions, .playerConfig:
             return .get
         }
     }
@@ -110,11 +110,7 @@ extension API: TargetType {
                     "previous_page_token": ""
                 }
                 """.utf8)
-        case .playerConfig:
-            return Data("""
-                {"primary_color":"#ffffff","secondary_color":"#de4f1f","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
-                """.utf8)
-        case .annotations(let timelineId):
+        case .timelineActions(let timelineId, _):
             switch timelineId {
             default:
                 return Data("""
@@ -322,6 +318,10 @@ extension API: TargetType {
                     }
                 """.utf8)
             }
+        case .playerConfig:
+            return Data("""
+                {"primary_color":"#ffffff","secondary_color":"#de4f1f","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
+                """.utf8)
         }
     }
 
@@ -349,7 +349,13 @@ extension API: TargetType {
                 params["update_id"] = updateId
             }
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        case .playerConfig, .annotations:
+        case .timelineActions(_, let updateId):
+            var params: [String : Any] = [:]
+            if let updateId = updateId {
+                params["update_id"] = updateId
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .playerConfig:
            return .requestPlain
        }
     }

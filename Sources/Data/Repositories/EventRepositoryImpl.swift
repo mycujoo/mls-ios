@@ -42,7 +42,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
                 callback(.eventUpdate(event: initialEvent))
             }
 
-            self?.ws.subscribe(eventId: id, sessionId: pseudoUserId) { [weak self] update in
+            self?.ws.subscribe(room: WebSocketConnection.Room(id: id, type: .event)) { [weak self] update in
                 switch update {
                 case .eventTotal(let total):
                     callback(.eventLiveViewers(amount: total))
@@ -53,12 +53,14 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
                             callback(.eventUpdate(event: updatedEvent))
                         }
                     })
+                default:
+                    break
                 }
             }
         }
     }
     
     func stopEventUpdates(for id: String) {
-        ws.unsubscribe(eventId: id)
+        ws.unsubscribe(room: WebSocketConnection.Room(id: id, type: .event))
     }
 }

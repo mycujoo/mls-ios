@@ -36,7 +36,7 @@ public class MLS {
     }()
 
     private lazy var ws: WebSocketConnection = {
-        return WebSocketConnection()
+        return WebSocketConnection(sessionId: pseudoUserId)
     }()
 
     private lazy var pseudoUserId: String = {

@@ -13,7 +13,7 @@ class GetAnnotationActionsForTimelineUseCase {
     }
 
     func execute(timelineId: String, completionHandler: @escaping ([AnnotationAction]?, Error?) -> ()) {
-        timelineRepository.fetchAnnotationActions(byTimelineId: timelineId) { (actions, error) in
+        timelineRepository.fetchAnnotationActions(byTimelineId: timelineId, updateId: nil) { (actions, error) in
             completionHandler(actions, error)
         }
     }
