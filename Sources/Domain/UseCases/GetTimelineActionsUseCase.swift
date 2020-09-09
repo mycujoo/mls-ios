@@ -5,7 +5,7 @@
 import Foundation
 
 
-class GetAnnotationActionsForTimelineUseCase {
+class GetTimelineActionsUseCase {
     private let timelineRepository: TimelineRepository
 
     init(timelineRepository: TimelineRepository) {

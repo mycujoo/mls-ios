@@ -49,7 +49,7 @@ public class MLS {
     }()
 
     private lazy var timelineRepository: TimelineRepository = {
-        return TimelineRepositoryImpl(api: api)
+        return TimelineRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var eventRepository: EventRepository = {
         return EventRepositoryImpl(api: api, ws: ws)
@@ -61,8 +61,8 @@ public class MLS {
         return ArbitraryDataRepositoryImpl()
     }()
 
-    private lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
-        return GetAnnotationActionsForTimelineUseCase(timelineRepository: timelineRepository)
+    private lazy var getAnnotationActionsForTimelineUseCase: GetTimelineActionsUseCase = {
+        return GetTimelineActionsUseCase(timelineRepository: timelineRepository)
     }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)

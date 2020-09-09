@@ -173,7 +173,7 @@ public class VideoPlayer: NSObject {
 
     private let player: MLSAVPlayerProtocol
     private let getEventUpdatesUseCase: GetEventUpdatesUseCase
-    private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
+    private let getAnnotationActionsForTimelineUseCase: GetTimelineActionsUseCase
     private let getPlayerConfigUseCase: GetPlayerConfigUseCase
     private let getSVGUseCase: GetSVGUseCase
     private let annotationService: AnnotationServicing
@@ -274,7 +274,7 @@ public class VideoPlayer: NSObject {
             view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
-            getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
+            getAnnotationActionsForTimelineUseCase: GetTimelineActionsUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
@@ -373,7 +373,7 @@ public class VideoPlayer: NSObject {
 //            }
 
             if let event = event {
-                getEventUpdatesUseCase.start(id: event.id, pseudoUserId: pseudoUserId) { [weak self] update in
+                getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
                     case .eventLiveViewers(let amount):

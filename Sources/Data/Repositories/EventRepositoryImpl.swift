@@ -35,7 +35,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
         }
     }
 
-    func startEventUpdates(for id: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ()) {
+    func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ()) {
         // Do an initial event fetch, and upon completion (regardless of failure or success) start subscribing.
         fetchEvent(byId: id, updateId: nil) { [weak self] (initialEvent, nil) in
             if let initialEvent = initialEvent {

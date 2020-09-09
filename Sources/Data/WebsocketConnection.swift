@@ -80,9 +80,11 @@ class WebSocketConnection {
 
     private var isConnected = false
 
-    private var rooms: Set<Room> = Set()
     /// A dictionary that maps room identifiers (event/stream/timeline ids) to arrays of callbacks when an update on that room happens.
     private var observers: [Room: [(UpdateMessage) -> Void]] = [:]
+
+    /// A dictionary that maps room identifiers to the last known action id by the observers.
+    private var lastActionIds: [Room: String] = [:]
 
     func subscribe(room: Room, updateCallback: @escaping (UpdateMessage) -> Void) {
         observers[room] = (observers[room] ?? []) + [updateCallback]
@@ -98,7 +100,6 @@ class WebSocketConnection {
     func unsubscribe(room: Room) {
         observers[room] = nil
         if observers.count == 0 {
-            self.socket.onEvent = nil
             self.socket.disconnect()
         } else {
             switch room.type {
@@ -112,14 +113,19 @@ class WebSocketConnection {
         }
     }
 
+    // TODO: call this method
+    func lastKnownActionId(for room: Room, is id: String?) {
+        lastActionIds[room] = id
+    }
+
     private func joinRooms() {
         if isConnected {
-            for room in rooms {
+            for room in observers.keys {
                 switch room.type {
                 case .event:
                     self.socket.write(string: Constants.joinEventMessage(with: room.id))
                 case .timeline:
-                    self.socket.write(string: Constants.joinTimelineMessage(with: room.id, lastActionId: nil)) // todo: populate
+                    self.socket.write(string: Constants.joinTimelineMessage(with: room.id, lastActionId: lastActionIds[room]))
                 case .stream:
                     break
                 }
