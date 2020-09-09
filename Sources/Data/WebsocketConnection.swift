@@ -113,13 +113,14 @@ class WebSocketConnection {
         }
     }
 
-    // TODO: call this method
     func lastKnownActionId(for room: Room, is id: String?) {
         lastActionIds[room] = id
     }
 
     private func joinRooms() {
         if isConnected {
+            self.socket.write(string: Constants.welcome(with: sessionId))
+
             for room in observers.keys {
                 switch room.type {
                 case .event:
@@ -141,6 +142,8 @@ class WebSocketConnection {
 
 private extension WebSocketConnection {
     enum Constants {
+        static func welcome(with sessionId: String) -> String { "sessionId;" + sessionId }
+
         static func joinEventMessage(with eventId: String) -> String { "joinEvent;" + eventId }
         static func leaveEventMessage(with eventId: String) -> String { "leaveEvent;" + eventId }
 

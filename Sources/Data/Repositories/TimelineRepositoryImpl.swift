@@ -16,8 +16,10 @@ class TimelineRepositoryImpl: BaseRepositoryImpl, TimelineRepository {
     }
 
     func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ()) {
-        _fetch(.timelineActions(id: timelineId, updateId: nil), type: DataLayer.AnnotationActionWrapper.self) { (wrapper, err) in
-            // TODO: Return the pagination tokens as well
+        _fetch(.timelineActions(id: timelineId, updateId: nil), type: DataLayer.AnnotationActionWrapper.self) { [weak self] (wrapper, err) in
+            if err == nil {
+                self?.ws.lastKnownActionId(for: WebSocketConnection.Room(id: timelineId, type: .timeline), is: wrapper?.actions.last?.id)
+            }
             callback(wrapper?.actions.map { $0.toDomain }, err)
         }
     }
