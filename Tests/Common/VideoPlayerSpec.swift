@@ -187,7 +187,7 @@ class VideoPlayerSpec: QuickSpec {
             self.mockPlayerConfigRepository = MockPlayerConfigRepository()
 
             stub(self.mockEventRepository) { mock in
-                when(mock).startEventUpdates(for: any(), pseudoUserId: any(), callback: any()).thenDoNothing()
+                when(mock).startEventUpdates(for: any(), callback: any()).thenDoNothing()
                 when(mock).stopEventUpdates(for: any()).thenDoNothing()
             }
 
@@ -198,8 +198,8 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             stub(self.mockTimelineRepository) { mock in
-                when(mock).fetchAnnotationActions(byTimelineId: any(), callback: any()).then { tuple in
-                    (tuple.1)([], nil)
+                when(mock).fetchAnnotationActions(byTimelineId: any(), updateId: any(), callback: any()).then { tuple in
+                    (tuple.2)([], nil)
                 }
                 when(mock).startTimelineUpdates(for: any(), callback: any()).thenDoNothing()
                 when(mock).stopTimelineUpdates(for: any()).thenDoNothing()
@@ -216,7 +216,15 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.videoPlayer = VideoPlayer(view: self.mockView, player: self.mockAVPlayer, getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository), getAnnotationActionsForTimelineUseCase: GetTimelineActionsUseCase(timelineRepository: self.mockTimelineRepository), getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository), getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository), annotationService: self.mockAnnotationService, pseudoUserId: "test_account")
+            self.videoPlayer = VideoPlayer(
+                view: self.mockView,
+                player: self.mockAVPlayer,
+                getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository),
+                getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase(timelineRepository: self.mockTimelineRepository),
+                getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository),
+                getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository),
+                annotationService: self.mockAnnotationService,
+                pseudoUserId: "test_account")
         }
 
         describe("loading streams and events") {

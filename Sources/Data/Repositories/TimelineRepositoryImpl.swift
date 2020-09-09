@@ -45,6 +45,6 @@ class TimelineRepositoryImpl: BaseRepositoryImpl, TimelineRepository {
     }
 
     func stopTimelineUpdates(for timelineId: String) {
-
+        ws.unsubscribe(room: WebSocketConnection.Room(id: timelineId, type: .timeline))
     }
 }

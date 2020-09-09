@@ -61,8 +61,8 @@ public class MLS {
         return ArbitraryDataRepositoryImpl()
     }()
 
-    private lazy var getAnnotationActionsForTimelineUseCase: GetTimelineActionsUseCase = {
-        return GetTimelineActionsUseCase(timelineRepository: timelineRepository)
+    private lazy var getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase = {
+        return GetTimelineActionsUpdatesUseCase(timelineRepository: timelineRepository)
     }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
@@ -104,7 +104,7 @@ public class MLS {
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
-            getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
+            getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,
