@@ -58,9 +58,17 @@ class AnnotationService: AnnotationServicing {
 
             // MARK: Evaluate
 
-            for action in input.actions.sorted(by: { (lhs, rhs) -> Bool in
-                lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
-            }) {
+            let deletedActions = input.actions
+                .map { a -> String? in switch(a.data) { case .deleteAction(let d): return d.actionId; default: return nil }}
+                .filter { $0 != nil }
+                .compactMap { $0 }
+
+            for action in input.actions
+                .sorted(by: { (lhs, rhs) -> Bool in
+                    lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
+                })
+                .filter({ !deletedActions.contains($0.id) })
+            {
                 let offset = Double(action.offset)
                 switch action.data {
                 case .showTimelineMarker(let data):
@@ -166,7 +174,7 @@ class AnnotationService: AnnotationServicing {
 
                         timer.forceAdjustBy(value: data.value, at: offset)
                     }
-                default:
+                case .deleteAction, .createClock, .unsupported:
                     break
                 }
             }

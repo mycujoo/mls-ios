@@ -84,7 +84,7 @@ class WebSocketConnection {
     private var observers: [Room: [(UpdateMessage) -> Void]] = [:]
 
     /// A dictionary that maps room identifiers to the last known action id by the observers.
-    private var lastActionIds: [Room: String] = [:]
+    private var lastUpdateId: [Room: String] = [:]
 
     func subscribe(room: Room, updateCallback: @escaping (UpdateMessage) -> Void) {
         observers[room] = (observers[room] ?? []) + [updateCallback]
@@ -113,8 +113,8 @@ class WebSocketConnection {
         }
     }
 
-    func lastKnownActionId(for room: Room, is id: String?) {
-        lastActionIds[room] = id
+    func lastKnownUpdateId(for room: Room, is updateId: String?) {
+        lastUpdateId[room] = updateId
     }
 
     private func joinRooms() {
@@ -126,7 +126,7 @@ class WebSocketConnection {
                 case .event:
                     self.socket.write(string: Constants.joinEventMessage(with: room.id))
                 case .timeline:
-                    self.socket.write(string: Constants.joinTimelineMessage(with: room.id, lastActionId: lastActionIds[room]))
+                    self.socket.write(string: Constants.joinTimelineMessage(with: room.id, updateId: lastUpdateId[room]))
                 case .stream:
                     break
                 }
@@ -147,7 +147,7 @@ private extension WebSocketConnection {
         static func joinEventMessage(with eventId: String) -> String { "joinEvent;" + eventId }
         static func leaveEventMessage(with eventId: String) -> String { "leaveEvent;" + eventId }
 
-        static func joinTimelineMessage(with timelineId: String, lastActionId: String?) -> String { "joinTimeline;" + timelineId + ";" + (lastActionId ?? "") }
+        static func joinTimelineMessage(with timelineId: String, updateId: String?) -> String { "joinTimeline;" + timelineId + ";" + (updateId ?? "") }
         static func leaveTimelineMessage(with timelineId: String) -> String { "leaveTimeline;" + timelineId }
 
         static let url = URL(string: "wss://mls-rt.mycujoo.tv")!

@@ -11,7 +11,8 @@ import Foundation
 
 extension DataLayer {
     // MARK: - Annotation
-    struct AnnotationActionWrapper: Decodable {
+    struct AnnotationActionWrapper {
+        let updateId: String?
         let actions: [AnnotationAction]
     }
 
@@ -25,6 +26,7 @@ extension DataLayer {
     }
 
     enum AnnotationActionData {
+        case deleteAction(AnnotationActionDeleteAction)
         case showTimelineMarker(AnnotationActionShowTimelineMarker)
         case showOverlay(AnnotationActionShowOverlay)
         case hideOverlay(AnnotationActionHideOverlay)
@@ -37,6 +39,12 @@ extension DataLayer {
         case skipTimer(AnnotationActionSkipTimer)
         case createClock(AnnotationActionCreateClock)
         case unsupported
+    }
+
+    // MARK: - ActionDeleteAction
+
+    struct AnnotationActionDeleteAction {
+        let actionId: String
     }
 
     // MARK: - ActionShowTimelineMarker
@@ -171,6 +179,21 @@ extension DataLayer {
 }
 
 
+extension DataLayer.AnnotationActionWrapper: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case actions
+        case updateId = "update_id"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let updateId: String? = try? container.decode(String.self, forKey: .updateId)
+        let actions: [DataLayer.AnnotationAction] = try container.decode([DataLayer.AnnotationAction].self, forKey: .actions)
+
+        self.init(updateId: updateId, actions: actions)
+    }
+}
+
 
 extension DataLayer.AnnotationAction: Decodable {
     enum CodingKeys: String, CodingKey {
@@ -187,6 +210,9 @@ extension DataLayer.AnnotationAction: Decodable {
         let offset: Int64 = (try? container.decode(Int64.self, forKey: .offset)) ?? 0
         let data: DataLayer.AnnotationActionData
         switch type.lowercased() {
+        case "delete_action":
+            let rawData = try container.decode(DataLayer.AnnotationActionDeleteAction.self, forKey: .data)
+            data = .deleteAction(rawData)
         case "show_timeline_marker":
             let rawData = try container.decode(DataLayer.AnnotationActionShowTimelineMarker.self, forKey: .data)
             data = .showTimelineMarker(rawData)
@@ -269,6 +295,19 @@ extension DataLayer.OverlayAnimateoutType {
         default:
             self = .unsupported
         }
+    }
+}
+
+extension DataLayer.AnnotationActionDeleteAction: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case actionId = "action_id"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let actionId: String = try container.decode(String.self, forKey: .actionId)
+
+        self.init(actionId: actionId)
     }
 }
 
@@ -451,6 +490,7 @@ extension DataLayer.AnnotationAction {
     var toDomain: MLSSDK.AnnotationAction {
         let data: MLSSDK.AnnotationActionData
         switch self.data {
+        case .deleteAction(let d):       data = .deleteAction(d.toDomain)
         case .showTimelineMarker(let d): data = .showTimelineMarker(d.toDomain)
         case .showOverlay(let d):        data = .showOverlay(d.toDomain)
         case .hideOverlay(let d):        data = .hideOverlay(d.toDomain)
@@ -465,6 +505,12 @@ extension DataLayer.AnnotationAction {
         case .unsupported:               data = .unsupported
         }
         return MLSSDK.AnnotationAction(id: self.id, type: self.type, offset: self.offset, data: data)
+    }
+}
+
+extension DataLayer.AnnotationActionDeleteAction {
+    var toDomain: MLSSDK.AnnotationActionDeleteAction {
+        return MLSSDK.AnnotationActionDeleteAction(actionId: self.actionId)
     }
 }
 

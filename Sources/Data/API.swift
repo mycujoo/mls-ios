@@ -115,6 +115,7 @@ extension API: TargetType {
             default:
                 return Data("""
                     {
+                        "update_id": "fe39f4ja9fd",
                         "actions": [
                             {
                                 "data": {
