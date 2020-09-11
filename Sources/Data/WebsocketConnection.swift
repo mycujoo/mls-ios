@@ -147,7 +147,12 @@ private extension WebSocketConnection {
         static func joinEventMessage(with eventId: String) -> String { "joinEvent;" + eventId }
         static func leaveEventMessage(with eventId: String) -> String { "leaveEvent;" + eventId }
 
-        static func joinTimelineMessage(with timelineId: String, updateId: String?) -> String { "joinTimeline;" + timelineId + ";" + (updateId ?? "") }
+        static func joinTimelineMessage(with timelineId: String, updateId: String?) -> String {
+            if let updateId = updateId {
+                return "joinTimeline;" + timelineId + ";" + updateId
+            }
+            return "joinTimeline;" + timelineId
+        }
         static func leaveTimelineMessage(with timelineId: String) -> String { "leaveTimeline;" + timelineId }
 
         static let url = URL(string: "wss://mls-rt.mycujoo.tv")!
