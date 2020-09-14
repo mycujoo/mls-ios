@@ -207,7 +207,7 @@ extension DataLayer.AnnotationAction: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id = try container.decode(String.self, forKey: .id)
         let type = try container.decode(String.self, forKey: .type)
-        let offset: Int64 = (try? container.decode(Int64.self, forKey: .offset)) ?? 0
+        let offset: Int64 = Int64((try? container.decode(String.self, forKey: .offset)) ?? "0") ?? 0
         let data: DataLayer.AnnotationActionData
         switch type.lowercased() {
         case "delete_action":
