@@ -20,7 +20,7 @@ public struct PlayerConfig {
     /// Indicates whether the "info" button in the top-right corner of the video player should be shown (true) or hidden (false).
     let showEventInfoButton: Bool
 
-    init(
+    public init(
             primaryColor: String,
             secondaryColor: String,
             autoplay: Bool,

@@ -105,7 +105,6 @@ public class MLS {
         let player = VideoPlayer(
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
-            playerConfig: configuration.playerConfig,
             getEventUpdatesUseCase: getEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
@@ -114,6 +113,7 @@ public class MLS {
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)
 
+        player.playerConfig = configuration.playerConfig
         player.event = event
 
         return player

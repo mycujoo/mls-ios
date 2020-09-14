@@ -273,7 +273,6 @@ public class VideoPlayer: NSObject {
     init(
             view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
-            playerConfig: PlayerConfig,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
@@ -282,7 +281,6 @@ public class VideoPlayer: NSObject {
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String) {
         self.player = player
-        self.playerConfig = playerConfig
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
@@ -292,13 +290,6 @@ public class VideoPlayer: NSObject {
         self.pseudoUserId = pseudoUserId
 
         super.init()
-
-        // Disabled until the API is ready.
-//        getPlayerConfigUseCase.execute { [weak self] (playerConfig, _) in
-//            if let playerConfig = playerConfig {
-//                self?.playerConfig = playerConfig
-//            }
-//        }
 
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
