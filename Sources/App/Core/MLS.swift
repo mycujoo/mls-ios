@@ -12,11 +12,13 @@ fileprivate struct UserDefaultsContracts {
 
 public struct Configuration {
     let seekTolerance: CMTime
+    let playerConfig: PlayerConfig
 
     /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
-    public init(seekTolerance: CMTime = .positiveInfinity) {
+    public init(seekTolerance: CMTime = .positiveInfinity, playerConfig: PlayerConfig = PlayerConfig.standard()) {
         self.seekTolerance = seekTolerance
+        self.playerConfig = playerConfig
     }
 }
 
@@ -103,6 +105,7 @@ public class MLS {
         let player = VideoPlayer(
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
+            playerConfig: configuration.playerConfig,
             getEventUpdatesUseCase: getEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,

@@ -254,7 +254,7 @@ public class VideoPlayer: NSObject {
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
-    var playerConfig = PlayerConfig.standard() {
+    var playerConfig: PlayerConfig! {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
@@ -273,6 +273,7 @@ public class VideoPlayer: NSObject {
     init(
             view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
+            playerConfig: PlayerConfig,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
@@ -281,6 +282,7 @@ public class VideoPlayer: NSObject {
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String) {
         self.player = player
+        self.playerConfig = playerConfig
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
