@@ -10,7 +10,17 @@ class WithEventListViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 
     // Make sure to set your organization's public key here!
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(
+        publicKey: "",
+        configuration: Configuration(
+            seekTolerance: .positiveInfinity,
+            playerConfig: PlayerConfig(
+                primaryColor: "#de6e1f",
+                secondaryColor: "#000000",
+                autoplay: false,
+                showBackForwardsButtons: false,
+                showLiveViewers: false,
+                showEventInfoButton: false)))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
