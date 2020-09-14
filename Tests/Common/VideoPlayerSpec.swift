@@ -225,6 +225,7 @@ class VideoPlayerSpec: QuickSpec {
                 getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository),
                 annotationService: self.mockAnnotationService,
                 pseudoUserId: "test_account")
+                self.videoPlayer.playerConfig = PlayerConfig.standard()
         }
 
         describe("loading streams and events") {

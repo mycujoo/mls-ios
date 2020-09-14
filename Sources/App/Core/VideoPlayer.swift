@@ -254,7 +254,7 @@ public class VideoPlayer: NSObject {
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
-    var playerConfig = PlayerConfig.standard() {
+    var playerConfig: PlayerConfig! {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
@@ -290,13 +290,6 @@ public class VideoPlayer: NSObject {
         self.pseudoUserId = pseudoUserId
 
         super.init()
-
-        // Disabled until the API is ready.
-//        getPlayerConfigUseCase.execute { [weak self] (playerConfig, _) in
-//            if let playerConfig = playerConfig {
-//                self?.playerConfig = playerConfig
-//            }
-//        }
 
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
