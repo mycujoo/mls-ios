@@ -12,8 +12,8 @@ class GetEventUpdatesUseCase {
         self.eventRepository = eventRepository
     }
 
-    func start(id: String, pseudoUserId: String, completionHandler: @escaping (EventUpdate) -> ()) {
-        eventRepository.startEventUpdates(for: id, pseudoUserId: pseudoUserId) { update in
+    func start(id: String, completionHandler: @escaping (EventUpdate) -> ()) {
+        eventRepository.startEventUpdates(for: id) { update in
             switch update {
             case .eventLiveViewers(let amount):
                 completionHandler(.eventLiveViewers(amount: amount))

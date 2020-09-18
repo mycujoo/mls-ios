@@ -38,7 +38,7 @@ public class MLS {
     }()
 
     private lazy var ws: WebSocketConnection = {
-        return WebSocketConnection()
+        return WebSocketConnection(sessionId: pseudoUserId)
     }()
 
     private lazy var pseudoUserId: String = {
@@ -51,7 +51,7 @@ public class MLS {
     }()
 
     private lazy var timelineRepository: TimelineRepository = {
-        return TimelineRepositoryImpl(api: api)
+        return TimelineRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var eventRepository: EventRepository = {
         return EventRepositoryImpl(api: api, ws: ws)
@@ -63,8 +63,8 @@ public class MLS {
         return ArbitraryDataRepositoryImpl()
     }()
 
-    private lazy var getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase = {
-        return GetAnnotationActionsForTimelineUseCase(timelineRepository: timelineRepository)
+    private lazy var getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase = {
+        return GetTimelineActionsUpdatesUseCase(timelineRepository: timelineRepository)
     }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
@@ -106,7 +106,7 @@ public class MLS {
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
-            getAnnotationActionsForTimelineUseCase: getAnnotationActionsForTimelineUseCase,
+            getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
             annotationService: annotationService,

@@ -20,6 +20,8 @@ struct AnnotationAction: Hashable {
     /// A priority indicates what the order of actions should be when they happen at the same offset. A higher priority means it should go first.
     var priority: Int {
         switch type {
+        case "delete_action":
+            return 2000
         case "set_variable", "create_timer":
             return 1000
         case "start_timer":
@@ -50,6 +52,7 @@ struct AnnotationAction: Hashable {
 }
 
 enum AnnotationActionData {
+    case deleteAction(AnnotationActionDeleteAction)
     case showTimelineMarker(AnnotationActionShowTimelineMarker)
     case showOverlay(AnnotationActionShowOverlay)
     case hideOverlay(AnnotationActionHideOverlay)
@@ -64,6 +67,15 @@ enum AnnotationActionData {
     case unsupported
 }
 
+// MARK: - ActionDeleteAction
+
+struct AnnotationActionDeleteAction {
+    let actionId: String
+
+    init(actionId: String) {
+        self.actionId = actionId
+    }
+}
 
 // MARK: - ActionShowTimelineMarker
 
