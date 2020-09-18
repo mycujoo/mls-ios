@@ -3,7 +3,7 @@ PODS:
   - Cuckoo (1.4.1):
     - Cuckoo/Swift (= 1.4.1)
   - Cuckoo/Swift (1.4.1)
-  - MLSSDK (1.0.0):
+  - MLSSDK (1.0.2):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - Starscream (~> 4.0)
@@ -15,7 +15,7 @@ PODS:
     - Alamofire (~> 5.0)
   - Nimble (8.1.1)
   - Quick (3.0.0)
-  - Starscream (4.0.3)
+  - Starscream (4.0.4)
   - YouboraAVPlayerAdapter (6.5.17):
     - YouboraAVPlayerAdapter/Default (= 6.5.17)
     - YouboraLib (~> 6.5.19)
@@ -29,7 +29,7 @@ DEPENDENCIES:
   - Moya (~> 14.0)
   - Nimble (~> 8.0)
   - Quick (~> 3.0)
-  - Starscream (~> 4.0)
+  - Starscream (~> 4.0.4)
   - YouboraAVPlayerAdapter
   - YouboraLib
 
@@ -51,14 +51,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   Cuckoo: 4625f7f54d9bb880123270e8969898d6c1d036b5
-  MLSSDK: 950bc233432aa6b2c722e9a9a3901340ab3cf516
+  MLSSDK: 0eb4ce2d8c321328a3aaacd9acb3f739831fec7b
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Nimble: 5f8a2fb6fa343a7242dfdd9d42f7267419d464b2
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
-  Starscream: ef06f0961fff0880bca0604416d61141e4faca67
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: 2197c2b3702495142b5e3f96573aa95108c1db80
+PODFILE CHECKSUM: c233ed18e80cd0945409e598bc731f958e61758d
 
 COCOAPODS: 1.9.3
