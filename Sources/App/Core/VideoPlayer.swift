@@ -173,7 +173,7 @@ public class VideoPlayer: NSObject {
 
     private let player: MLSAVPlayerProtocol
     private let getEventUpdatesUseCase: GetEventUpdatesUseCase
-    private let getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase
+    private let getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase
     private let getPlayerConfigUseCase: GetPlayerConfigUseCase
     private let getSVGUseCase: GetSVGUseCase
     private let annotationService: AnnotationServicing
@@ -274,7 +274,7 @@ public class VideoPlayer: NSObject {
             view: VideoPlayerViewProtocol,
             player: MLSAVPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
-            getAnnotationActionsForTimelineUseCase: GetAnnotationActionsForTimelineUseCase,
+            getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
             annotationService: AnnotationServicing,
@@ -282,7 +282,7 @@ public class VideoPlayer: NSObject {
             pseudoUserId: String) {
         self.player = player
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
-        self.getAnnotationActionsForTimelineUseCase = getAnnotationActionsForTimelineUseCase
+        self.getTimelineActionsUpdatesUseCase = getTimelineActionsUpdatesUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
         self.getSVGUseCase = getSVGUseCase
         self.annotationService = annotationService
@@ -356,17 +356,8 @@ public class VideoPlayer: NSObject {
         if new {
             tovStore = TOVStore()
 
-            // Disabled until the API is ready.
-//            // TODO: Should not pass eventId but timelineId
-//            // TODO: Should use the startUpdating usecase.
-//            getAnnotationActionsForTimelineUseCase.execute(timelineId: "standard") { [weak self] (actions, _) in
-//                if let actions = actions {
-//                    self?.annotationActions = actions
-//                }
-//            }
-
             if let event = event {
-                getEventUpdatesUseCase.start(id: event.id, pseudoUserId: pseudoUserId) { [weak self] update in
+                getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
                     case .eventLiveViewers(let amount):
@@ -378,6 +369,15 @@ public class VideoPlayer: NSObject {
                     case .eventUpdate(let updatedEvent):
                         if updatedEvent.id == event.id {
                             self.event = updatedEvent
+                        }
+                    }
+                }
+
+                if let timelineId = event.timelineIds.first {
+                    getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
+                        switch update {
+                        case .actionsUpdated(let actions):
+                            self?.annotationActions = actions
                         }
                     }
                 }

@@ -2022,16 +2022,16 @@ import Foundation
     
     
     
-     func startEventUpdates(for id: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())  {
+     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())  {
         
-    return cuckoo_manager.call("startEventUpdates(for: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())",
-            parameters: (id, pseudoUserId, callback),
-            escapingParameters: (id, pseudoUserId, callback),
+    return cuckoo_manager.call("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())",
+            parameters: (id, callback),
+            escapingParameters: (id, callback),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.startEventUpdates(for: id, pseudoUserId: pseudoUserId, callback: callback))
+            defaultCall: __defaultImplStub!.startEventUpdates(for: id, callback: callback))
         
     }
     
@@ -2069,9 +2069,9 @@ import Foundation
 	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(for id: M1, pseudoUserId: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == String, M3.MatchedType == (EventRepositoryEventUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "startEventUpdates(for: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func stopEventUpdates<M1: Cuckoo.Matchable>(for id: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
@@ -2108,9 +2108,9 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(for id: M1, pseudoUserId: M2, callback: M3) -> Cuckoo.__DoNotUse<(String, String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == String, M3.MatchedType == (EventRepositoryEventUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
-	        return cuckoo_manager.verify("startEventUpdates(for: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -2136,7 +2136,7 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func startEventUpdates(for id: String, pseudoUserId: String, callback: @escaping (EventRepositoryEventUpdate) -> ())   {
+     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -2145,7 +2145,6 @@ import Foundation
     }
     
 }
-
 
 // MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-09-14 16:06:26 +0000
 
@@ -2248,7 +2247,6 @@ import Foundation
     
 }
 
-
 // MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-09-14 16:06:26 +0000
 
 //
@@ -2286,16 +2284,16 @@ import Foundation
     
     
     
-     func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())  {
+     func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())  {
         
-    return cuckoo_manager.call("fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())",
-            parameters: (timelineId, callback),
-            escapingParameters: (timelineId, callback),
+    return cuckoo_manager.call("fetchAnnotationActions(byTimelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())",
+            parameters: (timelineId, updateId, callback),
+            escapingParameters: (timelineId, updateId, callback),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.fetchAnnotationActions(byTimelineId: timelineId, callback: callback))
+            defaultCall: __defaultImplStub!.fetchAnnotationActions(byTimelineId: timelineId, updateId: updateId, callback: callback))
         
     }
     
@@ -2338,9 +2336,9 @@ import Foundation
 	    }
 	    
 	    
-	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byTimelineId timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, ([AnnotationAction]?, Error?) -> ())> where M1.MatchedType == String, M2.MatchedType == ([AnnotationAction]?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())", parameterMatchers: matchers))
+	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(byTimelineId timelineId: M1, updateId: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String?, ([AnnotationAction]?, Error?) -> ())> where M1.MatchedType == String, M2.OptionalMatchedType == String, M3.MatchedType == ([AnnotationAction]?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String?, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: updateId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "fetchAnnotationActions(byTimelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (TimelineRepositoryTimelineUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (TimelineRepositoryTimelineUpdate) -> () {
@@ -2370,9 +2368,9 @@ import Foundation
 	
 	    
 	    @discardableResult
-	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byTimelineId timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, ([AnnotationAction]?, Error?) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == ([AnnotationAction]?, Error?) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("fetchAnnotationActions(byTimelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(byTimelineId timelineId: M1, updateId: M2, callback: M3) -> Cuckoo.__DoNotUse<(String, String?, ([AnnotationAction]?, Error?) -> ()), Void> where M1.MatchedType == String, M2.OptionalMatchedType == String, M3.MatchedType == ([AnnotationAction]?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String?, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: updateId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return cuckoo_manager.verify("fetchAnnotationActions(byTimelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -2396,7 +2394,7 @@ import Foundation
     
 
     
-     func fetchAnnotationActions(byTimelineId timelineId: String, callback: @escaping ([AnnotationAction]?, Error?) -> ())   {
+     func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -2409,7 +2407,6 @@ import Foundation
     }
     
 }
-
 
 // MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-09-14 16:06:26 +0000
 
