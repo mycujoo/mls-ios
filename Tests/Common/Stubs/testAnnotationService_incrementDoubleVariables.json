@@ -1,7 +1,7 @@
 {
     "actions": [
         {
-            "offset": 0,
+            "offset": "0",
             "id": "43faf4j59595959",
             "type": "set_variable",
             "data": {
@@ -11,7 +11,7 @@
             }
         },
         {
-            "offset": 4000,
+            "offset": "4000",
             "id": "aaa444466agfffag5",
             "type": "increment_variable",
             "data": {
@@ -20,7 +20,7 @@
             }
         },
         {
-            "offset": 6000,
+            "offset": "6000",
             "id": "aaa444466agfffag6",
             "type": "increment_variable",
             "data": {
