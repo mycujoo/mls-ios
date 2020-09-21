@@ -316,6 +316,14 @@ class VideoProgressSlider: UIControl {
 
 extension VideoProgressSlider {
     func setTimelineMarkers(with operations: [MLSUI.ShowTimelineMarkerAction]) {
+        guard !isTracking else {
+            // Tracking the slider while rebuilding timeline markers causes the occassional crash because it tries to
+            // reference an unowned unsafe secondItem. To avoid this (as well as avoiding markers that keep moving),
+            // keep the markers static while tracking.
+            // In the future, it may be good to retrigger this method when the tracking is done, but let's keep it simple for now.
+            return
+        }
+
         /// Takes a position (value between 0 and 1) and returns a multiplier that can be used on a centerXAnchor for the timeline marker.
         func calcConstraintMultiplier(position: Double) -> CGFloat {
             let minPossibleMultiplier: CGFloat = 0.001
