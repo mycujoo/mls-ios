@@ -393,7 +393,7 @@ public class VideoPlayer: NSObject {
 
     /// This should get called whenever a new Timeline is loaded into the video player.
     private func rebuildTimeline(new: Bool) {
-        if let timelineId = timeline {
+        if new, let timelineId = timeline {
             getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
                 switch update {
                 case .actionsUpdated(let actions):
