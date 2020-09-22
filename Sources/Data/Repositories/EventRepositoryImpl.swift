@@ -36,8 +36,30 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
     }
 
     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ()) {
+        let timer = RepeatingTimer(timeInterval: 30)
+
+        var latestEvent: Event? = nil {
+            didSet {
+                if let latestEvent = latestEvent, latestEvent.streams.count == 0 {
+                    timer.resume()
+                } else {
+                    timer.suspend()
+                }
+            }
+        }
+
+        timer.eventHandler = { [weak self] in
+            self?.fetchEvent(byId: id, updateId: nil, callback: { updatedEvent, _ in
+                latestEvent = updatedEvent
+                if let updatedEvent = updatedEvent {
+                    callback(.eventUpdate(event: updatedEvent))
+                }
+            })
+        }
+
         // Do an initial event fetch, and upon completion (regardless of failure or success) start subscribing.
-        fetchEvent(byId: id, updateId: nil) { [weak self] (initialEvent, nil) in
+        self.fetchEvent(byId: id, updateId: nil) { [weak self] (initialEvent, _) in
+            latestEvent = initialEvent
             if let initialEvent = initialEvent {
                 callback(.eventUpdate(event: initialEvent))
             }
@@ -49,6 +71,8 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
                 case .eventUpdate(let updateId):
                     // Fetch the event again and do the callback after that.
                     self?.fetchEvent(byId: id, updateId: updateId, callback: { updatedEvent, _ in
+                        timer.reset()
+                        latestEvent = updatedEvent
                         if let updatedEvent = updatedEvent {
                             callback(.eventUpdate(event: updatedEvent))
                         }
@@ -62,5 +86,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
     
     func stopEventUpdates(for id: String) {
         ws.unsubscribe(room: WebSocketConnection.Room(id: id, type: .event))
+
+        // Note: the polling timer does not have to be explicitly stopped because it is deferenced and therefore cancelled.
     }
 }
