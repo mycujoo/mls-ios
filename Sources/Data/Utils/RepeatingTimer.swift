@@ -52,7 +52,6 @@ class RepeatingTimer {
     }
 
     deinit {
-        print("Deiniting timer")
         timer.setEventHandler {}
         timer.cancel()
        /*
