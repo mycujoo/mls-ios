@@ -232,6 +232,17 @@ public class VideoPlayer: NSObject {
         return .notLive
     }
 
+    // Note: In the future this perhaps should be a Timeline object instead of just an identifier.
+    private var timeline: String? {
+        didSet {
+            let new = timeline != oldValue
+            if new, let oldTimeline = oldValue {
+                cleanup(oldTimeline: oldTimeline)
+            }
+            rebuildTimeline(new: new)
+        }
+    }
+
     private var activeOverlayIds: Set<String> = Set()
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
@@ -372,14 +383,21 @@ public class VideoPlayer: NSObject {
                         }
                     }
                 }
+            }
+        }
 
-                if let timelineId = event.timelineIds.first {
-                    getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
-                        switch update {
-                        case .actionsUpdated(let actions):
-                            self?.annotationActions = actions
-                        }
-                    }
+        if let event = event {
+            timeline = event.timelineIds.first
+        }
+    }
+
+    /// This should get called whenever a new Timeline is loaded into the video player.
+    private func rebuildTimeline(new: Bool) {
+        if new, let timelineId = timeline {
+            getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
+                switch update {
+                case .actionsUpdated(let actions):
+                    self?.annotationActions = actions
                 }
             }
         }
@@ -426,6 +444,10 @@ public class VideoPlayer: NSObject {
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
     /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
     private func cleanup(oldStream: Stream) {}
+
+    private func cleanup(oldTimeline: String) {
+        getTimelineActionsUpdatesUseCase.stop(id: oldTimeline)
+    }
 
     /// Sets the correct labels on the info layer.
     private func updateInfo() {

@@ -1,7 +1,7 @@
 {
     "actions": [
         {
-            "offset": 0,
+            "offset": "0",
             "id": "bbaaaa4444sssstg",
             "type": "create_timer",
             "data": {
@@ -12,7 +12,7 @@
             }
         },
         {
-            "offset": 0,
+            "offset": "0",
             "id": "4fdaf5tygfhfhffhc",
             "type": "start_timer",
             "data": {
@@ -20,7 +20,7 @@
             }
         },
         {
-            "offset": 2000,
+            "offset": "2000",
             "id": "5cdaf5tygfhfhfno5",
             "type": "skip_timer",
             "data": {
@@ -29,7 +29,7 @@
             }
         },
         {
-            "offset": 4000,
+            "offset": "4000",
             "id": "5cdaf5tygfhfhffhb",
             "type": "adjust_timer",
             "data": {
@@ -38,7 +38,7 @@
             }
         },
         {
-            "offset": 13000,
+            "offset": "13000",
             "id": "5cdaf5tygfhfhfno5",
             "type": "skip_timer",
             "data": {
@@ -47,7 +47,7 @@
             }
         },
         {
-            "offset": 14000,
+            "offset": "14000",
             "id": "5cdaf5tygfhfhfno5",
             "type": "skip_timer",
             "data": {

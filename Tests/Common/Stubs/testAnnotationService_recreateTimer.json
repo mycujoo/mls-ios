@@ -1,7 +1,7 @@
 {
     "actions": [
         {
-            "offset": 0,
+            "offset": "0",
             "id": "bbaaaa4444sssstg",
             "type": "create_timer",
             "data": {
@@ -12,7 +12,7 @@
             }
         },
         {
-            "offset": 0,
+            "offset": "0",
             "id": "4fdaf5tygfhfhffhc",
             "type": "start_timer",
             "data": {
@@ -20,7 +20,7 @@
             }
         },
         {
-            "offset": 8000,
+            "offset": "8000",
             "id": "bbaaaa4444sssstf",
             "type": "create_timer",
             "data": {

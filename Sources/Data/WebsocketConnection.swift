@@ -4,6 +4,7 @@
 
 import Starscream
 
+
 /// Represents a single connection with the MLS web socket service.
 class WebSocketConnection {
     struct Room: Hashable {
@@ -24,7 +25,7 @@ class WebSocketConnection {
     private let sessionId: String
     private let socket = WebSocket(request: URLRequest(url: Constants.url))
 
-    init(sessionId: String) {
+    init(sessionId: String, printToConsole: Bool) {
         self.sessionId = sessionId
 
         self.socket.onEvent = { [weak self] event in
@@ -34,7 +35,9 @@ class WebSocketConnection {
                 self.isConnected = true
                 self.joinRooms()
             case .text(let text):
-                print("Websocket update:", text)
+                if printToConsole {
+                    print("Websocket message received. Raw:", text)
+                }
                 let components = text.components(separatedBy: Constants.messageSeparator)
                 guard components.count >= 2 else { return }
 
