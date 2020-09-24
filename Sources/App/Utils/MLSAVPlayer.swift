@@ -22,8 +22,24 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
     private var _seekingToTime: Double? = nil
 
+    /// A variable that keeps track of the highest duration that has been seen on this currentItem. This is needed because on live-streams,
+    /// the player sometimes cannot calculate an accurate duration and the currentTime ends up being higher. In that scenario, the currentDuration
+    /// assumes the value of currentTime (since that is the highest known value), which is fine, except when the user seeks back to a slightly earlier moment,
+    /// in which case the duration magically jumps back to a lower value. To avoid this, this value stores the highest value seen by the user,
+    /// and that is always assumed as a fallback.
+    /// - important: This value should be reset whenever currentItem is replaced.
+    private var _currentDurationMaximum: Double = 0.0 {
+        didSet {
+            _currentDurationMaximumObtainedOnItem = currentItem
+        }
+    }
+
+    /// A helper to determine the highest maximum duration achieved on the currentItem.
+    /// - seeAlso: `_currentDurationMaximum`
+    private var _currentDurationMaximumObtainedOnItem: AVPlayerItem? = nil
+
     /// The duration (in seconds) of the currentItem. If unknown, returns 0.
-    /// - seeAlso: `cmDuration`
+    /// - seeAlso: `currentDurationAsCMTime`
     var currentDuration: Double {
         guard let duration = currentItem?.duration else { return 0 }
         let seconds = CMTimeGetSeconds(duration)
@@ -36,7 +52,15 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
                     let startSeconds = CMTimeGetSeconds(timeRange.start)
                     let durationSeconds = CMTimeGetSeconds(timeRange.duration)
 
-                    return max(currentTime, Double(startSeconds + durationSeconds))
+                    // We must determine the currentDuration based on the known seekable range, but also fallback to the
+                    // currentTime (which is sometimes higher on live streams). In that case, we must also consider previous
+                    // currentTimes, which are sometimes higher (i.e. when the user seeked back).
+                    // For more documentation on this, see `_currentDurationMaximum`
+                    let v: Double = (currentItem != nil && currentItem!.isEqual(_currentDurationMaximumObtainedOnItem)) ? _currentDurationMaximum : 0.0
+
+                    _currentDurationMaximum = max(v, max(currentTime, Double(startSeconds + durationSeconds)))
+
+                    return _currentDurationMaximum
                 }
 
             }
