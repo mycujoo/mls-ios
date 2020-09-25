@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-09-14 16:06:26 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-09-25 13:53:53 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-09-14 16:06:26 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-09-25 13:53:53 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1143,6 +1143,21 @@ import UIKit
     
     
     
+     func setTimeIndicatorLabel(hidden: Bool)  {
+        
+    return cuckoo_manager.call("setTimeIndicatorLabel(hidden: Bool)",
+            parameters: (hidden),
+            escapingParameters: (hidden),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setTimeIndicatorLabel(hidden: hidden))
+        
+    }
+    
+    
+    
      func setTimeIndicatorLabel(elapsedText: String?, totalText: String?)  {
         
     return cuckoo_manager.call("setTimeIndicatorLabel(elapsedText: String?, totalText: String?)",
@@ -1153,6 +1168,21 @@ import UIKit
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
             defaultCall: __defaultImplStub!.setTimeIndicatorLabel(elapsedText: elapsedText, totalText: totalText))
+        
+    }
+    
+    
+    
+     func setSeekbar(hidden: Bool)  {
+        
+    return cuckoo_manager.call("setSeekbar(hidden: Bool)",
+            parameters: (hidden),
+            escapingParameters: (hidden),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setSeekbar(hidden: hidden))
         
     }
     
@@ -1385,9 +1415,19 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setSkipButtons(hidden: Bool)", parameterMatchers: matchers))
 	    }
 	    
+	    func setTimeIndicatorLabel<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setTimeIndicatorLabel(hidden: Bool)", parameterMatchers: matchers))
+	    }
+	    
 	    func setTimeIndicatorLabel<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(elapsedText: M1, totalText: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String?, String?)> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
 	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: elapsedText) { $0.0 }, wrap(matchable: totalText) { $0.1 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setTimeIndicatorLabel(elapsedText: String?, totalText: String?)", parameterMatchers: matchers))
+	    }
+	    
+	    func setSeekbar<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setSeekbar(hidden: Bool)", parameterMatchers: matchers))
 	    }
 	    
 	    func setTimelineMarkers<M1: Cuckoo.Matchable>(with actions: M1) -> Cuckoo.ProtocolStubNoReturnFunction<([MLSUI.ShowTimelineMarkerAction])> where M1.MatchedType == [MLSUI.ShowTimelineMarkerAction] {
@@ -1606,9 +1646,21 @@ import UIKit
 	    }
 	    
 	    @discardableResult
+	    func setTimeIndicatorLabel<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return cuckoo_manager.verify("setTimeIndicatorLabel(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
 	    func setTimeIndicatorLabel<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(elapsedText: M1, totalText: M2) -> Cuckoo.__DoNotUse<(String?, String?), Void> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
 	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: elapsedText) { $0.0 }, wrap(matchable: totalText) { $0.1 }]
 	        return cuckoo_manager.verify("setTimeIndicatorLabel(elapsedText: String?, totalText: String?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setSeekbar<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return cuckoo_manager.verify("setSeekbar(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -1830,7 +1882,15 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+     func setTimeIndicatorLabel(hidden: Bool)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
      func setTimeIndicatorLabel(elapsedText: String?, totalText: String?)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func setSeekbar(hidden: Bool)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -1853,7 +1913,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-09-14 16:06:26 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-09-25 13:53:53 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1955,7 +2015,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-09-14 16:06:26 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-09-25 13:53:53 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2146,7 +2206,8 @@ import Foundation
     
 }
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-09-14 16:06:26 +0000
+
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-09-25 13:53:53 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2247,7 +2308,8 @@ import Foundation
     
 }
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-09-14 16:06:26 +0000
+
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-09-25 13:53:53 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2408,7 +2470,8 @@ import Foundation
     
 }
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-09-14 16:06:26 +0000
+
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-09-25 13:53:53 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

@@ -6,17 +6,30 @@ import Foundation
 import AVFoundation
 import Moya
 
+
 fileprivate struct UserDefaultsContracts {
     static let PseudoUserId = "mls_pseudo_user_id"
 }
 
 public struct Configuration {
+    public enum LogLevel: Int {
+        /// Logs as few as possible messages to the console
+        case minimal = 10
+        /// Logs relevant messages to the console
+        case info = 20
+        /// Logs all possible messages to the console
+        case verbose = 30
+    }
+
+    /// The level at which the SDK outputs debugging information to the console. Defaults to .minimal
+    let logLevel: LogLevel
     let seekTolerance: CMTime
     let playerConfig: PlayerConfig
 
     /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
-    public init(seekTolerance: CMTime = .positiveInfinity, playerConfig: PlayerConfig = PlayerConfig.standard()) {
+    public init(logLevel: LogLevel = .minimal, seekTolerance: CMTime = .positiveInfinity, playerConfig: PlayerConfig = PlayerConfig.standard()) {
+        self.logLevel = logLevel
         self.seekTolerance = seekTolerance
         self.playerConfig = playerConfig
     }
@@ -34,11 +47,22 @@ public class MLS {
         let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] _ in
             return self?.publicKey ?? ""
         })
-        return MoyaProvider<API>(plugins: [authPlugin])
+
+        switch configuration.logLevel {
+        case .info:
+            return MoyaProvider<API>(
+                plugins: [authPlugin, NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(logOptions:.`default`))])
+        case .verbose:
+            return MoyaProvider<API>(
+                plugins: [authPlugin, NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(logOptions:.verbose))])
+        case .minimal:
+            return MoyaProvider<API>(plugins: [authPlugin])
+        }
+
     }()
 
     private lazy var ws: WebSocketConnection = {
-        return WebSocketConnection(sessionId: pseudoUserId)
+        return WebSocketConnection(sessionId: pseudoUserId, printToConsole: configuration.logLevel == .verbose)
     }()
 
     private lazy var pseudoUserId: String = {
@@ -126,4 +150,8 @@ public class MLS {
 }
 
 
-
+extension Configuration.LogLevel: Comparable {
+    public static func < (lhs: Configuration.LogLevel, rhs: Configuration.LogLevel) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+}

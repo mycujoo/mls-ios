@@ -20,7 +20,7 @@
             }
         },
         {
-            "offset": 6000,
+            "offset": "6000",
             "id": "aaa44fdafdagfffag5",
             "type": "increment_variable",
             "data": {
@@ -29,7 +29,7 @@
             }
         },
         {
-            "offset": 8000,
+            "offset": "8000",
             "id": "aaa444466agfdag5",
             "type": "increment_variable",
             "data": {
@@ -38,7 +38,7 @@
             }
         },
         {
-            "offset": 10000,
+            "offset": "10000",
             "id": "aaa444466agfffad5",
             "type": "increment_variable",
             "data": {

@@ -154,15 +154,6 @@ public class VideoPlayer: NSObject {
         return view.topControlsStackView
     }
 
-    /// Sets the visibility of the fullscreen button.
-    public var fullscreenButtonIsHidden: Bool {
-        get {
-            return view.fullscreenButtonIsHidden
-        }
-        set {
-            view.fullscreenButtonIsHidden = newValue
-        }
-    }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     public var tapGestureRecognizer: UITapGestureRecognizer {
         return view.tapGestureRecognizer
@@ -232,6 +223,17 @@ public class VideoPlayer: NSObject {
         return .notLive
     }
 
+    // Note: In the future this perhaps should be a Timeline object instead of just an identifier.
+    private var timeline: String? {
+        didSet {
+            let new = timeline != oldValue
+            if new, let oldTimeline = oldValue {
+                cleanup(oldTimeline: oldTimeline)
+            }
+            rebuildTimeline(new: new)
+        }
+    }
+
     private var activeOverlayIds: Set<String> = Set()
 
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
@@ -260,7 +262,10 @@ public class VideoPlayer: NSObject {
                 guard let `self` = self else { return }
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
+                self.view.setSeekbar(hidden: !self.playerConfig.showSeekbar)
+                self.view.setTimeIndicatorLabel(hidden: !self.playerConfig.showTimers)
                 #if os(iOS)
+                self.view.fullscreenButtonIsHidden = !self.playerConfig.showFullscreen
                 self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
                 self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
@@ -372,14 +377,21 @@ public class VideoPlayer: NSObject {
                         }
                     }
                 }
+            }
+        }
 
-                if let timelineId = event.timelineIds.first {
-                    getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
-                        switch update {
-                        case .actionsUpdated(let actions):
-                            self?.annotationActions = actions
-                        }
-                    }
+        if let event = event {
+            timeline = event.timelineIds.first
+        }
+    }
+
+    /// This should get called whenever a new Timeline is loaded into the video player.
+    private func rebuildTimeline(new: Bool) {
+        if new, let timelineId = timeline {
+            getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
+                switch update {
+                case .actionsUpdated(let actions):
+                    self?.annotationActions = actions
                 }
             }
         }
@@ -426,6 +438,10 @@ public class VideoPlayer: NSObject {
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
     /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
     private func cleanup(oldStream: Stream) {}
+
+    private func cleanup(oldTimeline: String) {
+        getTimelineActionsUpdatesUseCase.stop(id: oldTimeline)
+    }
 
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
@@ -861,7 +877,7 @@ public protocol PlayerDelegate: AnyObject {
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
     /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)
-    /// To hide the fullscreen button entirely, set `VideoPlayer.fullscreenButtonIsHidden`
+    /// This button can be hidden via the Configuration object on the MLS component.
     func playerDidUpdateFullscreen(player: VideoPlayer)
     #endif
 }

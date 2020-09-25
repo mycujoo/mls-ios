@@ -123,12 +123,12 @@ extension API: TargetType {
                                     "label": "Kickoff",
                                     "seek_offset": -1500000
                                 },
-                                "offset": 1699000,
+                                "offset": "1699000",
                                 "id": "f4354364q6afd",
                                 "type": "show_timeline_marker"
                             },
                             {
-                                "offset": 1699000,
+                                "offset": "1699000",
                                 "id": "43faf4j59595959",
                                 "type": "set_variable",
                                 "data": {
@@ -138,7 +138,7 @@ extension API: TargetType {
                                 }
                             },
                             {
-                                "offset": 1699000,
+                                "offset": "1699000",
                                 "id": "43faf4j5959fda8f9",
                                 "type": "set_variable",
                                 "data": {
@@ -148,7 +148,7 @@ extension API: TargetType {
                                 }
                             },
                             {
-                                "offset": 1699000,
+                                "offset": "1699000",
                                 "id": "bbaaaa4444sssstg",
                                 "type": "create_timer",
                                 "data": {
@@ -159,7 +159,7 @@ extension API: TargetType {
                                 }
                             },
                             {
-                                "offset": 1699000,
+                                "offset": "1699000",
                                 "id": "4fdaf5tygfhfhffha",
                                 "type": "start_timer",
                                 "data": {
@@ -181,7 +181,7 @@ extension API: TargetType {
                                     "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg",
                                     "variables": ["$awayScore", "$homeScore", "$scoreboardTimer"]
                                 },
-                                "offset": 1699000,
+                                "offset": "1699000",
                                 "id": "54afag35yag",
                                 "type": "show_overlay"
                             },
@@ -191,12 +191,12 @@ extension API: TargetType {
                                     "label": "Halftime",
                                     "seek_offset": -5000
                                 },
-                                "offset": 4720000,
+                                "offset": "4720000",
                                 "id": "fda43t943f9b",
                                 "type": "show_timeline_marker"
                             },
                             {
-                                "offset": 4720000,
+                                "offset": "4720000",
                                 "id": "4fdaf5tygfhfhffhb",
                                 "type": "pause_timer",
                                 "data": {
@@ -204,7 +204,7 @@ extension API: TargetType {
                                 }
                             },
                             {
-                                "offset": 4720000,
+                                "offset": "4720000",
                                 "id": "5cdaf5tygfhfhffhb",
                                 "type": "adjust_timer",
                                 "data": {
@@ -218,12 +218,12 @@ extension API: TargetType {
                                     "label": "Kickoff",
                                     "seek_offset": 2000
                                 },
-                                "offset": 5711000,
+                                "offset": "5711000",
                                 "id": "fda43t943f3c",
                                 "type": "show_timeline_marker"
                             },
                             {
-                                "offset": 5711000,
+                                "offset": "5711000",
                                 "id": "4fdaf5tygfhfhffhc",
                                 "type": "start_timer",
                                 "data": {
@@ -236,12 +236,12 @@ extension API: TargetType {
                                     "label": "Goal",
                                     "seek_offset": -3000
                                 },
-                                "offset": 5891000,
+                                "offset": "5891000",
                                 "id": "fda43t943f9a",
                                 "type": "show_timeline_marker"
                             },
                             {
-                                "offset": 5891000,
+                                "offset": "5891000",
                                 "id": "aaa444466agfffag5",
                                 "type": "increment_variable",
                                 "data": {
@@ -250,7 +250,7 @@ extension API: TargetType {
                                 }
                             },
                             {
-                                "offset": 5891000,
+                                "offset": "5891000",
                                 "id": "5cdaf5tygfhfhfno4",
                                 "type": "adjust_timer",
                                 "data": {
@@ -283,7 +283,7 @@ extension API: TargetType {
                                     },
                                     "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/announcement_overlay.svg"
                                 },
-                                "offset": 5891000,
+                                "offset": "5891000",
                                 "id": "gagj9j9agj9a",
                                 "type": "show_overlay"
                             },
@@ -293,12 +293,12 @@ extension API: TargetType {
                                     "label": "Fulltime",
                                     "seek_offset": 0
                                 },
-                                "offset": 8850000,
+                                "offset": "8850000",
                                 "id": "bmb9t49bm34t",
                                 "type": "show_timeline_marker"
                             },
                             {
-                                "offset": 8850000,
+                                "offset": "8850000",
                                 "id": "asaafafafa53",
                                 "type": "pause_timer",
                                 "data": {
@@ -311,7 +311,7 @@ extension API: TargetType {
                                     "animateout_type": "fade_out",
                                     "custom_id": "scoreboard1"
                                 },
-                                "offset": 8855000,
+                                "offset": "8855000",
                                 "id": "f43f9ajf9dfjSX",
                                 "type": "hide_overlay"
                             }

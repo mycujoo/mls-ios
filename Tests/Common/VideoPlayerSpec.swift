@@ -122,6 +122,8 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setOnControlViewTapped(any()).then { action in
                     controlViewTapped = action
                 }
+                when(mock).setTimeIndicatorLabel(hidden: any()).thenDoNothing()
+                when(mock).setSeekbar(hidden: any()).thenDoNothing()
                 when(mock).setOnLiveButtonTapped(any()).thenDoNothing()
                 when(mock).setOnFullscreenButtonTapped(any()).thenDoNothing()
                 when(mock).setOnInfoButtonTapped(any()).then { action in
@@ -291,6 +293,32 @@ class VideoPlayerSpec: QuickSpec {
                         }
                     }
                 }
+            }
+
+            it("subscribes to timeline updates when an event with timelineid is loaded") {
+                verify(self.mockTimelineRepository, times(0)).startTimelineUpdates(for: any(), callback: any())
+
+                let event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true, withTimelineId: true)
+
+                self.videoPlayer.event = event
+
+                verify(self.mockTimelineRepository, times(1)).startTimelineUpdates(for: event.timelineIds.first!, callback: any())
+            }
+
+            it("subscribes to timeline updates when an event is updated to have a timelineId after initially loading without") {
+                verify(self.mockTimelineRepository, times(0)).startTimelineUpdates(for: any(), callback: any())
+
+                let eventWithoutTimelineId = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true, withTimelineId: false)
+
+                self.videoPlayer.event = eventWithoutTimelineId
+
+                verify(self.mockTimelineRepository, times(0)).startTimelineUpdates(for: any(), callback: any())
+
+                let eventWithTimelineId = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true, withTimelineId: true)
+
+                self.videoPlayer.event = eventWithTimelineId
+
+                verify(self.mockTimelineRepository, times(1)).startTimelineUpdates(for: eventWithTimelineId.timelineIds.first!, callback: any())
             }
         }
 

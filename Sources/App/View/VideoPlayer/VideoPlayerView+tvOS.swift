@@ -551,6 +551,15 @@ extension VideoPlayerView {
         }
         bufferIcon.isHidden = hidden
     }
+    
+    /// Sets the `isHidden` property of the `timeIndicatorLabel`.
+    /// - seeAlso: `setTimeIndicatorLabel(elapsedText:totalText:)`
+    func setTimeIndicatorLabel(hidden: Bool) {
+        timeIndicatorLabel.isHidden = hidden
+    }
+
+    /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
+    /// - seeAlso: `setTimeIndicatorLabel(hidden:)`
 
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?) {
@@ -571,6 +580,11 @@ extension VideoPlayerView {
         }
 
         timeIndicatorLabel.attributedText = str1
+    }
+
+    /// Set the `isHidden` property of the seekbar.
+    func setSeekbar(hidden: Bool) {
+        videoSlider.isHidden = hidden
     }
 }
 

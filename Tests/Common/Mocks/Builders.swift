@@ -6,7 +6,7 @@ import Foundation
 @testable import MLSSDK
 
 class EntityBuilder {
-    static func buildEvent(withRandomId: Bool = true, withStream: Bool = true, withStreamURL: Bool = true, withRandomStreamURL: Bool = false) -> MLSSDK.Event {
+    static func buildEvent(withRandomId: Bool = true, withStream: Bool = true, withStreamURL: Bool = true, withRandomStreamURL: Bool = false, withTimelineId: Bool = false) -> MLSSDK.Event {
         return MLSSDK.Event(
             id: withRandomId ? randomString(length: 20) : "mockevent",
             title: "Mock Event",
@@ -17,7 +17,7 @@ class EntityBuilder {
             startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24),
             status: .started,
             streams: withStream ? [buildStream(withRandomId: withRandomId, withURL: withStreamURL, withRandomURL: withRandomStreamURL)] : [],
-            timelineIds: [])
+            timelineIds: withTimelineId ? ["randomTimelineId"] : [])
     }
 
     static func buildStream(withRandomId: Bool = true, withURL: Bool = true, withRandomURL: Bool = false) -> MLSSDK.Stream {

@@ -1,7 +1,7 @@
 {
     "actions": [
         {
-            "offset": 0,
+            "offset": "0",
             "id": "bbaaaa4444sssstg",
             "type": "create_timer",
             "data": {

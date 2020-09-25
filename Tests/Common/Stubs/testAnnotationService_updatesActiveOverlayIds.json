@@ -14,7 +14,7 @@
                 },
                 "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg"
             },
-            "offset": 10000,
+            "offset": "10000",
             "id": "54afag35yag",
             "type": "show_overlay"
         },
@@ -34,7 +34,7 @@
                 },
                 "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/announcement_overlay.svg"
             },
-            "offset": 15000,
+            "offset": "15000",
             "id": "gagj9j9agj9a",
             "type": "show_overlay"
         }

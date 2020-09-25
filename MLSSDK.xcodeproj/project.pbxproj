@@ -404,6 +404,8 @@
 		49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */; };
 		49E2DF1224A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
 		49E2DF1324A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
+		49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
+		49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E59025249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59026249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59028249BCA5B001E0C1C /* AnnotationAction.swift */; };
@@ -676,6 +678,7 @@
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
 		49E2DF1124A55B5400750C00 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
 		49EA069224C72CE100C7AB10 /* iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -781,6 +784,7 @@
 				4930180F24D494AE009312B0 /* WebsocketConnection.swift */,
 				4926CE1624CE03E200419A42 /* Entities */,
 				4926CE2124CE03E600419A42 /* Repositories */,
+				49E4F462251A08C800FDECD9 /* Utils */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -869,6 +873,7 @@
 			isa = PBXGroup;
 			children = (
 				4966DEFD24B72D7F00BEC403 /* Event.swift */,
+				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 				49DD229124B7788D00A4CFF2 /* Stream.swift */,
 			);
 			path = Public;
@@ -880,7 +885,6 @@
 				49E59028249BCA5B001E0C1C /* AnnotationAction.swift */,
 				4938012B24CE19B0008AFC64 /* MLSUIAction.swift */,
 				49E2DF1124A55B5400750C00 /* Overlay.swift */,
-				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 				497FD2C524C0981F0027E708 /* TOVStore.swift */,
 			);
@@ -1331,6 +1335,14 @@
 				4926CE3124CE076F00419A42 /* Public */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		49E4F462251A08C800FDECD9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		49EA06B424C78C5E00C7AB10 /* Tests */ = {
@@ -1785,7 +1797,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2094,6 +2106,7 @@
 				49736EEC24A9F59C001F3F48 /* Easing.swift in Sources */,
 				49736E9724A9F59C001F3F48 /* Variable.swift in Sources */,
 				49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */,
+				49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
 				49736E9924A9F59C001F3F48 /* Arc.swift in Sources */,
 				495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				498E48F024D033630040502D /* MLSAVPlayerProtocol.swift in Sources */,
@@ -2295,6 +2308,7 @@
 				49A804DC24AA0EA700E30DA8 /* MBezierPath+Extension_macOS.swift in Sources */,
 				49A804FA24AA0ED400E30DA8 /* DescriptionExtensions.swift in Sources */,
 				49A804D424AA0EA100E30DA8 /* Stop.swift in Sources */,
+				49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
 				49A9F52424A15B9700D00143 /* UIView+.swift in Sources */,
 				49A804DB24AA0EA700E30DA8 /* MDisplayLink_macOS.swift in Sources */,
 				498E48F124D033630040502D /* MLSAVPlayerProtocol.swift in Sources */,
@@ -2605,7 +2619,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -2635,7 +2649,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -2662,7 +2676,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
 				SDKROOT = appletvos;
@@ -2690,7 +2704,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
 				SDKROOT = appletvos;

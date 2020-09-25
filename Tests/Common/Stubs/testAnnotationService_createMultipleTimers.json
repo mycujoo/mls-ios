@@ -1,7 +1,7 @@
 {
     "actions": [
         {
-            "offset": 0,
+            "offset": "0",
             "id": "bbaaaa4444sssstg",
             "type": "create_timer",
             "data": {
@@ -12,7 +12,7 @@
             }
         },
         {
-            "offset": 3000,
+            "offset": "3000",
             "id": "bdfdafaaaa4444a",
             "type": "create_timer",
             "data": {
@@ -23,7 +23,7 @@
             }
         },
         {
-            "offset": 4000,
+            "offset": "4000",
             "id": "bbaaaa4444aag",
             "type": "create_timer",
             "data": {
@@ -35,7 +35,7 @@
             }
         },
         {
-            "offset": 4500,
+            "offset": "4500",
             "id": "bbaaaa4444aass",
             "type": "create_timer",
             "data": {
@@ -47,7 +47,7 @@
             }
         },
         {
-            "offset": 5000,
+            "offset": "5000",
             "id": "4fdaf5tygfhfhffhc",
             "type": "start_timer",
             "data": {
@@ -55,7 +55,7 @@
             }
         },
         {
-            "offset": 5000,
+            "offset": "5000",
             "id": "4fdaf5tygfhfhffhd",
             "type": "start_timer",
             "data": {
@@ -63,7 +63,7 @@
             }
         },
         {
-            "offset": 5000,
+            "offset": "5000",
             "id": "4fdaf5tygfhfhffhe",
             "type": "start_timer",
             "data": {
