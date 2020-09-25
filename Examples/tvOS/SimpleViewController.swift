@@ -8,7 +8,7 @@ import MLSSDK
 
 
 class SimpleViewController: UIViewController {
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(seekTolerance: .zero))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()

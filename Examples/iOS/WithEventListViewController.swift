@@ -14,14 +14,10 @@ class WithEventListViewController: UIViewController {
         publicKey: "",
         configuration: Configuration(
             logLevel: .verbose,
-            seekTolerance: .positiveInfinity,
+            seekTolerance: .zero,
             playerConfig: PlayerConfig(
                 primaryColor: "#de6e1f",
-                secondaryColor: "#000000",
-                autoplay: true,
-                showBackForwardsButtons: true,
-                showLiveViewers: true,
-                showEventInfoButton: true)))
+                secondaryColor: "#000000")))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
