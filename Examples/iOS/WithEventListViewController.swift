@@ -14,14 +14,10 @@ class WithEventListViewController: UIViewController {
         publicKey: "",
         configuration: Configuration(
             logLevel: .verbose,
-            seekTolerance: .positiveInfinity,
+            seekTolerance: .zero,
             playerConfig: PlayerConfig(
                 primaryColor: "#de6e1f",
-                secondaryColor: "#000000",
-                autoplay: true,
-                showBackForwardsButtons: true,
-                showLiveViewers: true,
-                showEventInfoButton: true)))
+                secondaryColor: "#000000")))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
@@ -79,7 +75,6 @@ class WithEventListViewController: UIViewController {
             playerContainerView.addSubview(videoPlayer.playerView)
             videoPlayer.playerView.isHidden = true
             videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
-            videoPlayer.fullscreenButtonIsHidden = true
 
             let playerConstraints = [
                 videoPlayer.playerView.topAnchor.constraint(equalTo: playerContainerView.topAnchor),

@@ -62,8 +62,14 @@ protocol VideoPlayerViewProtocol: class {
     func setInfoButton(hidden: Bool)
     /// Sets the `isHidden` property of the skip backwards/forwards buttons.
     func setSkipButtons(hidden: Bool)
+    /// Sets the `isHidden` property of the `timeIndicatorLabel`.
+    /// - seeAlso: `setTimeIndicatorLabel(elapsedText:totalText:)`
+    func setTimeIndicatorLabel(hidden: Bool)
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
+    /// - seeAlso: `setTimeIndicatorLabel(hidden:)`
     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?)
+    /// Set the `isHidden` property of the seekbar.
+    func setSeekbar(hidden: Bool)
 
     func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])
     /// Places the overlay within a containerView, that is then sized, positioned and animated within the overlayContainerView.

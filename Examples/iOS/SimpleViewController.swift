@@ -33,7 +33,6 @@ class SimpleViewController: UIViewController {
 
             view.addSubview(videoPlayer.playerView)
             videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
-            videoPlayer.fullscreenButtonIsHidden = true
 
             let playerConstraints = [
                 videoPlayer.playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
