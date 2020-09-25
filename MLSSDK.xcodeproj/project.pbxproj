@@ -873,6 +873,7 @@
 			isa = PBXGroup;
 			children = (
 				4966DEFD24B72D7F00BEC403 /* Event.swift */,
+				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 				49DD229124B7788D00A4CFF2 /* Stream.swift */,
 			);
 			path = Public;
@@ -884,7 +885,6 @@
 				49E59028249BCA5B001E0C1C /* AnnotationAction.swift */,
 				4938012B24CE19B0008AFC64 /* MLSUIAction.swift */,
 				49E2DF1124A55B5400750C00 /* Overlay.swift */,
-				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 				497FD2C524C0981F0027E708 /* TOVStore.swift */,
 			);

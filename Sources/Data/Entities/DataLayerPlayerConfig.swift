@@ -11,11 +11,11 @@ extension DataLayer {
         let autoplay: Bool
         let showBackForwardsButtons: Bool
         let showLiveViewers: Bool
-        let showEventInfoButton: Bool
         let showSeekbar: Bool
-        let showFullscreen: Bool
-        #if os(iOS)
         let showTimers: Bool
+        #if os(iOS)
+        let showEventInfoButton: Bool
+        let showFullscreen: Bool
         #endif
     }
 }
@@ -27,10 +27,12 @@ extension DataLayer.PlayerConfig {
         case autoplay
         case showBackForwardsButtons = "back_forward_buttons"
         case showLiveViewers = "live_viewers"
-        case showEventInfoButton = "event_info_button"
         case showSeekbar = "seekbar"
-        case showFullscreen = "fullscreen"
         case showTimers = "timers"
+        #if os(iOS)
+        case showEventInfoButton = "event_info_button"
+        case showFullscreen = "fullscreen"
+        #endif
     }
 
     init(from decoder: Decoder) throws {
@@ -40,15 +42,16 @@ extension DataLayer.PlayerConfig {
         let autoplay: Bool = (try? container.decode(Bool.self, forKey: .autoplay)) ?? true
         let showBackForwardsButtons: Bool = (try? container.decode(Bool.self, forKey: .showBackForwardsButtons)) ?? true
         let showLiveViewers: Bool = (try? container.decode(Bool.self, forKey: .showLiveViewers)) ?? true
-        let showEventInfoButton: Bool = (try? container.decode(Bool.self, forKey: .showEventInfoButton)) ?? true
         let showSeekbar: Bool = (try? container.decode(Bool.self, forKey: .showSeekbar)) ?? true
-        let showFullscreen: Bool = (try? container.decode(Bool.self, forKey: .showFullscreen)) ?? false
         let showTimers: Bool = (try? container.decode(Bool.self, forKey: .showTimers)) ?? true
 
         #if os(tvOS)
-        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showEventInfoButton: showEventInfoButton, showSeekbar: showSeekbar, showFullscreen: showFullscreen)
+        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers)
         #else
-        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showEventInfoButton: showEventInfoButton, showSeekbar: showSeekbar, showFullscreen: showFullscreen, showTimers: showTimers)
+        let showEventInfoButton: Bool = (try? container.decode(Bool.self, forKey: .showEventInfoButton)) ?? true
+        let showFullscreen: Bool = (try? container.decode(Bool.self, forKey: .showFullscreen)) ?? false
+
+        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, showEventInfoButton: showEventInfoButton, showFullscreen: showFullscreen)
         #endif
     }
 }
@@ -58,9 +61,8 @@ extension DataLayer.PlayerConfig {
 
 extension DataLayer.PlayerConfig {
     var toDomain: MLSSDK.PlayerConfig {
-
         #if os(tvOS)
-        return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showEventInfoButton: self.showEventInfoButton, showSeekbar: self.showSeekbar, showFullscreen: self.showFullscreen)
+        return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showSeekbar: self.showSeekbar, showTimers: self.showTimers)
         #else
         return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showEventInfoButton: self.showEventInfoButton, showSeekbar: self.showSeekbar, showFullscreen: self.showFullscreen, showTimers: self.showTimers)
         #endif

@@ -272,6 +272,7 @@ public class VideoPlayer: NSObject {
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
+                self.view.fullscreenButtonIsHidden = self.playerConfig.showFullscreen
                 self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
                 self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
                 #endif

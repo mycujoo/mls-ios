@@ -17,12 +17,10 @@ public struct PlayerConfig {
     let showBackForwardsButtons: Bool
     /// Indicates whether the number of concurrent viewers on a live stream should be shown (true) or hidden (false).
     let showLiveViewers: Bool
-    /// Indicates whether the "info" button in the top-right corner of the video player should be shown (true) or hidden (false).
-    let showEventInfoButton: Bool
     /// Indicates whether the seekbar should be shown (true) or hidden (false).
     let showSeekbar: Bool
-    /// Indicates whether the fullscreen button should be shown (true) or hidden (false).
-    let showFullscreen: Bool
+    /// Indicates whether the elapsed time and duration should be shown (true) or hidden (false).
+    let showTimers: Bool
 
     public init(
             primaryColor: String = "#FFFFFF",
@@ -30,18 +28,16 @@ public struct PlayerConfig {
             autoplay: Bool = true,
             showBackForwardsButtons: Bool = true,
             showLiveViewers: Bool = true,
-            showEventInfoButton: Bool = true,
             showSeekbar: Bool = true,
-            showFullscreen: Bool = true
+            showTimers: Bool = true
     ) {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
         self.autoplay = autoplay
         self.showBackForwardsButtons = showBackForwardsButtons
         self.showLiveViewers = showLiveViewers
-        self.showEventInfoButton = showEventInfoButton
         self.showSeekbar = showSeekbar
-        self.showFullscreen = showFullscreen
+        self.showTimers = showTimers
     }
 }
 
@@ -82,7 +78,7 @@ public struct PlayerConfig {
             showLiveViewers: Bool = true,
             showEventInfoButton: Bool = true,
             showSeekbar: Bool = true,
-            showFullscreen: Bool = true,
+            showFullscreen: Bool = false,
             showTimers: Bool = true
     ) {
         self.primaryColor = primaryColor
