@@ -154,15 +154,6 @@ public class VideoPlayer: NSObject {
         return view.topControlsStackView
     }
 
-    /// Sets the visibility of the fullscreen button.
-    public var fullscreenButtonIsHidden: Bool {
-        get {
-            return view.fullscreenButtonIsHidden
-        }
-        set {
-            view.fullscreenButtonIsHidden = newValue
-        }
-    }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     public var tapGestureRecognizer: UITapGestureRecognizer {
         return view.tapGestureRecognizer
@@ -272,7 +263,7 @@ public class VideoPlayer: NSObject {
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 #if os(iOS)
-                self.view.fullscreenButtonIsHidden = self.playerConfig.showFullscreen
+                self.view.fullscreenButtonIsHidden = !self.playerConfig.showFullscreen
                 self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
                 self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
@@ -884,7 +875,7 @@ public protocol PlayerDelegate: AnyObject {
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
     /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)
-    /// To hide the fullscreen button entirely, set `VideoPlayer.fullscreenButtonIsHidden`
+    /// This button can be hidden via the Configuration object on the MLS component.
     func playerDidUpdateFullscreen(player: VideoPlayer)
     #endif
 }

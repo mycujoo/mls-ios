@@ -75,7 +75,6 @@ class WithEventListViewController: UIViewController {
             playerContainerView.addSubview(videoPlayer.playerView)
             videoPlayer.playerView.isHidden = true
             videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
-            videoPlayer.fullscreenButtonIsHidden = true
 
             let playerConstraints = [
                 videoPlayer.playerView.topAnchor.constraint(equalTo: playerContainerView.topAnchor),

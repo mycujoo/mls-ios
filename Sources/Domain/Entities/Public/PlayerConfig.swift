@@ -40,14 +40,6 @@ public struct PlayerConfig {
         self.showTimers = showTimers
     }
 }
-
-public extension PlayerConfig {
-    /// Generates a standard player configuration, with default values.
-    static func standard() -> PlayerConfig {
-        let config = self.init()
-        return config
-    }
-}
 #else
 /// A set of configurable properties for the VideoPlayer.
 public struct PlayerConfig {
@@ -92,6 +84,7 @@ public struct PlayerConfig {
         self.showTimers = showTimers
     }
 }
+#endif
 
 public extension PlayerConfig {
     /// Generates a standard player configuration, with default values.
@@ -100,4 +93,3 @@ public extension PlayerConfig {
         return config
     }
 }
-#endif
