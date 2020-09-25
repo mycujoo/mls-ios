@@ -262,6 +262,8 @@ public class VideoPlayer: NSObject {
                 guard let `self` = self else { return }
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
+                self.view.setSeekbar(hidden: !self.playerConfig.showSeekbar)
+                self.view.setTimeIndicatorLabel(hidden: !self.playerConfig.showTimers)
                 #if os(iOS)
                 self.view.fullscreenButtonIsHidden = !self.playerConfig.showFullscreen
                 self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)

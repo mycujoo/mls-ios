@@ -122,6 +122,8 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setOnControlViewTapped(any()).then { action in
                     controlViewTapped = action
                 }
+                when(mock).setTimeIndicatorLabel(hidden: any()).thenDoNothing()
+                when(mock).setSeekbar(hidden: any()).thenDoNothing()
                 when(mock).setOnLiveButtonTapped(any()).thenDoNothing()
                 when(mock).setOnFullscreenButtonTapped(any()).thenDoNothing()
                 when(mock).setOnInfoButtonTapped(any()).then { action in
