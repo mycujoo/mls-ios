@@ -675,7 +675,10 @@ extension VideoPlayer {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            if elapsedSeconds.isNaN {
+            if liveState == .liveAndLatest {
+                self.view.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
+                self.view.setLiveButtonTo(state: .liveAndLatest)
+            } else if elapsedSeconds.isNaN {
                 self.view.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
                 self.view.setLiveButtonTo(state: .notLive)
             } else {
