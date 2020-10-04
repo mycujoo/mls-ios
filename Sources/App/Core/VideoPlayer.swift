@@ -133,12 +133,6 @@ public class VideoPlayer: NSObject {
         return player.currentDuration
     }
 
-    private(set) var annotationActions: [AnnotationAction] = [] {
-        didSet {
-            evaluateAnnotations()
-        }
-    }
-
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
     public var controlView: UIView {
         return view.controlView
@@ -159,6 +153,23 @@ public class VideoPlayer: NSObject {
         return view.tapGestureRecognizer
     }
     #endif
+
+    /// Seek to a position within the currentItem.
+    /// - parameter to: The number of seconds within the currentItem to seek to.
+    /// - parameter completionHandler: A closure that is called upon a completed seek operation.
+    /// - note: The seek tolerance can be configured through the `playerConfig` property on this `VideoPlayer` and is used for all seek operations by this player.
+    public func seek(to: Double, completionHandler: @escaping (Bool) -> Void) {
+        let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, to)), preferredTimescale: 600)
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, completionHandler: completionHandler)
+    }
+
+    public func showEventInfoOverlay() {
+        setInfoViewTo(visible: true)
+    }
+
+    public func hideEventInfoOverlay() {
+        setInfoViewTo(visible: false)
+    }
 
     // MARK: - Private properties
 
@@ -270,6 +281,12 @@ public class VideoPlayer: NSObject {
                 self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
                 #endif
             }
+        }
+    }
+
+    private(set) var annotationActions: [AnnotationAction] = [] {
+        didSet {
+            evaluateAnnotations()
         }
     }
 
@@ -614,7 +631,7 @@ extension VideoPlayer {
     private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
         player
             .addPeriodicTimeObserver(
-                forInterval: CMTime(value: 1, timescale: 1),
+                forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 600),
                 queue: .main) { [weak self] _ in
                     guard let self = self else { return }
 
@@ -665,7 +682,7 @@ extension VideoPlayer {
 
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
-        let seekTime = CMTime(value: Int64(min(currentDuration - 1, elapsedSeconds)), timescale: 1)
+        let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, elapsedSeconds)), preferredTimescale: 600)
         player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
 
         setControlViewVisibility(visible: true, animated: true)
@@ -799,7 +816,7 @@ extension VideoPlayer {
         view.videoSlider.value = 1.0
         updatePlaytimeIndicators(currentDuration, totalSeconds: currentDuration, liveState: .liveAndLatest)
 
-        let seekTime = CMTime(value: Int64(currentDuration), timescale: 1)
+        let seekTime = CMTimeMakeWithSeconds(currentDuration, preferredTimescale: 600)
         player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
             if finished {
                 self?.play()
@@ -817,6 +834,10 @@ extension VideoPlayer {
 
     private func infoButtonTapped() {
         let visible = !view.infoViewHasAlpha
+        setInfoViewTo(visible: visible)
+    }
+
+    private func setInfoViewTo(visible: Bool) {
         setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: visible)
 
         view.setInfoViewVisibility(visible: visible, animated: true)
