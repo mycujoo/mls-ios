@@ -110,6 +110,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 when(mock).setPlayButtonTo(state: any()).thenDoNothing()
                 when(mock).setLiveButtonTo(state: any()).thenDoNothing()
+                when(mock).setControlView(hidden: any()).thenDoNothing()
                 when(mock).setBufferIcon(hidden: any()).thenDoNothing()
                 when(mock).setInfoButton(hidden: any()).thenDoNothing()
                 when(mock).setTimeIndicatorLabel(elapsedText: any(), totalText: any()).thenDoNothing()

@@ -66,7 +66,11 @@ public class VideoPlayer: NSObject {
             }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                #if os(iOS)
                 self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? buttonState : .none)
+                #else
+                self.view.setPlayButtonTo(state: buttonState)
+                #endif
             }
 
             if oldValue != status {
@@ -271,6 +275,7 @@ public class VideoPlayer: NSObject {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
+                self.view.setControlView(hidden: !self.playerConfig.enableControls)
                 self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
                 self.view.setSeekbar(hidden: !self.playerConfig.showSeekbar)
@@ -657,7 +662,11 @@ extension VideoPlayer {
                     let isLivestream = self.isLivestream
                     if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream {
                         self.state = .ended
+                        #if os(iOS)
                         self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
+                        #else
+                        self.view.setPlayButtonTo(state: .replay)
+                        #endif
                     }
 
                     self.youboraPlugin?.options.contentIsLive = isLivestream as NSValue
@@ -770,7 +779,9 @@ extension VideoPlayer {
             }
         }
 
-        setControlViewVisibility(visible: true, animated: true)
+        if playerConfig.enableControls {
+            setControlViewVisibility(visible: true, animated: true)
+        }
     }
 
     private func relativeSeekWithDebouncer(amount: Double) {
@@ -789,7 +800,9 @@ extension VideoPlayer {
         if playerConfig.showBackForwardsButtons {
             relativeSeekWithDebouncer(amount: -10)
 
-            setControlViewVisibility(visible: true, animated: true)
+            if playerConfig.enableControls {
+                setControlViewVisibility(visible: true, animated: true)
+            }
         }
     }
 
@@ -797,8 +810,22 @@ extension VideoPlayer {
         if playerConfig.showBackForwardsButtons {
             relativeSeekWithDebouncer(amount: 10)
 
-            setControlViewVisibility(visible: true, animated: true)
+            if playerConfig.enableControls {
+                setControlViewVisibility(visible: true, animated: true)
+            }
         }
+    }
+
+    private func setInfoViewTo(visible: Bool) {
+        #if os(tvOS)
+        let honored = setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
+        if honored {
+            view.setInfoViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        }
+        #else
+        setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: visible)
+        view.setInfoViewVisibility(visible: visible, animated: true)
+        #endif
     }
 
     #if os(iOS)
@@ -806,11 +833,13 @@ extension VideoPlayer {
         // Do not register taps on the control view when there is no stream url.
         guard currentStream?.fullUrl != nil else { return }
 
-        if view.infoViewHasAlpha {
-            view.setInfoViewVisibility(visible: false, animated: true)
-            setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: false)
-        } else {
-            setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+        if playerConfig.enableControls {
+            if view.infoViewHasAlpha {
+                view.setInfoViewVisibility(visible: false, animated: true)
+                setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: false)
+            } else {
+                setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+            }
         }
     }
 
@@ -828,33 +857,29 @@ extension VideoPlayer {
             }
         }
 
-        setControlViewVisibility(visible: true, animated: true)
+        if playerConfig.enableControls {
+            setControlViewVisibility(visible: true, animated: true)
+        }
     }
 
     private func fullscreenButtonTapped() {
         isFullscreen.toggle()
 
-        setControlViewVisibility(visible: true, animated: true)
+        if playerConfig.enableControls {
+            setControlViewVisibility(visible: true, animated: true)
+        }
     }
 
     private func infoButtonTapped() {
         let visible = !view.infoViewHasAlpha
         setInfoViewTo(visible: visible)
     }
-
-    private func setInfoViewTo(visible: Bool) {
-        setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: visible)
-
-        view.setInfoViewVisibility(visible: visible, animated: true)
-    }
     #endif
 
     #if os(tvOS)
     private func selectPressed() {
-        let honored = setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
-        if honored {
-            view.setInfoViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
-        }
+        let visible = !view.controlViewHasAlpha
+        setInfoViewTo(visible: visible)
     }
 
     private func leftArrowTapped() {

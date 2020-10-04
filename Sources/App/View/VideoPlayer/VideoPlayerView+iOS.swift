@@ -711,6 +711,12 @@ extension VideoPlayerView {
         }
     }
 
+    /// Sets the `isHidden` property of the entire control view, *including* the control view's alpha layer.
+    func setControlView(hidden: Bool) {
+        controlView.isHidden = hidden
+        controlAlphaView.isHidden = hidden
+    }
+
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool) {

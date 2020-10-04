@@ -541,6 +541,11 @@ extension VideoPlayerView {
         numberOfViewersView.isHidden = false
     }
 
+    /// Sets the `isHidden` property of the entire control view, *excluding* the control view's alpha layer.
+    func setControlView(hidden: Bool) {
+        controlView.isHidden = hidden
+    }
+
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool) {
@@ -562,8 +567,6 @@ extension VideoPlayerView {
 
     /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
     /// - seeAlso: `setTimeIndicatorLabel(hidden:)`
-
-    /// Set the time indicator label as an attributed string. If elapsedText is nil, then an empty string is rendered on the entire label.
     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?) {
         guard let elapsedText = elapsedText else {
             timeIndicatorLabel.text = ""

@@ -55,6 +55,8 @@ protocol VideoPlayerViewProtocol: class {
     func setOnInfoButtonTapped(_ action: @escaping () -> Void)
     func setFullscreenButtonTo(fullscreen: Bool)
 
+    /// Sets the `isHidden` property of the entire control view, *including* the control view's alpha layer.
+    func setControlView(hidden: Bool)
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool)
