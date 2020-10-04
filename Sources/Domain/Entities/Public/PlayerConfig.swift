@@ -13,6 +13,9 @@ public struct PlayerConfig {
     let secondaryColor: String
     /// Autoplay determines whether a video stream should start playing immediately after it is loaded into the VideoPlayer, or if it should wait for the user to press play.
     let autoplay: Bool
+    /// Indicates whether there entire control layer should ever be used. This defaults to true. If set to false, there is no way for the user to see any controls, and is not generally recommended.
+    /// For more fine-grained control over particular buttons or other visual elements, look at the other properties on this PlayerConfig.
+    let enableControls: Bool
     /// Indicates whether the 10s backwards/forwards buttons should be shown (true) or hidden (false).
     let showBackForwardsButtons: Bool
     /// Indicates whether the number of concurrent viewers on a live stream should be shown (true) or hidden (false).
@@ -26,6 +29,7 @@ public struct PlayerConfig {
             primaryColor: String = "#FFFFFF",
             secondaryColor: String = "#FF0000",
             autoplay: Bool = true,
+            enableControls: Bool = true,
             showBackForwardsButtons: Bool = true,
             showLiveViewers: Bool = true,
             showSeekbar: Bool = true,
@@ -34,6 +38,7 @@ public struct PlayerConfig {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
         self.autoplay = autoplay
+        self.enableControls = enableControls
         self.showBackForwardsButtons = showBackForwardsButtons
         self.showLiveViewers = showLiveViewers
         self.showSeekbar = showSeekbar
@@ -49,6 +54,11 @@ public struct PlayerConfig {
     let secondaryColor: String
     /// Autoplay determines whether a video stream should start playing immediately after it is loaded into the VideoPlayer, or if it should wait for the user to press play.
     let autoplay: Bool
+    /// Indicates whether there entire control layer should ever be used. This defaults to true. If set to false, there is no way for the user to see any controls, and is not generally recommended.
+    /// For more fine-grained control over particular buttons or other visual elements, look at the other properties on this PlayerConfig.
+    let enableControls: Bool
+    /// Indicates whether the play/pause button should be shown (true) or hidden (false)
+    let showPlayAndPause: Bool
     /// Indicates whether the 10s backwards/forwards buttons should be shown (true) or hidden (false).
     let showBackForwardsButtons: Bool
     /// Indicates whether the number of concurrent viewers on a live stream should be shown (true) or hidden (false).
@@ -66,6 +76,8 @@ public struct PlayerConfig {
             primaryColor: String = "#FFFFFF",
             secondaryColor: String = "#FF0000",
             autoplay: Bool = true,
+            enableControls: Bool = true,
+            showPlayAndPause: Bool = true,
             showBackForwardsButtons: Bool = true,
             showLiveViewers: Bool = true,
             showEventInfoButton: Bool = true,
@@ -76,6 +88,8 @@ public struct PlayerConfig {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
         self.autoplay = autoplay
+        self.enableControls = enableControls
+        self.showPlayAndPause = showPlayAndPause
         self.showBackForwardsButtons = showBackForwardsButtons
         self.showLiveViewers = showLiveViewers
         self.showEventInfoButton = showEventInfoButton

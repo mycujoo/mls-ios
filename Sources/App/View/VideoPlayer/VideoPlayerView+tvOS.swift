@@ -514,6 +514,8 @@ extension VideoPlayerView {
             playButton.setTitle("Pause", for: .normal)
         case .replay:
             playButton.setTitle("Replay", for: .normal)
+        case .none:
+            playButton.setTitle("", for: .normal)
         }
     }
 

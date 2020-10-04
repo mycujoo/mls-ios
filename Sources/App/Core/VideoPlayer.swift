@@ -66,7 +66,7 @@ public class VideoPlayer: NSObject {
             }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.view.setPlayButtonTo(state: buttonState)
+                self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? buttonState : .none)
             }
 
             if oldValue != status {
@@ -279,6 +279,11 @@ public class VideoPlayer: NSObject {
                 self.view.fullscreenButtonIsHidden = !self.playerConfig.showFullscreen
                 self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
                 self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
+
+                // To reset the state of the play/pause button, trigger a new didSet on the player status.
+                // This could be more elegant...
+                let status = self.status
+                self.status = status
                 #endif
             }
         }
@@ -652,7 +657,7 @@ extension VideoPlayer {
                     let isLivestream = self.isLivestream
                     if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream {
                         self.state = .ended
-                        self.view.setPlayButtonTo(state: .replay)
+                        self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
                     }
 
                     self.youboraPlugin?.options.contentIsLive = isLivestream as NSValue

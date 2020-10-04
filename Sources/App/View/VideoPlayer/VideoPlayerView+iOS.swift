@@ -668,11 +668,11 @@ extension VideoPlayerView {
             icon = pauseIcon
         case .replay:
             icon = replayIcon
+        case .none:
+            icon = nil
         }
 
-        if let image = icon {
-            playButton.setImage(image, for: .normal)
-        }
+        playButton.setImage(icon, for: .normal)
     }
 
     func setLiveButtonTo(state: VideoPlayer.LiveState) {
