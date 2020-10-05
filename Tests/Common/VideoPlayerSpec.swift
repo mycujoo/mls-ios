@@ -110,6 +110,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 when(mock).setPlayButtonTo(state: any()).thenDoNothing()
                 when(mock).setLiveButtonTo(state: any()).thenDoNothing()
+                when(mock).setControlView(hidden: any()).thenDoNothing()
                 when(mock).setBufferIcon(hidden: any()).thenDoNothing()
                 when(mock).setInfoButton(hidden: any()).thenDoNothing()
                 when(mock).setTimeIndicatorLabel(elapsedText: any(), totalText: any()).thenDoNothing()
@@ -634,6 +635,28 @@ class VideoPlayerSpec: QuickSpec {
                             playButtonTapped?()
                             verify(self.mockAVPlayer).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any())
                             done()
+                        }
+                    }
+                }
+            }
+        }
+
+        describe("player configuration") {
+            describe("disabling controls") {
+                it("does not show the control view") {
+                    waitUntil { done in
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                            // Our initial player config setup (see setup) will initially make the control view visible.
+                            verify(self.mockView, times(1)).setControlView(hidden: false)
+
+                            // Now set the new player config.
+                            self.videoPlayer.playerConfig = PlayerConfig(enableControls: false)
+
+                            let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                                verify(self.mockView, times(1)).setControlView(hidden: true)
+
+                                done()
+                            }
                         }
                     }
                 }
