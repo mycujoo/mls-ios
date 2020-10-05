@@ -668,11 +668,11 @@ extension VideoPlayerView {
             icon = pauseIcon
         case .replay:
             icon = replayIcon
+        case .none:
+            icon = nil
         }
 
-        if let image = icon {
-            playButton.setImage(image, for: .normal)
-        }
+        playButton.setImage(icon, for: .normal)
     }
 
     func setLiveButtonTo(state: VideoPlayer.LiveState) {
@@ -709,6 +709,12 @@ extension VideoPlayerView {
         if let image = icon {
             fullscreenButton.setImage(image, for: .normal)
         }
+    }
+
+    /// Sets the `isHidden` property of the entire control view, *including* the control view's alpha layer.
+    func setControlView(hidden: Bool) {
+        controlView.isHidden = hidden
+        controlAlphaView.isHidden = hidden
     }
 
     /// Sets the `isHidden` property of the buffer icon.

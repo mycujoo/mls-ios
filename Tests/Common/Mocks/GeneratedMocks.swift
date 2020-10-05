@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-09-25 13:53:53 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-10-04 16:27:23 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-09-25 13:53:53 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-10-04 16:27:23 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1098,6 +1098,21 @@ import UIKit
     
     
     
+     func setControlView(hidden: Bool)  {
+        
+    return cuckoo_manager.call("setControlView(hidden: Bool)",
+            parameters: (hidden),
+            escapingParameters: (hidden),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setControlView(hidden: hidden))
+        
+    }
+    
+    
+    
      func setBufferIcon(hidden: Bool)  {
         
     return cuckoo_manager.call("setBufferIcon(hidden: Bool)",
@@ -1400,6 +1415,11 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setFullscreenButtonTo(fullscreen: Bool)", parameterMatchers: matchers))
 	    }
 	    
+	    func setControlView<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setControlView(hidden: Bool)", parameterMatchers: matchers))
+	    }
+	    
 	    func setBufferIcon<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setBufferIcon(hidden: Bool)", parameterMatchers: matchers))
@@ -1625,6 +1645,12 @@ import UIKit
 	    func setFullscreenButtonTo<M1: Cuckoo.Matchable>(fullscreen: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: fullscreen) { $0 }]
 	        return cuckoo_manager.verify("setFullscreenButtonTo(fullscreen: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setControlView<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return cuckoo_manager.verify("setControlView(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -1870,6 +1896,10 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+     func setControlView(hidden: Bool)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
      func setBufferIcon(hidden: Bool)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
@@ -1913,7 +1943,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-09-25 13:53:53 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-10-04 16:27:23 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2015,7 +2045,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-09-25 13:53:53 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-10-04 16:27:23 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2207,7 +2237,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-09-25 13:53:53 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-10-04 16:27:23 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2309,7 +2339,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-09-25 13:53:53 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-10-04 16:27:23 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2471,7 +2501,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-09-25 13:53:53 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-10-04 16:27:23 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

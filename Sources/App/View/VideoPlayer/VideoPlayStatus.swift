@@ -20,7 +20,7 @@ public extension VideoPlayer {
     }
 
     enum PlayButtonState {
-        case play, pause, replay
+        case play, pause, replay, none
     }
 
     enum LiveState: Int {
