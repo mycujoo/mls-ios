@@ -640,6 +640,28 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
         }
+
+        describe("player configuration") {
+            describe("disabling controls") {
+                it("does not show the control view") {
+                    waitUntil { done in
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                            // Our initial player config setup (see setup) will initially make the control view visible.
+                            verify(self.mockView, times(1)).setControlView(hidden: false)
+
+                            // Now set the new player config.
+                            self.videoPlayer.playerConfig = PlayerConfig(enableControls: false)
+
+                            let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
+                                verify(self.mockView, times(1)).setControlView(hidden: true)
+
+                                done()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
