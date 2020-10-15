@@ -86,6 +86,9 @@ public class MLS {
     private lazy var arbitraryDataRepository: ArbitraryDataRepository = {
         return ArbitraryDataRepositoryImpl()
     }()
+    private lazy var drmRepository: DRMRepository = {
+        return DRMRepositoryImpl()
+    }()
 
     private lazy var getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase = {
         return GetTimelineActionsUpdatesUseCase(timelineRepository: timelineRepository)
@@ -106,7 +109,10 @@ public class MLS {
         return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
     }()
     private lazy var getCertificateDataUseCase: GetCertificateDataUseCase = {
-        return GetCertificateDataUseCase(arbitraryDataRepository: arbitraryDataRepository)
+        return GetCertificateDataUseCase(drmRepository: drmRepository)
+    }()
+    private lazy var getLicenseDataUseCase:GetLicenseDataUseCase = {
+        return GetLicenseDataUseCase(drmRepository: drmRepository)
     }()
 
     /// An internally available service that can be overwritten for the purpose of testing.
@@ -137,6 +143,7 @@ public class MLS {
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
             getCertificateDataUseCase: getCertificateDataUseCase,
+            getLicenseDataUseCase: getLicenseDataUseCase,
             annotationService: annotationService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)

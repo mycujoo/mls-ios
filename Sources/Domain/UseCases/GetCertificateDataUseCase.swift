@@ -6,14 +6,14 @@ import Foundation
 
 
 class GetCertificateDataUseCase {
-    private let arbitraryDataRepository: ArbitraryDataRepository
+    private let drmRepository: DRMRepository
 
-    init(arbitraryDataRepository: ArbitraryDataRepository) {
-        self.arbitraryDataRepository = arbitraryDataRepository
+    init(drmRepository: DRMRepository) {
+        self.drmRepository = drmRepository
     }
 
     func execute(url: URL, completionHandler: @escaping (Data?, Error?) -> ()) {
-        arbitraryDataRepository.fetchData(byURL: url, callback: { (data, error) in
+        drmRepository.fetchCertificate(byURL: url, callback: { (data, error) in
             completionHandler(data, error)
         })
     }

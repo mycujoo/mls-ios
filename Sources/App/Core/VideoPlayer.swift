@@ -183,6 +183,7 @@ public class VideoPlayer: NSObject {
     private let getPlayerConfigUseCase: GetPlayerConfigUseCase
     private let getSVGUseCase: GetSVGUseCase
     private let getCertificateDataUseCase: GetCertificateDataUseCase
+    private let getLicenseDataUseCase: GetLicenseDataUseCase
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
@@ -311,6 +312,7 @@ public class VideoPlayer: NSObject {
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
             getCertificateDataUseCase: GetCertificateDataUseCase,
+            getLicenseDataUseCase: GetLicenseDataUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String) {
@@ -320,6 +322,7 @@ public class VideoPlayer: NSObject {
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
         self.getSVGUseCase = getSVGUseCase
         self.getCertificateDataUseCase = getCertificateDataUseCase
+        self.getLicenseDataUseCase = getLicenseDataUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
@@ -906,42 +909,31 @@ extension VideoPlayer: AVAssetResourceLoaderDelegate {
             return false
         }
 
-        getCertificateDataUseCase.execute(url: certificateUrl) { (data, error) in
-            guard let certificateData = data, error == nil else {
+        getCertificateDataUseCase.execute(url: certificateUrl) { [weak self] (certificateData, error) in
+            guard let certificateData = certificateData, error == nil else {
                 loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -2, userInfo: nil))
                 return
             }
 
             // Request the Server Playback Context.
             let contentId = "mls.mycujoo.tv" // TODO: Establish whether this is the most appropriate contentId.
-            guard
-                    let contentIdData = contentId.data(using: String.Encoding.utf8),
-                    let spcData = try? loadingRequest.streamingContentKeyRequestData(forApp: certificateData, contentIdentifier: contentIdData, options: nil),
-                    let dataRequest = loadingRequest.dataRequest else {
-                    loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -3, userInfo: nil))
-                    return
+            guard let contentIdData = contentId.data(using: String.Encoding.utf8),
+                  let spcData = try? loadingRequest.streamingContentKeyRequestData(forApp: certificateData, contentIdentifier: contentIdData, options: nil),
+                  let dataRequest = loadingRequest.dataRequest else {
+                loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -3, userInfo: nil))
+                return
             }
 
-            // Request the Content Key Context from the Key Server Module.
-            var request = URLRequest(url: licenseUrl)
-            request.httpMethod = "POST"
-            request.httpBody = spcData
-            request.headers = [
-                "Content-Type": "application/octet-stream"
-            ]
-            let session = URLSession(configuration: URLSessionConfiguration.default)
-            let task = session.dataTask(with: request) { data, response, error in
-                if let data = data {
+            self?.getLicenseDataUseCase.execute(url: licenseUrl, spcData: spcData) { (licenseData, error) in
+                if let licenseData = licenseData {
                     // The CKC is correctly returned and is now send to the `AVPlayer` instance so we
                     // can continue to play the stream.
-                    dataRequest.respond(with: data)
+                    dataRequest.respond(with: licenseData)
                     loadingRequest.finishLoading()
                 } else {
                     loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -4, userInfo: nil))
                 }
             }
-            task.resume()
-
         }
 
         return true

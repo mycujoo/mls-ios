@@ -406,6 +406,12 @@
 		49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */; };
 		49E2DF1224A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
 		49E2DF1324A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
+		49E441212538D4A300385890 /* DRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* DRMRepository.swift */; };
+		49E441222538D4A300385890 /* DRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* DRMRepository.swift */; };
+		49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441282538D50000385890 /* GetLicenseDataUseCase.swift */; };
+		49E4412A2538D50000385890 /* GetLicenseDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441282538D50000385890 /* GetLicenseDataUseCase.swift */; };
+		49E441362538D54B00385890 /* DRMRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441352538D54B00385890 /* DRMRepositoryImpl.swift */; };
+		49E441372538D54B00385890 /* DRMRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441352538D54B00385890 /* DRMRepositoryImpl.swift */; };
 		49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E59025249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
@@ -682,6 +688,9 @@
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
 		49E2DF1124A55B5400750C00 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		49E441202538D4A300385890 /* DRMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRMRepository.swift; sourceTree = "<group>"; };
+		49E441282538D50000385890 /* GetLicenseDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLicenseDataUseCase.swift; sourceTree = "<group>"; };
+		49E441352538D54B00385890 /* DRMRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRMRepositoryImpl.swift; sourceTree = "<group>"; };
 		49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
@@ -819,6 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */,
+				49E441202538D4A300385890 /* DRMRepository.swift */,
 				4926CDF024CDE64600419A42 /* EventRepository.swift */,
 				4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */,
 				4926CE0724CDEC1300419A42 /* TimelineRepository.swift */,
@@ -832,6 +842,7 @@
 				4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */,
 				4926CDF824CDE96700419A42 /* GetEventUseCase.swift */,
 				4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */,
+				49E441282538D50000385890 /* GetLicenseDataUseCase.swift */,
 				4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */,
 				498E48F824D057FF0040502D /* GetSVGUseCase.swift */,
 				4926CE1024CDED0000419A42 /* GetTimelineActionsUseCase.swift */,
@@ -867,6 +878,7 @@
 			children = (
 				498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */,
 				4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */,
+				49E441352538D54B00385890 /* DRMRepositoryImpl.swift */,
 				4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */,
 				4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */,
 				4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */,
@@ -1803,7 +1815,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/DRMRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1984,6 +1996,7 @@
 				49736E9E24A9F59C001F3F48 /* Transform.swift in Sources */,
 				49736EB924A9F59C001F3F48 /* ColorMatrixEffect.swift in Sources */,
 				49736EC424A9F59C001F3F48 /* LineCap.swift in Sources */,
+				49E441212538D4A300385890 /* DRMRepository.swift in Sources */,
 				49736ED524A9F59C001F3F48 /* MacawView.swift in Sources */,
 				49736ED424A9F59C001F3F48 /* ShapeLayer.swift in Sources */,
 				4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */,
@@ -2011,6 +2024,7 @@
 				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				4926CE1124CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */,
+				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49736EF324A9F59C001F3F48 /* ContentsInterpolation.swift in Sources */,
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				49736F1224A9F59C001F3F48 /* MacawView+PDF.swift in Sources */,
@@ -2064,6 +2078,7 @@
 				495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49736EE524A9F59C001F3F48 /* ShapeAnimationGenerator.swift in Sources */,
 				49736EDD24A9F59C001F3F48 /* TransformAnimation.swift in Sources */,
+				49E441362538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
 				49736EE824A9F59C001F3F48 /* CombinationAnimationGenerator.swift in Sources */,
 				49736F1124A9F59C001F3F48 /* TapEvent.swift in Sources */,
 				49736EF724A9F59C001F3F48 /* AnimOperators.swift in Sources */,
@@ -2187,6 +2202,7 @@
 				49A804FD24AA0ED800E30DA8 /* ShapeLayer.swift in Sources */,
 				49A804EA24AA0EBB00E30DA8 /* RenderUtils.swift in Sources */,
 				49A8048C24AA0E0000E30DA8 /* Easing.swift in Sources */,
+				49E441222538D4A300385890 /* DRMRepository.swift in Sources */,
 				499D0E3124D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift in Sources */,
 				49A804B424AA0E9800E30DA8 /* Locus.swift in Sources */,
 				4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */,
@@ -2214,6 +2230,7 @@
 				4926CE1224CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
 				49A804B724AA0E9800E30DA8 /* PathSegmentType.swift in Sources */,
 				49A8048824AA0DF900E30DA8 /* AnimationCache.swift in Sources */,
+				49E4412A2538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49A804A424AA0E8D00E30DA8 /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				49A804CA24AA0EA100E30DA8 /* LineJoin.swift in Sources */,
 				49A804CF24AA0EA100E30DA8 /* GaussianBlur.swift in Sources */,
@@ -2267,6 +2284,7 @@
 				49A804B224AA0E9800E30DA8 /* Point.swift in Sources */,
 				49A804A324AA0E8D00E30DA8 /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				49A804B824AA0E9800E30DA8 /* Line.swift in Sources */,
+				49E441372538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
 				49A804F224AA0ECB00E30DA8 /* SVGView.swift in Sources */,
 				49A804FF24AA201C00E30DA8 /* PathFunctions.swift in Sources */,
 				49A804FE24AA0ED800E30DA8 /* MacawView.swift in Sources */,

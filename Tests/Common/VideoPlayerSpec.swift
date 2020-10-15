@@ -20,6 +20,7 @@ class VideoPlayerSpec: QuickSpec {
     var mockArbitraryDataRepository: MockArbitraryDataRepository!
     var mockEventRepository: MockEventRepository!
     var mockPlayerConfigRepository: MockPlayerConfigRepository!
+    var mockDRMRepository: MockDRMRepository!
 
     var event: MLSSDK.Event!
 
@@ -188,6 +189,7 @@ class VideoPlayerSpec: QuickSpec {
             self.mockArbitraryDataRepository = MockArbitraryDataRepository()
             self.mockEventRepository = MockEventRepository()
             self.mockPlayerConfigRepository = MockPlayerConfigRepository()
+            self.mockDRMRepository = MockDRMRepository()
 
             stub(self.mockEventRepository) { mock in
                 when(mock).startEventUpdates(for: any(), callback: any()).thenDoNothing()
@@ -219,6 +221,11 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
+            stub(self.mockDRMRepository) { mock in
+                when(mock).fetchCertificate(byURL: any(), callback: any()).thenDoNothing()
+                when(mock).fetchLicense(byURL: any(), spcData: any(), callback: any()).thenDoNothing()
+            }
+
             self.videoPlayer = VideoPlayer(
                 view: self.mockView,
                 player: self.mockAVPlayer,
@@ -226,7 +233,8 @@ class VideoPlayerSpec: QuickSpec {
                 getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase(timelineRepository: self.mockTimelineRepository),
                 getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository),
                 getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository),
-                getCertificateDataUseCase: GetCertificateDataUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository),
+                getCertificateDataUseCase: GetCertificateDataUseCase(drmRepository: self.mockDRMRepository),
+                getLicenseDataUseCase: GetLicenseDataUseCase(drmRepository: self.mockDRMRepository),
                 annotationService: self.mockAnnotationService,
                 pseudoUserId: "test_account")
                 self.videoPlayer.playerConfig = PlayerConfig.standard()

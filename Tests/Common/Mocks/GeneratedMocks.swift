@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-10-15 18:53:07 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-10-15 19:20:03 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-10-15 18:53:07 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-10-15 19:20:03 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1943,7 +1943,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-10-15 18:53:07 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-10-15 19:20:03 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2075,7 +2075,139 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-10-15 18:53:07 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-10-15 19:20:03 +0000
+
+//
+// Copyright © 2020 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+
+import Foundation
+
+
+ class MockDRMRepository: DRMRepository, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = DRMRepository
+    
+     typealias Stubbing = __StubbingProxy_DRMRepository
+     typealias Verification = __VerificationProxy_DRMRepository
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: DRMRepository?
+
+     func enableDefaultImplementation(_ stub: DRMRepository) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+     func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ())  {
+        
+    return cuckoo_manager.call("fetchCertificate(byURL: URL, callback: @escaping (Data?, Error?) -> ())",
+            parameters: (url, callback),
+            escapingParameters: (url, callback),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.fetchCertificate(byURL: url, callback: callback))
+        
+    }
+    
+    
+    
+     func fetchLicense(byURL url: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())  {
+        
+    return cuckoo_manager.call("fetchLicense(byURL: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())",
+            parameters: (url, spcData, callback),
+            escapingParameters: (url, spcData, callback),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.fetchLicense(byURL: url, spcData: spcData, callback: callback))
+        
+    }
+    
+
+	 struct __StubbingProxy_DRMRepository: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func fetchCertificate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byURL url: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, (Data?, Error?) -> ())> where M1.MatchedType == URL, M2.MatchedType == (Data?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL, (Data?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockDRMRepository.self, method: "fetchCertificate(byURL: URL, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	    func fetchLicense<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(byURL url: M1, spcData: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, Data, (Data?, Error?) -> ())> where M1.MatchedType == URL, M2.MatchedType == Data, M3.MatchedType == (Data?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL, Data, (Data?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: spcData) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockDRMRepository.self, method: "fetchLicense(byURL: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	 struct __VerificationProxy_DRMRepository: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func fetchCertificate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byURL url: M1, callback: M2) -> Cuckoo.__DoNotUse<(URL, (Data?, Error?) -> ()), Void> where M1.MatchedType == URL, M2.MatchedType == (Data?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL, (Data?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("fetchCertificate(byURL: URL, callback: @escaping (Data?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func fetchLicense<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(byURL url: M1, spcData: M2, callback: M3) -> Cuckoo.__DoNotUse<(URL, Data, (Data?, Error?) -> ()), Void> where M1.MatchedType == URL, M2.MatchedType == Data, M3.MatchedType == (Data?, Error?) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(URL, Data, (Data?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: spcData) { $0.1 }, wrap(matchable: callback) { $0.2 }]
+	        return cuckoo_manager.verify("fetchLicense(byURL: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+ class DRMRepositoryStub: DRMRepository {
+    
+
+    
+
+    
+     func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func fetchLicense(byURL url: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-10-15 19:20:03 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2267,7 +2399,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-10-15 18:53:07 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-10-15 19:20:03 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2369,7 +2501,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-10-15 18:53:07 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-10-15 19:20:03 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2531,7 +2663,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-10-15 18:53:07 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-10-15 19:20:03 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
