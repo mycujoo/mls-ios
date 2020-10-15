@@ -135,7 +135,7 @@ public class MLS {
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
     public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
-        let player = VideoPlayer(
+        let player = VideoPlayerImpl(
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,

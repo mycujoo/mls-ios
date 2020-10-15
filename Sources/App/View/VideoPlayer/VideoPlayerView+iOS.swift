@@ -659,7 +659,7 @@ extension VideoPlayerView {
         }
     }
 
-    func setPlayButtonTo(state: VideoPlayer.PlayButtonState) {
+    func setPlayButtonTo(state: VideoPlayerPlayButtonState) {
         let icon: UIImage?
         switch state {
         case .play:
@@ -675,7 +675,7 @@ extension VideoPlayerView {
         playButton.setImage(icon, for: .normal)
     }
 
-    func setLiveButtonTo(state: VideoPlayer.LiveState) {
+    func setLiveButtonTo(state: VideoPlayerLiveState) {
         switch state {
         case .liveAndLatest:
             liveButton.alpha = 1
