@@ -197,7 +197,7 @@ public class VideoPlayer: NSObject {
                 // A different stream should be played.
                 // Note: also trigger when nil is being set again, because this will trigger secondary actions like updating info layer visibility.
                 placeCurrentStream()
-            } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, oldValue.fullUrl == nil && currentStream.fullUrl != nil {
+            } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, oldValue.url == nil && currentStream.url != nil {
                 // This is still the same stream, but the url was previously not known and now it is.
                 // This is relevant in cases like PPV, where previously a user may not have been entitled but now they are.
                 placeCurrentStream()
@@ -431,7 +431,7 @@ public class VideoPlayer: NSObject {
         setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
         view.setBufferIcon(hidden: true)
 
-        let url = currentStream?.fullUrl
+        let url = currentStream?.url
         let added = url != nil
 
         if !added {
@@ -489,7 +489,7 @@ public class VideoPlayer: NSObject {
 
     private func updateYouboraMetadata() {
         let NA = "N/A"
-        youboraPlugin?.options.contentResource = currentStream?.fullUrl?.absoluteString ?? NA
+        youboraPlugin?.options.contentResource = currentStream?.url?.absoluteString ?? NA
         youboraPlugin?.options.contentTitle = event?.title ?? NA
         youboraPlugin?.options.contentCustomDimension2 = event?.id ?? NA
         youboraPlugin?.options.contentCustomDimension14 = "MLS"
@@ -545,7 +545,7 @@ public class VideoPlayer: NSObject {
 
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
-                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream?.fullUrl != nil {
+                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream?.url != nil {
                             self.view.setBufferIcon(hidden: false)
                         } else {
                             self.view.setBufferIcon(hidden: true)
@@ -831,7 +831,7 @@ extension VideoPlayer {
     #if os(iOS)
     private func controlViewTapped() {
         // Do not register taps on the control view when there is no stream url.
-        guard currentStream?.fullUrl != nil else { return }
+        guard currentStream?.url != nil else { return }
 
         if playerConfig.enableControls {
             if view.infoViewHasAlpha {
