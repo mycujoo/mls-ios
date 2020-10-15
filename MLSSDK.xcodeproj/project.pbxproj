@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		490E79BA24E6D98400C59622 /* tvos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 490E79B924E6D98400C59622 /* tvos.xcassets */; };
+		4920CA552538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
+		4920CA562538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
 		4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
 		4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
 		4926CDF524CDE6DF00419A42 /* ListEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */; };
@@ -404,6 +406,14 @@
 		49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */; };
 		49E2DF1224A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
 		49E2DF1324A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
+		49E441212538D4A300385890 /* DRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* DRMRepository.swift */; };
+		49E441222538D4A300385890 /* DRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* DRMRepository.swift */; };
+		49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441282538D50000385890 /* GetLicenseDataUseCase.swift */; };
+		49E4412A2538D50000385890 /* GetLicenseDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441282538D50000385890 /* GetLicenseDataUseCase.swift */; };
+		49E441362538D54B00385890 /* DRMRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441352538D54B00385890 /* DRMRepositoryImpl.swift */; };
+		49E441372538D54B00385890 /* DRMRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441352538D54B00385890 /* DRMRepositoryImpl.swift */; };
+		49E441742538DCAB00385890 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441732538DCAB00385890 /* VideoPlayer.swift */; };
+		49E441752538DCAB00385890 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441732538DCAB00385890 /* VideoPlayer.swift */; };
 		49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E59025249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
@@ -425,11 +435,11 @@
 		641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */; };
-		6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
+		6496C35D249230BF0099475D /* VideoPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayerImpl.swift */; };
 		6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
 		6496C35F249230BF0099475D /* VideoPlayStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3542492308D0099475D /* VideoPlayStatus.swift */; };
 		64FDE310249A191400E6510D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
-		64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayer.swift */; };
+		64FDE311249A191400E6510D /* VideoPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayerImpl.swift */; };
 		749F623EA3FADF5A4DCC65C5 /* Pods_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6FED60E290A93870CE75EB /* Pods_tvOSTests.framework */; };
 		7FA3B039E7A2755B19932C36 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBD89F11195789238038394 /* Pods_Tests.framework */; };
 		9DBE39528421ABA8D5E45F6C /* Pods_MLSSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDEF3DF5400D6F472DCFE39 /* Pods_MLSSDK_iOS.framework */; };
@@ -458,6 +468,7 @@
 		1F6FED60E290A93870CE75EB /* Pods_tvOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4890C55696297F99AD58AE02 /* Pods-MLSSDK-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		490E79B924E6D98400C59622 /* tvos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = tvos.xcassets; sourceTree = "<group>"; };
+		4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCertificateDataUseCase.swift; sourceTree = "<group>"; };
 		4926CDF024CDE64600419A42 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEventsUseCase.swift; sourceTree = "<group>"; };
 		4926CDF824CDE96700419A42 /* GetEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUseCase.swift; sourceTree = "<group>"; };
@@ -679,6 +690,10 @@
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
 		49E2DF1124A55B5400750C00 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		49E441202538D4A300385890 /* DRMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRMRepository.swift; sourceTree = "<group>"; };
+		49E441282538D50000385890 /* GetLicenseDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLicenseDataUseCase.swift; sourceTree = "<group>"; };
+		49E441352538D54B00385890 /* DRMRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRMRepositoryImpl.swift; sourceTree = "<group>"; };
+		49E441732538DCAB00385890 /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
@@ -697,7 +712,7 @@
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+iOS.swift"; sourceTree = "<group>"; };
-		6496C3522492308D0099475D /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		6496C3522492308D0099475D /* VideoPlayerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerImpl.swift; sourceTree = "<group>"; };
 		6496C3532492308D0099475D /* VideoProgressSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProgressSlider.swift; sourceTree = "<group>"; };
 		6496C3542492308D0099475D /* VideoPlayStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayStatus.swift; sourceTree = "<group>"; };
 		64FDE308249A189000E6510D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -816,6 +831,7 @@
 			isa = PBXGroup;
 			children = (
 				498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */,
+				49E441202538D4A300385890 /* DRMRepository.swift */,
 				4926CDF024CDE64600419A42 /* EventRepository.swift */,
 				4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */,
 				4926CE0724CDEC1300419A42 /* TimelineRepository.swift */,
@@ -826,12 +842,14 @@
 		4926CDF324CDE64B00419A42 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				4926CE1024CDED0000419A42 /* GetTimelineActionsUseCase.swift */,
-				49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */,
+				4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */,
 				4926CDF824CDE96700419A42 /* GetEventUseCase.swift */,
 				4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */,
+				49E441282538D50000385890 /* GetLicenseDataUseCase.swift */,
 				4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */,
 				498E48F824D057FF0040502D /* GetSVGUseCase.swift */,
+				4926CE1024CDED0000419A42 /* GetTimelineActionsUseCase.swift */,
+				49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */,
 				4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */,
 			);
 			path = UseCases;
@@ -863,6 +881,7 @@
 			children = (
 				498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */,
 				4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */,
+				49E441352538D54B00385890 /* DRMRepositoryImpl.swift */,
 				4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */,
 				4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */,
 				4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */,
@@ -1456,7 +1475,8 @@
 			children = (
 				6496C3442492308D0099475D /* MLS.swift */,
 				499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */,
-				6496C3522492308D0099475D /* VideoPlayer.swift */,
+				49E441732538DCAB00385890 /* VideoPlayer.swift */,
+				6496C3522492308D0099475D /* VideoPlayerImpl.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1799,7 +1819,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
+			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Repositories/DRMRepository.swift\" \\\n\"${INPUT_DIR}/Domain/Services/AnnotationServicing.swift\" \n";
 		};
 		90B1B4D374C349EB158467C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1940,6 +1960,8 @@
 				49EA06BC24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */,
 				49736F0624A9F59C001F3F48 /* RenderUtils.swift in Sources */,
 				49736EA324A9F59C001F3F48 /* MoveTo.swift in Sources */,
+				49E441742538DCAB00385890 /* VideoPlayer.swift in Sources */,
+				4920CA552538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */,
 				49736EA424A9F59C001F3F48 /* PathSegmentType.swift in Sources */,
 				49736E9F24A9F59C001F3F48 /* Point.swift in Sources */,
 				49736F0D24A9F59C001F3F48 /* PanEvent.swift in Sources */,
@@ -1979,6 +2001,7 @@
 				49736E9E24A9F59C001F3F48 /* Transform.swift in Sources */,
 				49736EB924A9F59C001F3F48 /* ColorMatrixEffect.swift in Sources */,
 				49736EC424A9F59C001F3F48 /* LineCap.swift in Sources */,
+				49E441212538D4A300385890 /* DRMRepository.swift in Sources */,
 				49736ED524A9F59C001F3F48 /* MacawView.swift in Sources */,
 				49736ED424A9F59C001F3F48 /* ShapeLayer.swift in Sources */,
 				4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */,
@@ -2006,6 +2029,7 @@
 				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				4926CE1124CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */,
+				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49736EF324A9F59C001F3F48 /* ContentsInterpolation.swift in Sources */,
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				49736F1224A9F59C001F3F48 /* MacawView+PDF.swift in Sources */,
@@ -2059,6 +2083,7 @@
 				495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49736EE524A9F59C001F3F48 /* ShapeAnimationGenerator.swift in Sources */,
 				49736EDD24A9F59C001F3F48 /* TransformAnimation.swift in Sources */,
+				49E441362538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
 				49736EE824A9F59C001F3F48 /* CombinationAnimationGenerator.swift in Sources */,
 				49736F1124A9F59C001F3F48 /* TapEvent.swift in Sources */,
 				49736EF724A9F59C001F3F48 /* AnimOperators.swift in Sources */,
@@ -2112,7 +2137,7 @@
 				49736E9924A9F59C001F3F48 /* Arc.swift in Sources */,
 				495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				498E48F024D033630040502D /* MLSAVPlayerProtocol.swift in Sources */,
-				6496C35D249230BF0099475D /* VideoPlayer.swift in Sources */,
+				6496C35D249230BF0099475D /* VideoPlayerImpl.swift in Sources */,
 				49736F1824A9F59C001F3F48 /* SVGNodeLayout.swift in Sources */,
 				498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
 				49736F0A24A9F59C001F3F48 /* DescriptionExtensions.swift in Sources */,
@@ -2138,10 +2163,12 @@
 				49A8049924AA0E3400E30DA8 /* Disposable.swift in Sources */,
 				4926CE0C24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */,
 				49EA06BD24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */,
-				64FDE311249A191400E6510D /* VideoPlayer.swift in Sources */,
+				64FDE311249A191400E6510D /* VideoPlayerImpl.swift in Sources */,
 				49A804E324AA0EAC00E30DA8 /* Graphics_iOS.swift in Sources */,
 				49A8048A24AA0E0000E30DA8 /* AnimatableVariable.swift in Sources */,
 				49A804AF24AA0E9800E30DA8 /* RoundRect.swift in Sources */,
+				49E441752538DCAB00385890 /* VideoPlayer.swift in Sources */,
+				4920CA562538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */,
 				49A804AA24AA0E9000E30DA8 /* ContentLayout.swift in Sources */,
 				49A8048B24AA0E0000E30DA8 /* AnimationProducer.swift in Sources */,
 				4943B96C24C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
@@ -2181,6 +2208,7 @@
 				49A804FD24AA0ED800E30DA8 /* ShapeLayer.swift in Sources */,
 				49A804EA24AA0EBB00E30DA8 /* RenderUtils.swift in Sources */,
 				49A8048C24AA0E0000E30DA8 /* Easing.swift in Sources */,
+				49E441222538D4A300385890 /* DRMRepository.swift in Sources */,
 				499D0E3124D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift in Sources */,
 				49A804B424AA0E9800E30DA8 /* Locus.swift in Sources */,
 				4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */,
@@ -2208,6 +2236,7 @@
 				4926CE1224CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
 				49A804B724AA0E9800E30DA8 /* PathSegmentType.swift in Sources */,
 				49A8048824AA0DF900E30DA8 /* AnimationCache.swift in Sources */,
+				49E4412A2538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49A804A424AA0E8D00E30DA8 /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				49A804CA24AA0EA100E30DA8 /* LineJoin.swift in Sources */,
 				49A804CF24AA0EA100E30DA8 /* GaussianBlur.swift in Sources */,
@@ -2261,6 +2290,7 @@
 				49A804B224AA0E9800E30DA8 /* Point.swift in Sources */,
 				49A804A324AA0E8D00E30DA8 /* MCAMediaTimingFillMode_macOS.swift in Sources */,
 				49A804B824AA0E9800E30DA8 /* Line.swift in Sources */,
+				49E441372538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
 				49A804F224AA0ECB00E30DA8 /* SVGView.swift in Sources */,
 				49A804FF24AA201C00E30DA8 /* PathFunctions.swift in Sources */,
 				49A804FE24AA0ED800E30DA8 /* MacawView.swift in Sources */,

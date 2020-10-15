@@ -9,6 +9,8 @@ import AVFoundation
 class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private(set) var isSeeking = false
 
+    private let resourceLoaderQueue = DispatchQueue.global(qos: .background)
+
     /// The current time (in seconds) of the currentItem.
     var currentTime: Double {
         return (CMTimeGetSeconds(currentTime()) * 10).rounded() / 10
@@ -197,9 +199,10 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
     /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.
     /// - parameter item: The item to play. If nil is provided, the current item is removed.
-    /// - parameter headers: The headers to attach to the network requests when playing this item
+    /// - parameter headers: The headers to attach to the network requests when playing this item.
+    /// - parameter resourceLoaderDelegate: The delegate for the asset's resourceLoader.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
-    func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], callback: @escaping (Bool) -> ()) {
+    func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ()) {
         guard let assetUrl = assetUrl else {
             self.replaceCurrentItem(with: nil)
             callback(true)
@@ -207,6 +210,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         }
 
         let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
+        asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)
         asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
             guard let `self` = self else { return }
 
