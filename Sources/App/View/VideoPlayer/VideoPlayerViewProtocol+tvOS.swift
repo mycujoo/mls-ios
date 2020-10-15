@@ -38,8 +38,8 @@ protocol VideoPlayerViewProtocol: class {
     /// - note: On tvOS, this method automatically also triggers the infoView to become visible.
     func setControlViewVisibility(visible: Bool, animated: Bool)
     func setInfoViewVisibility(visible: Bool, animated: Bool)
-    func setPlayButtonTo(state: VideoPlayer.PlayButtonState)
-    func setLiveButtonTo(state: VideoPlayer.LiveState)
+    func setPlayButtonTo(state: VideoPlayerPlayButtonState)
+    func setLiveButtonTo(state: VideoPlayerLiveState)
     /// Shows the number of viewers on the video player. If <= 1 or nil, the element is hidden entirely.
     func setNumberOfViewersTo(amount: String?)
 

@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -978,9 +978,9 @@ import UIKit
     
     
     
-     func setPlayButtonTo(state: VideoPlayer.PlayButtonState)  {
+     func setPlayButtonTo(state: VideoPlayerPlayButtonState)  {
         
-    return cuckoo_manager.call("setPlayButtonTo(state: VideoPlayer.PlayButtonState)",
+    return cuckoo_manager.call("setPlayButtonTo(state: VideoPlayerPlayButtonState)",
             parameters: (state),
             escapingParameters: (state),
             superclassCall:
@@ -993,9 +993,9 @@ import UIKit
     
     
     
-     func setLiveButtonTo(state: VideoPlayer.LiveState)  {
+     func setLiveButtonTo(state: VideoPlayerLiveState)  {
         
-    return cuckoo_manager.call("setLiveButtonTo(state: VideoPlayer.LiveState)",
+    return cuckoo_manager.call("setLiveButtonTo(state: VideoPlayerLiveState)",
             parameters: (state),
             escapingParameters: (state),
             superclassCall:
@@ -1375,14 +1375,14 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setInfoViewVisibility(visible: Bool, animated: Bool)", parameterMatchers: matchers))
 	    }
 	    
-	    func setPlayButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(VideoPlayer.PlayButtonState)> where M1.MatchedType == VideoPlayer.PlayButtonState {
-	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayer.PlayButtonState)>] = [wrap(matchable: state) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setPlayButtonTo(state: VideoPlayer.PlayButtonState)", parameterMatchers: matchers))
+	    func setPlayButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(VideoPlayerPlayButtonState)> where M1.MatchedType == VideoPlayerPlayButtonState {
+	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayerPlayButtonState)>] = [wrap(matchable: state) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setPlayButtonTo(state: VideoPlayerPlayButtonState)", parameterMatchers: matchers))
 	    }
 	    
-	    func setLiveButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(VideoPlayer.LiveState)> where M1.MatchedType == VideoPlayer.LiveState {
-	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayer.LiveState)>] = [wrap(matchable: state) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setLiveButtonTo(state: VideoPlayer.LiveState)", parameterMatchers: matchers))
+	    func setLiveButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(VideoPlayerLiveState)> where M1.MatchedType == VideoPlayerLiveState {
+	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayerLiveState)>] = [wrap(matchable: state) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setLiveButtonTo(state: VideoPlayerLiveState)", parameterMatchers: matchers))
 	    }
 	    
 	    func setNumberOfViewersTo<M1: Cuckoo.OptionalMatchable>(amount: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String?)> where M1.OptionalMatchedType == String {
@@ -1600,15 +1600,15 @@ import UIKit
 	    }
 	    
 	    @discardableResult
-	    func setPlayButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.__DoNotUse<(VideoPlayer.PlayButtonState), Void> where M1.MatchedType == VideoPlayer.PlayButtonState {
-	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayer.PlayButtonState)>] = [wrap(matchable: state) { $0 }]
-	        return cuckoo_manager.verify("setPlayButtonTo(state: VideoPlayer.PlayButtonState)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setPlayButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.__DoNotUse<(VideoPlayerPlayButtonState), Void> where M1.MatchedType == VideoPlayerPlayButtonState {
+	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayerPlayButtonState)>] = [wrap(matchable: state) { $0 }]
+	        return cuckoo_manager.verify("setPlayButtonTo(state: VideoPlayerPlayButtonState)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
-	    func setLiveButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.__DoNotUse<(VideoPlayer.LiveState), Void> where M1.MatchedType == VideoPlayer.LiveState {
-	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayer.LiveState)>] = [wrap(matchable: state) { $0 }]
-	        return cuckoo_manager.verify("setLiveButtonTo(state: VideoPlayer.LiveState)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setLiveButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.__DoNotUse<(VideoPlayerLiveState), Void> where M1.MatchedType == VideoPlayerLiveState {
+	        let matchers: [Cuckoo.ParameterMatcher<(VideoPlayerLiveState)>] = [wrap(matchable: state) { $0 }]
+	        return cuckoo_manager.verify("setLiveButtonTo(state: VideoPlayerLiveState)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -1864,11 +1864,11 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func setPlayButtonTo(state: VideoPlayer.PlayButtonState)   {
+     func setPlayButtonTo(state: VideoPlayerPlayButtonState)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func setLiveButtonTo(state: VideoPlayer.LiveState)   {
+     func setLiveButtonTo(state: VideoPlayerLiveState)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -1943,7 +1943,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2075,7 +2075,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2207,7 +2207,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2399,7 +2399,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2501,7 +2501,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2663,7 +2663,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-10-15 19:20:03 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-10-15 20:02:20 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
