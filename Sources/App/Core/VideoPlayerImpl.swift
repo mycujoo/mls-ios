@@ -6,13 +6,13 @@ import AVFoundation
 import YouboraAVPlayerAdapter
 import YouboraLib
 
-public class VideoPlayer: NSObject {
+public class VideoPlayerImpl: NSObject, VideoPlayer {
 
     // MARK: - Public properties
 
     public weak var delegate: PlayerDelegate?
 
-    public private(set) var state: State = .unknown {
+    public private(set) var state: VideoPlayerState = .unknown {
         didSet {
             delegate?.playerDidUpdateState(player: self)
         }
@@ -49,9 +49,9 @@ public class VideoPlayer: NSObject {
     }
 
     /// The current status of the player, based on the current item.
-    public private(set) var status: Status = .pause {
+    public private(set) var status: VideoPlayerStatus = .pause {
         didSet {
-            var buttonState: PlayButtonState
+            var buttonState: VideoPlayerPlayButtonState
             switch status {
             case .play:
                 buttonState = .pause
@@ -228,7 +228,7 @@ public class VideoPlayer: NSObject {
     }()
 
     // TODO: Move livestate to mlsavplayer?
-    private var liveState: LiveState {
+    private var liveState: VideoPlayerLiveState {
         if isLivestream {
             let optimisticCurrentTime = self.optimisticCurrentTime
             let currentDuration = self.currentDuration
@@ -534,7 +534,7 @@ public class VideoPlayer: NSObject {
     ) {
         switch keyPath {
         case "status":
-            state = State(rawValue: player.status.rawValue) ?? .unknown
+            state = VideoPlayerState(rawValue: player.status.rawValue) ?? .unknown
         case "timeControlStatus":
             if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
                 let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
@@ -566,7 +566,7 @@ public class VideoPlayer: NSObject {
 }
 
 // MARK: - Public Methods
-public extension VideoPlayer {
+public extension VideoPlayerImpl {
 
     func play() { status = .play }
 
@@ -578,7 +578,7 @@ public extension VideoPlayer {
 }
 
 // MARK: - Private Methods
-extension VideoPlayer {
+extension VideoPlayerImpl {
     private func showOverlays(with actions: [MLSUI.ShowOverlayAction]) {
         func svgParseAndRender(action: MLSUI.ShowOverlayAction, baseSVG: String) {
             var baseSVG = baseSVG
@@ -708,7 +708,7 @@ extension VideoPlayer {
         setControlViewVisibility(visible: true, animated: true)
     }
 
-    private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: LiveState) {
+    private func updatePlaytimeIndicators(_ elapsedSeconds: Double, totalSeconds: Double, liveState: VideoPlayerLiveState) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
@@ -898,7 +898,7 @@ extension VideoPlayer {
     #endif
 }
 
-extension VideoPlayer: AVAssetResourceLoaderDelegate {
+extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
     public func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
         // We first check if a url is set in the manifest.
         guard let _ = loadingRequest.request.url,
@@ -940,46 +940,27 @@ extension VideoPlayer: AVAssetResourceLoaderDelegate {
     }
 }
 
-// MARK: - State
-public extension VideoPlayer {
-    enum State: Int {
-        /// Indicates that the status of the player is not yet known because it has not tried to load new media resources for playback.
-        case unknown = 0
-        /// Indicates that the player is ready to play AVPlayerItem instances.
-        case readyToPlay = 1
-        /// Indicates that the player can no longer play AVPlayerItem instances because of an error. The error is described by the value of the player's error property.
-        case failed = 2
-        /// The player has finished playing the media
-        case ended = 3
-    }
-}
 
 // MARK: - DirectiveLevel
-extension VideoPlayer {
-    enum DirectiveLevel: Int {
-        /// A directive initiated by the system. This is the highest priority directive.
-        case systemInitiated = 1000
-        /// A directive initiated by the user. This is the highest priority directive except for `systemInitiated`
-        case userInitiated = 750
-        /// A directive that is derived from another action that happened within the system. This is the lowest priority, except `none`.
-        case derived = 250
-        case none = 0
-    }
+enum DirectiveLevel: Int {
+    /// A directive initiated by the system. This is the highest priority directive.
+    case systemInitiated = 1000
+    /// A directive initiated by the user. This is the highest priority directive except for `systemInitiated`
+    case userInitiated = 750
+    /// A directive that is derived from another action that happened within the system. This is the lowest priority, except `none`.
+    case derived = 250
+    case none = 0
 }
 
-// MARK: - Delegate
-public protocol PlayerDelegate: AnyObject {
-    /// The player has updated its playing status. To access the current status, see `VideoPlayer.status`
-    func playerDidUpdatePlaying(player: VideoPlayer)
-    /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`
-    func playerDidUpdateTime(player: VideoPlayer)
-    /// The player has updated its state. To access the current state, see `VideoPlayer.state`
-    func playerDidUpdateState(player: VideoPlayer)
-    #if os(iOS)
-    /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
-    /// SDK implementers are responsible for any other visual or behavioral changes on the player.
-    /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)
-    /// This button can be hidden via the Configuration object on the MLS component.
-    func playerDidUpdateFullscreen(player: VideoPlayer)
-    #endif
+enum VideoPlayerPlayButtonState {
+    case play, pause, replay, none
+}
+
+enum VideoPlayerLiveState: Int {
+    /// The viewer is watching a live stream AND is at the latest point in this live stream
+    case liveAndLatest = 0
+    /// The viewer is watching a live stream but is NOT at the latest point in this live stream
+    case liveNotLatest = 1
+    /// The viewer is not watching a live stream
+    case notLive = 2
 }
