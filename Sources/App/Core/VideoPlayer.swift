@@ -925,7 +925,7 @@ extension VideoPlayer: AVAssetResourceLoaderDelegate {
             }
 
             self?.getLicenseDataUseCase.execute(url: licenseUrl, spcData: spcData) { (licenseData, error) in
-                if let licenseData = licenseData {
+                if let licenseData = licenseData, error == nil {
                     // The CKC is correctly returned and is now send to the `AVPlayer` instance so we
                     // can continue to play the stream.
                     dataRequest.respond(with: licenseData)
