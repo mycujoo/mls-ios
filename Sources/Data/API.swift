@@ -72,7 +72,7 @@ extension API: TargetType {
                             "full_url": null,
                             "id": "1234",
                             "fairplay": {
-                                "full_url": "https://rendered-europe-west.mls.mycujoo.tv/mats/ckcd4l84800030108rouubqsj/master.m3u8",
+                                "full_url": "https://drmtestamirso.s3-eu-west-1.amazonaws.com/intertrust/fp2/stream_0.m3u8",
                                 "license_url": "https://fp.service.expressplay.com/hms/fp/rights/?ExpressPlayToken=BgAb1JQfKcwAJDgyYjFlMTkzLTlkZWUtNDk4ZC05Mjc2LTM1M2QzYzhiMDU1YwAAAGBNeFgejhCatqc_hJckQ5_mxESR4bYEDVOX8vm-apwJvlXSWCnA1iEffgq16P7GT8ezEXDoieCli7ADLrPW_6Xp9ngBy4UOo72Y6ZCdfn-6F3r1_UCViV8QzV8RNkBHBZdW4znVifxBgepb-2qF-GKN8LbJXw",
                                 "certificate_url": "https://storage.googleapis.com/stephen-ckdimbj4800000179uppzgkzy-europe-west/certificates/fairplay.cer"
                             }

@@ -105,6 +105,9 @@ public class MLS {
     private lazy var getSVGUseCase: GetSVGUseCase = {
         return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
     }()
+    private lazy var getCertificateDataUseCase: GetCertificateDataUseCase = {
+        return GetCertificateDataUseCase(arbitraryDataRepository: arbitraryDataRepository)
+    }()
 
     /// An internally available service that can be overwritten for the purpose of testing.
     private lazy var annotationService: AnnotationServicing = {
@@ -133,6 +136,7 @@ public class MLS {
             getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
+            getCertificateDataUseCase: getCertificateDataUseCase,
             annotationService: annotationService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)

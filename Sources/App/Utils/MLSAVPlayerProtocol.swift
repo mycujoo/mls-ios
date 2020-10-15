@@ -35,9 +35,10 @@ protocol MLSAVPlayerProtocol: class {
     func removeObserver(_ observer: NSObject, forKeyPath keyPath: String)
     /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.
     /// - parameter item: The item to play. If nil is provided, the current item is removed.
-    /// - parameter headers: The headers to attach to the network requests when playing this item
+    /// - parameter headers: The headers to attach to the network requests when playing this item.
+    /// - parameter resourceLoaderDelegate: The delegate for the asset's resourceLoader.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
-    func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], callback: @escaping (Bool) -> ())
+    func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ())
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
 
 

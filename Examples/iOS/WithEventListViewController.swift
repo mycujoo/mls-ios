@@ -49,7 +49,7 @@ class WithEventListViewController: UIViewController {
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
+        return .all
     }
 
     override func viewDidLoad() {

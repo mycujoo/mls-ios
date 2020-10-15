@@ -182,6 +182,7 @@ public class VideoPlayer: NSObject {
     private let getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase
     private let getPlayerConfigUseCase: GetPlayerConfigUseCase
     private let getSVGUseCase: GetSVGUseCase
+    private let getCertificateDataUseCase: GetCertificateDataUseCase
     private let annotationService: AnnotationServicing
     private var timeObserver: Any?
 
@@ -309,6 +310,7 @@ public class VideoPlayer: NSObject {
             getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
             getSVGUseCase: GetSVGUseCase,
+            getCertificateDataUseCase: GetCertificateDataUseCase,
             annotationService: AnnotationServicing,
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String) {
@@ -317,6 +319,7 @@ public class VideoPlayer: NSObject {
         self.getTimelineActionsUpdatesUseCase = getTimelineActionsUpdatesUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
         self.getSVGUseCase = getSVGUseCase
+        self.getCertificateDataUseCase = getCertificateDataUseCase
         self.annotationService = annotationService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
@@ -443,7 +446,7 @@ public class VideoPlayer: NSObject {
         }
 
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        player.replaceCurrentItem(with: url, headers: headerFields) { [weak self] completed in
+        player.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
             guard let self = self else { return }
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
@@ -890,6 +893,59 @@ extension VideoPlayer {
         skipForwardButtonTapped()
     }
     #endif
+}
+
+extension VideoPlayer: AVAssetResourceLoaderDelegate {
+    public func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
+        // We first check if a url is set in the manifest.
+        guard let _ = loadingRequest.request.url,
+              let _ = currentStream?.url,
+              let licenseUrl = currentStream?.fairplay?.licenseUrl,
+              let certificateUrl = currentStream?.fairplay?.certificateUrl else {
+            loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -1, userInfo: nil))
+            return false
+        }
+
+        getCertificateDataUseCase.execute(url: certificateUrl) { (data, error) in
+            guard let certificateData = data, error == nil else {
+                loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -2, userInfo: nil))
+                return
+            }
+
+            // Request the Server Playback Context.
+            let contentId = "mls.mycujoo.tv" // TODO: Establish whether this is the most appropriate contentId.
+            guard
+                    let contentIdData = contentId.data(using: String.Encoding.utf8),
+                    let spcData = try? loadingRequest.streamingContentKeyRequestData(forApp: certificateData, contentIdentifier: contentIdData, options: nil),
+                    let dataRequest = loadingRequest.dataRequest else {
+                    loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -3, userInfo: nil))
+                    return
+            }
+
+            // Request the Content Key Context from the Key Server Module.
+            var request = URLRequest(url: licenseUrl)
+            request.httpMethod = "POST"
+            request.httpBody = spcData
+            request.headers = [
+                "Content-Type": "application/octet-stream"
+            ]
+            let session = URLSession(configuration: URLSessionConfiguration.default)
+            let task = session.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    // The CKC is correctly returned and is now send to the `AVPlayer` instance so we
+                    // can continue to play the stream.
+                    dataRequest.respond(with: data)
+                    loadingRequest.finishLoading()
+                } else {
+                    loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -4, userInfo: nil))
+                }
+            }
+            task.resume()
+
+        }
+
+        return true
+    }
 }
 
 // MARK: - State
