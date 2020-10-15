@@ -207,6 +207,9 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    /// The DRM request url for this current stream. This can be used to track and prevent multiple calls to the license server for the same license request.
+    private var currentStreamDRMRequestUrl: URL? = nil
+
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
         df.dateStyle = .medium
@@ -901,17 +904,26 @@ extension VideoPlayerImpl {
 extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
     public func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
         // We first check if a url is set in the manifest.
-        guard let _ = loadingRequest.request.url,
+        guard let requestUrl = loadingRequest.request.url,
               let _ = currentStream?.url,
               let licenseUrl = currentStream?.fairplay?.licenseUrl,
               let certificateUrl = currentStream?.fairplay?.certificateUrl else {
-            loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -1, userInfo: nil))
+            loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -10, userInfo: nil))
             return false
         }
 
+        guard requestUrl.absoluteURL != currentStreamDRMRequestUrl else {
+            // Prevent the resourceLoader from ending up in a (potentially infinite) loop.
+            // This seems to happen when the loadingRequest finishes with an error (it just retries instantly).
+            loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -20, userInfo: nil))
+            return false
+        }
+
+        currentStreamDRMRequestUrl = requestUrl
+
         getCertificateDataUseCase.execute(url: certificateUrl) { [weak self] (certificateData, error) in
             guard let certificateData = certificateData, error == nil else {
-                loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -2, userInfo: nil))
+                loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -30, userInfo: nil))
                 return
             }
 
@@ -920,7 +932,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
             guard let contentIdData = contentId.data(using: String.Encoding.utf8),
                   let spcData = try? loadingRequest.streamingContentKeyRequestData(forApp: certificateData, contentIdentifier: contentIdData, options: nil),
                   let dataRequest = loadingRequest.dataRequest else {
-                loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -3, userInfo: nil))
+                loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -40, userInfo: nil))
                 return
             }
 
@@ -931,7 +943,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
                     dataRequest.respond(with: licenseData)
                     loadingRequest.finishLoading()
                 } else {
-                    loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -4, userInfo: nil))
+                    loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -50, userInfo: nil))
                 }
             }
         }
