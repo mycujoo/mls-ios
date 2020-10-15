@@ -163,8 +163,8 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).isMuted.set(any()).thenDoNothing()
                 when(mock).play().thenDoNothing()
                 when(mock).pause().thenDoNothing()
-                when(mock).replaceCurrentItem(with: any(), headers: any(), callback: any()).then { (tuple) in
-                    (tuple.2)(true)
+                when(mock).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any()).then { (tuple) in
+                    (tuple.3)(true)
                 }
                 when(mock).seek(by: any(), toleranceBefore: any(), toleranceAfter: any(), debounceSeconds: any(), completionHandler: any()).then { (tuple) in
                     (tuple.4)(true)
@@ -226,6 +226,7 @@ class VideoPlayerSpec: QuickSpec {
                 getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase(timelineRepository: self.mockTimelineRepository),
                 getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository),
                 getSVGUseCase: GetSVGUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository),
+                getCertificateDataUseCase: GetCertificateDataUseCase(arbitraryDataRepository: self.mockArbitraryDataRepository),
                 annotationService: self.mockAnnotationService,
                 pseudoUserId: "test_account")
                 self.videoPlayer.playerConfig = PlayerConfig.standard()
@@ -238,7 +239,7 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         done()
                     }
@@ -251,7 +252,7 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         done()
                     }
@@ -264,11 +265,11 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.isNil(), headers: any(), callback: any())
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.isNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
                         let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), callback: any())
+                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                             done()
                         }
@@ -282,13 +283,13 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
+                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true)
 
                         let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                             // The item should not have been replaced.
-                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), callback: any())
+                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                             done()
                         }
