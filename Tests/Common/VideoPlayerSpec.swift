@@ -24,7 +24,7 @@ class VideoPlayerSpec: QuickSpec {
 
     var event: MLSSDK.Event!
 
-    var videoPlayer: VideoPlayer!
+    var videoPlayer: VideoPlayerImpl!
 
     override func setUp() {
          continueAfterFailure = false
@@ -226,7 +226,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).fetchLicense(byURL: any(), spcData: any(), callback: any()).thenDoNothing()
             }
 
-            self.videoPlayer = VideoPlayer(
+            self.videoPlayer = VideoPlayerImpl(
                 view: self.mockView,
                 player: self.mockAVPlayer,
                 getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository),

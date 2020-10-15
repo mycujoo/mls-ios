@@ -506,7 +506,7 @@ extension VideoPlayerView {
         }
     }
 
-    func setPlayButtonTo(state: VideoPlayer.PlayButtonState) {
+    func setPlayButtonTo(state: VideoPlayerPlayButtonState) {
         switch state {
         case .play:
             playButton.setTitle("Play", for: .normal)
@@ -519,7 +519,7 @@ extension VideoPlayerView {
         }
     }
 
-    func setLiveButtonTo(state: VideoPlayer.LiveState) {
+    func setLiveButtonTo(state: VideoPlayerLiveState) {
         switch state {
         case .liveAndLatest:
             liveButton.alpha = 1
