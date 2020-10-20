@@ -7,9 +7,11 @@ xcuserdata/
 
 ## Builds
 builds/
+.build/
 
 ## Other
 *.xcuserstate
+.swiftpm
 
 ## Obj-C/Swift specific
 *.hmap
