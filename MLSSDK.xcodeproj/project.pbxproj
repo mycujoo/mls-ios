@@ -49,7 +49,6 @@
 		49317CE3253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317CE1253F0A4D00675EB6 /* VideoAnalyticsServicing.swift */; };
 		49317CF0253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317CEF253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift */; };
 		49317CF1253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317CEF253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift */; };
-		49317E33253F491B00675EB6 /* SomeExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317E32253F491B00675EB6 /* SomeExperiment.swift */; };
 		49317F71253F5FCB00675EB6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49317F65253F5FCB00675EB6 /* Localizable.strings */; };
 		49317F72253F5FCB00675EB6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49317F65253F5FCB00675EB6 /* Localizable.strings */; };
 		49317F73253F5FCB00675EB6 /* ios.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49317F68253F5FCB00675EB6 /* ios.xcassets */; };
@@ -476,7 +475,6 @@
 		49317CE1253F0A4D00675EB6 /* VideoAnalyticsServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnalyticsServicing.swift; sourceTree = "<group>"; };
 		49317CEF253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouboraVideoAnalyticsService.swift; sourceTree = "<group>"; };
 		49317D8D253F1C4300675EB6 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		49317E32253F491B00675EB6 /* SomeExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeExperiment.swift; sourceTree = "<group>"; };
 		49317F66253F5FCB00675EB6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		49317F67253F5FCB00675EB6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		49317F68253F5FCB00675EB6 /* ios.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ios.xcassets; sourceTree = "<group>"; };
@@ -1453,7 +1451,6 @@
 				499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */,
 				49E441732538DCAB00385890 /* VideoPlayer.swift */,
 				6496C3522492308D0099475D /* VideoPlayerImpl.swift */,
-				49317E32253F491B00675EB6 /* SomeExperiment.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2281,7 +2278,6 @@
 				49A8048424AA0DF500E30DA8 /* TimingFunction.swift in Sources */,
 				49A804C424AA0E9D00E30DA8 /* Node.swift in Sources */,
 				49A804EF24AA0ECB00E30DA8 /* SVGConstants.swift in Sources */,
-				49317E33253F491B00675EB6 /* SomeExperiment.swift in Sources */,
 				49A8048624AA0DF900E30DA8 /* TransformHashable.swift in Sources */,
 				49A8047824AA0DE200E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
 				49A804CD24AA0EA100E30DA8 /* Baseline.swift in Sources */,
