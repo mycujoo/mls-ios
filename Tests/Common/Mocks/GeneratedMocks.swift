@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -607,7 +607,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1943,7 +1943,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2075,7 +2075,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2207,7 +2207,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2399,7 +2399,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2501,7 +2501,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2663,7 +2663,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-10-15 20:02:20 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-10-20 12:56:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2759,6 +2759,359 @@ import Foundation
 
     
      func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Domain/Services/VideoAnalyticsServicing.swift at 2020-10-20 12:56:51 +0000
+
+//
+// Copyright © 2020 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+
+import AVFoundation
+import Foundation
+
+
+ class MockVideoAnalyticsServicing: VideoAnalyticsServicing, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = VideoAnalyticsServicing
+    
+     typealias Stubbing = __StubbingProxy_VideoAnalyticsServicing
+     typealias Verification = __VerificationProxy_VideoAnalyticsServicing
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: VideoAnalyticsServicing?
+
+     func enableDefaultImplementation(_ stub: VideoAnalyticsServicing) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+    
+    
+     var currentItemTitle: String? {
+        get {
+            return cuckoo_manager.getter("currentItemTitle",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemTitle)
+        }
+        
+        set {
+            cuckoo_manager.setter("currentItemTitle",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemTitle = newValue)
+        }
+        
+    }
+    
+    
+    
+     var currentItemEventId: String? {
+        get {
+            return cuckoo_manager.getter("currentItemEventId",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemEventId)
+        }
+        
+        set {
+            cuckoo_manager.setter("currentItemEventId",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemEventId = newValue)
+        }
+        
+    }
+    
+    
+    
+     var currentItemStreamId: String? {
+        get {
+            return cuckoo_manager.getter("currentItemStreamId",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemStreamId)
+        }
+        
+        set {
+            cuckoo_manager.setter("currentItemStreamId",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemStreamId = newValue)
+        }
+        
+    }
+    
+    
+    
+     var currentItemStreamURL: URL? {
+        get {
+            return cuckoo_manager.getter("currentItemStreamURL",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemStreamURL)
+        }
+        
+        set {
+            cuckoo_manager.setter("currentItemStreamURL",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemStreamURL = newValue)
+        }
+        
+    }
+    
+    
+    
+     var currentItemIsLive: Bool? {
+        get {
+            return cuckoo_manager.getter("currentItemIsLive",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemIsLive)
+        }
+        
+        set {
+            cuckoo_manager.setter("currentItemIsLive",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemIsLive = newValue)
+        }
+        
+    }
+    
+
+    
+
+    
+    
+    
+     func create(with player: MLSAVPlayerProtocol)  {
+        
+    return cuckoo_manager.call("create(with: MLSAVPlayerProtocol)",
+            parameters: (player),
+            escapingParameters: (player),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.create(with: player))
+        
+    }
+    
+    
+    
+     func stop()  {
+        
+    return cuckoo_manager.call("stop()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.stop())
+        
+    }
+    
+
+	 struct __StubbingProxy_VideoAnalyticsServicing: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    var currentItemTitle: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, String> {
+	        return .init(manager: cuckoo_manager, name: "currentItemTitle")
+	    }
+	    
+	    
+	    var currentItemEventId: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, String> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEventId")
+	    }
+	    
+	    
+	    var currentItemStreamId: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, String> {
+	        return .init(manager: cuckoo_manager, name: "currentItemStreamId")
+	    }
+	    
+	    
+	    var currentItemStreamURL: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, URL> {
+	        return .init(manager: cuckoo_manager, name: "currentItemStreamURL")
+	    }
+	    
+	    
+	    var currentItemIsLive: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemIsLive")
+	    }
+	    
+	    
+	    func create<M1: Cuckoo.Matchable>(with player: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(MLSAVPlayerProtocol)> where M1.MatchedType == MLSAVPlayerProtocol {
+	        let matchers: [Cuckoo.ParameterMatcher<(MLSAVPlayerProtocol)>] = [wrap(matchable: player) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoAnalyticsServicing.self, method: "create(with: MLSAVPlayerProtocol)", parameterMatchers: matchers))
+	    }
+	    
+	    func stop() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoAnalyticsServicing.self, method: "stop()", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	 struct __VerificationProxy_VideoAnalyticsServicing: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	    
+	    var currentItemTitle: Cuckoo.VerifyOptionalProperty<String> {
+	        return .init(manager: cuckoo_manager, name: "currentItemTitle", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentItemEventId: Cuckoo.VerifyOptionalProperty<String> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEventId", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentItemStreamId: Cuckoo.VerifyOptionalProperty<String> {
+	        return .init(manager: cuckoo_manager, name: "currentItemStreamId", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentItemStreamURL: Cuckoo.VerifyOptionalProperty<URL> {
+	        return .init(manager: cuckoo_manager, name: "currentItemStreamURL", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentItemIsLive: Cuckoo.VerifyOptionalProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemIsLive", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	
+	    
+	    @discardableResult
+	    func create<M1: Cuckoo.Matchable>(with player: M1) -> Cuckoo.__DoNotUse<(MLSAVPlayerProtocol), Void> where M1.MatchedType == MLSAVPlayerProtocol {
+	        let matchers: [Cuckoo.ParameterMatcher<(MLSAVPlayerProtocol)>] = [wrap(matchable: player) { $0 }]
+	        return cuckoo_manager.verify("create(with: MLSAVPlayerProtocol)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func stop() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("stop()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+ class VideoAnalyticsServicingStub: VideoAnalyticsServicing {
+    
+    
+     var currentItemTitle: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+     var currentItemEventId: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+     var currentItemStreamId: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+     var currentItemStreamURL: URL? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (URL?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+     var currentItemIsLive: Bool? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool?).self)
+        }
+        
+        set { }
+        
+    }
+    
+
+    
+
+    
+     func create(with player: MLSAVPlayerProtocol)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+     func stop()   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
