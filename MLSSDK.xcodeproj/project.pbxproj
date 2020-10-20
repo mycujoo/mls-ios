@@ -46,6 +46,10 @@
 		4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
 		4930181324D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */; };
 		4930181424D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */; };
+		49317CE2253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317CE1253F0A4D00675EB6 /* VideoAnalyticsServicing.swift */; };
+		49317CE3253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317CE1253F0A4D00675EB6 /* VideoAnalyticsServicing.swift */; };
+		49317CF0253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317CEF253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift */; };
+		49317CF1253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49317CEF253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938012B24CE19B0008AFC64 /* MLSUIAction.swift */; };
@@ -487,6 +491,8 @@
 		4926CE2624CE046D00419A42 /* DataLayerStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerStream.swift; sourceTree = "<group>"; };
 		4930180F24D494AE009312B0 /* WebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketConnection.swift; sourceTree = "<group>"; };
 		4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUpdatesUseCase.swift; sourceTree = "<group>"; };
+		49317CE1253F0A4D00675EB6 /* VideoAnalyticsServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnalyticsServicing.swift; sourceTree = "<group>"; };
+		49317CEF253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouboraVideoAnalyticsService.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4938012B24CE19B0008AFC64 /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
 		493C017F24F945F8002E9DA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -800,6 +806,7 @@
 				4930180F24D494AE009312B0 /* WebsocketConnection.swift */,
 				4926CE1624CE03E200419A42 /* Entities */,
 				4926CE2124CE03E600419A42 /* Repositories */,
+				49317CEE253F0E3200675EB6 /* Services */,
 				49E4F462251A08C800FDECD9 /* Utils */,
 			);
 			path = Data;
@@ -860,6 +867,7 @@
 			children = (
 				49EA06BB24C7912F00C7AB10 /* AnnotationServicing.swift */,
 				4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */,
+				49317CE1253F0A4D00675EB6 /* VideoAnalyticsServicing.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -909,6 +917,14 @@
 				497FD2C524C0981F0027E708 /* TOVStore.swift */,
 			);
 			path = Internal;
+			sourceTree = "<group>";
+		};
+		49317CEE253F0E3200675EB6 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				49317CEF253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4943B95824C6F08A0006F81C /* NVActivityIndicatorView */ = {
@@ -2012,6 +2028,7 @@
 				49736EA724A9F59C001F3F48 /* Polyline.swift in Sources */,
 				49736F1A24A9F59C001F3F48 /* SVGConstants.swift in Sources */,
 				49736F0124A9F59C001F3F48 /* ShapeRenderer.swift in Sources */,
+				49317CF0253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */,
 				49736F1D24A9F59C001F3F48 /* SVGView.swift in Sources */,
 				49736EA824A9F59C001F3F48 /* Polygon.swift in Sources */,
 				49736EF024A9F59C001F3F48 /* TransformInterpolation.swift in Sources */,
@@ -2101,6 +2118,7 @@
 				49736E9524A9F59C001F3F48 /* GroupDisposable.swift in Sources */,
 				49736EFC24A9F59C001F3F48 /* MCAShapeLayerLineCap_iOS.swift in Sources */,
 				4926CE2924CE046D00419A42 /* DataLayerPlayerConfig.swift in Sources */,
+				49317CE2253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */,
 				49736EF424A9F59C001F3F48 /* LocusInterpolation.swift in Sources */,
 				49736EA124A9F59C001F3F48 /* Locus.swift in Sources */,
 				49736EAA24A9F59C001F3F48 /* Insets.swift in Sources */,
@@ -2219,6 +2237,7 @@
 				49A8049824AA0E3400E30DA8 /* GroupDisposable.swift in Sources */,
 				49A8047B24AA0DF000E30DA8 /* AnimationSequence.swift in Sources */,
 				49A8048224AA0DF500E30DA8 /* ShapeAnimationGenerator.swift in Sources */,
+				49317CF1253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */,
 				49A804D824AA0EA100E30DA8 /* Color.swift in Sources */,
 				49A804AB24AA0E9800E30DA8 /* Rect.swift in Sources */,
 				49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
@@ -2308,6 +2327,7 @@
 				49A804C524AA0EA100E30DA8 /* Fill.swift in Sources */,
 				4926CE2A24CE046D00419A42 /* DataLayerPlayerConfig.swift in Sources */,
 				49A804F924AA0ED400E30DA8 /* CGMappings.swift in Sources */,
+				49317CE3253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */,
 				49A804C024AA0E9D00E30DA8 /* Image.swift in Sources */,
 				49A804C624AA0EA100E30DA8 /* RadialGradient.swift in Sources */,
 				641C9182249A1C22000E4E63 /* VideoPlayStatus.swift in Sources */,

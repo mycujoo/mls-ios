@@ -3,8 +3,7 @@
 //
 
 import AVFoundation
-import YouboraAVPlayerAdapter
-import YouboraLib
+import UIKit
 
 public class VideoPlayerImpl: NSObject, VideoPlayer {
 
@@ -185,6 +184,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     private let getCertificateDataUseCase: GetCertificateDataUseCase
     private let getLicenseDataUseCase: GetLicenseDataUseCase
     private let annotationService: AnnotationServicing
+    private let videoAnalyticsService: VideoAnalyticsServicing
     private var timeObserver: Any?
 
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
@@ -215,19 +215,6 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
         df.dateStyle = .medium
         df.timeStyle = .short
         return df
-    }()
-
-    private lazy var youboraPlugin: YBPlugin? = {
-        // Only add the adapter in real scenarios. When running unit tests with a mocked player, there will not be a youbora plugin.
-        guard let avPlayer = self.player as? AVPlayer else { return nil }
-
-        let options = YBOptions()
-        options.accountCode = "mycujoo"
-        options.username = pseudoUserId
-        let plugin = YBPlugin(options: options)
-        plugin.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
-
-        return plugin
     }()
 
     // TODO: Move livestate to mlsavplayer?
@@ -317,6 +304,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
             getCertificateDataUseCase: GetCertificateDataUseCase,
             getLicenseDataUseCase: GetLicenseDataUseCase,
             annotationService: AnnotationServicing,
+            videoAnalyticsService: VideoAnalyticsServicing,
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String) {
         self.player = player
@@ -327,6 +315,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
         self.getCertificateDataUseCase = getCertificateDataUseCase
         self.getLicenseDataUseCase = getLicenseDataUseCase
         self.annotationService = annotationService
+        self.videoAnalyticsService = videoAnalyticsService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
 
@@ -335,6 +324,8 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
+
+        videoAnalyticsService.create(with: player)
 
         func initPlayerView() {
             self.view = view
@@ -365,6 +356,8 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
                 initPlayerView()
             }
         }
+
+
     }
 
     deinit {
@@ -379,9 +372,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
             cleanup(oldStream: stream)
         }
 
-        youboraPlugin?.fireStop()
-        youboraPlugin?.removeAdapter()
-        youboraPlugin?.adapter?.dispose()
+        videoAnalyticsService.stop()
     }
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
@@ -497,14 +488,12 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     private func updateYouboraMetadata() {
-        let NA = "N/A"
-        youboraPlugin?.options.contentResource = currentStream?.url?.absoluteString ?? NA
-        youboraPlugin?.options.contentTitle = event?.title ?? NA
-        youboraPlugin?.options.contentCustomDimension2 = event?.id ?? NA
-        youboraPlugin?.options.contentCustomDimension14 = "MLS"
-        youboraPlugin?.options.contentCustomDimension15 = currentStream?.id ?? NA
+        videoAnalyticsService.currentItemTitle = event?.title
+        videoAnalyticsService.currentItemEventId = event?.id
+        videoAnalyticsService.currentItemStreamId = currentStream?.id
+        videoAnalyticsService.currentItemStreamURL = currentStream?.url
 
-        // Note: "contentIsLive" is updated elsewhere, since that is a more dynamic property.
+        // Note: "currentItemIsLive" is updated elsewhere, since that is a more dynamic property.
     }
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
@@ -678,7 +667,7 @@ extension VideoPlayerImpl {
                         #endif
                     }
 
-                    self.youboraPlugin?.options.contentIsLive = isLivestream as NSValue
+                    self.videoAnalyticsService.currentItemIsLive = isLivestream
 
                     self.delegate?.playerDidUpdateTime(player: self)
 

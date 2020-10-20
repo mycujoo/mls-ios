@@ -115,9 +115,11 @@ public class MLS {
         return GetLicenseDataUseCase(drmRepository: drmRepository)
     }()
 
-    /// An internally available service that can be overwritten for the purpose of testing.
     private lazy var annotationService: AnnotationServicing = {
         return AnnotationService()
+    }()
+    private lazy var youboraVideoAnalyticsService: YouboraVideoAnalyticsService = {
+        return YouboraVideoAnalyticsService(pseudoUserId: pseudoUserId)
     }()
 
     private lazy var dataProvider_: DataProvider = {
@@ -145,6 +147,7 @@ public class MLS {
             getCertificateDataUseCase: getCertificateDataUseCase,
             getLicenseDataUseCase: getLicenseDataUseCase,
             annotationService: annotationService,
+            videoAnalyticsService: youboraVideoAnalyticsService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)
 
