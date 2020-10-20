@@ -18,6 +18,6 @@ let package = Package(
         .package(url: "https://github.com/daltoniam/Starscream.git", .upToNextMajor(from: "4.0.0"))
     ],
     targets: [
-        .target(name: "MLSSDK", dependencies: ["Alamofire", "Moya", "Starscream"], path: "Sources")
+        .target(name: "MLSSDK", dependencies: ["Alamofire", "Moya", "Starscream"], path: "Sources", exclude: ["App/Support Files/Info.plist"])
     ]
 )
