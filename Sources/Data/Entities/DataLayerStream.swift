@@ -46,7 +46,8 @@ extension DataLayer.Stream {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let id: String = try container.decode(String.self, forKey: .id)
         let fullUrl: URL? = try? container.decode(URL.self, forKey: .fullUrl)
-        let fairplay: DataLayer.FairplayStream? = try? container.decode(DataLayer.FairplayStream.self, forKey: .fairplay)
+//        let fairplay: DataLayer.FairplayStream? = try? container.decode(DataLayer.FairplayStream.self, forKey: .fairplay)
+        let fairplay: DataLayer.FairplayStream? = nil // Temporarily fixed to nil until we are ready to release DRM.
 
         self.init(id: id, fullUrl: fullUrl, fairplay: fairplay)
     }
