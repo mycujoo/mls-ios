@@ -3,6 +3,7 @@
 //
 
 import Starscream
+import Foundation
 
 
 /// Represents a single connection with the MLS web socket service.
@@ -28,7 +29,7 @@ class WebSocketConnection {
     init(sessionId: String, printToConsole: Bool) {
         self.sessionId = sessionId
 
-        self.socket.onEvent = { [weak self] event in
+        self.socket.onEvent = { [weak self] (event: WebSocketEvent) in
             guard let self = self else { return }
             switch event {
             case .connected(_):
