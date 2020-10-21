@@ -6,12 +6,12 @@
 import UIKit
 import AVKit
 
-public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
+class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
     // MARK: - Properties
 
     /// The AVPlayerLayer that is associated with this video player.
-    private(set) public var playerLayer: AVPlayerLayer?
+    private(set) var playerLayer: AVPlayerLayer?
 
     private var onControlViewTapped: (() -> Void)?
     private var onTimeSliderSlide: ((Double) -> Void)?
@@ -182,7 +182,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     }()
 
     /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    public let topControlsStackView: UIStackView = {
+    let topControlsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -223,7 +223,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     }()
 
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    public let controlView: UIView = {
+    let controlView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0
@@ -294,10 +294,10 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     /// copied when the UIView is exchanged for a newer one. The key is the `hash` of the UIView that the constraints belong to.
     var copyableOverlayConstraints: [Int: [NSLayoutConstraint]] = [:]
 
-    // MARK: - Public accessors
+    // MARK: - accessors
 
     /// Sets the visibility of the fullscreen button.
-    public var fullscreenButtonIsHidden: Bool = false {
+    var fullscreenButtonIsHidden: Bool = false {
         didSet {
             fullscreenButton.isHidden = fullscreenButtonIsHidden
 
@@ -308,7 +308,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     }
 
     /// Exposes the `UITapGestureRecognizer` on the VideoPlayerView, which is used to determine whether to hide or show the controls.
-    private(set) public lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+    private(set) lazy var tapGestureRecognizer: UITapGestureRecognizer = {
         let gr = UITapGestureRecognizer(target: self, action: #selector(controlViewTapped))
         gr.numberOfTapsRequired = 1
         gr.delegate = self
@@ -431,7 +431,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
     }
 
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         playerLayer?.frame = bounds
     }
@@ -783,7 +783,7 @@ extension VideoPlayerView {
 // - MARK: GestureRecognizerDelegate
 
 extension VideoPlayerView: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         // Ensure that the tapGestureRecognizer does not register on any controls.
         if (touch.view?.isKind(of: UIControl.self) ?? false) {
             return false
