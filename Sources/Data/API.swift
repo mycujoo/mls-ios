@@ -22,7 +22,7 @@ enum API {
 }
 
 extension API: TargetType {
-    var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
+    var baseURL: URL { return URL(string: "https://mcls-api.mycujoo.tv")! }
     var path: String {
         switch self {
         case .eventById(let eventId, _):
