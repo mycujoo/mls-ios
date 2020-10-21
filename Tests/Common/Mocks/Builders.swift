@@ -23,7 +23,7 @@ class EntityBuilder {
     static func buildStream(withRandomId: Bool = true, withURL: Bool = true, withRandomURL: Bool = false) -> MLSSDK.Stream {
         return MLSSDK.Stream(
             id: withRandomId ? randomString(length: 20) : "mockstream",
-            fullUrl: withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8" + (withRandomURL ? "?randomizer=" + randomString(length: 20) : ""))! : nil)
+            fullUrl: withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8" + (withRandomURL ? "?randomizer=" + randomString(length: 20) : ""))! : nil, fairplay: nil)
     }
 
     private static func randomString(length: Int) -> String {

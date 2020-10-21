@@ -22,7 +22,7 @@ enum API {
 }
 
 extension API: TargetType {
-    var baseURL: URL { return URL(string: "https://mls-api.mycujoo.tv")! }
+    var baseURL: URL { return URL(string: "https://mcls-api.mycujoo.tv")! }
     var path: String {
         switch self {
         case .eventById(let eventId, _):
@@ -47,7 +47,42 @@ extension API: TargetType {
         switch self {
         case .eventById:
             return Data("""
-                {"id":"1eOhF2NnDunfzXdO6E10dVAK2tN","title":"TestwithShervin","description":"","thumbnail_url":"","location":{"physical":{"venue":"","city":"Amsterdam","country_code":"NL","continent_code":"EU","coordinates":{"latitude":52.3666969,"longitude":4.8945398}}},"organiser":"","start_time":"2020-07-09T08:52:18Z","timezone":"America/Los_Angeles","status":"EVENT_STATUS_SCHEDULED","streams":[{"id":"1234", "full_url":"https://rendered-europe-west.mls.mycujoo.tv/mats/ckcd4l84800030108rouubqsj/master.m3u8"}],"timeline_ids":[],"is_test":false,"metadata":{}}
+                {
+                    "description": "",
+                    "id": "1eOhF2NnDunfzXdO6E10dVAK2tN",
+                    "is_test": false,
+                    "location": {
+                        "physical": {
+                            "city": "Amsterdam",
+                            "continent_code": "EU",
+                            "coordinates": {
+                                "latitude": 52.3666969,
+                                "longitude": 4.8945398
+                            },
+                            "country_code": "NL",
+                            "venue": ""
+                        }
+                    },
+                    "metadata": {},
+                    "organiser": "",
+                    "start_time": "2020-07-09T08:52:18Z",
+                    "status": "EVENT_STATUS_SCHEDULED",
+                    "streams": [
+                        {
+                            "full_url": null,
+                            "id": "1234",
+                            "fairplay": {
+                                "full_url": "https://drmtestamirso.s3-eu-west-1.amazonaws.com/intertrust/fp2/stream_0.m3u8",
+                                "license_url": "https://fp.service.expressplay.com/hms/fp/rights/?ExpressPlayToken=BgAb1JQfKcwAJDgyYjFlMTkzLTlkZWUtNDk4ZC05Mjc2LTM1M2QzYzhiMDU1YwAAAGBNeFgejhCatqc_hJckQ5_mxESR4bYEDVOX8vm-apwJvlXSWCnA1iEffgq16P7GT8ezEXDoieCli7ADLrPW_6Xp9ngBy4UOo72Y6ZCdfn-6F3r1_UCViV8QzV8RNkBHBZdW4znVifxBgepb-2qF-GKN8LbJXw",
+                                "certificate_url": "https://storage.googleapis.com/stephen-ckdimbj4800000179uppzgkzy-europe-west/certificates/fairplay.cer"
+                            }
+                        }
+                    ],
+                    "thumbnail_url": "",
+                    "timeline_ids": [],
+                    "timezone": "America/Los_Angeles",
+                    "title": "Fairplay stream"
+                }
                 """.utf8)
         case .events:
             return Data("""
@@ -77,7 +112,7 @@ extension API: TargetType {
                             "thumbnail_url": "",
                             "timeline_ids": [],
                             "timezone": "America/Los_Angeles",
-                            "title": "TestwithShervin"
+                            "title": "Fairplay stream"
                         },
                         {
                             "description": "",
@@ -103,7 +138,7 @@ extension API: TargetType {
                             "thumbnail_url": "",
                             "timeline_ids": [],
                             "timezone": "America/Los_Angeles",
-                            "title": "Fullflowtest"
+                            "title": "Example event"
                         }
                     ],
                     "next_page_token": "",

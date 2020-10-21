@@ -86,6 +86,9 @@ public class MLS {
     private lazy var arbitraryDataRepository: ArbitraryDataRepository = {
         return ArbitraryDataRepositoryImpl()
     }()
+    private lazy var drmRepository: DRMRepository = {
+        return DRMRepositoryImpl()
+    }()
 
     private lazy var getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase = {
         return GetTimelineActionsUpdatesUseCase(timelineRepository: timelineRepository)
@@ -105,10 +108,18 @@ public class MLS {
     private lazy var getSVGUseCase: GetSVGUseCase = {
         return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
     }()
+    private lazy var getCertificateDataUseCase: GetCertificateDataUseCase = {
+        return GetCertificateDataUseCase(drmRepository: drmRepository)
+    }()
+    private lazy var getLicenseDataUseCase:GetLicenseDataUseCase = {
+        return GetLicenseDataUseCase(drmRepository: drmRepository)
+    }()
 
-    /// An internally available service that can be overwritten for the purpose of testing.
     private lazy var annotationService: AnnotationServicing = {
         return AnnotationService()
+    }()
+    private lazy var youboraVideoAnalyticsService: YouboraVideoAnalyticsService = {
+        return YouboraVideoAnalyticsService(pseudoUserId: pseudoUserId)
     }()
 
     private lazy var dataProvider_: DataProvider = {
@@ -126,14 +137,17 @@ public class MLS {
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
     public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
-        let player = VideoPlayer(
+        let player = VideoPlayerImpl(
             view: VideoPlayerView(),
             player: MLSAVPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
             getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
             getSVGUseCase: getSVGUseCase,
+            getCertificateDataUseCase: getCertificateDataUseCase,
+            getLicenseDataUseCase: getLicenseDataUseCase,
             annotationService: annotationService,
+            videoAnalyticsService: youboraVideoAnalyticsService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)
 
