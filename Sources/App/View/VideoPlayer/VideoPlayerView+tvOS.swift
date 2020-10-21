@@ -6,11 +6,11 @@
 import UIKit
 import AVKit
 
-public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
+class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
     // MARK: - Properties
 
     /// The AVPlayerLayer that is associated with this video player.
-    private(set) public var playerLayer: AVPlayerLayer?
+    private(set) var playerLayer: AVPlayerLayer?
     
     private var onTimeSliderSlide: ((Double) -> Void)?
     private var onTimeSliderRelease: ((Double) -> Void)?
@@ -334,7 +334,7 @@ public class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
         setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
     }
 
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         playerLayer?.frame = bounds
     }
@@ -593,7 +593,7 @@ extension VideoPlayerView {
     }
 }
 
-public extension VideoPlayerView {
+extension VideoPlayerView {
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         switch(presses.first?.type) {
         case .playPause?:
