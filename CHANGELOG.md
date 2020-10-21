@@ -2,6 +2,24 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.2](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.2)
+Released on 2020-10-21.
+
+#### Added
+- Documentation for installation Swift Package Manager
+
+#### Changed
+- Code cleanup
+
+## [1.1.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.1)
+Released on 2020-10-21.
+
+#### Added
+- Introduced an installation method for Swift Package Manager
+
+#### Changed
+- Changed base API path.
+
 
 ## [1.1.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.0)
 Released on 2020-10-05.
