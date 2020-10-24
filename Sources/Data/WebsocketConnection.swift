@@ -29,56 +29,52 @@ class WebSocketConnection {
     init(sessionId: String, printToConsole: Bool) {
         self.sessionId = sessionId
 
-        self.socket.onEvent = { [weak self] (event: WebSocketEvent) in
-            guard let self = self else { return }
-            switch event {
-            case .connected(_):
-                self.isConnected = true
-                self.joinRooms()
-            case .text(let text):
-                if printToConsole {
-                    print("Websocket message received. Raw:", text)
-                }
-                let components = text.components(separatedBy: Constants.messageSeparator)
-                guard components.count >= 2 else { return }
+        self.socket.onConnect = {
+            self.isConnected = true
+            self.joinRooms()
+        }
 
-                let updateType = components[0]
-                switch updateType {
-                case "eventTotal":
-                    let targetEventId = components[1]
-                    if let total = Int(components[2]), let roomObservers = self.observers[Room(id: targetEventId, type: .event)] {
-                        let update: UpdateMessage = .eventTotal(total: total)
-                        for obs in roomObservers {
-                            obs(update)
-                        }
-                    }
-                case "eventUpdate":
-                    let targetEventId = components[1]
-                    if let roomObservers = self.observers[Room(id: targetEventId, type: .event)] {
-                        let update: UpdateMessage = .eventUpdate(updateId: components[2])
-                        for obs in roomObservers {
-                            obs(update)
-                        }
-                    }
-                case "timelineUpdate":
-                    let targetTimelineId = components[1]
-                    if let roomObservers = self.observers[Room(id: targetTimelineId, type: .timeline)] {
-                        let update: UpdateMessage = .timelineUpdate(updateId: components[2])
-                        for obs in roomObservers {
-                            obs(update)
-                        }
-                    }
-                default:
-                    return
-                }
-            case .disconnected:
-                self.isConnected = false
-                self.socket.connect()
-            case .reconnectSuggested:
-                self.socket.connect()
-            default:
-                break
+        self.socket.onText = { text in
+            if printToConsole {
+                print("Websocket message received. Raw:", text)
             }
+            let components = text.components(separatedBy: Constants.messageSeparator)
+            guard components.count >= 2 else { return }
+
+            let updateType = components[0]
+            switch updateType {
+            case "eventTotal":
+                let targetEventId = components[1]
+                if let total = Int(components[2]), let roomObservers = self.observers[Room(id: targetEventId, type: .event)] {
+                    let update: UpdateMessage = .eventTotal(total: total)
+                    for obs in roomObservers {
+                        obs(update)
+                    }
+                }
+            case "eventUpdate":
+                let targetEventId = components[1]
+                if let roomObservers = self.observers[Room(id: targetEventId, type: .event)] {
+                    let update: UpdateMessage = .eventUpdate(updateId: components[2])
+                    for obs in roomObservers {
+                        obs(update)
+                    }
+                }
+            case "timelineUpdate":
+                let targetTimelineId = components[1]
+                if let roomObservers = self.observers[Room(id: targetTimelineId, type: .timeline)] {
+                    let update: UpdateMessage = .timelineUpdate(updateId: components[2])
+                    for obs in roomObservers {
+                        obs(update)
+                    }
+                }
+            default:
+                return
+            }
+        }
+
+        self.socket.onDisconnect = { error in
+            self.isConnected = false
+            self.socket.connect()
         }
     }
 
@@ -139,7 +135,9 @@ class WebSocketConnection {
     }
 
     deinit {
-        self.socket.onEvent = nil
+        self.socket.onConnect = nil
+        self.socket.onText = nil
+        self.socket.onDisconnect = nil
         self.socket.disconnect()
     }
 }
