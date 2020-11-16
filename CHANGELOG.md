@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.3](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.3)
+Released on 2020-11-16.
+
+#### Added
+- Added Equatable conformance to Event and Stream definitions
+- Downgraded to Starscream 3.x for better compatibility with common libraries (E.g. apollo-ios)
+
+#### Changed
+- Code cleanup
+
 ## [1.1.2](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.2)
 Released on 2020-10-21.
 
