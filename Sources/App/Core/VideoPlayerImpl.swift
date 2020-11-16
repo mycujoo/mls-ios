@@ -371,6 +371,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
 
         videoAnalyticsService.stop()
+
+        print("Video player was deinitialized.")
     }
 
     /// This should be called whenever a new Event or Stream is loaded into the video player and the state of the player needs to be reset.
