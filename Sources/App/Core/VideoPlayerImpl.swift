@@ -327,21 +327,21 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         func initPlayerView() {
             self.view = view
-            view.setOnTimeSliderSlide(sliderUpdated)
-            view.setOnTimeSliderRelease(sliderReleased)
-            view.setOnPlayButtonTapped(playButtonTapped)
-            view.setOnSkipBackButtonTapped(skipBackButtonTapped)
-            view.setOnSkipForwardButtonTapped(skipForwardButtonTapped)
+            view.setOnTimeSliderSlide({ [weak self] fraction in self?.sliderUpdated(with: fraction) })
+            view.setOnTimeSliderRelease({ [weak self] fraction in self?.sliderReleased(with: fraction) })
+            view.setOnPlayButtonTapped({ [weak self] () in self?.playButtonTapped() })
+            view.setOnSkipBackButtonTapped({ [weak self] () in self?.skipBackButtonTapped() })
+            view.setOnSkipForwardButtonTapped({ [weak self] () in self?.skipForwardButtonTapped() })
             #if os(iOS)
-            view.setOnControlViewTapped(controlViewTapped)
-            view.setOnLiveButtonTapped(liveButtonTapped)
-            view.setOnFullscreenButtonTapped(fullscreenButtonTapped)
-            view.setOnInfoButtonTapped(infoButtonTapped)
+            view.setOnControlViewTapped({ [weak self] () in self?.controlViewTapped() })
+            view.setOnLiveButtonTapped({ [weak self] () in self?.liveButtonTapped() })
+            view.setOnFullscreenButtonTapped({ [weak self] () in self?.fullscreenButtonTapped() })
+            view.setOnInfoButtonTapped({ [weak self] () in self?.infoButtonTapped() })
             #endif
             #if os(tvOS)
-            view.setOnSelectPressed(selectPressed)
-            view.setOnLeftArrowTapped(leftArrowTapped)
-            view.setOnRightArrowTapped(rightArrowTapped)
+            view.setOnSelectPressed({ [weak self] () in self?.selectPressed() })
+            view.setOnLeftArrowTapped({ [weak self] () in self?.leftArrowTapped() })
+            view.setOnRightArrowTapped({ [weak self] () in self?.rightArrowTapped() })
             #endif
             view.drawPlayer(with: player)
             setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
@@ -354,8 +354,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 initPlayerView()
             }
         }
-
-
     }
 
     deinit {
