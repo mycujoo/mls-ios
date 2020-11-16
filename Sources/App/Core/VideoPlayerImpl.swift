@@ -5,13 +5,11 @@
 import AVFoundation
 import UIKit
 
-public class VideoPlayerImpl: NSObject, VideoPlayer {
+internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
-    // MARK: - Public properties
+    weak var delegate: PlayerDelegate?
 
-    public weak var delegate: PlayerDelegate?
-
-    public private(set) var state: VideoPlayerState = .unknown {
+    private(set) var state: VideoPlayerState = .unknown {
         didSet {
             delegate?.playerDidUpdateState(player: self)
         }
@@ -19,7 +17,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     /// - note: This sets `stream` to nil.
-    public var event: Event? {
+    var event: Event? {
         didSet {
             if stream != nil {
                 stream = nil
@@ -34,7 +32,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// Setting a Stream will automatically switch the player over to this stream.
     /// - note: This sets `event` to nil.
-    public var stream: Stream? {
+    var stream: Stream? {
         didSet {
             if event != nil {
                 event = nil
@@ -48,7 +46,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// The current status of the player, based on the current item.
-    public private(set) var status: VideoPlayerStatus = .pause {
+    private(set) var status: VideoPlayerStatus = .pause {
         didSet {
             var buttonState: VideoPlayerPlayButtonState
             switch status {
@@ -79,7 +77,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// The view of the VideoPlayer.
-    public var playerView: UIView {
+    var playerView: UIView {
         if let view = view as? UIView {
             return view
         }
@@ -89,7 +87,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     #if os(iOS)
     /// This property changes when the fullscreen button is tapped. SDK implementors can update this state directly, which will update the visual of the button.
     /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
-    public var isFullscreen: Bool = false {
+    var isFullscreen: Bool = false {
         didSet {
             if isFullscreen != oldValue {
                 DispatchQueue.main.async { [weak self] in
@@ -103,7 +101,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     #endif
 
     /// Get or set the `isMuted` property of the underlying AVPlayer.
-    public var isMuted: Bool {
+    var isMuted: Bool {
         get {
             return player.isMuted
         }
@@ -113,7 +111,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// Indicates whether the current item is a live stream.
-    public var isLivestream: Bool {
+    var isLivestream: Bool {
         guard let duration = player.currentDurationAsCMTime else {
             return false
         }
@@ -122,37 +120,37 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// - returns: The current time (in seconds) of the currentItem.
-    public var currentTime: Double {
+    var currentTime: Double {
         return player.currentTime
     }
 
     /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
-    public var optimisticCurrentTime: Double {
+    var optimisticCurrentTime: Double {
         return player.optimisticCurrentTime
     }
 
     /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
-    public var currentDuration: Double {
+    var currentDuration: Double {
         return player.currentDuration
     }
 
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    public var controlView: UIView {
+    var controlView: UIView {
         return view.controlView
     }
     /// The AVPlayerLayer of the associated AVPlayer
-    public var playerLayer: AVPlayerLayer? {
+    var playerLayer: AVPlayerLayer? {
         return view.playerLayer
     }
 
     #if os(iOS)
     /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    public var topControlsStackView: UIStackView {
+    var topControlsStackView: UIStackView {
         return view.topControlsStackView
     }
 
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
-    public var tapGestureRecognizer: UITapGestureRecognizer {
+    var tapGestureRecognizer: UITapGestureRecognizer {
         return view.tapGestureRecognizer
     }
     #endif
@@ -161,16 +159,16 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     /// - parameter to: The number of seconds within the currentItem to seek to.
     /// - parameter completionHandler: A closure that is called upon a completed seek operation.
     /// - note: The seek tolerance can be configured through the `playerConfig` property on this `VideoPlayer` and is used for all seek operations by this player.
-    public func seek(to: Double, completionHandler: @escaping (Bool) -> Void) {
+    func seek(to: Double, completionHandler: @escaping (Bool) -> Void) {
         let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, to)), preferredTimescale: 600)
         player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, completionHandler: completionHandler)
     }
 
-    public func showEventInfoOverlay() {
+    func showEventInfoOverlay() {
         setInfoViewTo(visible: true)
     }
 
-    public func hideEventInfoOverlay() {
+    func hideEventInfoOverlay() {
         setInfoViewTo(visible: false)
     }
 
@@ -518,7 +516,7 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     
     //MARK: - KVO
 
-    public override func observeValue(
+    override func observeValue(
         forKeyPath keyPath: String?,
         of object: Any?,
         change: [NSKeyValueChangeKey : Any]?,
@@ -557,8 +555,8 @@ public class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 }
 
-// MARK: - Public Methods
-public extension VideoPlayerImpl {
+// MARK: - Methods
+extension VideoPlayerImpl {
 
     func play() { status = .play }
 
@@ -891,7 +889,7 @@ extension VideoPlayerImpl {
 }
 
 extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
-    public func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
+    func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
         // We first check if a url is set in the manifest.
         guard let requestUrl = loadingRequest.request.url,
               let _ = currentStream?.url,
