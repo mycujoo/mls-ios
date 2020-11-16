@@ -5,7 +5,7 @@
 import Foundation
 
 
-public struct Event {
+public struct Event: Equatable {
     public let id: String
     public let title: String?
     /// The description of the event (not to be confused with Swift's native `description` property
@@ -44,13 +44,13 @@ public struct Event {
     }
 }
 
-public enum EventStatus: Int {
+public enum EventStatus: Int, Equatable {
     case scheduled, rescheduled, cancelled, postponed, delayed, started, paused, suspended, finished, unspecified
 }
 
 // MARK: Parameters
 
-public enum ParamEventStatus: Int {
+public enum ParamEventStatus: Int, Equatable {
     case scheduled
     case rescheduled
     case cancelled
@@ -63,7 +63,7 @@ public enum ParamEventStatus: Int {
     case unspecified
 }
 
-public enum ParamEventOrder: Int {
+public enum ParamEventOrder: Int, Equatable {
     case startTimeAsc
     case startTimeDesc
     case titleAsc

@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct Stream {
+public struct Stream: Equatable {
     public let id: String
     private let fullUrl: URL?
     public let fairplay: FairplayStream?
@@ -21,7 +21,7 @@ public struct Stream {
     }
 }
 
-public struct FairplayStream {
+public struct FairplayStream: Equatable {
     public let fullUrl: URL
     public let licenseUrl: URL
     public let certificateUrl: URL
