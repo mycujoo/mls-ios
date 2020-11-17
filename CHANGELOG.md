@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.4](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.4)
+Released on 2020-11-17.
+
+#### Fixed
+- Memory leak due to a retain cycle
+
 ## [1.1.3](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.3)
 Released on 2020-11-16.
 
