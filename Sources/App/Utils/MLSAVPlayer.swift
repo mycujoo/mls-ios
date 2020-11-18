@@ -81,12 +81,6 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
     private let seekDebouncer = Debouncer()
 
-    /// Use this method of initialization. This ensures that the custom AVPlayer networking interceptor is registered, which will be used to correctly position annotation actions.
-    override init() {
-        MLSAVPlayerNetworkInterceptor.register()
-        super.init()
-    }
-
     override func seek(to time: CMTime) {
         self.seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: 0.0, completionHandler: { _ in })
     }
@@ -216,6 +210,8 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 //        }
 
         let assetUrl = URL(string: "https://europe-west-hls.mls.mycujoo.tv/mats/ckhnna9ps00hw016785wjt1ey/master.m3u8")!
+
+        MLSAVPlayerNetworkInterceptor.register()
 
         let asset = AVURLAsset(url: MLSAVPlayerNetworkInterceptor.prepare(assetUrl), options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)

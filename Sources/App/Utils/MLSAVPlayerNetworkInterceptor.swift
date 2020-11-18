@@ -23,6 +23,8 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
     }
 
     private static var hasRegisteredInterceptor = false
+
+    /// Call this method to register this URLProtocol so that it will intercept `m3u8` traffic. It is safe to call it multiple times.
     static func register() {
         guard !hasRegisteredInterceptor else { return }
             hasRegisteredInterceptor = true
