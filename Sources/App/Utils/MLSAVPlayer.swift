@@ -209,9 +209,9 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 //            return
 //        }
 
-        let assetUrl = URL(string: "https://europe-west-hls.mls.mycujoo.tv/mats/ckhnna9ps00hw016785wjt1ey/master.m3u8")!
+        let assetUrl = URL(string: "https://europe-west-hls.mls.mycujoo.tv/mats/ckdzx6bso007v0169u8xuv9zt/master.m3u8?sig=7qieFw4xZs744IxS1mgkDqN6ZbQ")!
 
-        MLSAVPlayerNetworkInterceptor.register()
+        MLSAVPlayerNetworkInterceptor.register(withDelegate: self)
 
         let asset = AVURLAsset(url: MLSAVPlayerNetworkInterceptor.prepare(assetUrl), options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)
@@ -232,5 +232,11 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
                 callback(false)
             }
         }
+    }
+}
+
+extension MLSAVPlayer: MLSAVPlayerNetworkInterceptorDelegate {
+    func received(response: String, forRequestURL: URL?) {
+        print("Response: \(response)")
     }
 }

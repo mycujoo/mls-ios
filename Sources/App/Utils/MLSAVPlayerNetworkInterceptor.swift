@@ -4,7 +4,9 @@
 
 import Foundation
 
-
+protocol MLSAVPlayerNetworkInterceptorDelegate: class {
+    func received(response: String, forRequestURL: URL?)
+}
 
 class MLSAVPlayerNetworkInterceptor: URLProtocol {
     /// Unfortunately, AVPlayer does not invoke any custom URLProtocol out of the box
@@ -24,8 +26,12 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
 
     private static var hasRegisteredInterceptor = false
 
+    static weak var delegate: MLSAVPlayerNetworkInterceptorDelegate? = nil
+
     /// Call this method to register this URLProtocol so that it will intercept `m3u8` traffic. It is safe to call it multiple times.
-    static func register() {
+    /// - delegate: A class-level delegate that will be notified of any intercepted HLS traffic.
+    static func register(withDelegate delegate: MLSAVPlayerNetworkInterceptorDelegate) {
+        self.delegate = delegate
         guard !hasRegisteredInterceptor else { return }
             hasRegisteredInterceptor = true
             URLProtocol.registerClass(MLSAVPlayerNetworkInterceptor.self)
@@ -69,8 +75,8 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
                 self.client?.urlProtocol(self, didFailWithError: error ?? NSError(domain: "MLSAVPlayerURLProtocol", code: -1, userInfo: nil))
                 return
             }
-            let responseBody = String(decoding: data, as: UTF8.self)
-            print("Handle response body: \(responseBody)")
+
+            MLSAVPlayerNetworkInterceptor.delegate?.received(response: String(decoding: data, as: UTF8.self), forRequestURL: self.request.url)
 
             self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .allowed)
             self.client?.urlProtocol(self, didLoad: data)
