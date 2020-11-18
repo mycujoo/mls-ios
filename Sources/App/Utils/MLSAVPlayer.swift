@@ -7,6 +7,8 @@ import AVFoundation
 
 /// A subclass of AVPlayer to improve visibility of such things as seeking states.
 class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
+    private static var hasRegisteredInterceptor = false
+
     private(set) var isSeeking = false
 
     private let resourceLoaderQueue = DispatchQueue.global(qos: .background)
@@ -80,6 +82,15 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private var isSeekingUpdatedAt = Date()
 
     private let seekDebouncer = Debouncer()
+
+    override init() {
+        if !MLSAVPlayer.hasRegisteredInterceptor {
+            MLSAVPlayer.hasRegisteredInterceptor = true
+            URLProtocol.registerClass(MLSAVPlayerURLProtocol.self)
+        }
+
+        super.init()
+    }
 
     override func seek(to time: CMTime) {
         self.seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: 0.0, completionHandler: { _ in })
@@ -203,11 +214,13 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     /// - parameter resourceLoaderDelegate: The delegate for the asset's resourceLoader.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ()) {
-        guard let assetUrl = assetUrl else {
-            self.replaceCurrentItem(with: nil)
-            callback(true)
-            return
-        }
+//        guard let assetUrl = assetUrl else {
+//            self.replaceCurrentItem(with: nil)
+//            callback(true)
+//            return
+//        }
+
+        let assetUrl = URL(string: "quic://europe-west-hls.mls.mycujoo.tv/mats/ckhnna9ps00hw016785wjt1ey/master.m3u8")!
 
         let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)
@@ -230,3 +243,44 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         }
     }
 }
+
+class MLSAVPlayerURLProtocol: URLProtocol {
+    override class func canInit(with request: URLRequest) -> Bool {
+        if URLProtocol.property(forKey: "handled", in: request) != nil {
+            return false
+        }
+        return request.url?.pathExtension == "m3u8"
+    }
+
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+        guard let url = request.url else { return request }
+
+        let newurl = URLRequest(url: URL(string: url.absoluteString.replacingFirstOccurrence(of: "quic", with: "https"))!)
+
+        return newurl
+    }
+
+    override func startLoading() {
+        let request = self.request as! NSMutableURLRequest
+        URLProtocol.setProperty(true, forKey: "handled", in: request)
+
+        let task = URLSession.shared.dataTask(with: request as URLRequest) { [weak self] (data, response, error) in
+            guard let self = self else { return }
+            guard let data = data, let response = response else {
+                self.client?.urlProtocol(self, didFailWithError: error ?? NSError(domain: "MLSAVPlayerURLProtocol", code: -1, userInfo: nil))
+                return
+            }
+            let responseBody = String(decoding: data, as: UTF8.self)
+
+            self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .allowed)
+            self.client?.urlProtocol(self, didLoad: data)
+            self.client?.urlProtocolDidFinishLoading(self)
+        }
+
+        task.resume()
+    }
+
+    override func stopLoading() {
+    }
+}
+

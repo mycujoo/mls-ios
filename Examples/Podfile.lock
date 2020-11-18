@@ -3,7 +3,7 @@ PODS:
   - Cuckoo (1.4.1):
     - Cuckoo/Swift (= 1.4.1)
   - Cuckoo/Swift (1.4.1)
-  - MLSSDK (1.1.2):
+  - MLSSDK (1.1.4):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - Starscream (~> 3.1)
@@ -51,7 +51,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   Cuckoo: 4625f7f54d9bb880123270e8969898d6c1d036b5
-  MLSSDK: bd1b7f81955a45707084683f09edfe8d0e170fc2
+  MLSSDK: c69176ed0faa399e4c04980db7508132ce27c000
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Nimble: 5f8a2fb6fa343a7242dfdd9d42f7267419d464b2
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2

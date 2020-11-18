@@ -209,6 +209,8 @@
 		497A034E24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json in Resources */ = {isa = PBXBuildFile; fileRef = 497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */; };
 		497FD2C624C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
 		497FD2C724C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
+		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
+		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		4988B9B424C846D000352529 /* testAnnotationService_basicShowOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */; };
 		4988B9B824C846FB00352529 /* testAnnotationService_basicHideOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */; };
 		4988B9BA24C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B924C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json */; };
@@ -627,6 +629,7 @@
 		49736E9424A9F59B001F3F48 /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParser.swift; sourceTree = "<group>"; };
 		497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_adjustAndSkipTimers.json; sourceTree = "<group>"; };
 		497FD2C524C0981F0027E708 /* TOVStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStore.swift; sourceTree = "<group>"; };
+		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
 		4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicHideOverlay.json; sourceTree = "<group>"; };
 		4988B9B924C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_showOverlayCorrectlyWithoutAnimation.json; sourceTree = "<group>"; };
@@ -946,6 +949,7 @@
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
 				495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */,
 				498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */,
+				498856A02565A0470093FA66 /* String+.swift */,
 				498E48FB24D062D90040502D /* Thread+.swift */,
 				495CB138249CF98600998FF4 /* Throttler.swift */,
 				495CB132249CC50E00998FF4 /* UIColor+.swift */,
@@ -1940,6 +1944,7 @@
 				49736EDF24A9F59C001F3F48 /* OpacityAnimation.swift in Sources */,
 				49736E9C24A9F59C001F3F48 /* RoundRect.swift in Sources */,
 				49736E9A24A9F59C001F3F48 /* Ellipse.swift in Sources */,
+				498856A12565A0470093FA66 /* String+.swift in Sources */,
 				49736EED24A9F59C001F3F48 /* FuncBounds.swift in Sources */,
 				49736EE124A9F59C001F3F48 /* TransformHashable.swift in Sources */,
 				4926CE2B24CE046D00419A42 /* DataLayer.swift in Sources */,
@@ -2139,6 +2144,7 @@
 				49A8049224AA0E0B00E30DA8 /* TransformInterpolation.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
 				49A8048124AA0DF500E30DA8 /* TransformGenerator.swift in Sources */,
+				498856A22565A0470093FA66 /* String+.swift in Sources */,
 				49A804EC24AA0ECB00E30DA8 /* CSSParser.swift in Sources */,
 				4926CE2C24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDFA24CDE96700419A42 /* GetEventUseCase.swift in Sources */,

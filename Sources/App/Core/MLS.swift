@@ -111,7 +111,7 @@ public class MLS {
     private lazy var getCertificateDataUseCase: GetCertificateDataUseCase = {
         return GetCertificateDataUseCase(drmRepository: drmRepository)
     }()
-    private lazy var getLicenseDataUseCase:GetLicenseDataUseCase = {
+    private lazy var getLicenseDataUseCase: GetLicenseDataUseCase = {
         return GetLicenseDataUseCase(drmRepository: drmRepository)
     }()
 

@@ -241,9 +241,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     private var activeOverlayIds: Set<String> = Set()
 
-    /// The `AVPlayerItemAccessLogEvent.uri` property of the last event emitted by the NotificationCenter.
-    private var currentItemUri: String? = nil
-
     /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
     /// The UIView should be the outer container of the overlay, not the SVGView directly.
     private var overlays: [String: UIView] = [:]
@@ -322,7 +319,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         super.init()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAVPlayerAccessLogNotification), name: NSNotification.Name.AVPlayerItemNewAccessLogEntry, object: nil)
         player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: player)
@@ -677,15 +673,6 @@ extension VideoPlayerImpl {
 
                     self.evaluateAnnotations()
         }
-    }
-
-    // Handle notification.
-    @objc func handleAVPlayerAccessLogNotification(_ notification: Notification) {
-        guard let playerItem = notification.object as? AVPlayerItem, playerItem.isEqual(player.currentItem),
-            let lastEvent = playerItem.accessLog()?.events.last else {
-            return
-        }
-        currentItemUri = lastEvent.uri
     }
 
     private func sliderUpdated(with fraction: Double) {
