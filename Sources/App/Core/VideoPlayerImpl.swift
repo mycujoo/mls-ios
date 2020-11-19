@@ -892,9 +892,18 @@ extension VideoPlayerImpl {
 
 extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
+        guard let requestUrl = loadingRequest.request.url else {
+            return false
+        }
+
+        if requestUrl.absoluteString.prefix(4) != "http" {
+            // This is likely because of the `MLSAVPlayerNetworkInterceptor`. We always want to return false for that.
+            // See that class for more information.
+            return false
+        }
+        
         // We first check if a url is set in the manifest.
-        guard let requestUrl = loadingRequest.request.url,
-              let _ = currentStream?.url,
+        guard let _ = currentStream?.url,
               let licenseUrl = currentStream?.fairplay?.licenseUrl,
               let certificateUrl = currentStream?.fairplay?.certificateUrl else {
             loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -10, userInfo: nil))
