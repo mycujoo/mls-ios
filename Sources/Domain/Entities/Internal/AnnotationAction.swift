@@ -15,6 +15,9 @@ struct AnnotationAction: Hashable {
     let id: String
     private let type: String
     let offset: Int64
+    /// A UNIX timestamp (in milliseconds) of the absolute time at which this action happened.
+    /// Can be used to calculate the video offset against HLS playlists in cases where the video length exceeds the DVR window.
+    let timestamp: Int64
     let data: AnnotationActionData
 
     /// A priority indicates what the order of actions should be when they happen at the same offset. A higher priority means it should go first.
@@ -35,10 +38,11 @@ struct AnnotationAction: Hashable {
         }
     }
 
-    init(id: String, type: String, offset: Int64, data: AnnotationActionData) {
+    init(id: String, type: String, offset: Int64, timestamp: Int64, data: AnnotationActionData) {
         self.id = id
         self.type = type
         self.offset = offset
+        self.timestamp = timestamp
         self.data = data
     }
 

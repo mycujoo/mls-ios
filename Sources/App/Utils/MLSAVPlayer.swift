@@ -77,6 +77,8 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         return currentItem?.duration
     }
 
+    var rawSegmentPlaylist: String? = nil
+
     private var isSeekingUpdatedAt = Date()
 
     private let seekDebouncer = Debouncer()
@@ -203,13 +205,17 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     /// - parameter resourceLoaderDelegate: The delegate for the asset's resourceLoader.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ()) {
-        guard let assetUrl = assetUrl else {
-            self.replaceCurrentItem(with: nil)
-            callback(true)
-            return
-        }
+//        guard let assetUrl = assetUrl else {
+//            self.replaceCurrentItem(with: nil)
+//            callback(true)
+//            return
+//        }
 
-        let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
+        let assetUrl = URL(string: "https://europe-west-hls.mls.mycujoo.tv/mats/ckdzx6bso007v0169u8xuv9zt/master.m3u8?sig=7qieFw4xZs744IxS1mgkDqN6ZbQ")!
+
+        MLSAVPlayerNetworkInterceptor.register(withDelegate: self)
+
+        let asset = AVURLAsset(url: MLSAVPlayerNetworkInterceptor.prepare(assetUrl), options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)
         asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
             guard let `self` = self else { return }
@@ -228,5 +234,12 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
                 callback(false)
             }
         }
+    }
+}
+
+extension MLSAVPlayer: MLSAVPlayerNetworkInterceptorDelegate {
+    func received(response: String, forRequestURL: URL?) {
+        guard let lastPathComponent = forRequestURL?.lastPathComponent, lastPathComponent != "master.m3u8" else { return }
+        self.rawSegmentPlaylist = response
     }
 }

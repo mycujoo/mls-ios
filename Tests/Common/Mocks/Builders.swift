@@ -20,10 +20,13 @@ class EntityBuilder {
             timelineIds: withTimelineId ? ["randomTimelineId"] : [])
     }
 
-    static func buildStream(withRandomId: Bool = true, withURL: Bool = true, withRandomURL: Bool = false) -> MLSSDK.Stream {
+    static func buildStream(withRandomId: Bool = true, withURL: Bool = true, withRandomURL: Bool = false, withShortDVRWindow: Bool = false, withError: Bool = false) -> MLSSDK.Stream {
         return MLSSDK.Stream(
             id: withRandomId ? randomString(length: 20) : "mockstream",
-            fullUrl: withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8" + (withRandomURL ? "?randomizer=" + randomString(length: 20) : ""))! : nil, fairplay: nil)
+            fullUrl: !withError && withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8" + (withRandomURL ? "?randomizer=" + randomString(length: 20) : ""))! : nil,
+            fairplay: nil,
+            dvrWindowSize: withShortDVRWindow ? 40000 : 7200000,
+            errorCode: withError ? "ERR_GEOBLOCK" : nil)
     }
 
     private static func randomString(length: Int) -> String {

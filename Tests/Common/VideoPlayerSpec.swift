@@ -16,6 +16,7 @@ class VideoPlayerSpec: QuickSpec {
     var mockAVPlayer: MockMLSAVPlayerProtocol!
     var mockAnnotationService: MockAnnotationServicing!
     var mockVideoAnalyticsService: MockVideoAnalyticsServicing!
+    var mockHLSInspectionService: MockHLSInspectionServicing!
 
     var mockTimelineRepository: MockTimelineRepository!
     var mockArbitraryDataRepository: MockArbitraryDataRepository!
@@ -202,6 +203,11 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).currentItemIsLive.set(any()).thenDoNothing()
             }
 
+            self.mockHLSInspectionService = MockHLSInspectionServicing()
+            stub(self.mockHLSInspectionService) { mock in
+                when(mock).map(hlsPlaylist: any(), absoluteTimes: any()).thenReturn([:])
+            }
+
             self.mockTimelineRepository = MockTimelineRepository()
             self.mockArbitraryDataRepository = MockArbitraryDataRepository()
             self.mockEventRepository = MockEventRepository()
@@ -254,6 +260,7 @@ class VideoPlayerSpec: QuickSpec {
                 getLicenseDataUseCase: GetLicenseDataUseCase(drmRepository: self.mockDRMRepository),
                 annotationService: self.mockAnnotationService,
                 videoAnalyticsService: self.mockVideoAnalyticsService,
+                hlsInspectionService: self.mockHLSInspectionService,
                 pseudoUserId: "test_account")
                 self.videoPlayer.playerConfig = PlayerConfig.standard()
         }

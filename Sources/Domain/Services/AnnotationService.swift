@@ -10,6 +10,10 @@ class AnnotationService: AnnotationServicing {
     struct EvaluationInput {
         /// The annotations being evaluated
         var actions: [AnnotationAction]
+        /// (OPTIONAL) a list of mappings between an AnnotationAction id and the videoOffset that should be used.
+        /// Should only be applied if the videoOffset to be used is different than the offset stored on the annotation itself.
+        /// This is primarily the case when the video length exceeds the DVR window.
+        var offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
         /// A Set of overlayIds that are currently active (i.e. on-screen). This is obtained through a previous evaluation. Should initially be an empty set.
         var activeOverlayIds: Set<String>
         /// The elapsed time (in milliseconds) of the currently playing item of the video player.
@@ -69,15 +73,25 @@ class AnnotationService: AnnotationServicing {
                 })
                 .filter({ !deletedActions.contains($0.id) })
             {
-                let offset = Double(action.offset)
+                let offsetMapping = input.offsetMappings?[action.id]
+                /// The video offset, i.e. the moment in the available video stream at which this action happened. Defined in milliseconds.
+                let offset = Double(offsetMapping??.videoOffset ?? action.offset)
+                /// Indicates that this action happened within a video gap, i.e. a moment in real time for which there is no video available.
+                /// Certain actions like variable and timer manipulations should still happen (e.g. to ensure accurate scores), but others should not,
+                /// like timeline markers.
+                let inGap = offsetMapping??.inGap ?? false
                 switch action.data {
                 case .showTimelineMarker(let data):
+                    guard !inGap else { continue }
+
                     let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label, seekOffset: data.seekOffset)
                     let position = min(1.0, max(0.0, offset / input.currentDuration))
                     let seekPosition = min(1.0, max(0.0, (offset + Double(data.seekOffset)) / input.currentDuration))
 
                     showTimelineMarkers.append(MLSUI.ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position, seekPosition: seekPosition))
                 case .showOverlay(let data):
+                    guard !inGap else { continue }
+
                     if offset <= input.currentTime {
                         if let duration = data.duration {
                             if input.currentTime < offset + duration {
@@ -107,7 +121,6 @@ class AnnotationService: AnnotationServicing {
                             }
                         }
                     }
-
                 case .hideOverlay:
                     if offset <= input.currentTime {
                         if let obj = self.makeHideOverlay(from: action) {
