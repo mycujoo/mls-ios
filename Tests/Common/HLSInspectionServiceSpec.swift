@@ -40,7 +40,18 @@ class HLSInspectionServiceSpec: QuickSpec {
                 #EXT-X-ENDLIST
                 """
 
-            let inputTimes: [Int64] = [1, 1605802502000, 1605802503000, 1605802515000, 1605802516000, 1605802517000, 1605802523000, 1605802523001]
+            let inputTimes: [Int64] = [
+                1,
+                1605802502000,
+                1605802503000,
+                1605802515000,
+                1605802516000,
+                1605802517000,
+                1605802523000,
+                1605802523001,
+                1605802533000,
+                1605802543000,
+                1605802544000]
 
             let expectedResults: [Int64 : (videoOffset: Int64, inGap: Bool)?] = [
                 1: (videoOffset: -1, inGap: true),
@@ -50,18 +61,23 @@ class HLSInspectionServiceSpec: QuickSpec {
                 1605802516000: (videoOffset: 18000, inGap: false),
                 1605802517000: (videoOffset: 18000, inGap: true),
                 1605802523000: (videoOffset: 18000, inGap: false),
-                1605802523001: (videoOffset: 18001, inGap: false)
+                1605802523001: (videoOffset: 18001, inGap: false),
+                1605802533000: (videoOffset: 28000, inGap: false),
+                1605802543000: (videoOffset: 38000, inGap: false),
+                1605802544000: nil
             ]
             let results = self.hlsInspectionService.map(hlsPlaylist: playlist, absoluteTimes: inputTimes)
 
             for inputTime in inputTimes {
-                guard let result = results[inputTime], let expectedResult = expectedResults[inputTime] else {
-                    fail("Missing the absolute time in the (expected) result set")
-                    return
-                }
+                let result = results[inputTime]
 
-                expect(result?.videoOffset).to(equal(expectedResult?.videoOffset))
-                expect(result?.inGap).to(equal(expectedResult?.inGap))
+                if let expectedResult = expectedResults[inputTime], let expectedResult_ = expectedResult {
+                    expect(result??.videoOffset).to(equal(expectedResult_.videoOffset))
+                    expect(result??.inGap).to(equal(expectedResult_.inGap))
+                } else {
+                    expect(result??.videoOffset).to(beNil())
+                    expect(result??.inGap).to(beNil())
+                }
             }
         }
     }

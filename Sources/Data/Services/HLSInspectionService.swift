@@ -15,7 +15,7 @@ class HLSInspectionService: HLSInspectionServicing {
         var currentSegmentSize: Int64 = 0
         var currentTime: Int64 = 0
 
-        var remainingTimes = (absoluteTimes.sorted())
+        var remainingTimes = absoluteTimes.sorted()
 
         var results: [Int64: (videoOffset: Int64, inGap: Bool)?] = [:]
 
@@ -42,7 +42,6 @@ class HLSInspectionService: HLSInspectionServicing {
                         results[time] = (videoOffset: timePassed + currentSegmentSize, inGap: true)
                         newRemainingTimes.removeFirst()
                     } else {
-                        remainingTimes = newRemainingTimes
                         break
                     }
                 }
