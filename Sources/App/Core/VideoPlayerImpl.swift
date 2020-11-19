@@ -501,8 +501,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
     private func evaluateAnnotations() {
+        // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
+        // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
-        if Int(optimisticCurrentTime) + 20 > (currentStream?.dvrWindowSize ?? 0) {
+        if Int(currentDuration) + 20 > (currentStream?.dvrWindowSize ?? Int.max) / 1000 {
             let map = hlsInspectionService.map(hlsPlaylist: player.rawSegmentPlaylist, absoluteTimes: annotationActions.map { $0.timestamp })
             offsetMappings = Dictionary(annotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
         } else {
