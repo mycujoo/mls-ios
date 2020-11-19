@@ -81,6 +81,7 @@
 		4961F4A92566B99E003C7372 /* HLSInspectionServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961F4A72566B99E003C7372 /* HLSInspectionServicing.swift */; };
 		4961F4B02566BACB003C7372 /* HLSInspectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961F4AF2566BACB003C7372 /* HLSInspectionService.swift */; };
 		4961F4B12566BACB003C7372 /* HLSInspectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961F4AF2566BACB003C7372 /* HLSInspectionService.swift */; };
+		4961F4F82566CF95003C7372 /* HLSInspectionServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961F4F72566CF95003C7372 /* HLSInspectionServiceSpec.swift */; };
 		4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
 		4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
 		496ECB0124CF0E7A001A9431 /* TOVStoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */; };
@@ -507,6 +508,7 @@
 		495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayer.swift; sourceTree = "<group>"; };
 		4961F4A72566B99E003C7372 /* HLSInspectionServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionServicing.swift; sourceTree = "<group>"; };
 		4961F4AF2566BACB003C7372 /* HLSInspectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionService.swift; sourceTree = "<group>"; };
+		4961F4F72566CF95003C7372 /* HLSInspectionServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionServiceSpec.swift; sourceTree = "<group>"; };
 		4966DEFD24B72D7F00BEC403 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStoreSpec.swift; sourceTree = "<group>"; };
 		49736DF624A9F599001F3F48 /* GroupDisposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDisposable.swift; sourceTree = "<group>"; };
@@ -1312,6 +1314,7 @@
 				49EA06C524C79B5500C7AB10 /* Stubs */,
 				49EA06C424C792B300C7AB10 /* Mocks */,
 				4988B9CB24C87BCC00352529 /* AnnotationServiceSpec.swift */,
+				4961F4F72566CF95003C7372 /* HLSInspectionServiceSpec.swift */,
 				496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */,
 				498E48FE24D0670F0040502D /* VideoPlayerSpec.swift */,
 			);
@@ -1918,6 +1921,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4961F4F82566CF95003C7372 /* HLSInspectionServiceSpec.swift in Sources */,
 				496ECB0124CF0E7A001A9431 /* TOVStoreSpec.swift in Sources */,
 				49EA06C324C792A100C7AB10 /* GeneratedMocks.swift in Sources */,
 				4988B9CC24C87BCC00352529 /* AnnotationServiceSpec.swift in Sources */,
