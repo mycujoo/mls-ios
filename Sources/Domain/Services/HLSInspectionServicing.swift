@@ -10,7 +10,7 @@ protocol HLSInspectionServicing {
     /// It will also indicate whether these mapped videoOffsets fall into a gap (i.e. in a moment when there is no video).
     /// - parameter hlsPlaylist: The HLS playlist (not the master playlist, but the one that contains segments) as a string.
     /// - parameter absoluteTimes: A list of UNIX timestamps in milliseconds
-    /// - returns: An array of video offsets and whether the offset is at a gap or not
+    /// - returns: A dictionary with absolute times as keys, and values of video offsets and whether the offset is at a gap or not.
     ///   If the mapping could not be done (e.g. because of a faulty playlist), nil is returned within the array.
-    func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [(videoOffset: Int64, inGap: Bool)?]
+    func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]
 }

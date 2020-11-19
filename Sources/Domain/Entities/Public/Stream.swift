@@ -8,6 +8,7 @@ public struct Stream: Equatable {
     public let id: String
     private let fullUrl: URL?
     public let fairplay: FairplayStream?
+    /// The size of the DVR window in milliseconds
     public let dvrWindowSize: Int?
     public let errorCode: String?
 

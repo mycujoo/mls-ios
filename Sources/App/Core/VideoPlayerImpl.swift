@@ -501,7 +501,15 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
     private func evaluateAnnotations() {
-        annotationService.evaluate(AnnotationService.EvaluationInput(actions: annotationActions, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime * 1000, currentDuration: currentDuration * 1000)) { [weak self] output in
+        let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
+        if Int(optimisticCurrentTime) + 20 > (currentStream?.dvrWindowSize ?? 0) {
+            let map = hlsInspectionService.map(hlsPlaylist: player.rawSegmentPlaylist, absoluteTimes: annotationActions.map { $0.timestamp })
+            offsetMappings = Dictionary(annotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
+        } else {
+            offsetMappings = nil
+        }
+
+        annotationService.evaluate(AnnotationService.EvaluationInput(actions: annotationActions, offsetMappings: offsetMappings, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime * 1000, currentDuration: currentDuration * 1000)) { [weak self] output in
 
             self?.activeOverlayIds = output.activeOverlayIds
 
