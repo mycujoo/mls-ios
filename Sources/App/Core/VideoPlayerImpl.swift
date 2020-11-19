@@ -183,6 +183,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private let getLicenseDataUseCase: GetLicenseDataUseCase
     private let annotationService: AnnotationServicing
     private let videoAnalyticsService: VideoAnalyticsServicing
+    private let hlsInspectionService: HLSInspectionServicing
     private var timeObserver: Any?
 
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
@@ -303,6 +304,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             getLicenseDataUseCase: GetLicenseDataUseCase,
             annotationService: AnnotationServicing,
             videoAnalyticsService: VideoAnalyticsServicing,
+            hlsInspectionService: HLSInspectionServicing,
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String) {
         self.player = player
@@ -314,6 +316,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         self.getLicenseDataUseCase = getLicenseDataUseCase
         self.annotationService = annotationService
         self.videoAnalyticsService = videoAnalyticsService
+        self.hlsInspectionService = hlsInspectionService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
 

@@ -9,6 +9,8 @@ extension DataLayer {
         let id: String
         let fullUrl: URL?
         let fairplay: FairplayStream?
+        let dvrWindowSize: Int?
+        let errorCode: String?
     }
 
     struct FairplayStream: Decodable {
@@ -40,6 +42,8 @@ extension DataLayer.Stream {
         case id
         case fullUrl = "full_url"
         case fairplay
+        case dvrWindowSize = "dvr_window_size"
+        case errorCode = "error"
     }
 
     init(from decoder: Decoder) throws {
@@ -48,8 +52,10 @@ extension DataLayer.Stream {
         let fullUrl: URL? = try? container.decode(URL.self, forKey: .fullUrl)
 //        let fairplay: DataLayer.FairplayStream? = try? container.decode(DataLayer.FairplayStream.self, forKey: .fairplay)
         let fairplay: DataLayer.FairplayStream? = nil // Temporarily fixed to nil until we are ready to release DRM.
+        let dvrWindowSize: Int? = try? container.decode(Int.self, forKey: .dvrWindowSize)
+        let errorCode: String? = try? container.decode(String.self, forKey: .errorCode)
 
-        self.init(id: id, fullUrl: fullUrl, fairplay: fairplay)
+        self.init(id: id, fullUrl: fullUrl, fairplay: fairplay, dvrWindowSize: dvrWindowSize, errorCode: errorCode)
     }
 }
 
@@ -57,7 +63,7 @@ extension DataLayer.Stream {
 
 extension DataLayer.Stream {
     var toDomain: MLSSDK.Stream {
-        return MLSSDK.Stream(id: self.id, fullUrl: self.fullUrl, fairplay: fairplay?.toDomain)
+        return MLSSDK.Stream(id: self.id, fullUrl: self.fullUrl, fairplay: self.fairplay?.toDomain, dvrWindowSize: self.dvrWindowSize, errorCode: self.errorCode)
     }
 }
 

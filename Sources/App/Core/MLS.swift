@@ -118,8 +118,11 @@ public class MLS {
     private lazy var annotationService: AnnotationServicing = {
         return AnnotationService()
     }()
-    private lazy var youboraVideoAnalyticsService: YouboraVideoAnalyticsService = {
+    private lazy var youboraVideoAnalyticsService: VideoAnalyticsServicing = {
         return YouboraVideoAnalyticsService(pseudoUserId: pseudoUserId)
+    }()
+    private lazy var hlsInspectionService: HLSInspectionServicing = {
+        return HLSInspectionService()
     }()
 
     private lazy var dataProvider_: DataProvider = {
@@ -148,6 +151,7 @@ public class MLS {
             getLicenseDataUseCase: getLicenseDataUseCase,
             annotationService: annotationService,
             videoAnalyticsService: youboraVideoAnalyticsService,
+            hlsInspectionService: hlsInspectionService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId)
 
