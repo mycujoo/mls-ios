@@ -21,7 +21,7 @@ class HLSInspectionServiceSpec: QuickSpec {
             self.hlsInspectionService = HLSInspectionService()
         }
 
-        it("parses successfully") {
+        fit("parses basic playlist successfully") {
             let playlist = """
                 #EXTM3U
                 #EXT-X-MEDIA-SEQUENCE:0
@@ -40,10 +40,23 @@ class HLSInspectionServiceSpec: QuickSpec {
                 #EXT-X-ENDLIST
                 """
 
-            let results = self.hlsInspectionService.map(hlsPlaylist: playlist, absoluteTimes: [])
+            let inputTimes: [Int64] = [1605802502000]
+
+            let expectedResults: [Int64 : (videoOffset: Int64, inGap: Bool)?] = [
+                1605802502000: (videoOffset: 4000, inGap: false)
+            ]
+            let results = self.hlsInspectionService.map(hlsPlaylist: playlist, absoluteTimes: inputTimes)
 
 
+            for time in inputTimes {
+                guard let result = results[time], let expectedResult = expectedResults[time] else {
+                    fail("Missing the absolute time in the (expected) result set")
+                    return
+                }
 
+                expect(result?.videoOffset).to(equal(expectedResult?.videoOffset))
+                expect(result?.inGap).to(equal(expectedResult?.inGap))
+            }
         }
     }
 }
