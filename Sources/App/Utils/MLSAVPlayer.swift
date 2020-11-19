@@ -205,13 +205,11 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     /// - parameter resourceLoaderDelegate: The delegate for the asset's resourceLoader.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ()) {
-//        guard let assetUrl = assetUrl else {
-//            self.replaceCurrentItem(with: nil)
-//            callback(true)
-//            return
-//        }
-
-        let assetUrl = URL(string: "https://europe-west-hls.mls.mycujoo.tv/mats/ckdzx6bso007v0169u8xuv9zt/master.m3u8?sig=7qieFw4xZs744IxS1mgkDqN6ZbQ")!
+        guard let assetUrl = assetUrl else {
+            self.replaceCurrentItem(with: nil)
+            callback(true)
+            return
+        }
 
         MLSAVPlayerNetworkInterceptor.register(withDelegate: self)
 
