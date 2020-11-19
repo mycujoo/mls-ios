@@ -40,16 +40,22 @@ class HLSInspectionServiceSpec: QuickSpec {
                 #EXT-X-ENDLIST
                 """
 
-            let inputTimes: [Int64] = [1605802502000]
+            let inputTimes: [Int64] = [1, 1605802502000, 1605802503000, 1605802515000, 1605802516000, 1605802517000, 1605802523000, 1605802523001]
 
             let expectedResults: [Int64 : (videoOffset: Int64, inGap: Bool)?] = [
-                1605802502000: (videoOffset: 4000, inGap: false)
+                1: (videoOffset: -1, inGap: true),
+                1605802502000: (videoOffset: 4000, inGap: false),
+                1605802503000: (videoOffset: 5000, inGap: false),
+                1605802515000: (videoOffset: 17000, inGap: false),
+                1605802516000: (videoOffset: 18000, inGap: false),
+                1605802517000: (videoOffset: 18000, inGap: true),
+                1605802523000: (videoOffset: 18000, inGap: false),
+                1605802523001: (videoOffset: 18001, inGap: false)
             ]
             let results = self.hlsInspectionService.map(hlsPlaylist: playlist, absoluteTimes: inputTimes)
 
-
-            for time in inputTimes {
-                guard let result = results[time], let expectedResult = expectedResults[time] else {
+            for inputTime in inputTimes {
+                guard let result = results[inputTime], let expectedResult = expectedResults[inputTime] else {
                     fail("Missing the absolute time in the (expected) result set")
                     return
                 }

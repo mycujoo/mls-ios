@@ -11,8 +11,11 @@ class HLSInspectionService: HLSInspectionServicing {
         var lineHasExtInf = false
 
         var timePassed: Int64 = 0
+        var targetSegmentSize: Int64 = 0
         var currentSegmentSize: Int64 = 0
         var currentTime: Int64 = 0
+
+        var remainingTimes = (absoluteTimes.sorted())
 
         var results: [Int64: (videoOffset: Int64, inGap: Bool)?] = [:]
 
@@ -27,12 +30,23 @@ class HLSInspectionService: HLSInspectionServicing {
 
                 currentTime = timestamp
 
-                for time in absoluteTimes { // todo: pop items when they get added to the results var
-                    if currentTime <= time && currentTime + currentSegmentSize >= currentTime {
-                        let resultForThisTime = timePassed + (time - currentTime)
-                        results[time] = (videoOffset: resultForThisTime, inGap: false) // TODO: inGap
+                var newRemainingTimes = remainingTimes
+                for time in remainingTimes {
+                    if time < currentTime {
+                        results[time] = (videoOffset: -1, inGap: true)
+                        newRemainingTimes.removeFirst()
+                    } else if time - currentSegmentSize <= currentTime {
+                        results[time] = (videoOffset: timePassed + (time - currentTime), inGap: false)
+                        newRemainingTimes.removeFirst()
+                    } else if time - targetSegmentSize <= currentTime {
+                        results[time] = (videoOffset: timePassed + currentSegmentSize, inGap: true)
+                        newRemainingTimes.removeFirst()
+                    } else {
+                        remainingTimes = newRemainingTimes
+                        break
                     }
                 }
+                remainingTimes = newRemainingTimes
 
                 timePassed += currentSegmentSize
             } else if line.count > 8 && line[4..<8] == "INF:" {
@@ -42,6 +56,12 @@ class HLSInspectionService: HLSInspectionServicing {
                 }
                 currentSegmentSize = Int64(segmentSizeDouble * 1000)
                 lineHasExtInf = true
+            } else if targetSegmentSize == 0 && line.count > 21 && line[5..<21] == "X-TARGETDURATION" {
+                let spl = line.split(separator: ":")
+                guard spl.count > 1, spl[1].count > 1, let targetSegmentSizeDouble = Double(spl[1][0..<spl[1].count]) else {
+                    continue
+                }
+                targetSegmentSize = Int64(targetSegmentSizeDouble * 1000)
             }
         }
         return results
