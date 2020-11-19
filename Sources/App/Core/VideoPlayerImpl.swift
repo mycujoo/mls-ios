@@ -909,7 +909,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
             return false
         }
 
-        if requestUrl.absoluteString.prefix(4) != "http" {
+        if requestUrl.absoluteString.prefix(4) != "http" && requestUrl.absoluteString.prefix(3) != "skd" {
             // This is likely because of the `MLSAVPlayerNetworkInterceptor`. We always want to return false for that.
             // See that class for more information.
             return false
