@@ -22,6 +22,7 @@ extension DataLayer {
         let id: String
         private let type: String
         let offset: Int64
+        let timestamp: Int64
         let data: AnnotationActionData
     }
 
@@ -200,6 +201,7 @@ extension DataLayer.AnnotationAction: Decodable {
         case id
         case type
         case offset
+        case timestamp
         case data
     }
 
@@ -208,6 +210,7 @@ extension DataLayer.AnnotationAction: Decodable {
         let id = try container.decode(String.self, forKey: .id)
         let type = try container.decode(String.self, forKey: .type)
         let offset: Int64 = Int64((try? container.decode(String.self, forKey: .offset)) ?? "0") ?? 0
+        let timestamp: Int64 = Int64((try? container.decode(String.self, forKey: .timestamp)) ?? "0") ?? 0
         let data: DataLayer.AnnotationActionData
         switch type.lowercased() {
         case "delete_action":
@@ -250,7 +253,7 @@ extension DataLayer.AnnotationAction: Decodable {
             data = .unsupported
         }
 
-        self.init(id: id, type: type, offset: offset, data: data)
+        self.init(id: id, type: type, offset: offset, timestamp: timestamp, data: data)
     }
 }
 
@@ -504,7 +507,7 @@ extension DataLayer.AnnotationAction {
         case .createClock(let d):        data = .createClock(d.toDomain)
         case .unsupported:               data = .unsupported
         }
-        return MLSSDK.AnnotationAction(id: self.id, type: self.type, offset: self.offset, data: data)
+        return MLSSDK.AnnotationAction(id: self.id, type: self.type, offset: self.offset, timestamp: self.timestamp, data: data)
     }
 }
 

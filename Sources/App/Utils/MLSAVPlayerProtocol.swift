@@ -27,6 +27,8 @@ protocol MLSAVPlayerProtocol: class {
     var optimisticCurrentTime: Double { get }
     /// Whether the player is currently busy with a seeking operation, or is about to seek.
     var isSeeking: Bool { get }
+    /// Contains the raw HLS playlist that defines the segments. Is updated in sync with the AVPlayer.
+    var rawSegmentPlaylist: String? { get }
 
     // MARK: AVPlayer methods
     func play()
