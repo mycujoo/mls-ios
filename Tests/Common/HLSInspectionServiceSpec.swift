@@ -21,7 +21,7 @@ class HLSInspectionServiceSpec: QuickSpec {
             self.hlsInspectionService = HLSInspectionService()
         }
 
-        fit("parses basic playlist successfully") {
+        it("parses basic playlist successfully") {
             let playlist = """
                 #EXTM3U
                 #EXT-X-MEDIA-SEQUENCE:0
