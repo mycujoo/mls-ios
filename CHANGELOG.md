@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 ## [1.1.4](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.4)
 Released on 2020-11-17.
 
+#### Changed
+- Removed `topControlsStackView` in favor of  `topLeadingControlsStackView` and `topTrailingControlsStackView`
+
+## [1.1.4](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.4)
+Released on 2020-11-17.
+
 #### Fixed
 - Memory leak due to a retain cycle
 
