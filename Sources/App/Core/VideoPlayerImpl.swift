@@ -264,7 +264,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     var view: VideoPlayerViewProtocol!
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
-    /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
     var playerConfig: PlayerConfig! {
         didSet {
             DispatchQueue.main.async { [weak self] in
