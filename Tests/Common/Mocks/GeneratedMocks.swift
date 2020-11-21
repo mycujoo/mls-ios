@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -671,7 +671,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -866,14 +866,28 @@ import UIKit
     
     
     
-     var topControlsStackView: UIStackView {
+     var topLeadingControlsStackView: UIStackView {
         get {
-            return cuckoo_manager.getter("topControlsStackView",
+            return cuckoo_manager.getter("topLeadingControlsStackView",
                 superclassCall:
                     
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall: __defaultImplStub!.topControlsStackView)
+                defaultCall: __defaultImplStub!.topLeadingControlsStackView)
+        }
+        
+    }
+    
+    
+    
+     var topTrailingControlsStackView: UIStackView {
+        get {
+            return cuckoo_manager.getter("topTrailingControlsStackView",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.topTrailingControlsStackView)
         }
         
     }
@@ -1384,8 +1398,13 @@ import UIKit
 	    }
 	    
 	    
-	    var topControlsStackView: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockVideoPlayerViewProtocol, UIStackView> {
-	        return .init(manager: cuckoo_manager, name: "topControlsStackView")
+	    var topLeadingControlsStackView: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockVideoPlayerViewProtocol, UIStackView> {
+	        return .init(manager: cuckoo_manager, name: "topLeadingControlsStackView")
+	    }
+	    
+	    
+	    var topTrailingControlsStackView: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockVideoPlayerViewProtocol, UIStackView> {
+	        return .init(manager: cuckoo_manager, name: "topTrailingControlsStackView")
 	    }
 	    
 	    
@@ -1599,8 +1618,13 @@ import UIKit
 	    }
 	    
 	    
-	    var topControlsStackView: Cuckoo.VerifyReadOnlyProperty<UIStackView> {
-	        return .init(manager: cuckoo_manager, name: "topControlsStackView", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    var topLeadingControlsStackView: Cuckoo.VerifyReadOnlyProperty<UIStackView> {
+	        return .init(manager: cuckoo_manager, name: "topLeadingControlsStackView", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var topTrailingControlsStackView: Cuckoo.VerifyReadOnlyProperty<UIStackView> {
+	        return .init(manager: cuckoo_manager, name: "topTrailingControlsStackView", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -1867,7 +1891,15 @@ import UIKit
     }
     
     
-     var topControlsStackView: UIStackView {
+     var topLeadingControlsStackView: UIStackView {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (UIStackView).self)
+        }
+        
+    }
+    
+    
+     var topTrailingControlsStackView: UIStackView {
         get {
             return DefaultValueRegistry.defaultValue(for: (UIStackView).self)
         }
@@ -2007,7 +2039,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2139,7 +2171,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2271,7 +2303,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2463,7 +2495,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2565,7 +2597,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2727,7 +2759,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2829,7 +2861,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/HLSInspectionServicing.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/HLSInspectionServicing.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2931,7 +2963,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/VideoAnalyticsServicing.swift at 2020-11-19 15:47:45 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/VideoAnalyticsServicing.swift at 2020-11-21 12:01:08 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

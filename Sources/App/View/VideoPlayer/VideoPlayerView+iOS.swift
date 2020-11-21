@@ -181,8 +181,20 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         return button
     }()
 
-    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    let topControlsStackView: UIStackView = {
+    let topLeadingControlsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = 9
+        if UIView.userInterfaceLayoutDirection(for: stackView.semanticContentAttribute) == .rightToLeft {
+            stackView.semanticContentAttribute = .forceRightToLeft
+        }
+        return stackView
+    }()
+
+    let topTrailingControlsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -441,7 +453,8 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
         controlAlphaView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7455710827)
         controlView.addSubview(barControlsStackView)
-        controlView.addSubview(topControlsStackView)
+        controlView.addSubview(topLeadingControlsStackView)
+        controlView.addSubview(topTrailingControlsStackView)
 
         // MARK: Play/pause button
 
@@ -538,12 +551,16 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         // MARK: Top buttons
 
         NSLayoutConstraint.activate([
-           topControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
-           topControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
-           topControlsStackView.heightAnchor.constraint(equalToConstant: 40)
+            topLeadingControlsStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: -5),
+            topLeadingControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
+            topLeadingControlsStackView.heightAnchor.constraint(equalToConstant: 40),
+            topLeadingControlsStackView.trailingAnchor.constraint(greaterThanOrEqualTo: topTrailingControlsStackView.leadingAnchor, constant: 16),
+            topTrailingControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
+            topTrailingControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
+            topTrailingControlsStackView.heightAnchor.constraint(equalToConstant: 40)
         ])
 
-        topControlsStackView.addArrangedSubview(infoButton)
+        topTrailingControlsStackView.addArrangedSubview(infoButton)
 
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 

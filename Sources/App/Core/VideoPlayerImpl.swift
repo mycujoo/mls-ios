@@ -144,9 +144,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     #if os(iOS)
-    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    var topControlsStackView: UIStackView {
-        return view.topControlsStackView
+    var topLeadingControlsStackView: UIStackView {
+        return view.topLeadingControlsStackView
+    }
+
+    var topTrailingControlsStackView: UIStackView {
+        return view.topTrailingControlsStackView
     }
 
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
