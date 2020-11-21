@@ -46,7 +46,7 @@ public struct PlayerConfig {
     }
 
     /// A convenience method to rebuild a PlayerConfig based on this one, but with a different enableControls value.
-    func new(enableControls: Bool) -> PlayerConfig {
+    public func new(enableControls: Bool) -> PlayerConfig {
         return PlayerConfig(
             primaryColor: primaryColor,
             secondaryColor: secondaryColor,
@@ -112,7 +112,7 @@ public struct PlayerConfig {
     }
 
     /// A convenience method to rebuild a PlayerConfig based on an existing one, but with a different enableControls value.
-    func new(enableControls: Bool) -> PlayerConfig {
+    public func new(enableControls: Bool) -> PlayerConfig {
         return PlayerConfig(
             primaryColor: primaryColor,
             secondaryColor: secondaryColor,
