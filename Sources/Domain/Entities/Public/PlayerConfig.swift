@@ -103,7 +103,7 @@ public struct PlayerConfig {
 public extension PlayerConfig {
     /// Generates a standard player configuration, with default values.
     static func standard() -> PlayerConfig {
-        public let config = self.init()
+        let config = self.init()
         return config
     }
 }
