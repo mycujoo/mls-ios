@@ -2,8 +2,8 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.1.4](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.4)
-Released on 2020-11-17.
+## [1.1.5](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.5)
+Released on 2020-11-21.
 
 #### Changed
 - Removed `topControlsStackView` in favor of  `topLeadingControlsStackView` and `topTrailingControlsStackView`
