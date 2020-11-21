@@ -554,7 +554,6 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
             topLeadingControlsStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: -5),
             topLeadingControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
             topLeadingControlsStackView.heightAnchor.constraint(equalToConstant: 40),
-            topLeadingControlsStackView.trailingAnchor.constraint(greaterThanOrEqualTo: topTrailingControlsStackView.leadingAnchor, constant: 16),
             topTrailingControlsStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5),
             topTrailingControlsStackView.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 1),
             topTrailingControlsStackView.heightAnchor.constraint(equalToConstant: 40)
