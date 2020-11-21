@@ -8,22 +8,22 @@ import Foundation
 /// A set of configurable properties for the VideoPlayer.
 public struct PlayerConfig {
     /// The primary color determines the color of various visual elements within the video player, e.g. the color of the controls. This should be a hexadecimal color code (e.g. #FFFFFF)
-    let primaryColor: String
+    public let primaryColor: String
     /// The secondary color will be used in the future to determine the color of various visual elements, but is not used yet. This should be a hexadecimal color code (e.g. #000000)
-    let secondaryColor: String
+    public let secondaryColor: String
     /// Autoplay determines whether a video stream should start playing immediately after it is loaded into the VideoPlayer, or if it should wait for the user to press play.
-    let autoplay: Bool
+    public let autoplay: Bool
     /// Indicates whether there entire control layer should ever be used. This defaults to true. If set to false, there is no way for the user to see any controls, and is not generally recommended.
     /// For more fine-grained control over particular buttons or other visual elements, look at the other properties on this PlayerConfig.
-    let enableControls: Bool
+    public let enableControls: Bool
     /// Indicates whether the 10s backwards/forwards buttons should be shown (true) or hidden (false).
-    let showBackForwardsButtons: Bool
+    public let showBackForwardsButtons: Bool
     /// Indicates whether the number of concurrent viewers on a live stream should be shown (true) or hidden (false).
-    let showLiveViewers: Bool
+    public let showLiveViewers: Bool
     /// Indicates whether the seekbar should be shown (true) or hidden (false).
-    let showSeekbar: Bool
+    public let showSeekbar: Bool
     /// Indicates whether the elapsed time and duration should be shown (true) or hidden (false).
-    let showTimers: Bool
+    public let showTimers: Bool
 
     public init(
             primaryColor: String = "#FFFFFF",
@@ -49,28 +49,28 @@ public struct PlayerConfig {
 /// A set of configurable properties for the VideoPlayer.
 public struct PlayerConfig {
     /// The primary color determines the color of various visual elements within the video player, e.g. the color of the controls. This should be a hexadecimal color code (e.g. #FFFFFF)
-    let primaryColor: String
+    public let primaryColor: String
     /// The secondary color will be used in the future to determine the color of various visual elements, but is not used yet. This should be a hexadecimal color code (e.g. #000000)
-    let secondaryColor: String
+    public let secondaryColor: String
     /// Autoplay determines whether a video stream should start playing immediately after it is loaded into the VideoPlayer, or if it should wait for the user to press play.
-    let autoplay: Bool
+    public let autoplay: Bool
     /// Indicates whether there entire control layer should ever be used. This defaults to true. If set to false, there is no way for the user to see any controls, and is not generally recommended.
     /// For more fine-grained control over particular buttons or other visual elements, look at the other properties on this PlayerConfig.
-    let enableControls: Bool
+    public let enableControls: Bool
     /// Indicates whether the play/pause button should be shown (true) or hidden (false)
-    let showPlayAndPause: Bool
+    public let showPlayAndPause: Bool
     /// Indicates whether the 10s backwards/forwards buttons should be shown (true) or hidden (false).
-    let showBackForwardsButtons: Bool
+    public let showBackForwardsButtons: Bool
     /// Indicates whether the number of concurrent viewers on a live stream should be shown (true) or hidden (false).
-    let showLiveViewers: Bool
+    public let showLiveViewers: Bool
     /// Indicates whether the "info" button in the top-right corner of the video player should be shown (true) or hidden (false).
-    let showEventInfoButton: Bool
+    public let showEventInfoButton: Bool
     /// Indicates whether the seekbar should be shown (true) or hidden (false).
-    let showSeekbar: Bool
+    public let showSeekbar: Bool
     /// Indicates whether the fullscreen button should be shown (true) or hidden (false).
-    let showFullscreen: Bool
+    public let showFullscreen: Bool
     /// Indicates whether the elapsed time and duration should be shown (true) or hidden (false).
-    let showTimers: Bool
+    public let showTimers: Bool
 
     public init(
             primaryColor: String = "#FFFFFF",
@@ -103,7 +103,7 @@ public struct PlayerConfig {
 public extension PlayerConfig {
     /// Generates a standard player configuration, with default values.
     static func standard() -> PlayerConfig {
-        let config = self.init()
+        public let config = self.init()
         return config
     }
 }
