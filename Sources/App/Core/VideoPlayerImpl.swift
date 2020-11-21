@@ -144,9 +144,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     #if os(iOS)
-    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    var topControlsStackView: UIStackView {
-        return view.topControlsStackView
+    var topLeadingControlsStackView: UIStackView {
+        return view.topLeadingControlsStackView
+    }
+
+    var topTrailingControlsStackView: UIStackView {
+        return view.topTrailingControlsStackView
     }
 
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
@@ -183,6 +186,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private let getLicenseDataUseCase: GetLicenseDataUseCase
     private let annotationService: AnnotationServicing
     private let videoAnalyticsService: VideoAnalyticsServicing
+    private let hlsInspectionService: HLSInspectionServicing
     private var timeObserver: Any?
 
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
@@ -303,6 +307,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             getLicenseDataUseCase: GetLicenseDataUseCase,
             annotationService: AnnotationServicing,
             videoAnalyticsService: VideoAnalyticsServicing,
+            hlsInspectionService: HLSInspectionServicing,
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String) {
         self.player = player
@@ -314,6 +319,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         self.getLicenseDataUseCase = getLicenseDataUseCase
         self.annotationService = annotationService
         self.videoAnalyticsService = videoAnalyticsService
+        self.hlsInspectionService = hlsInspectionService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
 
@@ -360,6 +366,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
         player.removeObserver(self, forKeyPath: "status")
         player.removeObserver(self, forKeyPath: "timeControlStatus")
+
+        NotificationCenter.default.removeObserver(self)
 
         if let event = event {
             cleanup(oldEvent: event)
@@ -496,7 +504,17 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
     private func evaluateAnnotations() {
-        annotationService.evaluate(AnnotationService.EvaluationInput(actions: annotationActions, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime * 1000, currentDuration: currentDuration * 1000)) { [weak self] output in
+        // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
+        // Because of this, we need to start calculating action offsets against the video ourselves.
+        let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
+        if Int(currentDuration) + 20 > (currentStream?.dvrWindowSize ?? Int.max) / 1000 {
+            let map = hlsInspectionService.map(hlsPlaylist: player.rawSegmentPlaylist, absoluteTimes: annotationActions.map { $0.timestamp })
+            offsetMappings = Dictionary(annotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
+        } else {
+            offsetMappings = nil
+        }
+
+        annotationService.evaluate(AnnotationService.EvaluationInput(actions: annotationActions, offsetMappings: offsetMappings, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime * 1000, currentDuration: currentDuration * 1000)) { [weak self] output in
 
             self?.activeOverlayIds = output.activeOverlayIds
 
@@ -890,9 +908,18 @@ extension VideoPlayerImpl {
 
 extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
     func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
+        guard let requestUrl = loadingRequest.request.url else {
+            return false
+        }
+
+        if requestUrl.absoluteString.prefix(4) != "http" && requestUrl.absoluteString.prefix(3) != "skd" {
+            // This is likely because of the `MLSAVPlayerNetworkInterceptor`. We always want to return false for that.
+            // See that class for more information.
+            return false
+        }
+        
         // We first check if a url is set in the manifest.
-        guard let requestUrl = loadingRequest.request.url,
-              let _ = currentStream?.url,
+        guard let _ = currentStream?.url,
               let licenseUrl = currentStream?.fairplay?.licenseUrl,
               let certificateUrl = currentStream?.fairplay?.certificateUrl else {
             loadingRequest.finishLoading(with: NSError(domain: "tv.mycujoo.mls", code: -10, userInfo: nil))

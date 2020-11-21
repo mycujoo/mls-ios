@@ -77,6 +77,8 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         return currentItem?.duration
     }
 
+    var rawSegmentPlaylist: String? = nil
+
     private var isSeekingUpdatedAt = Date()
 
     private let seekDebouncer = Debouncer()
@@ -209,7 +211,9 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
             return
         }
 
-        let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
+        MLSAVPlayerNetworkInterceptor.register(withDelegate: self)
+
+        let asset = AVURLAsset(url: MLSAVPlayerNetworkInterceptor.prepare(assetUrl), options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)
         asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
             guard let `self` = self else { return }
@@ -228,5 +232,12 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
                 callback(false)
             }
         }
+    }
+}
+
+extension MLSAVPlayer: MLSAVPlayerNetworkInterceptorDelegate {
+    func received(response: String, forRequestURL: URL?) {
+        guard let lastPathComponent = forRequestURL?.lastPathComponent, lastPathComponent != "master.m3u8" else { return }
+        self.rawSegmentPlaylist = response
     }
 }

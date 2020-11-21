@@ -48,8 +48,10 @@ public protocol VideoPlayer: class {
     var playerLayer: AVPlayerLayer? { get }
 
     #if os(iOS)
-    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    var topControlsStackView: UIStackView { get }
+    /// A horizontal UIStackView at the top-leading corner. Can be used to add more custom UIButtons to (e.g. PiP).
+    var topLeadingControlsStackView: UIStackView { get }
+    /// A horizontal UIStackView at the top-trailing corner. Can be used to add more custom UIButtons to (e.g. PiP).
+    var topTrailingControlsStackView: UIStackView { get }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     var tapGestureRecognizer: UITapGestureRecognizer { get }
     #endif

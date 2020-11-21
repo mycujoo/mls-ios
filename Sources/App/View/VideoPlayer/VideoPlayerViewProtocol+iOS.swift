@@ -30,8 +30,10 @@ protocol VideoPlayerViewProtocol: class {
     /// The AVPlayerLayer of the associated AVPlayer
     var playerLayer: AVPlayerLayer? { get }
 
-    /// This horizontal UIStackView can be used to add more custom UIButtons to (e.g. PiP).
-    var topControlsStackView: UIStackView { get }
+    /// A horizontal UIStackView at the top-leading corner. Can be used to add more custom UIButtons to (e.g. PiP).
+    var topLeadingControlsStackView: UIStackView { get }
+    /// A horizontal UIStackView at the top-trailing corner. Can be used to add more custom UIButtons to (e.g. PiP).
+    var topTrailingControlsStackView: UIStackView { get }
     /// Sets the visibility of the fullscreen button.
     var fullscreenButtonIsHidden: Bool { get set }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.

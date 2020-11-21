@@ -21,10 +21,14 @@ protocol MLSAVPlayerProtocol: class {
     var currentDurationAsCMTime: CMTime? { get }
     /// The current time (in seconds) of the currentItem.
     var currentTime: Double { get }
+    /// The current item that is playing.
+    var currentItem: AVPlayerItem? { get }
     /// The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double { get }
     /// Whether the player is currently busy with a seeking operation, or is about to seek.
     var isSeeking: Bool { get }
+    /// Contains the raw HLS playlist that defines the segments. Is updated in sync with the AVPlayer.
+    var rawSegmentPlaylist: String? { get }
 
     // MARK: AVPlayer methods
     func play()
