@@ -141,7 +141,7 @@ extension DataLayer.EventStatus {
 
 extension DataLayer.Event {
     var toDomain: MLSSDK.Event {
-        return MLSSDK.Event(id: self.id, title: self.title, descriptionText: self.descriptionText, thumbnailUrl: self.thumbnailUrl, organiser: self.organiser, timezone: self.timezone, startTime: self.startTime, status: self.status.toDomain, streams: self.streams.map { $0.toDomain }, timelineIds: self.timelineIds)
+        return MLSSDK.Event(id: self.id, title: self.title, descriptionText: self.descriptionText, thumbnailUrl: self.thumbnailUrl, organiser: self.organiser, timezone: self.timezone, startTime: self.startTime, status: self.status.toDomain, streams: self.streams.map { $0.toDomain }, timelineIds: self.timelineIds, isMLS: true)
     }
 }
 

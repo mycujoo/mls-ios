@@ -393,7 +393,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         if new {
             tovStore = TOVStore()
 
-            if let event = event {
+            if let event = event, event.isMLS {
                 getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
@@ -409,12 +409,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                         }
                     }
                 }
+            } else {
+                self.view.setNumberOfViewersTo(amount: nil)
             }
         }
 
-        if let event = event {
-            timeline = event.timelineIds.first
-        }
+        timeline = event?.timelineIds.first
     }
 
     /// This should get called whenever a new Timeline is loaded into the video player.
@@ -497,12 +497,15 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         videoAnalyticsService.currentItemEventId = event?.id
         videoAnalyticsService.currentItemStreamId = currentStream?.id
         videoAnalyticsService.currentItemStreamURL = currentStream?.url
+        videoAnalyticsService.isNativeMLS = event?.isMLS ?? true
 
         // Note: "currentItemIsLive" is updated elsewhere, since that is a more dynamic property.
     }
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
     private func evaluateAnnotations() {
+        guard let _ = timeline else { return }
+
         // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
         // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?

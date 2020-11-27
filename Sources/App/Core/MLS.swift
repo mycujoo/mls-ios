@@ -165,6 +165,17 @@ public class MLS {
     public func dataProvider() -> DataProvider {
         return dataProvider_
     }
+
+
+    /// This method can be used to build an Event object from your own data.
+    /// - important: This should only be used in cases where the MCLS player is being used with non-MCLS videos!
+    public func customEvent(id: String, title: String, startTime: Date?, description: String?, thumbnailURL: URL?, isLive: Bool, streamURL: URL) -> Event {
+        let stream = Stream(id: id, fullUrl: streamURL, fairplay: nil, dvrWindowSize: nil, errorCode: nil)
+
+        let event = Event(id: id, title: title, descriptionText: description, thumbnailUrl: thumbnailURL, organiser: nil, timezone: nil, startTime: startTime, status: isLive ? .started : .finished, streams: [stream], timelineIds: [], isMLS: false)
+
+        return event
+    }
 }
 
 

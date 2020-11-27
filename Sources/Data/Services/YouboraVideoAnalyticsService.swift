@@ -27,7 +27,8 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
         options.username = pseudoUserId
         plugin = YBPlugin(options: options)
         plugin?.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: avPlayer))
-        plugin?.options.contentCustomDimension14 = "MLS"
+        
+        isNativeMLS = true
     }
 
     func stop() {
@@ -63,6 +64,12 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
     var currentItemIsLive: Bool? {
         didSet {
             plugin?.options.contentIsLive = (currentItemIsLive ?? false) as NSValue
+        }
+    }
+
+    var isNativeMLS: Bool? {
+        didSet {
+            plugin?.options.contentCustomDimension14 = (isNativeMLS ?? true) ? "MLS" : "NonNativeMLS"
         }
     }
 }

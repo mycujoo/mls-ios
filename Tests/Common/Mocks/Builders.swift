@@ -17,7 +17,7 @@ class EntityBuilder {
             startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24),
             status: .started,
             streams: withStream ? [buildStream(withRandomId: withRandomId, withURL: withStreamURL, withRandomURL: withRandomStreamURL)] : [],
-            timelineIds: withTimelineId ? ["randomTimelineId"] : [])
+            timelineIds: withTimelineId ? ["randomTimelineId"] : [], isMLS: true)
     }
 
     static func buildStream(withRandomId: Bool = true, withURL: Bool = true, withRandomURL: Bool = false, withShortDVRWindow: Bool = false, withError: Bool = false) -> MLSSDK.Stream {
