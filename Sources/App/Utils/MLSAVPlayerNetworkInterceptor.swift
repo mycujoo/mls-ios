@@ -81,6 +81,8 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
             self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .allowed)
             self.client?.urlProtocol(self, didLoad: data)
             self.client?.urlProtocolDidFinishLoading(self)
+
+            self.session?.finishTasksAndInvalidate()
         }
 
         sessionTask?.resume()
@@ -88,6 +90,11 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
 
     override func stopLoading() {
         sessionTask?.cancel()
+        session?.invalidateAndCancel()
+    }
+
+    deinit {
+        session?.invalidateAndCancel()
     }
 }
 
