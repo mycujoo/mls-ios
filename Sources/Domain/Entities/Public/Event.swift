@@ -20,7 +20,7 @@ public struct Event: Equatable {
     /// Indicates whether this Event exists on MLS (true) or whether it was custom-built (false) by the SDK user for non-MLS content.
     public let isMLS: Bool
 
-    init(
+    public init(
             id: String,
             title: String?,
             /// The description of the event (not to be confused with Swift's native `description` property,
