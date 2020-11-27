@@ -478,17 +478,33 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
         view.infoTitleLabel.text = event?.title
-        view.infoDescriptionLabel.text = event?.descriptionText
 
-        if let event = event {
-            if let startTime = event.startTime {
-                let timeStr = humanFriendlyDateFormatter.string(from: startTime)
-                view.infoDateLabel.text = timeStr
+        if let errorCode = currentStream?.errorCode {
+            let error: String
+            switch errorCode {
+            case .geoblocked:
+                error = NSLocalizedString("GEOBLOCKED_ERROR", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "This video cannot be watched in your area.", comment: "")
+            case .missingEntitlement:
+                error = NSLocalizedString("MISSING_ENTITLEMENT_ERROR", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "Access to this video is restricted.", comment: "")
+            case .internalError:
+                error = NSLocalizedString("INTERNAL_ERROR", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "An error occurred. Please try again later.", comment: "")
+            }
+
+            view.infoDescriptionLabel.text = error
+            view.infoDateLabel.text = nil
+        } else {
+            view.infoDescriptionLabel.text = event?.descriptionText
+
+            if let event = event {
+                if let startTime = event.startTime {
+                    let timeStr = humanFriendlyDateFormatter.string(from: startTime)
+                    view.infoDateLabel.text = timeStr
+                } else {
+                    view.infoDateLabel.text = nil
+                }
             } else {
                 view.infoDateLabel.text = nil
             }
-        } else {
-            view.infoDateLabel.text = nil
         }
     }
 
