@@ -97,5 +97,7 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
     var currentItemStreamURL: URL? = nil
 
     var currentItemIsLive: Bool? = nil
+
+    var isNativeMLS: Bool? = nil
 }
 #endif
