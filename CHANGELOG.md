@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.7](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.7)
+Released on 2020-11-28.
+
+#### Added
+- The possibility of loading custom Events into the VideoPlayer. This can be used to play non-MCLS content in the VideoPlayer (not recommended, as it loses compatibility with other MCLS features, like annotations).
+- Added errors to the VideoPlayer to clarify why certain streams are unplayable by the user (e.g. due to geoblocking).
+- Added a `l10nBundle` parameter to the `Configuration` object. This can be used to provide a custom `Bundle` from which localized strings should be taken. Useful in advanced scenarios, e.g. when custom error messages should be shown, or support for non-supported languages should be added.
+
+#### Changed
+- Expose the `PlayerConfig` object directly on the VideoPlayer, so that it may be altered on the fly.
+
+#### Fixed
+- Fixed memory leak (URLProtocol instances were being retained for too long)
+
 ## [1.1.6](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.6)
 Released on 2020-11-21.
 
