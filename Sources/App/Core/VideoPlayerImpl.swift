@@ -477,6 +477,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
+        // TODO: Refactor this method so these UILabels are not directly manipulated from here.
+
         view.infoTitleLabel.text = event?.title
 
         if let errorCode = currentStream?.errorCode {
@@ -491,9 +493,11 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             }
 
             view.infoDescriptionLabel.text = error
+            view.infoDescriptionLabel.textColor = .red
             view.infoDateLabel.text = nil
         } else {
             view.infoDescriptionLabel.text = event?.descriptionText
+            view.infoDescriptionLabel.textColor = .white
 
             if let event = event {
                 if let startTime = event.startTime {
