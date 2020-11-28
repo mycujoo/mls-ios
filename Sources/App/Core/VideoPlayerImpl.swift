@@ -483,11 +483,11 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             let error: String
             switch errorCode {
             case .geoblocked:
-                error = NSLocalizedString("GEOBLOCKED_ERROR", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "This video cannot be watched in your area.", comment: "")
+                error = L10n.Localizable.geoblockedError
             case .missingEntitlement:
-                error = NSLocalizedString("MISSING_ENTITLEMENT_ERROR", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "Access to this video is restricted.", comment: "")
+                error = L10n.Localizable.missingEntitlementError
             case .internalError:
-                error = NSLocalizedString("INTERNAL_ERROR", tableName: "Localizable", bundle: Bundle.resourceBundle ?? Bundle.main, value: "An error occurred. Please try again later.", comment: "")
+                error = L10n.Localizable.internalError
             }
 
             view.infoDescriptionLabel.text = error
