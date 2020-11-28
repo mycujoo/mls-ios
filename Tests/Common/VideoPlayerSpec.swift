@@ -197,12 +197,14 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).currentItemEventId.get.thenReturn(self.event.id)
                 when(mock).currentItemStreamId.get.thenReturn(self.event.streams.first?.id)
                 when(mock).currentItemStreamURL.get.thenReturn(self.event.streams.first?.url)
+                when(mock).isNativeMLS.get.thenReturn(self.event.isMLS)
                 when(mock).currentItemIsLive.get.thenReturn(true)
                 when(mock).currentItemTitle.set(any()).thenDoNothing()
                 when(mock).currentItemEventId.set(any()).thenDoNothing()
                 when(mock).currentItemStreamId.set(any()).thenDoNothing()
                 when(mock).currentItemStreamURL.set(any()).thenDoNothing()
                 when(mock).currentItemIsLive.set(any()).thenDoNothing()
+                when(mock).isNativeMLS.set(any()).thenDoNothing()
             }
 
             self.mockHLSInspectionService = MockHLSInspectionServicing()

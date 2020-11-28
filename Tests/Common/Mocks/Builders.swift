@@ -26,7 +26,7 @@ class EntityBuilder {
             fullUrl: !withError && withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8" + (withRandomURL ? "?randomizer=" + randomString(length: 20) : ""))! : nil,
             fairplay: nil,
             dvrWindowSize: withShortDVRWindow ? 40000 : 7200000,
-            errorCode: withError ? "ERR_GEOBLOCK" : nil)
+            errorCode: withError ? .geoblocked : nil)
     }
 
     private static func randomString(length: Int) -> String {

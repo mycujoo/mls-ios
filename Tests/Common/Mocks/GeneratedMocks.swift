@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -671,7 +671,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2039,7 +2039,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2171,7 +2171,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2303,7 +2303,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2495,7 +2495,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2597,7 +2597,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2759,7 +2759,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2861,7 +2861,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/HLSInspectionServicing.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/HLSInspectionServicing.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2963,7 +2963,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/VideoAnalyticsServicing.swift at 2020-11-21 12:01:08 +0000
+// MARK: - Mocks generated from file: Sources/Domain/Services/VideoAnalyticsServicing.swift at 2020-11-28 21:44:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3115,6 +3115,30 @@ import Foundation
         
     }
     
+    
+    
+     var isNativeMLS: Bool? {
+        get {
+            return cuckoo_manager.getter("isNativeMLS",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isNativeMLS)
+        }
+        
+        set {
+            cuckoo_manager.setter("isNativeMLS",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isNativeMLS = newValue)
+        }
+        
+    }
+    
 
     
 
@@ -3183,6 +3207,11 @@ import Foundation
 	    }
 	    
 	    
+	    var isNativeMLS: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isNativeMLS")
+	    }
+	    
+	    
 	    func create<M1: Cuckoo.Matchable>(with player: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(MLSAVPlayerProtocol)> where M1.MatchedType == MLSAVPlayerProtocol {
 	        let matchers: [Cuckoo.ParameterMatcher<(MLSAVPlayerProtocol)>] = [wrap(matchable: player) { $0 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoAnalyticsServicing.self, method: "create(with: MLSAVPlayerProtocol)", parameterMatchers: matchers))
@@ -3230,6 +3259,11 @@ import Foundation
 	    
 	    var currentItemIsLive: Cuckoo.VerifyOptionalProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "currentItemIsLive", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var isNativeMLS: Cuckoo.VerifyOptionalProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isNativeMLS", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	
@@ -3293,6 +3327,16 @@ import Foundation
     
     
      var currentItemIsLive: Bool? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+     var isNativeMLS: Bool? {
         get {
             return DefaultValueRegistry.defaultValue(for: (Bool?).self)
         }
