@@ -5,3 +5,6 @@
   Copyright © 2020 mycujoo. All rights reserved.
 */
 "LIVE" = "ライブ";
+"GEOBLOCKED_ERROR" = "お住まいの地域ではこの動画をご覧いただけません。";
+"MISSING_ENTITLEMENT_ERROR" = "このビデオへのアクセスは制限されています。";
+"INTERNAL_ERROR" = "エラーが発生しました。 後でもう一度やり直してください。";

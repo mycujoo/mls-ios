@@ -97,6 +97,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).fullscreenButtonIsHidden.get.thenReturn(false)
                 when(mock).fullscreenButtonIsHidden.set(any()).thenDoNothing()
                 when(mock).tapGestureRecognizer.get.thenReturn(UITapGestureRecognizer())
+                when(mock).setNumberOfViewersTo(amount: any()).thenDoNothing()
 
                 when(mock).drawPlayer(with: any()).thenDoNothing()
                 when(mock).setOnPlayButtonTapped(any()).then { action in
@@ -196,12 +197,14 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).currentItemEventId.get.thenReturn(self.event.id)
                 when(mock).currentItemStreamId.get.thenReturn(self.event.streams.first?.id)
                 when(mock).currentItemStreamURL.get.thenReturn(self.event.streams.first?.url)
+                when(mock).isNativeMLS.get.thenReturn(self.event.isMLS)
                 when(mock).currentItemIsLive.get.thenReturn(true)
                 when(mock).currentItemTitle.set(any()).thenDoNothing()
                 when(mock).currentItemEventId.set(any()).thenDoNothing()
                 when(mock).currentItemStreamId.set(any()).thenDoNothing()
                 when(mock).currentItemStreamURL.set(any()).thenDoNothing()
                 when(mock).currentItemIsLive.set(any()).thenDoNothing()
+                when(mock).isNativeMLS.set(any()).thenDoNothing()
             }
 
             self.mockHLSInspectionService = MockHLSInspectionServicing()
@@ -525,7 +528,7 @@ class VideoPlayerSpec: QuickSpec {
 
         describe("showing and hiding overlays") {
             beforeEach {
-                self.videoPlayer.event = self.event
+                self.videoPlayer.event = EntityBuilder.buildEvent(withTimelineId: true)
             }
 
             it("places, removes and replaces overlays when currentTime changes and annotation actions are triggered") {
@@ -586,7 +589,7 @@ class VideoPlayerSpec: QuickSpec {
                     }
                 }
 
-                waitUntil(timeout: 3.0) { done in
+                waitUntil(timeout: 6.0) { done in
                     // The first call should not trigger a show overlay at all.
                     updatePeriodicTimeObserver()
 

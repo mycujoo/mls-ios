@@ -264,7 +264,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     var view: VideoPlayerViewProtocol!
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
-    /// However, this should not be exposed to the SDK user directly, since it should only be configurable through the MLS console / API.
     var playerConfig: PlayerConfig! {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -394,7 +393,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         if new {
             tovStore = TOVStore()
 
-            if let event = event {
+            if let event = event, event.isMLS {
                 getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
                     guard let self = self else { return }
                     switch update {
@@ -410,12 +409,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                         }
                     }
                 }
+            } else {
+                self.view.setNumberOfViewersTo(amount: nil)
             }
         }
 
-        if let event = event {
-            timeline = event.timelineIds.first
-        }
+        timeline = event?.timelineIds.first
     }
 
     /// This should get called whenever a new Timeline is loaded into the video player.
@@ -478,18 +477,38 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
-        view.infoTitleLabel.text = event?.title
-        view.infoDescriptionLabel.text = event?.descriptionText
+        // TODO: Refactor this method so these UILabels are not directly manipulated from here.
 
-        if let event = event {
-            if let startTime = event.startTime {
-                let timeStr = humanFriendlyDateFormatter.string(from: startTime)
-                view.infoDateLabel.text = timeStr
+        view.infoTitleLabel.text = event?.title
+
+        if let errorCode = currentStream?.errorCode {
+            let error: String
+            switch errorCode {
+            case .geoblocked:
+                error = L10n.Localizable.geoblockedError
+            case .missingEntitlement:
+                error = L10n.Localizable.missingEntitlementError
+            case .internalError:
+                error = L10n.Localizable.internalError
+            }
+
+            view.infoDescriptionLabel.text = error
+            view.infoDescriptionLabel.textColor = .red
+            view.infoDateLabel.text = nil
+        } else {
+            view.infoDescriptionLabel.text = event?.descriptionText
+            view.infoDescriptionLabel.textColor = .white
+
+            if let event = event {
+                if let startTime = event.startTime {
+                    let timeStr = humanFriendlyDateFormatter.string(from: startTime)
+                    view.infoDateLabel.text = timeStr
+                } else {
+                    view.infoDateLabel.text = nil
+                }
             } else {
                 view.infoDateLabel.text = nil
             }
-        } else {
-            view.infoDateLabel.text = nil
         }
     }
 
@@ -498,12 +517,15 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         videoAnalyticsService.currentItemEventId = event?.id
         videoAnalyticsService.currentItemStreamId = currentStream?.id
         videoAnalyticsService.currentItemStreamURL = currentStream?.url
+        videoAnalyticsService.isNativeMLS = event?.isMLS ?? true
 
         // Note: "currentItemIsLive" is updated elsewhere, since that is a more dynamic property.
     }
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
     private func evaluateAnnotations() {
+        guard let _ = timeline else { return }
+
         // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
         // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?

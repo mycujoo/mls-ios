@@ -17,7 +17,7 @@ class EntityBuilder {
             startTime: Date().addingTimeInterval(-1 * 1000 * 3600 * 24),
             status: .started,
             streams: withStream ? [buildStream(withRandomId: withRandomId, withURL: withStreamURL, withRandomURL: withRandomStreamURL)] : [],
-            timelineIds: withTimelineId ? ["randomTimelineId"] : [])
+            timelineIds: withTimelineId ? ["randomTimelineId"] : [], isMLS: true)
     }
 
     static func buildStream(withRandomId: Bool = true, withURL: Bool = true, withRandomURL: Bool = false, withShortDVRWindow: Bool = false, withError: Bool = false) -> MLSSDK.Stream {
@@ -26,7 +26,7 @@ class EntityBuilder {
             fullUrl: !withError && withURL ? URL(string: "https://playlists.mycujoo.football/eu/ckc5yrypyhqg00hew7gyw9p34/master.m3u8" + (withRandomURL ? "?randomizer=" + randomString(length: 20) : ""))! : nil,
             fairplay: nil,
             dvrWindowSize: withShortDVRWindow ? 40000 : 7200000,
-            errorCode: withError ? "ERR_GEOBLOCK" : nil)
+            errorCode: withError ? .geoblocked : nil)
     }
 
     private static func randomString(length: Int) -> String {

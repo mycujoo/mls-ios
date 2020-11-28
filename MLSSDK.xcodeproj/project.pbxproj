@@ -387,6 +387,8 @@
 		49A9F52424A15B9700D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */; };
 		49B25DE724A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */; };
+		49B2E7322572E5C000AE13F6 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B2E7312572E5C000AE13F6 /* Localizable.swift */; };
+		49B2E7382572E5C300AE13F6 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B2E7312572E5C000AE13F6 /* Localizable.swift */; };
 		49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5724A35204002CCDF5 /* PlayerConfig.swift */; };
 		49C12D5924A35204002CCDF5 /* PlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5724A35204002CCDF5 /* PlayerConfig.swift */; };
 		49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
@@ -675,6 +677,7 @@
 		49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLIndexer+XMLIndexerDeserializable.swift"; sourceTree = "<group>"; };
 		49A9F52224A15B9200D00143 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		49B2E7312572E5C000AE13F6 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		49C12D5724A35204002CCDF5 /* PlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfig.swift; sourceTree = "<group>"; };
 		49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimelineActionsUpdatesUseCase.swift; sourceTree = "<group>"; };
@@ -815,6 +818,7 @@
 				495CB131249CC4F800998FF4 /* Utils */,
 				64FDE2FF249A175600E6510D /* Core */,
 				6496C34D2492308D0099475D /* View */,
+				49B2E7302572E5A400AE13F6 /* L10n */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1297,6 +1301,14 @@
 				64FDE30B249A189100E6510D /* Info.plist */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		49B2E7302572E5A400AE13F6 /* L10n */ = {
+			isa = PBXGroup;
+			children = (
+				49B2E7312572E5C000AE13F6 /* Localizable.swift */,
+			);
+			path = L10n;
 			sourceTree = "<group>";
 		};
 		49C12D5D24A3B109002CCDF5 /* General */ = {
@@ -2018,6 +2030,7 @@
 				49736EB624A9F59C001F3F48 /* ColorMatrix.swift in Sources */,
 				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				4926CE1124CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
+				49B2E7322572E5C000AE13F6 /* Localizable.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */,
 				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49736EF324A9F59C001F3F48 /* ContentsInterpolation.swift in Sources */,
@@ -2221,6 +2234,7 @@
 				49A804F524AA0ED000E30DA8 /* CAAnimationClosure.swift in Sources */,
 				49A8049524AA0E0B00E30DA8 /* LocusInterpolation.swift in Sources */,
 				4926CE0F24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
+				49B2E7382572E5C300AE13F6 /* Localizable.swift in Sources */,
 				4926CE1224CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
 				49A804B724AA0E9800E30DA8 /* PathSegmentType.swift in Sources */,
 				49A8048824AA0DF900E30DA8 /* AnimationCache.swift in Sources */,

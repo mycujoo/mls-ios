@@ -25,6 +25,9 @@ public protocol VideoPlayer: class {
     /// The view of the VideoPlayer.
     var playerView: UIView { get }
 
+    /// Setting the playerConfig will automatically updates the associated views and behavior.
+    var playerConfig: PlayerConfig! { get set }
+
     #if os(iOS)
     /// This property changes when the fullscreen button is tapped. SDK implementors can update this state directly, which will update the visual of the button.
     /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
@@ -80,7 +83,6 @@ public enum VideoPlayerState: Int {
 }
 
 public enum VideoPlayerStatus {
-
     case play
     case pause
 

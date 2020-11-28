@@ -5,3 +5,6 @@
   Copyright © 2020 mycujoo. All rights reserved.
 */
 "LIVE" = "LANGSUNG";
+"GEOBLOCKED_ERROR" = "Video ini tidak dapat ditonton di wilayah Anda.";
+"MISSING_ENTITLEMENT_ERROR" = "Akses ke video ini dibatasi.";
+"INTERNAL_ERROR" = "Terjadi kesalahan. Silakan coba lagi nanti.";

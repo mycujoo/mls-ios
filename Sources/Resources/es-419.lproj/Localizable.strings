@@ -5,3 +5,7 @@
   Copyright © 2020 mycujoo. All rights reserved.
 */
 "LIVE" = "EN DIRECTO";
+"GEOBLOCKED_ERROR" = "Este video no se puede ver en su área.";
+"MISSING_ENTITLEMENT_ERROR" = "El acceso a este video está restringido.";
+"INTERNAL_ERROR" = "Ocurrió un error. Por favor, inténtelo de nuevo más tarde.";
+

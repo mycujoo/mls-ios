@@ -10,7 +10,7 @@ extension DataLayer {
         let fullUrl: URL?
         let fairplay: FairplayStream?
         let dvrWindowSize: Int?
-        let errorCode: String?
+        let errorCode: MLSSDK.Stream.ErrorCode?
     }
 
     struct FairplayStream: Decodable {
@@ -54,7 +54,15 @@ extension DataLayer.Stream {
         let fairplay: DataLayer.FairplayStream? = nil // Temporarily fixed to nil until we are ready to release DRM.
 //        let dvrWindowSize: Int? = try? container.decode(Int.self, forKey: .dvrWindowSize)
         let dvrWindowSize: Int? = nil // Temporarily fixed to nil until we are ready to release annotation offset calculations.
-        let errorCode: String? = try? container.decode(String.self, forKey: .errorCode)
+
+        var errorCode: Stream.ErrorCode? = nil
+        if let errorCodeStr = try? container.decode(String.self, forKey: .errorCode) {
+            switch errorCodeStr {
+            case "ERR_GEOBLOCKED": errorCode = .geoblocked
+            case "ERR_NO_ENTITLEMENT": errorCode = .missingEntitlement
+            default: errorCode = .internalError
+            }
+        }
 
         self.init(id: id, fullUrl: fullUrl, fairplay: fairplay, dvrWindowSize: dvrWindowSize, errorCode: errorCode)
     }

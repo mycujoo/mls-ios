@@ -17,8 +17,10 @@ public struct Event: Equatable {
     public let status: EventStatus
     public let streams: [Stream]
     public let timelineIds: [String]
+    /// Indicates whether this Event exists on MLS (true) or whether it was custom-built (false) by the SDK user for non-MLS content.
+    public let isMLS: Bool
 
-    init(
+    public init(
             id: String,
             title: String?,
             /// The description of the event (not to be confused with Swift's native `description` property,
@@ -29,7 +31,8 @@ public struct Event: Equatable {
             startTime: Date?,
             status: EventStatus,
             streams: [Stream],
-            timelineIds: [String]
+            timelineIds: [String],
+            isMLS: Bool
     ) {
         self.id = id
         self.title = title
@@ -41,6 +44,7 @@ public struct Event: Equatable {
         self.status = status
         self.streams = streams
         self.timelineIds = timelineIds
+        self.isMLS = isMLS
     }
 }
 
