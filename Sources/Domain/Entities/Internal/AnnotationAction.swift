@@ -33,6 +33,8 @@ struct AnnotationAction: Hashable {
             return 400
         case "adjust_timer":
             return 300
+        case "show_overlay":
+            return 100
         default:
             return 0
         }

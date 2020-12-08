@@ -41,6 +41,7 @@
 		4926CE2E24CE046D00419A42 /* DataLayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2524CE046D00419A42 /* DataLayerEvent.swift */; };
 		4926CE2F24CE046D00419A42 /* DataLayerStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2624CE046D00419A42 /* DataLayerStream.swift */; };
 		4926CE3024CE046D00419A42 /* DataLayerStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2624CE046D00419A42 /* DataLayerStream.swift */; };
+		49284955257FEFDE00EEA18C /* testAnnotationService_offsetMappings.json in Resources */ = {isa = PBXBuildFile; fileRef = 49284954257FEFDE00EEA18C /* testAnnotationService_offsetMappings.json */; };
 		4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
 		4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930180F24D494AE009312B0 /* WebsocketConnection.swift */; };
 		4930181324D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */; };
@@ -479,6 +480,7 @@
 		4926CE2424CE046D00419A42 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
 		4926CE2524CE046D00419A42 /* DataLayerEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerEvent.swift; sourceTree = "<group>"; };
 		4926CE2624CE046D00419A42 /* DataLayerStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerStream.swift; sourceTree = "<group>"; };
+		49284954257FEFDE00EEA18C /* testAnnotationService_offsetMappings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_offsetMappings.json; sourceTree = "<group>"; };
 		4930180F24D494AE009312B0 /* WebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketConnection.swift; sourceTree = "<group>"; };
 		4930181224D4D680009312B0 /* GetEventUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUpdatesUseCase.swift; sourceTree = "<group>"; };
 		49317CE1253F0A4D00675EB6 /* VideoAnalyticsServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnalyticsServicing.swift; sourceTree = "<group>"; };
@@ -1407,6 +1409,7 @@
 				4988B9DF24C9A47100352529 /* testAnnotationService_timerPrioritization.json */,
 				4988B9D524C98BD300352529 /* testAnnotationService_createMultipleTimers.json */,
 				497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */,
+				49284954257FEFDE00EEA18C /* testAnnotationService_offsetMappings.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1698,6 +1701,7 @@
 				4988B9D024C89C4600352529 /* testAnnotationService_incrementMissingVariable.json in Resources */,
 				49EA06C724C79B7C00C7AB10 /* testAnnotationService_timelineMarkers.json in Resources */,
 				4988B9D224C8EE2F00352529 /* testAnnotationService_incrementDoubleVariables.json in Resources */,
+				49284955257FEFDE00EEA18C /* testAnnotationService_offsetMappings.json in Resources */,
 				4988B9D624C98BD300352529 /* testAnnotationService_createMultipleTimers.json in Resources */,
 				4988B9BC24C8477000352529 /* testAnnotationService_updatesActiveOverlayIds.json in Resources */,
 				4988B9CE24C8911E00352529 /* testAnnotationService_hideOverlayAfterDuration.json in Resources */,
