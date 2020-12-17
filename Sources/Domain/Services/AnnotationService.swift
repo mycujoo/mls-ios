@@ -60,6 +60,10 @@ class AnnotationService: AnnotationServicing {
 
             var activeOverlayIds = input.activeOverlayIds
             var inRangeOverlayActions: [String: MLSUIOverlayAction] = [:]
+            /// An array of action ids that should get deleted.
+            var deletedActionIds: [String] = []
+            /// A dictionary with keys being custom ids and values being the show overlay data.
+            var showOverlayActionData: [String: AnnotationActionShowOverlay] = [:]
 
             // MARK: Preprocessing actions
 
@@ -67,10 +71,6 @@ class AnnotationService: AnnotationServicing {
                 .sorted(by: { (lhs, rhs) -> Bool in
                     lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
                 })
-
-            var deletedActionIds: [String] = []
-            /// A dictionary with keys being custom ids and values being the show overlay data.
-            var showOverlayActionData: [String: AnnotationActionShowOverlay] = [:]
 
             for action in sortedActions {
                 switch action.data {
@@ -94,7 +94,7 @@ class AnnotationService: AnnotationServicing {
                     case .reshowOverlay(let d):
                         // Map this reshowOverlay to a showOverlay action.
                         if let showOverlayData = showOverlayActionData[d.customId] {
-                            return AnnotationAction(id: action.id, type: "show_overlay", offset: action.offset, timestamp: action.timestamp, data: AnnotationActionData.showOverlay(showOverlayData))
+                            return AnnotationAction(id: action.id, offset: action.offset, timestamp: action.timestamp, data: AnnotationActionData.showOverlay(showOverlayData))
                         }
                         return nil
                     default:
