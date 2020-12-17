@@ -31,6 +31,7 @@ extension DataLayer {
         case showTimelineMarker(AnnotationActionShowTimelineMarker)
         case showOverlay(AnnotationActionShowOverlay)
         case hideOverlay(AnnotationActionHideOverlay)
+        case reshowOverlay(AnnotationActionReshowOverlay)
         case setVariable(AnnotationActionSetVariable)
         case incrementVariable(AnnotationActionIncrementVariable)
         case createTimer(AnnotationActionCreateTimer)
@@ -99,6 +100,12 @@ extension DataLayer {
         let customId: String
         let animateoutType: OverlayAnimateoutType?
         let animateoutDuration: Double?
+    }
+
+    // MARK: - AnnotationActionReshowOverlay
+
+    struct AnnotationActionReshowOverlay {
+        let customId: String
     }
 
     // MARK: - AnnotationActionSetVariable
@@ -225,6 +232,9 @@ extension DataLayer.AnnotationAction: Decodable {
         case "hide_overlay":
             let rawData = try container.decode(DataLayer.AnnotationActionHideOverlay.self, forKey: .data)
             data = .hideOverlay(rawData)
+        case "reshow_overlay":
+            let rawData = try container.decode(DataLayer.AnnotationActionReshowOverlay.self, forKey: .data)
+            data = .reshowOverlay(rawData)
         case "set_variable":
             let rawData = try container.decode(DataLayer.AnnotationActionSetVariable.self, forKey: .data)
             data = .setVariable(rawData)
@@ -378,6 +388,19 @@ extension DataLayer.AnnotationActionHideOverlay: Decodable {
     }
 }
 
+extension DataLayer.AnnotationActionReshowOverlay: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case customId = "custom_id"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let customId: String = try container.decode(String.self, forKey: .customId)
+
+        self.init(customId: customId)
+    }
+}
+
 
 extension DataLayer.AnnotationActionSetVariable: Decodable {
     enum CodingKeys: String, CodingKey {
@@ -497,6 +520,7 @@ extension DataLayer.AnnotationAction {
         case .showTimelineMarker(let d): data = .showTimelineMarker(d.toDomain)
         case .showOverlay(let d):        data = .showOverlay(d.toDomain)
         case .hideOverlay(let d):        data = .hideOverlay(d.toDomain)
+        case .reshowOverlay(let d):      data = .reshowOverlay(d.toDomain)
         case .setVariable(let d):        data = .setVariable(d.toDomain)
         case .incrementVariable(let d):  data = .incrementVariable(d.toDomain)
         case .createTimer(let d):        data = .createTimer(d.toDomain)
@@ -582,6 +606,12 @@ extension DataLayer.AnnotationActionShowOverlay {
 extension DataLayer.AnnotationActionHideOverlay {
     var toDomain: MLSSDK.AnnotationActionHideOverlay {
         return MLSSDK.AnnotationActionHideOverlay(customId: self.customId, animateoutType: self.animateoutType?.toDomain, animateoutDuration: self.animateoutDuration)
+    }
+}
+
+extension DataLayer.AnnotationActionReshowOverlay {
+    var toDomain: MLSSDK.AnnotationActionReshowOverlay {
+        return MLSSDK.AnnotationActionReshowOverlay(customId: self.customId)
     }
 }
 

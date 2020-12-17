@@ -61,18 +61,47 @@ class AnnotationService: AnnotationServicing {
             var activeOverlayIds = input.activeOverlayIds
             var inRangeOverlayActions: [String: MLSUIOverlayAction] = [:]
 
-            // MARK: Evaluate
+            // MARK: Preprocessing actions
 
-            let deletedActions = input.actions
-                .map { a -> String? in switch(a.data) { case .deleteAction(let d): return d.actionId; default: return nil }}
-                .filter { $0 != nil }
-                .compactMap { $0 }
-
-            for action in input.actions
+            let sortedActions = input.actions
                 .sorted(by: { (lhs, rhs) -> Bool in
                     lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
                 })
-                .filter({ !deletedActions.contains($0.id) })
+
+            var deletedActionIds: [String] = []
+            /// A dictionary with keys being custom ids and values being the show overlay data.
+            var showOverlayActionData: [String: AnnotationActionShowOverlay] = [:]
+
+            for action in sortedActions {
+                switch action.data {
+                case .deleteAction(let d):
+                    deletedActionIds.append(d.actionId)
+                case .showOverlay(let d):
+                    if let customId = d.customId {
+                        showOverlayActionData[customId] = d
+                    }
+                default:
+                    continue
+                }
+            }
+
+            // MARK: Processing actions
+
+            for action in sortedActions
+                .filter({ !deletedActionIds.contains($0.id) })
+                .map ({ action -> AnnotationAction? in
+                    switch action.data {
+                    case .reshowOverlay(let d):
+                        // Map this reshowOverlay to a showOverlay action.
+                        if let showOverlayData = showOverlayActionData[d.customId] {
+                            return AnnotationAction(id: action.id, type: "show_overlay", offset: action.offset, timestamp: action.timestamp, data: AnnotationActionData.showOverlay(showOverlayData))
+                        }
+                        return nil
+                    default:
+                        return action
+                    }
+                })
+                .compactMap ({ $0 })
             {
                 let offsetMapping = input.offsetMappings?[action.id]
                 /// The video offset, i.e. the moment in the available video stream at which this action happened. Defined in milliseconds.
@@ -139,6 +168,9 @@ class AnnotationService: AnnotationServicing {
                             }
                         }
                     }
+                case .reshowOverlay:
+                    // This was already remapped to showOverlay earlier on, so this can be ignored here.
+                    continue
                 case .setVariable(let data):
                     if offset <= input.currentTime {
                         variables[data.name] = AnnotationService.Variable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)

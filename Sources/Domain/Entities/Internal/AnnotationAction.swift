@@ -62,6 +62,7 @@ enum AnnotationActionData {
     case showTimelineMarker(AnnotationActionShowTimelineMarker)
     case showOverlay(AnnotationActionShowOverlay)
     case hideOverlay(AnnotationActionHideOverlay)
+    case reshowOverlay(AnnotationActionReshowOverlay)
     case setVariable(AnnotationActionSetVariable)
     case incrementVariable(AnnotationActionIncrementVariable)
     case createTimer(AnnotationActionCreateTimer)
@@ -183,6 +184,16 @@ struct AnnotationActionHideOverlay {
         self.customId = customId
         self.animateoutType = animateoutType
         self.animateoutDuration = animateoutDuration
+    }
+}
+
+// MARK: - AnnotationActionHideOverlay
+
+struct AnnotationActionReshowOverlay {
+    let customId: String
+
+    init(customId: String) {
+        self.customId = customId
     }
 }
 
