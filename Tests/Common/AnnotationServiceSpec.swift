@@ -259,6 +259,35 @@ class AnnotationServiceSpec: QuickSpec {
             }
         }
 
+        describe("reshowing overlays") {
+            var actions: [AnnotationAction]!
+            var input: AnnotationService.EvaluationInput!
+
+            beforeEach {
+                actions = self.makeAnnotationActionsFromJSON("testAnnotationService_reshowOverlay")
+            }
+
+            it("shows again after the reshow overlay") {
+                input = AnnotationService.EvaluationInput(
+                    actions: actions,
+                    activeOverlayIds: Set(),
+                    currentTime: 21000,
+                    currentDuration: 30000)
+
+                waitUntil { done in
+                    self.annotationService.evaluate(input) { (output) in
+                        guard output.showOverlays.count == 1 else { fail("Wrong array count"); done(); return }
+
+                        expect(output.showOverlays[0].overlayId).to(equal("scoreboard1"))
+                        expect(output.showOverlays[0].animateDuration).to(equal(300))
+                        expect(output.showOverlays[0].animateType).to(equal(OverlayAnimateinType.fadeIn))
+
+                        done()
+                    }
+                }
+            }
+        }
+
         describe("variables") {
             var actions: [AnnotationAction]!
             var input: AnnotationService.EvaluationInput!

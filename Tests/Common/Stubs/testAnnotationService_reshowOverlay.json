@@ -1,0 +1,40 @@
+{
+    "actions": [
+        {
+            "data": {
+                "animatein_duration": 300,
+                "animatein_type": "fade_in",
+                "custom_id": "scoreboard1",
+                "position": {
+                    "left": 5.0,
+                    "top": 5.0
+                },
+                "size": {
+                    "width": 25.0
+                },
+                "svg_url": "https://storage.googleapis.com/mycujoo-player-app.appspot.com/scoreboard_and_timer.svg"
+            },
+            "offset": "10000",
+            "id": "54afag35yag",
+            "type": "show_overlay"
+        },
+        {
+            "data": {
+                "animateout_duration": 300,
+                "animateout_type": "fade_out",
+                "custom_id": "scoreboard1"
+            },
+            "offset": "16000",
+            "id": "f43f9ajf9dfjSX",
+            "type": "hide_overlay"
+        },
+        {
+            "data": {
+                "custom_id": "scoreboard1"
+            },
+            "offset": "20000",
+            "id": "f43f9ajf9dfjSY",
+            "type": "reshow_overlay"
+        }
+    ]
+}
