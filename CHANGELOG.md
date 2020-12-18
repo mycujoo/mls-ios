@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
 ## [1.1.8](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.8)
-Released on 2020-12-17.
+Released on 2020-12-18.
 
 #### Added
 - A new annotation action (`reshow_overlay`) that makes it easier to show overlays after having hid them.
