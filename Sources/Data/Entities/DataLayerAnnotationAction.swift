@@ -187,6 +187,15 @@ extension DataLayer {
 
 
 extension DataLayer.AnnotationActionWrapper: Decodable {
+    struct FailableDecodable<Base : Decodable> : Decodable {
+        let base: Base?
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            self.base = try? container.decode(Base.self)
+        }
+    }
+
     enum CodingKeys: String, CodingKey {
         case actions
         case updateId = "update_id"
@@ -195,7 +204,7 @@ extension DataLayer.AnnotationActionWrapper: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let updateId: String? = try? container.decode(String.self, forKey: .updateId)
-        let actions: [DataLayer.AnnotationAction] = try container.decode([DataLayer.AnnotationAction].self, forKey: .actions)
+        let actions = (try container.decode([FailableDecodable<DataLayer.AnnotationAction>].self, forKey: .actions)).compactMap { $0.base }
 
         self.init(updateId: updateId, actions: actions)
     }
