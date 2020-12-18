@@ -259,6 +259,35 @@ class AnnotationServiceSpec: QuickSpec {
             }
         }
 
+        describe("reshowing overlays") {
+            var actions: [AnnotationAction]!
+            var input: AnnotationService.EvaluationInput!
+
+            beforeEach {
+                actions = self.makeAnnotationActionsFromJSON("testAnnotationService_reshowOverlay")
+            }
+
+            it("shows again after the reshow overlay") {
+                input = AnnotationService.EvaluationInput(
+                    actions: actions,
+                    activeOverlayIds: Set(),
+                    currentTime: 21000,
+                    currentDuration: 30000)
+
+                waitUntil { done in
+                    self.annotationService.evaluate(input) { (output) in
+                        guard output.showOverlays.count == 1 else { fail("Wrong array count"); done(); return }
+
+                        expect(output.showOverlays[0].overlayId).to(equal("scoreboard1"))
+                        expect(output.showOverlays[0].animateDuration).to(equal(300))
+                        expect(output.showOverlays[0].animateType).to(equal(OverlayAnimateinType.fadeIn))
+
+                        done()
+                    }
+                }
+            }
+        }
+
         describe("variables") {
             var actions: [AnnotationAction]!
             var input: AnnotationService.EvaluationInput!
@@ -802,6 +831,179 @@ class AnnotationServiceSpec: QuickSpec {
                             guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
 
                             expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("-27"))
+
+                            done()
+                        }
+                    }
+                }
+            }
+
+            describe("offset mappings") {
+                beforeEach {
+                    actions = self.makeAnnotationActionsFromJSON("testAnnotationService_offsetMappings")
+                }
+
+                it("does not apply a timeline marker when it has a negative offset") {
+                    let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]? = [
+                        "f4354364q6afd": (videoOffset: -30000, inGap: false)
+                    ]
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        offsetMappings: offsetMappings,
+                        activeOverlayIds: Set(),
+                        currentTime: 20000,
+                        currentDuration: 20000)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.showTimelineMarkers.count == 0 else { fail("Wrong array count: \(output.showTimelineMarkers.count)"); done(); return }
+
+                            done()
+                        }
+                    }
+                }
+
+                it("does not apply a timeline marker when in a gap") {
+                    let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]? = [
+                        "f4354364q6afd": (videoOffset: 3000, inGap: true)
+                    ]
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        offsetMappings: offsetMappings,
+                        activeOverlayIds: Set(),
+                        currentTime: 20000,
+                        currentDuration: 20000)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.showTimelineMarkers.count == 0 else { fail("Wrong array count"); done(); return }
+
+                            done()
+                        }
+                    }
+                }
+
+                it("does not apply an ephemeral overlay when in a gap") {
+                    let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]? = [
+                        "54afag35yag": (videoOffset: 30000, inGap: false), // make sure the scoreboard is mapped to the future
+                        "gagj9j9agj9a": (videoOffset: 3000, inGap: true)
+                    ]
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        offsetMappings: offsetMappings,
+                        activeOverlayIds: Set(),
+                        currentTime: 20000,
+                        currentDuration: 20000)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.showOverlays.count == 0 else { fail("Wrong array count"); done(); return }
+
+                            done()
+                        }
+                    }
+                }
+
+                it("applies the scoreboard overlay in a gap") {
+                    let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]? = [
+                        "54afag35yag": (videoOffset: 3000, inGap: true),
+                        "gagj9j9agj9a": (videoOffset: 30000, inGap: false) // make sure the ephemeral overlay is mapped to the future
+                    ]
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        offsetMappings: offsetMappings,
+                        activeOverlayIds: Set(),
+                        currentTime: 20000,
+                        currentDuration: 20000)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.showOverlays.count == 1 else { fail("Wrong array count"); done(); return }
+
+                            expect(output.showOverlays[0].overlayId).to(equal("scoreboard1"))
+
+                            done()
+                        }
+                    }
+                }
+
+                it("starts timer when it is mapped to a negative videoOffset") {
+                    let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]? = [
+                        "bbaaaa4444sssstg": (videoOffset: -10000, inGap: false),
+                        "4fdaf5tygfhfhffhc": (videoOffset: -10000, inGap: false)
+                    ]
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        offsetMappings: offsetMappings,
+                        activeOverlayIds: Set(),
+                        currentTime: 20000,
+                        currentDuration: 20000)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("30"))
+
+
+                            done()
+                        }
+                    }
+                }
+
+                it("starts timer when it is in a gap (in the past)") {
+                    let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]? = [
+                        "bbaaaa4444sssstg": (videoOffset: 4000, inGap: true),
+                        "4fdaf5tygfhfhffhc": (videoOffset: 6000, inGap: true)
+                    ]
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        offsetMappings: offsetMappings,
+                        activeOverlayIds: Set(),
+                        currentTime: 20000,
+                        currentDuration: 20000)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.tovs.count == 1 else { fail("Wrong array count"); done(); return }
+                            guard output.tovs["$scoreboardTimer"] != nil else { fail("Missing value in dict"); done(); return }
+
+                            // Note: the value here is 14, but since the timer appeared in a gap
+                            // it is likely that, if this were a real use-case, the timer would
+                            // be incorrect because there is missing chunk of video.
+                            // There would have to be an adjustTimer action to correct for the missing part.
+                            // For this fictional test, this is fine.
+                            expect(output.tovs["$scoreboardTimer"]!.humanFriendlyValue).to(equal("14"))
+
+
+                            done()
+                        }
+                    }
+                }
+
+                it("does not start timer when it is mapped into the future") {
+                    let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]? = [
+                        "bbaaaa4444sssstg": (videoOffset: 30000, inGap: false),
+                        "4fdaf5tygfhfhffhc": (videoOffset: 30000, inGap: false)
+                    ]
+
+                    input = AnnotationService.EvaluationInput(
+                        actions: actions,
+                        offsetMappings: offsetMappings,
+                        activeOverlayIds: Set(),
+                        currentTime: 20000,
+                        currentDuration: 20000)
+
+                    waitUntil { done in
+                        self.annotationService.evaluate(input) { (output) in
+                            guard output.tovs.count == 0 else { fail("Wrong array count"); done(); return }
 
                             done()
                         }

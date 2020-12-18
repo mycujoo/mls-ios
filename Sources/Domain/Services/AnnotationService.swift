@@ -13,6 +13,7 @@ class AnnotationService: AnnotationServicing {
         /// (OPTIONAL) a list of mappings between an AnnotationAction id and the videoOffset that should be used.
         /// Should only be applied if the videoOffset to be used is different than the offset stored on the annotation itself.
         /// This is primarily the case when the video length exceeds the DVR window.
+        /// `inGap` Indicates that this action happened within a video gap, i.e. a moment in real time for which there is no video available. This will have an affect on how the action is evaluated (e.g. it may be ignored).
         var offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
         /// A Set of overlayIds that are currently active (i.e. on-screen). This is obtained through a previous evaluation. Should initially be an empty set.
         var activeOverlayIds: Set<String>
@@ -59,30 +60,60 @@ class AnnotationService: AnnotationServicing {
 
             var activeOverlayIds = input.activeOverlayIds
             var inRangeOverlayActions: [String: MLSUIOverlayAction] = [:]
+            /// An array of action ids that should get deleted.
+            var deletedActionIds: [String] = []
+            /// A dictionary with keys being custom ids and values being the show overlay data.
+            var showOverlayActionData: [String: AnnotationActionShowOverlay] = [:]
 
-            // MARK: Evaluate
+            // MARK: Preprocessing actions
 
-            let deletedActions = input.actions
-                .map { a -> String? in switch(a.data) { case .deleteAction(let d): return d.actionId; default: return nil }}
-                .filter { $0 != nil }
-                .compactMap { $0 }
-
-            for action in input.actions
+            let sortedActions = input.actions
                 .sorted(by: { (lhs, rhs) -> Bool in
                     lhs.offset < rhs.offset || (lhs.offset == rhs.offset && lhs.priority >= rhs.priority)
                 })
-                .filter({ !deletedActions.contains($0.id) })
+
+            for action in sortedActions {
+                switch action.data {
+                case .deleteAction(let d):
+                    deletedActionIds.append(d.actionId)
+                case .showOverlay(let d):
+                    if let customId = d.customId {
+                        showOverlayActionData[customId] = d
+                    }
+                default:
+                    continue
+                }
+            }
+
+            // MARK: Processing actions
+
+            for action in sortedActions
+                .filter({ !deletedActionIds.contains($0.id) })
+                .map ({ action -> AnnotationAction? in
+                    switch action.data {
+                    case .reshowOverlay(let d):
+                        // Map this reshowOverlay to a showOverlay action.
+                        if let showOverlayData = showOverlayActionData[d.customId] {
+                            return AnnotationAction(id: action.id, offset: action.offset, timestamp: action.timestamp, data: AnnotationActionData.showOverlay(showOverlayData))
+                        }
+                        return nil
+                    default:
+                        return action
+                    }
+                })
+                .compactMap ({ $0 })
             {
                 let offsetMapping = input.offsetMappings?[action.id]
                 /// The video offset, i.e. the moment in the available video stream at which this action happened. Defined in milliseconds.
                 let offset = Double(offsetMapping??.videoOffset ?? action.offset)
                 /// Indicates that this action happened within a video gap, i.e. a moment in real time for which there is no video available.
-                /// Certain actions like variable and timer manipulations should still happen (e.g. to ensure accurate scores), but others should not,
-                /// like timeline markers.
-                let inGap = offsetMapping??.inGap ?? false
+                /// Certain actions like variable and timer manipulations should still happen (e.g. to ensure accurate scores), but others should not,  like timeline markers.
+                /// Also assume that the action is in a gap if the offset is -1, which is a special value to account for "unknown"
+                /// offsets.
+                let inGap = offsetMapping??.inGap ?? (offset == -1) // Double equality check: dangerous.
                 switch action.data {
                 case .showTimelineMarker(let data):
-                    guard !inGap else { continue }
+                    guard !inGap && offset >= 0 else { continue }
 
                     let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label, seekOffset: data.seekOffset)
                     let position = min(1.0, max(0.0, offset / input.currentDuration))
@@ -90,7 +121,13 @@ class AnnotationService: AnnotationServicing {
 
                     showTimelineMarkers.append(MLSUI.ShowTimelineMarkerAction(actionId: action.id, timelineMarker: timelineMarker, position: position, seekPosition: seekPosition))
                 case .showOverlay(let data):
-                    guard !inGap else { continue }
+                    if inGap && data.duration != nil {
+                        // If the show overlay action is in a gap we want to ignore it,
+                        // but only if it is an ephemeral overlay. For long-lived overlays
+                        // like scoreboard, it should still be evaluated, because they should
+                        // potentially still show up.
+                        continue
+                    }
 
                     if offset <= input.currentTime {
                         if let duration = data.duration {
@@ -131,6 +168,9 @@ class AnnotationService: AnnotationServicing {
                             }
                         }
                     }
+                case .reshowOverlay:
+                    // This was already remapped to showOverlay earlier on, so this can be ignored here.
+                    continue
                 case .setVariable(let data):
                     if offset <= input.currentTime {
                         variables[data.name] = AnnotationService.Variable(name: data.name, stringValue: data.stringValue, doubleValue: data.doubleValue, longValue: data.longValue, doublePrecision: data.doublePrecision)

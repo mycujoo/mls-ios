@@ -481,7 +481,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         view.infoTitleLabel.text = event?.title
 
-        if let errorCode = currentStream?.errorCode {
+        if let errorCode = currentStream?.error?.code {
             let error: String
             switch errorCode {
             case .geoblocked:
