@@ -2655,7 +2655,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -2685,7 +2685,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -2712,7 +2712,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
 				SDKROOT = appletvos;
@@ -2740,7 +2740,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
 				SDKROOT = appletvos;
