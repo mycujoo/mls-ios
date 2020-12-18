@@ -23,7 +23,7 @@ extension DataLayer {
         let fullUrl: URL?
         let drm: DRM?
         let dvrWindowSize: Int?
-        let error: MLSSDK.Stream.Err?
+        let error: Stream.Err?
     }
 }
 
@@ -53,7 +53,7 @@ extension DataLayer.Stream {
 
         let error: DataLayer.Stream.Err? = try? container.decode(DataLayer.Stream.Err.self, forKey: .error)
 
-        self.init(id: id, fullUrl: fullUrl, drm: drm, dvrWindowSize: dvrWindowSize, error: error?.toDomain)
+        self.init(id: id, fullUrl: fullUrl, drm: drm, dvrWindowSize: dvrWindowSize, error: error)
     }
 }
 
@@ -116,7 +116,7 @@ extension DataLayer.Stream.DRM.FairplayStream {
 
 extension DataLayer.Stream {
     var toDomain: MLSSDK.Stream {
-        return MLSSDK.Stream(id: self.id, fullUrl: self.fullUrl, fairplay: self.drm?.fairplay?.toDomain, dvrWindowSize: self.dvrWindowSize, error: self.error)
+        return MLSSDK.Stream(id: self.id, fullUrl: self.fullUrl, fairplay: self.drm?.fairplay?.toDomain, dvrWindowSize: self.dvrWindowSize, error: self.error?.toDomain)
     }
 }
 
