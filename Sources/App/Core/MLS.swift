@@ -135,10 +135,26 @@ public class MLS {
         return DataProvider(getEventUseCase: getEventUseCase, listEventsUseCase: listEventsUseCase)
     }()
 
+    /// A helper for `initGlobalPrereq()`
+    private static var initGlobalPrereqDone = false
+    /// An internal method that needs to be called once to setup some global requirements.
+    /// This only needs to run once, even if multiple MLS instances are created.
+    private static func initGlobalPrereq() {
+        if initGlobalPrereqDone { return }
+        initGlobalPrereqDone = true
+
+        // TODO: Move this font array elsewhere.
+        if let bundle = Bundle.resourceBundle {
+            UIFont.loadFonts(names: ["RobotoMono-Regular.ttf", "RobotoMono-Bold.ttf"], forBundle: bundle)
+        }
+    }
+
     public init(publicKey: String, configuration: Configuration) {
         if publicKey.isEmpty {
             fatalError("Please insert your publicKey in the MLS component. You can obtain one through https://mls.mycujoo.tv")
         }
+        MLS.initGlobalPrereq()
+
         self.publicKey = publicKey
         self.configuration = configuration
     }

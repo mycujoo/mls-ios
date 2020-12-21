@@ -20,3 +20,28 @@ private extension UIFontDescriptor {
         return fontDescriptor
     }
 }
+
+extension UIFont {
+    class func loadFonts(names: [String], forBundle bundle: Bundle) {
+        for name in names {
+            registerFontWithFilenameString(filenameString: name, bundle: bundle)
+        }
+    }
+
+    private static func registerFontWithFilenameString(filenameString: String, bundle: Bundle) {
+        if let pathForResourceString = bundle.path(forResource: filenameString, ofType: nil),
+           let fontData = NSData(contentsOfFile: pathForResourceString),
+           let dataProvider = CGDataProvider(data: fontData),
+           let fontRef = CGFont(dataProvider) {
+
+            var errorRef: Unmanaged<CFError>? = nil
+
+            if (CTFontManagerRegisterGraphicsFont(fontRef, &errorRef) == false) {
+                print("Failed to register font \(filenameString) - register graphics font failed - this font may have already been registered in this bundle.")
+            }
+        }
+        else {
+            print("Failed to register font \(filenameString).")
+        }
+    }
+}
