@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.9](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.9)
+Released on ?.
+
+#### Added
+- Added a Roboto Mono font for overlays
+
+#### Fixed
+- Fixed an issue with timer rendering on the overlays
+
 ## [1.1.8](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.8)
 Released on 2020-12-18.
 

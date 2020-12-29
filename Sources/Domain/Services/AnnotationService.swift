@@ -432,9 +432,9 @@ fileprivate extension AnnotationService {
             case .ms:
                 let seconds = valueAsSeconds.truncatingRemainder(dividingBy: 60)
                 let minutes = (valueAsSeconds - seconds) / 60
-                return String(format: "%02.0f:%02.0f", minutes, seconds)
+                return String(format: "%02.0f:%02.0f", floor(minutes), floor(seconds))
             case .s, .unsupported:
-                return String(format: "%.0f", valueAsSeconds)
+                return String(format: "%.0f", floor(valueAsSeconds))
             }
         }
 
