@@ -18,6 +18,13 @@ let package = Package(
         .package(url: "https://github.com/daltoniam/Starscream.git", .upToNextMinor(from: "3.1.1"))
     ],
     targets: [
-        .target(name: "MLSSDK", dependencies: ["Alamofire", "Moya", "Starscream"], path: "Sources", exclude: ["App/Support Files/Info.plist"])
+        .target(
+            name: "MLSSDK",
+            dependencies: ["Alamofire", "Moya", "Starscream"],
+            path: "Sources",
+            resources: [
+                .copy("Resources/fonts/RobotoMono-Regular.ttf"),
+                .copy("Resources/fonts/RobotoMono-Bold.ttf")],
+            exclude: ["App/Support Files/Info.plist"])
     ]
 )
