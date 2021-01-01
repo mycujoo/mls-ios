@@ -13,6 +13,11 @@ public struct Stream: Equatable {
         }
         let code: ErrorCode?
         let message: String?
+
+        public init(code: ErrorCode?, message: String?) {
+            self.code = code
+            self.message = message
+        }
     }
 
     public let id: String
