@@ -940,10 +940,19 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
             return false
         }
 
-        if requestUrl.absoluteString.prefix(4) != "http" && requestUrl.absoluteString.prefix(3) != "skd" {
+        if !["http", "https", "skd"].contains(requestUrl.scheme?.lowercased()) {
             // This is likely because of the `MLSAVPlayerNetworkInterceptor`. We always want to return false for that.
             // See that class for more information.
-            return false
+            if requestUrl.pathExtension == "ts" {
+                // This triggers only when the m3u8 playlist internally defines relative paths, rather than absolute ones (which it only does for the legacy streaming platform). The way to handle this is inspired by: https://developer.apple.com/forums/thread/113063
+                let redirect = URLRequest(url: MLSAVPlayerNetworkInterceptor.unprepare(requestUrl))
+                loadingRequest.redirect = redirect
+                loadingRequest.response = HTTPURLResponse(url: redirect.url!, statusCode: 302, httpVersion: nil, headerFields: nil)
+                loadingRequest.finishLoading()
+                return true
+            } else {
+                return false
+            }
         }
         
         // We first check if a url is set in the manifest.

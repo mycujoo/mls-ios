@@ -20,7 +20,7 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
     }
 
     /// Undo the `prepare()` work.
-    private static func unprepare(_ assetURL: URL) -> URL {
+    static func unprepare(_ assetURL: URL) -> URL {
         return URL(string: assetURL.absoluteString.replacingFirstOccurrence(of: "none://", with: "https://"))!
     }
 
@@ -56,7 +56,7 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
         if URLProtocol.property(forKey: Constants.RequestHandledKey, in: request) != nil {
             return false
         }
-        return request.url?.pathExtension == "m3u8"
+        return request.url?.pathExtension == "m3u8" || request.url?.pathExtension == "ts"
     }
 
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {

@@ -15,6 +15,7 @@ Released on ?.
 #### Fixed
 - Fixed an issue with timer rendering on the overlays
 - Fixed a memory leak in the annotation overlay rendering process
+- Fixed the AVPlayerNetworkInterceptor's behavior for relative path `.ts` files.
 
 ## [1.1.8](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.8)
 Released on 2020-12-18.
