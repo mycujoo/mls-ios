@@ -615,38 +615,38 @@ extension VideoPlayerImpl {
 
 // MARK: - Private Methods
 extension VideoPlayerImpl {
-    private func showOverlays(with actions: [MLSUI.ShowOverlayAction]) {
-        func svgParseAndRender(action: MLSUI.ShowOverlayAction, baseSVG: String) {
-            var baseSVG = baseSVG
-            // On every variable/timer change, re-place all variables and timers in the svg again
-            // (because we only have the initial SVG, we don't keep its updated states with the original tokens
-            // included).
-            guard let tovStore = self.tovStore else { return }
-            for variableName in action.variables {
-                // Fallback to the variable name if there is no variable defined.
-                // The reason for this is that certain "variable-like" values might have slipped through,
-                // e.g. prices that start with a dollar sign.
-                let resolved = tovStore.get(by: variableName)?.humanFriendlyValue ?? variableName
-                baseSVG = baseSVG.replacingOccurrences(of: variableName, with: resolved)
-            }
+    private func svgParseAndRender(action: MLSUI.ShowOverlayAction, baseSVG: String) {
+        var baseSVG = baseSVG
+        // On every variable/timer change, re-place all variables and timers in the svg again
+        // (because we only have the initial SVG, we don't keep its updated states with the original tokens
+        // included).
+        guard let tovStore = self.tovStore else { return }
+        for variableName in action.variables {
+            // Fallback to the variable name if there is no variable defined.
+            // The reason for this is that certain "variable-like" values might have slipped through,
+            // e.g. prices that start with a dollar sign.
+            let resolved = tovStore.get(by: variableName)?.humanFriendlyValue ?? variableName
+            baseSVG = baseSVG.replacingOccurrences(of: variableName, with: resolved)
+        }
 
-            if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
+        if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
 
-                    let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
-                    imageView.clipsToBounds = true
-                    imageView.backgroundColor = .none
+                let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
+                imageView.clipsToBounds = true
+                imageView.backgroundColor = .none
 
-                    if let containerView = self.overlays[action.overlayId] {
-                        self.view.replaceOverlay(containerView: containerView, imageView: imageView)
-                    } else {
-                        self.overlays[action.overlayId] = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
-                    }
+                if let containerView = self.overlays[action.overlayId] {
+                    self.view.replaceOverlay(containerView: containerView, imageView: imageView)
+                } else {
+                    self.overlays[action.overlayId] = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
                 }
             }
         }
+    }
 
+    private func showOverlays(with actions: [MLSUI.ShowOverlayAction]) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
             for action in actions {
@@ -656,13 +656,13 @@ extension VideoPlayerImpl {
 
                     if let baseSVG = baseSVG {
                         for variableName in action.variables {
-                            self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { val in
+                            self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { [weak self] val in
                                 // Re-render the entire SVG (including replacing all tokens with their resolved values)
-                                svgParseAndRender(action: action, baseSVG: baseSVG)
+                                self?.svgParseAndRender(action: action, baseSVG: baseSVG)
                             })
                         }
                         // Do an initial rendering as well
-                        svgParseAndRender(action: action, baseSVG: baseSVG)
+                        self.svgParseAndRender(action: action, baseSVG: baseSVG)
                     }
                 }
             }
