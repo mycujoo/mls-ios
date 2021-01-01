@@ -361,6 +361,16 @@ class VideoPlayerSpec: QuickSpec {
             }
         }
 
+        describe("loading local annotations") {
+            fit("calls evaluation function for local annotations") {
+                verify(self.mockAnnotationService, times(0)).evaluate(ParameterMatcher { $0.actions.count == 0 }, callback: any())
+
+                self.videoPlayer.localAnnotationActions = [EntityBuilder.buildAnnotationActionForShowOverlay()]
+
+                verify(self.mockAnnotationService, times(1)).evaluate(ParameterMatcher { $0.actions.count == 1 }, callback: any())
+            }
+        }
+
         describe("info layer") {
             it("shows the info layer when there is no stream") {
                 verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())

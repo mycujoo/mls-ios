@@ -293,6 +293,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    var localAnnotationActions: [AnnotationAction] = [] {
+        didSet {
+            evaluateAnnotations()
+        }
+    }
+
     // MARK: - Methods
 
     init(
@@ -524,19 +530,19 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
     private func evaluateAnnotations() {
-        guard let _ = timeline else { return }
+        let allAnnotationActions = annotationActions + localAnnotationActions
 
         // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
         // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
         if Int(currentDuration) + 20 > (currentStream?.dvrWindowSize ?? Int.max) / 1000 {
-            let map = hlsInspectionService.map(hlsPlaylist: player.rawSegmentPlaylist, absoluteTimes: annotationActions.map { $0.timestamp })
-            offsetMappings = Dictionary(annotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
+            let map = hlsInspectionService.map(hlsPlaylist: player.rawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
+            offsetMappings = Dictionary(allAnnotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
         } else {
             offsetMappings = nil
         }
 
-        annotationService.evaluate(AnnotationService.EvaluationInput(actions: annotationActions, offsetMappings: offsetMappings, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime * 1000, currentDuration: currentDuration * 1000)) { [weak self] output in
+        annotationService.evaluate(AnnotationService.EvaluationInput(actions: allAnnotationActions, offsetMappings: offsetMappings, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime * 1000, currentDuration: currentDuration * 1000)) { [weak self] output in
 
             self?.activeOverlayIds = output.activeOverlayIds
 

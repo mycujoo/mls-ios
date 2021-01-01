@@ -11,16 +11,16 @@ import Foundation
 
 // MARK: - Action
 
-struct AnnotationAction: Hashable {
-    let id: String
-    let offset: Int64
+public struct AnnotationAction: Hashable {
+    public let id: String
+    public let offset: Int64
     /// A UNIX timestamp (in milliseconds) of the absolute time at which this action happened.
     /// Can be used to calculate the video offset against HLS playlists in cases where the video length exceeds the DVR window.
-    let timestamp: Int64
-    let data: AnnotationActionData
+    public let timestamp: Int64
+    public let data: AnnotationActionData
 
     /// A priority indicates what the order of actions should be when they happen at the same offset. A higher priority means it should go first.
-    var priority: Int {
+    public var priority: Int {
         switch data {
         case .deleteAction:
             return 2000
@@ -39,23 +39,23 @@ struct AnnotationAction: Hashable {
         }
     }
 
-    init(id: String, offset: Int64, timestamp: Int64, data: AnnotationActionData) {
+    public init(id: String, offset: Int64, timestamp: Int64, data: AnnotationActionData) {
         self.id = id
         self.offset = offset
         self.timestamp = timestamp
         self.data = data
     }
 
-    static func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
+    static public func == (lhs: AnnotationAction, rhs: AnnotationAction) -> Bool {
         return lhs.id == rhs.id
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 }
 
-enum AnnotationActionData {
+public enum AnnotationActionData {
     case deleteAction(AnnotationActionDeleteAction)
     case showTimelineMarker(AnnotationActionShowTimelineMarker)
     case showOverlay(AnnotationActionShowOverlay)
@@ -74,22 +74,22 @@ enum AnnotationActionData {
 
 // MARK: - ActionDeleteAction
 
-struct AnnotationActionDeleteAction {
-    let actionId: String
+public struct AnnotationActionDeleteAction {
+    public let actionId: String
 
-    init(actionId: String) {
+    public init(actionId: String) {
         self.actionId = actionId
     }
 }
 
 // MARK: - ActionShowTimelineMarker
 
-struct AnnotationActionShowTimelineMarker {
-    let color: String
-    let label: String
-    let seekOffset: Int
+public struct AnnotationActionShowTimelineMarker {
+    public let color: String
+    public let label: String
+    public let seekOffset: Int
 
-    init(color: String, label: String, seekOffset: Int) {
+    public init(color: String, label: String, seekOffset: Int) {
         self.color = color
         self.label = label
         self.seekOffset = seekOffset
@@ -98,24 +98,24 @@ struct AnnotationActionShowTimelineMarker {
 
 // MARK: - AnnotationActionShowOverlay
 
-enum OverlayAnimateinType {
+public enum OverlayAnimateinType {
     case fadeIn, slideFromTop, slideFromBottom, slideFromLeft, slideFromRight, none, unsupported
 }
 
-enum OverlayAnimateoutType {
+public enum OverlayAnimateoutType {
     case fadeOut, slideToTop, slideToBottom, slideToLeft, slideToRight, none, unsupported
 }
 
-struct AnnotationActionShowOverlay {
-    struct Position {
-        let top: Double?
-        let bottom: Double?
-        let vcenter: Double?
-        let right: Double?
-        let left: Double?
-        let hcenter: Double?
+public struct AnnotationActionShowOverlay {
+    public struct Position {
+        public let top: Double?
+        public let bottom: Double?
+        public let vcenter: Double?
+        public let right: Double?
+        public let left: Double?
+        public let hcenter: Double?
 
-        init(top: Double?, bottom: Double?, vcenter: Double?, right: Double?, left: Double?, hcenter: Double?) {
+        public init(top: Double?, bottom: Double?, vcenter: Double?, right: Double?, left: Double?, hcenter: Double?) {
             self.top = top
             self.bottom = bottom
             self.vcenter = vcenter
@@ -125,28 +125,28 @@ struct AnnotationActionShowOverlay {
         }
     }
 
-    struct Size {
-        let width: Double?
-        let height: Double?
+    public struct Size {
+        public let width: Double?
+        public let height: Double?
 
-        init(width: Double?, height: Double?) {
+        public init(width: Double?, height: Double?) {
             self.width = width
             self.height = height
         }
     }
 
-    let customId: String?
-    let svgURL: URL
-    let position: Position
-    let size: Size
-    let animateinType: OverlayAnimateinType?
-    let animateoutType: OverlayAnimateoutType?
-    let animateinDuration: Double?
-    let animateoutDuration: Double?
-    let duration: Double?
-    let variables: [String]?
+    public let customId: String?
+    public let svgURL: URL
+    public let position: Position
+    public let size: Size
+    public let animateinType: OverlayAnimateinType?
+    public let animateoutType: OverlayAnimateoutType?
+    public let animateinDuration: Double?
+    public let animateoutDuration: Double?
+    public let duration: Double?
+    public let variables: [String]?
 
-    init(
+    public init(
             customId: String?,
             svgURL: URL,
             position: Position,
@@ -173,12 +173,12 @@ struct AnnotationActionShowOverlay {
 
 // MARK: - AnnotationActionHideOverlay
 
-struct AnnotationActionHideOverlay {
-    let customId: String
-    let animateoutType: OverlayAnimateoutType?
-    let animateoutDuration: Double?
+public struct AnnotationActionHideOverlay {
+    public let customId: String
+    public let animateoutType: OverlayAnimateoutType?
+    public let animateoutDuration: Double?
 
-    init(customId: String, animateoutType: OverlayAnimateoutType?, animateoutDuration: Double?) {
+    public init(customId: String, animateoutType: OverlayAnimateoutType?, animateoutDuration: Double?) {
         self.customId = customId
         self.animateoutType = animateoutType
         self.animateoutDuration = animateoutDuration
@@ -187,24 +187,24 @@ struct AnnotationActionHideOverlay {
 
 // MARK: - AnnotationActionHideOverlay
 
-struct AnnotationActionReshowOverlay {
-    let customId: String
+public struct AnnotationActionReshowOverlay {
+    public let customId: String
 
-    init(customId: String) {
+    public init(customId: String) {
         self.customId = customId
     }
 }
 
 // MARK: - AnnotationActionSetVariable
 
-struct AnnotationActionSetVariable {
-    let name: String
-    var stringValue: String?
-    var doubleValue: Double?
-    var longValue: Int64?
-    var doublePrecision: Int?
+public struct AnnotationActionSetVariable {
+    public let name: String
+    public var stringValue: String?
+    public var doubleValue: Double?
+    public var longValue: Int64?
+    public var doublePrecision: Int?
 
-    init(
+    public init(
             name: String,
             stringValue: String?,
             doubleValue: Double?,
@@ -221,11 +221,11 @@ struct AnnotationActionSetVariable {
 
 // MARK: - AnnotationActionIncrementVariable
 
-struct AnnotationActionIncrementVariable {
-    let name: String
-    let amount: Double
+public struct AnnotationActionIncrementVariable {
+    public let name: String
+    public let amount: Double
 
-    init(name: String, amount: Double) {
+    public init(name: String, amount: Double) {
         self.name = name
         self.amount = amount
     }
@@ -233,25 +233,25 @@ struct AnnotationActionIncrementVariable {
 
 // MARK: - AnnotationActionCreateTimer
 
-struct AnnotationActionCreateTimer {
-    enum Format {
+public struct AnnotationActionCreateTimer {
+    public enum Format {
         case ms
         case s
         case unsupported
     }
-    enum Direction {
+    public enum Direction {
         case up
         case down
         case unsupported
     }
 
-    let name: String
-    let format: Format
-    let direction: Direction
-    let startValue: Double
-    let capValue: Double?
+    public let name: String
+    public let format: Format
+    public let direction: Direction
+    public let startValue: Double
+    public let capValue: Double?
 
-    init(
+    public init(
             name: String,
             format: Format,
             direction: Direction,
@@ -268,31 +268,31 @@ struct AnnotationActionCreateTimer {
 
 // MARK: - AnnotationActionStartTimer
 
-struct AnnotationActionStartTimer {
-    let name: String
+public struct AnnotationActionStartTimer {
+    public let name: String
 
-    init(name: String) {
+    public init(name: String) {
         self.name = name
     }
 }
 
 // MARK: - AnnotationActionStartTimer
 
-struct AnnotationActionPauseTimer {
-    let name: String
+public struct AnnotationActionPauseTimer {
+    public let name: String
 
-    init(name: String) {
+    public init(name: String) {
         self.name = name
     }
 }
 
 // MARK: - AnnotationActionStartTimer
 
-struct AnnotationActionAdjustTimer {
-    let name: String
-    let value: Double
+public struct AnnotationActionAdjustTimer {
+    public let name: String
+    public let value: Double
 
-    init(name: String, value: Double) {
+    public init(name: String, value: Double) {
         self.name = name
         self.value = value
     }
@@ -300,11 +300,11 @@ struct AnnotationActionAdjustTimer {
 
 // MARK: - AnnotationActionSkipTimer
 
-struct AnnotationActionSkipTimer {
-    let name: String
-    let value: Double
+public struct AnnotationActionSkipTimer {
+    public let name: String
+    public let value: Double
 
-    init(name: String, value: Double) {
+    public init(name: String, value: Double) {
         self.name = name
         self.value = value
     }
@@ -312,17 +312,17 @@ struct AnnotationActionSkipTimer {
 
 // MARK: - AnnotationActionCreateClock
 
-struct AnnotationActionCreateClock {
-    enum Format {
+public struct AnnotationActionCreateClock {
+    public enum Format {
         case twelveHours
         case twentyfourHours
         case unsupported
     }
 
-    let name: String
-    let format: Format
+    public let name: String
+    public let format: Format
 
-    init(name: String, format: Format) {
+    public init(name: String, format: Format) {
         self.name = name
         self.format = format
     }

@@ -7,6 +7,10 @@ Released on ?.
 
 #### Added
 - Added a Roboto Mono font for overlays
+- Added a `localAnnotationActions` property on the VideoPlayer for on-the-fly injection of annotation actions (advanced feature).
+
+#### Changed
+- Changed access control for AnnotationAction-related entities to public.
 
 #### Fixed
 - Fixed an issue with timer rendering on the overlays

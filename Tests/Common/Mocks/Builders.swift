@@ -29,6 +29,26 @@ class EntityBuilder {
             error: withError ? MLSSDK.Stream.Err.init(code: .geoblocked, message: "") : nil)
     }
 
+    static func buildAnnotationActionForShowOverlay() -> MLSSDK.AnnotationAction {
+        return MLSSDK.AnnotationAction(
+            id: randomString(length: 20),
+            offset: 2000,
+            timestamp: 0,
+            data: AnnotationActionData
+                .showOverlay(
+                    AnnotationActionShowOverlay(
+                        customId: "scoreboard",
+                        svgURL: URL(string: "https://svg.mycujoo.com/v1/0zkVKiFpwFvVNxtvIf_vZDeqgJc.svg")!,
+                        position: .init(top: 5, bottom: nil, vcenter: nil, right: 5, left: nil, hcenter: nil),
+                        size: .init(width: 23, height: nil),
+                        animateinType: .fadeIn,
+                        animateoutType: .fadeOut,
+                        animateinDuration: 300,
+                        animateoutDuration: 300,
+                        duration: nil,
+                        variables: ["$home_score", "$away_score", "$main_timer"])))
+    }
+
     private static func randomString(length: Int) -> String {
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let len = UInt32(letters.length)
