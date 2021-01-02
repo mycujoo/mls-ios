@@ -91,7 +91,6 @@
 		4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
 		4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4966DEFD24B72D7F00BEC403 /* Event.swift */; };
 		496ECB0124CF0E7A001A9431 /* TOVStoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */; };
-		4971F39525A10F8C0075715E /* MLSSDK_IMA_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 4971F39325A10F8C0075715E /* MLSSDK_IMA_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49736E9524A9F59C001F3F48 /* GroupDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF624A9F599001F3F48 /* GroupDisposable.swift */; };
 		49736E9624A9F59C001F3F48 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF724A9F599001F3F48 /* Disposable.swift */; };
 		49736E9724A9F59C001F3F48 /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF824A9F599001F3F48 /* Variable.swift */; };
@@ -402,6 +401,10 @@
 		49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
 		49CE62682509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
 		49CE62692509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
+		49D2A00125A117FB00C12650 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49D29FFF25A117FB00C12650 /* Info.plist */; };
+		49D2A00225A117FB00C12650 /* MLSSDK_IMA_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */; };
+		49D2A00D25A1181900C12650 /* MLSSDK_IMA_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */; };
+		49D2A00E25A1181900C12650 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49D2A00C25A1181900C12650 /* Info.plist */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -530,10 +533,7 @@
 		496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStoreSpec.swift; sourceTree = "<group>"; };
 		4971F37525A10F3A0075715E /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		4971F39125A10F8C0075715E /* MLSSDK_IMA_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4971F39325A10F8C0075715E /* MLSSDK_IMA_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_iOS.h; sourceTree = "<group>"; };
-		4971F39425A10F8C0075715E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4971F3AB25A1101E0075715E /* MLSSDK_IMA_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4971F3AD25A1101E0075715E /* MLSSDK_IMA_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_tvOS.h; sourceTree = "<group>"; };
 		49736DF624A9F599001F3F48 /* GroupDisposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDisposable.swift; sourceTree = "<group>"; };
 		49736DF724A9F599001F3F48 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
 		49736DF824A9F599001F3F48 /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -702,6 +702,10 @@
 		49C12D5724A35204002CCDF5 /* PlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfig.swift; sourceTree = "<group>"; };
 		49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimelineActionsUpdatesUseCase.swift; sourceTree = "<group>"; };
+		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_tvOS.h; sourceTree = "<group>"; };
+		49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_iOS.h; sourceTree = "<group>"; };
+		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
@@ -1046,20 +1050,11 @@
 		4971F37425A10F0A0075715E /* IMA */ = {
 			isa = PBXGroup;
 			children = (
-				4971F39F25A10FD80075715E /* Support Files */,
+				49A9B70925A1173E009E61FD /* tvOS */,
+				49A9B70825A11738009E61FD /* iOS */,
 				4971F37525A10F3A0075715E /* Placeholder.swift */,
 			);
 			path = IMA;
-			sourceTree = "<group>";
-		};
-		4971F39F25A10FD80075715E /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				4971F39425A10F8C0075715E /* Info.plist */,
-				4971F39325A10F8C0075715E /* MLSSDK_IMA_iOS.h */,
-				4971F3AD25A1101E0075715E /* MLSSDK_IMA_tvOS.h */,
-			);
-			path = "Support Files";
 			sourceTree = "<group>";
 		};
 		49736DF424A9F588001F3F48 /* Macaw */ = {
@@ -1380,6 +1375,22 @@
 			path = SWXMLHash;
 			sourceTree = "<group>";
 		};
+		49A9B70825A11738009E61FD /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				49D2A00A25A1180600C12650 /* Support Files */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		49A9B70925A1173E009E61FD /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				49D29FFE25A117D900C12650 /* Support Files */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
 		49AE76F824C720AE00E40C41 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1432,6 +1443,24 @@
 				49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */,
 			);
 			path = tvOS;
+			sourceTree = "<group>";
+		};
+		49D29FFE25A117D900C12650 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				49D29FFF25A117FB00C12650 /* Info.plist */,
+				49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		49D2A00A25A1180600C12650 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				49D2A00C25A1181900C12650 /* Info.plist */,
+				49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */,
+			);
+			path = "Support Files";
 			sourceTree = "<group>";
 		};
 		49E2DF0C24A5538700750C00 /* Entities */ = {
@@ -1590,7 +1619,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4971F39525A10F8C0075715E /* MLSSDK_IMA_iOS.h in Headers */,
+				49D2A00D25A1181900C12650 /* MLSSDK_IMA_iOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1598,6 +1627,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D2A00225A117FB00C12650 /* MLSSDK_IMA_tvOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1824,6 +1854,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D2A00E25A1181900C12650 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1831,6 +1862,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D2A00125A117FB00C12650 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2625,7 +2657,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/iOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2638,7 +2670,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2653,7 +2685,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/iOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2666,7 +2698,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2681,7 +2713,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/tvOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2709,7 +2741,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/IMA/tvOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -32,14 +32,14 @@ Pod::Spec.new do |spec|
   end
 
   spec.subspec 'IMA-iOS' do |ss|
-    ss.source_files  = 'Sources/IMA/**/*.swift'
+    ss.source_files  = 'Sources/IMA/iOS/**/*.swift'
     ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
 
     ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
   end
 
   spec.subspec 'IMA-tvOS' do |ss|
-    ss.source_files  = 'Sources/IMA/**/*.swift'
+    ss.source_files  = 'Sources/IMA/tvOS/**/*.swift'
     ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
 
     ss.tvos.dependency 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
