@@ -401,10 +401,9 @@
 		49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
 		49CE62682509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
 		49CE62692509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
-		49D2A00125A117FB00C12650 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49D29FFF25A117FB00C12650 /* Info.plist */; };
-		49D2A00225A117FB00C12650 /* MLSSDK_IMA_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */; };
-		49D2A00D25A1181900C12650 /* MLSSDK_IMA_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */; };
-		49D2A00E25A1181900C12650 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49D2A00C25A1181900C12650 /* Info.plist */; };
+		49D2A00225A117FB00C12650 /* MLSSDK_IMA_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49D2A00D25A1181900C12650 /* MLSSDK_IMA_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49D2A01725A1190600C12650 /* MLS+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A01625A1190600C12650 /* MLS+.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -706,6 +705,7 @@
 		49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_tvOS.h; sourceTree = "<group>"; };
 		49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_iOS.h; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49D2A01625A1190600C12650 /* MLS+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLS+.swift"; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
@@ -1379,6 +1379,7 @@
 			isa = PBXGroup;
 			children = (
 				49D2A00A25A1180600C12650 /* Support Files */,
+				49D2A01625A1190600C12650 /* MLS+.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -1796,6 +1797,7 @@
 				TargetAttributes = {
 					4971F39025A10F8C0075715E = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 					4971F3AA25A1101E0075715E = {
 						CreatedOnToolsVersion = 12.3;
@@ -1854,7 +1856,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D2A00E25A1181900C12650 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1862,7 +1863,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D2A00125A117FB00C12650 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2163,6 +2163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D2A01725A1190600C12650 /* MLS+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2650,6 +2651,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 290CDAEF8950E620C7C0B6F7 /* Pods-MLSSDK-IMA-iOS.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -2669,6 +2671,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2678,6 +2681,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 82A687A40A1C3939A4A7EA65 /* Pods-MLSSDK-IMA-iOS.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;

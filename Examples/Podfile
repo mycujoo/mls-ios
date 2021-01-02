@@ -8,11 +8,13 @@ workspace 'MLS'
 target 'MLS' do
   platform :ios, '11.0'
   pod 'MLSSDK', :path => '..'
+  pod 'MLSSDK/IMA-iOS', :path => '..'
 end
 
 target 'MLS-tvOS' do
   platform :tvos, '11.0'
   pod 'MLSSDK', :path => '..'
+  pod 'MLSSDK/IMA-tvOS', :path => '..'
 end
 
 
