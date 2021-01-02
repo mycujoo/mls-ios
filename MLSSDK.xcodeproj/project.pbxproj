@@ -401,8 +401,6 @@
 		49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
 		49CE62682509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
 		49CE62692509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
-		49D2A00225A117FB00C12650 /* MLSSDK_IMA_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49D2A00D25A1181900C12650 /* MLSSDK_IMA_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49D2A01725A1190600C12650 /* MLS+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A01625A1190600C12650 /* MLS+.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
@@ -702,8 +700,6 @@
 		49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimelineActionsUpdatesUseCase.swift; sourceTree = "<group>"; };
 		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_tvOS.h; sourceTree = "<group>"; };
-		49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSSDK_IMA_iOS.h; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A01625A1190600C12650 /* MLS+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLS+.swift"; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
@@ -1450,7 +1446,6 @@
 			isa = PBXGroup;
 			children = (
 				49D29FFF25A117FB00C12650 /* Info.plist */,
-				49D2A00025A117FB00C12650 /* MLSSDK_IMA_tvOS.h */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -1459,7 +1454,6 @@
 			isa = PBXGroup;
 			children = (
 				49D2A00C25A1181900C12650 /* Info.plist */,
-				49D2A00B25A1181900C12650 /* MLSSDK_IMA_iOS.h */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -1620,7 +1614,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D2A00D25A1181900C12650 /* MLSSDK_IMA_iOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1628,7 +1621,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D2A00225A117FB00C12650 /* MLSSDK_IMA_tvOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
