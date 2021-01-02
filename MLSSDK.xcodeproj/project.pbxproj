@@ -997,6 +997,17 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		4971F34125A10D900075715E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4926CDEE24CDDAD300419A42 /* App */,
+				4926CDED24CDDACC00419A42 /* Domain */,
+				4926CDEC24CDDAB900419A42 /* Data */,
+				49317F64253F5FCB00675EB6 /* Resources */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		49736DF424A9F588001F3F48 /* Macaw */ = {
 			isa = PBXGroup;
 			children = (
@@ -1485,10 +1496,7 @@
 		64CACD51249A367100CEE111 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				4926CDEE24CDDAD300419A42 /* App */,
-				4926CDED24CDDACC00419A42 /* Domain */,
-				4926CDEC24CDDAB900419A42 /* Data */,
-				49317F64253F5FCB00675EB6 /* Resources */,
+				4971F34125A10D900075715E /* Core */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -2667,7 +2675,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/App/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Core/App/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2697,7 +2705,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/App/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Core/App/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2725,7 +2733,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/App/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Core/App/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2753,7 +2761,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/App/Support Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Core/App/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

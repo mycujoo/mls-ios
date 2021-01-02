@@ -11,12 +11,12 @@ Pod::Spec.new do |spec|
   spec.tvos.deployment_target = "11.0"
 
   spec.source        = { :git => 'https://github.com/mycujoo/mls-ios.git', :tag => spec.version }
-  spec.source_files  = "Sources/App/**/*.swift", "Sources/Data/**/*.swift", "Sources/Domain/**/*.swift"
+  spec.source_files  = "Sources/Core/App/**/*.swift", "Sources/Core/Data/**/*.swift", "Sources/Core/Domain/**/*.swift"
   spec.ios.resource_bundles = {
-    'MLSResources' => ["Sources/Resources/**/*.{strings}", "Sources/Resources/**/ios.xcassets", "Sources/Resources/fonts/*.ttf"]
+    'MLSResources' => ["Sources/Core/Resources/**/*.{strings}", "Sources/Core/Resources/**/ios.xcassets", "Sources/Core/Resources/fonts/*.ttf"]
   }
   spec.tvos.resource_bundles = {
-    'MLSResources' => ["Sources/Resources/**/*.{strings}", "Sources/Resources/**/tvos.xcassets", "Sources/Resources/fonts/*.ttf"]
+    'MLSResources' => ["Sources/Core/Resources/**/*.{strings}", "Sources/Core/Resources/**/tvos.xcassets", "Sources/Core/Resources/fonts/*.ttf"]
   }
   spec.frameworks = "Foundation", "AVFoundation", "UIKit"
   spec.swift_version = '5.0'
