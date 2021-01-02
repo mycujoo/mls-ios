@@ -402,6 +402,7 @@
 		49CE62682509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
 		49CE62692509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
 		49D2A01725A1190600C12650 /* MLS+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A01625A1190600C12650 /* MLS+.swift */; };
+		49D2A0E325A11C7700C12650 /* MLS+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A0E225A11C7700C12650 /* MLS+.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -702,6 +703,7 @@
 		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A01625A1190600C12650 /* MLS+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLS+.swift"; sourceTree = "<group>"; };
+		49D2A0E225A11C7700C12650 /* MLS+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLS+.swift"; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
@@ -1384,6 +1386,7 @@
 			isa = PBXGroup;
 			children = (
 				49D29FFE25A117D900C12650 /* Support Files */,
+				49D2A0E225A11C7700C12650 /* MLS+.swift */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
@@ -1793,6 +1796,7 @@
 					};
 					4971F3AA25A1101E0075715E = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 					49EA069124C72CE100C7AB10 = {
 						CreatedOnToolsVersion = 11.6;
@@ -2163,6 +2167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D2A0E325A11C7700C12650 /* MLS+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2702,6 +2707,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D4D78C6942DD79E546FE228 /* Pods-MLSSDK-IMA-tvOS.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -2720,6 +2726,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 11.0;
@@ -2730,6 +2737,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D8B27674F1C511474901B716 /* Pods-MLSSDK-IMA-tvOS.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
