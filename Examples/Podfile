@@ -40,6 +40,19 @@ target 'MLSSDK-tvOS' do
   pod 'Starscream', '~> 3.1'
 end
 
+target 'MLSSDK-IMA-iOS' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
+end
+
+target 'MLSSDK-IMA-tvOS' do
+  platform :tvos, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
+end
+
+
 # // MARK: - Tests
 
 target 'Tests' do
