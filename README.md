@@ -22,8 +22,7 @@ pod 'MLSSDK', '~> 1.1'
 Or if you want to use the IMA extension:
 
 ```ruby
-pod 'MLSSDK/IMA-iOS', '~> 1.1'
-pod 'MLSSDK/IMA-tvOS', '~> 1.1'
+pod 'MLSSDK/IMA', '~> 1.1'
 ```
 
 ## Usage

@@ -16,6 +16,12 @@
 		4920CA562538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
 		4925998425A1D9F7007658DB /* IMAIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925998325A1D9F7007658DB /* IMAIntegration.swift */; };
 		4925998525A1D9F7007658DB /* IMAIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925998325A1D9F7007658DB /* IMAIntegration.swift */; };
+		49259A6A25A1FCAA007658DB /* Encodable+IMA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259A6925A1FCAA007658DB /* Encodable+IMA.swift */; };
+		49259A8225A1FCB6007658DB /* String+IMA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259A8125A1FCB6007658DB /* String+IMA.swift */; };
+		49259BD325A1FE51007658DB /* Encodable+IMA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259A6925A1FCAA007658DB /* Encodable+IMA.swift */; };
+		49259BDB25A1FE53007658DB /* String+IMA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259A8125A1FCB6007658DB /* String+IMA.swift */; };
+		49259BE425A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */; };
+		49259BE525A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */; };
 		4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
 		4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
 		4926CDF524CDE6DF00419A42 /* ListEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */; };
@@ -481,6 +487,9 @@
 		490798462590F5020090F7DD /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCertificateDataUseCase.swift; sourceTree = "<group>"; };
 		4925998325A1D9F7007658DB /* IMAIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegration.swift; sourceTree = "<group>"; };
+		49259A6925A1FCAA007658DB /* Encodable+IMA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+IMA.swift"; sourceTree = "<group>"; };
+		49259A8125A1FCB6007658DB /* String+IMA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IMA.swift"; sourceTree = "<group>"; };
+		49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAAdTagFactory.swift; sourceTree = "<group>"; };
 		4926CDF024CDE64600419A42 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEventsUseCase.swift; sourceTree = "<group>"; };
 		4926CDF824CDE96700419A42 /* GetEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUseCase.swift; sourceTree = "<group>"; };
@@ -532,7 +541,6 @@
 		4961F4F72566CF95003C7372 /* HLSInspectionServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionServiceSpec.swift; sourceTree = "<group>"; };
 		4966DEFD24B72D7F00BEC403 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStoreSpec.swift; sourceTree = "<group>"; };
-		4971F37525A10F3A0075715E /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		4971F39125A10F8C0075715E /* MLSSDK_IMA_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4971F3AB25A1101E0075715E /* MLSSDK_IMA_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49736DF624A9F599001F3F48 /* GroupDisposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDisposable.swift; sourceTree = "<group>"; };
@@ -846,6 +854,16 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		49259A6825A1FC9C007658DB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				49259A6925A1FCAA007658DB /* Encodable+IMA.swift */,
+				49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */,
+				49259A8125A1FCB6007658DB /* String+IMA.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		4926CDEC24CDDAB900419A42 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -1051,9 +1069,9 @@
 		4971F37425A10F0A0075715E /* IMA */ = {
 			isa = PBXGroup;
 			children = (
+				49259A6825A1FC9C007658DB /* Shared */,
 				49A9B70925A1173E009E61FD /* tvOS */,
 				49A9B70825A11738009E61FD /* iOS */,
-				4971F37525A10F3A0075715E /* Placeholder.swift */,
 			);
 			path = IMA;
 			sourceTree = "<group>";
@@ -2164,6 +2182,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				49D2A01725A1190600C12650 /* IMAIntegrationImpl.swift in Sources */,
+				49259A8225A1FCB6007658DB /* String+IMA.swift in Sources */,
+				49259BE425A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */,
+				49259A6A25A1FCAA007658DB /* Encodable+IMA.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2172,6 +2193,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				49D2A0E325A11C7700C12650 /* MLS+.swift in Sources */,
+				49259BDB25A1FE53007658DB /* String+IMA.swift in Sources */,
+				49259BE525A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */,
+				49259BD325A1FE51007658DB /* Encodable+IMA.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

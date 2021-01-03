@@ -31,19 +31,13 @@ Pod::Spec.new do |spec|
     ss.dependency 'Starscream', '~> 3.1'
   end
 
-  spec.subspec 'IMA-iOS' do |ss|
-    ss.source_files  = 'Sources/IMA/iOS/**/*.swift'
+  spec.subspec 'IMA' do |ss|
+    ss.ios.source_files = 'Sources/IMA/Shared/**/*.swift', 'Sources/IMA/iOS/**/*.swift'
+    ss.tvos.source_files = 'Sources/IMA/Shared/**/*.swift', 'Sources/IMA/tvOS/**/*.swift'
     ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
 
-    ss.ios.dependency 'MLSSDK/Core'
+    ss.dependency 'MLSSDK/Core'
     ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
-  end
-
-  spec.subspec 'IMA-tvOS' do |ss|
-    ss.source_files  = 'Sources/IMA/tvOS/**/*.swift'
-    ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
-
-    ss.tvos.dependency 'MLSSDK/Core'
     ss.tvos.dependency 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
   end
 end

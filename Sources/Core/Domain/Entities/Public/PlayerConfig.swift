@@ -24,6 +24,8 @@ public struct PlayerConfig {
     public let showSeekbar: Bool
     /// Indicates whether the elapsed time and duration should be shown (true) or hidden (false).
     public let showTimers: Bool
+    /// The ad unit to use in IMA-related ad requests. Only needed when the MLSSDK/IMA extension is included.
+    public let imaAdUnit: String?
 
     public init(
             primaryColor: String = "#FFFFFF",
@@ -33,7 +35,8 @@ public struct PlayerConfig {
             showBackForwardsButtons: Bool = true,
             showLiveViewers: Bool = true,
             showSeekbar: Bool = true,
-            showTimers: Bool = true
+            showTimers: Bool = true,
+            imaAdUnit: String? = nil
     ) {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
@@ -43,6 +46,7 @@ public struct PlayerConfig {
         self.showLiveViewers = showLiveViewers
         self.showSeekbar = showSeekbar
         self.showTimers = showTimers
+        self.imaAdUnit = imaAdUnit
     }
 
     /// A convenience method to rebuild a PlayerConfig based on this one, but with a different enableControls value.
@@ -55,7 +59,8 @@ public struct PlayerConfig {
             showBackForwardsButtons: showBackForwardsButtons,
             showLiveViewers: showLiveViewers,
             showSeekbar: showSeekbar,
-            showTimers: showTimers)
+            showTimers: showTimers,
+            imaAdUnit: imaAdUnit)
     }
 }
 #else
@@ -84,6 +89,8 @@ public struct PlayerConfig {
     public let showFullscreen: Bool
     /// Indicates whether the elapsed time and duration should be shown (true) or hidden (false).
     public let showTimers: Bool
+    /// The ad unit to use in IMA-related ad requests. Only needed when the MLSSDK/IMA extension is included.
+    public let imaAdUnit: String?
 
     public init(
             primaryColor: String = "#FFFFFF",
@@ -96,7 +103,8 @@ public struct PlayerConfig {
             showEventInfoButton: Bool = true,
             showSeekbar: Bool = true,
             showFullscreen: Bool = false,
-            showTimers: Bool = true
+            showTimers: Bool = true,
+            imaAdUnit: String? = nil
     ) {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
@@ -109,6 +117,7 @@ public struct PlayerConfig {
         self.showSeekbar = showSeekbar
         self.showFullscreen = showFullscreen
         self.showTimers = showTimers
+        self.imaAdUnit = imaAdUnit
     }
 
     /// A convenience method to rebuild a PlayerConfig based on an existing one, but with a different enableControls value.
@@ -124,7 +133,8 @@ public struct PlayerConfig {
             showEventInfoButton: showEventInfoButton,
             showSeekbar: showSeekbar,
             showFullscreen: showFullscreen,
-            showTimers: showTimers)
+            showTimers: showTimers,
+            imaAdUnit: imaAdUnit)
     }
 }
 #endif

@@ -11,13 +11,15 @@ public protocol IMAIntegration {
     func setAVPlayer(_ avPlayer: AVPlayer)
 
     /// Updates the IMAIntegration that a different stream was loaded into the player.
-    func newStreamLoaded()
+    /// - parameter eventId: The event id that was loaded (if it is available)
+    /// - parameter streamId: The stream id that was loaded (if it is available) 
+    func newStreamLoaded(eventId: String?, streamId: String?)
 
     /// Updates the IMAIntegration that the stream was ended.
     func streamEnded()
 
-    /// Updates the IMAIntegration that there is an IMA tag known for this event.
+    /// Updates the IMAIntegration that there is an IMA ad unit known for this event.
     /// - note: Should be called *before* `newEventLoaded()`.
-    func newIMATagLoaded(_ imaTag: String?)
+    func newAdUnitLoaded(_ adUnit: String?)
 }
 

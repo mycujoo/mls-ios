@@ -16,8 +16,8 @@ public protocol IMAIntegrationDelegate: class {
 }
 
 public class IMAIntegrationFactory {
-    public static func build(videoPlayer: VideoPlayer, delegate: IMAIntegrationDelegate) -> IMAIntegration {
-        return IMAIntegrationImpl(videoPlayer: videoPlayer, delegate: delegate)
+    public static func build(videoPlayer: VideoPlayer, delegate: IMAIntegrationDelegate, adTagBaseURL: URL = URL(string: "https://pubads.g.doubleclick.net/gampad/ads")!) -> IMAIntegration {
+        return IMAIntegrationImpl(videoPlayer: videoPlayer, delegate: delegate, adTagBaseURL: adTagBaseURL)
     }
 }
 
@@ -26,25 +26,33 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
     weak var avPlayer: AVPlayer?
     weak var delegate: IMAIntegrationDelegate?
 
-    var imaTag: String?
+    var adTagBaseURL: URL
+    var adUnit: String?
 
-    init(videoPlayer: VideoPlayer, delegate: IMAIntegrationDelegate) {
+    private var adTagFactory = IMAAdTagFactory()
+
+    init(videoPlayer: VideoPlayer, delegate: IMAIntegrationDelegate, adTagBaseURL: URL) {
         self.videoPlayer = videoPlayer
         self.delegate = delegate
+        self.adTagBaseURL = adTagBaseURL
     }
 
     func setAVPlayer(_ avPlayer: AVPlayer) {
         self.avPlayer = avPlayer
     }
 
-    func newStreamLoaded() {
-        guard let videoPlayer = videoPlayer else { return }
+    func newStreamLoaded(eventId: String?, streamId: String?) {
+        guard let videoPlayer = videoPlayer, let adUnit = adUnit, !adUnit.isEmpty else { return }
         // Create ad display container for ad rendering.
         let adDisplayContainer = IMAAdDisplayContainer(adContainer: videoPlayer.playerView, viewController: delegate?.presentingViewController(for: videoPlayer))
 
-        // Create an ad request with our ad tag, display container, and optional user context.
         let request = IMAAdsRequest(
-            adTagUrl: imaTag,
+            adTagUrl: adTagFactory.buildTag(
+                baseURL: adTagBaseURL,
+                adUnit: adUnit,
+                customParams: IMAAdTagFactory.AdInformation.CustomParams(
+                    eventId: eventId,
+                    streamId: streamId)),
             adDisplayContainer: adDisplayContainer,
             contentPlayhead: contentPlayhead,
             userContext: nil)
@@ -56,8 +64,8 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
         adsLoader.contentComplete()
     }
 
-    func newIMATagLoaded(_ imaTag: String?) {
-        self.imaTag = imaTag
+    func newAdUnitLoaded(_ adUnit: String?) {
+        self.adUnit = adUnit
     }
 
     var adsManager: IMAAdsManager!
@@ -105,3 +113,5 @@ extension IMAIntegrationImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
         videoPlayer?.play()
     }
 }
+
+
