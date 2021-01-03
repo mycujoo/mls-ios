@@ -39,6 +39,8 @@ public protocol VideoPlayer: class {
     var isFullscreen: Bool { get set }
     #endif
 
+    var presentingViewController: UIViewController? { get set }
+
     /// Get or set the `isMuted` property of the underlying AVPlayer.
     var isMuted: Bool { get set }
 

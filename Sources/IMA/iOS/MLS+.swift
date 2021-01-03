@@ -3,9 +3,5 @@
 //
 
 import Foundation
+import AVFoundation
 import MLSSDK
-
-
-public extension MLS {
-
-}

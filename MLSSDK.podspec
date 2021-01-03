@@ -29,6 +29,8 @@ Pod::Spec.new do |spec|
     ss.dependency 'Alamofire', '~> 5.0'
     ss.dependency 'Moya', '~> 14.0'
     ss.dependency 'Starscream', '~> 3.1'
+    ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
+    ss.tvos.dependency 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
   end
 
   spec.subspec 'IMA-iOS' do |ss|

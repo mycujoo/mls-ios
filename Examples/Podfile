@@ -31,6 +31,7 @@ target 'MLSSDK-iOS' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Starscream', '~> 3.1'
+  pod 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
 end
 
 target 'MLSSDK-tvOS' do
@@ -40,6 +41,7 @@ target 'MLSSDK-tvOS' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Starscream', '~> 3.1'
+  pod 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
 end
 
 target 'MLSSDK-IMA-iOS' do
