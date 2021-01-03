@@ -9,6 +9,10 @@ import AVFoundation
 
 public protocol VideoPlayer: class {
     var delegate: PlayerDelegate? { get set }
+
+    /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.
+    var imaIntegration: IMAIntegration? { get set }
+
     var state: VideoPlayerState { get }
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
@@ -39,8 +43,6 @@ public protocol VideoPlayer: class {
     var isFullscreen: Bool { get set }
     #endif
 
-    var presentingViewController: UIViewController? { get set }
-
     /// Get or set the `isMuted` property of the underlying AVPlayer.
     var isMuted: Bool { get set }
 
@@ -65,6 +67,12 @@ public protocol VideoPlayer: class {
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     var tapGestureRecognizer: UITapGestureRecognizer { get }
     #endif
+
+    /// Start or continue playback of the loaded stream.
+    func play()
+
+    /// Pause playback of the loaded stream.
+    func pause()
 
     /// Seek to a position within the currentItem.
     /// - parameter to: The number of seconds within the currentItem to seek to.

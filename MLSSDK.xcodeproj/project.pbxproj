@@ -14,6 +14,8 @@
 		490798522590F5580090F7DD /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 490798462590F5020090F7DD /* RobotoMono-Regular.ttf */; };
 		4920CA552538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
 		4920CA562538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
+		4925998425A1D9F7007658DB /* IMAIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925998325A1D9F7007658DB /* IMAIntegration.swift */; };
+		4925998525A1D9F7007658DB /* IMAIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925998325A1D9F7007658DB /* IMAIntegration.swift */; };
 		4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
 		4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
 		4926CDF524CDE6DF00419A42 /* ListEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */; };
@@ -478,6 +480,7 @@
 		490797CA2590E2D60090F7DD /* RobotoMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Bold.ttf"; sourceTree = "<group>"; };
 		490798462590F5020090F7DD /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCertificateDataUseCase.swift; sourceTree = "<group>"; };
+		4925998325A1D9F7007658DB /* IMAIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegration.swift; sourceTree = "<group>"; };
 		4926CDF024CDE64600419A42 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEventsUseCase.swift; sourceTree = "<group>"; };
 		4926CDF824CDE96700419A42 /* GetEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUseCase.swift; sourceTree = "<group>"; };
@@ -1592,6 +1595,7 @@
 				499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */,
 				49E441732538DCAB00385890 /* VideoPlayer.swift */,
 				6496C3522492308D0099475D /* VideoPlayerImpl.swift */,
+				4925998325A1D9F7007658DB /* IMAIntegration.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -2277,6 +2281,7 @@
 				49736EA824A9F59C001F3F48 /* Polygon.swift in Sources */,
 				49736EF024A9F59C001F3F48 /* TransformInterpolation.swift in Sources */,
 				498E48FC24D062D90040502D /* Thread+.swift in Sources */,
+				4925998425A1D9F7007658DB /* IMAIntegration.swift in Sources */,
 				49736ED024A9F59C001F3F48 /* Graphics_iOS.swift in Sources */,
 				4943B96524C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
 				49736EA924A9F59C001F3F48 /* Circle.swift in Sources */,
@@ -2481,6 +2486,7 @@
 				49A804D824AA0EA100E30DA8 /* Color.swift in Sources */,
 				49A804AB24AA0E9800E30DA8 /* Rect.swift in Sources */,
 				49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
+				4925998525A1D9F7007658DB /* IMAIntegration.swift in Sources */,
 				4943B96624C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
 				498E48FD24D062D90040502D /* Thread+.swift in Sources */,
 				49A804C724AA0EA100E30DA8 /* AlphaEffect.swift in Sources */,

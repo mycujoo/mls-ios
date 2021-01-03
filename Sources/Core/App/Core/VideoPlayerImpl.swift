@@ -7,86 +7,23 @@ import UIKit
 import GoogleInteractiveMediaAds
 
 
-// TEMPORARY IMA CODE - NEEDS TO BE MOVED LATER
-extension VideoPlayerImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
-    func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
-        if event.type == IMAAdEventType.LOADED {
-            adsManager.start()
-        }
-    }
-
-    func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
-        print("AdsManager error: " + error.message)
-
-        play()
-    }
-
-    func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager!) {
-        pause()
-    }
-
-    func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
-        play()
-    }
-
-    func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
-        adsManager = adsLoadedData.adsManager
-        adsManager.delegate = self
-        adsManager.initialize(with: nil)
-    }
-
-    func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
-        print("Error loading ads: " + adErrorData.adError.message)
-
-        play()
-    }
-}
-// TEMPORARY IMA CODE - END
-
-
 internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
-    // TEMPORARY IMA CODE - NEEDS TO BE MOVED LATER
-    static let AdTagURLString = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
-
-    var adsManager: IMAAdsManager!
-    lazy var adsLoader: IMAAdsLoader = {
-        let loader = IMAAdsLoader(settings: nil)!
-        loader.delegate = self
-        return loader
-    }()
-    lazy var contentPlayhead: IMAAVPlayerContentPlayhead? = {
-        guard let avPlayer = self.player as? AVPlayer else { return nil }
-        return IMAAVPlayerContentPlayhead(avPlayer: avPlayer)
-    }()
-
-    public var presentingViewController: UIViewController? = nil
-
-    func requestAds() {
-        // Create ad display container for ad rendering.
-        let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.playerView, viewController: presentingViewController)
-
-        // Create an ad request with our ad tag, display container, and optional user context.
-        let request = IMAAdsRequest(
-            adTagUrl: VideoPlayerImpl.AdTagURLString,
-            adDisplayContainer: adDisplayContainer,
-            contentPlayhead: contentPlayhead,
-            userContext: nil)
-
-        adsLoader.requestAds(with: request)
-    }
-
-    // TEMPORARY IMA CODE - END
-
     weak var delegate: PlayerDelegate?
+
+    var imaIntegration: IMAIntegration? {
+        didSet {
+            guard let avPlayer = self.player as? AVPlayer else { return }
+            imaIntegration?.setAVPlayer(avPlayer)
+        }
+    }
 
     private(set) var state: VideoPlayerState = .unknown {
         didSet {
             delegate?.playerDidUpdateState(player: self)
 
-            // TMP
             if state == .ended && oldValue != .ended {
-                adsLoader.contentComplete()
+                imaIntegration?.streamEnded()
             }
         }
     }
@@ -359,6 +296,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 let status = self.status
                 self.status = status
                 #endif
+
+                // TODO: Get the real tag.
+                self.imaIntegration?.newIMATagLoaded("https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=")
             }
         }
     }
@@ -492,9 +432,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     }
                 }
 
-                requestAds() // TMP
+                imaIntegration?.newStreamLoaded()
             } else {
-                self.view.setNumberOfViewersTo(amount: nil)
+                view.setNumberOfViewersTo(amount: nil)
             }
         }
 
