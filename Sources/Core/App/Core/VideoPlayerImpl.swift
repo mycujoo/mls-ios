@@ -4,7 +4,6 @@
 
 import AVFoundation
 import UIKit
-import GoogleInteractiveMediaAds
 
 
 internal class VideoPlayerImpl: NSObject, VideoPlayer {

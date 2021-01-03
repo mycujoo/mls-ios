@@ -4,6 +4,9 @@
 
 import UIKit
 import MLSSDK
+import MLSSDK_IMA_iOS
+
+
 
 class SimpleViewController: UIViewController {
 
@@ -11,6 +14,7 @@ class SimpleViewController: UIViewController {
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
+        player.imaIntegration = IMAIntegrationFactory.build(videoPlayer: player, delegate: self)
         return player
     }()
 
@@ -50,5 +54,11 @@ class SimpleViewController: UIViewController {
         mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
             self?.videoPlayer.event = events?.first
         })
+    }
+}
+
+extension SimpleViewController: IMAIntegrationDelegate {
+    func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
+        return self
     }
 }
