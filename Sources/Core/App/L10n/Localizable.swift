@@ -11,9 +11,9 @@ enum L10n {
 
         static let buttonTitleLive = makeNSLocalizedString("LIVE", tableName: "Localizable", bundles: bundles, value: "LIVE", comment: "The text on a button that indicates that a stream is live")
 
-        static let geoblockedError = makeNSLocalizedString("GEOBLOCKED_ERROR", tableName: "Localizable", bundles: bundles, value: "This video cannot be watched in your area.", comment: "")
+        static let geoblockedError = makeNSLocalizedString("GEOBLOCKED_ERROR", tableName: "Localizable", bundles: bundles, value: "This stream cannot be watched in your area.", comment: "")
 
-        static let missingEntitlementError = makeNSLocalizedString("MISSING_ENTITLEMENT_ERROR", tableName: "Localizable", bundles: bundles, value: "Access to this video is restricted.", comment: "")
+        static let missingEntitlementError = makeNSLocalizedString("MISSING_ENTITLEMENT_ERROR", tableName: "Localizable", bundles: bundles, value: "Access to this stream is restricted.", comment: "")
 
         static let internalError = makeNSLocalizedString("INTERNAL_ERROR", tableName: "Localizable", bundles: bundles, value: "An error occurred. Please try again later.", comment: "")
     }

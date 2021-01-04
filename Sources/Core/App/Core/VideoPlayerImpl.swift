@@ -429,11 +429,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                         }
                     }
                 }
-
-                imaIntegration?.newStreamLoaded(eventId: event.id, streamId: currentStream?.id)
             } else {
                 view.setNumberOfViewersTo(amount: nil)
             }
+            imaIntegration?.newStreamLoaded(eventId: event?.id, streamId: currentStream?.id)
         }
 
         timeline = event?.timelineIds.first
