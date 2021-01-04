@@ -61,4 +61,7 @@ extension SimpleViewController: IMAIntegrationDelegate {
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
         return self
     }
+    func imaAdStarted(for videoPlayer: VideoPlayer) {}
+
+    func imaAdStopped(for videoPlayer: VideoPlayer) {}
 }

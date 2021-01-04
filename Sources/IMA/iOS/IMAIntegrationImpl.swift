@@ -13,6 +13,12 @@ public protocol IMAIntegrationDelegate: class {
     /// Should be implemented by the SDK user for IMA ads to be displayable.
     /// - returns: The UIViewController that is presenting the `VideoPlayer`.
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController?
+
+    /// Gets called when the video player starts playing an IMA ad.
+    func imaAdStarted(for videoPlayer: VideoPlayer)
+
+    /// Gets called when the video player stops playing an IMA ad.
+    func imaAdStopped(for videoPlayer: VideoPlayer)
 }
 
 public class IMAIntegrationFactory {
@@ -94,11 +100,19 @@ extension IMAIntegrationImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
     }
 
     func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager!) {
-        videoPlayer?.pause()
+        guard let videoPlayer = videoPlayer else { return }
+
+        videoPlayer.pause()
+
+        delegate?.imaAdStarted(for: videoPlayer)
     }
 
     func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
-        videoPlayer?.play()
+        guard let videoPlayer = videoPlayer else { return }
+
+        delegate?.imaAdStopped(for: videoPlayer)
+
+        videoPlayer.play()
     }
 
     func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
