@@ -14,6 +14,11 @@ public protocol IMAIntegrationDelegate: class {
     /// - returns: The UIViewController that is presenting the `VideoPlayer`.
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController?
 
+    /// Should be implemented by the SDK user for IMA ads to be targetable to custom needs.
+    /// This will populate the `custom_params` field in the IMA ad tag.
+    /// If no extra parameters are needed, return an empty dictionary.
+    func getCustomParameters(forItemIn videoPlayer: VideoPlayer) -> [String: String]
+
     /// Gets called when the video player starts playing an IMA ad.
     func imaAdStarted(for videoPlayer: VideoPlayer)
 
@@ -32,33 +37,54 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
     weak var avPlayer: AVPlayer?
     weak var delegate: IMAIntegrationDelegate?
 
+    var adsManager: IMAAdsManager!
+    var adsLoader: IMAAdsLoader
+
     var adTagBaseURL: URL
     var adUnit: String?
 
+    private var basicCustomParams: [String: String] = [:]
     private var adTagFactory = IMAAdTagFactory()
 
     init(videoPlayer: VideoPlayer, delegate: IMAIntegrationDelegate, adTagBaseURL: URL) {
         self.videoPlayer = videoPlayer
         self.delegate = delegate
         self.adTagBaseURL = adTagBaseURL
+
+        // The adsLoader should be initialized as soon as it can, since it takes 1-2 seconds initialization time.
+        adsLoader = IMAAdsLoader(settings: nil)!
+
+        super.init()
+
+        adsLoader.delegate = self
     }
 
     func setAVPlayer(_ avPlayer: AVPlayer) {
         self.avPlayer = avPlayer
     }
 
-    func newStreamLoaded(eventId: String?, streamId: String?) {
-        guard let videoPlayer = videoPlayer, let adUnit = adUnit, !adUnit.isEmpty else { return }
+    func setBasicCustomParameters(eventId: String?, streamId: String?) {
+        self.basicCustomParams = ["event_id": eventId ?? "", "stream_id": streamId ?? ""]
+    }
+
+    func setAdUnit(_ adUnit: String?) {
+        self.adUnit = adUnit
+    }
+
+    func playPreroll() {
+        guard let videoPlayer = videoPlayer, let delegate = delegate, let adUnit = adUnit, !adUnit.isEmpty else { return }
         // Create ad display container for ad rendering.
-        let adDisplayContainer = IMAAdDisplayContainer(adContainer: videoPlayer.playerView, viewController: delegate?.presentingViewController(for: videoPlayer))
+        let adDisplayContainer = IMAAdDisplayContainer(adContainer: videoPlayer.playerView, viewController: delegate.presentingViewController(for: videoPlayer))
+
+        // Merge the basic custom parameters (event_id and stream_id, most likely), and collect any custom parameters desired by the SDK user.
+        // We give precedence to the ones provided by the customer.
+        let allCustomParameters = basicCustomParams.merging(delegate.getCustomParameters(forItemIn: videoPlayer)) { (_, new) in new }
 
         let request = IMAAdsRequest(
             adTagUrl: adTagFactory.buildTag(
                 baseURL: adTagBaseURL,
                 adUnit: adUnit,
-                customParams: IMAAdTagFactory.AdInformation.CustomParams(
-                    eventId: eventId,
-                    streamId: streamId)),
+                customParams: allCustomParameters),
             adDisplayContainer: adDisplayContainer,
             contentPlayhead: contentPlayhead,
             userContext: nil)
@@ -66,20 +92,10 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
         adsLoader.requestAds(with: request)
     }
 
-    func streamEnded() {
+    func playPostroll() {
         adsLoader.contentComplete()
     }
 
-    func newAdUnitLoaded(_ adUnit: String?) {
-        self.adUnit = adUnit
-    }
-
-    var adsManager: IMAAdsManager!
-    lazy var adsLoader: IMAAdsLoader = {
-        let loader = IMAAdsLoader(settings: nil)!
-        loader.delegate = self
-        return loader
-    }()
     lazy var contentPlayhead: IMAAVPlayerContentPlayhead? = {
         return IMAAVPlayerContentPlayhead(avPlayer: avPlayer)
     }()

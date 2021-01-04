@@ -22,7 +22,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             delegate?.playerDidUpdateState(player: self)
 
             if state == .ended && oldValue != .ended {
-                imaIntegration?.streamEnded()
+                // TODO: Find out if playing a postroll clashes with other actions that may happen as a result of the `.ended` state.
+                imaIntegration?.playPostroll()
             }
         }
     }
@@ -296,7 +297,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 self.status = status
                 #endif
 
-                self.imaIntegration?.newAdUnitLoaded(self.playerConfig.imaAdUnit)
+                self.imaIntegration?.setAdUnit(self.playerConfig.imaAdUnit)
             }
         }
     }
@@ -432,7 +433,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             } else {
                 view.setNumberOfViewersTo(amount: nil)
             }
-            imaIntegration?.newStreamLoaded(eventId: event?.id, streamId: currentStream?.id)
+            imaIntegration?.setBasicCustomParameters(eventId: event?.id, streamId: currentStream?.id)
         }
 
         timeline = event?.timelineIds.first
@@ -475,7 +476,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             if added && completed {
                 if self.playerConfig.autoplay {
-                    self.play()
+                    self.imaIntegration?.playPreroll() ?? self.play()
                 }
             }
             callback?(completed)

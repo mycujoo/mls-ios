@@ -6,35 +6,6 @@ import Foundation
 
 
 class IMAAdTagFactory: Encodable {
-    /// A container for all ad information (SDK-independent) that should be processed.
-    struct AdInformation {
-        struct CustomParams: Encodable {
-            let eventId: String?
-            let streamId: String?
-
-            enum CodingKeys: String, CodingKey {
-                case eventId = "event_id"
-                case streamId = "stream_id"
-            }
-
-            /// Turns these parameters into a dictionary that can be passed to an SDK that takes custom parameters
-            func toDictionary() -> [String: Any] {
-                guard let data = try? JSONEncoder().encode(self) else { return [:] }
-                return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] } ?? [:]
-            }
-        }
-
-        private let _customParams: CustomParams?
-        var customParams: [AnyHashable: Any]? {
-            return _customParams?.toDictionary()
-        }
-
-        init(customParams: CustomParams?) {
-            self._customParams = customParams
-        }
-    }
-
-
     private static var jsonEncoder = JSONEncoder()
 
     init() {}
@@ -58,7 +29,16 @@ class IMAAdTagFactory: Encodable {
     /// - parameter customParams: An object representing the fields to be entered in the cust_params part of the video ad tag.
     /// - parameter smartProperties: When true, this will update all relevant properties to a suggested value upon building a tag.
     /// - returns: The video ad tag.
-    func buildTag(baseURL: URL, adUnit: String, customParams: AdInformation.CustomParams, smartProperties: Bool = true) -> String {
+    func buildTag(baseURL: URL, adUnit: String, customParams: [String: String], smartProperties: Bool = true) -> String {
+        /// - returns: The dictionary as a String of URL parameters, joined by an ampersand (without a leading question-mark).
+        func encodeToURLParams(_ dict: [String: String], ignoreEmpty: Bool = true, addPercentEncoding: Bool = false) -> String {
+            let encoded = dict
+                .filter { !ignoreEmpty || !$0.value.isEmpty }
+                .map { "\($0.key)=\($0.value)" }
+                .joined(separator: "&")
+            return addPercentEncoding ? encoded.addingPercentEncodingForQueryParameter() ?? "" : encoded
+        }
+
         #if DEBUG
         if adUnit == "/124319096/external/single_ad_samples" {
             // Return the default debug ad tag provided by Google.
@@ -71,7 +51,7 @@ class IMAAdTagFactory: Encodable {
             scor = timestamp
         }
         iu = adUnit
-        cust_params = customParams.encodeToURLParams(withEncoder: IMAAdTagFactory.jsonEncoder, addPercentEncoding: true)
+        cust_params = encodeToURLParams(customParams, addPercentEncoding: true)
         return "\(baseURL.absoluteString)?\(self.encodeToURLParams(withEncoder: IMAAdTagFactory.jsonEncoder))"
     }
 }
