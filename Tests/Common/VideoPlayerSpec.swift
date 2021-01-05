@@ -14,6 +14,7 @@ class VideoPlayerSpec: QuickSpec {
 
     var mockView: MockVideoPlayerViewProtocol!
     var mockAVPlayer: MockMLSAVPlayerProtocol!
+    var mockIMAIntegration: MockIMAIntegration!
     var mockAnnotationService: MockAnnotationServicing!
     var mockVideoAnalyticsService: MockVideoAnalyticsServicing!
     var mockHLSInspectionService: MockHLSInspectionServicing!
@@ -179,6 +180,18 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 when(mock).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any()).then { (tuple) in
                     (tuple.3)(true)
+                }
+            }
+
+            self.mockIMAIntegration = MockIMAIntegration()
+            stub(self.mockIMAIntegration) { mock in
+                when(mock).setAVPlayer(any()).thenDoNothing()
+                when(mock).setAdUnit(any()).thenDoNothing()
+                when(mock).setBasicCustomParameters(eventId: any(), streamId: any()).thenDoNothing()
+                when(mock).playPostroll().thenDoNothing()
+                when(mock).playPreroll().then { _ in
+                    // Do not actually process any preroll but forward the play call directly to the player.
+                    self.videoPlayer.play()
                 }
             }
 
@@ -643,6 +656,72 @@ class VideoPlayerSpec: QuickSpec {
                 self.videoPlayer.event = self.event
 
                 expect(self.mockView.controlViewHasAlpha).toEventually(beFalse())
+            }
+        }
+
+        describe("autoplay") {
+            describe("without ima integration") {
+                it("autoplays with autoplay set to true") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: nil)
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.play))
+                }
+
+                it("does not autoplay with autoplay set to false") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                }
+            }
+        }
+
+        fdescribe("ima") {
+            beforeEach {
+                self.videoPlayer.imaIntegration = self.mockIMAIntegration
+            }
+
+            it("autoplays ad with autoplay set to true") {
+                expect(self.videoPlayer.status).to(equal(.pause))
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                expect(self.videoPlayer.status).to(equal(.play))
+            }
+
+            it("does not autoplay ad (or main stream) with autoplay set to false") {
+                expect(self.videoPlayer.status).to(equal(.pause))
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                expect(self.videoPlayer.status).to(equal(.pause))
+            }
+
+            it("plays ad directly upon autoplay") {
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                verify(self.mockIMAIntegration, times(1)).playPreroll()
+            }
+
+            it("does not play ad directly with autoplay off") {
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+            }
+
+            it("plays ad upon first calling play manually on videoplayer with autoplay off") {
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+
+                self.videoPlayer.play()
+                verify(self.mockIMAIntegration, times(1)).playPreroll()
+
+                // Also ensure the playPreroll does not get triggered a second time when calling play.
+                self.videoPlayer.play()
+                verify(self.mockIMAIntegration, times(1)).playPreroll()
             }
         }
 

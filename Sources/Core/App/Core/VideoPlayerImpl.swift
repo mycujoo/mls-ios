@@ -224,6 +224,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// The DRM request url for this current stream. This can be used to track and prevent multiple calls to the license server for the same license request.
     private var currentStreamDRMRequestUrl: URL? = nil
+    /// A helper to indicate whether play has been called already since the `currentStream` was first loaded into the video player through `placeCurrentStream()`
+    /// This can be used to determine if a call to `play()` should first call the imaIntegration for a preroll ad.
+    private var currentStreamPlayHasBeenCalled = false
 
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
@@ -467,6 +470,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         } else {
             // TODO: Remove info layer and thumbnail view.
             self.view.setInfoViewVisibility(visible: false, animated: false)
+
+            currentStreamPlayHasBeenCalled = false
         }
 
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
@@ -476,7 +481,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             if added && completed {
                 if self.playerConfig.autoplay {
-                    self.imaIntegration?.playPreroll() ?? self.play()
+                    self.play()
                 }
             }
             callback?(completed)
@@ -619,8 +624,17 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
 // MARK: - Methods
 extension VideoPlayerImpl {
+    func play() {
+        if !currentStreamPlayHasBeenCalled {
+            currentStreamPlayHasBeenCalled = true
 
-    func play() { status = .play }
+            if let imaIntegration = imaIntegration {
+                imaIntegration.playPreroll()
+                return
+            }
+        }
+        status = .play
+    }
 
     func pause() { status = .pause }
 
@@ -970,7 +984,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
                 return false
             }
         }
-        
+
         guard let _ = currentStream?.url,
               let licenseUrl = currentStream?.fairplay?.licenseUrl,
               let certificateUrl = currentStream?.fairplay?.certificateUrl else {
