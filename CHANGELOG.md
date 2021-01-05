@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.1.9](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.9)
+## [1.2](https://github.com/MyCujoo/mls-ios/releases/tag/1.2)
 Released on ?.
 
 #### Added
+- Added basic IMA preroll support for iOS and tvOS
 - Added a Roboto Mono font for overlays
 - Added a `localAnnotationActions` property on the VideoPlayer for on-the-fly injection of annotation actions (advanced feature).
 
