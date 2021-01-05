@@ -4,7 +4,7 @@
 
 import UIKit
 import MLSSDK
-import MLSSDK_IMA_iOS
+import MLSSDK_IMA
 
 
 

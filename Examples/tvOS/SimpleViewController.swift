@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 import MLSSDK
-import MLSSDK_IMA_tvOS
+import MLSSDK_IMA
 
 
 class SimpleViewController: UIViewController {

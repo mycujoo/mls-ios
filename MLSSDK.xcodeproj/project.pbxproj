@@ -548,8 +548,8 @@
 		4961F4F72566CF95003C7372 /* HLSInspectionServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionServiceSpec.swift; sourceTree = "<group>"; };
 		4966DEFD24B72D7F00BEC403 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		496ECB0024CF0E7A001A9431 /* TOVStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStoreSpec.swift; sourceTree = "<group>"; };
-		4971F39125A10F8C0075715E /* MLSSDK_IMA_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4971F3AB25A1101E0075715E /* MLSSDK_IMA_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4971F39125A10F8C0075715E /* MLSSDK_IMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4971F3AB25A1101E0075715E /* MLSSDK_IMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49736DF624A9F599001F3F48 /* GroupDisposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDisposable.swift; sourceTree = "<group>"; };
 		49736DF724A9F599001F3F48 /* Disposable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
 		49736DF824A9F599001F3F48 /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -1574,8 +1574,8 @@
 				49EA069224C72CE100C7AB10 /* iOSTests.xctest */,
 				49EA06A124C72D0E00C7AB10 /* tvOSTests.xctest */,
 				49EA06B324C78C5E00C7AB10 /* Tests.xctest */,
-				4971F39125A10F8C0075715E /* MLSSDK_IMA_iOS.framework */,
-				4971F3AB25A1101E0075715E /* MLSSDK_IMA_tvOS.framework */,
+				4971F39125A10F8C0075715E /* MLSSDK_IMA.framework */,
+				4971F3AB25A1101E0075715E /* MLSSDK_IMA.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1688,7 +1688,7 @@
 			);
 			name = "MLSSDK-IMA-iOS";
 			productName = "MLSSDK-IMA-iOS";
-			productReference = 4971F39125A10F8C0075715E /* MLSSDK_IMA_iOS.framework */;
+			productReference = 4971F39125A10F8C0075715E /* MLSSDK_IMA.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4971F3AA25A1101E0075715E /* MLSSDK-IMA-tvOS */ = {
@@ -1707,7 +1707,7 @@
 			);
 			name = "MLSSDK-IMA-tvOS";
 			productName = "MLSSDK-IMA-tvOS";
-			productReference = 4971F3AB25A1101E0075715E /* MLSSDK_IMA_tvOS.framework */;
+			productReference = 4971F3AB25A1101E0075715E /* MLSSDK_IMA.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		49EA069124C72CE100C7AB10 /* iOSTests */ = {
@@ -2705,7 +2705,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.app.MLSSDK-IMA-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSSDK_IMA;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2735,7 +2735,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.app.MLSSDK-IMA-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSSDK_IMA;
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -2763,7 +2763,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.app.MLSSDK-IMA-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSSDK_IMA;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2793,7 +2793,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.app.MLSSDK-IMA-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSSDK_IMA;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
