@@ -4,13 +4,17 @@
 
 import UIKit
 import MLSSDK
+import MLSSDK_IMA_iOS
+
+
 
 class SimpleViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(playerConfig: PlayerConfig(imaAdUnit: "/124319096/external/single_ad_samples")))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
+        player.imaIntegration = IMAIntegrationFactory.build(videoPlayer: player, delegate: self)
         return player
     }()
 
@@ -51,4 +55,16 @@ class SimpleViewController: UIViewController {
             self?.videoPlayer.event = events?.first
         })
     }
+}
+
+extension SimpleViewController: IMAIntegrationDelegate {
+    func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
+        return self
+    }
+    func getCustomParameters(forItemIn videoPlayer: VideoPlayer) -> [String : String] {
+        return [:]
+    }
+    func imaAdStarted(for videoPlayer: VideoPlayer) {}
+
+    func imaAdStopped(for videoPlayer: VideoPlayer) {}
 }

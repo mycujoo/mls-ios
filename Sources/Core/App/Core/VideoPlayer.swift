@@ -9,6 +9,10 @@ import AVFoundation
 
 public protocol VideoPlayer: class {
     var delegate: PlayerDelegate? { get set }
+
+    /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.
+    var imaIntegration: IMAIntegration? { get set }
+
     var state: VideoPlayerState { get }
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
@@ -64,6 +68,12 @@ public protocol VideoPlayer: class {
     var tapGestureRecognizer: UITapGestureRecognizer { get }
     #endif
 
+    /// Start or continue playback of the loaded stream.
+    func play()
+
+    /// Pause playback of the loaded stream.
+    func pause()
+
     /// Seek to a position within the currentItem.
     /// - parameter to: The number of seconds within the currentItem to seek to.
     /// - parameter completionHandler: A closure that is called upon a completed seek operation.
@@ -90,15 +100,7 @@ public enum VideoPlayerState: Int {
 public enum VideoPlayerStatus {
     case play
     case pause
-
-    public mutating func toggle() {
-        switch self {
-        case .play:
-            self = .pause
-        case .pause:
-            self = .play
-        }
-    }
+    
     public var isPlaying: Bool { self == .play }
 }
 

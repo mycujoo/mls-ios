@@ -1,4 +1,317 @@
-// MARK: - Mocks generated from file: Sources/App/Utils/MLSAVPlayerProtocol.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-05 14:47:30 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+
+import AVFoundation
+import Foundation
+
+
+public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = IMAIntegration
+    
+    public typealias Stubbing = __StubbingProxy_IMAIntegration
+    public typealias Verification = __VerificationProxy_IMAIntegration
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: IMAIntegration?
+
+    public func enableDefaultImplementation(_ stub: IMAIntegration) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    public func setAVPlayer(_ avPlayer: AVPlayer)  {
+        
+    return cuckoo_manager.call("setAVPlayer(_: AVPlayer)",
+            parameters: (avPlayer),
+            escapingParameters: (avPlayer),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setAVPlayer(avPlayer))
+        
+    }
+    
+    
+    
+    public func setBasicCustomParameters(eventId: String?, streamId: String?)  {
+        
+    return cuckoo_manager.call("setBasicCustomParameters(eventId: String?, streamId: String?)",
+            parameters: (eventId, streamId),
+            escapingParameters: (eventId, streamId),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setBasicCustomParameters(eventId: eventId, streamId: streamId))
+        
+    }
+    
+    
+    
+    public func setAdUnit(_ adUnit: String?)  {
+        
+    return cuckoo_manager.call("setAdUnit(_: String?)",
+            parameters: (adUnit),
+            escapingParameters: (adUnit),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setAdUnit(adUnit))
+        
+    }
+    
+    
+    
+    public func playPreroll()  {
+        
+    return cuckoo_manager.call("playPreroll()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.playPreroll())
+        
+    }
+    
+    
+    
+    public func playPostroll()  {
+        
+    return cuckoo_manager.call("playPostroll()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.playPostroll())
+        
+    }
+    
+    
+    
+    public func isShowingAd() -> Bool {
+        
+    return cuckoo_manager.call("isShowingAd() -> Bool",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.isShowingAd())
+        
+    }
+    
+    
+    
+    public func pause()  {
+        
+    return cuckoo_manager.call("pause()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.pause())
+        
+    }
+    
+    
+    
+    public func resume()  {
+        
+    return cuckoo_manager.call("resume()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.resume())
+        
+    }
+    
+
+	public struct __StubbingProxy_IMAIntegration: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func setAVPlayer<M1: Cuckoo.Matchable>(_ avPlayer: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(AVPlayer)> where M1.MatchedType == AVPlayer {
+	        let matchers: [Cuckoo.ParameterMatcher<(AVPlayer)>] = [wrap(matchable: avPlayer) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "setAVPlayer(_: AVPlayer)", parameterMatchers: matchers))
+	    }
+	    
+	    func setBasicCustomParameters<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(eventId: M1, streamId: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String?, String?)> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: streamId) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "setBasicCustomParameters(eventId: String?, streamId: String?)", parameterMatchers: matchers))
+	    }
+	    
+	    func setAdUnit<M1: Cuckoo.OptionalMatchable>(_ adUnit: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String?)> where M1.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?)>] = [wrap(matchable: adUnit) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "setAdUnit(_: String?)", parameterMatchers: matchers))
+	    }
+	    
+	    func playPreroll() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "playPreroll()", parameterMatchers: matchers))
+	    }
+	    
+	    func playPostroll() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "playPostroll()", parameterMatchers: matchers))
+	    }
+	    
+	    func isShowingAd() -> Cuckoo.ProtocolStubFunction<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "isShowingAd() -> Bool", parameterMatchers: matchers))
+	    }
+	    
+	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "pause()", parameterMatchers: matchers))
+	    }
+	    
+	    func resume() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "resume()", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_IMAIntegration: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func setAVPlayer<M1: Cuckoo.Matchable>(_ avPlayer: M1) -> Cuckoo.__DoNotUse<(AVPlayer), Void> where M1.MatchedType == AVPlayer {
+	        let matchers: [Cuckoo.ParameterMatcher<(AVPlayer)>] = [wrap(matchable: avPlayer) { $0 }]
+	        return cuckoo_manager.verify("setAVPlayer(_: AVPlayer)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setBasicCustomParameters<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(eventId: M1, streamId: M2) -> Cuckoo.__DoNotUse<(String?, String?), Void> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: streamId) { $0.1 }]
+	        return cuckoo_manager.verify("setBasicCustomParameters(eventId: String?, streamId: String?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setAdUnit<M1: Cuckoo.OptionalMatchable>(_ adUnit: M1) -> Cuckoo.__DoNotUse<(String?), Void> where M1.OptionalMatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?)>] = [wrap(matchable: adUnit) { $0 }]
+	        return cuckoo_manager.verify("setAdUnit(_: String?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func playPreroll() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("playPreroll()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func playPostroll() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("playPostroll()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func isShowingAd() -> Cuckoo.__DoNotUse<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("isShowingAd() -> Bool", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func resume() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("resume()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class IMAIntegrationStub: IMAIntegration {
+    
+
+    
+
+    
+    public func setAVPlayer(_ avPlayer: AVPlayer)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func setBasicCustomParameters(eventId: String?, streamId: String?)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func setAdUnit(_ adUnit: String?)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func playPreroll()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func playPostroll()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func isShowingAd() -> Bool  {
+        return DefaultValueRegistry.defaultValue(for: (Bool).self)
+    }
+    
+    public func pause()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func resume()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -671,7 +984,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2039,7 +2352,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/ArbitraryDataRepository.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2171,7 +2484,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/DRMRepository.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2303,7 +2616,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/EventRepository.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2495,7 +2808,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/PlayerConfigRepository.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2597,7 +2910,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Repositories/TimelineRepository.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2759,7 +3072,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/AnnotationServicing.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2861,7 +3174,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/HLSInspectionServicing.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2963,7 +3276,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Domain/Services/VideoAnalyticsServicing.swift at 2020-11-28 21:44:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

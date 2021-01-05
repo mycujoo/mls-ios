@@ -5,13 +5,26 @@
 import AVFoundation
 import UIKit
 
+
 internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     weak var delegate: PlayerDelegate?
 
+    var imaIntegration: IMAIntegration? {
+        didSet {
+            guard let avPlayer = self.player as? AVPlayer else { return }
+            imaIntegration?.setAVPlayer(avPlayer)
+        }
+    }
+
     private(set) var state: VideoPlayerState = .unknown {
         didSet {
             delegate?.playerDidUpdateState(player: self)
+
+            if state == .ended && oldValue != .ended {
+                // TODO: Find out if playing a postroll clashes with other actions that may happen as a result of the `.ended` state.
+                imaIntegration?.playPostroll()
+            }
         }
     }
 
@@ -211,6 +224,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// The DRM request url for this current stream. This can be used to track and prevent multiple calls to the license server for the same license request.
     private var currentStreamDRMRequestUrl: URL? = nil
+    /// A helper to indicate whether play has been called already since the `currentStream` was first loaded into the video player through `placeCurrentStream()`
+    /// This can be used to determine if a call to `play()` should first call the imaIntegration for a preroll ad.
+    private var currentStreamPlayHasBeenCalled = false
 
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
@@ -283,6 +299,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 let status = self.status
                 self.status = status
                 #endif
+
+                self.imaIntegration?.setAdUnit(self.playerConfig.imaAdUnit)
             }
         }
     }
@@ -416,8 +434,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     }
                 }
             } else {
-                self.view.setNumberOfViewersTo(amount: nil)
+                view.setNumberOfViewersTo(amount: nil)
             }
+            imaIntegration?.setBasicCustomParameters(eventId: event?.id, streamId: currentStream?.id)
         }
 
         timeline = event?.timelineIds.first
@@ -451,6 +470,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         } else {
             // TODO: Remove info layer and thumbnail view.
             self.view.setInfoViewVisibility(visible: false, animated: false)
+
+            currentStreamPlayHasBeenCalled = false
         }
 
         let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
@@ -603,10 +624,30 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
 // MARK: - Methods
 extension VideoPlayerImpl {
+    func play() {
+        if !currentStreamPlayHasBeenCalled {
+            currentStreamPlayHasBeenCalled = true
 
-    func play() { status = .play }
+            if let imaIntegration = imaIntegration {
+                imaIntegration.playPreroll()
+                return
+            }
+        }
 
-    func pause() { status = .pause }
+        if imaIntegration?.isShowingAd() == true {
+            imaIntegration?.resume()
+        } else {
+            status = .play
+        }
+    }
+
+    func pause() {
+        if imaIntegration?.isShowingAd() == true {
+            imaIntegration?.pause()
+        } else {
+            status = .pause
+        }
+    }
 
     func playVideo(with event: Event) {
         self.event = event
@@ -810,7 +851,7 @@ extension VideoPlayerImpl {
 
     private func playButtonTapped() {
         if state != .ended {
-            status.toggle()
+            status.isPlaying ? pause() : play()
         }
         else {
             player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
@@ -954,8 +995,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
                 return false
             }
         }
-        
-        // We first check if a url is set in the manifest.
+
         guard let _ = currentStream?.url,
               let licenseUrl = currentStream?.fairplay?.licenseUrl,
               let certificateUrl = currentStream?.fairplay?.certificateUrl else {

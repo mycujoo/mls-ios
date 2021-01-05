@@ -14,6 +14,7 @@ class VideoPlayerSpec: QuickSpec {
 
     var mockView: MockVideoPlayerViewProtocol!
     var mockAVPlayer: MockMLSAVPlayerProtocol!
+    var mockIMAIntegration: MockIMAIntegration!
     var mockAnnotationService: MockAnnotationServicing!
     var mockVideoAnalyticsService: MockVideoAnalyticsServicing!
     var mockHLSInspectionService: MockHLSInspectionServicing!
@@ -179,6 +180,21 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 when(mock).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any()).then { (tuple) in
                     (tuple.3)(true)
+                }
+            }
+
+            self.mockIMAIntegration = MockIMAIntegration()
+            stub(self.mockIMAIntegration) { mock in
+                when(mock).setAVPlayer(any()).thenDoNothing()
+                when(mock).setAdUnit(any()).thenDoNothing()
+                when(mock).setBasicCustomParameters(eventId: any(), streamId: any()).thenDoNothing()
+                when(mock).isShowingAd().thenReturn(false)
+                when(mock).resume().thenDoNothing()
+                when(mock).pause().thenDoNothing()
+                when(mock).playPostroll().thenDoNothing()
+                when(mock).playPreroll().then { _ in
+                    // Do not actually process any preroll but forward the play call directly to the player.
+                    self.videoPlayer.play()
                 }
             }
 
@@ -362,7 +378,7 @@ class VideoPlayerSpec: QuickSpec {
         }
 
         describe("loading local annotations") {
-            fit("calls evaluation function for local annotations") {
+            it("calls evaluation function for local annotations") {
                 verify(self.mockAnnotationService, times(0)).evaluate(ParameterMatcher { $0.actions.count == 0 }, callback: any())
 
                 self.videoPlayer.localAnnotationActions = [EntityBuilder.buildAnnotationActionForShowOverlay()]
@@ -646,14 +662,85 @@ class VideoPlayerSpec: QuickSpec {
             }
         }
 
-        describe("button interactions") {
+        describe("autoplay") {
+            describe("without ima integration") {
+                it("autoplays with autoplay set to true") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: nil)
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.play))
+                }
 
+                it("does not autoplay with autoplay set to false") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                }
+
+                it("plays when calling play() with autoplay set to false") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.play()
+                    expect(self.videoPlayer.status).to(equal(.play))
+                }
+            }
+        }
+
+        describe("ima") {
             beforeEach {
-                self.videoPlayer.event = self.event
+                self.videoPlayer.imaIntegration = self.mockIMAIntegration
             }
 
+            it("autoplays ad with autoplay set to true") {
+                expect(self.videoPlayer.status).to(equal(.pause))
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                expect(self.videoPlayer.status).to(equal(.play))
+            }
+
+            it("does not autoplay ad (or main stream) with autoplay set to false") {
+                expect(self.videoPlayer.status).to(equal(.pause))
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                expect(self.videoPlayer.status).to(equal(.pause))
+            }
+
+            it("plays ad directly upon autoplay") {
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                verify(self.mockIMAIntegration, times(1)).playPreroll()
+            }
+
+            it("does not play ad directly with autoplay off") {
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+            }
+
+            it("plays ad upon first calling play manually on videoplayer with autoplay off") {
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+                self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
+                self.videoPlayer.event = self.event
+                verify(self.mockIMAIntegration, times(0)).playPreroll()
+
+                self.videoPlayer.play()
+                verify(self.mockIMAIntegration, times(1)).playPreroll()
+
+                // Also ensure the playPreroll does not get triggered a second time when calling play.
+                self.videoPlayer.play()
+                verify(self.mockIMAIntegration, times(1)).playPreroll()
+            }
+        }
+
+        describe("button interactions") {
             describe("play button taps") {
                 it("switches from pause to play") {
+                    self.videoPlayer.event = self.event
                     // Keep in mind that this is initial status is dependent on autoplay being set on the PlayerConfig.
                     expect(self.videoPlayer.status).to(equal(.play))
                     playButtonTapped?()
@@ -661,13 +748,28 @@ class VideoPlayerSpec: QuickSpec {
                 }
 
                 it("switches from play to pause") {
+                    self.videoPlayer.event = self.event
                     expect(self.videoPlayer.status).to(equal(.play))
                     playButtonTapped?()
                     playButtonTapped?()
                     expect(self.videoPlayer.status).to(equal(.play))
                 }
 
+                it("does nothing to the video player status while an ad is playing") {
+                    stub(self.mockIMAIntegration) { mock in
+                        when(mock).isShowingAd().thenReturn(true)
+                    }
+
+                    self.videoPlayer.imaIntegration = self.mockIMAIntegration
+                    self.videoPlayer.playerConfig = PlayerConfig(imaAdUnit: "123456")
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    playButtonTapped?()
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                }
+
                 it("Seeks to beginning if state is currently ended") {
+                    self.videoPlayer.event = self.event
                     updateAVPlayerStatus(to: .readyToPlay)
                     stub(self.mockAVPlayer) { mock in
                         when(mock).currentDuration.get.thenReturn(500)

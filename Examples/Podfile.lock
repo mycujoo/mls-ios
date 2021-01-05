@@ -1,14 +1,22 @@
 PODS:
-  - Alamofire (5.2.1)
+  - Alamofire (5.4.0)
   - Cuckoo (1.4.1):
     - Cuckoo/Swift (= 1.4.1)
   - Cuckoo/Swift (1.4.1)
+  - GoogleAds-IMA-iOS-SDK (3.13.0)
+  - GoogleAds-IMA-tvOS-SDK (4.3.2)
   - MLSSDK (1.1.8):
+    - MLSSDK/Core (= 1.1.8)
+  - MLSSDK/Core (1.1.8):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - Starscream (~> 3.1)
     - YouboraAVPlayerAdapter
     - YouboraLib
+  - MLSSDK/IMA (1.1.8):
+    - GoogleAds-IMA-iOS-SDK (~> 3.13)
+    - GoogleAds-IMA-tvOS-SDK (~> 4.2)
+    - MLSSDK/Core
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
@@ -25,7 +33,10 @@ PODS:
 
 DEPENDENCIES:
   - Cuckoo (~> 1.4)
+  - GoogleAds-IMA-iOS-SDK (~> 3.13)
+  - GoogleAds-IMA-tvOS-SDK (~> 4.2)
   - MLSSDK (from `..`)
+  - MLSSDK/IMA (from `..`)
   - Moya (~> 14.0)
   - Nimble (~> 8.0)
   - Quick (~> 3.0)
@@ -37,6 +48,8 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Cuckoo
+    - GoogleAds-IMA-iOS-SDK
+    - GoogleAds-IMA-tvOS-SDK
     - Moya
     - Nimble
     - Quick
@@ -49,9 +62,11 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   Cuckoo: 4625f7f54d9bb880123270e8969898d6c1d036b5
-  MLSSDK: 4dd8537b134a8d162f3e895aabf916045279ee07
+  GoogleAds-IMA-iOS-SDK: b8d3693d370edcbd1440c827897c2b2a0b76673d
+  GoogleAds-IMA-tvOS-SDK: 29aeeb24ac8912ca3f52c2a00ce67880586366df
+  MLSSDK: 0bfdb960d540564314701d3fa2f936907ea35cec
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Nimble: 5f8a2fb6fa343a7242dfdd9d42f7267419d464b2
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
@@ -59,6 +74,6 @@ SPEC CHECKSUMS:
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: f83170c56982fe2a2c26f431fc0c0a55398e1ad7
+PODFILE CHECKSUM: 302a7bde343e5aac6ce306f63141a4d328533628
 
 COCOAPODS: 1.9.3
