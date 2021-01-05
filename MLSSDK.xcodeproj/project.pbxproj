@@ -12,6 +12,11 @@
 		490797E42590E2D70090F7DD /* RobotoMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 490797CA2590E2D60090F7DD /* RobotoMono-Bold.ttf */; };
 		490798472590F5410090F7DD /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 490798462590F5020090F7DD /* RobotoMono-Regular.ttf */; };
 		490798522590F5580090F7DD /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 490798462590F5020090F7DD /* RobotoMono-Regular.ttf */; };
+		49086D5B25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D5A25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift */; };
+		49086D5C25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D5A25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift */; };
+		49086D6525A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */; };
+		49086D6625A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */; };
+		49086D6F25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift */; };
 		4920CA552538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
 		4920CA562538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
 		4925998425A1D9F7007658DB /* IMAIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925998325A1D9F7007658DB /* IMAIntegration.swift */; };
@@ -409,8 +414,7 @@
 		49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
 		49CE62682509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
 		49CE62692509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
-		49D2A01725A1190600C12650 /* IMAIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A01625A1190600C12650 /* IMAIntegrationImpl.swift */; };
-		49D2A0E325A11C7700C12650 /* MLS+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A0E225A11C7700C12650 /* MLS+.swift */; };
+		49D2A01725A1190600C12650 /* IMAIntegrationImpl+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A01625A1190600C12650 /* IMAIntegrationImpl+iOS.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -485,6 +489,9 @@
 		4890C55696297F99AD58AE02 /* Pods-MLSSDK-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		490797CA2590E2D60090F7DD /* RobotoMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Bold.ttf"; sourceTree = "<group>"; };
 		490798462590F5020090F7DD /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
+		49086D5A25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegrationDelegate.swift; sourceTree = "<group>"; };
+		49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegrationFactory.swift; sourceTree = "<group>"; };
+		49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMAIntegrationImpl+tvOS.swift"; sourceTree = "<group>"; };
 		4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCertificateDataUseCase.swift; sourceTree = "<group>"; };
 		4925998325A1D9F7007658DB /* IMAIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegration.swift; sourceTree = "<group>"; };
 		49259A6925A1FCAA007658DB /* Encodable+IMA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+IMA.swift"; sourceTree = "<group>"; };
@@ -713,8 +720,7 @@
 		49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimelineActionsUpdatesUseCase.swift; sourceTree = "<group>"; };
 		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49D2A01625A1190600C12650 /* IMAIntegrationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegrationImpl.swift; sourceTree = "<group>"; };
-		49D2A0E225A11C7700C12650 /* MLS+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLS+.swift"; sourceTree = "<group>"; };
+		49D2A01625A1190600C12650 /* IMAIntegrationImpl+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IMAIntegrationImpl+iOS.swift"; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
@@ -860,6 +866,8 @@
 				49259A6925A1FCAA007658DB /* Encodable+IMA.swift */,
 				49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */,
 				49259A8125A1FCB6007658DB /* String+IMA.swift */,
+				49086D5A25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift */,
+				49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1398,7 +1406,7 @@
 			isa = PBXGroup;
 			children = (
 				49D2A00A25A1180600C12650 /* Support Files */,
-				49D2A01625A1190600C12650 /* IMAIntegrationImpl.swift */,
+				49D2A01625A1190600C12650 /* IMAIntegrationImpl+iOS.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -1406,8 +1414,8 @@
 		49A9B70925A1173E009E61FD /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
+				49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift */,
 				49D29FFE25A117D900C12650 /* Support Files */,
-				49D2A0E225A11C7700C12650 /* MLS+.swift */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
@@ -2181,10 +2189,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D2A01725A1190600C12650 /* IMAIntegrationImpl.swift in Sources */,
+				49D2A01725A1190600C12650 /* IMAIntegrationImpl+iOS.swift in Sources */,
 				49259A8225A1FCB6007658DB /* String+IMA.swift in Sources */,
+				49086D5B25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift in Sources */,
 				49259BE425A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */,
 				49259A6A25A1FCAA007658DB /* Encodable+IMA.swift in Sources */,
+				49086D6525A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2192,10 +2202,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D2A0E325A11C7700C12650 /* MLS+.swift in Sources */,
+				49086D6F25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift in Sources */,
 				49259BDB25A1FE53007658DB /* String+IMA.swift in Sources */,
+				49086D5C25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift in Sources */,
 				49259BE525A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */,
 				49259BD325A1FE51007658DB /* Encodable+IMA.swift in Sources */,
+				49086D6625A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
