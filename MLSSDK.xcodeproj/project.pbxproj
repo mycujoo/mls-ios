@@ -16,7 +16,7 @@
 		49086D5C25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D5A25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift */; };
 		49086D6525A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */; };
 		49086D6625A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */; };
-		49086D6F25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift */; };
+		49086D6F25A4B84C0082E7F6 /* IMAIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl.swift */; };
 		4920CA552538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
 		4920CA562538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */; };
 		4925998425A1D9F7007658DB /* IMAIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925998325A1D9F7007658DB /* IMAIntegration.swift */; };
@@ -402,6 +402,7 @@
 		49A804FD24AA0ED800E30DA8 /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3D24A9F59A001F3F48 /* ShapeLayer.swift */; };
 		49A804FE24AA0ED800E30DA8 /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3E24A9F59A001F3F48 /* MacawView.swift */; };
 		49A804FF24AA201C00E30DA8 /* PathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6724A9F59A001F3F48 /* PathFunctions.swift */; };
+		49A86A7E25A4BBB700B63E29 /* IMAIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl.swift */; };
 		49A9F52324A15B9200D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49A9F52424A15B9700D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B25DE524A5FE7B00CCB14D /* VideoPlayerView.swift */; };
@@ -414,7 +415,6 @@
 		49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
 		49CE62682509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
 		49CE62692509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */; };
-		49D2A01725A1190600C12650 /* IMAIntegrationImpl+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D2A01625A1190600C12650 /* IMAIntegrationImpl+iOS.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -491,7 +491,7 @@
 		490798462590F5020090F7DD /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		49086D5A25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegrationDelegate.swift; sourceTree = "<group>"; };
 		49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegrationFactory.swift; sourceTree = "<group>"; };
-		49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IMAIntegrationImpl+tvOS.swift"; sourceTree = "<group>"; };
+		49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMAIntegrationImpl.swift; sourceTree = "<group>"; };
 		4920CA542538C64C00737D91 /* GetCertificateDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCertificateDataUseCase.swift; sourceTree = "<group>"; };
 		4925998325A1D9F7007658DB /* IMAIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAIntegration.swift; sourceTree = "<group>"; };
 		49259A6925A1FCAA007658DB /* Encodable+IMA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+IMA.swift"; sourceTree = "<group>"; };
@@ -720,7 +720,6 @@
 		49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimelineActionsUpdatesUseCase.swift; sourceTree = "<group>"; };
 		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49D2A01625A1190600C12650 /* IMAIntegrationImpl+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IMAIntegrationImpl+iOS.swift"; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		49DDEABA24A29E6900C89DFF /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
@@ -868,6 +867,7 @@
 				49259A8125A1FCB6007658DB /* String+IMA.swift */,
 				49086D5A25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift */,
 				49086D6425A4B7F20082E7F6 /* IMAIntegrationFactory.swift */,
+				49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1406,7 +1406,6 @@
 			isa = PBXGroup;
 			children = (
 				49D2A00A25A1180600C12650 /* Support Files */,
-				49D2A01625A1190600C12650 /* IMAIntegrationImpl+iOS.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -1414,7 +1413,6 @@
 		49A9B70925A1173E009E61FD /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift */,
 				49D29FFE25A117D900C12650 /* Support Files */,
 			);
 			path = tvOS;
@@ -2189,11 +2187,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D2A01725A1190600C12650 /* IMAIntegrationImpl+iOS.swift in Sources */,
 				49259A8225A1FCB6007658DB /* String+IMA.swift in Sources */,
 				49086D5B25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift in Sources */,
 				49259BE425A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */,
 				49259A6A25A1FCAA007658DB /* Encodable+IMA.swift in Sources */,
+				49A86A7E25A4BBB700B63E29 /* IMAIntegrationImpl.swift in Sources */,
 				49086D6525A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2202,7 +2200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49086D6F25A4B84C0082E7F6 /* IMAIntegrationImpl+tvOS.swift in Sources */,
+				49086D6F25A4B84C0082E7F6 /* IMAIntegrationImpl.swift in Sources */,
 				49259BDB25A1FE53007658DB /* String+IMA.swift in Sources */,
 				49086D5C25A4B7EA0082E7F6 /* IMAIntegrationDelegate.swift in Sources */,
 				49259BE525A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */,
@@ -2892,6 +2890,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C99B648ZLJ;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2899,6 +2898,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -2912,6 +2912,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C99B648ZLJ;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2963,6 +2964,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3026,6 +3028,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -3123,6 +3126,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.8;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
 				SDKROOT = appletvos;

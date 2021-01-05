@@ -689,7 +689,7 @@ class VideoPlayerSpec: QuickSpec {
             }
         }
 
-        fdescribe("ima") {
+        describe("ima") {
             beforeEach {
                 self.videoPlayer.imaIntegration = self.mockIMAIntegration
             }
@@ -738,13 +738,9 @@ class VideoPlayerSpec: QuickSpec {
         }
 
         describe("button interactions") {
-
-            beforeEach {
-                self.videoPlayer.event = self.event
-            }
-
-            describe("play button taps") {
+            fdescribe("play button taps") {
                 it("switches from pause to play") {
+                    self.videoPlayer.event = self.event
                     // Keep in mind that this is initial status is dependent on autoplay being set on the PlayerConfig.
                     expect(self.videoPlayer.status).to(equal(.play))
                     playButtonTapped?()
@@ -752,13 +748,24 @@ class VideoPlayerSpec: QuickSpec {
                 }
 
                 it("switches from play to pause") {
+                    self.videoPlayer.event = self.event
                     expect(self.videoPlayer.status).to(equal(.play))
                     playButtonTapped?()
                     playButtonTapped?()
                     expect(self.videoPlayer.status).to(equal(.play))
                 }
 
+                it("does nothing to the video player status while an ad is playing") {
+                    self.videoPlayer.imaIntegration = self.mockIMAIntegration
+                    self.videoPlayer.playerConfig = PlayerConfig(imaAdUnit: "123456")
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    playButtonTapped?()
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                }
+
                 it("Seeks to beginning if state is currently ended") {
+                    self.videoPlayer.event = self.event
                     updateAVPlayerStatus(to: .readyToPlay)
                     stub(self.mockAVPlayer) { mock in
                         when(mock).currentDuration.get.thenReturn(500)
