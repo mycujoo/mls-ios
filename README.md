@@ -2,15 +2,6 @@ This SDK is intended for customers of MyCujoo Live Services. It offers a video p
 
 ## Installation
 
-### Swift package manager
-
-If you want to install our SDK via the Xcode UI, go to your Project Settings -> Swift Packages and add MLSSDK from there.
-
-To integrate using Apple's Swift package manager, without Xcode integration, add the following as a dependency to your `Package.swift`:
-
-```.package(url: "https://github.com/MyCujoo/mls-ios.git", .upToNextMajor(from: "1.1"))
-```
-
 ### CocoaPods
 
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate our SDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
@@ -24,6 +15,17 @@ Or if you want to use the IMA extension:
 ```ruby
 pod 'MLSSDK/IMA', '~> 1.1'
 ```
+
+### Swift package manager
+
+If you want to install our SDK via the Xcode UI, go to your Project Settings -> Swift Packages and add MLSSDK from there.
+
+To integrate using Apple's Swift package manager, without Xcode integration, add the following as a dependency to your `Package.swift`:
+
+```.package(url: "https://github.com/MyCujoo/mls-ios.git", .upToNextMajor(from: "1.1"))
+```
+
+**Important: unfortunately, by installing MLSSDK via SPM will lead to a reduced feature-set, as not all dependencies are supported through SPM yet. You will miss out on IMA (monetization), Chromecast, and Youbora (video analytics).**
 
 ## Usage
 
