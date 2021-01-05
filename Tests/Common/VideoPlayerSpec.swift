@@ -362,7 +362,7 @@ class VideoPlayerSpec: QuickSpec {
         }
 
         describe("loading local annotations") {
-            fit("calls evaluation function for local annotations") {
+            it("calls evaluation function for local annotations") {
                 verify(self.mockAnnotationService, times(0)).evaluate(ParameterMatcher { $0.actions.count == 0 }, callback: any())
 
                 self.videoPlayer.localAnnotationActions = [EntityBuilder.buildAnnotationActionForShowOverlay()]

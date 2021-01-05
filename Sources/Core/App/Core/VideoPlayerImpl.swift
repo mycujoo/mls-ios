@@ -971,7 +971,6 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
             }
         }
         
-        // We first check if a url is set in the manifest.
         guard let _ = currentStream?.url,
               let licenseUrl = currentStream?.fairplay?.licenseUrl,
               let certificateUrl = currentStream?.fairplay?.certificateUrl else {
