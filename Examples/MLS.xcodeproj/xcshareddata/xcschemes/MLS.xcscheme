@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6418F6D5246951050013A9EE"
-               BuildableName = "MLS.app"
-               BlueprintName = "MLS"
-               ReferencedContainer = "container:MLS.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "6477C4392469552A0033435D"
                BuildableName = "MLSSDK.framework"
                BlueprintName = "MLSSDK-iOS"
@@ -46,6 +32,20 @@
                BuildableName = "MLSSDK_IMA_iOS.framework"
                BlueprintName = "MLSSDK-IMA-iOS"
                ReferencedContainer = "container:../MLSSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6418F6D5246951050013A9EE"
+               BuildableName = "MLS.app"
+               BlueprintName = "MLS"
+               ReferencedContainer = "container:MLS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

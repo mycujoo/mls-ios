@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "643B5EB6247BE93900A46A77"
-               BuildableName = "MLS-tvOS.app"
-               BlueprintName = "MLS-tvOS"
-               ReferencedContainer = "container:MLS.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "64FDE307249A189000E6510D"
                BuildableName = "MLSSDK.framework"
                BlueprintName = "MLSSDK-tvOS"
@@ -46,6 +32,20 @@
                BuildableName = "MLSSDK_IMA_tvOS.framework"
                BlueprintName = "MLSSDK-IMA-tvOS"
                ReferencedContainer = "container:../MLSSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "643B5EB6247BE93900A46A77"
+               BuildableName = "MLS-tvOS.app"
+               BlueprintName = "MLS-tvOS"
+               ReferencedContainer = "container:MLS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
