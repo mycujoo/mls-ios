@@ -42,6 +42,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "49AB5B9F25A4F2D4003B336E"
+               BuildableName = "MLSSDK_Cast.framework"
+               BlueprintName = "MLSSDK-Cast"
+               ReferencedContainer = "container:../MLSSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "6418F6D5246951050013A9EE"
                BuildableName = "MLS.app"
                BlueprintName = "MLS"

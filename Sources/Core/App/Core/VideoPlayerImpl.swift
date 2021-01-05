@@ -17,6 +17,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    var castIntegration: CastIntegration? {
+        didSet {
+            castIntegration?.initialize()
+        }
+    }
+
     private(set) var state: VideoPlayerState = .unknown {
         didSet {
             delegate?.playerDidUpdateState(player: self)

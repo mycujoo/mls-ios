@@ -14,6 +14,8 @@
 		4925AA8E24C6FF8600F13832 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */; };
 		4925AA8F24C6FF8600F13832 /* WithPictureInPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */; };
 		4925AA9024C6FF8600F13832 /* WithFullscreenZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */; };
+		498A7A6125A50D6900B0D6C9 /* WithCastSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A7A6025A50D6900B0D6C9 /* WithCastSupportViewController.swift */; };
+		49B453DC25A5158700EE4927 /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C487BB9FBB6869A6A2F542 /* Pods_MLS.framework */; };
 		49DD558C24D763850080E105 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD558B24D763850080E105 /* SimpleViewController.swift */; };
 		4A706B315443E5446F0E00C6 /* Pods_MLS_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C96DEC97F5E6BBEF0D1B0B /* Pods_MLS_tvOS.framework */; };
 		6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E4246951060013A9EE /* LaunchScreen.storyboard */; };
@@ -21,7 +23,6 @@
 		643B5EBE247BE93B00A46A77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EBD247BE93B00A46A77 /* Assets.xcassets */; };
 		643B5EC1247BE93B00A46A77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC0247BE93B00A46A77 /* Preview Assets.xcassets */; };
 		643B5EC4247BE93B00A46A77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643B5EC2247BE93B00A46A77 /* LaunchScreen.storyboard */; };
-		F1A674635DE5D44893FF41B8 /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C487BB9FBB6869A6A2F542 /* Pods_MLS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		492B6BD024B3666D0003C5B1 /* id */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = id; path = id.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		492B6BD124B3666D0003C5B1 /* id */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = id; path = id.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		498A79FA25A5030900B0D6C9 /* MLS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MLS.entitlements; sourceTree = "<group>"; };
+		498A7A6025A50D6900B0D6C9 /* WithCastSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithCastSupportViewController.swift; sourceTree = "<group>"; };
 		49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPictureInPictureViewController.swift; sourceTree = "<group>"; };
 		49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		49DD558B24D763850080E105 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1A674635DE5D44893FF41B8 /* Pods_MLS.framework in Frameworks */,
+				49B453DC25A5158700EE4927 /* Pods_MLS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +97,7 @@
 			children = (
 				6418F6D9246951050013A9EE /* AppDelegate.swift */,
 				49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */,
+				498A7A6025A50D6900B0D6C9 /* WithCastSupportViewController.swift */,
 				49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */,
 				6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */,
 				491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */,
@@ -412,6 +415,7 @@
 				4925AA8D24C6FF8600F13832 /* AppDelegate.swift in Sources */,
 				4925AA8E24C6FF8600F13832 /* SimpleViewController.swift in Sources */,
 				4925AA8F24C6FF8600F13832 /* WithPictureInPictureViewController.swift in Sources */,
+				498A7A6125A50D6900B0D6C9 /* WithCastSupportViewController.swift in Sources */,
 				491C8CEB24D5C33A008A7B9D /* WithEventListViewController.swift in Sources */,
 				4925AA9024C6FF8600F13832 /* WithFullscreenZoomViewController.swift in Sources */,
 			);

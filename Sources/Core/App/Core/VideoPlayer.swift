@@ -13,6 +13,9 @@ public protocol VideoPlayer: class {
     /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.
     var imaIntegration: IMAIntegration? { get set }
 
+    /// Should be set by the SDK user for Google Chromecast support to work. Such an object can be obtained through the `MLSSDK/Cast` extensions.
+    var castIntegration: CastIntegration? { get set }
+
     var state: VideoPlayerState { get }
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
