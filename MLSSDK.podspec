@@ -13,6 +13,7 @@ Pod::Spec.new do |spec|
   spec.source        = { :git => 'https://github.com/mycujoo/mls-ios.git', :tag => spec.version }
   spec.default_subspec = 'Core'
   spec.swift_version = '5.0'
+  spec.static_framework = true # needed because of Chromecast
 
   spec.subspec 'Core' do |ss|
     ss.source_files  = 'Sources/Core/App/**/*.swift', 'Sources/Core/Data/**/*.swift', 'Sources/Core/Domain/**/*.swift'
@@ -39,5 +40,14 @@ Pod::Spec.new do |spec|
     ss.dependency 'MLSSDK/Core'
     ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
     ss.tvos.dependency 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
+  end
+
+  spec.subspec 'Cast' do |ss|
+    ss.ios.source_files = 'Sources/Cast/**/*.swift'
+    ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
+
+    ss.dependency 'MLSSDK/Core'
+    ss.ios.dependency 'google-cast-sdk', '~> 4.5'
+
   end
 end
