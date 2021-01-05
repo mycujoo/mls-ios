@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4971F39025A10F8C0075715E"
-               BuildableName = "MLSSDK_IMA_iOS.framework"
+               BuildableName = "MLSSDK_IMA.framework"
                BlueprintName = "MLSSDK-IMA-iOS"
                ReferencedContainer = "container:../MLSSDK.xcodeproj">
             </BuildableReference>

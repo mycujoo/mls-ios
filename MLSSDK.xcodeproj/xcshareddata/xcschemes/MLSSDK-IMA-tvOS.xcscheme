@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4971F3AA25A1101E0075715E"
-               BuildableName = "MLSSDK_IMA_tvOS.framework"
+               BuildableName = "MLSSDK_IMA.framework"
                BlueprintName = "MLSSDK-IMA-tvOS"
                ReferencedContainer = "container:MLSSDK.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4971F3AA25A1101E0075715E"
-            BuildableName = "MLSSDK_IMA_tvOS.framework"
+            BuildableName = "MLSSDK_IMA.framework"
             BlueprintName = "MLSSDK-IMA-tvOS"
             ReferencedContainer = "container:MLSSDK.xcodeproj">
          </BuildableReference>
