@@ -633,10 +633,21 @@ extension VideoPlayerImpl {
                 return
             }
         }
-        status = .play
+
+        if imaIntegration?.isShowingAd() == true {
+            imaIntegration?.resume()
+        } else {
+            status = .play
+        }
     }
 
-    func pause() { status = .pause }
+    func pause() {
+        if imaIntegration?.isShowingAd() == true {
+            imaIntegration?.pause()
+        } else {
+            status = .pause
+        }
+    }
 
     func playVideo(with event: Event) {
         self.event = event

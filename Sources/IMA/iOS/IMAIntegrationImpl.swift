@@ -46,6 +46,9 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
     private var basicCustomParams: [String: String] = [:]
     private var adTagFactory = IMAAdTagFactory()
 
+    /// A helper to keep track of whether an ad is currently playing or not.
+    private var isShowingAd_ = false
+
     init(videoPlayer: VideoPlayer, delegate: IMAIntegrationDelegate, adTagBaseURL: URL) {
         self.videoPlayer = videoPlayer
         self.delegate = delegate
@@ -96,6 +99,18 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
         adsLoader.contentComplete()
     }
 
+    func isShowingAd() -> Bool {
+        return isShowingAd_
+    }
+
+    func pause() {
+        adsManager.pause()
+    }
+
+    func resume() {
+        adsManager.resume()
+    }
+
     lazy var contentPlayhead: IMAAVPlayerContentPlayhead? = {
         return IMAAVPlayerContentPlayhead(avPlayer: avPlayer)
     }()
@@ -112,6 +127,8 @@ extension IMAIntegrationImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
     func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
         print("AdsManager error: " + error.message)
 
+        isShowingAd_ = false
+
         videoPlayer?.play()
     }
 
@@ -120,12 +137,14 @@ extension IMAIntegrationImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 
         videoPlayer.pause()
 
+        isShowingAd_ = true
         delegate?.imaAdStarted(for: videoPlayer)
     }
 
     func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
         guard let videoPlayer = videoPlayer else { return }
 
+        isShowingAd_ = false
         delegate?.imaAdStopped(for: videoPlayer)
 
         videoPlayer.play()
@@ -139,6 +158,8 @@ extension IMAIntegrationImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
 
     func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
         print("Error loading ads: " + adErrorData.adError.message)
+
+        isShowingAd_ = false
 
         videoPlayer?.play()
     }

@@ -34,6 +34,34 @@
                ReferencedContainer = "container:MLSSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4971F39025A10F8C0075715E"
+               BuildableName = "MLSSDK_IMA_iOS.framework"
+               BlueprintName = "MLSSDK-IMA-iOS"
+               ReferencedContainer = "container:MLSSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4971F3AA25A1101E0075715E"
+               BuildableName = "MLSSDK_IMA_tvOS.framework"
+               BlueprintName = "MLSSDK-IMA-tvOS"
+               ReferencedContainer = "container:MLSSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -109,6 +109,51 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
         
     }
     
+    
+    
+    public func isShowingAd() -> Bool {
+        
+    return cuckoo_manager.call("isShowingAd() -> Bool",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.isShowingAd())
+        
+    }
+    
+    
+    
+    public func pause()  {
+        
+    return cuckoo_manager.call("pause()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.pause())
+        
+    }
+    
+    
+    
+    public func resume()  {
+        
+    return cuckoo_manager.call("resume()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.resume())
+        
+    }
+    
 
 	public struct __StubbingProxy_IMAIntegration: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
@@ -141,6 +186,21 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
 	    func playPostroll() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "playPostroll()", parameterMatchers: matchers))
+	    }
+	    
+	    func isShowingAd() -> Cuckoo.ProtocolStubFunction<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "isShowingAd() -> Bool", parameterMatchers: matchers))
+	    }
+	    
+	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "pause()", parameterMatchers: matchers))
+	    }
+	    
+	    func resume() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "resume()", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -189,6 +249,24 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
 	        return cuckoo_manager.verify("playPostroll()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
+	    @discardableResult
+	    func isShowingAd() -> Cuckoo.__DoNotUse<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("isShowingAd() -> Bool", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func resume() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("resume()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
 	}
 }
 
@@ -218,10 +296,22 @@ public class IMAIntegrationStub: IMAIntegration {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+    public func isShowingAd() -> Bool  {
+        return DefaultValueRegistry.defaultValue(for: (Bool).self)
+    }
+    
+    public func pause()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func resume()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -894,7 +984,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2262,7 +2352,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2394,7 +2484,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2526,7 +2616,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2718,7 +2808,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2820,7 +2910,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2982,7 +3072,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3084,7 +3174,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3186,7 +3276,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-05 11:42:26 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-05 14:47:30 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

@@ -188,6 +188,9 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setAVPlayer(any()).thenDoNothing()
                 when(mock).setAdUnit(any()).thenDoNothing()
                 when(mock).setBasicCustomParameters(eventId: any(), streamId: any()).thenDoNothing()
+                when(mock).isShowingAd().thenReturn(false)
+                when(mock).resume().thenDoNothing()
+                when(mock).pause().thenDoNothing()
                 when(mock).playPostroll().thenDoNothing()
                 when(mock).playPreroll().then { _ in
                     // Do not actually process any preroll but forward the play call directly to the player.
@@ -673,6 +676,15 @@ class VideoPlayerSpec: QuickSpec {
                     self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
                     self.videoPlayer.event = self.event
                     expect(self.videoPlayer.status).to(equal(.pause))
+                }
+
+                it("plays when calling play() with autoplay set to false") {
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
+                    self.videoPlayer.event = self.event
+                    expect(self.videoPlayer.status).to(equal(.pause))
+                    self.videoPlayer.play()
+                    expect(self.videoPlayer.status).to(equal(.play))
                 }
             }
         }

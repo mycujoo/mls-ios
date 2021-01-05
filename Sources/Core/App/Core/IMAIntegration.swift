@@ -27,5 +27,14 @@ public protocol IMAIntegration {
     /// Updates the IMAIntegration that the stream was ended, and it is now free to play a postroll.
     /// This may not happen if a postroll ad is unavailable.
     func playPostroll()
+
+    /// Indicates whether the IMAIntegration is currently playing an ad or not (also returns true if an ad is loaded but paused).
+    func isShowingAd() -> Bool
+
+    /// Tells the IMAIntegration to pause the currently playing ad. Does nothing if there is no ad playing.
+    func pause()
+
+    /// Tells the IMAIntegration to continue playing the currently playing ad. Does nothing if there is no ad playing.
+    func resume()
 }
 
