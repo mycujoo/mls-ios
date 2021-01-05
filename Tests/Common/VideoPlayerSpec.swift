@@ -738,7 +738,7 @@ class VideoPlayerSpec: QuickSpec {
         }
 
         describe("button interactions") {
-            fdescribe("play button taps") {
+            describe("play button taps") {
                 it("switches from pause to play") {
                     self.videoPlayer.event = self.event
                     // Keep in mind that this is initial status is dependent on autoplay being set on the PlayerConfig.
@@ -756,6 +756,10 @@ class VideoPlayerSpec: QuickSpec {
                 }
 
                 it("does nothing to the video player status while an ad is playing") {
+                    stub(self.mockIMAIntegration) { mock in
+                        when(mock).isShowingAd().thenReturn(true)
+                    }
+
                     self.videoPlayer.imaIntegration = self.mockIMAIntegration
                     self.videoPlayer.playerConfig = PlayerConfig(imaAdUnit: "123456")
                     self.videoPlayer.event = self.event

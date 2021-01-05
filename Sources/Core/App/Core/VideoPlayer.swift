@@ -100,15 +100,7 @@ public enum VideoPlayerState: Int {
 public enum VideoPlayerStatus {
     case play
     case pause
-
-    public mutating func toggle() {
-        switch self {
-        case .play:
-            self = .pause
-        case .pause:
-            self = .play
-        }
-    }
+    
     public var isPlaying: Bool { self == .play }
 }
 

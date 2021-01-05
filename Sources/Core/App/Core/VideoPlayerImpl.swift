@@ -851,7 +851,7 @@ extension VideoPlayerImpl {
 
     private func playButtonTapped() {
         if state != .ended {
-            status.toggle()
+            status.isPlaying ? pause() : play()
         }
         else {
             player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
