@@ -694,14 +694,14 @@ class VideoPlayerSpec: QuickSpec {
                 self.videoPlayer.imaIntegration = self.mockIMAIntegration
             }
 
-            it("autoplays ad with autoplay set to true") {
+            it("autoplays with autoplay set to true") {
                 expect(self.videoPlayer.status).to(equal(.pause))
                 self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: "123456")
                 self.videoPlayer.event = self.event
                 expect(self.videoPlayer.status).to(equal(.play))
             }
 
-            it("does not autoplay ad (or main stream) with autoplay set to false") {
+            it("does not autoplay with autoplay set to false") {
                 expect(self.videoPlayer.status).to(equal(.pause))
                 self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
                 self.videoPlayer.event = self.event
