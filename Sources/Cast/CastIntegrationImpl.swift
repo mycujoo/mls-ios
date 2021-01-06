@@ -28,7 +28,7 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
     weak var delegate: CastIntegrationDelegate?
 
     lazy var appId: String = {
-        guard let appId = Bundle(for: type(of: self)).object(forInfoDictionaryKey: "CastAppId") as? String else {
+        guard let appId = Bundle.resourceBundle?.object(forInfoDictionaryKey: "CastAppId") as? String else {
             fatalError("Could not read Cast appId from Info.plist")
         }
         return appId
