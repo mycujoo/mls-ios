@@ -12,7 +12,7 @@ extension Bundle {
     /// - seeAlso: `L10n.Localizable`
     static var mlsLocalizationBundle: Bundle = mlsResourceBundle ?? Bundle.main // the fallback to Bundle.main is just to ensure there is a always a bundle.
 
-    public static var mlsResourceBundle: Bundle? {
+    static var mlsResourceBundle: Bundle? {
         #if SWIFT_PACKAGE
         return Bundle.module
         #else

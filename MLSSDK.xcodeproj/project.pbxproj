@@ -89,6 +89,7 @@
 		4943B96A24C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943B95E24C6F08A0006F81C /* NVActivityIndicatorView.swift */; };
 		4943B96B24C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943B96024C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
 		4943B96C24C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943B96024C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
+		4948A4E825A5CAAF0090F10A /* CastAppId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4948A4E725A5CAAF0090F10A /* CastAppId.swift */; };
 		495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
 		495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB132249CC50E00998FF4 /* UIColor+.swift */; };
 		495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */; };
@@ -543,6 +544,7 @@
 		4943B95D24C6F08A0006F81C /* NVActivityIndicatorShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorShape.swift; sourceTree = "<group>"; };
 		4943B95E24C6F08A0006F81C /* NVActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorView.swift; sourceTree = "<group>"; };
 		4943B96024C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorAnimationCircleStrokeSpin.swift; sourceTree = "<group>"; };
+		4948A4E725A5CAAF0090F10A /* CastAppId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastAppId.swift; sourceTree = "<group>"; };
 		495CB132249CC50E00998FF4 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+.swift"; sourceTree = "<group>"; };
 		495CB138249CF98600998FF4 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
@@ -1454,6 +1456,7 @@
 			isa = PBXGroup;
 			children = (
 				49AB5BBB25A4F3F8003B336E /* Info.plist */,
+				4948A4E725A5CAAF0090F10A /* CastAppId.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -2336,6 +2339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				498A7A2A25A5084900B0D6C9 /* CastIntegrationDelegate.swift in Sources */,
+				4948A4E825A5CAAF0090F10A /* CastAppId.swift in Sources */,
 				498A7A1025A5063300B0D6C9 /* CastIntegrationImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
