@@ -61,7 +61,7 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol  {
         return indicator
     }()
 
-    private lazy var eyeIcon = UIImage(named: "Icon-Eye", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var eyeIcon = UIImage(named: "Icon-Eye", in: Bundle.mlsResourceBundle, compatibleWith: nil)
 
     let playButton: UIButton = {
         let button = UIButton()

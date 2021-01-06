@@ -37,7 +37,7 @@ public struct Configuration {
         self.playerConfig = playerConfig
 
         if let l10nBundle = l10nBundle {
-            Bundle.l10nBundle = l10nBundle
+            Bundle.mlsLocalizationBundle = l10nBundle
         }
     }
 }
@@ -145,7 +145,7 @@ public class MLS {
         initGlobalPrereqDone = true
 
         // TODO: Move this font array elsewhere.
-        if let bundle = Bundle.resourceBundle {
+        if let bundle = Bundle.mlsResourceBundle {
             UIFont.loadFonts(names: ["RobotoMono-Regular.ttf", "RobotoMono-Bold.ttf"], forBundle: bundle)
         }
     }

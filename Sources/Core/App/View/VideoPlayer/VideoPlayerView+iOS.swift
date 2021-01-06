@@ -55,15 +55,15 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
     // MARK: - UI Components
 
-    private lazy var playIcon = UIImage(named: "Icon-Play", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var pauseIcon = UIImage(named: "Icon-Pause", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var replayIcon = UIImage(named: "Icon-Replay", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var skipBackIcon = UIImage(named: "Icon-BackBy10", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var skipForwardIcon = UIImage(named: "Icon-ForwardBy10", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var infoIcon = UIImage(named: "Icon-Info", in: Bundle.resourceBundle, compatibleWith: nil)
-    private lazy var eyeIcon = UIImage(named: "Icon-Eye", in: Bundle.resourceBundle, compatibleWith: nil)
+    private lazy var playIcon = UIImage(named: "Icon-Play", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var pauseIcon = UIImage(named: "Icon-Pause", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var replayIcon = UIImage(named: "Icon-Replay", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var skipBackIcon = UIImage(named: "Icon-BackBy10", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var skipForwardIcon = UIImage(named: "Icon-ForwardBy10", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var fullscreenIcon = UIImage(named: "Icon-Fullscreen", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var shrinkscreenIcon = UIImage(named: "Icon-Shrinkscreen", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var infoIcon = UIImage(named: "Icon-Info", in: Bundle.mlsResourceBundle, compatibleWith: nil)
+    private lazy var eyeIcon = UIImage(named: "Icon-Eye", in: Bundle.mlsResourceBundle, compatibleWith: nil)
 
     private lazy var playButton: UIButton = {
         let button = UIButton()
