@@ -28,7 +28,7 @@ public struct Stream: Equatable {
     public let error: Err?
 
     /// This is the stream url. It assumes the `full_url` from the MLS API, or if that is null, it falls back to  the `full_url` on the fairplay object, if one is available.
-    var url: URL? {
+    public var url: URL? {
         return fullUrl ?? fairplay?.fullUrl
     }
 

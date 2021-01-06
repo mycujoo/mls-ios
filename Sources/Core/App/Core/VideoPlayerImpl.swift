@@ -19,7 +19,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     var castIntegration: CastIntegration? {
         didSet {
-            castIntegration?.initialize()
+            castIntegration?.initialize(self)
         }
     }
 
@@ -281,6 +281,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// A string that uniquely identifies this user.
     private let pseudoUserId: String
 
+    /// A identifier that is used in requests to the MCLS api that represents this organization.
+    private let publicKey: String
+
     // MARK: - Internal properties
 
     var view: VideoPlayerViewProtocol!
@@ -338,7 +341,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             videoAnalyticsService: VideoAnalyticsServicing,
             hlsInspectionService: HLSInspectionServicing,
             seekTolerance: CMTime = .positiveInfinity,
-            pseudoUserId: String) {
+            pseudoUserId: String,
+            publicKey: String) {
         self.player = player
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getTimelineActionsUpdatesUseCase = getTimelineActionsUpdatesUseCase
@@ -351,6 +355,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         self.hlsInspectionService = hlsInspectionService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
+        self.publicKey = publicKey
 
         super.init()
 
@@ -1046,6 +1051,19 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
         }
 
         return true
+    }
+}
+
+extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
+    func isCastingStateUpdated() {
+        guard let castIntegration = castIntegration else { return }
+
+        if castIntegration.isCasting() {
+            castIntegration.setEventMetadata(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: stream)
+        }
+        else {
+            
+        }
     }
 }
 

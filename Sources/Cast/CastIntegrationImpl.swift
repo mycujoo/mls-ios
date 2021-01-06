@@ -25,6 +25,7 @@ public class CastIntegrationFactory {
 }
 
 class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
+    weak var videoPlayerDelegate: CastIntegrationVideoPlayerDelegate?
     weak var delegate: CastIntegrationDelegate?
 
     lazy var appId: String = {
@@ -34,17 +35,31 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         return castAppId
     }()
 
+    private var _isCasting = false
+
+    private static let encoder = JSONEncoder()
+
     init(delegate: CastIntegrationDelegate) {
         self.delegate = delegate
 
         super.init()
     }
 
-    func initialize() {
+    func initialize(_ videoPlayerDelegate: CastIntegrationVideoPlayerDelegate) {
         guard let delegate = delegate else { return }
+
+        self.videoPlayerDelegate = videoPlayerDelegate
+
         let criteria = GCKDiscoveryCriteria(applicationID: appId)
         let options = GCKCastOptions(discoveryCriteria: criteria)
         GCKCastContext.setSharedInstanceWith(options)
+
+        GCKLogger.sharedInstance().delegate = self
+
+        GCKLogger.sharedInstance().loggingEnabled = true
+        GCKLogger.sharedInstance().consoleLoggingEnabled = true
+
+        GCKCastContext.sharedInstance().sessionManager.add(self)
 
         let castButton = GCKUICastButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
         castButton.tintColor = UIColor.gray
@@ -63,13 +78,104 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         }
         NSLayoutConstraint.activate(castButtonConstraints)
 
-        #if DEBUG
+//        #if DEBUG
         GCKLogger.sharedInstance().delegate = self
-        #endif
+//        #endif
+    }
+
+    func setEventMetadata(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?) {
+        let metadata = GCKMediaMetadata()
+        metadata.setString(event?.title ?? "", forKey: kGCKMetadataKeyTitle)
+        metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeyTitle)
+
+        let mediaInfoBuilder = GCKMediaInformationBuilder()
+        // TODO: If we introduce Widevine, the streamUrl will need to be provided differently, since this uses Fairplay by default.
+        mediaInfoBuilder.contentURL = stream?.url
+        mediaInfoBuilder.streamType = .none
+        mediaInfoBuilder.contentType = "video/m3u"
+        mediaInfoBuilder.metadata = metadata
+        mediaInfoBuilder.customData = []
+
+        if let data = try? (CastIntegrationImpl.encoder.encode(ReceiverCustomData(publicKey: publicKey, pseudoUserId: pseudoUserId, eventId: event?.id))) {
+            mediaInfoBuilder.customData = String(data: data, encoding: .utf8)!
+        }
+
+        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.loadMedia(mediaInfoBuilder.build())
+    }
+
+    func isCasting() -> Bool {
+        return _isCasting
+    }
+
+    struct ReceiverCustomData: Codable {
+        var publicKey: String
+        var pseudoUserId: String
+        var eventId: String?
     }
 }
 
-// MARK: - GCKLoggerDelegate
+// - MARK: GCKRemoteMediaClientListener
+
+extension CastIntegrationImpl: GCKRemoteMediaClientListener {
+    func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus?) {
+//        _mediaStatusUpdatedSubject.onNext(mediaStatus)
+    }
+
+    func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaMetadata: GCKMediaMetadata?) {
+//        _metadataUpdatedSubject.onNext(mediaMetadata)
+    }
+
+    func remoteMediaClientDidUpdateQueue(_ client: GCKRemoteMediaClient) {
+
+    }
+}
+
+// - MARK: GCKSessionManagerListener
+
+extension CastIntegrationImpl: GCKSessionManagerListener {
+    func sessionManager(_ sessionManager: GCKSessionManager, didStart session: GCKCastSession) {
+            switchPlaybackToRemote()
+        }
+
+        func sessionManager(_ sessionManager: GCKSessionManager, didResumeCastSession session: GCKCastSession) {
+            switchPlaybackToRemote()
+        }
+
+        func sessionManager(_ sessionManager: GCKSessionManager, willEnd session: GCKCastSession) {
+            // Switch to local BEFORE the session ends, because it gives us a chance to stop playback BEFORE the connection is broken.
+            switchPlaybackToLocal()
+        }
+
+        func sessionManager(_ sessionManager: GCKSessionManager, didEnd session: GCKCastSession, withError error: Error?) {
+            // This should be redundant, but is useful as a safety measure.
+            switchPlaybackToLocal()
+        }
+
+        func sessionManager(_ sessionManager: GCKSessionManager, didFailToStart session: GCKCastSession, withError error: Error) {
+            switchPlaybackToLocal()
+        }
+
+        func switchPlaybackToLocal() {
+            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
+
+            _isCasting = false
+
+            videoPlayerDelegate?.isCastingStateUpdated()
+        }
+
+        func switchPlaybackToRemote() {
+            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.add(self)
+
+            _isCasting = true
+
+            videoPlayerDelegate?.isCastingStateUpdated()
+//            if let metadata = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.metadata {
+//                _metadataUpdatedSubject.onNext(metadata)
+//            }
+        }
+}
+
+// - MARK: GCKLoggerDelegate
 
 extension CastIntegrationImpl {
     func logMessage(_ message: String, at level: GCKLoggerLevel, fromFunction function: String, location: String) {

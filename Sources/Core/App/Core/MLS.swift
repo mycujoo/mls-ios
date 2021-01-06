@@ -176,7 +176,8 @@ public class MLS {
             videoAnalyticsService: youboraVideoAnalyticsService,
             hlsInspectionService: hlsInspectionService,
             seekTolerance: configuration.seekTolerance,
-            pseudoUserId: pseudoUserId)
+            pseudoUserId: pseudoUserId,
+            publicKey: publicKey)
 
         player.playerConfig = configuration.playerConfig
         player.event = event
