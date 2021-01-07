@@ -7,12 +7,11 @@ import UIKit
 
 
 internal class VideoPlayerImpl: NSObject, VideoPlayer {
-
     weak var delegate: PlayerDelegate?
 
     var imaIntegration: IMAIntegration? {
         didSet {
-            guard let avPlayer = self.player as? AVPlayer else { return }
+            guard let avPlayer = self.avPlayer as? AVPlayer else { return }
             imaIntegration?.setAVPlayer(avPlayer)
         }
     }
@@ -21,12 +20,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         didSet {
             castIntegration?.initialize(self)
             castIntegration?.player().timeObserverCallback = timeObserverCallback
-        }
-    }
-
-    private(set) var state: VideoPlayerState = .unknown {
-        didSet {
-            delegate?.playerDidUpdateState(player: self)
+            castIntegration?.player().playObserverCallback = playObserverCallback
         }
     }
 
@@ -322,31 +316,40 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// The callback that handles time updates. This is saved as a separate property because it needs to be set on both avPlayer and castPlayer at different points of initialization.
     lazy var timeObserverCallback: () -> () = { [weak self] () in
-        guard let self = self else { return }
-        let currentDuration = self.currentDuration
-        let optimisticCurrentTime = self.optimisticCurrentTime
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
 
-        if !self.view.videoSlider.isTracking {
-            self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
+            let currentDuration = self.currentDuration
+            let optimisticCurrentTime = self.optimisticCurrentTime
 
-            if currentDuration > 0 {
-                self.view.videoSlider.value = optimisticCurrentTime / currentDuration
+            if !self.view.videoSlider.isTracking {
+                self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
+
+                if currentDuration > 0 {
+                    self.view.videoSlider.value = optimisticCurrentTime / currentDuration
+                }
             }
+
+            self.view.setBufferIcon(hidden: !self.player.isBuffering)
+
+            if self.player.currentItemEnded {
+                #if os(iOS)
+                self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
+                #else
+                self.view.setPlayButtonTo(state: .replay)
+                #endif
+            }
+
+            self.videoAnalyticsService.currentItemIsLive = self.player.isLivestream
+
+            self.delegate?.playerDidUpdateTime(player: self)
+
+            self.evaluateAnnotations()
         }
+    }
 
-        if self.player.currentItemEnded {
-            #if os(iOS)
-            self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
-            #else
-            self.view.setPlayButtonTo(state: .replay)
-            #endif
-        }
-
-        self.videoAnalyticsService.currentItemIsLive = self.player.isLivestream
-
-        self.delegate?.playerDidUpdateTime(player: self)
-
-        self.evaluateAnnotations()
+    lazy var playObserverCallback: ((_ isPlaying: Bool) -> Void) = { [weak self] isPlaying in
+        self?.status = isPlaying ? .play : .pause
     }
 
     // MARK: - Methods
@@ -413,6 +416,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
 
         avPlayer.timeObserverCallback = self.timeObserverCallback
+        avPlayer.playObserverCallback = self.playObserverCallback
 
         videoAnalyticsService.create(with: avPlayer)
     }
@@ -617,46 +621,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     self?.hideOverlays(with: output.hideOverlays)
                 }
             }
-        }
-    }
-    
-    //MARK: - KVO
-
-    override func observeValue(
-        forKeyPath keyPath: String?,
-        of object: Any?,
-        change: [NSKeyValueChangeKey : Any]?,
-        context: UnsafeMutableRawPointer?
-    ) {
-        switch keyPath {
-        case "status":
-            state = VideoPlayerState(rawValue: avPlayer.status.rawValue) ?? .unknown
-        case "timeControlStatus":
-            if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
-                let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
-                let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
-                if newStatus != oldStatus {
-                    switch newStatus {
-                    case .playing:
-                        self.status = .play
-                    case .paused:
-                        self.status = .pause
-                    default:
-                        break
-                    }
-
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream?.url != nil {
-                            self.view.setBufferIcon(hidden: false)
-                        } else {
-                            self.view.setBufferIcon(hidden: true)
-                        }
-                    }
-                }
-            }
-        default:
-            break
         }
     }
 }

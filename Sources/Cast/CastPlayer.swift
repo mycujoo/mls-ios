@@ -9,6 +9,10 @@ import AVFoundation
 
 
 class CastPlayer: NSObject, CastPlayerProtocol {
+    var state: VideoPlayerState = .readyToPlay
+
+    var isBuffering: Bool = false // TODO
+
     // Will be updated by `startUpdatingTime`
     var isLivestream: Bool = false
 
@@ -30,6 +34,9 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     }
 
     var timeObserverCallback: (() -> Void)? = nil
+
+    // At the moment, there is nothing that calls this from within CastPlayer. Leave it for compliance.
+    var playObserverCallback: ((_ isPlaying: Bool) -> Void)? = nil
 
     private(set) var isSeeking = false
 

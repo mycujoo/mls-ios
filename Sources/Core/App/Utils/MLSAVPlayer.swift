@@ -9,7 +9,11 @@ import AVFoundation
 class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private(set) var isSeeking = false
 
+    private(set) var isBuffering = false
+
     private let resourceLoaderQueue = DispatchQueue.global(qos: .background)
+
+    private(set) var state: VideoPlayerState = .unknown
 
     /// The current time (in seconds) of the currentItem.
     var currentTime: Double {
@@ -22,6 +26,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     }
 
     var timeObserverCallback: (() -> Void)? = nil
+    var playObserverCallback: ((_ isPlaying: Bool) -> Void)? = nil
 
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
     private var _seekingToTime: Double? = nil
@@ -262,6 +267,43 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
             // TODO: Notify listener of updates.
             self.timeObserverCallback?()
+        }
+    }
+
+    override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?,
+        change: [NSKeyValueChangeKey : Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
+        switch keyPath {
+        case "status":
+            state = VideoPlayerState(rawValue: status.rawValue) ?? .unknown
+        case "timeControlStatus":
+            if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
+                let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
+                let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
+                if newStatus != oldStatus {
+                    switch newStatus {
+                    case .playing:
+                        self.playObserverCallback?(true)
+                    case .paused:
+                        self.playObserverCallback?(false)
+                    default:
+                        break
+                    }
+
+                    if newStatus == .waitingToPlayAtSpecifiedRate && self.currentItem != nil {
+                        self.isBuffering = true
+                    } else {
+                        self.isBuffering = false
+                    }
+
+                    self.timeObserverCallback?()
+                }
+            }
+        default:
+            break
         }
     }
 

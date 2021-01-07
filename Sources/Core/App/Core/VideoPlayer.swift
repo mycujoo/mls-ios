@@ -16,8 +16,6 @@ public protocol VideoPlayer: class {
     /// Should be set by the SDK user for Google Chromecast support to work. Such an object can be obtained through the `MLSSDK/Cast` extensions.
     var castIntegration: CastIntegration? { get set }
 
-    var state: VideoPlayerState { get }
-
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     /// - note: This sets `stream` to nil.
     var event: Event? { get set }
@@ -112,8 +110,6 @@ public protocol PlayerDelegate: AnyObject {
     func playerDidUpdatePlaying(player: VideoPlayer)
     /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`
     func playerDidUpdateTime(player: VideoPlayer)
-    /// The player has updated its state. To access the current state, see `VideoPlayer.state`
-    func playerDidUpdateState(player: VideoPlayer)
     #if os(iOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
