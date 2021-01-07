@@ -182,8 +182,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// - parameter completionHandler: A closure that is called upon a completed seek operation.
     /// - note: The seek tolerance can be configured through the `playerConfig` property on this `VideoPlayer` and is used for all seek operations by this player.
     func seek(to: Double, completionHandler: @escaping (Bool) -> Void) {
-        let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, to)), preferredTimescale: 600)
-        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, completionHandler: completionHandler)
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.seek(to: to, completionHandler: completionHandler)
+        } else {
+            let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, to)), preferredTimescale: 600)
+            player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, completionHandler: completionHandler)
+        }
     }
 
     func showEventInfoOverlay() {
@@ -472,12 +476,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         let url = currentStream?.url
         let added = url != nil
 
-        if added {
-            currentStreamPlayHasBeenCalled = false
-        }
-
         if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.setEventMetadata(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream)
+            castIntegration.replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream)
 
             // Make sure to unlock the controls.
             setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
@@ -491,6 +491,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             } else {
                 // TODO: Remove info layer and thumbnail view.
                 self.view.setInfoViewVisibility(visible: false, animated: false)
+
+                currentStreamPlayHasBeenCalled = false
             }
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
@@ -506,7 +508,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 callback?(completed)
             }
         }
-
     }
 
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
@@ -646,32 +647,36 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 // MARK: - Methods
 extension VideoPlayerImpl {
     func play() {
-        if !currentStreamPlayHasBeenCalled {
-            currentStreamPlayHasBeenCalled = true
-
-            if let imaIntegration = imaIntegration {
-                imaIntegration.playPreroll()
-                return
-            }
-        }
-
-        if imaIntegration?.isShowingAd() == true {
-            imaIntegration?.resume()
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.play()
         } else {
-            status = .play
+            if !currentStreamPlayHasBeenCalled {
+                currentStreamPlayHasBeenCalled = true
+
+                if let imaIntegration = imaIntegration {
+                    imaIntegration.playPreroll()
+                    return
+                }
+            }
+
+            if imaIntegration?.isShowingAd() == true {
+                imaIntegration?.resume()
+            } else {
+                status = .play
+            }
         }
     }
 
     func pause() {
-        if imaIntegration?.isShowingAd() == true {
-            imaIntegration?.pause()
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.pause()
         } else {
-            status = .pause
+            if imaIntegration?.isShowingAd() == true {
+                imaIntegration?.pause()
+            } else {
+                status = .pause
+            }
         }
-    }
-
-    func playVideo(with event: Event) {
-        self.event = event
     }
 }
 
@@ -1068,11 +1073,8 @@ extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
     func isCastingStateUpdated() {
         guard let castIntegration = castIntegration else { return }
 
-        if castIntegration.isCasting() {
-            placeCurrentStream()
-        }
-        else {
-        }
+        // Always re-place the current stream.
+        placeCurrentStream()
     }
 }
 

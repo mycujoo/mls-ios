@@ -73,6 +73,7 @@
 		49317F72253F5FCB00675EB6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49317F65253F5FCB00675EB6 /* Localizable.strings */; };
 		49317F73253F5FCB00675EB6 /* ios.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49317F68253F5FCB00675EB6 /* ios.xcassets */; };
 		49317F76253F5FCB00675EB6 /* tvos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49317F6B253F5FCB00675EB6 /* tvos.xcassets */; };
+		4931A81B25A757DE006CC9A4 /* CastGCKRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931A81A25A757DE006CC9A4 /* CastGCKRequestHandler.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938012B24CE19B0008AFC64 /* MLSUIAction.swift */; };
@@ -535,6 +536,7 @@
 		49317F6E253F5FCB00675EB6 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		49317F6F253F5FCB00675EB6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		49317F70253F5FCB00675EB6 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4931A81A25A757DE006CC9A4 /* CastGCKRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastGCKRequestHandler.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4938012B24CE19B0008AFC64 /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
 		493C017F24F945F8002E9DA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1448,6 +1450,7 @@
 				49AB5BBA25A4F3E7003B336E /* Support Files */,
 				498A7A0F25A5063300B0D6C9 /* CastIntegrationImpl.swift */,
 				498A7A2925A5084900B0D6C9 /* CastIntegrationDelegate.swift */,
+				4931A81A25A757DE006CC9A4 /* CastGCKRequestHandler.swift */,
 			);
 			path = Cast;
 			sourceTree = "<group>";
@@ -2339,6 +2342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				498A7A2A25A5084900B0D6C9 /* CastIntegrationDelegate.swift in Sources */,
+				4931A81B25A757DE006CC9A4 /* CastGCKRequestHandler.swift in Sources */,
 				4948A4E825A5CAAF0090F10A /* CastAppId.swift in Sources */,
 				498A7A1025A5063300B0D6C9 /* CastIntegrationImpl.swift in Sources */,
 			);

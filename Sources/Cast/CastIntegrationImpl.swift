@@ -68,7 +68,6 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         castButton.tintColor = UIColor.gray
 
         let castButtonParentView = delegate.getCastButtonParentView()
-//        castButtonParentView.translatesAutoresizingMaskIntoConstraints = false
         castButtonParentView.addSubview(castButton)
         let castButtonConstraints = [
             castButton.leftAnchor.constraint(equalTo: castButtonParentView.leftAnchor),
@@ -81,12 +80,12 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         }
         NSLayoutConstraint.activate(castButtonConstraints)
 
-//        #if DEBUG
+        #if DEBUG
         GCKLogger.sharedInstance().delegate = self
-//        #endif
+        #endif
     }
 
-    func setEventMetadata(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?) {
+    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?) {
         let metadata = GCKMediaMetadata()
         metadata.setString(event?.title ?? "", forKey: kGCKMetadataKeyTitle)
         metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeyTitle)
@@ -104,6 +103,34 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         }
 
         GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.loadMedia(mediaInfoBuilder.build())
+    }
+
+    func play() {
+        if let mediaStatus = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus, let _ = mediaStatus.currentQueueItem {
+            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.play()
+        }
+    }
+
+    func pause() {
+        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.pause()
+    }
+
+    func seek(to: Double, completionHandler: @escaping (Bool) -> Void) {
+        let seekOptions = GCKMediaSeekOptions()
+        seekOptions.interval = to
+        seekOptions.resumeState = .unchanged
+
+        let request = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.seek(with: seekOptions)
+        let requestWrapper = CastGCKRequestHandler {} completionHandler: {
+            completionHandler(true)
+        } failureHandler: {
+            completionHandler(false)
+        } abortionHandler: {
+            completionHandler(false)
+        }
+
+        // requestWrapper is not weakly retained because `CastGCKRequestHandler` statically retains it as long as needed.
+        request?.delegate = requestWrapper
     }
 
     func isCasting() -> Bool {
