@@ -441,6 +441,7 @@
 		49E441372538D54B00385890 /* DRMRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441352538D54B00385890 /* DRMRepositoryImpl.swift */; };
 		49E441742538DCAB00385890 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441732538DCAB00385890 /* VideoPlayer.swift */; };
 		49E441752538DCAB00385890 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441732538DCAB00385890 /* VideoPlayer.swift */; };
+		49E47D8A25A79D6B00FA6559 /* CastIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E47D8925A79D6B00FA6559 /* CastIntegrationFactory.swift */; };
 		49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E59025249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
@@ -747,6 +748,7 @@
 		49E441282538D50000385890 /* GetLicenseDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLicenseDataUseCase.swift; sourceTree = "<group>"; };
 		49E441352538D54B00385890 /* DRMRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRMRepositoryImpl.swift; sourceTree = "<group>"; };
 		49E441732538DCAB00385890 /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		49E47D8925A79D6B00FA6559 /* CastIntegrationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastIntegrationFactory.swift; sourceTree = "<group>"; };
 		49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
@@ -1456,6 +1458,7 @@
 				498A7A0F25A5063300B0D6C9 /* CastIntegrationImpl.swift */,
 				4931A8BE25A777CC006CC9A4 /* CastPlayer.swift */,
 				498A7A2925A5084900B0D6C9 /* CastIntegrationDelegate.swift */,
+				49E47D8925A79D6B00FA6559 /* CastIntegrationFactory.swift */,
 				4931A81A25A757DE006CC9A4 /* CastGCKRequestHandler.swift */,
 			);
 			path = Cast;
@@ -2352,6 +2355,7 @@
 				4931A81B25A757DE006CC9A4 /* CastGCKRequestHandler.swift in Sources */,
 				4948A4E825A5CAAF0090F10A /* CastAppId.swift in Sources */,
 				498A7A1025A5063300B0D6C9 /* CastIntegrationImpl.swift in Sources */,
+				49E47D8A25A79D6B00FA6559 /* CastIntegrationFactory.swift in Sources */,
 				4931A8BF25A777CC006CC9A4 /* CastPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

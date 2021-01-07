@@ -9,23 +9,40 @@ import AVFoundation
 
 
 class CastPlayer: NSObject, CastPlayerProtocol {
+    // Will be updated by `startUpdatingTime`
     var isLivestream: Bool = false
 
-    var currentItemEnded: Bool = false
+    var currentItemEnded: Bool {
+        return currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream
+    }
+
+    var isMuted: Bool = false // TODO
+
+    // Will be updated by `startUpdatingTime`
+    var currentDuration: Double = 0
+
+    // Will be updated by `startUpdatingTime`
+    var currentTime: Double = 0
+
+    /// The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
+    var optimisticCurrentTime: Double {
+        return _seekingToTime ?? currentTime
+    }
+
+    private(set) var isSeeking = false
 
     private static let encoder = JSONEncoder()
 
+    private let seekDebouncer = Debouncer()
+
+    private var isSeekingUpdatedAt = Date()
+
+    /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
+    private var _seekingToTime: Double? = nil
+
+    private var updateTimeTimer: Timer? = nil
+
     override init() {}
-
-    var isMuted: Bool = false
-
-    var currentDuration: Double = 0
-
-    var currentTime: Double = 0
-
-    var optimisticCurrentTime: Double = 0
-
-    var isSeeking: Bool = false
 
     func play() {
         if let mediaStatus = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus, let _ = mediaStatus.currentQueueItem {
@@ -37,7 +54,51 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.pause()
     }
 
-    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?) {
+    private func startUpdatingTime() {
+        var isFirstUpdate = true
+
+        updateTimeTimer?.invalidate()
+        DispatchQueue.global(qos: .background).async { [weak self] () in
+            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] _ in
+                guard let self = self else { return }
+
+                // Do not process this while the player is seeking.
+                guard !self.isSeeking else { return }
+
+                if isFirstUpdate {
+                    isFirstUpdate = false
+
+                    if let duration = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.streamDuration {
+                        self.isLivestream = duration.isInfinite || duration < 0
+                        self.currentDuration = self.isLivestream ? 0 : duration
+                    }
+                }
+
+                if let currentTime = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateStreamPosition() {
+                    self.currentTime = currentTime.isFinite ? floor(currentTime) : 0
+                }
+
+                if self.isLivestream,
+                   let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeStart(),
+                   let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeEnd()
+                   {
+                    // Update the current duration based on the known seekable ranges.
+                }
+            })
+            let runLoop = RunLoop.current
+            runLoop.add(timer, forMode: .default)
+            runLoop.run()
+
+            self?.updateTimeTimer = timer
+        }
+    }
+
+    internal func stopUpdatingTime() {
+        updateTimeTimer?.invalidate()
+        updateTimeTimer = nil
+    }
+
+    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void) {
         struct ReceiverCustomData: Codable {
             var publicKey: String
             var pseudoUserId: String
@@ -60,35 +121,104 @@ class CastPlayer: NSObject, CastPlayerProtocol {
             mediaInfoBuilder.customData = String(data: data, encoding: .utf8)!
         }
 
-        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.loadMedia(mediaInfoBuilder.build())
-    }
+        stopUpdatingTime()
 
-    func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void) {
-        let seekOptions = GCKMediaSeekOptions()
-        seekOptions.interval = CMTimeGetSeconds(time)
-        seekOptions.resumeState = .unchanged
-
-        let request = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.seek(with: seekOptions)
-        let requestWrapper = CastGCKRequestHandler {} completionHandler: {
+        let request = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.loadMedia(mediaInfoBuilder.build())
+        let requestWrapper = CastGCKRequestHandler {} completionHandler: { [weak self] () in
+            self?.startUpdatingTime()
             completionHandler(true)
         } failureHandler: {
             completionHandler(false)
         } abortionHandler: {
             completionHandler(false)
         }
-
-        // requestWrapper is not weakly retained because `CastGCKRequestHandler` statically retains it as long as needed.
         request?.delegate = requestWrapper
     }
 
-    func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
-        // TODO.
+    func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void) {
+        self.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, debounceSeconds: 0.0, completionHandler: completionHandler)
+    }
 
+    func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
+        isSeeking = true
+        let dateNow = Date()
+
+        _seekingToTime = (CMTimeGetSeconds(time) * 10).rounded() / 10
+
+        isSeekingUpdatedAt = dateNow
+
+        seekDebouncer.minimumDelay = debounceSeconds
+        seekDebouncer.debounce { [weak self] in
+            guard let self = self else { return }
+
+            let seekOptions = GCKMediaSeekOptions()
+            seekOptions.interval = CMTimeGetSeconds(time)
+            seekOptions.resumeState = .unchanged
+
+            let completionHandler_: (Bool) -> Void = {  [weak self] b in
+                guard let self = self else { return }
+                if self.isSeekingUpdatedAt == dateNow {
+                    self._seekingToTime = nil
+                    self.isSeeking = false
+                }
+
+                completionHandler(b)
+            }
+
+            let request = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.seek(with: seekOptions)
+            let requestWrapper = CastGCKRequestHandler {} completionHandler: {
+                completionHandler_(true)
+            } failureHandler: {
+                completionHandler_(false)
+            } abortionHandler: {
+                completionHandler_(false)
+            }
+
+            // requestWrapper is not weakly retained because `CastGCKRequestHandler` statically retains it as long as needed.
+            request?.delegate = requestWrapper
+        }
     }
 
     func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void) {
-        // TODO
+        let currentDuration = self.currentDuration
+        guard currentDuration > 0 else { return }
+
+        isSeeking = true
+        let dateNow = Date()
+
+        _seekingToTime = max(0, min(currentDuration - 1, optimisticCurrentTime + amount))
+
+        isSeekingUpdatedAt = dateNow
+
+        seekDebouncer.minimumDelay = debounceSeconds
+        seekDebouncer.debounce { [weak self] in
+            guard let self = self, let _seekingToTime = self._seekingToTime else { return }
+
+            let seekOptions = GCKMediaSeekOptions()
+            seekOptions.interval = _seekingToTime
+            seekOptions.resumeState = .unchanged
+
+            let completionHandler_: (Bool) -> Void = {  [weak self] b in
+                guard let self = self else { return }
+                if self.isSeekingUpdatedAt == dateNow {
+                    self._seekingToTime = nil
+                    self.isSeeking = false
+                }
+
+                completionHandler(b)
+            }
+
+            let request = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.seek(with: seekOptions)
+            let requestWrapper = CastGCKRequestHandler {} completionHandler: {
+                completionHandler_(true)
+            } failureHandler: {
+                completionHandler_(false)
+            } abortionHandler: {
+                completionHandler_(false)
+            }
+
+            // requestWrapper is not weakly retained because `CastGCKRequestHandler` statically retains it as long as needed.
+            request?.delegate = requestWrapper
+        }
     }
-
-
 }

@@ -465,11 +465,20 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         let url = currentStream?.url
         let added = url != nil
 
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.player().replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream)
+        let seekCompletionHandler: (Bool) -> Void = { [weak self] completed in
+            guard let self = self else { return }
+            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
-            // Make sure to unlock the controls.
-            setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+            if added && completed {
+                if self.playerConfig.autoplay {
+                    self.play()
+                }
+            }
+            callback?(completed)
+        }
+
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.player().replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream, completionHandler: seekCompletionHandler)
         } else {
             setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
             view.setBufferIcon(hidden: true)
@@ -485,17 +494,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             }
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-            avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
-                guard let self = self else { return }
-                self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
-
-                if added && completed {
-                    if self.playerConfig.autoplay {
-                        self.play()
-                    }
-                }
-                callback?(completed)
-            }
+            avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self, callback: seekCompletionHandler)
         }
     }
 

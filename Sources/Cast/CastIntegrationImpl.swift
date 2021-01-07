@@ -8,22 +8,6 @@ import MLSSDK
 import GoogleCast
 
 
-public protocol CastIntegrationDelegate: class {
-    /// Should be implemented by the SDK user. Should return a UIView to which this SDK can add the Google Cast mini-controller as a subview. Nil if the mini controller is not desired.
-    func getMiniControllerParentView() -> UIView?
-
-    /// Should be implemented by the SDK user. Should return a UIView to which this SDK can add the Google Cast button.
-    /// - note:  It is recommended that the SDK user places this UIView inside the `topTrailingControlsStackView` UIStackView on the VideoPlayer.
-    func getCastButtonParentView() -> UIView
-}
-
-
-public class CastIntegrationFactory {
-    public static func build(delegate: CastIntegrationDelegate) -> CastIntegration {
-        return CastIntegrationImpl(delegate: delegate)
-    }
-}
-
 class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
     func player() -> CastPlayerProtocol {
         return _player
@@ -151,7 +135,7 @@ extension CastIntegrationImpl: GCKSessionManagerListener {
             GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.add(self)
 
             videoPlayerDelegate?.isCastingStateUpdated()
-
+            
 //            if let metadata = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.metadata {
 //                _metadataUpdatedSubject.onNext(metadata)
 //            }

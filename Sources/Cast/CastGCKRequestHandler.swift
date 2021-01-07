@@ -8,7 +8,7 @@ import GoogleCast
 
 /// A wrapper to make GCRequest handling easier.
 /// - important: Internally, this handler ensures that there is always a strong reference to itself as long as the request is busy.
-class CastGCKRequestHandler: NSObject, GCKRequestDelegate {
+internal class CastGCKRequestHandler: NSObject, GCKRequestDelegate {
     /// An array of strong references to `CastGCKRequestHandler` objects.
     static private var delegates = [CastGCKRequestHandler]()
 
