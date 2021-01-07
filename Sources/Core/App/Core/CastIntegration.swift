@@ -24,6 +24,11 @@ public protocol CastIntegration: class {
     /// - parameter to: The number of seconds within the currentItem to seek to.
     /// - parameter completionHandler: A closure that is called upon a completed seek operation.
     func seek(to: Double, completionHandler: @escaping (Bool) -> Void)
+
+    /// Seek by a relative amount within the currentItem.
+    /// - parameter to: The number of seconds within the currentItem to seek to.
+    /// - parameter completionHandler: A closure that is called upon a completed seek operation.
+    func seek(by amount: Double, completionHandler: @escaping (Bool) -> Void)
 }
 
 public protocol CastIntegrationVideoPlayerDelegate: class {

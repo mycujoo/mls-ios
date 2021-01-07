@@ -133,6 +133,10 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         request?.delegate = requestWrapper
     }
 
+    func seek(by amount: Double, completionHandler: @escaping (Bool) -> Void) {
+
+    }
+
     func isCasting() -> Bool {
         return _isCasting
     }

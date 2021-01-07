@@ -71,10 +71,18 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             switch status {
             case .play:
                 buttonState = .pause
-                player.play()
+                if let castIntegration = castIntegration, castIntegration.isCasting() {
+                    castIntegration.play()
+                } else {
+                    player.play()
+                }
             case .pause:
                 buttonState = .play
-                player.pause()
+                if let castIntegration = castIntegration, castIntegration.isCasting() {
+                    castIntegration.pause()
+                } else {
+                    player.pause()
+                }
             }
 
             if state == .ended {
@@ -647,35 +655,27 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 // MARK: - Methods
 extension VideoPlayerImpl {
     func play() {
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.play()
+        if !currentStreamPlayHasBeenCalled {
+            currentStreamPlayHasBeenCalled = true
+
+            if let imaIntegration = imaIntegration, castIntegration?.isCasting() != true {
+                imaIntegration.playPreroll()
+                return
+            }
+        }
+
+        if imaIntegration?.isShowingAd() == true {
+            imaIntegration?.resume()
         } else {
-            if !currentStreamPlayHasBeenCalled {
-                currentStreamPlayHasBeenCalled = true
-
-                if let imaIntegration = imaIntegration {
-                    imaIntegration.playPreroll()
-                    return
-                }
-            }
-
-            if imaIntegration?.isShowingAd() == true {
-                imaIntegration?.resume()
-            } else {
-                status = .play
-            }
+            status = .play
         }
     }
 
     func pause() {
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.pause()
+        if imaIntegration?.isShowingAd() == true {
+            imaIntegration?.pause()
         } else {
-            if imaIntegration?.isShowingAd() == true {
-                imaIntegration?.pause()
-            } else {
-                status = .pause
-            }
+            status = .pause
         }
     }
 }
@@ -805,8 +805,13 @@ extension VideoPlayerImpl {
 
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
-        let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, elapsedSeconds)), preferredTimescale: 600)
-        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
+        let seekTo = max(0, min(currentDuration - 1, elapsedSeconds))
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.seek(to: seekTo, completionHandler: { _ in })
+        } else {
+            let seekTime = CMTimeMakeWithSeconds(seekTo, preferredTimescale: 600)
+            player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
+        }
 
         setControlViewVisibility(visible: true, animated: true)
     }
@@ -897,7 +902,11 @@ extension VideoPlayerImpl {
         let currentDuration = self.currentDuration
         guard currentDuration > 0 else { return }
 
-        player.seek(by: amount, toleranceBefore: .zero, toleranceAfter: .zero, debounceSeconds: 0.4, completionHandler: { _ in })
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.seek(by: amount, completionHandler: { _ in })
+        } else {
+            player.seek(by: amount, toleranceBefore: .zero, toleranceAfter: .zero, debounceSeconds: 0.4, completionHandler: { _ in })
+        }
 
         let optimisticCurrentTime = self.optimisticCurrentTime
 
@@ -959,11 +968,17 @@ extension VideoPlayerImpl {
         view.videoSlider.value = 1.0
         updatePlaytimeIndicators(currentDuration, totalSeconds: currentDuration, liveState: .liveAndLatest)
 
-        let seekTime = CMTimeMakeWithSeconds(currentDuration, preferredTimescale: 600)
-        player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
+        let seekCompletionHandler: (Bool) -> Void = { [weak self] finished in
             if finished {
                 self?.play()
             }
+        }
+
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.seek(to: currentDuration, completionHandler: seekCompletionHandler)
+        } else {
+            let seekTime = CMTimeMakeWithSeconds(currentDuration, preferredTimescale: 600)
+            player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: seekCompletionHandler)
         }
 
         if playerConfig.enableControls {
