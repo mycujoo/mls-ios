@@ -11,27 +11,15 @@ public protocol CastIntegration: class {
     /// Indicates whether this CastIntegration
     func isCasting() -> Bool
 
-    /// Starts playback of an Event or Stream (both should be provided, where possible).
-    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)
-
-    /// Start or continue playback of the loaded stream.
-    func play()
-
-    /// Pause playback of the loaded stream.
-    func pause()
-
-    /// Seek to a position within the currentItem.
-    /// - parameter to: The number of seconds within the currentItem to seek to.
-    /// - parameter completionHandler: A closure that is called upon a completed seek operation.
-    func seek(to: Double, completionHandler: @escaping (Bool) -> Void)
-
-    /// Seek by a relative amount within the currentItem.
-    /// - parameter to: The number of seconds within the currentItem to seek to.
-    /// - parameter completionHandler: A closure that is called upon a completed seek operation.
-    func seek(by amount: Double, completionHandler: @escaping (Bool) -> Void)
+    /// - returns: A player object. Should only be used while `isCasting()` is true.
+    func player() -> CastPlayerProtocol
 }
 
 public protocol CastIntegrationVideoPlayerDelegate: class {
     /// Indicates that the `isCasting` state on the `CastIntegration` has updated to a different value.
     func isCastingStateUpdated()
+}
+
+public protocol CastPlayerProtocol: PlayerProtocol {
+    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)
 }

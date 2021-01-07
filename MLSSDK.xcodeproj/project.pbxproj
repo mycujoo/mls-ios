@@ -74,6 +74,9 @@
 		49317F73253F5FCB00675EB6 /* ios.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49317F68253F5FCB00675EB6 /* ios.xcassets */; };
 		49317F76253F5FCB00675EB6 /* tvos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49317F6B253F5FCB00675EB6 /* tvos.xcassets */; };
 		4931A81B25A757DE006CC9A4 /* CastGCKRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931A81A25A757DE006CC9A4 /* CastGCKRequestHandler.swift */; };
+		4931A88725A77665006CC9A4 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931A88625A77665006CC9A4 /* PlayerProtocol.swift */; };
+		4931A88825A77665006CC9A4 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931A88625A77665006CC9A4 /* PlayerProtocol.swift */; };
+		4931A8BF25A777CC006CC9A4 /* CastPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4931A8BE25A777CC006CC9A4 /* CastPlayer.swift */; };
 		4935B1F724A4DB6E0073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */; };
 		4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938012B24CE19B0008AFC64 /* MLSUIAction.swift */; };
@@ -537,6 +540,8 @@
 		49317F6F253F5FCB00675EB6 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		49317F70253F5FCB00675EB6 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4931A81A25A757DE006CC9A4 /* CastGCKRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastGCKRequestHandler.swift; sourceTree = "<group>"; };
+		4931A88625A77665006CC9A4 /* PlayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
+		4931A8BE25A777CC006CC9A4 /* CastPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastPlayer.swift; sourceTree = "<group>"; };
 		4935B1F624A4DB6E0073ED96 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		4938012B24CE19B0008AFC64 /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
 		493C017F24F945F8002E9DA0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1449,6 +1454,7 @@
 			children = (
 				49AB5BBA25A4F3E7003B336E /* Support Files */,
 				498A7A0F25A5063300B0D6C9 /* CastIntegrationImpl.swift */,
+				4931A8BE25A777CC006CC9A4 /* CastPlayer.swift */,
 				498A7A2925A5084900B0D6C9 /* CastIntegrationDelegate.swift */,
 				4931A81A25A757DE006CC9A4 /* CastGCKRequestHandler.swift */,
 			);
@@ -1667,6 +1673,7 @@
 				4925998325A1D9F7007658DB /* IMAIntegration.swift */,
 				498A79FD25A503DA00B0D6C9 /* CastIntegration.swift */,
 				6496C3442492308D0099475D /* MLS.swift */,
+				4931A88625A77665006CC9A4 /* PlayerProtocol.swift */,
 				49E441732538DCAB00385890 /* VideoPlayer.swift */,
 				6496C3522492308D0099475D /* VideoPlayerImpl.swift */,
 			);
@@ -2345,6 +2352,7 @@
 				4931A81B25A757DE006CC9A4 /* CastGCKRequestHandler.swift in Sources */,
 				4948A4E825A5CAAF0090F10A /* CastAppId.swift in Sources */,
 				498A7A1025A5063300B0D6C9 /* CastIntegrationImpl.swift in Sources */,
+				4931A8BF25A777CC006CC9A4 /* CastPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2483,6 +2491,7 @@
 				49736EAB24A9F59C001F3F48 /* TransformedLocus.swift in Sources */,
 				49736F0C24A9F59C001F3F48 /* PinchEvent.swift in Sources */,
 				49736EAF24A9F59C001F3F48 /* Group.swift in Sources */,
+				4931A88725A77665006CC9A4 /* PlayerProtocol.swift in Sources */,
 				4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */,
 				49736EAC24A9F59C001F3F48 /* SceneUtils.swift in Sources */,
 				49736EC024A9F59C001F3F48 /* OffsetEffect.swift in Sources */,
@@ -2632,6 +2641,7 @@
 				49C12D5924A35204002CCDF5 /* PlayerConfig.swift in Sources */,
 				49A804E624AA0EBB00E30DA8 /* NodeRenderer.swift in Sources */,
 				4930181124D494AE009312B0 /* WebsocketConnection.swift in Sources */,
+				4931A88825A77665006CC9A4 /* PlayerProtocol.swift in Sources */,
 				49A8049724AA0E0B00E30DA8 /* AnimOperators.swift in Sources */,
 				49A8047F24AA0DF000E30DA8 /* OpacityAnimation.swift in Sources */,
 				49CE62692509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */,

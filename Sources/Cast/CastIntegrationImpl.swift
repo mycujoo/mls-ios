@@ -25,6 +25,10 @@ public class CastIntegrationFactory {
 }
 
 class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
+    func player() -> CastPlayerProtocol {
+        return _player
+    }
+
     weak var videoPlayerDelegate: CastIntegrationVideoPlayerDelegate?
     weak var delegate: CastIntegrationDelegate?
 
@@ -36,8 +40,7 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
     }()
 
     private var _isCasting = false
-
-    private static let encoder = JSONEncoder()
+    private var _player = CastPlayer()
 
     init(delegate: CastIntegrationDelegate) {
         self.delegate = delegate
@@ -85,66 +88,9 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         #endif
     }
 
-    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?) {
-        let metadata = GCKMediaMetadata()
-        metadata.setString(event?.title ?? "", forKey: kGCKMetadataKeyTitle)
-        metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeyTitle)
-
-        let mediaInfoBuilder = GCKMediaInformationBuilder()
-        // TODO: If we introduce Widevine, the streamUrl will need to be provided differently, since this uses Fairplay by default.
-        mediaInfoBuilder.contentURL = stream?.url
-        mediaInfoBuilder.streamType = .none
-        mediaInfoBuilder.contentType = "video/m3u"
-        mediaInfoBuilder.metadata = metadata
-        mediaInfoBuilder.customData = []
-
-        if let data = try? (CastIntegrationImpl.encoder.encode(ReceiverCustomData(publicKey: publicKey, pseudoUserId: pseudoUserId, eventId: event?.id))) {
-            mediaInfoBuilder.customData = String(data: data, encoding: .utf8)!
-        }
-
-        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.loadMedia(mediaInfoBuilder.build())
-    }
-
-    func play() {
-        if let mediaStatus = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus, let _ = mediaStatus.currentQueueItem {
-            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.play()
-        }
-    }
-
-    func pause() {
-        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.pause()
-    }
-
-    func seek(to: Double, completionHandler: @escaping (Bool) -> Void) {
-        let seekOptions = GCKMediaSeekOptions()
-        seekOptions.interval = to
-        seekOptions.resumeState = .unchanged
-
-        let request = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.seek(with: seekOptions)
-        let requestWrapper = CastGCKRequestHandler {} completionHandler: {
-            completionHandler(true)
-        } failureHandler: {
-            completionHandler(false)
-        } abortionHandler: {
-            completionHandler(false)
-        }
-
-        // requestWrapper is not weakly retained because `CastGCKRequestHandler` statically retains it as long as needed.
-        request?.delegate = requestWrapper
-    }
-
-    func seek(by amount: Double, completionHandler: @escaping (Bool) -> Void) {
-
-    }
 
     func isCasting() -> Bool {
         return _isCasting
-    }
-
-    struct ReceiverCustomData: Codable {
-        var publicKey: String
-        var pseudoUserId: String
-        var eventId: String?
     }
 }
 

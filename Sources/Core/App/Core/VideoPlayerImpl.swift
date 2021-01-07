@@ -71,18 +71,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             switch status {
             case .play:
                 buttonState = .pause
-                if let castIntegration = castIntegration, castIntegration.isCasting() {
-                    castIntegration.play()
-                } else {
-                    player.play()
-                }
+                player.play()
             case .pause:
                 buttonState = .play
-                if let castIntegration = castIntegration, castIntegration.isCasting() {
-                    castIntegration.pause()
-                } else {
-                    player.pause()
-                }
+                player.pause()
             }
 
             if state == .ended {
@@ -190,12 +182,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// - parameter completionHandler: A closure that is called upon a completed seek operation.
     /// - note: The seek tolerance can be configured through the `playerConfig` property on this `VideoPlayer` and is used for all seek operations by this player.
     func seek(to: Double, completionHandler: @escaping (Bool) -> Void) {
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.seek(to: to, completionHandler: completionHandler)
-        } else {
-            let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, to)), preferredTimescale: 600)
-            player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, completionHandler: completionHandler)
-        }
+        let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, to)), preferredTimescale: 600)
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, completionHandler: completionHandler)
     }
 
     func showEventInfoOverlay() {
@@ -208,7 +196,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     // MARK: - Private properties
 
-    private let player: MLSAVPlayerProtocol
+    private let avPlayer: MLSAVPlayerProtocol
+
+    private var player: PlayerProtocol {
+        return castIntegration?.isCasting() == true ? castIntegration?.player() ?? avPlayer : avPlayer
+    }
+
     private let getEventUpdatesUseCase: GetEventUpdatesUseCase
     private let getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase
     private let getPlayerConfigUseCase: GetPlayerConfigUseCase
@@ -342,7 +335,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     init(
             view: VideoPlayerViewProtocol,
-            player: MLSAVPlayerProtocol,
+            avPlayer: MLSAVPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
@@ -355,7 +348,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String,
             publicKey: String) {
-        self.player = player
+        self.avPlayer = avPlayer
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getTimelineActionsUpdatesUseCase = getTimelineActionsUpdatesUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
@@ -371,11 +364,11 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         super.init()
 
-        player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-        player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
-        timeObserver = trackTime(with: player)
+        avPlayer.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+        avPlayer.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
+        timeObserver = trackTime(with: avPlayer)
 
-        videoAnalyticsService.create(with: player)
+        videoAnalyticsService.create(with: avPlayer)
 
         func initPlayerView() {
             self.view = view
@@ -395,7 +388,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             view.setOnLeftArrowTapped({ [weak self] () in self?.leftArrowTapped() })
             view.setOnRightArrowTapped({ [weak self] () in self?.rightArrowTapped() })
             #endif
-            view.drawPlayer(with: player)
+            view.drawPlayer(with: avPlayer)
             setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
         }
 
@@ -409,9 +402,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     deinit {
-        if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
-        player.removeObserver(self, forKeyPath: "status")
-        player.removeObserver(self, forKeyPath: "timeControlStatus")
+        if let timeObserver = timeObserver { avPlayer.removeTimeObserver(timeObserver) }
+        avPlayer.removeObserver(self, forKeyPath: "status")
+        avPlayer.removeObserver(self, forKeyPath: "timeControlStatus")
 
         NotificationCenter.default.removeObserver(self)
 
@@ -485,7 +478,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         let added = url != nil
 
         if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream)
+            castIntegration.player().replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream)
 
             // Make sure to unlock the controls.
             setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
@@ -504,7 +497,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             }
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-            player.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
+            avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
                 guard let self = self else { return }
                 self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
@@ -587,7 +580,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
         if Int(currentDuration) + 20 > (currentStream?.dvrWindowSize ?? Int.max) / 1000 {
-            let map = hlsInspectionService.map(hlsPlaylist: player.rawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
+            if castIntegration?.isCasting() == true {
+                // We can't evaluate annotations at this point, since we do not have access to the raw playlist.
+                return
+            }
+
+            let map = hlsInspectionService.map(hlsPlaylist: avPlayer.rawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
             offsetMappings = Dictionary(allAnnotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
         } else {
             offsetMappings = nil
@@ -621,7 +619,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     ) {
         switch keyPath {
         case "status":
-            state = VideoPlayerState(rawValue: player.status.rawValue) ?? .unknown
+            state = VideoPlayerState(rawValue: avPlayer.status.rawValue) ?? .unknown
         case "timeControlStatus":
             if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
                 let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
@@ -805,13 +803,8 @@ extension VideoPlayerImpl {
 
         updatePlaytimeIndicators(elapsedSeconds, totalSeconds: currentDuration, liveState: self.liveState)
 
-        let seekTo = max(0, min(currentDuration - 1, elapsedSeconds))
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.seek(to: seekTo, completionHandler: { _ in })
-        } else {
-            let seekTime = CMTimeMakeWithSeconds(seekTo, preferredTimescale: 600)
-            player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
-        }
+        let seekTime = CMTimeMakeWithSeconds(max(0, min(currentDuration - 1, elapsedSeconds)), preferredTimescale: 600)
+        player.seek(to: seekTime, toleranceBefore: seekTolerance, toleranceAfter: seekTolerance, debounceSeconds: 0.5, completionHandler: { _ in })
 
         setControlViewVisibility(visible: true, animated: true)
     }
@@ -902,11 +895,7 @@ extension VideoPlayerImpl {
         let currentDuration = self.currentDuration
         guard currentDuration > 0 else { return }
 
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.seek(by: amount, completionHandler: { _ in })
-        } else {
-            player.seek(by: amount, toleranceBefore: .zero, toleranceAfter: .zero, debounceSeconds: 0.4, completionHandler: { _ in })
-        }
+        player.seek(by: amount, toleranceBefore: .zero, toleranceAfter: .zero, debounceSeconds: 0.4, completionHandler: { _ in })
 
         let optimisticCurrentTime = self.optimisticCurrentTime
 
@@ -974,12 +963,8 @@ extension VideoPlayerImpl {
             }
         }
 
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            castIntegration.seek(to: currentDuration, completionHandler: seekCompletionHandler)
-        } else {
-            let seekTime = CMTimeMakeWithSeconds(currentDuration, preferredTimescale: 600)
-            player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: seekCompletionHandler)
-        }
+        let seekTime = CMTimeMakeWithSeconds(currentDuration, preferredTimescale: 600)
+        player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: seekCompletionHandler)
 
         if playerConfig.enableControls {
             setControlViewVisibility(visible: true, animated: true)
