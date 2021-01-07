@@ -1,4 +1,734 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-07 18:20:02 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+
+import Foundation
+
+
+public class MockCastIntegration: CastIntegration, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = CastIntegration
+    
+    public typealias Stubbing = __StubbingProxy_CastIntegration
+    public typealias Verification = __VerificationProxy_CastIntegration
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: CastIntegration?
+
+    public func enableDefaultImplementation(_ stub: CastIntegration) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    public func initialize(_ videoPlayerDelegate: CastIntegrationVideoPlayerDelegate)  {
+        
+    return cuckoo_manager.call("initialize(_: CastIntegrationVideoPlayerDelegate)",
+            parameters: (videoPlayerDelegate),
+            escapingParameters: (videoPlayerDelegate),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.initialize(videoPlayerDelegate))
+        
+    }
+    
+    
+    
+    public func isCasting() -> Bool {
+        
+    return cuckoo_manager.call("isCasting() -> Bool",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.isCasting())
+        
+    }
+    
+    
+    
+    public func player() -> CastPlayerProtocol {
+        
+    return cuckoo_manager.call("player() -> CastPlayerProtocol",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.player())
+        
+    }
+    
+
+	public struct __StubbingProxy_CastIntegration: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func initialize<M1: Cuckoo.Matchable>(_ videoPlayerDelegate: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(CastIntegrationVideoPlayerDelegate)> where M1.MatchedType == CastIntegrationVideoPlayerDelegate {
+	        let matchers: [Cuckoo.ParameterMatcher<(CastIntegrationVideoPlayerDelegate)>] = [wrap(matchable: videoPlayerDelegate) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastIntegration.self, method: "initialize(_: CastIntegrationVideoPlayerDelegate)", parameterMatchers: matchers))
+	    }
+	    
+	    func isCasting() -> Cuckoo.ProtocolStubFunction<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastIntegration.self, method: "isCasting() -> Bool", parameterMatchers: matchers))
+	    }
+	    
+	    func player() -> Cuckoo.ProtocolStubFunction<(), CastPlayerProtocol> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastIntegration.self, method: "player() -> CastPlayerProtocol", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_CastIntegration: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func initialize<M1: Cuckoo.Matchable>(_ videoPlayerDelegate: M1) -> Cuckoo.__DoNotUse<(CastIntegrationVideoPlayerDelegate), Void> where M1.MatchedType == CastIntegrationVideoPlayerDelegate {
+	        let matchers: [Cuckoo.ParameterMatcher<(CastIntegrationVideoPlayerDelegate)>] = [wrap(matchable: videoPlayerDelegate) { $0 }]
+	        return cuckoo_manager.verify("initialize(_: CastIntegrationVideoPlayerDelegate)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func isCasting() -> Cuckoo.__DoNotUse<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("isCasting() -> Bool", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func player() -> Cuckoo.__DoNotUse<(), CastPlayerProtocol> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("player() -> CastPlayerProtocol", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class CastIntegrationStub: CastIntegration {
+    
+
+    
+
+    
+    public func initialize(_ videoPlayerDelegate: CastIntegrationVideoPlayerDelegate)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func isCasting() -> Bool  {
+        return DefaultValueRegistry.defaultValue(for: (Bool).self)
+    }
+    
+    public func player() -> CastPlayerProtocol  {
+        return DefaultValueRegistry.defaultValue(for: (CastPlayerProtocol).self)
+    }
+    
+}
+
+
+
+public class MockCastIntegrationVideoPlayerDelegate: CastIntegrationVideoPlayerDelegate, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = CastIntegrationVideoPlayerDelegate
+    
+    public typealias Stubbing = __StubbingProxy_CastIntegrationVideoPlayerDelegate
+    public typealias Verification = __VerificationProxy_CastIntegrationVideoPlayerDelegate
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: CastIntegrationVideoPlayerDelegate?
+
+    public func enableDefaultImplementation(_ stub: CastIntegrationVideoPlayerDelegate) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    public func isCastingStateUpdated()  {
+        
+    return cuckoo_manager.call("isCastingStateUpdated()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.isCastingStateUpdated())
+        
+    }
+    
+
+	public struct __StubbingProxy_CastIntegrationVideoPlayerDelegate: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func isCastingStateUpdated() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastIntegrationVideoPlayerDelegate.self, method: "isCastingStateUpdated()", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_CastIntegrationVideoPlayerDelegate: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func isCastingStateUpdated() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("isCastingStateUpdated()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class CastIntegrationVideoPlayerDelegateStub: CastIntegrationVideoPlayerDelegate {
+    
+
+    
+
+    
+    public func isCastingStateUpdated()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+
+public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = CastPlayerProtocol
+    
+    public typealias Stubbing = __StubbingProxy_CastPlayerProtocol
+    public typealias Verification = __VerificationProxy_CastPlayerProtocol
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: CastPlayerProtocol?
+
+    public func enableDefaultImplementation(_ stub: CastPlayerProtocol) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+    
+    
+    public var isMuted: Bool {
+        get {
+            return cuckoo_manager.getter("isMuted",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isMuted)
+        }
+        
+        set {
+            cuckoo_manager.setter("isMuted",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isMuted = newValue)
+        }
+        
+    }
+    
+    
+    
+    public var currentDuration: Double {
+        get {
+            return cuckoo_manager.getter("currentDuration",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentDuration)
+        }
+        
+    }
+    
+    
+    
+    public var currentTime: Double {
+        get {
+            return cuckoo_manager.getter("currentTime",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentTime)
+        }
+        
+    }
+    
+    
+    
+    public var optimisticCurrentTime: Double {
+        get {
+            return cuckoo_manager.getter("optimisticCurrentTime",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.optimisticCurrentTime)
+        }
+        
+    }
+    
+    
+    
+    public var isSeeking: Bool {
+        get {
+            return cuckoo_manager.getter("isSeeking",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isSeeking)
+        }
+        
+    }
+    
+    
+    
+    public var isLivestream: Bool {
+        get {
+            return cuckoo_manager.getter("isLivestream",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isLivestream)
+        }
+        
+    }
+    
+    
+    
+    public var currentItemEnded: Bool {
+        get {
+            return cuckoo_manager.getter("currentItemEnded",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemEnded)
+        }
+        
+    }
+    
+
+    
+
+    
+    
+    
+    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)  {
+        
+    return cuckoo_manager.call("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)",
+            parameters: (publicKey, pseudoUserId, event, stream),
+            escapingParameters: (publicKey, pseudoUserId, event, stream),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: stream))
+        
+    }
+    
+    
+    
+    public func play()  {
+        
+    return cuckoo_manager.call("play()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.play())
+        
+    }
+    
+    
+    
+    public func pause()  {
+        
+    return cuckoo_manager.call("pause()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.pause())
+        
+    }
+    
+    
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)  {
+        
+    return cuckoo_manager.call("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (time, toleranceBefore, toleranceAfter, completionHandler),
+            escapingParameters: (time, toleranceBefore, toleranceAfter, completionHandler),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, completionHandler: completionHandler))
+        
+    }
+    
+    
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
+        
+    return cuckoo_manager.call("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (time, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            escapingParameters: (time, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, debounceSeconds: debounceSeconds, completionHandler: completionHandler))
+        
+    }
+    
+    
+    
+    public func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
+        
+    return cuckoo_manager.call("seek(by: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (amount, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            escapingParameters: (amount, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.seek(by: amount, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, debounceSeconds: debounceSeconds, completionHandler: completionHandler))
+        
+    }
+    
+
+	public struct __StubbingProxy_CastPlayerProtocol: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    var isMuted: Cuckoo.ProtocolToBeStubbedProperty<MockCastPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isMuted")
+	    }
+	    
+	    
+	    var currentDuration: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Double> {
+	        return .init(manager: cuckoo_manager, name: "currentDuration")
+	    }
+	    
+	    
+	    var currentTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Double> {
+	        return .init(manager: cuckoo_manager, name: "currentTime")
+	    }
+	    
+	    
+	    var optimisticCurrentTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Double> {
+	        return .init(manager: cuckoo_manager, name: "optimisticCurrentTime")
+	    }
+	    
+	    
+	    var isSeeking: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isSeeking")
+	    }
+	    
+	    
+	    var isLivestream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isLivestream")
+	    }
+	    
+	    
+	    var currentItemEnded: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEnded")
+	    }
+	    
+	    
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String, MLSSDK.Event?, MLSSDK.Stream?)> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)", parameterMatchers: matchers))
+	    }
+	    
+	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "play()", parameterMatchers: matchers))
+	    }
+	    
+	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "pause()", parameterMatchers: matchers))
+	    }
+	    
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: completionHandler) { $0.3 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
+	    }
+	    
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, Double, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
+	    }
+	    
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(by amount: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(Double, CMTime, CMTime, Double, (Bool) -> Void)> where M1.MatchedType == Double, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(Double, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: amount) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "seek(by: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_CastPlayerProtocol: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	    
+	    var isMuted: Cuckoo.VerifyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isMuted", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentDuration: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "currentDuration", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentTime: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "currentTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var optimisticCurrentTime: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "optimisticCurrentTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var isSeeking: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isSeeking", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var isLivestream: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isLivestream", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentItemEnded: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	
+	    
+	    @discardableResult
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4) -> Cuckoo.__DoNotUse<(String, String, MLSSDK.Event?, MLSSDK.Stream?), Void> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }]
+	        return cuckoo_manager.verify("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func play() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("play()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.__DoNotUse<(CMTime, CMTime, CMTime, (Bool) -> Void), Void> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: completionHandler) { $0.3 }]
+	        return cuckoo_manager.verify("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.__DoNotUse<(CMTime, CMTime, CMTime, Double, (Bool) -> Void), Void> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return cuckoo_manager.verify("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(by amount: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.__DoNotUse<(Double, CMTime, CMTime, Double, (Bool) -> Void), Void> where M1.MatchedType == Double, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(Double, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: amount) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return cuckoo_manager.verify("seek(by: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class CastPlayerProtocolStub: CastPlayerProtocol {
+    
+    
+    public var isMuted: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var currentDuration: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var currentTime: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var optimisticCurrentTime: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var isSeeking: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
+    public var isLivestream: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
+    public var currentItemEnded: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+
+    
+
+    
+    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func play()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func pause()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -311,7 +1041,466 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-07 18:20:02 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+
+import AVFoundation
+import Foundation
+
+
+public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = PlayerProtocol
+    
+    public typealias Stubbing = __StubbingProxy_PlayerProtocol
+    public typealias Verification = __VerificationProxy_PlayerProtocol
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: PlayerProtocol?
+
+    public func enableDefaultImplementation(_ stub: PlayerProtocol) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+    
+    
+    public var isMuted: Bool {
+        get {
+            return cuckoo_manager.getter("isMuted",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isMuted)
+        }
+        
+        set {
+            cuckoo_manager.setter("isMuted",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isMuted = newValue)
+        }
+        
+    }
+    
+    
+    
+    public var currentDuration: Double {
+        get {
+            return cuckoo_manager.getter("currentDuration",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentDuration)
+        }
+        
+    }
+    
+    
+    
+    public var currentTime: Double {
+        get {
+            return cuckoo_manager.getter("currentTime",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentTime)
+        }
+        
+    }
+    
+    
+    
+    public var optimisticCurrentTime: Double {
+        get {
+            return cuckoo_manager.getter("optimisticCurrentTime",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.optimisticCurrentTime)
+        }
+        
+    }
+    
+    
+    
+    public var isSeeking: Bool {
+        get {
+            return cuckoo_manager.getter("isSeeking",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isSeeking)
+        }
+        
+    }
+    
+    
+    
+    public var isLivestream: Bool {
+        get {
+            return cuckoo_manager.getter("isLivestream",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isLivestream)
+        }
+        
+    }
+    
+    
+    
+    public var currentItemEnded: Bool {
+        get {
+            return cuckoo_manager.getter("currentItemEnded",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemEnded)
+        }
+        
+    }
+    
+
+    
+
+    
+    
+    
+    public func play()  {
+        
+    return cuckoo_manager.call("play()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.play())
+        
+    }
+    
+    
+    
+    public func pause()  {
+        
+    return cuckoo_manager.call("pause()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.pause())
+        
+    }
+    
+    
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)  {
+        
+    return cuckoo_manager.call("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (time, toleranceBefore, toleranceAfter, completionHandler),
+            escapingParameters: (time, toleranceBefore, toleranceAfter, completionHandler),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, completionHandler: completionHandler))
+        
+    }
+    
+    
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
+        
+    return cuckoo_manager.call("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (time, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            escapingParameters: (time, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, debounceSeconds: debounceSeconds, completionHandler: completionHandler))
+        
+    }
+    
+    
+    
+    public func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
+        
+    return cuckoo_manager.call("seek(by: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (amount, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            escapingParameters: (amount, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.seek(by: amount, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, debounceSeconds: debounceSeconds, completionHandler: completionHandler))
+        
+    }
+    
+
+	public struct __StubbingProxy_PlayerProtocol: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    var isMuted: Cuckoo.ProtocolToBeStubbedProperty<MockPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isMuted")
+	    }
+	    
+	    
+	    var currentDuration: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Double> {
+	        return .init(manager: cuckoo_manager, name: "currentDuration")
+	    }
+	    
+	    
+	    var currentTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Double> {
+	        return .init(manager: cuckoo_manager, name: "currentTime")
+	    }
+	    
+	    
+	    var optimisticCurrentTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Double> {
+	        return .init(manager: cuckoo_manager, name: "optimisticCurrentTime")
+	    }
+	    
+	    
+	    var isSeeking: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isSeeking")
+	    }
+	    
+	    
+	    var isLivestream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isLivestream")
+	    }
+	    
+	    
+	    var currentItemEnded: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEnded")
+	    }
+	    
+	    
+	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "play()", parameterMatchers: matchers))
+	    }
+	    
+	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "pause()", parameterMatchers: matchers))
+	    }
+	    
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: completionHandler) { $0.3 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
+	    }
+	    
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, Double, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
+	    }
+	    
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(by amount: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(Double, CMTime, CMTime, Double, (Bool) -> Void)> where M1.MatchedType == Double, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(Double, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: amount) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "seek(by: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_PlayerProtocol: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	    
+	    var isMuted: Cuckoo.VerifyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isMuted", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentDuration: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "currentDuration", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentTime: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "currentTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var optimisticCurrentTime: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "optimisticCurrentTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var isSeeking: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isSeeking", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var isLivestream: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isLivestream", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentItemEnded: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	
+	    
+	    @discardableResult
+	    func play() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("play()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.__DoNotUse<(CMTime, CMTime, CMTime, (Bool) -> Void), Void> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: completionHandler) { $0.3 }]
+	        return cuckoo_manager.verify("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.__DoNotUse<(CMTime, CMTime, CMTime, Double, (Bool) -> Void), Void> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return cuckoo_manager.verify("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(by amount: M1, toleranceBefore: M2, toleranceAfter: M3, debounceSeconds: M4, completionHandler: M5) -> Cuckoo.__DoNotUse<(Double, CMTime, CMTime, Double, (Bool) -> Void), Void> where M1.MatchedType == Double, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == Double, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(Double, CMTime, CMTime, Double, (Bool) -> Void)>] = [wrap(matchable: amount) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: debounceSeconds) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return cuckoo_manager.verify("seek(by: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class PlayerProtocolStub: PlayerProtocol {
+    
+    
+    public var isMuted: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var currentDuration: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var currentTime: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var optimisticCurrentTime: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var isSeeking: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
+    public var isLivestream: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
+    public var currentItemEnded: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+
+    
+
+    
+    public func play()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func pause()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -345,6 +1534,20 @@ import Foundation
     
     
     
+     var currentItem: AVPlayerItem? {
+        get {
+            return cuckoo_manager.getter("currentItem",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItem)
+        }
+        
+    }
+    
+    
+    
      var status: AVPlayer.Status {
         get {
             return cuckoo_manager.getter("status",
@@ -359,7 +1562,21 @@ import Foundation
     
     
     
-     var isMuted: Bool {
+     var rawSegmentPlaylist: String? {
+        get {
+            return cuckoo_manager.getter("rawSegmentPlaylist",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.rawSegmentPlaylist)
+        }
+        
+    }
+    
+    
+    
+    public var isMuted: Bool {
         get {
             return cuckoo_manager.getter("isMuted",
                 superclassCall:
@@ -383,7 +1600,7 @@ import Foundation
     
     
     
-     var currentDuration: Double {
+    public var currentDuration: Double {
         get {
             return cuckoo_manager.getter("currentDuration",
                 superclassCall:
@@ -397,21 +1614,7 @@ import Foundation
     
     
     
-     var currentDurationAsCMTime: CMTime? {
-        get {
-            return cuckoo_manager.getter("currentDurationAsCMTime",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.currentDurationAsCMTime)
-        }
-        
-    }
-    
-    
-    
-     var currentTime: Double {
+    public var currentTime: Double {
         get {
             return cuckoo_manager.getter("currentTime",
                 superclassCall:
@@ -425,21 +1628,7 @@ import Foundation
     
     
     
-     var currentItem: AVPlayerItem? {
-        get {
-            return cuckoo_manager.getter("currentItem",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.currentItem)
-        }
-        
-    }
-    
-    
-    
-     var optimisticCurrentTime: Double {
+    public var optimisticCurrentTime: Double {
         get {
             return cuckoo_manager.getter("optimisticCurrentTime",
                 superclassCall:
@@ -453,7 +1642,7 @@ import Foundation
     
     
     
-     var isSeeking: Bool {
+    public var isSeeking: Bool {
         get {
             return cuckoo_manager.getter("isSeeking",
                 superclassCall:
@@ -467,14 +1656,28 @@ import Foundation
     
     
     
-     var rawSegmentPlaylist: String? {
+    public var isLivestream: Bool {
         get {
-            return cuckoo_manager.getter("rawSegmentPlaylist",
+            return cuckoo_manager.getter("isLivestream",
                 superclassCall:
                     
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall: __defaultImplStub!.rawSegmentPlaylist)
+                defaultCall: __defaultImplStub!.isLivestream)
+        }
+        
+    }
+    
+    
+    
+    public var currentItemEnded: Bool {
+        get {
+            return cuckoo_manager.getter("currentItemEnded",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentItemEnded)
         }
         
     }
@@ -482,36 +1685,6 @@ import Foundation
 
     
 
-    
-    
-    
-     func play()  {
-        
-    return cuckoo_manager.call("play()",
-            parameters: (),
-            escapingParameters: (),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.play())
-        
-    }
-    
-    
-    
-     func pause()  {
-        
-    return cuckoo_manager.call("pause()",
-            parameters: (),
-            escapingParameters: (),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.pause())
-        
-    }
     
     
     
@@ -590,7 +1763,37 @@ import Foundation
     
     
     
-     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)  {
+    public func play()  {
+        
+    return cuckoo_manager.call("play()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.play())
+        
+    }
+    
+    
+    
+    public func pause()  {
+        
+    return cuckoo_manager.call("pause()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.pause())
+        
+    }
+    
+    
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)  {
         
     return cuckoo_manager.call("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)",
             parameters: (time, toleranceBefore, toleranceAfter, completionHandler),
@@ -605,7 +1808,7 @@ import Foundation
     
     
     
-     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
         
     return cuckoo_manager.call("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)",
             parameters: (time, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
@@ -620,7 +1823,7 @@ import Foundation
     
     
     
-     func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
+    public func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)  {
         
     return cuckoo_manager.call("seek(by: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)",
             parameters: (amount, toleranceBefore, toleranceAfter, debounceSeconds, completionHandler),
@@ -642,8 +1845,18 @@ import Foundation
 	    }
 	    
 	    
+	    var currentItem: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, AVPlayerItem?> {
+	        return .init(manager: cuckoo_manager, name: "currentItem")
+	    }
+	    
+	    
 	    var status: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, AVPlayer.Status> {
 	        return .init(manager: cuckoo_manager, name: "status")
+	    }
+	    
+	    
+	    var rawSegmentPlaylist: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, String?> {
+	        return .init(manager: cuckoo_manager, name: "rawSegmentPlaylist")
 	    }
 	    
 	    
@@ -657,18 +1870,8 @@ import Foundation
 	    }
 	    
 	    
-	    var currentDurationAsCMTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, CMTime?> {
-	        return .init(manager: cuckoo_manager, name: "currentDurationAsCMTime")
-	    }
-	    
-	    
 	    var currentTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, Double> {
 	        return .init(manager: cuckoo_manager, name: "currentTime")
-	    }
-	    
-	    
-	    var currentItem: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, AVPlayerItem?> {
-	        return .init(manager: cuckoo_manager, name: "currentItem")
 	    }
 	    
 	    
@@ -682,20 +1885,15 @@ import Foundation
 	    }
 	    
 	    
-	    var rawSegmentPlaylist: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, String?> {
-	        return .init(manager: cuckoo_manager, name: "rawSegmentPlaylist")
+	    var isLivestream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isLivestream")
 	    }
 	    
 	    
-	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "play()", parameterMatchers: matchers))
+	    var currentItemEnded: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEnded")
 	    }
 	    
-	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "pause()", parameterMatchers: matchers))
-	    }
 	    
 	    func addObserver<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.OptionalMatchable>(_ observer: M1, forKeyPath keyPath: M2, options: M3, context: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(NSObject, String, NSKeyValueObservingOptions, UnsafeMutableRawPointer?)> where M1.MatchedType == NSObject, M2.MatchedType == String, M3.MatchedType == NSKeyValueObservingOptions, M4.OptionalMatchedType == UnsafeMutableRawPointer {
 	        let matchers: [Cuckoo.ParameterMatcher<(NSObject, String, NSKeyValueObservingOptions, UnsafeMutableRawPointer?)>] = [wrap(matchable: observer) { $0.0 }, wrap(matchable: keyPath) { $0.1 }, wrap(matchable: options) { $0.2 }, wrap(matchable: context) { $0.3 }]
@@ -720,6 +1918,16 @@ import Foundation
 	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, resourceLoaderDelegate: M3, callback: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(URL?, [String: String], AVAssetResourceLoaderDelegate?, (Bool) -> ())> where M1.OptionalMatchedType == URL, M2.MatchedType == [String: String], M3.OptionalMatchedType == AVAssetResourceLoaderDelegate, M4.MatchedType == (Bool) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(URL?, [String: String], AVAssetResourceLoaderDelegate?, (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: resourceLoaderDelegate) { $0.2 }, wrap(matchable: callback) { $0.3 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "replaceCurrentItem(with: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "play()", parameterMatchers: matchers))
+	    }
+	    
+	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "pause()", parameterMatchers: matchers))
 	    }
 	    
 	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
@@ -752,8 +1960,18 @@ import Foundation
 	
 	    
 	    
+	    var currentItem: Cuckoo.VerifyReadOnlyProperty<AVPlayerItem?> {
+	        return .init(manager: cuckoo_manager, name: "currentItem", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var status: Cuckoo.VerifyReadOnlyProperty<AVPlayer.Status> {
 	        return .init(manager: cuckoo_manager, name: "status", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var rawSegmentPlaylist: Cuckoo.VerifyReadOnlyProperty<String?> {
+	        return .init(manager: cuckoo_manager, name: "rawSegmentPlaylist", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -767,18 +1985,8 @@ import Foundation
 	    }
 	    
 	    
-	    var currentDurationAsCMTime: Cuckoo.VerifyReadOnlyProperty<CMTime?> {
-	        return .init(manager: cuckoo_manager, name: "currentDurationAsCMTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
-	    }
-	    
-	    
 	    var currentTime: Cuckoo.VerifyReadOnlyProperty<Double> {
 	        return .init(manager: cuckoo_manager, name: "currentTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
-	    }
-	    
-	    
-	    var currentItem: Cuckoo.VerifyReadOnlyProperty<AVPlayerItem?> {
-	        return .init(manager: cuckoo_manager, name: "currentItem", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -792,23 +2000,16 @@ import Foundation
 	    }
 	    
 	    
-	    var rawSegmentPlaylist: Cuckoo.VerifyReadOnlyProperty<String?> {
-	        return .init(manager: cuckoo_manager, name: "rawSegmentPlaylist", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    var isLivestream: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isLivestream", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentItemEnded: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	
-	    
-	    @discardableResult
-	    func play() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("play()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
 	    
 	    @discardableResult
 	    func addObserver<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.OptionalMatchable>(_ observer: M1, forKeyPath keyPath: M2, options: M3, context: M4) -> Cuckoo.__DoNotUse<(NSObject, String, NSKeyValueObservingOptions, UnsafeMutableRawPointer?), Void> where M1.MatchedType == NSObject, M2.MatchedType == String, M3.MatchedType == NSKeyValueObservingOptions, M4.OptionalMatchedType == UnsafeMutableRawPointer {
@@ -841,6 +2042,18 @@ import Foundation
 	    }
 	    
 	    @discardableResult
+	    func play() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("play()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
 	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.__DoNotUse<(CMTime, CMTime, CMTime, (Bool) -> Void), Void> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
 	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, CMTime, CMTime, (Bool) -> Void)>] = [wrap(matchable: time) { $0.0 }, wrap(matchable: toleranceBefore) { $0.1 }, wrap(matchable: toleranceAfter) { $0.2 }, wrap(matchable: completionHandler) { $0.3 }]
 	        return cuckoo_manager.verify("seek(to: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
@@ -864,48 +2077,6 @@ import Foundation
  class MLSAVPlayerProtocolStub: MLSAVPlayerProtocol {
     
     
-     var status: AVPlayer.Status {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (AVPlayer.Status).self)
-        }
-        
-    }
-    
-    
-     var isMuted: Bool {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (Bool).self)
-        }
-        
-        set { }
-        
-    }
-    
-    
-     var currentDuration: Double {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (Double).self)
-        }
-        
-    }
-    
-    
-     var currentDurationAsCMTime: CMTime? {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (CMTime?).self)
-        }
-        
-    }
-    
-    
-     var currentTime: Double {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (Double).self)
-        }
-        
-    }
-    
-    
      var currentItem: AVPlayerItem? {
         get {
             return DefaultValueRegistry.defaultValue(for: (AVPlayerItem?).self)
@@ -914,17 +2085,9 @@ import Foundation
     }
     
     
-     var optimisticCurrentTime: Double {
+     var status: AVPlayer.Status {
         get {
-            return DefaultValueRegistry.defaultValue(for: (Double).self)
-        }
-        
-    }
-    
-    
-     var isSeeking: Bool {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+            return DefaultValueRegistry.defaultValue(for: (AVPlayer.Status).self)
         }
         
     }
@@ -937,17 +2100,67 @@ import Foundation
         
     }
     
+    
+    public var isMuted: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var currentDuration: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var currentTime: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var optimisticCurrentTime: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var isSeeking: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
+    public var isLivestream: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
+    public var currentItemEnded: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
 
     
 
-    
-     func play()   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func pause()   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
     
      func addObserver(_ observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
@@ -969,22 +2182,30 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)   {
+    public func play()   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
+    public func pause()   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    public func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2352,7 +3573,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2484,7 +3705,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2616,7 +3837,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2808,7 +4029,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2910,7 +4131,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3072,7 +4293,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3174,7 +4395,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3276,7 +4497,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-05 14:47:30 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-07 18:20:02 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
