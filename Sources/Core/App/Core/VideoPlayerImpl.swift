@@ -208,7 +208,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private let hlsInspectionService: HLSInspectionServicing
     private var timeObserver: Any?
 
-    private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
+    private lazy var controlViewDebouncer = Debouncer(minimumDelay: 8.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
     private var tovStore: TOVStore? = nil
@@ -469,34 +469,44 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// Also calls the callback when it actually removes the currentItem because there is no appropriate stream to play.
     /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
     private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
-        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-        view.setBufferIcon(hidden: true)
-
         let url = currentStream?.url
         let added = url != nil
 
-        if !added {
-            // TODO: Show the info layer or the thumbnail view.
-            self.view.setInfoViewVisibility(visible: true, animated: false)
-        } else {
-            // TODO: Remove info layer and thumbnail view.
-            self.view.setInfoViewVisibility(visible: false, animated: false)
-
+        if added {
             currentStreamPlayHasBeenCalled = false
         }
 
-        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        player.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
-            guard let self = self else { return }
-            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            castIntegration.setEventMetadata(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream)
 
-            if added && completed {
-                if self.playerConfig.autoplay {
-                    self.play()
-                }
+            // Make sure to unlock the controls.
+            setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+        } else {
+            setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+            view.setBufferIcon(hidden: true)
+
+            if !added {
+                // TODO: Show the info layer or the thumbnail view.
+                self.view.setInfoViewVisibility(visible: true, animated: false)
+            } else {
+                // TODO: Remove info layer and thumbnail view.
+                self.view.setInfoViewVisibility(visible: false, animated: false)
             }
-            callback?(completed)
+
+            let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
+            player.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
+                guard let self = self else { return }
+                self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+
+                if added && completed {
+                    if self.playerConfig.autoplay {
+                        self.play()
+                    }
+                }
+                callback?(completed)
+            }
         }
+
     }
 
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
@@ -1059,10 +1069,9 @@ extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
         guard let castIntegration = castIntegration else { return }
 
         if castIntegration.isCasting() {
-            castIntegration.setEventMetadata(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: stream)
+            placeCurrentStream()
         }
         else {
-            
         }
     }
 }

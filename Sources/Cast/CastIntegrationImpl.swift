@@ -52,12 +52,15 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
 
         let criteria = GCKDiscoveryCriteria(applicationID: appId)
         let options = GCKCastOptions(discoveryCriteria: criteria)
+        options.physicalVolumeButtonsWillControlDeviceVolume = true
         GCKCastContext.setSharedInstanceWith(options)
 
         GCKLogger.sharedInstance().delegate = self
-
-        GCKLogger.sharedInstance().loggingEnabled = true
-        GCKLogger.sharedInstance().consoleLoggingEnabled = true
+        GCKLogger.sharedInstance().loggingEnabled = false
+        GCKLogger.sharedInstance().consoleLoggingEnabled = false
+        let logFilter = GCKLoggerFilter()
+        logFilter.minimumLevel = .none
+        GCKLogger.sharedInstance().filter = logFilter
 
         GCKCastContext.sharedInstance().sessionManager.add(self)
 
@@ -156,19 +159,22 @@ extension CastIntegrationImpl: GCKSessionManagerListener {
         }
 
         func switchPlaybackToLocal() {
-            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
-
+            guard _isCasting else { return }
             _isCasting = false
+
+            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
 
             videoPlayerDelegate?.isCastingStateUpdated()
         }
 
         func switchPlaybackToRemote() {
-            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.add(self)
-
+            guard !_isCasting else { return }
             _isCasting = true
 
+            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.add(self)
+
             videoPlayerDelegate?.isCastingStateUpdated()
+
 //            if let metadata = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.metadata {
 //                _metadataUpdatedSubject.onNext(metadata)
 //            }
