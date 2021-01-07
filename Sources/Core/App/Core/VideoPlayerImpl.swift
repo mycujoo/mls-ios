@@ -860,13 +860,12 @@ extension VideoPlayerImpl {
     }
 
     private func playButtonTapped() {
-        if player.currentItemEnded {
+        if !player.currentItemEnded {
             status.isPlaying ? pause() : play()
         }
         else {
             player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
                 if finished {
-                    self?.state = .readyToPlay
                     self?.play()
                 }
             }
