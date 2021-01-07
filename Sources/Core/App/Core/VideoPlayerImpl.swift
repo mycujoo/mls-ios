@@ -201,7 +201,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private let hlsInspectionService: HLSInspectionServicing
     private var timeObserver: Any?
 
-    private lazy var controlViewDebouncer = Debouncer(minimumDelay: 8.0)
+    private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
 
     private var tovStore: TOVStore? = nil
