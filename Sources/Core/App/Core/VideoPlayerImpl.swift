@@ -26,11 +26,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private(set) var state: VideoPlayerState = .unknown {
         didSet {
             delegate?.playerDidUpdateState(player: self)
-
-            if state == .ended && oldValue != .ended {
-                // TODO: Find out if playing a postroll clashes with other actions that may happen as a result of the `.ended` state.
-                imaIntegration?.playPostroll()
-            }
         }
     }
 
@@ -77,7 +72,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 player.pause()
             }
 
-            if state == .ended {
+            if player.currentItemEnded {
                 buttonState = .replay
             }
             DispatchQueue.main.async { [weak self] in
@@ -127,15 +122,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         set {
             player.isMuted = newValue
         }
-    }
-
-    /// Indicates whether the current item is a live stream.
-    var isLivestream: Bool {
-        guard let duration = player.currentDurationAsCMTime else {
-            return false
-        }
-        let seconds = CMTimeGetSeconds(duration)
-        return seconds.isNaN || seconds.isInfinite
     }
 
     /// - returns: The current time (in seconds) of the currentItem.
@@ -196,6 +182,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     // MARK: - Private properties
 
+    /// The player that is used specifically for local playback.
+    /// - important: Only use this property for specific local interactions. Otherwise, use `player`, which abstracts away remote playback.
     private let avPlayer: MLSAVPlayerProtocol
 
     private var player: PlayerProtocol {
@@ -248,7 +236,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     // TODO: Move livestate to mlsavplayer?
     private var liveState: VideoPlayerLiveState {
-        if isLivestream {
+        if player.isLivestream {
             let optimisticCurrentTime = self.optimisticCurrentTime
             let currentDuration = self.currentDuration
             if currentDuration > 0 && optimisticCurrentTime + 15 >= currentDuration {
@@ -438,7 +426,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     guard let self = self else { return }
                     switch update {
                     case .eventLiveViewers(let amount):
-                        if !self.playerConfig.showLiveViewers || !self.isLivestream || amount < 2 {
+                        if !self.playerConfig.showLiveViewers || !self.player.isLivestream || amount < 2 {
                             self.view.setNumberOfViewersTo(amount: nil)
                         } else {
                             self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
@@ -766,9 +754,7 @@ extension VideoPlayerImpl {
                         }
                     }
 
-                    let isLivestream = self.isLivestream
-                    if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream {
-                        self.state = .ended
+                    if player.currentItemEnded {
                         #if os(iOS)
                         self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
                         #else
@@ -776,7 +762,7 @@ extension VideoPlayerImpl {
                         #endif
                     }
 
-                    self.videoAnalyticsService.currentItemIsLive = isLivestream
+                    self.videoAnalyticsService.currentItemIsLive = player.isLivestream
 
                     self.delegate?.playerDidUpdateTime(player: self)
 
@@ -874,7 +860,7 @@ extension VideoPlayerImpl {
     }
 
     private func playButtonTapped() {
-        if state != .ended {
+        if player.currentItemEnded {
             status.isPlaying ? pause() : play()
         }
         else {
@@ -1071,7 +1057,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
 
 extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
     func isCastingStateUpdated() {
-        guard let castIntegration = castIntegration else { return }
+        guard let _ = castIntegration else { return }
 
         // Always re-place the current stream.
         placeCurrentStream()

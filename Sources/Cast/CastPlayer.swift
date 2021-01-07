@@ -9,6 +9,10 @@ import AVFoundation
 
 
 class CastPlayer: NSObject, CastPlayerProtocol {
+    var isLivestream: Bool = false
+
+    var currentItemEnded: Bool = false
+
     private static let encoder = JSONEncoder()
 
     override init() {}
@@ -17,11 +21,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
 
     var currentDuration: Double = 0
 
-    var currentDurationAsCMTime: CMTime? = nil
-
     var currentTime: Double = 0
-
-    var currentItem: AVPlayerItem? = nil
 
     var optimisticCurrentTime: Double = 0
 

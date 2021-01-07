@@ -41,7 +41,6 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private var _currentDurationMaximumObtainedOnItem: AVPlayerItem? = nil
 
     /// The duration (in seconds) of the currentItem. If unknown, returns 0.
-    /// - seeAlso: `currentDurationAsCMTime`
     var currentDuration: Double {
         guard let duration = currentItem?.duration else { return 0 }
         let seconds = CMTimeGetSeconds(duration)
@@ -72,9 +71,18 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         return seconds
     }
 
-    /// The duration reported by the currentItem, without any further manipulation. Typically, it is better to use `currentDuration`.
-    var currentDurationAsCMTime: CMTime? {
-        return currentItem?.duration
+    /// Indicates whether the current item is a live stream.
+    var isLivestream: Bool {
+        guard let duration = currentItem?.duration else {
+            return false
+        }
+        let seconds = CMTimeGetSeconds(duration)
+        return seconds.isNaN || seconds.isInfinite
+    }
+
+    /// Indicates whether the item that is currently loaded into the player has ended.
+    var currentItemEnded: Bool {
+        return currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream
     }
 
     var rawSegmentPlaylist: String? = nil

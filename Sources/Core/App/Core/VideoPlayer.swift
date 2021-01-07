@@ -49,8 +49,6 @@ public protocol VideoPlayer: class {
     /// Get or set the `isMuted` property of the underlying AVPlayer.
     var isMuted: Bool { get set }
 
-    /// Indicates whether the current item is a live stream.
-    var isLivestream: Bool { get }
     /// - returns: The current time (in seconds) of the currentItem.
     var currentTime: Double { get }
     /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
@@ -97,7 +95,7 @@ public enum VideoPlayerState: Int {
     /// Indicates that the player can no longer play AVPlayerItem instances because of an error. The error is described by the value of the player's error property.
     case failed = 2
     /// The player has finished playing the media
-    case ended = 3
+//    case ended = 3
 }
 
 public enum VideoPlayerStatus {
