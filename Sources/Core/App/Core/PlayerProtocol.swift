@@ -18,9 +18,10 @@ public protocol PlayerProtocol: class {
     var isSeeking: Bool { get }
     /// Indicates whether the current item is a live stream.
     var isLivestream: Bool { get }
-
     /// Indicates whether the item that is currently loaded into the player has ended.
     var currentItemEnded: Bool { get }
+    /// A callback that is called whenever the player's time-related properties are updated. Should be set by the owner of the player.
+    var timeObserverCallback: (() -> Void)? { get set }
 
     // MARK: AVPlayer methods
     func play()

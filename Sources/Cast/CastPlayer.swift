@@ -29,6 +29,8 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         return _seekingToTime ?? currentTime
     }
 
+    var timeObserverCallback: (() -> Void)? = nil
+
     private(set) var isSeeking = false
 
     private static let encoder = JSONEncoder()
@@ -57,33 +59,40 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     private func startUpdatingTime() {
         var isFirstUpdate = true
 
+        let execute: () -> () = { [weak self] () in
+            guard let self = self else { return }
+
+            // Do not process this while the player is seeking.
+            guard !self.isSeeking else { return }
+
+            if isFirstUpdate {
+                isFirstUpdate = false
+
+                if let duration = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.streamDuration {
+                    self.isLivestream = duration.isInfinite || duration < 0
+                    self.currentDuration = self.isLivestream ? 0 : duration
+                }
+            }
+
+            if let currentTime = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateStreamPosition() {
+                self.currentTime = currentTime.isFinite ? floor(currentTime) : 0
+            }
+
+            if self.isLivestream,
+               let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeStart(),
+               let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeEnd()
+               {
+                // Update the current duration based on the known seekable ranges.
+            }
+
+            self.timeObserverCallback?()
+        }
+
         updateTimeTimer?.invalidate()
         DispatchQueue.global(qos: .background).async { [weak self] () in
-            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] _ in
-                guard let self = self else { return }
-
-                // Do not process this while the player is seeking.
-                guard !self.isSeeking else { return }
-
-                if isFirstUpdate {
-                    isFirstUpdate = false
-
-                    if let duration = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.streamDuration {
-                        self.isLivestream = duration.isInfinite || duration < 0
-                        self.currentDuration = self.isLivestream ? 0 : duration
-                    }
-                }
-
-                if let currentTime = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateStreamPosition() {
-                    self.currentTime = currentTime.isFinite ? floor(currentTime) : 0
-                }
-
-                if self.isLivestream,
-                   let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeStart(),
-                   let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeEnd()
-                   {
-                    // Update the current duration based on the known seekable ranges.
-                }
+            execute()
+            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+                execute()
             })
             let runLoop = RunLoop.current
             runLoop.add(timer, forMode: .default)

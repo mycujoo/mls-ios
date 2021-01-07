@@ -18,12 +18,6 @@ protocol MLSAVPlayerProtocol: PlayerProtocol {
     /// Contains the raw HLS playlist that defines the segments. Is updated in sync with the AVPlayer.
     var rawSegmentPlaylist: String? { get }
 
-    // MARK: AVPlayer methods
-    func addObserver(_ observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?)
-    func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue?, using block: @escaping (CMTime) -> Void) -> Any
-    func removeTimeObserver(_ observer: Any)
-    func removeObserver(_ observer: NSObject, forKeyPath keyPath: String)
-
     /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.
     /// - parameter item: The item to play. If nil is provided, the current item is removed.
     /// - parameter headers: The headers to attach to the network requests when playing this item.

@@ -21,6 +21,8 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         return _seekingToTime ?? currentTime
     }
 
+    var timeObserverCallback: (() -> Void)? = nil
+
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
     private var _seekingToTime: Double? = nil
 
@@ -63,7 +65,6 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
                     return _currentDurationMaximum
                 }
-
             }
             return 0
         }
@@ -90,6 +91,16 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private var isSeekingUpdatedAt = Date()
 
     private let seekDebouncer = Debouncer()
+
+    private var timeObserver: Any?
+
+    override init() {
+        super.init()
+
+        addObserver(self, forKeyPath: "status", options: .new, context: nil)
+        addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
+        timeObserver = trackTime(with: self)
+    }
 
     override func seek(to time: CMTime) {
         self.seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: 0.0, completionHandler: { _ in })
@@ -240,6 +251,24 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
                 callback(false)
             }
         }
+    }
+
+    private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
+        addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 600), queue: .main) { [weak self] _ in
+            guard let self = self else { return }
+
+            // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
+            guard !self.isSeeking else { return }
+
+            // TODO: Notify listener of updates.
+            self.timeObserverCallback?()
+        }
+    }
+
+    deinit {
+        if let timeObserver = timeObserver { removeTimeObserver(timeObserver) }
+        removeObserver(self, forKeyPath: "status")
+        removeObserver(self, forKeyPath: "timeControlStatus")
     }
 }
 

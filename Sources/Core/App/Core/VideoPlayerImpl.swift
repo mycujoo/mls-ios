@@ -20,6 +20,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     var castIntegration: CastIntegration? {
         didSet {
             castIntegration?.initialize(self)
+            castIntegration?.player().timeObserverCallback = timeObserverCallback
         }
     }
 
@@ -319,6 +320,35 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    /// The callback that handles time updates. This is saved as a separate property because it needs to be set on both avPlayer and castPlayer at different points of initialization.
+    lazy var timeObserverCallback: () -> () = { [weak self] () in
+        guard let self = self else { return }
+        let currentDuration = self.currentDuration
+        let optimisticCurrentTime = self.optimisticCurrentTime
+
+        if !self.view.videoSlider.isTracking {
+            self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
+
+            if currentDuration > 0 {
+                self.view.videoSlider.value = optimisticCurrentTime / currentDuration
+            }
+        }
+
+        if self.player.currentItemEnded {
+            #if os(iOS)
+            self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
+            #else
+            self.view.setPlayButtonTo(state: .replay)
+            #endif
+        }
+
+        self.videoAnalyticsService.currentItemIsLive = self.player.isLivestream
+
+        self.delegate?.playerDidUpdateTime(player: self)
+
+        self.evaluateAnnotations()
+    }
+
     // MARK: - Methods
 
     init(
@@ -352,12 +382,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         super.init()
 
-        avPlayer.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-        avPlayer.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
-        timeObserver = trackTime(with: avPlayer)
-
-        videoAnalyticsService.create(with: avPlayer)
-
         func initPlayerView() {
             self.view = view
             view.setOnTimeSliderSlide({ [weak self] fraction in self?.sliderUpdated(with: fraction) })
@@ -387,13 +411,13 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 initPlayerView()
             }
         }
+
+        avPlayer.timeObserverCallback = self.timeObserverCallback
+
+        videoAnalyticsService.create(with: avPlayer)
     }
 
     deinit {
-        if let timeObserver = timeObserver { avPlayer.removeTimeObserver(timeObserver) }
-        avPlayer.removeObserver(self, forKeyPath: "status")
-        avPlayer.removeObserver(self, forKeyPath: "timeControlStatus")
-
         NotificationCenter.default.removeObserver(self)
 
         if let event = event {
@@ -729,43 +753,6 @@ extension VideoPlayerImpl {
                     self?.tovStore?.removeObservers(callbackId: action.overlayId)
                 }
             }
-        }
-    }
-
-    private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
-        player
-            .addPeriodicTimeObserver(
-                forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 600),
-                queue: .main) { [weak self] _ in
-                    guard let self = self else { return }
-
-                    // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
-                    guard !self.player.isSeeking else { return }
-
-                    let currentDuration = self.currentDuration
-                    let optimisticCurrentTime = self.optimisticCurrentTime
-
-                    if !self.view.videoSlider.isTracking {
-                        self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
-
-                        if currentDuration > 0 {
-                            self.view.videoSlider.value = optimisticCurrentTime / currentDuration
-                        }
-                    }
-
-                    if player.currentItemEnded {
-                        #if os(iOS)
-                        self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
-                        #else
-                        self.view.setPlayButtonTo(state: .replay)
-                        #endif
-                    }
-
-                    self.videoAnalyticsService.currentItemIsLive = player.isLivestream
-
-                    self.delegate?.playerDidUpdateTime(player: self)
-
-                    self.evaluateAnnotations()
         }
     }
 
