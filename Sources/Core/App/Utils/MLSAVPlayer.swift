@@ -26,7 +26,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     }
 
     var timeObserverCallback: (() -> Void)? = nil
-    var playObserverCallback: ((_ isPlaying: Bool) -> Void)? = nil
+    var playObserverCallback: ((Bool) -> Void)? = nil
 
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
     private var _seekingToTime: Double? = nil
@@ -261,9 +261,6 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
         addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 600), queue: .main) { [weak self] _ in
             guard let self = self else { return }
-
-            // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
-            guard !self.isSeeking else { return }
 
             // TODO: Notify listener of updates.
             self.timeObserverCallback?()

@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -273,6 +273,20 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
+    public var state: VideoPlayerState {
+        get {
+            return cuckoo_manager.getter("state",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.state)
+        }
+        
+    }
+    
+    
+    
     public var isMuted: Bool {
         get {
             return cuckoo_manager.getter("isMuted",
@@ -353,6 +367,20 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
+    public var isBuffering: Bool {
+        get {
+            return cuckoo_manager.getter("isBuffering",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isBuffering)
+        }
+        
+    }
+    
+    
+    
     public var isLivestream: Bool {
         get {
             return cuckoo_manager.getter("isLivestream",
@@ -379,22 +407,70 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
         
     }
     
-
-    
-
     
     
-    
-    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)  {
+    public var timeObserverCallback: (() -> Void)? {
+        get {
+            return cuckoo_manager.getter("timeObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timeObserverCallback)
+        }
         
-    return cuckoo_manager.call("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)",
-            parameters: (publicKey, pseudoUserId, event, stream),
-            escapingParameters: (publicKey, pseudoUserId, event, stream),
+        set {
+            cuckoo_manager.setter("timeObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timeObserverCallback = newValue)
+        }
+        
+    }
+    
+    
+    
+    public var playObserverCallback: ((Bool) -> Void)? {
+        get {
+            return cuckoo_manager.getter("playObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.playObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("playObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.playObserverCallback = newValue)
+        }
+        
+    }
+    
+
+    
+
+    
+    
+    
+    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)  {
+        
+    return cuckoo_manager.call("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (publicKey, pseudoUserId, event, stream, completionHandler),
+            escapingParameters: (publicKey, pseudoUserId, event, stream, completionHandler),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: stream))
+            defaultCall: __defaultImplStub!.replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: stream, completionHandler: completionHandler))
         
     }
     
@@ -482,6 +558,11 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, VideoPlayerState> {
+	        return .init(manager: cuckoo_manager, name: "state")
+	    }
+	    
+	    
 	    var isMuted: Cuckoo.ProtocolToBeStubbedProperty<MockCastPlayerProtocol, Bool> {
 	        return .init(manager: cuckoo_manager, name: "isMuted")
 	    }
@@ -507,6 +588,11 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var isBuffering: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isBuffering")
+	    }
+	    
+	    
 	    var isLivestream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Bool> {
 	        return .init(manager: cuckoo_manager, name: "isLivestream")
 	    }
@@ -517,9 +603,19 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String, MLSSDK.Event?, MLSSDK.Stream?)> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)", parameterMatchers: matchers))
+	    var timeObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockCastPlayerProtocol, (() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "timeObserverCallback")
+	    }
+	    
+	    
+	    var playObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockCastPlayerProtocol, ((Bool) -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "playObserverCallback")
+	    }
+	    
+	    
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4, completionHandler: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
 	    }
 	    
 	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
@@ -562,6 +658,11 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	
 	    
 	    
+	    var state: Cuckoo.VerifyReadOnlyProperty<VideoPlayerState> {
+	        return .init(manager: cuckoo_manager, name: "state", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var isMuted: Cuckoo.VerifyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "isMuted", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
@@ -587,6 +688,11 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var isBuffering: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isBuffering", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var isLivestream: Cuckoo.VerifyReadOnlyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "isLivestream", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
@@ -596,12 +702,22 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
+	    
+	    var timeObserverCallback: Cuckoo.VerifyOptionalProperty<(() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "timeObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var playObserverCallback: Cuckoo.VerifyOptionalProperty<((Bool) -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "playObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
 	    
 	    @discardableResult
-	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4) -> Cuckoo.__DoNotUse<(String, String, MLSSDK.Event?, MLSSDK.Stream?), Void> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }]
-	        return cuckoo_manager.verify("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4, completionHandler: M5) -> Cuckoo.__DoNotUse<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void), Void> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream, M5.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
+	        return cuckoo_manager.verify("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -638,6 +754,14 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 }
 
 public class CastPlayerProtocolStub: CastPlayerProtocol {
+    
+    
+    public var state: VideoPlayerState {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (VideoPlayerState).self)
+        }
+        
+    }
     
     
     public var isMuted: Bool {
@@ -682,6 +806,14 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
     }
     
     
+    public var isBuffering: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
     public var isLivestream: Bool {
         get {
             return DefaultValueRegistry.defaultValue(for: (Bool).self)
@@ -697,11 +829,31 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
         
     }
     
-
+    
+    public var timeObserverCallback: (() -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var playObserverCallback: ((Bool) -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (((Bool) -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
     
 
     
-    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?)   {
+
+    
+    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -728,7 +880,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1041,7 +1193,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1072,6 +1224,20 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
     }
     
 
+    
+    
+    
+    public var state: VideoPlayerState {
+        get {
+            return cuckoo_manager.getter("state",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.state)
+        }
+        
+    }
     
     
     
@@ -1155,6 +1321,20 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
+    public var isBuffering: Bool {
+        get {
+            return cuckoo_manager.getter("isBuffering",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isBuffering)
+        }
+        
+    }
+    
+    
+    
     public var isLivestream: Bool {
         get {
             return cuckoo_manager.getter("isLivestream",
@@ -1177,6 +1357,54 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.currentItemEnded)
+        }
+        
+    }
+    
+    
+    
+    public var timeObserverCallback: (() -> Void)? {
+        get {
+            return cuckoo_manager.getter("timeObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timeObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("timeObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timeObserverCallback = newValue)
+        }
+        
+    }
+    
+    
+    
+    public var playObserverCallback: ((Bool) -> Void)? {
+        get {
+            return cuckoo_manager.getter("playObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.playObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("playObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.playObserverCallback = newValue)
         }
         
     }
@@ -1269,6 +1497,11 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, VideoPlayerState> {
+	        return .init(manager: cuckoo_manager, name: "state")
+	    }
+	    
+	    
 	    var isMuted: Cuckoo.ProtocolToBeStubbedProperty<MockPlayerProtocol, Bool> {
 	        return .init(manager: cuckoo_manager, name: "isMuted")
 	    }
@@ -1294,6 +1527,11 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var isBuffering: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isBuffering")
+	    }
+	    
+	    
 	    var isLivestream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Bool> {
 	        return .init(manager: cuckoo_manager, name: "isLivestream")
 	    }
@@ -1301,6 +1539,16 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    
 	    var currentItemEnded: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Bool> {
 	        return .init(manager: cuckoo_manager, name: "currentItemEnded")
+	    }
+	    
+	    
+	    var timeObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockPlayerProtocol, (() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "timeObserverCallback")
+	    }
+	    
+	    
+	    var playObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockPlayerProtocol, ((Bool) -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "playObserverCallback")
 	    }
 	    
 	    
@@ -1344,6 +1592,11 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	
 	    
 	    
+	    var state: Cuckoo.VerifyReadOnlyProperty<VideoPlayerState> {
+	        return .init(manager: cuckoo_manager, name: "state", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var isMuted: Cuckoo.VerifyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "isMuted", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
@@ -1369,6 +1622,11 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var isBuffering: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isBuffering", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var isLivestream: Cuckoo.VerifyReadOnlyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "isLivestream", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
@@ -1376,6 +1634,16 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    
 	    var currentItemEnded: Cuckoo.VerifyReadOnlyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var timeObserverCallback: Cuckoo.VerifyOptionalProperty<(() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "timeObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var playObserverCallback: Cuckoo.VerifyOptionalProperty<((Bool) -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "playObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	
@@ -1414,6 +1682,14 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 }
 
 public class PlayerProtocolStub: PlayerProtocol {
+    
+    
+    public var state: VideoPlayerState {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (VideoPlayerState).self)
+        }
+        
+    }
     
     
     public var isMuted: Bool {
@@ -1458,6 +1734,14 @@ public class PlayerProtocolStub: PlayerProtocol {
     }
     
     
+    public var isBuffering: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
     public var isLivestream: Bool {
         get {
             return DefaultValueRegistry.defaultValue(for: (Bool).self)
@@ -1470,6 +1754,26 @@ public class PlayerProtocolStub: PlayerProtocol {
         get {
             return DefaultValueRegistry.defaultValue(for: (Bool).self)
         }
+        
+    }
+    
+    
+    public var timeObserverCallback: (() -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var playObserverCallback: ((Bool) -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (((Bool) -> Void)?).self)
+        }
+        
+        set { }
         
     }
     
@@ -1500,7 +1804,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1570,6 +1874,20 @@ import Foundation
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.rawSegmentPlaylist)
+        }
+        
+    }
+    
+    
+    
+    public var state: VideoPlayerState {
+        get {
+            return cuckoo_manager.getter("state",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.state)
         }
         
     }
@@ -1656,6 +1974,20 @@ import Foundation
     
     
     
+    public var isBuffering: Bool {
+        get {
+            return cuckoo_manager.getter("isBuffering",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.isBuffering)
+        }
+        
+    }
+    
+    
+    
     public var isLivestream: Bool {
         get {
             return cuckoo_manager.getter("isLivestream",
@@ -1682,69 +2014,57 @@ import Foundation
         
     }
     
+    
+    
+    public var timeObserverCallback: (() -> Void)? {
+        get {
+            return cuckoo_manager.getter("timeObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timeObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("timeObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timeObserverCallback = newValue)
+        }
+        
+    }
+    
+    
+    
+    public var playObserverCallback: ((Bool) -> Void)? {
+        get {
+            return cuckoo_manager.getter("playObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.playObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("playObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.playObserverCallback = newValue)
+        }
+        
+    }
+    
 
     
 
-    
-    
-    
-     func addObserver(_ observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?)  {
-        
-    return cuckoo_manager.call("addObserver(_: NSObject, forKeyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?)",
-            parameters: (observer, keyPath, options, context),
-            escapingParameters: (observer, keyPath, options, context),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.addObserver(observer, forKeyPath: keyPath, options: options, context: context))
-        
-    }
-    
-    
-    
-     func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue?, using block: @escaping (CMTime) -> Void) -> Any {
-        
-    return cuckoo_manager.call("addPeriodicTimeObserver(forInterval: CMTime, queue: DispatchQueue?, using: @escaping (CMTime) -> Void) -> Any",
-            parameters: (interval, queue, block),
-            escapingParameters: (interval, queue, block),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.addPeriodicTimeObserver(forInterval: interval, queue: queue, using: block))
-        
-    }
-    
-    
-    
-     func removeTimeObserver(_ observer: Any)  {
-        
-    return cuckoo_manager.call("removeTimeObserver(_: Any)",
-            parameters: (observer),
-            escapingParameters: (observer),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.removeTimeObserver(observer))
-        
-    }
-    
-    
-    
-     func removeObserver(_ observer: NSObject, forKeyPath keyPath: String)  {
-        
-    return cuckoo_manager.call("removeObserver(_: NSObject, forKeyPath: String)",
-            parameters: (observer, keyPath),
-            escapingParameters: (observer, keyPath),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.removeObserver(observer, forKeyPath: keyPath))
-        
-    }
     
     
     
@@ -1860,6 +2180,11 @@ import Foundation
 	    }
 	    
 	    
+	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, VideoPlayerState> {
+	        return .init(manager: cuckoo_manager, name: "state")
+	    }
+	    
+	    
 	    var isMuted: Cuckoo.ProtocolToBeStubbedProperty<MockMLSAVPlayerProtocol, Bool> {
 	        return .init(manager: cuckoo_manager, name: "isMuted")
 	    }
@@ -1885,6 +2210,11 @@ import Foundation
 	    }
 	    
 	    
+	    var isBuffering: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "isBuffering")
+	    }
+	    
+	    
 	    var isLivestream: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, Bool> {
 	        return .init(manager: cuckoo_manager, name: "isLivestream")
 	    }
@@ -1895,25 +2225,15 @@ import Foundation
 	    }
 	    
 	    
-	    func addObserver<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.OptionalMatchable>(_ observer: M1, forKeyPath keyPath: M2, options: M3, context: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(NSObject, String, NSKeyValueObservingOptions, UnsafeMutableRawPointer?)> where M1.MatchedType == NSObject, M2.MatchedType == String, M3.MatchedType == NSKeyValueObservingOptions, M4.OptionalMatchedType == UnsafeMutableRawPointer {
-	        let matchers: [Cuckoo.ParameterMatcher<(NSObject, String, NSKeyValueObservingOptions, UnsafeMutableRawPointer?)>] = [wrap(matchable: observer) { $0.0 }, wrap(matchable: keyPath) { $0.1 }, wrap(matchable: options) { $0.2 }, wrap(matchable: context) { $0.3 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "addObserver(_: NSObject, forKeyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?)", parameterMatchers: matchers))
+	    var timeObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockMLSAVPlayerProtocol, (() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "timeObserverCallback")
 	    }
 	    
-	    func addPeriodicTimeObserver<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(forInterval interval: M1, queue: M2, using block: M3) -> Cuckoo.ProtocolStubFunction<(CMTime, DispatchQueue?, (CMTime) -> Void), Any> where M1.MatchedType == CMTime, M2.OptionalMatchedType == DispatchQueue, M3.MatchedType == (CMTime) -> Void {
-	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, DispatchQueue?, (CMTime) -> Void)>] = [wrap(matchable: interval) { $0.0 }, wrap(matchable: queue) { $0.1 }, wrap(matchable: block) { $0.2 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "addPeriodicTimeObserver(forInterval: CMTime, queue: DispatchQueue?, using: @escaping (CMTime) -> Void) -> Any", parameterMatchers: matchers))
+	    
+	    var playObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockMLSAVPlayerProtocol, ((Bool) -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "playObserverCallback")
 	    }
 	    
-	    func removeTimeObserver<M1: Cuckoo.Matchable>(_ observer: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Any)> where M1.MatchedType == Any {
-	        let matchers: [Cuckoo.ParameterMatcher<(Any)>] = [wrap(matchable: observer) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "removeTimeObserver(_: Any)", parameterMatchers: matchers))
-	    }
-	    
-	    func removeObserver<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ observer: M1, forKeyPath keyPath: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(NSObject, String)> where M1.MatchedType == NSObject, M2.MatchedType == String {
-	        let matchers: [Cuckoo.ParameterMatcher<(NSObject, String)>] = [wrap(matchable: observer) { $0.0 }, wrap(matchable: keyPath) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSAVPlayerProtocol.self, method: "removeObserver(_: NSObject, forKeyPath: String)", parameterMatchers: matchers))
-	    }
 	    
 	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, resourceLoaderDelegate: M3, callback: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(URL?, [String: String], AVAssetResourceLoaderDelegate?, (Bool) -> ())> where M1.OptionalMatchedType == URL, M2.MatchedType == [String: String], M3.OptionalMatchedType == AVAssetResourceLoaderDelegate, M4.MatchedType == (Bool) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(URL?, [String: String], AVAssetResourceLoaderDelegate?, (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: resourceLoaderDelegate) { $0.2 }, wrap(matchable: callback) { $0.3 }]
@@ -1975,6 +2295,11 @@ import Foundation
 	    }
 	    
 	    
+	    var state: Cuckoo.VerifyReadOnlyProperty<VideoPlayerState> {
+	        return .init(manager: cuckoo_manager, name: "state", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var isMuted: Cuckoo.VerifyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "isMuted", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
@@ -2000,6 +2325,11 @@ import Foundation
 	    }
 	    
 	    
+	    var isBuffering: Cuckoo.VerifyReadOnlyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "isBuffering", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var isLivestream: Cuckoo.VerifyReadOnlyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "isLivestream", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
@@ -2009,31 +2339,17 @@ import Foundation
 	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
+	    
+	    var timeObserverCallback: Cuckoo.VerifyOptionalProperty<(() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "timeObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var playObserverCallback: Cuckoo.VerifyOptionalProperty<((Bool) -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "playObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
-	    
-	    @discardableResult
-	    func addObserver<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.OptionalMatchable>(_ observer: M1, forKeyPath keyPath: M2, options: M3, context: M4) -> Cuckoo.__DoNotUse<(NSObject, String, NSKeyValueObservingOptions, UnsafeMutableRawPointer?), Void> where M1.MatchedType == NSObject, M2.MatchedType == String, M3.MatchedType == NSKeyValueObservingOptions, M4.OptionalMatchedType == UnsafeMutableRawPointer {
-	        let matchers: [Cuckoo.ParameterMatcher<(NSObject, String, NSKeyValueObservingOptions, UnsafeMutableRawPointer?)>] = [wrap(matchable: observer) { $0.0 }, wrap(matchable: keyPath) { $0.1 }, wrap(matchable: options) { $0.2 }, wrap(matchable: context) { $0.3 }]
-	        return cuckoo_manager.verify("addObserver(_: NSObject, forKeyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func addPeriodicTimeObserver<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(forInterval interval: M1, queue: M2, using block: M3) -> Cuckoo.__DoNotUse<(CMTime, DispatchQueue?, (CMTime) -> Void), Any> where M1.MatchedType == CMTime, M2.OptionalMatchedType == DispatchQueue, M3.MatchedType == (CMTime) -> Void {
-	        let matchers: [Cuckoo.ParameterMatcher<(CMTime, DispatchQueue?, (CMTime) -> Void)>] = [wrap(matchable: interval) { $0.0 }, wrap(matchable: queue) { $0.1 }, wrap(matchable: block) { $0.2 }]
-	        return cuckoo_manager.verify("addPeriodicTimeObserver(forInterval: CMTime, queue: DispatchQueue?, using: @escaping (CMTime) -> Void) -> Any", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func removeTimeObserver<M1: Cuckoo.Matchable>(_ observer: M1) -> Cuckoo.__DoNotUse<(Any), Void> where M1.MatchedType == Any {
-	        let matchers: [Cuckoo.ParameterMatcher<(Any)>] = [wrap(matchable: observer) { $0 }]
-	        return cuckoo_manager.verify("removeTimeObserver(_: Any)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func removeObserver<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ observer: M1, forKeyPath keyPath: M2) -> Cuckoo.__DoNotUse<(NSObject, String), Void> where M1.MatchedType == NSObject, M2.MatchedType == String {
-	        let matchers: [Cuckoo.ParameterMatcher<(NSObject, String)>] = [wrap(matchable: observer) { $0.0 }, wrap(matchable: keyPath) { $0.1 }]
-	        return cuckoo_manager.verify("removeObserver(_: NSObject, forKeyPath: String)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
 	    
 	    @discardableResult
 	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, resourceLoaderDelegate: M3, callback: M4) -> Cuckoo.__DoNotUse<(URL?, [String: String], AVAssetResourceLoaderDelegate?, (Bool) -> ()), Void> where M1.OptionalMatchedType == URL, M2.MatchedType == [String: String], M3.OptionalMatchedType == AVAssetResourceLoaderDelegate, M4.MatchedType == (Bool) -> () {
@@ -2101,6 +2417,14 @@ import Foundation
     }
     
     
+    public var state: VideoPlayerState {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (VideoPlayerState).self)
+        }
+        
+    }
+    
+    
     public var isMuted: Bool {
         get {
             return DefaultValueRegistry.defaultValue(for: (Bool).self)
@@ -2143,6 +2467,14 @@ import Foundation
     }
     
     
+    public var isBuffering: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+    }
+    
+    
     public var isLivestream: Bool {
         get {
             return DefaultValueRegistry.defaultValue(for: (Bool).self)
@@ -2158,25 +2490,29 @@ import Foundation
         
     }
     
+    
+    public var timeObserverCallback: (() -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var playObserverCallback: ((Bool) -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (((Bool) -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
+    
 
     
 
-    
-     func addObserver(_ observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue?, using block: @escaping (CMTime) -> Void) -> Any  {
-        return DefaultValueRegistry.defaultValue(for: (Any).self)
-    }
-    
-     func removeTimeObserver(_ observer: Any)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func removeObserver(_ observer: NSObject, forKeyPath keyPath: String)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
     
      func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
@@ -2205,7 +2541,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3573,7 +3909,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3705,7 +4041,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3837,7 +4173,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4029,7 +4365,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4131,7 +4467,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4293,7 +4629,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4395,7 +4731,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4497,7 +4833,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-07 18:20:02 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-08 11:57:51 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

@@ -34,8 +34,6 @@ class VideoPlayerSpec: QuickSpec {
     }
 
     override func spec() {
-        /// Should be set by the `addPeriodicTimeObserver` mock.
-        var periodicTimeObserverCallback: ((CMTime) -> Void)? = nil
         /// A helper to mock the duration on the video.
         var currentDuration: Double = 0
         /// A helper to mock the currentTime on the video.
@@ -45,6 +43,12 @@ class VideoPlayerSpec: QuickSpec {
 
         var avPlayerStatus: AVPlayer.Status = .unknown
 
+        var playButtonTapped: (() -> Void)? = nil
+        var infoButtonTapped: (() -> Void)? = nil
+        var controlViewTapped: (() -> Void)? = nil
+        var timeObserverCallback: (() -> Void)? = nil
+        var playObserverCallback: ((Bool) -> Void)? = nil
+
         /// Can be called to trigger an invokation on the Observer of time on the AVPlayer.
         /// - note: The duration and current time of the player will increase with 1 on every call to this method.
         func updatePeriodicTimeObserver() {
@@ -52,17 +56,12 @@ class VideoPlayerSpec: QuickSpec {
             currentTime += 1
             optimisticCurrentTime += 1
 
-            periodicTimeObserverCallback?(CMTime(value: CMTimeValue(currentTime), timescale: 1))
+            timeObserverCallback?()
         }
 
         func updateAVPlayerStatus(to status: AVPlayer.Status) {
             avPlayerStatus = status
-            self.videoPlayer.observeValue(forKeyPath: "status", of: self.mockAVPlayer, change: [:], context: nil)
         }
-
-        var playButtonTapped: (() -> Void)? = nil
-        var infoButtonTapped: (() -> Void)? = nil
-        var controlViewTapped: (() -> Void)? = nil
 
         beforeEach {
             currentDuration = 200
@@ -142,13 +141,7 @@ class VideoPlayerSpec: QuickSpec {
 
             self.mockAVPlayer = MockMLSAVPlayerProtocol()
             stub(self.mockAVPlayer) { mock in
-                when(mock).addObserver(any(), forKeyPath: any(), options: any(), context: any()).thenDoNothing()
-                when(mock).addPeriodicTimeObserver(forInterval: any(), queue: any(), using: any()).then { (tuple) -> Any in
-                    periodicTimeObserverCallback = tuple.2
-                    return ""
-                }
-                when(mock).removeObserver(any(), forKeyPath: any()).thenDoNothing()
-                when(mock).removeTimeObserver(any()).thenDoNothing()
+                when(mock).state.get.thenReturn(.readyToPlay)
                 when(mock).currentDuration.get.then { _ -> Double in
                     return currentDuration
                 }
@@ -167,6 +160,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).status.get.then { _ -> AVPlayer.Status in
                     return avPlayerStatus
                 }
+                when(mock).isBuffering.get.thenReturn(false)
                 when(mock).isSeeking.get.thenReturn(false)
                 when(mock).isMuted.get.thenReturn(true)
                 when(mock).isMuted.set(any()).thenDoNothing()
@@ -183,6 +177,14 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 when(mock).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any()).then { (tuple) in
                     (tuple.3)(true)
+                }
+                when(mock).timeObserverCallback.get.thenReturn(timeObserverCallback)
+                when(mock).timeObserverCallback.set(any()).then { obj in
+                    timeObserverCallback = obj
+                }
+                when(mock).playObserverCallback.get.thenReturn(playObserverCallback)
+                when(mock).playObserverCallback.set(any()).then { obj in
+                    playObserverCallback = obj
                 }
             }
 
@@ -724,7 +726,7 @@ class VideoPlayerSpec: QuickSpec {
 
                     waitUntil { done in
                         // Force the player to set the .ended state by updating the current time info.
-                        periodicTimeObserverCallback?(CMTime(seconds: 500, preferredTimescale: 1))
+                        timeObserverCallback?()
                         let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                             playButtonTapped?()
                             verify(self.mockAVPlayer).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any())

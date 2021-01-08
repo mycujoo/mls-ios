@@ -44,7 +44,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     var timeObserverCallback: (() -> Void)? = nil
 
     // At the moment, there is nothing that calls this from within CastPlayer. Leave it for compliance.
-    var playObserverCallback: ((_ isPlaying: Bool) -> Void)? = nil
+    var playObserverCallback: ((Bool) -> Void)? = nil
 
     private(set) var isSeeking = false
 
@@ -236,9 +236,6 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     }
 
     private func updateTimerState() {
-        // Do not process this while the player is seeking.
-        guard !isSeeking else { return }
-
         if isFirstTimerStateUpdate {
             isFirstTimerStateUpdate = false
 

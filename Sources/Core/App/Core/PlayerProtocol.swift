@@ -28,15 +28,13 @@ public protocol PlayerProtocol: class {
     /// A callback that is called whenever the player's time-related properties are updated. Should be set by the owner of the player.
     var timeObserverCallback: (() -> Void)? { get set }
     /// A callback that is called whenever a the play/pause state is being updated (e.g. through a remote control).
-    var playObserverCallback: ((_ isPlaying: Bool) -> Void)? { get set }
+    /// True indicates it is playing, false that it's paused.
+    var playObserverCallback: ((Bool) -> Void)? { get set }
 
-    // MARK: AVPlayer methods
     func play()
     func pause()
 
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
-
-    // MARK: MLSAVPlayer methods
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)
     func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)
 }

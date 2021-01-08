@@ -319,6 +319,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
+            // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
+            guard !self.player.isSeeking else { return }
+
             let currentDuration = self.currentDuration
             let optimisticCurrentTime = self.optimisticCurrentTime
 
@@ -348,7 +351,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
-    lazy var playObserverCallback: ((_ isPlaying: Bool) -> Void) = { [weak self] isPlaying in
+    lazy var playObserverCallback: ((Bool) -> Void) = { [weak self] isPlaying in
         self?.status = isPlaying ? .play : .pause
     }
 
