@@ -547,7 +547,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             // Ensure that the controls stay visible at all times while casting.
             self.setControlViewVisibility(visible: true, animated: false, directiveLevel: .systemInitiated, lock: true)
 
-            castIntegration.player().replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream) { [weak self] completed in
+            self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }
 
                 if added && completed {
