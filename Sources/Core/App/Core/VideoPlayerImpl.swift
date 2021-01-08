@@ -528,6 +528,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 guard let self = self else { return }
                 self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
+                // Ensure the controlView hides after 4s (since this might have been adjusted by the remote casting process)
+                self.controlViewDebouncer.minimumDelay = 4
+
                 if added && completed {
                     if self.playerConfig.autoplay {
                         self.play()
@@ -544,11 +547,15 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             self.avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
 
-            // Ensure that the controls stay visible at all times while casting.
-            self.setControlViewVisibility(visible: true, animated: false, directiveLevel: .systemInitiated, lock: true)
+            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
 
             self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }
+
+                // Effectively do not hide the controls automatically, unless the user taps it.
+                self.controlViewDebouncer.minimumDelay = 7200
+
+                self.setControlViewVisibility(visible: true, animated: false, directiveLevel: .systemInitiated, lock: false)
 
                 if added && completed {
                     if self.playerConfig.autoplay {
@@ -560,9 +567,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
         
         if let castIntegration = castIntegration, castIntegration.isCasting() {
-            doLocal()
-        } else {
             doRemote()
+        } else {
+            doLocal()
         }
         #else
         doLocal()
