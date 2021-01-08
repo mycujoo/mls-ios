@@ -506,6 +506,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         let url = currentStream?.url
         let added = url != nil
 
+        if added {
+            self.currentStreamPlayHasBeenCalled = false
+        }
+
         // A block that defines what to when the local player (AVPlayer) should be utilized.
         let doLocal = { [weak self] () in
             guard let self = self else { return }
@@ -519,8 +523,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             } else {
                 // TODO: Remove info layer and thumbnail view.
                 self.view.setInfoViewVisibility(visible: false, animated: false)
-
-                self.currentStreamPlayHasBeenCalled = false
             }
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
