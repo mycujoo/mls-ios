@@ -319,6 +319,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
+            self.view.setBufferIcon(hidden: !self.player.isBuffering)
+
             // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
             guard !self.player.isSeeking else { return }
 
@@ -332,8 +334,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     self.view.videoSlider.value = optimisticCurrentTime / currentDuration
                 }
             }
-
-            self.view.setBufferIcon(hidden: !self.player.isBuffering)
 
             if self.player.currentItemEnded {
                 #if os(iOS)

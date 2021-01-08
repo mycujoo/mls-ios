@@ -76,6 +76,8 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     }
 
     private func startUpdatingTime() {
+        isFirstTimerStateUpdate = true
+
         let execute: () -> () = { [weak self] () in
             self?.updateTimerState()
         }
