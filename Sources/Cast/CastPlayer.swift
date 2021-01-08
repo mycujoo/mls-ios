@@ -11,21 +11,29 @@ import AVFoundation
 class CastPlayer: NSObject, CastPlayerProtocol {
     var state: VideoPlayerState = .readyToPlay
 
-    var isBuffering: Bool = false // TODO
+    // Will be updated by `updateMediaStatus`
+    var isBuffering: Bool = false
 
-    // Will be updated by `startUpdatingTime`
+    // Will be updated by `updateTimerState`
     var isLivestream: Bool = false
 
     var currentItemEnded: Bool {
         return currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream
     }
 
-    var isMuted: Bool = false // TODO
+    var isMuted: Bool {
+        get {
+            return GCKCastContext.sharedInstance().sessionManager.currentSession?.currentDeviceMuted ?? false
+        }
+        set {
+            GCKCastContext.sharedInstance().sessionManager.currentSession?.setDeviceMuted(newValue)
+        }
+    }
 
-    // Will be updated by `startUpdatingTime`
+    // Will be updated by `updateTimerState`
     var currentDuration: Double = 0
 
-    // Will be updated by `startUpdatingTime`
+    // Will be updated by `updateTimerState`
     var currentTime: Double = 0
 
     /// The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
@@ -51,6 +59,10 @@ class CastPlayer: NSObject, CastPlayerProtocol {
 
     private var updateTimeTimer: Timer? = nil
 
+    /// Tells the `updateTimerState` whether it's being loaded for the first time for the currently playing item.
+    /// Should be reset every time the playing item changes.
+    private var isFirstTimerStateUpdate = true
+
     override init() {}
 
     func play() {
@@ -64,35 +76,8 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     }
 
     private func startUpdatingTime() {
-        var isFirstUpdate = true
-
         let execute: () -> () = { [weak self] () in
-            guard let self = self else { return }
-
-            // Do not process this while the player is seeking.
-            guard !self.isSeeking else { return }
-
-            if isFirstUpdate {
-                isFirstUpdate = false
-
-                if let duration = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.streamDuration {
-                    self.isLivestream = duration.isInfinite || duration < 0
-                    self.currentDuration = self.isLivestream ? 0 : duration
-                }
-            }
-
-            if let currentTime = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateStreamPosition() {
-                self.currentTime = currentTime.isFinite ? floor(currentTime) : 0
-            }
-
-            if self.isLivestream,
-               let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeStart(),
-               let _ = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeEnd()
-               {
-                // Update the current duration based on the known seekable ranges.
-            }
-
-            self.timeObserverCallback?()
+            self?.updateTimerState()
         }
 
         updateTimeTimer?.invalidate()
@@ -109,7 +94,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         }
     }
 
-    internal func stopUpdatingTime() {
+    func stopUpdatingTime() {
         updateTimeTimer?.invalidate()
         updateTimeTimer = nil
     }
@@ -236,5 +221,49 @@ class CastPlayer: NSObject, CastPlayerProtocol {
             // requestWrapper is not weakly retained because `CastGCKRequestHandler` statically retains it as long as needed.
             request?.delegate = requestWrapper
         }
+    }
+
+    func updateMediaStatus(_ mediaStatus: GCKMediaStatus?) {
+        guard let mediaStatus = mediaStatus else { return }
+        switch(mediaStatus.playerState) {
+        case .buffering, .loading:
+            self.isBuffering = true
+        default:
+            self.isBuffering = false
+        }
+
+        updateTimerState()
+    }
+
+    private func updateTimerState() {
+        // Do not process this while the player is seeking.
+        guard !isSeeking else { return }
+
+        if isFirstTimerStateUpdate {
+            isFirstTimerStateUpdate = false
+
+            if let duration = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus?.mediaInformation?.streamDuration {
+                self.isLivestream = duration.isInfinite || duration < 0
+                self.currentDuration = self.isLivestream ? 0 : duration
+            }
+        }
+
+        if let currentTime = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateStreamPosition() {
+            self.currentTime = currentTime.isFinite ? floor(currentTime) : 0
+        }
+
+        if self.isLivestream {
+            if let start = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeStart(),
+            let end = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.approximateLiveSeekableRangeEnd(),
+            !start.isNaN, !end.isNaN {
+                self.currentDuration = end - start
+            }
+            else {
+                // Should not happen, this is just a fallback.
+                self.currentDuration = self.currentTime
+            }
+        }
+
+        self.timeObserverCallback?()
     }
 }

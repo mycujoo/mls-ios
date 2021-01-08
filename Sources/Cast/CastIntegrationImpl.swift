@@ -82,11 +82,11 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
 
 extension CastIntegrationImpl: GCKRemoteMediaClientListener {
     func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaStatus: GCKMediaStatus?) {
-//        _mediaStatusUpdatedSubject.onNext(mediaStatus)
+        _player.updateMediaStatus(mediaStatus)
     }
 
     func remoteMediaClient(_ client: GCKRemoteMediaClient, didUpdate mediaMetadata: GCKMediaMetadata?) {
-//        _metadataUpdatedSubject.onNext(mediaMetadata)
+
     }
 
     func remoteMediaClientDidUpdateQueue(_ client: GCKRemoteMediaClient) {
@@ -122,6 +122,8 @@ extension CastIntegrationImpl: GCKSessionManagerListener {
         func switchPlaybackToLocal() {
             guard _isCasting else { return }
             _isCasting = false
+
+            _player.stopUpdatingTime()
 
             GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
 
