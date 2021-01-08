@@ -516,7 +516,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         let url = currentStream?.url
         let added = url != nil
 
-        if added {
+        if !added {
+            // TODO: Show the info layer or the thumbnail view.
+            self.view.setInfoViewVisibility(visible: true, animated: false)
+        } else {
+            // TODO: Remove info layer and thumbnail view.
+            self.view.setInfoViewVisibility(visible: false, animated: false)
             self.currentStreamPlayHasBeenCalled = false
         }
 
@@ -526,14 +531,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
             self.view.setBufferIcon(hidden: true)
-
-            if !added {
-                // TODO: Show the info layer or the thumbnail view.
-                self.view.setInfoViewVisibility(visible: true, animated: false)
-            } else {
-                // TODO: Remove info layer and thumbnail view.
-                self.view.setInfoViewVisibility(visible: false, animated: false)
-            }
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
             self.avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
@@ -561,17 +558,13 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
 
-            if added {
-                self.view.setInfoViewVisibility(visible: false, animated: false)
-            }
-
             self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }
 
                 // Effectively do not hide the controls automatically, unless the user taps it.
                 self.controlViewDebouncer.minimumDelay = 7200
 
-                self.setControlViewVisibility(visible: true, animated: false, directiveLevel: .systemInitiated, lock: false)
+                self.setControlViewVisibility(visible: added, animated: false, directiveLevel: .systemInitiated, lock: false)
 
                 if added && completed {
                     if self.playerConfig.autoplay {

@@ -111,6 +111,9 @@ class CastPlayer: NSObject, CastPlayerProtocol {
             var eventId: String?
         }
 
+        // The player must have a stream url. If not, it moves into a failed state and blocks the player altogether.
+        guard let url = stream?.url else { return }
+
         let metadata = GCKMediaMetadata()
         metadata.setString(event?.title ?? "", forKey: kGCKMetadataKeyTitle)
         metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeyTitle)
@@ -138,6 +141,9 @@ class CastPlayer: NSObject, CastPlayerProtocol {
             completionHandler(true)
         } failureHandler: { [weak self] () in
             self?.state = .failed
+
+            GCKCastContext.sharedInstance().sessionManager.currentCastSession?.end(with: .stopCasting)
+
             completionHandler(false)
         } abortionHandler: {
             completionHandler(false)
