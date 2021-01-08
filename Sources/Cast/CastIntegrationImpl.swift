@@ -9,9 +9,7 @@ import GoogleCast
 
 
 class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
-    func player() -> CastPlayerProtocol {
-        return _player
-    }
+    private static var wasPreviouslyInitialized = false
 
     weak var videoPlayerDelegate: CastIntegrationVideoPlayerDelegate?
     weak var delegate: CastIntegrationDelegate?
@@ -32,15 +30,25 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         super.init()
     }
 
+    deinit {
+        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
+        GCKCastContext.sharedInstance().sessionManager.remove(self)
+    }
+
     func initialize(_ videoPlayerDelegate: CastIntegrationVideoPlayerDelegate) {
         guard let delegate = delegate else { return }
 
         self.videoPlayerDelegate = videoPlayerDelegate
 
-        let criteria = GCKDiscoveryCriteria(applicationID: appId)
-        let options = GCKCastOptions(discoveryCriteria: criteria)
-        options.physicalVolumeButtonsWillControlDeviceVolume = true
-        GCKCastContext.setSharedInstanceWith(options)
+        if !CastIntegrationImpl.wasPreviouslyInitialized {
+            CastIntegrationImpl.wasPreviouslyInitialized = true
+
+            // This shared instance setup should only be done once in the lifetime of the app.
+            let criteria = GCKDiscoveryCriteria(applicationID: appId)
+            let options = GCKCastOptions(discoveryCriteria: criteria)
+            options.physicalVolumeButtonsWillControlDeviceVolume = true
+            GCKCastContext.setSharedInstanceWith(options)
+        }
 
         GCKLogger.sharedInstance().delegate = self
         GCKLogger.sharedInstance().loggingEnabled = false
@@ -50,6 +58,13 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         GCKLogger.sharedInstance().filter = logFilter
 
         GCKCastContext.sharedInstance().sessionManager.add(self)
+
+        switch(GCKCastContext.sharedInstance().castState) {
+        case .connected:
+            _isCasting = true
+        default:
+            break
+        }
 
         let castButton = GCKUICastButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
         castButton.tintColor = UIColor.gray
@@ -72,6 +87,9 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         #endif
     }
 
+    func player() -> CastPlayerProtocol {
+        return _player
+    }
 
     func isCasting() -> Bool {
         return _isCasting
