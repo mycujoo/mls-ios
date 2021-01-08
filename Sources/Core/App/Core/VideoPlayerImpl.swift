@@ -188,7 +188,11 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private let avPlayer: MLSAVPlayerProtocol
 
     private var player: PlayerProtocol {
+        #if os(iOS)
         return castIntegration?.isCasting() == true ? castIntegration?.player() ?? avPlayer : avPlayer
+        #else
+        return avPlayer
+        #endif
     }
 
     private let getEventUpdatesUseCase: GetEventUpdatesUseCase
@@ -502,25 +506,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         let url = currentStream?.url
         let added = url != nil
 
-        if let castIntegration = castIntegration, castIntegration.isCasting() {
-            avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
+        // A block that defines what to when the local player (AVPlayer) should be utilized.
+        let doLocal = { [weak self] () in
+            guard let self = self else { return }
 
-            // Ensure that the controls stay visible at all times while casting.
-            setControlViewVisibility(visible: true, animated: false, directiveLevel: .systemInitiated, lock: true)
-
-            castIntegration.player().replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream) { [weak self] completed in
-                guard let self = self else { return }
-
-                if added && completed {
-                    if self.playerConfig.autoplay {
-                        self.play()
-                    }
-                }
-                callback?(completed)
-            }
-        } else {
-            setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-            view.setBufferIcon(hidden: true)
+            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+            self.view.setBufferIcon(hidden: true)
 
             if !added {
                 // TODO: Show the info layer or the thumbnail view.
@@ -529,11 +520,11 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 // TODO: Remove info layer and thumbnail view.
                 self.view.setInfoViewVisibility(visible: false, animated: false)
 
-                currentStreamPlayHasBeenCalled = false
+                self.currentStreamPlayHasBeenCalled = false
             }
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-            avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
+            self.avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
                 guard let self = self else { return }
                 self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
@@ -545,6 +536,37 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 callback?(completed)
             }
         }
+
+        #if os(iOS)
+        // A block that defines what to when the remote player (CastPlayer) should be utilized.
+        let doRemote = { [weak self] () in
+            guard let self = self else { return }
+
+            self.avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
+
+            // Ensure that the controls stay visible at all times while casting.
+            self.setControlViewVisibility(visible: true, animated: false, directiveLevel: .systemInitiated, lock: true)
+
+            castIntegration.player().replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: currentStream) { [weak self] completed in
+                guard let self = self else { return }
+
+                if added && completed {
+                    if self.playerConfig.autoplay {
+                        self.play()
+                    }
+                }
+                callback?(completed)
+            }
+        }
+        
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            doLocal()
+        } else {
+            doRemote()
+        }
+        #else
+        doLocal()
+        #endif
     }
 
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
@@ -616,10 +638,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
         if Int(currentDuration) + 20 > (currentStream?.dvrWindowSize ?? Int.max) / 1000 {
+            #if os(iOS)
             if castIntegration?.isCasting() == true {
                 // We can't evaluate annotations at this point, since we do not have access to the raw playlist.
                 return
             }
+            #endif
 
             let map = hlsInspectionService.map(hlsPlaylist: avPlayer.rawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
             offsetMappings = Dictionary(allAnnotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
@@ -652,10 +676,18 @@ extension VideoPlayerImpl {
         if !currentStreamPlayHasBeenCalled {
             currentStreamPlayHasBeenCalled = true
 
+            #if os(iOS)
             if let imaIntegration = imaIntegration, castIntegration?.isCasting() != true {
                 imaIntegration.playPreroll()
                 return
             }
+            #else
+            if let imaIntegration = imaIntegration {
+                imaIntegration.playPreroll()
+                return
+            }
+            #endif
+
         }
 
         if imaIntegration?.isShowingAd() == true {
@@ -1025,6 +1057,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
     }
 }
 
+#if os(iOS)
 extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
     func isCastingStateUpdated() {
         guard let _ = castIntegration else { return }
@@ -1033,7 +1066,7 @@ extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
         placeCurrentStream()
     }
 }
-
+#endif
 
 // MARK: - DirectiveLevel
 enum DirectiveLevel: Int {
