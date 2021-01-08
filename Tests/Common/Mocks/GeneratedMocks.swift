@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -409,6 +409,30 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
+    public var stateObserverCallback: (() -> Void)? {
+        get {
+            return cuckoo_manager.getter("stateObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.stateObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("stateObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.stateObserverCallback = newValue)
+        }
+        
+    }
+    
+    
+    
     public var timeObserverCallback: (() -> Void)? {
         get {
             return cuckoo_manager.getter("timeObserverCallback",
@@ -603,6 +627,11 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var stateObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockCastPlayerProtocol, (() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "stateObserverCallback")
+	    }
+	    
+	    
 	    var timeObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockCastPlayerProtocol, (() -> Void)> {
 	        return .init(manager: cuckoo_manager, name: "timeObserverCallback")
 	    }
@@ -700,6 +729,11 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    
 	    var currentItemEnded: Cuckoo.VerifyReadOnlyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var stateObserverCallback: Cuckoo.VerifyOptionalProperty<(() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "stateObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -830,6 +864,16 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
     }
     
     
+    public var stateObserverCallback: (() -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
     public var timeObserverCallback: (() -> Void)? {
         get {
             return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
@@ -880,7 +924,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1193,7 +1237,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1357,6 +1401,30 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.currentItemEnded)
+        }
+        
+    }
+    
+    
+    
+    public var stateObserverCallback: (() -> Void)? {
+        get {
+            return cuckoo_manager.getter("stateObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.stateObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("stateObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.stateObserverCallback = newValue)
         }
         
     }
@@ -1542,6 +1610,11 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var stateObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockPlayerProtocol, (() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "stateObserverCallback")
+	    }
+	    
+	    
 	    var timeObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockPlayerProtocol, (() -> Void)> {
 	        return .init(manager: cuckoo_manager, name: "timeObserverCallback")
 	    }
@@ -1634,6 +1707,11 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    
 	    var currentItemEnded: Cuckoo.VerifyReadOnlyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var stateObserverCallback: Cuckoo.VerifyOptionalProperty<(() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "stateObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -1758,6 +1836,16 @@ public class PlayerProtocolStub: PlayerProtocol {
     }
     
     
+    public var stateObserverCallback: (() -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
     public var timeObserverCallback: (() -> Void)? {
         get {
             return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
@@ -1804,7 +1892,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2010,6 +2098,30 @@ import Foundation
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.currentItemEnded)
+        }
+        
+    }
+    
+    
+    
+    public var stateObserverCallback: (() -> Void)? {
+        get {
+            return cuckoo_manager.getter("stateObserverCallback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.stateObserverCallback)
+        }
+        
+        set {
+            cuckoo_manager.setter("stateObserverCallback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.stateObserverCallback = newValue)
         }
         
     }
@@ -2225,6 +2337,11 @@ import Foundation
 	    }
 	    
 	    
+	    var stateObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockMLSAVPlayerProtocol, (() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "stateObserverCallback")
+	    }
+	    
+	    
 	    var timeObserverCallback: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockMLSAVPlayerProtocol, (() -> Void)> {
 	        return .init(manager: cuckoo_manager, name: "timeObserverCallback")
 	    }
@@ -2337,6 +2454,11 @@ import Foundation
 	    
 	    var currentItemEnded: Cuckoo.VerifyReadOnlyProperty<Bool> {
 	        return .init(manager: cuckoo_manager, name: "currentItemEnded", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var stateObserverCallback: Cuckoo.VerifyOptionalProperty<(() -> Void)> {
+	        return .init(manager: cuckoo_manager, name: "stateObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -2491,6 +2613,16 @@ import Foundation
     }
     
     
+    public var stateObserverCallback: (() -> Void)? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
     public var timeObserverCallback: (() -> Void)? {
         get {
             return DefaultValueRegistry.defaultValue(for: ((() -> Void)?).self)
@@ -2541,7 +2673,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3909,7 +4041,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4041,7 +4173,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4173,7 +4305,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4365,7 +4497,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4467,7 +4599,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4629,7 +4761,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4731,7 +4863,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4833,7 +4965,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-08 18:18:22 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-08 21:09:12 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

@@ -20,6 +20,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     var castIntegration: CastIntegration? {
         didSet {
             castIntegration?.initialize(self)
+            castIntegration?.player().stateObserverCallback = stateObserverCallback
             castIntegration?.player().timeObserverCallback = timeObserverCallback
             castIntegration?.player().playObserverCallback = playObserverCallback
         }
@@ -56,8 +57,11 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
-    var state: PlayerState {
-        return player.state
+    // This property will be updated by `stateObserverCallback` on the currently-used player.
+    var state: PlayerState = .unknown {
+        didSet {
+            delegate?.playerDidUpdateState(player: self)
+        }
     }
 
     /// The current status of the player, based on the current item.
@@ -324,6 +328,11 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    lazy var stateObserverCallback: () -> () = { [weak self] () in
+        guard let self = self else { return }
+        self.state = self.player.state
+    }
+
     /// The callback that handles time updates. This is saved as a separate property because it needs to be set on both avPlayer and castPlayer at different points of initialization.
     lazy var timeObserverCallback: () -> () = { [weak self] () in
         DispatchQueue.main.async { [weak self] in
@@ -428,6 +437,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             }
         }
 
+        avPlayer.stateObserverCallback = self.stateObserverCallback
         avPlayer.timeObserverCallback = self.timeObserverCallback
         avPlayer.playObserverCallback = self.playObserverCallback
 

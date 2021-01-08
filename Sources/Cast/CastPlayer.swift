@@ -9,7 +9,11 @@ import AVFoundation
 
 
 class CastPlayer: NSObject, CastPlayerProtocol {
-    var state: PlayerState = .unknown
+    var state: PlayerState = .unknown {
+        didSet {
+            stateObserverCallback?()
+        }
+    }
 
     // Will be updated by `updateMediaStatus`
     var isBuffering: Bool = false
@@ -41,10 +45,9 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         return _seekingToTime ?? currentTime
     }
 
+    var stateObserverCallback: (() -> Void)? = nil
     var timeObserverCallback: (() -> Void)? = nil
-
-    // At the moment, there is nothing that calls this from within CastPlayer. Leave it for compliance.
-    var playObserverCallback: ((Bool) -> Void)? = nil
+    var playObserverCallback: ((Bool) -> Void)? = nil // TODO: call this at the appropriate times
 
     private(set) var isSeeking = false
 

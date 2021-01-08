@@ -95,6 +95,8 @@ public protocol VideoPlayerDelegate: AnyObject {
     func playerDidUpdatePlaying(player: VideoPlayer)
     /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`
     func playerDidUpdateTime(player: VideoPlayer)
+    /// The player has updated its state. To access the current state, see `VideoPlayer.state`
+    func playerDidUpdateState(player: VideoPlayer)
     #if os(iOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.

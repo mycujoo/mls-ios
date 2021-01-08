@@ -13,7 +13,11 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
     private let resourceLoaderQueue = DispatchQueue.global(qos: .background)
 
-    private(set) var state: PlayerState = .unknown
+    private(set) var state: PlayerState = .unknown {
+        didSet {
+            stateObserverCallback?()
+        }
+    }
 
     /// The current time (in seconds) of the currentItem.
     var currentTime: Double {
@@ -25,6 +29,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         return _seekingToTime ?? currentTime
     }
 
+    var stateObserverCallback: (() -> Void)? = nil
     var timeObserverCallback: (() -> Void)? = nil
     var playObserverCallback: ((Bool) -> Void)? = nil
 

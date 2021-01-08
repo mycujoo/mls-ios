@@ -46,6 +46,7 @@ class VideoPlayerSpec: QuickSpec {
         var playButtonTapped: (() -> Void)? = nil
         var infoButtonTapped: (() -> Void)? = nil
         var controlViewTapped: (() -> Void)? = nil
+        var stateObserverCallback: (() -> Void)? = nil
         var timeObserverCallback: (() -> Void)? = nil
         var playObserverCallback: ((Bool) -> Void)? = nil
 
@@ -177,6 +178,10 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 when(mock).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any()).then { (tuple) in
                     (tuple.3)(true)
+                }
+                when(mock).stateObserverCallback.get.thenReturn(stateObserverCallback)
+                when(mock).stateObserverCallback.set(any()).then { obj in
+                    stateObserverCallback = obj
                 }
                 when(mock).timeObserverCallback.get.thenReturn(timeObserverCallback)
                 when(mock).timeObserverCallback.set(any()).then { obj in

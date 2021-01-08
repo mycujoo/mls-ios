@@ -24,10 +24,12 @@ public protocol PlayerProtocol: class {
     var isLivestream: Bool { get }
     /// Indicates whether the item that is currently loaded into the player has ended.
     var currentItemEnded: Bool { get }
+    /// A callback that is called whenever the player's state property is updated. Should be set by the owner of the player.
+    var stateObserverCallback: (() -> Void)? { get set }
     /// A callback that is called whenever the player's time-related properties are updated. Should be set by the owner of the player.
     var timeObserverCallback: (() -> Void)? { get set }
     /// A callback that is called whenever a the play/pause state is being updated (e.g. through a remote control).
-    /// True indicates it is playing, false that it's paused.
+    /// True indicates it is playing, false that it's paused. Should be set by the owner of the player.
     var playObserverCallback: ((Bool) -> Void)? { get set }
 
     func play()
