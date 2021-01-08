@@ -9,7 +9,7 @@ import AVFoundation
 
 
 class CastPlayer: NSObject, CastPlayerProtocol {
-    var state: VideoPlayerState = .readyToPlay
+    var state: PlayerState = .readyToPlay
 
     // Will be updated by `updateMediaStatus`
     var isBuffering: Bool = false

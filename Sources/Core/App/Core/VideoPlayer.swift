@@ -13,8 +13,10 @@ public protocol VideoPlayer: class {
     /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.
     var imaIntegration: IMAIntegration? { get set }
 
+    #if os(iOS)
     /// Should be set by the SDK user for Google Chromecast support to work. Such an object can be obtained through the `MLSSDK/Cast` extensions.
     var castIntegration: CastIntegration? { get set }
+    #endif
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     /// - note: This sets `stream` to nil.
@@ -23,6 +25,9 @@ public protocol VideoPlayer: class {
     /// Setting a Stream will automatically switch the player over to this stream.
     /// - note: This sets `event` to nil.
     var stream: Stream? { get set }
+
+    /// Indicates whether the Player is ready to play or not.
+    var state: PlayerState { get }
 
     /// The current status of the player, based on the current item.
     var status: VideoPlayerStatus { get }
@@ -82,18 +87,6 @@ public protocol VideoPlayer: class {
     func showEventInfoOverlay()
 
     func hideEventInfoOverlay()
-}
-
-// MARK: - State
-public enum VideoPlayerState: Int {
-    /// Indicates that the status of the player is not yet known because it has not tried to load new media resources for playback.
-    case unknown = 0
-    /// Indicates that the player is ready to play AVPlayerItem instances.
-    case readyToPlay = 1
-    /// Indicates that the player can no longer play AVPlayerItem instances because of an error. The error is described by the value of the player's error property.
-    case failed = 2
-    /// The player has finished playing the media
-//    case ended = 3
 }
 
 public enum VideoPlayerStatus {

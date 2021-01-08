@@ -8,8 +8,7 @@ import AVFoundation
 
 public protocol PlayerProtocol: class {
     /// Indicates whether the Player is ready to play or not.
-    var state: VideoPlayerState { get }
-
+    var state: PlayerState { get }
     var isMuted: Bool { get set }
     /// The duration (in seconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double { get }
@@ -37,4 +36,13 @@ public protocol PlayerProtocol: class {
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)
     func seek(by amount: Double, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)
+}
+
+public enum PlayerState: Int {
+    /// Indicates that the status of the player is not yet known because it has not tried to load new media resources for playback.
+    case unknown = 0
+    /// Indicates that the player is ready to play AVPlayerItem instances.
+    case readyToPlay = 1
+    /// Indicates that the player can no longer play AVPlayerItem instances because of an error. The error is described by the value of the player's error property.
+    case failed = 2
 }

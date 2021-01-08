@@ -13,7 +13,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
     private let resourceLoaderQueue = DispatchQueue.global(qos: .background)
 
-    private(set) var state: VideoPlayerState = .unknown
+    private(set) var state: PlayerState = .unknown
 
     /// The current time (in seconds) of the currentItem.
     var currentTime: Double {
@@ -275,7 +275,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     ) {
         switch keyPath {
         case "status":
-            state = VideoPlayerState(rawValue: status.rawValue) ?? .unknown
+            state = PlayerState(rawValue: status.rawValue) ?? .unknown
         case "timeControlStatus":
             if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
                 let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)

@@ -16,6 +16,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    #if os(iOS)
     var castIntegration: CastIntegration? {
         didSet {
             castIntegration?.initialize(self)
@@ -23,6 +24,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             castIntegration?.player().playObserverCallback = playObserverCallback
         }
     }
+    #endif
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     /// - note: This sets `stream` to nil.
@@ -52,6 +54,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             }
             rebuild(new: new)
         }
+    }
+
+    var state: PlayerState {
+        return player.state
     }
 
     /// The current status of the player, based on the current item.
