@@ -9,7 +9,7 @@ import AVFoundation
 
 
 class CastPlayer: NSObject, CastPlayerProtocol {
-    var state: PlayerState = .readyToPlay
+    var state: PlayerState = .unknown
 
     // Will be updated by `updateMediaStatus`
     var isBuffering: Bool = false
@@ -126,11 +126,15 @@ class CastPlayer: NSObject, CastPlayerProtocol {
 
         stopUpdatingTime()
 
+        state = .unknown
+
         let request = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.loadMedia(mediaInfoBuilder.build())
         let requestWrapper = CastGCKRequestHandler {} completionHandler: { [weak self] () in
+            self?.state = .readyToPlay
             self?.startUpdatingTime()
             completionHandler(true)
-        } failureHandler: {
+        } failureHandler: { [weak self] () in
+            self?.state = .failed
             completionHandler(false)
         } abortionHandler: {
             completionHandler(false)
