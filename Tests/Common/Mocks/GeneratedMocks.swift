@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -273,7 +273,7 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
-    public var state: VideoPlayerState {
+    public var state: PlayerState {
         get {
             return cuckoo_manager.getter("state",
                 superclassCall:
@@ -558,7 +558,7 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, VideoPlayerState> {
+	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, PlayerState> {
 	        return .init(manager: cuckoo_manager, name: "state")
 	    }
 	    
@@ -658,7 +658,7 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	
 	    
 	    
-	    var state: Cuckoo.VerifyReadOnlyProperty<VideoPlayerState> {
+	    var state: Cuckoo.VerifyReadOnlyProperty<PlayerState> {
 	        return .init(manager: cuckoo_manager, name: "state", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
@@ -756,9 +756,9 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 public class CastPlayerProtocolStub: CastPlayerProtocol {
     
     
-    public var state: VideoPlayerState {
+    public var state: PlayerState {
         get {
-            return DefaultValueRegistry.defaultValue(for: (VideoPlayerState).self)
+            return DefaultValueRegistry.defaultValue(for: (PlayerState).self)
         }
         
     }
@@ -880,7 +880,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1193,7 +1193,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1227,7 +1227,7 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
-    public var state: VideoPlayerState {
+    public var state: PlayerState {
         get {
             return cuckoo_manager.getter("state",
                 superclassCall:
@@ -1497,7 +1497,7 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, VideoPlayerState> {
+	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, PlayerState> {
 	        return .init(manager: cuckoo_manager, name: "state")
 	    }
 	    
@@ -1592,7 +1592,7 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	
 	    
 	    
-	    var state: Cuckoo.VerifyReadOnlyProperty<VideoPlayerState> {
+	    var state: Cuckoo.VerifyReadOnlyProperty<PlayerState> {
 	        return .init(manager: cuckoo_manager, name: "state", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
@@ -1684,9 +1684,9 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 public class PlayerProtocolStub: PlayerProtocol {
     
     
-    public var state: VideoPlayerState {
+    public var state: PlayerState {
         get {
-            return DefaultValueRegistry.defaultValue(for: (VideoPlayerState).self)
+            return DefaultValueRegistry.defaultValue(for: (PlayerState).self)
         }
         
     }
@@ -1804,7 +1804,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Utils/MLSAVPlayerProtocol.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1880,7 +1880,7 @@ import Foundation
     
     
     
-    public var state: VideoPlayerState {
+    public var state: PlayerState {
         get {
             return cuckoo_manager.getter("state",
                 superclassCall:
@@ -2180,7 +2180,7 @@ import Foundation
 	    }
 	    
 	    
-	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, VideoPlayerState> {
+	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSAVPlayerProtocol, PlayerState> {
 	        return .init(manager: cuckoo_manager, name: "state")
 	    }
 	    
@@ -2295,7 +2295,7 @@ import Foundation
 	    }
 	    
 	    
-	    var state: Cuckoo.VerifyReadOnlyProperty<VideoPlayerState> {
+	    var state: Cuckoo.VerifyReadOnlyProperty<PlayerState> {
 	        return .init(manager: cuckoo_manager, name: "state", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
@@ -2417,9 +2417,9 @@ import Foundation
     }
     
     
-    public var state: VideoPlayerState {
+    public var state: PlayerState {
         get {
-            return DefaultValueRegistry.defaultValue(for: (VideoPlayerState).self)
+            return DefaultValueRegistry.defaultValue(for: (PlayerState).self)
         }
         
     }
@@ -2541,7 +2541,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3909,7 +3909,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4041,7 +4041,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4173,7 +4173,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4365,7 +4365,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4467,7 +4467,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4629,7 +4629,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4731,7 +4731,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4833,7 +4833,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-08 11:57:51 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-08 18:18:22 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

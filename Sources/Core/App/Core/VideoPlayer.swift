@@ -8,7 +8,7 @@ import AVFoundation
 
 
 public protocol VideoPlayer: class {
-    var delegate: PlayerDelegate? { get set }
+    var delegate: VideoPlayerDelegate? { get set }
 
     /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.
     var imaIntegration: IMAIntegration? { get set }
@@ -30,7 +30,7 @@ public protocol VideoPlayer: class {
     var state: PlayerState { get }
 
     /// The current status of the player, based on the current item.
-    var status: VideoPlayerStatus { get }
+    var status: PlayerStatus { get }
 
     /// The view of the VideoPlayer.
     var playerView: UIView { get }
@@ -89,16 +89,8 @@ public protocol VideoPlayer: class {
     func hideEventInfoOverlay()
 }
 
-public enum VideoPlayerStatus {
-    case play
-    case pause
-    
-    public var isPlaying: Bool { self == .play }
-}
-
-
 // MARK: - Delegate
-public protocol PlayerDelegate: AnyObject {
+public protocol VideoPlayerDelegate: AnyObject {
     /// The player has updated its playing status. To access the current status, see `VideoPlayer.status`
     func playerDidUpdatePlaying(player: VideoPlayer)
     /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`

@@ -46,3 +46,10 @@ public enum PlayerState: Int {
     /// Indicates that the player can no longer play AVPlayerItem instances because of an error. The error is described by the value of the player's error property.
     case failed = 2
 }
+
+public enum PlayerStatus {
+    case play
+    case pause
+
+    public var isPlaying: Bool { self == .play }
+}

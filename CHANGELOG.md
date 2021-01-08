@@ -12,6 +12,7 @@ Released on ?.
 
 #### Changed
 - Changed access control for AnnotationAction-related entities to public.
+- Renamed `PlayerDelegate` to `VideoPlayerDelegate`
 
 #### Fixed
 - Fixed an issue with timer rendering on the overlays

@@ -467,7 +467,7 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             describe("slider value") {
-                it("it updaets the slider value when the duration/current time changes") {
+                it("it updates the slider value when the duration/current time changes") {
                     updatePeriodicTimeObserver()
                     expect(self.mockView.videoSlider.value).toEventually(equal(optimisticCurrentTime / currentDuration))
                 }
@@ -482,7 +482,7 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             it("calls delegate with slider update") {
-                class Delegate: PlayerDelegate {
+                class Delegate: VideoPlayerDelegate {
                     var called = false
 
                     func playerDidUpdatePlaying(player: VideoPlayer) {}

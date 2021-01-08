@@ -7,7 +7,7 @@ import UIKit
 
 
 internal class VideoPlayerImpl: NSObject, VideoPlayer {
-    weak var delegate: PlayerDelegate?
+    weak var delegate: VideoPlayerDelegate?
 
     var imaIntegration: IMAIntegration? {
         didSet {
@@ -61,7 +61,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// The current status of the player, based on the current item.
-    private(set) var status: VideoPlayerStatus = .pause {
+    private(set) var status: PlayerStatus = .pause {
         didSet {
             var buttonState: VideoPlayerPlayButtonState
             switch status {

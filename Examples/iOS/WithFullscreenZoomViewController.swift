@@ -99,7 +99,7 @@ class WithFullscreenZoomViewController: UIViewController {
 }
 
 // MARK: - PlayerDelegate
-extension WithFullscreenZoomViewController: PlayerDelegate {
+extension WithFullscreenZoomViewController: VideoPlayerDelegate {
     func playerDidUpdatePlaying(player: VideoPlayer) {
 //        print("new status: ", player.status)
     }
