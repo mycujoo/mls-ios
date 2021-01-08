@@ -561,6 +561,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
 
+            if added {
+                self.view.setInfoViewVisibility(visible: false, animated: false)
+            }
+
             self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }
 
