@@ -483,7 +483,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                             self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
                         }
                     case .eventUpdate(let updatedEvent):
-                        if updatedEvent.id == event.id {
+                        if updatedEvent.id == self.event?.id {
                             self.event = updatedEvent
                         }
                     }
