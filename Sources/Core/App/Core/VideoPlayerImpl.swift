@@ -71,10 +71,16 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             switch status {
             case .play:
                 buttonState = .pause
-                player.play()
+                if oldValue != .pause {
+                    // Prevent an endless loop, since some players may update the status again after play is called.
+                    player.play()
+                }
             case .pause:
                 buttonState = .play
-                player.pause()
+                if oldValue != .play {
+                    // Prevent an endless loop, since some players may update the status again after pause is called.
+                    player.pause()
+                }
             case .unknown:
                 buttonState = .pause
             }

@@ -68,6 +68,10 @@ class CastPlayer: NSObject, CastPlayerProtocol {
 
     override init() {}
 
+    func initialize() {
+        self.updateMediaStatus(GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus)
+    }
+
     func play() {
         if let mediaStatus = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus, let _ = mediaStatus.currentQueueItem {
             GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.play()
@@ -243,6 +247,12 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         switch(mediaStatus.playerState) {
         case .buffering, .loading:
             self.isBuffering = true
+        case .playing:
+            self.isBuffering = false
+            playObserverCallback?(true)
+        case .paused:
+            self.isBuffering = false
+            playObserverCallback?(false)
         default:
             self.isBuffering = false
         }

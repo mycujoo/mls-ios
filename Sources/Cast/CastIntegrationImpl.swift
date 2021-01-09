@@ -85,6 +85,8 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         #if DEBUG
         GCKLogger.sharedInstance().delegate = self
         #endif
+
+        _player.initialize()
     }
 
     func player() -> CastPlayerProtocol {
