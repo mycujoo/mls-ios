@@ -50,6 +50,7 @@ public enum PlayerState: Int {
 }
 
 public enum PlayerStatus {
+    case unknown
     case play
     case pause
 

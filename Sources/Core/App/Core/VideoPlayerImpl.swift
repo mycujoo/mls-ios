@@ -65,7 +65,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// The current status of the player, based on the current item.
-    private(set) var status: PlayerStatus = .pause {
+    private(set) var status: PlayerStatus = .unknown {
         didSet {
             var buttonState: VideoPlayerPlayButtonState
             switch status {
@@ -75,6 +75,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             case .pause:
                 buttonState = .play
                 player.pause()
+            case .unknown:
+                buttonState = .pause
             }
 
             if player.currentItemEnded {
@@ -89,7 +91,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 #endif
             }
 
-            if oldValue != status {
+            if oldValue != status && status != .unknown {
                 delegate?.playerDidUpdatePlaying(player: self)
             }
         }
@@ -525,12 +527,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             self.currentStreamPlayHasBeenCalled = false
         }
 
+        self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+        self.view.setBufferIcon(hidden: !added)
+
         // A block that defines what to when the local player (AVPlayer) should be utilized.
         let doLocal = { [weak self] () in
             guard let self = self else { return }
-
-            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-            self.view.setBufferIcon(hidden: !added)
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
             self.avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
@@ -555,9 +557,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             guard let self = self else { return }
 
             self.avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
-
-            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-            self.view.setBufferIcon(hidden: !added)
 
             self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }
