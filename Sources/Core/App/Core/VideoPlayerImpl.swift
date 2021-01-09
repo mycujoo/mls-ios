@@ -530,7 +530,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             guard let self = self else { return }
 
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-            self.view.setBufferIcon(hidden: true)
+            self.view.setBufferIcon(hidden: !added)
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
             self.avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
@@ -557,6 +557,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             self.avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
 
             self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+            self.view.setBufferIcon(hidden: !added)
 
             self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }
