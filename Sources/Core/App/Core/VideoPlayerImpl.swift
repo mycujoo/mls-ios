@@ -1084,6 +1084,8 @@ extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
     func isCastingStateUpdated() {
         guard let _ = castIntegration else { return }
 
+        status = .unknown
+
         // Always re-place the current stream.
         placeCurrentStream()
     }
