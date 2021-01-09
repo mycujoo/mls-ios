@@ -22,7 +22,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     var isLivestream: Bool = false
 
     var currentItemEnded: Bool {
-        return currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream
+        return currentDuration > 0 && currentDuration <= ceil(optimisticCurrentTime) && !isLivestream
     }
 
     var isMuted: Bool {
@@ -124,7 +124,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
 
         let mediaInfoBuilder = GCKMediaInformationBuilder()
         // TODO: If we introduce Widevine, the streamUrl will need to be provided differently, since this uses Fairplay by default.
-        mediaInfoBuilder.contentURL = stream?.url
+        mediaInfoBuilder.contentURL = url
         mediaInfoBuilder.streamType = .none
         mediaInfoBuilder.contentType = "video/m3u"
         mediaInfoBuilder.metadata = metadata

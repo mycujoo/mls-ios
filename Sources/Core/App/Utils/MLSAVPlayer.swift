@@ -93,7 +93,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
     /// Indicates whether the item that is currently loaded into the player has ended.
     var currentItemEnded: Bool {
-        return currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream
+        return currentDuration > 0 && currentDuration <= ceil(optimisticCurrentTime) && !isLivestream
     }
 
     var rawSegmentPlaylist: String? = nil
