@@ -619,24 +619,24 @@ class VideoPlayerSpec: QuickSpec {
         describe("autoplay") {
             describe("without ima integration") {
                 it("autoplays with autoplay set to true") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: nil)
                     self.videoPlayer.event = self.event
                     expect(self.videoPlayer.status).to(equal(.play))
                 }
 
                 it("does not autoplay with autoplay set to false") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
                     self.videoPlayer.event = self.event
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                 }
 
                 it("plays when calling play() with autoplay set to false") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
                     self.videoPlayer.event = self.event
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.play()
                     expect(self.videoPlayer.status).to(equal(.play))
                 }
@@ -649,17 +649,17 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             it("autoplays with autoplay set to true") {
-                expect(self.videoPlayer.status).to(equal(.pause))
+                expect(self.videoPlayer.status).to(equal(.unknown))
                 self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: "123456")
                 self.videoPlayer.event = self.event
                 expect(self.videoPlayer.status).to(equal(.play))
             }
 
             it("does not autoplay with autoplay set to false") {
-                expect(self.videoPlayer.status).to(equal(.pause))
+                expect(self.videoPlayer.status).to(equal(.unknown))
                 self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
                 self.videoPlayer.event = self.event
-                expect(self.videoPlayer.status).to(equal(.pause))
+                expect(self.videoPlayer.status).to(equal(.unknown))
             }
 
             it("plays ad directly upon autoplay") {
@@ -717,9 +717,9 @@ class VideoPlayerSpec: QuickSpec {
                     self.videoPlayer.imaIntegration = self.mockIMAIntegration
                     self.videoPlayer.playerConfig = PlayerConfig(imaAdUnit: "123456")
                     self.videoPlayer.event = self.event
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     playButtonTapped?()
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                 }
 
                 it("Seeks to beginning if state is currently ended") {
