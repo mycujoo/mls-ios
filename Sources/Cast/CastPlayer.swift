@@ -135,6 +135,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         }
 
         stopUpdatingTime()
+        updateTimerState(forceReset: true)
 
         state = .unknown
 
@@ -260,7 +261,17 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         updateTimerState()
     }
 
-    private func updateTimerState() {
+    /// - parameter forceReset: If true, it will send default values to the observer. Useful only for resetting whenever a new stream is about to begin.
+    private func updateTimerState(forceReset: Bool = false) {
+        guard !forceReset else {
+            self.isLivestream = false
+            self.currentDuration = 0
+            self.currentTime = 0
+            self._seekingToTime = nil
+            self.timeObserverCallback?()
+            return
+        }
+
         if isFirstTimerStateUpdate {
             isFirstTimerStateUpdate = false
 
