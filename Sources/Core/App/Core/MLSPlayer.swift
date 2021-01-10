@@ -6,7 +6,7 @@ import Foundation
 import AVFoundation
 
 /// A subclass of AVPlayer to improve visibility of such things as seeking states.
-class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
+class MLSPlayer: AVPlayer, MLSPlayerProtocol {
     private(set) var isSeeking = false
 
     private(set) var isBuffering = false
@@ -240,10 +240,17 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
             return
         }
 
-        MLSAVPlayerNetworkInterceptor.register(withDelegate: self)
+        // Always clear the old item immediately, and update the state downstream.
+        self.replaceCurrentItem(with: nil)
+        timeObserverCallback?()
+        stateObserverCallback?()
+        playObserverCallback?(false)
 
-        let asset = AVURLAsset(url: MLSAVPlayerNetworkInterceptor.prepare(assetUrl), options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
+        MLSPlayerNetworkInterceptor.register(withDelegate: self)
+
+        let asset = AVURLAsset(url: MLSPlayerNetworkInterceptor.prepare(assetUrl), options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)
+        
         asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
             guard let `self` = self else { return }
 
@@ -263,11 +270,10 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         }
     }
 
-    private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
+    private func trackTime(with player: MLSPlayerProtocol) -> Any {
         addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 600), queue: .main) { [weak self] _ in
             guard let self = self else { return }
 
-            // TODO: Notify listener of updates.
             self.timeObserverCallback?()
         }
     }
@@ -316,7 +322,7 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     }
 }
 
-extension MLSAVPlayer: MLSAVPlayerNetworkInterceptorDelegate {
+extension MLSPlayer: MLSPlayerNetworkInterceptorDelegate {
     func received(response: String, forRequestURL: URL?) {
         guard let lastPathComponent = forRequestURL?.lastPathComponent, lastPathComponent != "master.m3u8" else { return }
         self.rawSegmentPlaylist = response

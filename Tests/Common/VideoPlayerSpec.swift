@@ -13,7 +13,7 @@ import AVFoundation
 class VideoPlayerSpec: QuickSpec {
 
     var mockView: MockVideoPlayerViewProtocol!
-    var mockAVPlayer: MockMLSAVPlayerProtocol!
+    var mockMLSPlayer: MockMLSPlayerProtocol!
     var mockIMAIntegration: MockIMAIntegration!
     var mockAnnotationService: MockAnnotationServicing!
     var mockVideoAnalyticsService: MockVideoAnalyticsServicing!
@@ -140,14 +140,14 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setSkipButtons(hidden: any()).thenDoNothing()
             }
 
-            self.mockAVPlayer = MockMLSAVPlayerProtocol()
-            stub(self.mockAVPlayer) { mock in
+            self.mockMLSPlayer = MockMLSPlayerProtocol()
+            stub(self.mockMLSPlayer) { mock in
                 when(mock).state.get.thenReturn(.readyToPlay)
                 when(mock).currentDuration.get.then { _ -> Double in
                     return currentDuration
                 }
                 when(mock).currentItemEnded.get.then { _ -> Bool in
-                    return self.mockAVPlayer.currentDuration > 0 && self.mockAVPlayer.currentDuration <= self.mockAVPlayer.optimisticCurrentTime && !self.mockAVPlayer.isLivestream
+                    return self.mockMLSPlayer.currentDuration > 0 && self.mockMLSPlayer.currentDuration <= self.mockMLSPlayer.optimisticCurrentTime && !self.mockMLSPlayer.isLivestream
                 }
                 when(mock).isLivestream.get.then { _ -> Bool in
                     return false
@@ -281,7 +281,7 @@ class VideoPlayerSpec: QuickSpec {
 
             self.videoPlayer = VideoPlayerImpl(
                 view: self.mockView,
-                avPlayer: self.mockAVPlayer,
+                avPlayer: self.mockMLSPlayer,
                 getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository),
                 getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase(timelineRepository: self.mockTimelineRepository),
                 getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository),
@@ -303,7 +303,7 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+                        verify(self.mockMLSPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         done()
                     }
@@ -316,7 +316,7 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+                        verify(self.mockMLSPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         done()
                     }
@@ -329,11 +329,11 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.isNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+                        verify(self.mockMLSPlayer, times(1)).replaceCurrentItem(with: Cuckoo.isNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
                         let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+                            verify(self.mockMLSPlayer, times(1)).replaceCurrentItem(with: Cuckoo.notNil(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                             done()
                         }
@@ -347,13 +347,13 @@ class VideoPlayerSpec: QuickSpec {
 
                     // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
                     let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                        verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+                        verify(self.mockMLSPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                         self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true)
 
                         let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                             // The item should not have been replaced.
-                            verify(self.mockAVPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+                            verify(self.mockMLSPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
 
                             done()
                         }
@@ -478,7 +478,7 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 it("it does not update the slider value while seeking and the time changes") {
                     let sliderValueBefore = self.mockView.videoSlider.value
-                    stub(self.mockAVPlayer) { mock in
+                    stub(self.mockMLSPlayer) { mock in
                         when(mock).isSeeking.get.thenReturn(true)
                     }
                     updatePeriodicTimeObserver()
@@ -725,7 +725,7 @@ class VideoPlayerSpec: QuickSpec {
                 it("Seeks to beginning if state is currently ended") {
                     self.videoPlayer.event = self.event
                     updateAVPlayerStatus(to: .readyToPlay)
-                    stub(self.mockAVPlayer) { mock in
+                    stub(self.mockMLSPlayer) { mock in
                         when(mock).currentItemEnded.get.thenReturn(true)
                     }
 
@@ -734,7 +734,7 @@ class VideoPlayerSpec: QuickSpec {
                         timeObserverCallback?()
                         let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                             playButtonTapped?()
-                            verify(self.mockAVPlayer).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any())
+                            verify(self.mockMLSPlayer).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any())
                             done()
                         }
                     }

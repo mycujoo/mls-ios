@@ -100,8 +100,8 @@
 		495CB137249CD9FC00998FF4 /* NSLayoutConstraint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */; };
 		495CB139249CF98600998FF4 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB138249CF98600998FF4 /* Throttler.swift */; };
 		495CB13A249CF98600998FF4 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB138249CF98600998FF4 /* Throttler.swift */; };
-		495CB13C249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */; };
-		495CB13D249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */; };
+		495CB13C249CFFE700998FF4 /* MLSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSPlayer.swift */; };
+		495CB13D249CFFE700998FF4 /* MLSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CB13B249CFFE700998FF4 /* MLSPlayer.swift */; };
 		4961F4A82566B99E003C7372 /* HLSInspectionServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961F4A72566B99E003C7372 /* HLSInspectionServicing.swift */; };
 		4961F4A92566B99E003C7372 /* HLSInspectionServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961F4A72566B99E003C7372 /* HLSInspectionServicing.swift */; };
 		4961F4B02566BACB003C7372 /* HLSInspectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4961F4AF2566BACB003C7372 /* HLSInspectionService.swift */; };
@@ -241,8 +241,8 @@
 		497FD2C724C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
 		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
-		498857192565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift */; };
-		4988571A2565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift */; };
+		498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
+		4988571A2565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
 		4988B9B424C846D000352529 /* testAnnotationService_basicShowOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */; };
 		4988B9B824C846FB00352529 /* testAnnotationService_basicHideOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */; };
 		4988B9BA24C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B924C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json */; };
@@ -264,8 +264,8 @@
 		498A79FE25A503DA00B0D6C9 /* CastIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A79FD25A503DA00B0D6C9 /* CastIntegration.swift */; };
 		498A7A1025A5063300B0D6C9 /* CastIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A7A0F25A5063300B0D6C9 /* CastIntegrationImpl.swift */; };
 		498A7A2A25A5084900B0D6C9 /* CastIntegrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A7A2925A5084900B0D6C9 /* CastIntegrationDelegate.swift */; };
-		498E48F024D033630040502D /* MLSAVPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */; };
-		498E48F124D033630040502D /* MLSAVPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */; };
+		498E48F024D033630040502D /* MLSPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSPlayerProtocol.swift */; };
+		498E48F124D033630040502D /* MLSPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSPlayerProtocol.swift */; };
 		498E48F324D056CC0040502D /* ArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */; };
 		498E48F424D056CC0040502D /* ArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */; };
 		498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */; };
@@ -556,7 +556,7 @@
 		495CB132249CC50E00998FF4 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+.swift"; sourceTree = "<group>"; };
 		495CB138249CF98600998FF4 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
-		495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayer.swift; sourceTree = "<group>"; };
+		495CB13B249CFFE700998FF4 /* MLSPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayer.swift; sourceTree = "<group>"; };
 		4961F4A72566B99E003C7372 /* HLSInspectionServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionServicing.swift; sourceTree = "<group>"; };
 		4961F4AF2566BACB003C7372 /* HLSInspectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionService.swift; sourceTree = "<group>"; };
 		4961F4F72566CF95003C7372 /* HLSInspectionServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionServiceSpec.swift; sourceTree = "<group>"; };
@@ -693,7 +693,7 @@
 		497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_adjustAndSkipTimers.json; sourceTree = "<group>"; };
 		497FD2C524C0981F0027E708 /* TOVStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStore.swift; sourceTree = "<group>"; };
 		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		498857182565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
+		498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
 		4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicHideOverlay.json; sourceTree = "<group>"; };
 		4988B9B924C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_showOverlayCorrectlyWithoutAnimation.json; sourceTree = "<group>"; };
@@ -715,7 +715,7 @@
 		498A79FD25A503DA00B0D6C9 /* CastIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastIntegration.swift; sourceTree = "<group>"; };
 		498A7A0F25A5063300B0D6C9 /* CastIntegrationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastIntegrationImpl.swift; sourceTree = "<group>"; };
 		498A7A2925A5084900B0D6C9 /* CastIntegrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastIntegrationDelegate.swift; sourceTree = "<group>"; };
-		498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSAVPlayerProtocol.swift; sourceTree = "<group>"; };
+		498E48EF24D033630040502D /* MLSPlayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerProtocol.swift; sourceTree = "<group>"; };
 		498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepository.swift; sourceTree = "<group>"; };
 		498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepositoryImpl.swift; sourceTree = "<group>"; };
 		498E48F824D057FF0040502D /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
@@ -1083,9 +1083,7 @@
 				49736DF424A9F588001F3F48 /* Macaw */,
 				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
-				495CB13B249CFFE700998FF4 /* MLSAVPlayer.swift */,
-				498857182565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift */,
-				498E48EF24D033630040502D /* MLSAVPlayerProtocol.swift */,
+				498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */,
 				498856A02565A0470093FA66 /* String+.swift */,
 				498E48FB24D062D90040502D /* Thread+.swift */,
 				495CB138249CF98600998FF4 /* Throttler.swift */,
@@ -1676,6 +1674,8 @@
 				4925998325A1D9F7007658DB /* IMAIntegration.swift */,
 				498A79FD25A503DA00B0D6C9 /* CastIntegration.swift */,
 				6496C3442492308D0099475D /* MLS.swift */,
+				495CB13B249CFFE700998FF4 /* MLSPlayer.swift */,
+				498E48EF24D033630040502D /* MLSPlayerProtocol.swift */,
 				4931A88625A77665006CC9A4 /* PlayerProtocol.swift */,
 				49E441732538DCAB00385890 /* VideoPlayer.swift */,
 				6496C3522492308D0099475D /* VideoPlayerImpl.swift */,
@@ -2162,7 +2162,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Core/App/Core/PlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Core/App/Utils/MLSAVPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/IMAIntegration.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/CastIntegration.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/DRMRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Services/AnnotationServicing.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Services/VideoAnalyticsServicing.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Services/HLSInspectionServicing.swift\" \n";
+			shellScript = "#exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Core/App/Core/PlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/MLSPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/IMAIntegration.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/CastIntegration.swift\" \\\n\"${INPUT_DIR}/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/TimelineRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/ArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/EventRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/PlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/DRMRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Services/AnnotationServicing.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Services/VideoAnalyticsServicing.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Services/HLSInspectionServicing.swift\" \n";
 		};
 		7C12EC0A01B8C0B1F0A77673 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2438,7 +2438,7 @@
 				4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				495CB139249CF98600998FF4 /* Throttler.swift in Sources */,
 				49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */,
-				495CB13C249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */,
+				495CB13C249CFFE700998FF4 /* MLSPlayer.swift in Sources */,
 				49CE62682509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift in Sources */,
 				49736EAD24A9F59C001F3F48 /* Image.swift in Sources */,
 				49736F1024A9F59C001F3F48 /* RotateEvent.swift in Sources */,
@@ -2582,10 +2582,10 @@
 				49736E9724A9F59C001F3F48 /* Variable.swift in Sources */,
 				49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */,
 				49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
-				498857192565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift in Sources */,
+				498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
 				49736E9924A9F59C001F3F48 /* Arc.swift in Sources */,
 				495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */,
-				498E48F024D033630040502D /* MLSAVPlayerProtocol.swift in Sources */,
+				498E48F024D033630040502D /* MLSPlayerProtocol.swift in Sources */,
 				6496C35D249230BF0099475D /* VideoPlayerImpl.swift in Sources */,
 				49736F1824A9F59C001F3F48 /* SVGNodeLayout.swift in Sources */,
 				498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
@@ -2652,7 +2652,7 @@
 				49A8049C24AA0E3800E30DA8 /* PanEvent.swift in Sources */,
 				4926CE0024CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */,
 				49A804B924AA0E9800E30DA8 /* PathSegment.swift in Sources */,
-				495CB13D249CFFE700998FF4 /* MLSAVPlayer.swift in Sources */,
+				495CB13D249CFFE700998FF4 /* MLSPlayer.swift in Sources */,
 				49A804AD24AA0E9800E30DA8 /* Ellipse.swift in Sources */,
 				49A804F324AA0ECB00E30DA8 /* SVGParser.swift in Sources */,
 				49A804A124AA0E8A00E30DA8 /* MacawView+PDF.swift in Sources */,
@@ -2788,10 +2788,10 @@
 				4943B96824C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
 				49A804FA24AA0ED400E30DA8 /* DescriptionExtensions.swift in Sources */,
 				49A804D424AA0EA100E30DA8 /* Stop.swift in Sources */,
-				4988571A2565AB670093FA66 /* MLSAVPlayerNetworkInterceptor.swift in Sources */,
+				4988571A2565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
 				49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
 				49A9F52424A15B9700D00143 /* UIView+.swift in Sources */,
-				498E48F124D033630040502D /* MLSAVPlayerProtocol.swift in Sources */,
+				498E48F124D033630040502D /* MLSPlayerProtocol.swift in Sources */,
 				49A804BA24AA0E9800E30DA8 /* Polyline.swift in Sources */,
 				49A804A624AA0E8D00E30DA8 /* MCAShapeLayerLineCap_iOS.swift in Sources */,
 				498E48F724D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,

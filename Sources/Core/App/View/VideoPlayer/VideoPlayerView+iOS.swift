@@ -568,7 +568,7 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
 
     //MARK: - Methods
 
-    func drawPlayer(with player: MLSAVPlayerProtocol) {
+    func drawPlayer(with player: MLSPlayerProtocol) {
         if let avPlayer = player as? AVPlayer {
             // Only add the playerlayer in real scenarios. When running unit tests with a mocked player, this will not work.
             let playerLayer = AVPlayerLayer(player: avPlayer)

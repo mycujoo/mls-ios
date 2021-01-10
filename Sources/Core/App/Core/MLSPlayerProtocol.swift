@@ -6,9 +6,9 @@ import Foundation
 import AVFoundation
 
 
-/// This protocol contains all the methods and properties that VideoPlayer access on the MLSAVPlayer object.
-/// It exists with the distinct purpose of being able to mock the MLSAVPlayer in the VideoPlayer for easy testability.
-protocol MLSAVPlayerProtocol: PlayerProtocol {
+/// This protocol contains all the methods and properties that VideoPlayer access on the MLSPlayer object.
+/// It exists with the distinct purpose of being able to mock the MLSPlayer in the VideoPlayer for easy testability.
+protocol MLSPlayerProtocol: PlayerProtocol {
     /// The current item that is playing.
     var currentItem: AVPlayerItem? { get }
 

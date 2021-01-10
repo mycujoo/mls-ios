@@ -4,11 +4,11 @@
 
 import Foundation
 
-protocol MLSAVPlayerNetworkInterceptorDelegate: class {
+protocol MLSPlayerNetworkInterceptorDelegate: class {
     func received(response: String, forRequestURL: URL?)
 }
 
-class MLSAVPlayerNetworkInterceptor: URLProtocol {
+class MLSPlayerNetworkInterceptor: URLProtocol {
     /// Unfortunately, AVPlayer does not invoke any custom URLProtocol out of the box
     /// (https://stackoverflow.com/questions/52148903/custom-urlprotocol-cannot-work-with-avplayer)
     ///
@@ -26,15 +26,15 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
 
     private static var hasRegisteredInterceptor = false
 
-    static weak var delegate: MLSAVPlayerNetworkInterceptorDelegate? = nil
+    static weak var delegate: MLSPlayerNetworkInterceptorDelegate? = nil
 
     /// Call this method to register this URLProtocol so that it will intercept `m3u8` traffic. It is safe to call it multiple times.
     /// - delegate: A class-level delegate that will be notified of any intercepted HLS traffic.
-    static func register(withDelegate delegate: MLSAVPlayerNetworkInterceptorDelegate) {
+    static func register(withDelegate delegate: MLSPlayerNetworkInterceptorDelegate) {
         self.delegate = delegate
         guard !hasRegisteredInterceptor else { return }
             hasRegisteredInterceptor = true
-            URLProtocol.registerClass(MLSAVPlayerNetworkInterceptor.self)
+            URLProtocol.registerClass(MLSPlayerNetworkInterceptor.self)
     }
 
     struct Constants {
@@ -67,16 +67,16 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
 
     override func startLoading() {
         let newRequest = ((request as NSURLRequest).mutableCopy() as? NSMutableURLRequest)!
-        MLSAVPlayerNetworkInterceptor.setProperty(true, forKey: Constants.RequestHandledKey, in: newRequest)
+        MLSPlayerNetworkInterceptor.setProperty(true, forKey: Constants.RequestHandledKey, in: newRequest)
 
         sessionTask = session?.dataTask(with: newRequest as URLRequest) { [weak self] (data, response, error) in
             guard let self = self else { return }
             guard let data = data, let response = response else {
-                self.client?.urlProtocol(self, didFailWithError: error ?? NSError(domain: "MLSAVPlayerURLProtocol", code: -1, userInfo: nil))
+                self.client?.urlProtocol(self, didFailWithError: error ?? NSError(domain: "MLSPlayerURLProtocol", code: -1, userInfo: nil))
                 return
             }
 
-            MLSAVPlayerNetworkInterceptor.delegate?.received(response: String(decoding: data, as: UTF8.self), forRequestURL: self.request.url)
+            MLSPlayerNetworkInterceptor.delegate?.received(response: String(decoding: data, as: UTF8.self), forRequestURL: self.request.url)
 
             self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .allowed)
             self.client?.urlProtocol(self, didLoad: data)
@@ -99,7 +99,7 @@ class MLSAVPlayerNetworkInterceptor: URLProtocol {
 }
 
 
-extension MLSAVPlayerNetworkInterceptor: URLSessionDataDelegate {
+extension MLSPlayerNetworkInterceptor: URLSessionDataDelegate {
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         client?.urlProtocol(self, didLoad: data)
     }

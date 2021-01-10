@@ -165,7 +165,7 @@ public class MLS {
     public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
         let player = VideoPlayerImpl(
             view: VideoPlayerView(),
-            avPlayer: MLSAVPlayer(),
+            avPlayer: MLSPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
             getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,

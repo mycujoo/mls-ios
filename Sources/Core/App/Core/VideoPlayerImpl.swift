@@ -197,7 +197,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// The player that is used specifically for local playback.
     /// - important: Only use this property for specific local interactions. Otherwise, use `player`, which abstracts away remote playback.
-    private let avPlayer: MLSAVPlayerProtocol
+    private let avPlayer: MLSPlayerProtocol
 
     private var player: PlayerProtocol {
         #if os(iOS)
@@ -251,7 +251,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         return df
     }()
 
-    // TODO: Move livestate to mlsavplayer?
     private var liveState: VideoPlayerLiveState {
         if player.isLivestream {
             let optimisticCurrentTime = self.optimisticCurrentTime
@@ -386,7 +385,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     init(
             view: VideoPlayerViewProtocol,
-            avPlayer: MLSAVPlayerProtocol,
+            avPlayer: MLSPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
@@ -1018,11 +1017,11 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
         }
 
         if !["http", "https", "skd"].contains(requestUrl.scheme?.lowercased()) {
-            // This is likely because of the `MLSAVPlayerNetworkInterceptor`. We always want to return false for that.
+            // This is likely because of the `MLSPlayerNetworkInterceptor`. We always want to return false for that.
             // See that class for more information.
             if requestUrl.pathExtension == "ts" {
                 // This triggers only when the m3u8 playlist internally defines relative paths, rather than absolute ones (which it only does for the legacy streaming platform). The way to handle this is inspired by: https://developer.apple.com/forums/thread/113063
-                let redirect = URLRequest(url: MLSAVPlayerNetworkInterceptor.unprepare(requestUrl))
+                let redirect = URLRequest(url: MLSPlayerNetworkInterceptor.unprepare(requestUrl))
                 loadingRequest.redirect = redirect
                 loadingRequest.response = HTTPURLResponse(url: redirect.url!, statusCode: 302, httpVersion: nil, headerFields: nil)
                 loadingRequest.finishLoading()

@@ -8,7 +8,7 @@ import AVFoundation
 
 protocol VideoAnalyticsServicing: class {
     /// Call this when creating the AVPlayer.
-    func create(with player: MLSAVPlayerProtocol)
+    func create(with player: MLSPlayerProtocol)
 
     /// Call this when destroying the video player.
     func stop()

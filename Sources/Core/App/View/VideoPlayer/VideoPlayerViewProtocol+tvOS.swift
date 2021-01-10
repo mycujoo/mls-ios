@@ -29,7 +29,7 @@ protocol VideoPlayerViewProtocol: class {
     /// The AVPlayerLayer of the associated AVPlayer
     var playerLayer: AVPlayerLayer? { get }
 
-    func drawPlayer(with player: MLSAVPlayerProtocol)
+    func drawPlayer(with player: MLSPlayerProtocol)
     func setOnPlayButtonTapped(_ action: @escaping () -> Void)
     func setOnSkipBackButtonTapped(_ action: @escaping () -> Void)
     func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void)

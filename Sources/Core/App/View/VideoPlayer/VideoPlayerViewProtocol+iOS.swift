@@ -39,7 +39,7 @@ protocol VideoPlayerViewProtocol: class {
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
     var tapGestureRecognizer: UITapGestureRecognizer { get }
 
-    func drawPlayer(with player: MLSAVPlayerProtocol)
+    func drawPlayer(with player: MLSPlayerProtocol)
     func setOnPlayButtonTapped(_ action: @escaping () -> Void)
     func setOnSkipBackButtonTapped(_ action: @escaping () -> Void)
     func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void)

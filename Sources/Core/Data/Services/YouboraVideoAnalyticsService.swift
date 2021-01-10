@@ -18,7 +18,7 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
         self.pseudoUserId = pseudoUserId
     }
 
-    func create(with player: MLSAVPlayerProtocol) {
+    func create(with player: MLSPlayerProtocol) {
         // Only add the adapter in real scenarios. When running unit tests with a mocked player, there will not be a youbora plugin.
         guard let avPlayer = player as? AVPlayer else { return }
 
@@ -82,7 +82,7 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
         self.pseudoUserId = pseudoUserId
     }
 
-    func create(with player: MLSAVPlayerProtocol) {
+    func create(with player: MLSPlayerProtocol) {
     }
 
     func stop() {
