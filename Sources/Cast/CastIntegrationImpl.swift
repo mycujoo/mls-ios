@@ -74,25 +74,25 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
             break
         }
 
-        let castButton = GCKUICastButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-        castButton.tintColor = UIColor.gray
+        for (castButtonParentView, tintColor) in delegate.getCastButtonParentViews() {
+            let castButton = GCKUICastButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            castButton.tintColor = tintColor
 
-        let castButtonParentView = delegate.getCastButtonParentView()
-        castButtonParentView.addSubview(castButton)
-        let castButtonConstraints = [
-            castButton.leftAnchor.constraint(equalTo: castButtonParentView.leftAnchor),
-            castButton.rightAnchor.constraint(equalTo: castButtonParentView.rightAnchor),
-            castButton.topAnchor.constraint(equalTo: castButtonParentView.topAnchor),
-            castButton.bottomAnchor.constraint(equalTo: castButtonParentView.bottomAnchor),
-        ]
-        for constraint in castButtonConstraints {
-            constraint.priority = UILayoutPriority(rawValue: 749)
+            castButtonParentView.addSubview(castButton)
+            castButton.translatesAutoresizingMaskIntoConstraints = false
+            let castButtonConstraints = [
+                castButton.centerXAnchor.constraint(equalTo: castButtonParentView.centerXAnchor),
+                castButton.centerYAnchor.constraint(equalTo: castButtonParentView.centerYAnchor)
+            ]
+            for constraint in castButtonConstraints {
+                constraint.priority = UILayoutPriority(rawValue: 749)
+            }
+            NSLayoutConstraint.activate(castButtonConstraints)
         }
-        NSLayoutConstraint.activate(castButtonConstraints)
 
         let castContext = GCKCastContext.sharedInstance()
         if let miniControllerParentView = delegate.getMiniControllerParentView(), let miniControllerParentViewController = delegate.getMiniControllerParentViewController() {
-            castContext.useDefaultExpandedMediaControls = false
+            castContext.useDefaultExpandedMediaControls = delegate.useDefaultExpandedMediaControls()
 
             let miniMediaController = castContext.createMiniMediaControlsViewController()
             miniMediaController.delegate = self
@@ -106,6 +106,10 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         #if DEBUG
         GCKLogger.sharedInstance().delegate = self
         #endif
+
+        let style = GCKUIStyle.sharedInstance()
+        delegate.customizeStyle(style)
+        style.apply()
 
         _player.initialize()
     }
