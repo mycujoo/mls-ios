@@ -14,4 +14,7 @@ public protocol CastIntegrationDelegate: class {
     /// Should be implemented by the SDK user. Should return a UIView to which this SDK can add the Google Cast button.
     /// - note:  It is recommended that the SDK user places this UIView inside the `topTrailingControlsStackView` UIStackView on the VideoPlayer.
     func getCastButtonParentView() -> UIView
+
+    /// Gets called whenever the video player connects to a Chromecast device or gets disconnected.
+    func castingStateChanged(to isCasting: Bool)
 }

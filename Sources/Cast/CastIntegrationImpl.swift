@@ -14,18 +14,20 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
     weak var videoPlayerDelegate: CastIntegrationVideoPlayerDelegate?
     weak var delegate: CastIntegrationDelegate?
 
-    lazy var appId: String = {
-        //        guard let appId = Bundle.mlsResourceBundle?.object(forInfoDictionaryKey: "CastAppId") as? String else {
-        //            fatalError("Could not read Cast appId from Info.plist")
-        //        }
-        return castAppId
-    }()
-
-    private var _isCasting = false
+    private var _isCasting = false {
+        didSet {
+            delegate?.castingStateChanged(to: _isCasting)
+        }
+    }
     private var _player = CastPlayer()
 
-    init(delegate: CastIntegrationDelegate) {
+    private let appId: String
+
+    /// - note: `customReceiverAppId` only has any effect on the first initialization of this class, since that is when the Chromecast context is built.
+    ///   On initializations after that, the existing Chromecast context is used, and so this will not have any effect.
+    init(delegate: CastIntegrationDelegate, customReceiverAppId: String?) {
         self.delegate = delegate
+        self.appId = customReceiverAppId ?? castAppId
 
         super.init()
     }
@@ -51,10 +53,10 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         }
 
         GCKLogger.sharedInstance().delegate = self
-        GCKLogger.sharedInstance().loggingEnabled = false
-        GCKLogger.sharedInstance().consoleLoggingEnabled = false
+        GCKLogger.sharedInstance().loggingEnabled = true
+        GCKLogger.sharedInstance().consoleLoggingEnabled = true
         let logFilter = GCKLoggerFilter()
-        logFilter.minimumLevel = .none
+        logFilter.minimumLevel = .verbose
         GCKLogger.sharedInstance().filter = logFilter
 
         GCKCastContext.sharedInstance().sessionManager.add(self)
@@ -141,20 +143,22 @@ extension CastIntegrationImpl: GCKSessionManagerListener {
 
         func switchPlaybackToLocal() {
             guard _isCasting else { return }
-            _isCasting = false
 
             _player.stopUpdatingTime()
 
             GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
+
+            _isCasting = false
 
             videoPlayerDelegate?.isCastingStateUpdated()
         }
 
         func switchPlaybackToRemote() {
             guard !_isCasting else { return }
-            _isCasting = true
 
             GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.add(self)
+            
+            _isCasting = true
 
             videoPlayerDelegate?.isCastingStateUpdated()
             
