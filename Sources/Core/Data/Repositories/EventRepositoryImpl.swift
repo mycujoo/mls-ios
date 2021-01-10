@@ -9,6 +9,8 @@ import Moya
 class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
     let ws: WebSocketConnection
 
+    private var timers: [String: RepeatingTimer] = [:]
+
     init(api: MoyaProvider<API>, ws: WebSocketConnection) {
         self.ws = ws
 
@@ -35,20 +37,21 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
         }
     }
 
+    /// - note: You can only have one listener for eventUpdates per event id.
     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ()) {
-        let timer = RepeatingTimer(timeInterval: 30)
+        timers[id] = RepeatingTimer(timeInterval: 10)
 
         var latestEvent: Event? = nil {
             didSet {
                 if let latestEvent = latestEvent, latestEvent.streams.count == 0 {
-                    timer.resume()
+                    timers[id]?.resume()
                 } else {
-                    timer.suspend()
+                    timers[id]?.suspend()
                 }
             }
         }
 
-        timer.eventHandler = { [weak self] in
+        timers[id]?.eventHandler = { [weak self] in
             self?.fetchEvent(byId: id, updateId: nil, callback: { updatedEvent, _ in
                 latestEvent = updatedEvent
                 if let updatedEvent = updatedEvent {
@@ -70,8 +73,8 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
                     callback(.eventLiveViewers(amount: total))
                 case .eventUpdate(let updateId):
                     // Fetch the event again and do the callback after that.
-                    self?.fetchEvent(byId: id, updateId: updateId, callback: { updatedEvent, _ in
-                        timer.reset()
+                    self?.fetchEvent(byId: id, updateId: updateId, callback: { [weak self] updatedEvent, _ in
+                        self?.timers[id]?.reset()
                         latestEvent = updatedEvent
                         if let updatedEvent = updatedEvent {
                             callback(.eventUpdate(event: updatedEvent))
@@ -86,7 +89,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
     
     func stopEventUpdates(for id: String) {
         ws.unsubscribe(room: WebSocketConnection.Room(id: id, type: .event))
-
-        // Note: the polling timer does not have to be explicitly stopped because it is deferenced and therefore cancelled.
+        
+        timers[id] = nil
     }
 }

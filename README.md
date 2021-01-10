@@ -10,10 +10,11 @@ This SDK is intended for customers of MyCujoo Live Services. It offers a video p
 pod 'MLSSDK', '~> 1.1'
 ```
 
-Or if you want to use the IMA extension:
+Or if you want to use the IMA and/or Chromecast extensions:
 
 ```ruby
 pod 'MLSSDK/IMA', '~> 1.1'
+pod 'MLSSDK/Cast', '~> 1.1'
 ```
 
 ### Swift package manager
@@ -42,6 +43,15 @@ To render a basic video player, you must:
 ### IMA
 
 TODO.
+
+### Chromecast
+
+To use the Chromecast extension, please ensure the following:
+
+- Include the `MLSSDK/Cast` pod in your Podfile (see Installation).
+- Change your application's `Info.plist` file in accordance with Google's instructions as outlined on this page: https://developers.google.com/cast/docs/ios_sender. For the "appId" you should use `4381F502`. This app uses the Bluetooth-supported version of the cast SDK, so ensure you add the `Privacy - Bluetooth Always Usage Description` key.
+- Add the "Access WiFi information" capability to your application. 
+
 
 ## Examples
 

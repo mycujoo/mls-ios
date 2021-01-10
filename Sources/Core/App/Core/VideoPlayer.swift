@@ -8,12 +8,15 @@ import AVFoundation
 
 
 public protocol VideoPlayer: class {
-    var delegate: PlayerDelegate? { get set }
+    var delegate: VideoPlayerDelegate? { get set }
 
     /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.
     var imaIntegration: IMAIntegration? { get set }
 
-    var state: VideoPlayerState { get }
+    #if os(iOS)
+    /// Should be set by the SDK user for Google Chromecast support to work. Such an object can be obtained through the `MLSSDK/Cast` extensions.
+    var castIntegration: CastIntegration? { get set }
+    #endif
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     /// - note: This sets `stream` to nil.
@@ -23,8 +26,11 @@ public protocol VideoPlayer: class {
     /// - note: This sets `event` to nil.
     var stream: Stream? { get set }
 
+    /// Indicates whether the Player is ready to play or not.
+    var state: PlayerState { get }
+
     /// The current status of the player, based on the current item.
-    var status: VideoPlayerStatus { get }
+    var status: PlayerStatus { get }
 
     /// The view of the VideoPlayer.
     var playerView: UIView { get }
@@ -46,8 +52,6 @@ public protocol VideoPlayer: class {
     /// Get or set the `isMuted` property of the underlying AVPlayer.
     var isMuted: Bool { get set }
 
-    /// Indicates whether the current item is a live stream.
-    var isLivestream: Bool { get }
     /// - returns: The current time (in seconds) of the currentItem.
     var currentTime: Double { get }
     /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
@@ -85,28 +89,8 @@ public protocol VideoPlayer: class {
     func hideEventInfoOverlay()
 }
 
-// MARK: - State
-public enum VideoPlayerState: Int {
-    /// Indicates that the status of the player is not yet known because it has not tried to load new media resources for playback.
-    case unknown = 0
-    /// Indicates that the player is ready to play AVPlayerItem instances.
-    case readyToPlay = 1
-    /// Indicates that the player can no longer play AVPlayerItem instances because of an error. The error is described by the value of the player's error property.
-    case failed = 2
-    /// The player has finished playing the media
-    case ended = 3
-}
-
-public enum VideoPlayerStatus {
-    case play
-    case pause
-    
-    public var isPlaying: Bool { self == .play }
-}
-
-
 // MARK: - Delegate
-public protocol PlayerDelegate: AnyObject {
+public protocol VideoPlayerDelegate: AnyObject {
     /// The player has updated its playing status. To access the current status, see `VideoPlayer.status`
     func playerDidUpdatePlaying(player: VideoPlayer)
     /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`

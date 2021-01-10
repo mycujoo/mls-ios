@@ -9,7 +9,15 @@ import AVFoundation
 class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private(set) var isSeeking = false
 
+    private(set) var isBuffering = false
+
     private let resourceLoaderQueue = DispatchQueue.global(qos: .background)
+
+    private(set) var state: PlayerState = .unknown {
+        didSet {
+            stateObserverCallback?()
+        }
+    }
 
     /// The current time (in seconds) of the currentItem.
     var currentTime: Double {
@@ -20,6 +28,10 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     var optimisticCurrentTime: Double {
         return _seekingToTime ?? currentTime
     }
+
+    var stateObserverCallback: (() -> Void)? = nil
+    var timeObserverCallback: (() -> Void)? = nil
+    var playObserverCallback: ((Bool) -> Void)? = nil
 
     /// A variable that keeps track of where the player is currently seeking to. Should be set to nil once a seek operation is done.
     private var _seekingToTime: Double? = nil
@@ -41,7 +53,6 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private var _currentDurationMaximumObtainedOnItem: AVPlayerItem? = nil
 
     /// The duration (in seconds) of the currentItem. If unknown, returns 0.
-    /// - seeAlso: `currentDurationAsCMTime`
     var currentDuration: Double {
         guard let duration = currentItem?.duration else { return 0 }
         let seconds = CMTimeGetSeconds(duration)
@@ -64,7 +75,6 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
 
                     return _currentDurationMaximum
                 }
-
             }
             return 0
         }
@@ -72,9 +82,18 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
         return seconds
     }
 
-    /// The duration reported by the currentItem, without any further manipulation. Typically, it is better to use `currentDuration`.
-    var currentDurationAsCMTime: CMTime? {
-        return currentItem?.duration
+    /// Indicates whether the current item is a live stream.
+    var isLivestream: Bool {
+        guard let duration = currentItem?.duration else {
+            return false
+        }
+        let seconds = CMTimeGetSeconds(duration)
+        return seconds.isNaN || seconds.isInfinite
+    }
+
+    /// Indicates whether the item that is currently loaded into the player has ended.
+    var currentItemEnded: Bool {
+        return currentDuration > 0 && currentDuration <= ceil(optimisticCurrentTime) && !isLivestream
     }
 
     var rawSegmentPlaylist: String? = nil
@@ -82,6 +101,16 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
     private var isSeekingUpdatedAt = Date()
 
     private let seekDebouncer = Debouncer()
+
+    private var timeObserver: Any?
+
+    override init() {
+        super.init()
+
+        addObserver(self, forKeyPath: "status", options: .new, context: nil)
+        addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
+        timeObserver = trackTime(with: self)
+    }
 
     override func seek(to time: CMTime) {
         self.seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: 0.0, completionHandler: { _ in })
@@ -232,6 +261,58 @@ class MLSAVPlayer: AVPlayer, MLSAVPlayerProtocol {
                 callback(false)
             }
         }
+    }
+
+    private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
+        addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 600), queue: .main) { [weak self] _ in
+            guard let self = self else { return }
+
+            // TODO: Notify listener of updates.
+            self.timeObserverCallback?()
+        }
+    }
+
+    override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?,
+        change: [NSKeyValueChangeKey : Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
+        switch keyPath {
+        case "status":
+            state = PlayerState(rawValue: status.rawValue) ?? .unknown
+        case "timeControlStatus":
+            if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
+                let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
+                let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
+                if newStatus != oldStatus {
+                    switch newStatus {
+                    case .playing:
+                        self.playObserverCallback?(true)
+                    case .paused:
+                        self.playObserverCallback?(false)
+                    default:
+                        break
+                    }
+
+                    if newStatus == .waitingToPlayAtSpecifiedRate && self.currentItem != nil {
+                        self.isBuffering = true
+                    } else {
+                        self.isBuffering = false
+                    }
+
+                    self.timeObserverCallback?()
+                }
+            }
+        default:
+            break
+        }
+    }
+
+    deinit {
+        if let timeObserver = timeObserver { removeTimeObserver(timeObserver) }
+        removeObserver(self, forKeyPath: "status")
+        removeObserver(self, forKeyPath: "timeControlStatus")
     }
 }
 

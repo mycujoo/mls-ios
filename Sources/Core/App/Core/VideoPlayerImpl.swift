@@ -7,26 +7,25 @@ import UIKit
 
 
 internal class VideoPlayerImpl: NSObject, VideoPlayer {
-
-    weak var delegate: PlayerDelegate?
+    weak var delegate: VideoPlayerDelegate?
 
     var imaIntegration: IMAIntegration? {
         didSet {
-            guard let avPlayer = self.player as? AVPlayer else { return }
+            guard let avPlayer = self.avPlayer as? AVPlayer else { return }
             imaIntegration?.setAVPlayer(avPlayer)
         }
     }
 
-    private(set) var state: VideoPlayerState = .unknown {
+    #if os(iOS)
+    var castIntegration: CastIntegration? {
         didSet {
-            delegate?.playerDidUpdateState(player: self)
-
-            if state == .ended && oldValue != .ended {
-                // TODO: Find out if playing a postroll clashes with other actions that may happen as a result of the `.ended` state.
-                imaIntegration?.playPostroll()
-            }
+            castIntegration?.initialize(self)
+            castIntegration?.player().stateObserverCallback = stateObserverCallback
+            castIntegration?.player().timeObserverCallback = timeObserverCallback
+            castIntegration?.player().playObserverCallback = playObserverCallback
         }
     }
+    #endif
 
     /// Setting an Event will automatically switch the player over to the primary stream that is associated with this Event, if one is available.
     /// - note: This sets `stream` to nil.
@@ -58,20 +57,35 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    // This property will be updated by `stateObserverCallback` on the currently-used player.
+    var state: PlayerState = .unknown {
+        didSet {
+            delegate?.playerDidUpdateState(player: self)
+        }
+    }
+
     /// The current status of the player, based on the current item.
-    private(set) var status: VideoPlayerStatus = .pause {
+    private(set) var status: PlayerStatus = .unknown {
         didSet {
             var buttonState: VideoPlayerPlayButtonState
             switch status {
             case .play:
                 buttonState = .pause
-                player.play()
+                if oldValue != .play {
+                    // Prevent an endless loop, since some players may update the status again after play is called.
+                    player.play()
+                }
             case .pause:
                 buttonState = .play
-                player.pause()
+                if oldValue != .pause {
+                    // Prevent an endless loop, since some players may update the status again after pause is called.
+                    player.pause()
+                }
+            case .unknown:
+                buttonState = .pause
             }
 
-            if state == .ended {
+            if player.currentItemEnded {
                 buttonState = .replay
             }
             DispatchQueue.main.async { [weak self] in
@@ -83,7 +97,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 #endif
             }
 
-            if oldValue != status {
+            if oldValue != status && status != .unknown {
                 delegate?.playerDidUpdatePlaying(player: self)
             }
         }
@@ -121,15 +135,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         set {
             player.isMuted = newValue
         }
-    }
-
-    /// Indicates whether the current item is a live stream.
-    var isLivestream: Bool {
-        guard let duration = player.currentDurationAsCMTime else {
-            return false
-        }
-        let seconds = CMTimeGetSeconds(duration)
-        return seconds.isNaN || seconds.isInfinite
     }
 
     /// - returns: The current time (in seconds) of the currentItem.
@@ -190,7 +195,18 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     // MARK: - Private properties
 
-    private let player: MLSAVPlayerProtocol
+    /// The player that is used specifically for local playback.
+    /// - important: Only use this property for specific local interactions. Otherwise, use `player`, which abstracts away remote playback.
+    private let avPlayer: MLSAVPlayerProtocol
+
+    private var player: PlayerProtocol {
+        #if os(iOS)
+        return castIntegration?.isCasting() == true ? castIntegration?.player() ?? avPlayer : avPlayer
+        #else
+        return avPlayer
+        #endif
+    }
+
     private let getEventUpdatesUseCase: GetEventUpdatesUseCase
     private let getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase
     private let getPlayerConfigUseCase: GetPlayerConfigUseCase
@@ -237,7 +253,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     // TODO: Move livestate to mlsavplayer?
     private var liveState: VideoPlayerLiveState {
-        if isLivestream {
+        if player.isLivestream {
             let optimisticCurrentTime = self.optimisticCurrentTime
             let currentDuration = self.currentDuration
             if currentDuration > 0 && optimisticCurrentTime + 15 >= currentDuration {
@@ -274,6 +290,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// A string that uniquely identifies this user.
     private let pseudoUserId: String
+
+    /// A identifier that is used in requests to the MCLS api that represents this organization.
+    private let publicKey: String
 
     // MARK: - Internal properties
 
@@ -317,11 +336,57 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
+    lazy var stateObserverCallback: () -> () = { [weak self] () in
+        guard let self = self else { return }
+        self.state = self.player.state
+    }
+
+    /// The callback that handles time updates. This is saved as a separate property because it needs to be set on both avPlayer and castPlayer at different points of initialization.
+    lazy var timeObserverCallback: () -> () = { [weak self] () in
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            self.view.setBufferIcon(hidden: !self.player.isBuffering)
+
+            // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
+            guard !self.player.isSeeking else { return }
+
+            let currentDuration = self.currentDuration
+            let optimisticCurrentTime = self.optimisticCurrentTime
+
+            if !self.view.videoSlider.isTracking {
+                self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
+
+                if currentDuration > 0 {
+                    self.view.videoSlider.value = max(0, min(1, optimisticCurrentTime / currentDuration))
+                }
+            }
+
+            if self.player.currentItemEnded {
+                #if os(iOS)
+                self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
+                #else
+                self.view.setPlayButtonTo(state: .replay)
+                #endif
+            }
+
+            self.videoAnalyticsService.currentItemIsLive = self.player.isLivestream
+
+            self.delegate?.playerDidUpdateTime(player: self)
+
+            self.evaluateAnnotations()
+        }
+    }
+
+    lazy var playObserverCallback: ((Bool) -> Void) = { [weak self] isPlaying in
+        self?.status = isPlaying ? .play : .pause
+    }
+
     // MARK: - Methods
 
     init(
             view: VideoPlayerViewProtocol,
-            player: MLSAVPlayerProtocol,
+            avPlayer: MLSAVPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
@@ -332,8 +397,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             videoAnalyticsService: VideoAnalyticsServicing,
             hlsInspectionService: HLSInspectionServicing,
             seekTolerance: CMTime = .positiveInfinity,
-            pseudoUserId: String) {
-        self.player = player
+            pseudoUserId: String,
+            publicKey: String) {
+        self.avPlayer = avPlayer
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getTimelineActionsUpdatesUseCase = getTimelineActionsUpdatesUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
@@ -345,14 +411,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         self.hlsInspectionService = hlsInspectionService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
+        self.publicKey = publicKey
 
         super.init()
-
-        player.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-        player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
-        timeObserver = trackTime(with: player)
-
-        videoAnalyticsService.create(with: player)
 
         func initPlayerView() {
             self.view = view
@@ -372,7 +433,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             view.setOnLeftArrowTapped({ [weak self] () in self?.leftArrowTapped() })
             view.setOnRightArrowTapped({ [weak self] () in self?.rightArrowTapped() })
             #endif
-            view.drawPlayer(with: player)
+            view.drawPlayer(with: avPlayer)
             setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
         }
 
@@ -383,13 +444,15 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 initPlayerView()
             }
         }
+
+        avPlayer.stateObserverCallback = self.stateObserverCallback
+        avPlayer.timeObserverCallback = self.timeObserverCallback
+        avPlayer.playObserverCallback = self.playObserverCallback
+
+        videoAnalyticsService.create(with: avPlayer)
     }
 
     deinit {
-        if let timeObserver = timeObserver { player.removeTimeObserver(timeObserver) }
-        player.removeObserver(self, forKeyPath: "status")
-        player.removeObserver(self, forKeyPath: "timeControlStatus")
-
         NotificationCenter.default.removeObserver(self)
 
         if let event = event {
@@ -412,7 +475,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         currentStream = event?.streams.first ?? stream
 
         updateInfo()
-        updateYouboraMetadata()
+        updateVideoAnalyticsMetadata()
 
         if new {
             tovStore = TOVStore()
@@ -422,13 +485,13 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     guard let self = self else { return }
                     switch update {
                     case .eventLiveViewers(let amount):
-                        if !self.playerConfig.showLiveViewers || !self.isLivestream || amount < 2 {
+                        if !self.playerConfig.showLiveViewers || !self.player.isLivestream || amount < 2 {
                             self.view.setNumberOfViewersTo(amount: nil)
                         } else {
                             self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
                         }
                     case .eventUpdate(let updatedEvent):
-                        if updatedEvent.id == event.id {
+                        if updatedEvent.id == self.event?.id {
                             self.event = updatedEvent
                         }
                     }
@@ -458,9 +521,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// Also calls the callback when it actually removes the currentItem because there is no appropriate stream to play.
     /// - parameter callback: A callback with a boolean that is indicates whether the replacement is completed (true) or failed/cancelled (false).
     private func placeCurrentStream(callback: ((Bool) -> ())? = nil) {
-        setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-        view.setBufferIcon(hidden: true)
-
         let url = currentStream?.url
         let added = url != nil
 
@@ -470,22 +530,65 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         } else {
             // TODO: Remove info layer and thumbnail view.
             self.view.setInfoViewVisibility(visible: false, animated: false)
-
-            currentStreamPlayHasBeenCalled = false
+            self.currentStreamPlayHasBeenCalled = false
         }
 
-        let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-        player.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
+        self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
+        self.view.setBufferIcon(hidden: !added)
+
+        // A block that defines what to when the local player (AVPlayer) should be utilized.
+        let doLocal = { [weak self] () in
             guard let self = self else { return }
-            self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
-            if added && completed {
-                if self.playerConfig.autoplay {
-                    self.play()
+            let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
+            self.avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
+                guard let self = self else { return }
+                self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
+
+                // Ensure the controlView hides after 4s (since this might have been adjusted by the remote casting process)
+                self.controlViewDebouncer.minimumDelay = 4
+
+                if added && completed {
+                    if self.playerConfig.autoplay {
+                        self.play()
+                    }
                 }
+                callback?(completed)
             }
-            callback?(completed)
         }
+
+        #if os(iOS)
+        // A block that defines what to when the remote player (CastPlayer) should be utilized.
+        let doRemote = { [weak self] () in
+            guard let self = self else { return }
+
+            self.avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
+
+            self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
+                guard let self = self else { return }
+
+                // Effectively do not hide the controls automatically, unless the user taps it.
+                self.controlViewDebouncer.minimumDelay = 7200
+
+                self.setControlViewVisibility(visible: added, animated: false, directiveLevel: .systemInitiated, lock: false)
+
+                if added && completed {
+                    if self.playerConfig.autoplay {
+                        self.play()
+                    }
+                }
+                callback?(completed)
+            }
+        }
+        
+        if let castIntegration = castIntegration, castIntegration.isCasting() {
+            doRemote()
+        } else {
+            doLocal()
+        }
+        #else
+        doLocal()
+        #endif
     }
 
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
@@ -539,7 +642,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
-    private func updateYouboraMetadata() {
+    private func updateVideoAnalyticsMetadata() {
         videoAnalyticsService.currentItemTitle = event?.title
         videoAnalyticsService.currentItemEventId = event?.id
         videoAnalyticsService.currentItemStreamId = currentStream?.id
@@ -557,7 +660,14 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
         if Int(currentDuration) + 20 > (currentStream?.dvrWindowSize ?? Int.max) / 1000 {
-            let map = hlsInspectionService.map(hlsPlaylist: player.rawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
+            #if os(iOS)
+            if castIntegration?.isCasting() == true {
+                // We can't evaluate annotations at this point, since we do not have access to the raw playlist.
+                return
+            }
+            #endif
+
+            let map = hlsInspectionService.map(hlsPlaylist: avPlayer.rawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
             offsetMappings = Dictionary(allAnnotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
         } else {
             offsetMappings = nil
@@ -580,46 +690,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             }
         }
     }
-    
-    //MARK: - KVO
-
-    override func observeValue(
-        forKeyPath keyPath: String?,
-        of object: Any?,
-        change: [NSKeyValueChangeKey : Any]?,
-        context: UnsafeMutableRawPointer?
-    ) {
-        switch keyPath {
-        case "status":
-            state = VideoPlayerState(rawValue: player.status.rawValue) ?? .unknown
-        case "timeControlStatus":
-            if let change = change, let newValue = change[NSKeyValueChangeKey.newKey] as? Int, let oldValue = change[NSKeyValueChangeKey.oldKey] as? Int {
-                let oldStatus = AVPlayer.TimeControlStatus(rawValue: oldValue)
-                let newStatus = AVPlayer.TimeControlStatus(rawValue: newValue)
-                if newStatus != oldStatus {
-                    switch newStatus {
-                    case .playing:
-                        self.status = .play
-                    case .paused:
-                        self.status = .pause
-                    default:
-                        break
-                    }
-
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        if newStatus == .waitingToPlayAtSpecifiedRate && self.currentStream?.url != nil {
-                            self.view.setBufferIcon(hidden: false)
-                        } else {
-                            self.view.setBufferIcon(hidden: true)
-                        }
-                    }
-                }
-            }
-        default:
-            break
-        }
-    }
 }
 
 // MARK: - Methods
@@ -628,10 +698,18 @@ extension VideoPlayerImpl {
         if !currentStreamPlayHasBeenCalled {
             currentStreamPlayHasBeenCalled = true
 
+            #if os(iOS)
+            if let imaIntegration = imaIntegration, castIntegration?.isCasting() != true {
+                imaIntegration.playPreroll()
+                return
+            }
+            #else
             if let imaIntegration = imaIntegration {
                 imaIntegration.playPreroll()
                 return
             }
+            #endif
+
         }
 
         if imaIntegration?.isShowingAd() == true {
@@ -647,10 +725,6 @@ extension VideoPlayerImpl {
         } else {
             status = .pause
         }
-    }
-
-    func playVideo(with event: Event) {
-        self.event = event
     }
 }
 
@@ -718,45 +792,6 @@ extension VideoPlayerImpl {
                     self?.tovStore?.removeObservers(callbackId: action.overlayId)
                 }
             }
-        }
-    }
-
-    private func trackTime(with player: MLSAVPlayerProtocol) -> Any {
-        player
-            .addPeriodicTimeObserver(
-                forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 600),
-                queue: .main) { [weak self] _ in
-                    guard let self = self else { return }
-
-                    // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
-                    guard !self.player.isSeeking else { return }
-
-                    let currentDuration = self.currentDuration
-                    let optimisticCurrentTime = self.optimisticCurrentTime
-
-                    if !self.view.videoSlider.isTracking {
-                        self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
-
-                        if currentDuration > 0 {
-                            self.view.videoSlider.value = optimisticCurrentTime / currentDuration
-                        }
-                    }
-
-                    let isLivestream = self.isLivestream
-                    if currentDuration > 0 && currentDuration <= optimisticCurrentTime && !isLivestream {
-                        self.state = .ended
-                        #if os(iOS)
-                        self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
-                        #else
-                        self.view.setPlayButtonTo(state: .replay)
-                        #endif
-                    }
-
-                    self.videoAnalyticsService.currentItemIsLive = isLivestream
-
-                    self.delegate?.playerDidUpdateTime(player: self)
-
-                    self.evaluateAnnotations()
         }
     }
 
@@ -850,13 +885,12 @@ extension VideoPlayerImpl {
     }
 
     private func playButtonTapped() {
-        if state != .ended {
+        if !player.currentItemEnded {
             status.isPlaying ? pause() : play()
         }
         else {
             player.seek(to: .zero, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
                 if finished {
-                    self?.state = .readyToPlay
                     self?.play()
                 }
             }
@@ -933,12 +967,14 @@ extension VideoPlayerImpl {
         view.videoSlider.value = 1.0
         updatePlaytimeIndicators(currentDuration, totalSeconds: currentDuration, liveState: .liveAndLatest)
 
-        let seekTime = CMTimeMakeWithSeconds(currentDuration, preferredTimescale: 600)
-        player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] finished in
+        let seekCompletionHandler: (Bool) -> Void = { [weak self] finished in
             if finished {
                 self?.play()
             }
         }
+
+        let seekTime = CMTimeMakeWithSeconds(currentDuration, preferredTimescale: 600)
+        player.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero, completionHandler: seekCompletionHandler)
 
         if playerConfig.enableControls {
             setControlViewVisibility(visible: true, animated: true)
@@ -1043,6 +1079,18 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
     }
 }
 
+#if os(iOS)
+extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
+    func isCastingStateUpdated() {
+        guard let _ = castIntegration else { return }
+
+        status = .unknown
+
+        // Always re-place the current stream.
+        placeCurrentStream()
+    }
+}
+#endif
 
 // MARK: - DirectiveLevel
 enum DirectiveLevel: Int {

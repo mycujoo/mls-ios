@@ -37,7 +37,7 @@ public struct Configuration {
         self.playerConfig = playerConfig
 
         if let l10nBundle = l10nBundle {
-            Bundle.l10nBundle = l10nBundle
+            Bundle.mlsLocalizationBundle = l10nBundle
         }
     }
 }
@@ -145,7 +145,7 @@ public class MLS {
         initGlobalPrereqDone = true
 
         // TODO: Move this font array elsewhere.
-        if let bundle = Bundle.resourceBundle {
+        if let bundle = Bundle.mlsResourceBundle {
             UIFont.loadFonts(names: ["RobotoMono-Regular.ttf", "RobotoMono-Bold.ttf"], forBundle: bundle)
         }
     }
@@ -165,7 +165,7 @@ public class MLS {
     public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
         let player = VideoPlayerImpl(
             view: VideoPlayerView(),
-            player: MLSAVPlayer(),
+            avPlayer: MLSAVPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
             getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
@@ -176,7 +176,8 @@ public class MLS {
             videoAnalyticsService: youboraVideoAnalyticsService,
             hlsInspectionService: hlsInspectionService,
             seekTolerance: configuration.seekTolerance,
-            pseudoUserId: pseudoUserId)
+            pseudoUserId: pseudoUserId,
+            publicKey: publicKey)
 
         player.playerConfig = configuration.playerConfig
         player.event = event

@@ -10,9 +10,9 @@ extension Bundle {
     /// by the SDK user. This is useful when the SDK user decides to provide their own strings instead of the ones defined by the SDK.
     /// If this bundle does not contain a string that should be translated, it will fallback to resourceBundle (see: `L10n.Localizable`)
     /// - seeAlso: `L10n.Localizable`
-    static var l10nBundle: Bundle = resourceBundle ?? Bundle.main // the fallback to Bundle.main is just to ensure there is a always a bundle.
+    static var mlsLocalizationBundle: Bundle = mlsResourceBundle ?? Bundle.main // the fallback to Bundle.main is just to ensure there is a always a bundle.
 
-    static var resourceBundle: Bundle? {
+    static var mlsResourceBundle: Bundle? {
         #if SWIFT_PACKAGE
         return Bundle.module
         #else

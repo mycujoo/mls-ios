@@ -7,7 +7,7 @@ import Foundation
 
 enum L10n {
     enum Localizable {
-        private static let bundles = [Bundle.l10nBundle, Bundle.resourceBundle]
+        private static let bundles = [Bundle.mlsLocalizationBundle, Bundle.mlsResourceBundle]
 
         static let buttonTitleLive = makeNSLocalizedString("LIVE", tableName: "Localizable", bundles: bundles, value: "LIVE", comment: "The text on a button that indicates that a stream is live")
 

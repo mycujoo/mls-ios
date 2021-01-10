@@ -9,6 +9,7 @@ target 'MLS' do
   platform :ios, '11.0'
   pod 'MLSSDK', :path => '..'
   pod 'MLSSDK/IMA', :path => '..'
+  pod 'MLSSDK/Cast', :path => '..'
 end
 
 target 'MLS-tvOS' do
@@ -54,6 +55,11 @@ target 'MLSSDK-IMA-tvOS' do
   pod 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
 end
 
+target 'MLSSDK-Cast' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+  pod 'google-cast-sdk', '~> 4.5'
+end
 
 # // MARK: - Tests
 

@@ -46,5 +46,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_googlecast._tcp</string>
+		<string>_4381F502._googlecast._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>${PRODUCT_NAME} uses the local network to discover Cast-enabled devices on your WiFi network.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>${PRODUCT_NAME} uses bluetooth to enable playing video streams on Cast-enabled devices.</string>
 </dict>
 </plist>

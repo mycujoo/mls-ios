@@ -4,18 +4,18 @@
 
 import Foundation
 
-class Throttler {
+public class Throttler {
     private var workItem: DispatchWorkItem = DispatchWorkItem(block: {})
     private var previousRun: Date = Date.distantPast
     private let queue: DispatchQueue
-    private let minimumDelay: TimeInterval
+    public var minimumDelay: TimeInterval
 
-    init(minimumDelay: TimeInterval, queue: DispatchQueue = DispatchQueue.main) {
+    public init(minimumDelay: TimeInterval, queue: DispatchQueue = DispatchQueue.main) {
         self.minimumDelay = minimumDelay
         self.queue = queue
     }
 
-    func throttle(_ block: @escaping () -> Void) {
+    public func throttle(_ block: @escaping () -> Void) {
         // Cancel any existing work item if it has not yet executed
         workItem.cancel()
 
@@ -34,17 +34,17 @@ class Throttler {
     }
 }
 
-class Debouncer {
+public class Debouncer {
     private var workItem: DispatchWorkItem = DispatchWorkItem(block: {})
     private let queue: DispatchQueue
-    var minimumDelay: TimeInterval
+    public var minimumDelay: TimeInterval
 
-    init(minimumDelay: TimeInterval = 0, queue: DispatchQueue = DispatchQueue.main) {
+    public init(minimumDelay: TimeInterval = 0, queue: DispatchQueue = DispatchQueue.main) {
         self.minimumDelay = minimumDelay
         self.queue = queue
     }
 
-    func debounce(_ block: @escaping () -> Void) {
+    public func debounce(_ block: @escaping () -> Void) {
         // Cancel any existing work item if it has not yet executed
         workItem.cancel()
 

@@ -34,8 +34,6 @@ class VideoPlayerSpec: QuickSpec {
     }
 
     override func spec() {
-        /// Should be set by the `addPeriodicTimeObserver` mock.
-        var periodicTimeObserverCallback: ((CMTime) -> Void)? = nil
         /// A helper to mock the duration on the video.
         var currentDuration: Double = 0
         /// A helper to mock the currentTime on the video.
@@ -45,6 +43,13 @@ class VideoPlayerSpec: QuickSpec {
 
         var avPlayerStatus: AVPlayer.Status = .unknown
 
+        var playButtonTapped: (() -> Void)? = nil
+        var infoButtonTapped: (() -> Void)? = nil
+        var controlViewTapped: (() -> Void)? = nil
+        var stateObserverCallback: (() -> Void)? = nil
+        var timeObserverCallback: (() -> Void)? = nil
+        var playObserverCallback: ((Bool) -> Void)? = nil
+
         /// Can be called to trigger an invokation on the Observer of time on the AVPlayer.
         /// - note: The duration and current time of the player will increase with 1 on every call to this method.
         func updatePeriodicTimeObserver() {
@@ -52,17 +57,12 @@ class VideoPlayerSpec: QuickSpec {
             currentTime += 1
             optimisticCurrentTime += 1
 
-            periodicTimeObserverCallback?(CMTime(value: CMTimeValue(currentTime), timescale: 1))
+            timeObserverCallback?()
         }
 
         func updateAVPlayerStatus(to status: AVPlayer.Status) {
             avPlayerStatus = status
-            self.videoPlayer.observeValue(forKeyPath: "status", of: self.mockAVPlayer, change: [:], context: nil)
         }
-
-        var playButtonTapped: (() -> Void)? = nil
-        var infoButtonTapped: (() -> Void)? = nil
-        var controlViewTapped: (() -> Void)? = nil
 
         beforeEach {
             currentDuration = 200
@@ -142,18 +142,15 @@ class VideoPlayerSpec: QuickSpec {
 
             self.mockAVPlayer = MockMLSAVPlayerProtocol()
             stub(self.mockAVPlayer) { mock in
-                when(mock).addObserver(any(), forKeyPath: any(), options: any(), context: any()).thenDoNothing()
-                when(mock).addPeriodicTimeObserver(forInterval: any(), queue: any(), using: any()).then { (tuple) -> Any in
-                    periodicTimeObserverCallback = tuple.2
-                    return ""
-                }
-                when(mock).removeObserver(any(), forKeyPath: any()).thenDoNothing()
-                when(mock).removeTimeObserver(any()).thenDoNothing()
+                when(mock).state.get.thenReturn(.readyToPlay)
                 when(mock).currentDuration.get.then { _ -> Double in
                     return currentDuration
                 }
-                when(mock).currentDurationAsCMTime.get.then { _ -> CMTime? in
-                    return CMTime(seconds: currentDuration, preferredTimescale: 1)
+                when(mock).currentItemEnded.get.then { _ -> Bool in
+                    return self.mockAVPlayer.currentDuration > 0 && self.mockAVPlayer.currentDuration <= self.mockAVPlayer.optimisticCurrentTime && !self.mockAVPlayer.isLivestream
+                }
+                when(mock).isLivestream.get.then { _ -> Bool in
+                    return false
                 }
                 when(mock).currentTime.get.then { _ -> Double in
                     return currentTime
@@ -164,6 +161,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).status.get.then { _ -> AVPlayer.Status in
                     return avPlayerStatus
                 }
+                when(mock).isBuffering.get.thenReturn(false)
                 when(mock).isSeeking.get.thenReturn(false)
                 when(mock).isMuted.get.thenReturn(true)
                 when(mock).isMuted.set(any()).thenDoNothing()
@@ -180,6 +178,18 @@ class VideoPlayerSpec: QuickSpec {
                 }
                 when(mock).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any()).then { (tuple) in
                     (tuple.3)(true)
+                }
+                when(mock).stateObserverCallback.get.thenReturn(stateObserverCallback)
+                when(mock).stateObserverCallback.set(any()).then { obj in
+                    stateObserverCallback = obj
+                }
+                when(mock).timeObserverCallback.get.thenReturn(timeObserverCallback)
+                when(mock).timeObserverCallback.set(any()).then { obj in
+                    timeObserverCallback = obj
+                }
+                when(mock).playObserverCallback.get.thenReturn(playObserverCallback)
+                when(mock).playObserverCallback.set(any()).then { obj in
+                    playObserverCallback = obj
                 }
             }
 
@@ -271,7 +281,7 @@ class VideoPlayerSpec: QuickSpec {
 
             self.videoPlayer = VideoPlayerImpl(
                 view: self.mockView,
-                player: self.mockAVPlayer,
+                avPlayer: self.mockAVPlayer,
                 getEventUpdatesUseCase: GetEventUpdatesUseCase(eventRepository: self.mockEventRepository),
                 getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase(timelineRepository: self.mockTimelineRepository),
                 getPlayerConfigUseCase: GetPlayerConfigUseCase(playerConfigRepository: self.mockPlayerConfigRepository),
@@ -281,7 +291,8 @@ class VideoPlayerSpec: QuickSpec {
                 annotationService: self.mockAnnotationService,
                 videoAnalyticsService: self.mockVideoAnalyticsService,
                 hlsInspectionService: self.mockHLSInspectionService,
-                pseudoUserId: "test_account")
+                pseudoUserId: "test_account",
+                publicKey: "123")
                 self.videoPlayer.playerConfig = PlayerConfig.standard()
         }
 
@@ -461,7 +472,7 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             describe("slider value") {
-                it("it updaets the slider value when the duration/current time changes") {
+                it("it updates the slider value when the duration/current time changes") {
                     updatePeriodicTimeObserver()
                     expect(self.mockView.videoSlider.value).toEventually(equal(optimisticCurrentTime / currentDuration))
                 }
@@ -475,65 +486,8 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            describe("live state") {
-                it("gets live state correctly") {
-                     stub(self.mockAVPlayer) { mock in
-                        when(mock).currentDuration.get.thenReturn(500)
-                        when(mock).currentTime.get.thenReturn(500)
-                        when(mock).optimisticCurrentTime.get.thenReturn(500)
-                        when(mock).currentDurationAsCMTime.get.thenReturn(CMTime.positiveInfinity)
-                    }
-
-                    expect(self.videoPlayer.isLivestream).to(beTrue())
-
-                    stub(self.mockAVPlayer) { mock in
-                        when(mock).currentDuration.get.thenReturn(500)
-                        when(mock).currentTime.get.thenReturn(0)
-                        when(mock).optimisticCurrentTime.get.thenReturn(0)
-                        when(mock).currentDurationAsCMTime.get.thenReturn(CMTime(seconds: 500, preferredTimescale: 1))
-                    }
-
-                    expect(self.videoPlayer.isLivestream).to(beFalse())
-                }
-            }
-
-            describe("player state") {
-                beforeEach {
-                    updateAVPlayerStatus(to: .readyToPlay)
-                }
-                it("does not set state to ended when duration and currenttime match but it is a livestream") {
-                    stub(self.mockAVPlayer) { mock in
-                        when(mock).currentDuration.get.thenReturn(500)
-                        when(mock).currentTime.get.thenReturn(500)
-                        when(mock).optimisticCurrentTime.get.thenReturn(500)
-                        when(mock).currentDurationAsCMTime.get.thenReturn(.positiveInfinity)
-                    }
-
-                    expect(self.videoPlayer.state).to(equal(.readyToPlay))
-
-                    periodicTimeObserverCallback?(CMTime(seconds: 500, preferredTimescale: 1))
-
-                    expect(self.videoPlayer.state).toEventually(equal(.readyToPlay))
-                }
-
-                it("sets state to ended when duration and currenttime match and it is not a livestream") {
-                    stub(self.mockAVPlayer) { mock in
-                        when(mock).currentDuration.get.thenReturn(500)
-                        when(mock).currentTime.get.thenReturn(500)
-                        when(mock).optimisticCurrentTime.get.thenReturn(500)
-                        when(mock).currentDurationAsCMTime.get.thenReturn(CMTime(seconds: 500, preferredTimescale: 1))
-                    }
-
-                    expect(self.videoPlayer.state).to(equal(.readyToPlay))
-
-                    periodicTimeObserverCallback?(CMTime(seconds: 500, preferredTimescale: 1))
-
-                    expect(self.videoPlayer.state).toEventually(equal(.ended))
-                }
-            }
-
             it("calls delegate with slider update") {
-                class Delegate: PlayerDelegate {
+                class Delegate: VideoPlayerDelegate {
                     var called = false
 
                     func playerDidUpdatePlaying(player: VideoPlayer) {}
@@ -665,24 +619,24 @@ class VideoPlayerSpec: QuickSpec {
         describe("autoplay") {
             describe("without ima integration") {
                 it("autoplays with autoplay set to true") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: nil)
                     self.videoPlayer.event = self.event
                     expect(self.videoPlayer.status).to(equal(.play))
                 }
 
                 it("does not autoplay with autoplay set to false") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
                     self.videoPlayer.event = self.event
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                 }
 
                 it("plays when calling play() with autoplay set to false") {
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: nil)
                     self.videoPlayer.event = self.event
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     self.videoPlayer.play()
                     expect(self.videoPlayer.status).to(equal(.play))
                 }
@@ -695,17 +649,17 @@ class VideoPlayerSpec: QuickSpec {
             }
 
             it("autoplays with autoplay set to true") {
-                expect(self.videoPlayer.status).to(equal(.pause))
+                expect(self.videoPlayer.status).to(equal(.unknown))
                 self.videoPlayer.playerConfig = PlayerConfig(autoplay: true, imaAdUnit: "123456")
                 self.videoPlayer.event = self.event
                 expect(self.videoPlayer.status).to(equal(.play))
             }
 
             it("does not autoplay with autoplay set to false") {
-                expect(self.videoPlayer.status).to(equal(.pause))
+                expect(self.videoPlayer.status).to(equal(.unknown))
                 self.videoPlayer.playerConfig = PlayerConfig(autoplay: false, imaAdUnit: "123456")
                 self.videoPlayer.event = self.event
-                expect(self.videoPlayer.status).to(equal(.pause))
+                expect(self.videoPlayer.status).to(equal(.unknown))
             }
 
             it("plays ad directly upon autoplay") {
@@ -763,24 +717,21 @@ class VideoPlayerSpec: QuickSpec {
                     self.videoPlayer.imaIntegration = self.mockIMAIntegration
                     self.videoPlayer.playerConfig = PlayerConfig(imaAdUnit: "123456")
                     self.videoPlayer.event = self.event
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                     playButtonTapped?()
-                    expect(self.videoPlayer.status).to(equal(.pause))
+                    expect(self.videoPlayer.status).to(equal(.unknown))
                 }
 
                 it("Seeks to beginning if state is currently ended") {
                     self.videoPlayer.event = self.event
                     updateAVPlayerStatus(to: .readyToPlay)
                     stub(self.mockAVPlayer) { mock in
-                        when(mock).currentDuration.get.thenReturn(500)
-                        when(mock).currentTime.get.thenReturn(500)
-                        when(mock).optimisticCurrentTime.get.thenReturn(500)
-                        when(mock).currentDurationAsCMTime.get.thenReturn(CMTime(seconds: 500, preferredTimescale: 1))
+                        when(mock).currentItemEnded.get.thenReturn(true)
                     }
 
                     waitUntil { done in
                         // Force the player to set the .ended state by updating the current time info.
-                        periodicTimeObserverCallback?(CMTime(seconds: 500, preferredTimescale: 1))
+                        timeObserverCallback?()
                         let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
                             playButtonTapped?()
                             verify(self.mockAVPlayer).seek(to: any(), toleranceBefore: any(), toleranceAfter: any(), completionHandler: any())
