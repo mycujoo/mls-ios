@@ -22,3 +22,18 @@ public protocol IMAIntegrationDelegate: class {
     /// Gets called when the video player stops playing an IMA ad.
     func imaAdStopped(for videoPlayer: VideoPlayer)
 }
+
+public extension IMAIntegrationDelegate {
+    /// Should be implemented by the SDK user for IMA ads to be targetable to custom needs.
+    /// This will populate the `custom_params` field in the IMA ad tag.
+    /// If no extra parameters are needed, return an empty dictionary.
+    func getCustomParameters(forItemIn videoPlayer: VideoPlayer) -> [String: String] {
+        return [:]
+    }
+
+    /// Gets called when the video player starts playing an IMA ad.
+    func imaAdStarted(for videoPlayer: VideoPlayer) {}
+
+    /// Gets called when the video player stops playing an IMA ad.
+    func imaAdStopped(for videoPlayer: VideoPlayer) {}
+}

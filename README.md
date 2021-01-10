@@ -42,7 +42,11 @@ To render a basic video player, you must:
 
 ### IMA
 
-TODO.
+To use the IMA extension, please ensure the following:
+
+- Include the `MLSSDK/IMA` pod in your Podfile (see Installation).
+- Provide an `imaAdUnit` to the SDK through the MCLS Console or API, or through code (see Examples section). For now, only one ad unit can be provided globally. For specific targetting, custom parameters can be provided on a per-event basis.
+- Set the `imaIntegration` property on the VideoPlayer (before using it), and provide a delegate. See Examples.
 
 ### Chromecast
 
@@ -51,6 +55,7 @@ To use the Chromecast extension, please ensure the following:
 - Include the `MLSSDK/Cast` pod in your Podfile (see Installation).
 - Change your application's `Info.plist` file in accordance with Google's instructions as outlined on this page: https://developers.google.com/cast/docs/ios_sender. For the "appId" you should use `4381F502`. This app uses the Bluetooth-supported version of the cast SDK, so ensure you add the `Privacy - Bluetooth Always Usage Description` key.
 - Add the "Access WiFi information" capability to your application. 
+- Set the `castIntegration` property on the VideoPlayer (before using it), and provide a delegate. See Examples.
 
 
 ## Examples
