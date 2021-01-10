@@ -245,7 +245,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     func updateMediaStatus(_ mediaStatus: GCKMediaStatus?) {
         guard let mediaStatus = mediaStatus else { return }
         switch(mediaStatus.playerState) {
-        case .buffering, .loading:
+        case .buffering, .loading, .unknown:
             self.isBuffering = true
         case .playing:
             self.isBuffering = false

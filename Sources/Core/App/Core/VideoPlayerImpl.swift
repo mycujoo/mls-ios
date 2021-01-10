@@ -358,7 +358,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
 
                 if currentDuration > 0 {
-                    self.view.videoSlider.value = optimisticCurrentTime / currentDuration
+                    self.view.videoSlider.value = max(0, min(1, optimisticCurrentTime / currentDuration))
                 }
             }
 

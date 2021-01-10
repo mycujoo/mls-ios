@@ -53,10 +53,10 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         }
 
         GCKLogger.sharedInstance().delegate = self
-        GCKLogger.sharedInstance().loggingEnabled = true
-        GCKLogger.sharedInstance().consoleLoggingEnabled = true
+        GCKLogger.sharedInstance().loggingEnabled = false
+        GCKLogger.sharedInstance().consoleLoggingEnabled = false
         let logFilter = GCKLoggerFilter()
-        logFilter.minimumLevel = .verbose
+        logFilter.minimumLevel = .none
         GCKLogger.sharedInstance().filter = logFilter
 
         GCKCastContext.sharedInstance().sessionManager.add(self)
@@ -157,7 +157,7 @@ extension CastIntegrationImpl: GCKSessionManagerListener {
             guard !_isCasting else { return }
 
             GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.add(self)
-            
+
             _isCasting = true
 
             videoPlayerDelegate?.isCastingStateUpdated()
