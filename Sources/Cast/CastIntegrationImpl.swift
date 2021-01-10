@@ -21,6 +21,8 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
     }
     private var _player = CastPlayer()
 
+    private var _miniMediaController: GCKUIMiniMediaControlsViewController?
+
     private let appId: String
 
     /// - note: `customReceiverAppId` only has any effect on the first initialization of this class, since that is when the Chromecast context is built.
@@ -33,6 +35,10 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
     }
 
     deinit {
+        if let miniMediaController = _miniMediaController {
+            uninstallViewController(miniMediaController)
+        }
+
         GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
         GCKCastContext.sharedInstance().sessionManager.remove(self)
     }
@@ -83,6 +89,19 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
             constraint.priority = UILayoutPriority(rawValue: 749)
         }
         NSLayoutConstraint.activate(castButtonConstraints)
+
+        let castContext = GCKCastContext.sharedInstance()
+        if let miniControllerParentView = delegate.getMiniControllerParentView(), let miniControllerParentViewController = delegate.getMiniControllerParentViewController() {
+            castContext.useDefaultExpandedMediaControls = false
+
+            let miniMediaController = castContext.createMiniMediaControlsViewController()
+            miniMediaController.delegate = self
+            updateControlBarsVisibility()
+            installViewController(miniMediaController, inContainerView: miniControllerParentView, inParentViewController: miniControllerParentViewController)
+            _miniMediaController = miniMediaController
+        } else {
+            castContext.useDefaultExpandedMediaControls = false
+        }
 
         #if DEBUG
         GCKLogger.sharedInstance().delegate = self
@@ -166,6 +185,75 @@ extension CastIntegrationImpl: GCKSessionManagerListener {
 //                _metadataUpdatedSubject.onNext(metadata)
 //            }
         }
+}
+
+extension CastIntegrationImpl: GCKUIMiniMediaControlsViewControllerDelegate {
+    func miniMediaControlsViewController(_ miniMediaControlsViewController: GCKUIMiniMediaControlsViewController, shouldAppear: Bool) {
+        updateControlBarsVisibility()
+    }
+
+    func updateControlBarsVisibility() {
+        guard let miniMediaController = _miniMediaController, let delegate = delegate, let miniControllerParentView = delegate.getMiniControllerParentView() else { return }
+
+        miniControllerParentView.isHidden = !miniMediaController.active
+
+        let newHeight = miniMediaController.active ? miniMediaController.minHeight : 0
+
+        var foundHeightConstraints = false
+
+        let heightConstraints = miniControllerParentView.constraints.filtered(view: miniControllerParentView, anchor: miniControllerParentView.heightAnchor)
+        if heightConstraints.count > 0 {
+            foundHeightConstraints = true
+            for heightConstraint in heightConstraints {
+                heightConstraint.constant = newHeight
+            }
+        }
+
+        if !foundHeightConstraints {
+            let heightConstraint = NSLayoutConstraint(
+                item: miniControllerParentView,
+                attribute: NSLayoutConstraint.Attribute.height,
+                relatedBy: NSLayoutConstraint.Relation.equal,
+                toItem: nil,
+                attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                multiplier: 1,
+                constant: newHeight)
+            miniControllerParentView.addConstraint(heightConstraint)
+        }
+
+        if miniMediaController.active {
+            miniControllerParentView.superview?.bringSubviewToFront(miniControllerParentView)
+        }
+
+        miniControllerParentView.setNeedsLayout()
+        miniControllerParentView.layoutIfNeeded()
+    }
+
+    func installViewController(_ viewController: UIViewController, inContainerView containerView: UIView, inParentViewController parentViewController: UIViewController) {
+        parentViewController.addChild(viewController)
+        viewController.view.frame = containerView.bounds
+        containerView.addSubview(viewController.view)
+
+        let constraints = [
+            viewController.view.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            viewController.view.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+            viewController.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            viewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+        ]
+        for constraint in constraints {
+            constraint.priority = UILayoutPriority(rawValue: 749)
+        }
+        NSLayoutConstraint.activate(constraints)
+
+        viewController.didMove(toParent: parentViewController)
+    }
+
+    func uninstallViewController(_ viewController: UIViewController) {
+        viewController.willMove(toParent: nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParent()
+    }
+
 }
 
 // - MARK: GCKLoggerDelegate

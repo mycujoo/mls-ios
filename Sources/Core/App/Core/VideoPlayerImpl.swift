@@ -475,7 +475,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         currentStream = event?.streams.first ?? stream
 
         updateInfo()
-        updateYouboraMetadata()
+        updateVideoAnalyticsMetadata()
 
         if new {
             tovStore = TOVStore()
@@ -642,7 +642,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
-    private func updateYouboraMetadata() {
+    private func updateVideoAnalyticsMetadata() {
         videoAnalyticsService.currentItemTitle = event?.title
         videoAnalyticsService.currentItemEventId = event?.id
         videoAnalyticsService.currentItemStreamId = currentStream?.id
