@@ -3,27 +3,45 @@
 //
 
 import UIKit
+import GoogleCast
 import MLSSDK
+import MLSSDK_Cast
+import MLSSDK_IMA
 
 class WithEventListViewController: UIViewController {
     @IBOutlet var playerContainerView: UIView!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var castMiniControllerView: UIView!
 
     // Make sure to set your organization's public key here!
     private lazy var mls = MLS(
         publicKey: "",
         configuration: Configuration(
-            logLevel: .verbose,
+            logLevel: .minimal,
             seekTolerance: .zero,
             playerConfig: PlayerConfig(
                 primaryColor: "#de6e1f",
-                secondaryColor: "#000000")))
+                secondaryColor: "#000000",
+                imaAdUnit: "/124319096/external/single_ad_samples")))
 
+    lazy var castButtonParentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 40),
+            view.heightAnchor.constraint(equalToConstant: 40),
+        ])
+        return view
+    }()
+    
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
         #if DEBUG
         player.isMuted = true
         #endif
+        player.castIntegration = CastIntegrationFactory.build(delegate: self)
+        player.imaIntegration = IMAIntegrationFactory.build(videoPlayer: player, delegate: self)
+        player.topTrailingControlsStackView.insertArrangedSubview(castButtonParentView, at: 0)
         return player
     }()
 
@@ -131,4 +149,30 @@ extension WithEventListViewController: UITableViewDelegate, UITableViewDataSourc
         videoPlayer.playerView.isHidden = false
         videoPlayer.event = events[indexPath.row]
     }
+}
+
+extension WithEventListViewController: CastIntegrationDelegate {
+    func getCastButtonParentViews() -> [(parentView: UIView, tintColor: UIColor)] {
+        return [(parentView: castButtonParentView, tintColor: .white)]
+    }
+
+    func getMiniControllerParentView() -> UIView? {
+        return castMiniControllerView
+    }
+
+    func getMiniControllerParentViewController() -> UIViewController? {
+        return self
+    }
+}
+
+extension WithEventListViewController: IMAIntegrationDelegate {
+    func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
+        return self
+    }
+    func getCustomParameters(forItemIn videoPlayer: VideoPlayer) -> [String : String] {
+        return [:]
+    }
+    func imaAdStarted(for videoPlayer: VideoPlayer) {}
+
+    func imaAdStopped(for videoPlayer: VideoPlayer) {}
 }

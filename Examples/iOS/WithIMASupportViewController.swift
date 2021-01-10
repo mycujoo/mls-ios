@@ -3,30 +3,18 @@
 //
 
 import UIKit
-import GoogleCast
 import MLSSDK
-import MLSSDK_Cast
+import MLSSDK_IMA
 
 
 
-class WithCastSupportViewController: UIViewController {
+class WithIMASupportViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
-
-    lazy var castButtonParentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: 40),
-            view.heightAnchor.constraint(equalToConstant: 40),
-        ])
-        return view
-    }()
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(playerConfig: PlayerConfig(imaAdUnit: "/124319096/external/single_ad_samples")))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
-        player.castIntegration = CastIntegrationFactory.build(delegate: self)
-        player.topTrailingControlsStackView.insertArrangedSubview(castButtonParentView, at: 0)
+        player.imaIntegration = IMAIntegrationFactory.build(videoPlayer: player, delegate: self)
         return player
     }()
 
@@ -69,8 +57,14 @@ class WithCastSupportViewController: UIViewController {
     }
 }
 
-extension WithCastSupportViewController: CastIntegrationDelegate {
-    func getCastButtonParentViews() -> [(parentView: UIView, tintColor: UIColor)] {
-        return [(parentView: castButtonParentView, tintColor: .white)]
+extension WithIMASupportViewController: IMAIntegrationDelegate {
+    func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
+        return self
     }
+    func getCustomParameters(forItemIn videoPlayer: VideoPlayer) -> [String : String] {
+        return [:]
+    }
+    func imaAdStarted(for videoPlayer: VideoPlayer) {}
+
+    func imaAdStopped(for videoPlayer: VideoPlayer) {}
 }
