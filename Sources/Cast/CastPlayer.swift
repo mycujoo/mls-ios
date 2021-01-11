@@ -112,7 +112,9 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         struct ReceiverCustomData: Codable {
             var publicKey: String
             var pseudoUserId: String
-            var eventId: String?
+            var eventId: String
+            var licenseUrl: String? = nil
+            var protectionSystem: String? = nil
         }
 
         // The player must have a stream url. If not, it moves into a failed state and blocks the player altogether.
@@ -120,7 +122,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
 
         let metadata = GCKMediaMetadata()
         metadata.setString(event?.title ?? "", forKey: kGCKMetadataKeyTitle)
-        metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeyTitle)
+        metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeySubtitle)
 
         let mediaInfoBuilder = GCKMediaInformationBuilder()
         // TODO: If we introduce Widevine, the streamUrl will need to be provided differently, since this uses Fairplay by default.
@@ -128,10 +130,11 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         mediaInfoBuilder.streamType = .none
         mediaInfoBuilder.contentType = "video/m3u"
         mediaInfoBuilder.metadata = metadata
-        mediaInfoBuilder.customData = []
 
-        if let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey, pseudoUserId: pseudoUserId, eventId: event?.id))) {
-            mediaInfoBuilder.customData = String(data: data, encoding: .utf8)!
+        if let eventId = event?.id,
+           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey, pseudoUserId: pseudoUserId, eventId: eventId))),
+           let json = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) {
+            mediaInfoBuilder.customData = json
         }
 
         stopUpdatingTime()
