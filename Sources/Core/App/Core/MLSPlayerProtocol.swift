@@ -24,4 +24,6 @@ protocol MLSPlayerProtocol: PlayerProtocol {
     /// - parameter resourceLoaderDelegate: The delegate for the asset's resourceLoader.
     /// - parameter callback: A callback that is called when the replacement is completed (true) or failed/cancelled (false).
     func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ())
+
+    var allowsExternalPlayback: Bool { get set }
 }

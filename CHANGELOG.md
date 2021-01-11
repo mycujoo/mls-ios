@@ -7,6 +7,7 @@ Released on ?.
 
 #### Added
 - Added alpha support for Chromecast
+- Added alpha support for Apple Airplay
 - Added alpha support for IMA preroll support for iOS and tvOS
 - Added a Roboto Mono font for overlays
 - Added a `localAnnotationActions` property on the VideoPlayer for on-the-fly injection of annotation actions (advanced feature).

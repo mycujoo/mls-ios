@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -924,7 +924,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1237,7 +1237,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1307,6 +1307,30 @@ import Foundation
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.rawSegmentPlaylist)
+        }
+        
+    }
+    
+    
+    
+     var allowsExternalPlayback: Bool {
+        get {
+            return cuckoo_manager.getter("allowsExternalPlayback",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.allowsExternalPlayback)
+        }
+        
+        set {
+            cuckoo_manager.setter("allowsExternalPlayback",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.allowsExternalPlayback = newValue)
         }
         
     }
@@ -1637,6 +1661,11 @@ import Foundation
 	    }
 	    
 	    
+	    var allowsExternalPlayback: Cuckoo.ProtocolToBeStubbedProperty<MockMLSPlayerProtocol, Bool> {
+	        return .init(manager: cuckoo_manager, name: "allowsExternalPlayback")
+	    }
+	    
+	    
 	    var state: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSPlayerProtocol, PlayerState> {
 	        return .init(manager: cuckoo_manager, name: "state")
 	    }
@@ -1754,6 +1783,11 @@ import Foundation
 	    
 	    var rawSegmentPlaylist: Cuckoo.VerifyReadOnlyProperty<String?> {
 	        return .init(manager: cuckoo_manager, name: "rawSegmentPlaylist", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var allowsExternalPlayback: Cuckoo.VerifyProperty<Bool> {
+	        return .init(manager: cuckoo_manager, name: "allowsExternalPlayback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	    
@@ -1880,6 +1914,16 @@ import Foundation
         get {
             return DefaultValueRegistry.defaultValue(for: (String?).self)
         }
+        
+    }
+    
+    
+     var allowsExternalPlayback: Bool {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Bool).self)
+        }
+        
+        set { }
         
     }
     
@@ -2018,7 +2062,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2673,7 +2717,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4041,7 +4085,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4173,7 +4217,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4305,7 +4349,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4497,7 +4541,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4599,7 +4643,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4761,7 +4805,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4863,7 +4907,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4965,7 +5009,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-10 14:29:28 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-11 21:04:10 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

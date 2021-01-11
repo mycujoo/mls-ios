@@ -161,6 +161,8 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).status.get.then { _ -> AVPlayer.Status in
                     return avPlayerStatus
                 }
+                when(mock).allowsExternalPlayback.get.thenReturn(true)
+                when(mock).allowsExternalPlayback.set(any()).thenDoNothing()
                 when(mock).isBuffering.get.thenReturn(false)
                 when(mock).isSeeking.get.thenReturn(false)
                 when(mock).isMuted.get.thenReturn(true)

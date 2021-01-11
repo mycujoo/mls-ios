@@ -414,6 +414,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         super.init()
 
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
+
         func initPlayerView() {
             self.view = view
             view.setOnTimeSliderSlide({ [weak self] fraction in self?.sliderUpdated(with: fraction) })
