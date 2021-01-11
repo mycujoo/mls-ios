@@ -26,6 +26,4 @@ protocol MLSPlayerProtocol: PlayerProtocol {
     func replaceCurrentItem(with assetUrl: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ())
 
     var allowsExternalPlayback: Bool { get set }
-    var isExternalPlaybackActive: Bool { get }
-    var usesExternalPlaybackWhileExternalScreenIsActive: Bool { get set }
 }

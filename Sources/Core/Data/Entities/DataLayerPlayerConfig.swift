@@ -49,7 +49,7 @@ extension DataLayer.PlayerConfig {
         let imaAdUnit: String? = try? container.decode(String.self, forKey: .imaAdUnit)
 
         #if os(tvOS)
-        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers)
+        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, imaAdUnit: imaAdUnit)
         #else
         let showEventInfoButton: Bool = (try? container.decode(Bool.self, forKey: .showEventInfoButton)) ?? true
         let showFullscreen: Bool = (try? container.decode(Bool.self, forKey: .showFullscreen)) ?? false
