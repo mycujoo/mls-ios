@@ -13,6 +13,7 @@ extension DataLayer {
         let showLiveViewers: Bool
         let showSeekbar: Bool
         let showTimers: Bool
+        let imaAdUnit: String?
         #if os(iOS)
         let showEventInfoButton: Bool
         let showFullscreen: Bool
@@ -29,6 +30,7 @@ extension DataLayer.PlayerConfig {
         case showLiveViewers = "live_viewers"
         case showSeekbar = "seekbar"
         case showTimers = "timers"
+        case imaAdUnit = "ima_ad_unit"
         #if os(iOS)
         case showEventInfoButton = "event_info_button"
         case showFullscreen = "fullscreen"
@@ -44,6 +46,7 @@ extension DataLayer.PlayerConfig {
         let showLiveViewers: Bool = (try? container.decode(Bool.self, forKey: .showLiveViewers)) ?? true
         let showSeekbar: Bool = (try? container.decode(Bool.self, forKey: .showSeekbar)) ?? true
         let showTimers: Bool = (try? container.decode(Bool.self, forKey: .showTimers)) ?? true
+        let imaAdUnit: String? = try? container.decode(String.self, forKey: .imaAdUnit)
 
         #if os(tvOS)
         self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers)
@@ -51,7 +54,7 @@ extension DataLayer.PlayerConfig {
         let showEventInfoButton: Bool = (try? container.decode(Bool.self, forKey: .showEventInfoButton)) ?? true
         let showFullscreen: Bool = (try? container.decode(Bool.self, forKey: .showFullscreen)) ?? false
 
-        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, showEventInfoButton: showEventInfoButton, showFullscreen: showFullscreen)
+        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, imaAdUnit: imaAdUnit, showEventInfoButton: showEventInfoButton, showFullscreen: showFullscreen)
         #endif
     }
 }
@@ -62,9 +65,9 @@ extension DataLayer.PlayerConfig {
 extension DataLayer.PlayerConfig {
     var toDomain: MLSSDK.PlayerConfig {
         #if os(tvOS)
-        return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showSeekbar: self.showSeekbar, showTimers: self.showTimers)
+        return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showSeekbar: self.showSeekbar, showTimers: self.showTimers, imaAdUnit: self.imaAdUnit)
         #else
-        return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showEventInfoButton: self.showEventInfoButton, showSeekbar: self.showSeekbar, showFullscreen: self.showFullscreen, showTimers: self.showTimers)
+        return MLSSDK.PlayerConfig(primaryColor: self.primaryColor, secondaryColor: self.secondaryColor, autoplay: self.autoplay, showBackForwardsButtons: self.showBackForwardsButtons, showLiveViewers: self.showLiveViewers, showEventInfoButton: self.showEventInfoButton, showSeekbar: self.showSeekbar, showFullscreen: self.showFullscreen, showTimers: self.showTimers, imaAdUnit: self.imaAdUnit)
         #endif
     }
 }
