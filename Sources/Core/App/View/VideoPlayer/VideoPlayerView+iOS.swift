@@ -207,18 +207,25 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         return stackView
     }()
 
-    private lazy var airplayButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var airplayButton: UIView = {
+        let view = UIView()
         let routerPickerView = AVRoutePickerView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         routerPickerView.translatesAutoresizingMaskIntoConstraints = false
-        button.addSubview(routerPickerView)
-        routerPickerView.tintColor = .gray
+        view.addSubview(routerPickerView)
+        // Move the Airplay button down by 1 point, otherwise it looks visually inconsistent.
+        NSLayoutConstraint.activate([
+            routerPickerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            routerPickerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            routerPickerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 1),
+            routerPickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 1)
+        ])
+        routerPickerView.tintColor = .white
         routerPickerView.activeTintColor = .white
         if #available(iOS 13.0, *) {
             routerPickerView.prioritizesVideoDevices = true
         }
-        return button
+        return view
     }()
 
     private lazy var infoButton: UIButton = {
