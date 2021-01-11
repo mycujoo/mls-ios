@@ -413,9 +413,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         self.publicKey = publicKey
 
         super.init()
-        
-        try? AVAudioSession.sharedInstance().setCategory(.playback)
-        try? AVAudioSession.sharedInstance().setActive(true, options: [])
+
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
 
         func initPlayerView() {
             self.view = view
