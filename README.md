@@ -40,6 +40,19 @@ To render a basic video player, you must:
 2. Place the `VideoPlayer`'s `playerView` property within your app's view hierarchy.
 3. Load an `Event` object into the video player (which represents an event that you have previously created through the MLS Console or the MLS API). To obtain an `Event` object, you can use the `dataProvider` on your `MLS` object. This `dataProvider` connects to the MLS API to obtain a single event (by id) or a list of events.
 
+#### Airplay
+
+Airplay is included in the core component, and works by default. However, to ensure that Airplay continues to operate while your app is moved to the background by your user, a few things need to happen on your side:
+
+- Add the "Background Modes -> Audio, Airplay, and Picture in Picture" capability to your application.
+- Ensure that the following is added to your Info.plist (Xcode may do this automatically if you add the background mode):
+
+```<key>UIBackgroundModes</key>
+<array>
+    <string>audio</string>
+</array>
+```
+
 ### IMA
 
 To use the IMA extension, please ensure the following:
