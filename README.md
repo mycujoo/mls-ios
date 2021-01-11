@@ -48,6 +48,8 @@ To use the IMA extension, please ensure the following:
 - Provide an `imaAdUnit` to the SDK through the MCLS Console or API, or through code (see Examples section). For now, only one ad unit can be provided globally. For specific targetting, custom parameters can be provided on a per-event basis.
 - Set the `imaIntegration` property on the VideoPlayer (before using it), and provide a delegate. See Examples.
 
+Also, make sure to follow the guidelines as laid out here: https://developers.google.com/interactive-media-ads/docs/sdks/ios/client-side/ios14
+
 ### Chromecast
 
 To use the Chromecast extension, please ensure the following:
