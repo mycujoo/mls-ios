@@ -207,6 +207,20 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
         return stackView
     }()
 
+    private lazy var airplayButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let routerPickerView = AVRoutePickerView()
+        routerPickerView.translatesAutoresizingMaskIntoConstraints = false
+        button.addSubview(routerPickerView)
+        routerPickerView.tintColor = .gray
+        routerPickerView.activeTintColor = .white
+        if #available(iOS 13.0, *) {
+            routerPickerView.prioritizesVideoDevices = true
+        }
+        return button
+    }()
+
     private lazy var infoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -559,6 +573,7 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
             topTrailingControlsStackView.heightAnchor.constraint(equalToConstant: 40)
         ])
 
+        topTrailingControlsStackView.addArrangedSubview(airplayButton)
         topTrailingControlsStackView.addArrangedSubview(infoButton)
 
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
