@@ -35,18 +35,18 @@ class VideoProgressSlider: UIControl {
     private var visibleMarkerSeekPosition: Double? = nil
 
     var value: Double {
-        get { _value }
+        get { mapToOriginalValue(_value)  }
         set {
             guard !isTracking else { return }
-            _value = newValue
+            _value = mapFromOriginalValue(newValue)
         }
     }
 
     /// Set to true when the slider should not produce any updates. This is recommended when the slider has focus, but the TV remote is being tapped/selected.
     var ignoreTracking = false
-    
-    private let minimumValue = 0.0
-    private let maximumValue = 1.0
+
+    /// A helper to set the initial value of the slider. This is needed because the thumbview should be positioned inside of the slider, i.e. at a non-zero initial value.
+    private var wasInitialized = false
 
     let timeView: UIView = {
         let view = UIView()
@@ -79,6 +79,7 @@ class VideoProgressSlider: UIControl {
         view.backgroundColor = nil
         view.heightAnchor.constraint(equalToConstant: 30).isActive = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        view.isHidden = true
         return view
     }()
 
@@ -196,11 +197,22 @@ class VideoProgressSlider: UIControl {
         #else
         markerBubbleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
         #endif
-
     }
     
     private func updateLayerFrames() {
-        let thumbCenter = bounds.width * CGFloat(value)
+        if bounds.width == 0 || thumbView.bounds.width == 0 {
+            // Hide the thumb as long as the bounds are not set. This is needed because the thumbView is initially misplaced (due to the custom mapping).
+            thumbView.isHidden = true
+        } else {
+            if !wasInitialized {
+                wasInitialized = true
+                // Reset the value, which will be mapped to a non-nil value that considers the thumbView size to be within the bounds of the slider.
+                _value = mapFromOriginalValue(0)
+                return
+            }
+            thumbView.isHidden = false
+        }
+        let thumbCenter = bounds.width * CGFloat(_value)
         rightConstraintOfTrackView.constant = thumbCenter
         centerXOfThumbView.constant = thumbCenter
     }
@@ -221,25 +233,54 @@ class VideoProgressSlider: UIControl {
     }
     #endif
 
+    /// - returns: A mapped value that corrects for the bounds of the thumb view, because we want that to appear fully within the bounds of the slider.
+    private func mapFromOriginalValue(_ originalValue: Double) -> Double {
+        #if os(iOS)
+        let sliderWidth = Double(bounds.width)
+        let thumbWidth = Double(thumbInnerView.bounds.width)
+
+        guard sliderWidth > 0 && thumbWidth > 0 else { return 0.0 }
+
+        return 0.5 - ((originalValue <= 0.5 ? 1 : -1) * (abs(0.5 - originalValue) * ((sliderWidth - thumbWidth) / sliderWidth)))
+        #else
+        return originalValue
+        #endif
+    }
+
+    /// - returns: A mapped value that corrects for the bounds of the thumb view, because we want that to appear fully within the bounds of the slider.
+    private func mapToOriginalValue(_ translatedValue: Double) -> Double {
+        #if os(iOS)
+        let sliderWidth = Double(bounds.width)
+        let thumbWidth = Double(thumbInnerView.bounds.width)
+
+        guard sliderWidth > 0 && thumbWidth > 0 else { return 0.0 }
+
+        return 0.5 - ((translatedValue <= 0.5 ? 1 : -1) * (abs(0.5 - translatedValue) / ((sliderWidth - thumbWidth) / sliderWidth)))
+        #else
+        return translatedValue
+        #endif
+    }
+
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         guard !ignoreTracking else { return false }
 
         let width = Double(bounds.width)
         guard width > 0 else { return false }
 
-        let v = max(0, min(Double(touch.location(in: self).x), width)) / width
+        /// This is the naive value of the slider. It does not take into consideration the bounds of the thumb view, since we want those to appear fully within the bounds of the slider.
+        let originalV = max(0, min(Double(touch.location(in: self).x), width)) / width
 
         #if os(tvOS)
         if isFirstContinueAfterBeginTracking {
             isFirstContinueAfterBeginTracking = false
-            initialTrackingOffset = v
+            initialTrackingOffset = originalV
         }
 
         // Calculate the position relative to the starting position for a smoother seeking experience.
         // This formula is needed because every new tracking operation starts with a touch location
         // in the center of the seekbar.
         
-        var vTranslated = (v - initialTrackingOffset)
+        var vTranslated = (originalV - initialTrackingOffset)
         if initialTrackingOffset > 0.5 {
             if vTranslated > 0.0 {
                 vTranslated = vTranslated * (0.5 / (1 - initialTrackingOffset))
@@ -258,7 +299,7 @@ class VideoProgressSlider: UIControl {
         _value = max(0, min(1, vTranslated / 6 + valueOnFirstTouch))
 
         #else
-        _value = v
+        _value = mapFromOriginalValue(originalV)
         #endif
 
         let rangeInterval = showTimelineMarkerBubbleWithinPointRange / width
@@ -304,7 +345,7 @@ class VideoProgressSlider: UIControl {
         if !ignoreTracking {
             if let visibleMarkerSeekPosition = visibleMarkerSeekPosition {
                 // Stick to the marker that is currently on-screen.
-                _value = visibleMarkerSeekPosition
+                _value = mapFromOriginalValue(visibleMarkerSeekPosition)
 
                 sendActions(for: .valueChanged)
             }
