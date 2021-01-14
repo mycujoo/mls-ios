@@ -2,6 +2,25 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.0)
+Released on ?.
+
+#### Added
+- Added alpha support for Chromecast
+- Added alpha support for Apple Airplay
+- Added alpha support for IMA preroll support for iOS and tvOS
+- Added a Roboto Mono font for overlays
+- Added a `localAnnotationActions` property on the VideoPlayer for on-the-fly injection of annotation actions (advanced feature).
+
+#### Changed
+- Changed access control for AnnotationAction-related entities to public.
+- Renamed `PlayerDelegate` to `VideoPlayerDelegate`
+
+#### Fixed
+- Fixed an issue with timer rendering on the overlays
+- Fixed a memory leak in the annotation overlay rendering process
+- Fixed the AVPlayerNetworkInterceptor's behavior for relative path `.ts` files.
+
 ## [1.1.8](https://github.com/MyCujoo/mls-ios/releases/tag/1.1.8)
 Released on 2020-12-18.
 

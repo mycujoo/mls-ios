@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "64FDE307249A189000E6510D"
-               BuildableName = "MLSSDK.framework"
-               BlueprintName = "MLSSDK-tvOS"
+               BlueprintIdentifier = "4971F39025A10F8C0075715E"
+               BuildableName = "MLSSDK_IMA.framework"
+               BlueprintName = "MLSSDK-IMA-iOS"
                ReferencedContainer = "container:MLSSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

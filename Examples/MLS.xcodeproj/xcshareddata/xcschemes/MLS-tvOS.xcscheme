@@ -3,23 +3,9 @@
    LastUpgradeVersion = "1150"
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "YES"
+      parallelizeBuildables = "NO"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "643B5EB6247BE93900A46A77"
-               BuildableName = "MLS-tvOS.app"
-               BlueprintName = "MLS-tvOS"
-               ReferencedContainer = "container:MLS.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
@@ -32,6 +18,34 @@
                BuildableName = "MLSSDK.framework"
                BlueprintName = "MLSSDK-tvOS"
                ReferencedContainer = "container:../MLSSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4971F3AA25A1101E0075715E"
+               BuildableName = "MLSSDK_IMA.framework"
+               BlueprintName = "MLSSDK-IMA-tvOS"
+               ReferencedContainer = "container:../MLSSDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "643B5EB6247BE93900A46A77"
+               BuildableName = "MLS-tvOS.app"
+               BlueprintName = "MLS-tvOS"
+               ReferencedContainer = "container:MLS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
