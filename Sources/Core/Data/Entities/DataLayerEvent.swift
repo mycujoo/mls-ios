@@ -20,6 +20,7 @@ extension DataLayer {
         let title: String?
         /// The description of the event (not to be confused with Swift's native `description` property
         let descriptionText: String?
+        let posterUrl: URL?
         let thumbnailUrl: URL?
         let organiser: String?
         let timezone: String?
@@ -79,6 +80,7 @@ extension DataLayer.Event {
         case id
         case title
         case description
+        case posterUrl = "poster_url"
         case thumbnailUrl = "thumbnail_url"
         case organiser
         case timezone
@@ -93,6 +95,7 @@ extension DataLayer.Event {
         let id: String = try container.decode(String.self, forKey: .id)
         let title: String? = try? container.decode(String.self, forKey: .title)
         let descriptionText: String? = try? container.decode(String.self, forKey: .description)
+        let posterUrl: URL? = try? container.decode(URL.self, forKey: .posterUrl)
         let thumbnailUrl: URL? = try? container.decode(URL.self, forKey: .thumbnailUrl)
         let organiser: String? = try? container.decode(String.self, forKey: .organiser)
         let timezone: String? = try? container.decode(String.self, forKey: .timezone)
@@ -106,7 +109,7 @@ extension DataLayer.Event {
         let streams: [DataLayer.Stream] = (try? container.decode([DataLayer.Stream].self, forKey: .streams)) ?? []
         let timelineIds: [String] = (try? container.decode([String].self, forKey: .timelineIds)) ?? []
 
-        self.init(id: id, title: title, descriptionText: descriptionText, thumbnailUrl: thumbnailUrl, organiser: organiser, timezone: timezone, startTime: startTime, status: status, streams: streams, timelineIds: timelineIds)
+        self.init(id: id, title: title, descriptionText: descriptionText, posterUrl: posterUrl, thumbnailUrl: thumbnailUrl, organiser: organiser, timezone: timezone, startTime: startTime, status: status, streams: streams, timelineIds: timelineIds)
     }
 }
 
@@ -141,7 +144,7 @@ extension DataLayer.EventStatus {
 
 extension DataLayer.Event {
     var toDomain: MLSSDK.Event {
-        return MLSSDK.Event(id: self.id, title: self.title, descriptionText: self.descriptionText, thumbnailUrl: self.thumbnailUrl, organiser: self.organiser, timezone: self.timezone, startTime: self.startTime, status: self.status.toDomain, streams: self.streams.map { $0.toDomain }, timelineIds: self.timelineIds, isMLS: true)
+        return MLSSDK.Event(id: self.id, title: self.title, descriptionText: self.descriptionText, posterUrl: self.posterUrl, thumbnailUrl: self.thumbnailUrl, organiser: self.organiser, timezone: self.timezone, startTime: self.startTime, status: self.status.toDomain, streams: self.streams.map { $0.toDomain }, timelineIds: self.timelineIds, isMLS: true)
     }
 }
 

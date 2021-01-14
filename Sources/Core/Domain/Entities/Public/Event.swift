@@ -10,6 +10,7 @@ public struct Event: Equatable {
     public let title: String?
     /// The description of the event (not to be confused with Swift's native `description` property
     public let descriptionText: String?
+    public let posterUrl: URL?
     public let thumbnailUrl: URL?
     public let organiser: String?
     public let timezone: String?
@@ -25,6 +26,7 @@ public struct Event: Equatable {
             title: String?,
             /// The description of the event (not to be confused with Swift's native `description` property,
             descriptionText: String?,
+            posterUrl: URL?,
             thumbnailUrl: URL?,
             organiser: String?,
             timezone: String?,
@@ -37,6 +39,7 @@ public struct Event: Equatable {
         self.id = id
         self.title = title
         self.descriptionText = descriptionText
+        self.posterUrl = posterUrl
         self.thumbnailUrl = thumbnailUrl
         self.organiser = organiser
         self.timezone = timezone

@@ -11,7 +11,7 @@ class IMAAdTagFactory: Encodable {
     init() {}
 
     // For documentation, see: https://support.google.com/admanager/table/9749596?hl=en
-    var sz = "640x360"
+    var sz = "640x480"
     var iu = ""
     var gdfp_req = "1"
     var env = "vp"
