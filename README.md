@@ -7,14 +7,14 @@ This SDK is intended for customers of MyCujoo Live Services. It offers a video p
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate our SDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'MLSSDK', '~> 1.1'
+pod 'MLSSDK', '~> 1.2'
 ```
 
-Or if you want to use the IMA and/or Chromecast extensions:
+And if you want to use the IMA and/or Chromecast extensions:
 
 ```ruby
-pod 'MLSSDK/IMA', '~> 1.1'
-pod 'MLSSDK/Cast', '~> 1.1'
+pod 'MLSSDK/IMA', '~> 1.2'
+pod 'MLSSDK/Cast', '~> 1.2'
 ```
 
 ### Swift package manager
@@ -23,7 +23,8 @@ If you want to install our SDK via the Xcode UI, go to your Project Settings -> 
 
 To integrate using Apple's Swift package manager, without Xcode integration, add the following as a dependency to your `Package.swift`:
 
-```.package(url: "https://github.com/MyCujoo/mls-ios.git", .upToNextMajor(from: "1.1"))
+```
+.package(url: "https://github.com/MyCujoo/mls-ios.git", .upToNextMajor(from: "1.2"))
 ```
 
 **Important: unfortunately, by installing MLSSDK via SPM will lead to a reduced feature-set, as not all dependencies are supported through SPM yet. You will miss out on IMA (monetization), Chromecast, and Youbora (video analytics).**
@@ -47,7 +48,8 @@ Airplay is included in the core component, and works by default. However, to ens
 - Add the "Background Modes -> Audio, Airplay, and Picture in Picture" capability to your application.
 - Ensure that the following is added to your Info.plist (Xcode may do this automatically if you add the background mode):
 
-```<key>UIBackgroundModes</key>
+```
+<key>UIBackgroundModes</key>
 <array>
     <string>audio</string>
 </array>
