@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
 ## [1.2.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.0)
-Released on ?.
+Released on 2020-01-14.
 
 #### Added
 - Added alpha support for Chromecast
