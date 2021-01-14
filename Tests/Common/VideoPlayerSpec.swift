@@ -199,7 +199,7 @@ class VideoPlayerSpec: QuickSpec {
             stub(self.mockIMAIntegration) { mock in
                 when(mock).setAVPlayer(any()).thenDoNothing()
                 when(mock).setAdUnit(any()).thenDoNothing()
-                when(mock).setBasicCustomParameters(eventId: any(), streamId: any()).thenDoNothing()
+                when(mock).setBasicCustomParameters(eventId: any(), streamId: any(), eventStatus: any()).thenDoNothing()
                 when(mock).isShowingAd().thenReturn(false)
                 when(mock).resume().thenDoNothing()
                 when(mock).pause().thenDoNothing()
