@@ -12,7 +12,7 @@ public protocol IMAIntegration {
 
     /// Sets the basic custom parameters that the IMA integration should always send as a part of the IMA ad tag.
     /// Custom parameters can be set through the implementation delegate itself.
-    func setBasicCustomParameters(eventId: String?, streamId: String?)
+    func setBasicCustomParameters(eventId: String?, streamId: String?, eventStatus: EventStatus?)
 
     /// Updates the IMAIntegration that there is an IMA ad unit known for this event.
     /// - note: Should be called *before* playing any ads.

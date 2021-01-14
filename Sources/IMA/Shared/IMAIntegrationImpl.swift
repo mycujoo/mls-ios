@@ -43,8 +43,36 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
         self.avPlayer = avPlayer
     }
 
-    func setBasicCustomParameters(eventId: String?, streamId: String?) {
-        self.basicCustomParams = ["event_id": eventId ?? "", "stream_id": streamId ?? ""]
+    func setBasicCustomParameters(eventId: String?, streamId: String?, eventStatus: MLSSDK.EventStatus?) {
+        let eventStatus_: String
+        if let eventStatus = eventStatus {
+            switch eventStatus {
+            case .scheduled:
+                eventStatus_ = "scheduled"
+            case .rescheduled:
+                eventStatus_ = "rescheduled"
+            case .cancelled:
+                eventStatus_ = "cancelled"
+            case .postponed:
+                eventStatus_ = "postponed"
+            case .delayed:
+                eventStatus_ = "delayed"
+            case .started:
+                eventStatus_ = "started"
+            case .paused:
+                eventStatus_ = "paused"
+            case .suspended:
+                eventStatus_ = "suspended"
+            case .finished:
+                eventStatus_ = "finished"
+            case .unspecified:
+                eventStatus_ = "unspecified"
+            }
+        } else {
+            eventStatus_ = ""
+        }
+
+        self.basicCustomParams = ["event_id": eventId ?? "", "stream_id": streamId ?? "", "event_status": eventStatus_]
     }
 
     func setAdUnit(_ adUnit: String?) {

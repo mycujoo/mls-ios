@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -924,7 +924,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -977,16 +977,16 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
     
     
     
-    public func setBasicCustomParameters(eventId: String?, streamId: String?)  {
+    public func setBasicCustomParameters(eventId: String?, streamId: String?, eventStatus: EventStatus?)  {
         
-    return cuckoo_manager.call("setBasicCustomParameters(eventId: String?, streamId: String?)",
-            parameters: (eventId, streamId),
-            escapingParameters: (eventId, streamId),
+    return cuckoo_manager.call("setBasicCustomParameters(eventId: String?, streamId: String?, eventStatus: EventStatus?)",
+            parameters: (eventId, streamId, eventStatus),
+            escapingParameters: (eventId, streamId, eventStatus),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.setBasicCustomParameters(eventId: eventId, streamId: streamId))
+            defaultCall: __defaultImplStub!.setBasicCustomParameters(eventId: eventId, streamId: streamId, eventStatus: eventStatus))
         
     }
     
@@ -1094,9 +1094,9 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
 	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "setAVPlayer(_: AVPlayer)", parameterMatchers: matchers))
 	    }
 	    
-	    func setBasicCustomParameters<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(eventId: M1, streamId: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String?, String?)> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
-	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: streamId) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "setBasicCustomParameters(eventId: String?, streamId: String?)", parameterMatchers: matchers))
+	    func setBasicCustomParameters<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable>(eventId: M1, streamId: M2, eventStatus: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(String?, String?, EventStatus?)> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String, M3.OptionalMatchedType == EventStatus {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?, EventStatus?)>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: streamId) { $0.1 }, wrap(matchable: eventStatus) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "setBasicCustomParameters(eventId: String?, streamId: String?, eventStatus: EventStatus?)", parameterMatchers: matchers))
 	    }
 	    
 	    func setAdUnit<M1: Cuckoo.OptionalMatchable>(_ adUnit: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String?)> where M1.OptionalMatchedType == String {
@@ -1152,9 +1152,9 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
 	    }
 	    
 	    @discardableResult
-	    func setBasicCustomParameters<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable>(eventId: M1, streamId: M2) -> Cuckoo.__DoNotUse<(String?, String?), Void> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String {
-	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?)>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: streamId) { $0.1 }]
-	        return cuckoo_manager.verify("setBasicCustomParameters(eventId: String?, streamId: String?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setBasicCustomParameters<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable>(eventId: M1, streamId: M2, eventStatus: M3) -> Cuckoo.__DoNotUse<(String?, String?, EventStatus?), Void> where M1.OptionalMatchedType == String, M2.OptionalMatchedType == String, M3.OptionalMatchedType == EventStatus {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, String?, EventStatus?)>] = [wrap(matchable: eventId) { $0.0 }, wrap(matchable: streamId) { $0.1 }, wrap(matchable: eventStatus) { $0.2 }]
+	        return cuckoo_manager.verify("setBasicCustomParameters(eventId: String?, streamId: String?, eventStatus: EventStatus?)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -1206,7 +1206,7 @@ public class IMAIntegrationStub: IMAIntegration {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-    public func setBasicCustomParameters(eventId: String?, streamId: String?)   {
+    public func setBasicCustomParameters(eventId: String?, streamId: String?, eventStatus: EventStatus?)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -1237,7 +1237,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2062,7 +2062,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2717,7 +2717,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4085,7 +4085,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4217,7 +4217,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4349,7 +4349,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4541,7 +4541,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4643,7 +4643,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4805,7 +4805,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4907,7 +4907,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5009,7 +5009,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-11 21:04:10 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-14 13:49:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

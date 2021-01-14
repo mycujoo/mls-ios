@@ -11,6 +11,7 @@ class EntityBuilder {
             id: withRandomId ? randomString(length: 20) : "mockevent",
             title: "Mock Event",
             descriptionText: "This is a mock event",
+            posterUrl: nil,
             thumbnailUrl: nil,
             organiser: nil,
             timezone: nil,

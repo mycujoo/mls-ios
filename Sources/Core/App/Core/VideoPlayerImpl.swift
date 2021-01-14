@@ -503,7 +503,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             } else {
                 view.setNumberOfViewersTo(amount: nil)
             }
-            imaIntegration?.setBasicCustomParameters(eventId: event?.id, streamId: currentStream?.id)
+            imaIntegration?.setBasicCustomParameters(eventId: event?.id, streamId: currentStream?.id, eventStatus: event?.status)
         }
 
         timeline = event?.timelineIds.first
