@@ -38,9 +38,6 @@ class CastIntegrationImpl: NSObject, CastIntegration, GCKLoggerDelegate {
         if let miniMediaController = _miniMediaController {
             uninstallViewController(miniMediaController)
         }
-
-        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.remove(self)
-        GCKCastContext.sharedInstance().sessionManager.remove(self)
     }
 
     func initialize(_ videoPlayerDelegate: CastIntegrationVideoPlayerDelegate) {
