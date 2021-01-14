@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -924,7 +924,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1237,7 +1237,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2062,7 +2062,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2717,7 +2717,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3267,6 +3267,21 @@ import UIKit
     
     
     
+     func setAirplayButton(hidden: Bool)  {
+        
+    return cuckoo_manager.call("setAirplayButton(hidden: Bool)",
+            parameters: (hidden),
+            escapingParameters: (hidden),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setAirplayButton(hidden: hidden))
+        
+    }
+    
+    
+    
      func setSkipButtons(hidden: Bool)  {
         
     return cuckoo_manager.call("setSkipButtons(hidden: Bool)",
@@ -3559,6 +3574,11 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setInfoButton(hidden: Bool)", parameterMatchers: matchers))
 	    }
 	    
+	    func setAirplayButton<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setAirplayButton(hidden: Bool)", parameterMatchers: matchers))
+	    }
+	    
 	    func setSkipButtons<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setSkipButtons(hidden: Bool)", parameterMatchers: matchers))
@@ -3797,6 +3817,12 @@ import UIKit
 	    func setInfoButton<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
 	        return cuckoo_manager.verify("setInfoButton(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setAirplayButton<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return cuckoo_manager.verify("setAirplayButton(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -4050,6 +4076,10 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+     func setAirplayButton(hidden: Bool)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
      func setSkipButtons(hidden: Bool)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
@@ -4085,7 +4115,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4217,7 +4247,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4349,7 +4379,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4541,7 +4571,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4643,7 +4673,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4805,7 +4835,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4907,7 +4937,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5009,7 +5039,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-14 17:14:58 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

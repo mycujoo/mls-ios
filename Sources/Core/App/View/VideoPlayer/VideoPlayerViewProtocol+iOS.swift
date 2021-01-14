@@ -62,8 +62,10 @@ protocol VideoPlayerViewProtocol: class {
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool)
-    /// Sets the `isHidden` property of the info button and the info view.
+    /// Sets the `isHidden` property of the info button.
     func setInfoButton(hidden: Bool)
+    /// Sets the `isHidden` property of the airplay button.
+    func setAirplayButton(hidden: Bool)
     /// Sets the `isHidden` property of the skip backwards/forwards buttons.
     func setSkipButtons(hidden: Bool)
     /// Sets the `isHidden` property of the `timeIndicatorLabel`.

@@ -119,6 +119,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setControlView(hidden: any()).thenDoNothing()
                 when(mock).setBufferIcon(hidden: any()).thenDoNothing()
                 when(mock).setInfoButton(hidden: any()).thenDoNothing()
+                when(mock).setAirplayButton(hidden: any()).thenDoNothing()
                 when(mock).setTimeIndicatorLabel(elapsedText: any(), totalText: any()).thenDoNothing()
                 when(mock).setTimelineMarkers(with: any()).thenDoNothing()
                 when(mock).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any()).thenReturn(UIView())
@@ -600,6 +601,7 @@ class VideoPlayerSpec: QuickSpec {
                         verify(self.mockView, times(0)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
 
                         // The second call should trigger a show overlay, which PLACES an overlay.
+                        // TODO: The tests fail on this point randomly. Rerunning the tests typically helps.
                         updatePeriodicTimeObserver()
                         let _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
                             verify(self.mockView, times(1)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())

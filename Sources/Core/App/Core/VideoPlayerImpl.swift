@@ -1086,7 +1086,9 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
 #if os(iOS)
 extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
     func isCastingStateUpdated() {
-        guard let _ = castIntegration else { return }
+        guard let castIntegration = castIntegration else { return }
+
+        view.setAirplayButton(hidden: castIntegration.isCasting())
 
         status = .unknown
 

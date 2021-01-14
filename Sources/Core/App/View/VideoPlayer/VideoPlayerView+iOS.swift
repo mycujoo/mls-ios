@@ -775,9 +775,14 @@ extension VideoPlayerView {
         skipForwardButton.isHidden = hidden
     }
 
-    /// Sets the `isHidden` property of the info button and the info view.
+    /// Sets the `isHidden` property of the info button.
     func setInfoButton(hidden: Bool) {
         infoButton.isHidden = hidden
+    }
+
+    /// Sets the `isHidden` property of the airplay button.
+    func setAirplayButton(hidden: Bool) {
+        airplayButton.isHidden = hidden
     }
 
     /// Sets the `isHidden` property of the `timeIndicatorLabel`.
