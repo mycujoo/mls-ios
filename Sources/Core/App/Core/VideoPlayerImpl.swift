@@ -230,9 +230,12 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 // A different stream should be played.
                 // Note: also trigger when nil is being set again, because this will trigger secondary actions like updating info layer visibility.
                 placeCurrentStream()
-            } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, oldValue.url == nil && currentStream.url != nil {
-                // This is still the same stream, but the url was previously not known and now it is.
-                // This is relevant in cases like PPV, where previously a user may not have been entitled but now they are.
+            } else if let currentStream = currentStream, let oldValue = oldValue, currentStream.id == oldValue.id, ((oldValue.url == nil && currentStream.url != nil) || (oldValue.url != nil && currentStream.url == nil)) {
+                // This is still the same stream, but the url was previously not known and now it is OR the url was previously known but now is nil.
+                // The first situation is relevant in cases like PPV, where previously a user may not have been entitled but now they are.
+                // The second case is relevant where the stream was unpublished or when geoblocking was applied where previously it wasn't.
+                // Note: when the URL for the same stream id changes from one URL to another URL, nothing should happen (because this could happen e.g. when the
+                // secure links url changes); it would still represent the same stream.
                 placeCurrentStream()
             }
         }

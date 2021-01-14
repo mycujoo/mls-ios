@@ -363,6 +363,26 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
+            it("removes avplayer item when the stream url for the same stream id was previously known and now it is unpublished") {
+                waitUntil { done in
+                    self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true)
+
+                    // The replaceCurrentItem method may get called asynchronously, so wait for a brief period.
+                    let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                        verify(self.mockMLSPlayer, times(1)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+
+                        self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false, withRandomStreamURL: false)
+
+                        let _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
+                            // The item should not have been replaced.
+                            verify(self.mockMLSPlayer, times(2)).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any())
+
+                            done()
+                        }
+                    }
+                }
+            }
+
             it("subscribes to timeline updates when an event with timelineid is loaded") {
                 verify(self.mockTimelineRepository, times(0)).startTimelineUpdates(for: any(), callback: any())
 

@@ -239,7 +239,7 @@ class VideoProgressSlider: UIControl {
         let sliderWidth = Double(bounds.width)
         let thumbWidth = Double(thumbInnerView.bounds.width)
 
-        guard sliderWidth > 0 && thumbWidth > 0 else { return 0.0 }
+        guard sliderWidth > 0 && thumbWidth > 0 else { return originalValue }
 
         return 0.5 - ((originalValue <= 0.5 ? 1 : -1) * (abs(0.5 - originalValue) * ((sliderWidth - thumbWidth) / sliderWidth)))
         #else
@@ -253,7 +253,7 @@ class VideoProgressSlider: UIControl {
         let sliderWidth = Double(bounds.width)
         let thumbWidth = Double(thumbInnerView.bounds.width)
 
-        guard sliderWidth > 0 && thumbWidth > 0 else { return 0.0 }
+        guard sliderWidth > 0 && thumbWidth > 0 else { return translatedValue }
 
         return 0.5 - ((translatedValue <= 0.5 ? 1 : -1) * (abs(0.5 - translatedValue) / ((sliderWidth - thumbWidth) / sliderWidth)))
         #else
