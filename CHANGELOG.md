@@ -10,6 +10,7 @@ Released on 2021-01-??.
 
 #### Fixed
 - Hide the Airplay button while Chromecasting
+- Fixed autoplay if an ad unit was not provided in the PlayerConfig while the IMAIntegration was provided.
 
 ## [1.2.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.0)
 Released on 2021-01-14.
