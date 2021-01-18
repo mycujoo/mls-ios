@@ -84,9 +84,17 @@ public protocol VideoPlayer: class {
     /// - note: The seek tolerance can be configured through the `playerConfig` property on this `VideoPlayer` and is used for all seek operations by this player.
     func seek(to: Double, completionHandler: @escaping (Bool) -> Void)
 
+    /// Programmatically show the information overlay. This request may be denied in certain cases.
     func showEventInfoOverlay()
 
+    /// Programmatically hide the information overlay. This request may be denied in certain cases.
     func hideEventInfoOverlay()
+
+    /// Programmatically show the control layer. This request may be denied in certain cases.
+    func showControlLayer()
+
+    /// Programmatically hide the control layer. This request may be denied in certain cases.
+    func hideControlLayer()
 }
 
 // MARK: - Delegate

@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -924,7 +924,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1237,7 +1237,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2062,7 +2062,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2717,7 +2717,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4115,7 +4115,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4247,7 +4247,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4379,7 +4379,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4571,7 +4571,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4673,7 +4673,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4835,7 +4835,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4937,7 +4937,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5039,7 +5039,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-16 12:55:11 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

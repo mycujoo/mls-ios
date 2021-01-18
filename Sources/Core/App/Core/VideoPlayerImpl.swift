@@ -193,6 +193,14 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         setInfoViewTo(visible: false)
     }
 
+    func showControlLayer() {
+        self.setControlViewVisibility(visible: true, animated: true, directiveLevel: .userInitiated)
+    }
+
+    func hideControlLayer() {
+        self.setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated)
+    }
+
     // MARK: - Private properties
 
     /// The player that is used specifically for local playback.
