@@ -477,7 +477,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         videoAnalyticsService.stop()
 
         // Destroy the current item.
-        // This makes sure that even if AVPlayer is retained (e.g. by Apple's PiP bug), there is no change of continued playback.
+        // This makes sure that even if AVPlayer is retained (e.g. by Apple's PiP bug), there is no chance of continued playback.
         avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
 
         print("Video player was deinitialized.")
