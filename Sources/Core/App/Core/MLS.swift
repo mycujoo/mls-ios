@@ -26,15 +26,23 @@ public struct Configuration {
     let logLevel: LogLevel
     let seekTolerance: CMTime
     let playerConfig: PlayerConfig
+    /// An identifier that uniquely identifies this (anonymous) user. If not provided, an MCLS-chosen identifier will be used.
+    let customPseudoUserId: String?
 
     /// - parameter seekTolerance: The seekTolerance can be configured to alter the accuracy with which the player seeks.
     ///   Set to `zero` for seeking with high accuracy at the cost of lower seek speeds. Defaults to `positiveInfinity` for faster seeking.
     /// - parameter l10nBundle: A custom Bundle that contains localized strings. This should be left to `nil` in most cases.
     ///   It is possible to provide a Bundle that provides partial translations; in cases of missing strings it will fallback to the standard SDK translations.
-    public init(logLevel: LogLevel = .minimal, seekTolerance: CMTime = .positiveInfinity, playerConfig: PlayerConfig = PlayerConfig.standard(), l10nBundle: Bundle? = nil) {
+    public init(
+        logLevel: LogLevel = .minimal,
+        seekTolerance: CMTime = .positiveInfinity,
+        playerConfig: PlayerConfig = PlayerConfig.standard(),
+        customPseudoUserId: String? = nil,
+        l10nBundle: Bundle? = nil) {
         self.logLevel = logLevel
         self.seekTolerance = seekTolerance
         self.playerConfig = playerConfig
+        self.customPseudoUserId = customPseudoUserId
 
         if let l10nBundle = l10nBundle {
             Bundle.mlsLocalizationBundle = l10nBundle
@@ -72,7 +80,11 @@ public class MLS {
         return WebSocketConnection(sessionId: pseudoUserId, printToConsole: configuration.logLevel == .verbose)
     }()
 
-    private lazy var pseudoUserId: String = {
+    private var pseudoUserId: String {
+        return configuration.customPseudoUserId ?? mlsPseudoUserId
+    }
+
+    private lazy var mlsPseudoUserId: String = {
         if let v = UserDefaults.standard.string(forKey: UserDefaultsContracts.PseudoUserId) {
             return v
         }

@@ -8,6 +8,7 @@ Released on 2021-01-??.
 #### Added
 - A new method on the VideoPlayerDelegate that indicates that the visibility of the control layer was changed.
 - A new method on the VideoPlayer to request a change of visibility of the control layer.
+- A `customPseudoUserId` property on the Configuration.
 
 #### Fixed
 - Hide the Airplay button while Chromecasting
