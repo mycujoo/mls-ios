@@ -10,6 +10,9 @@ Released on 2021-01-??.
 - A new method on the VideoPlayer to request a change of visibility of the control layer.
 - A `customPseudoUserId` property on the Configuration.
 
+#### Changed
+- Changed `new()` method to `copy()` method on PlayerConfig, with more options.
+
 #### Fixed
 - Hide the Airplay button while Chromecasting
 - Fixed autoplay if an ad unit was not provided in the PlayerConfig while the IMAIntegration was provided.

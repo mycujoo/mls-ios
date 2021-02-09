@@ -49,18 +49,27 @@ public struct PlayerConfig {
         self.imaAdUnit = imaAdUnit
     }
 
-    /// A convenience method to rebuild a PlayerConfig based on this one, but with a different enableControls value.
-    public func new(enableControls: Bool) -> PlayerConfig {
+    /// A convenience method to rebuild a PlayerConfig based on this one.
+    public func copy(
+        primaryColor: String? = nil,
+        secondaryColor: String? = nil,
+        autoplay: Bool? = nil,
+        enableControls: Bool? = nil,
+        showBackForwardsButtons: Bool? = nil,
+        showLiveViewers: Bool? = nil,
+        showSeekbar: Bool? = nil,
+        showTimers: Bool? = nil,
+        imaAdUnit: String? = nil) -> PlayerConfig {
         return PlayerConfig(
-            primaryColor: primaryColor,
-            secondaryColor: secondaryColor,
-            autoplay: autoplay,
-            enableControls: enableControls,
-            showBackForwardsButtons: showBackForwardsButtons,
-            showLiveViewers: showLiveViewers,
-            showSeekbar: showSeekbar,
-            showTimers: showTimers,
-            imaAdUnit: imaAdUnit)
+            primaryColor: primaryColor ?? self.primaryColor,
+            secondaryColor: secondaryColor ?? self.secondaryColor,
+            autoplay: autoplay ?? self.autoplay,
+            enableControls: enableControls ?? self.enableControls,
+            showBackForwardsButtons: showBackForwardsButtons ?? self.showBackForwardsButtons,
+            showLiveViewers: showLiveViewers ?? self.showLiveViewers,
+            showSeekbar: showSeekbar ?? self.showSeekbar,
+            showTimers: showTimers ?? self.showTimers,
+            imaAdUnit: imaAdUnit ?? self.imaAdUnit)
     }
 }
 #else
@@ -120,21 +129,33 @@ public struct PlayerConfig {
         self.imaAdUnit = imaAdUnit
     }
 
-    /// A convenience method to rebuild a PlayerConfig based on an existing one, but with a different enableControls value.
-    public func new(enableControls: Bool) -> PlayerConfig {
+    /// A convenience method to rebuild a PlayerConfig based on an existing one.
+    public func copy(
+        primaryColor: String? = nil,
+        secondaryColor: String? = nil,
+        autoplay: Bool? = nil,
+        enableControls: Bool? = nil,
+        showPlayAndPause: Bool? = nil,
+        showBackForwardsButtons: Bool? = nil,
+        showLiveViewers: Bool? = nil,
+        showEventInfoButton: Bool? = nil,
+        showSeekbar: Bool? = nil,
+        showFullscreen: Bool? = nil,
+        showTimers: Bool? = nil,
+        imaAdUnit: String? = nil) -> PlayerConfig {
         return PlayerConfig(
-            primaryColor: primaryColor,
-            secondaryColor: secondaryColor,
-            autoplay: autoplay,
-            enableControls: enableControls,
-            showPlayAndPause: showPlayAndPause,
-            showBackForwardsButtons: showBackForwardsButtons,
-            showLiveViewers: showLiveViewers,
-            showEventInfoButton: showEventInfoButton,
-            showSeekbar: showSeekbar,
-            showFullscreen: showFullscreen,
-            showTimers: showTimers,
-            imaAdUnit: imaAdUnit)
+            primaryColor: primaryColor ?? self.primaryColor,
+            secondaryColor: secondaryColor ?? self.secondaryColor,
+            autoplay: autoplay ?? self.autoplay,
+            enableControls: enableControls ?? self.enableControls,
+            showPlayAndPause: showPlayAndPause ?? self.showPlayAndPause,
+            showBackForwardsButtons: showBackForwardsButtons ?? self.showBackForwardsButtons,
+            showLiveViewers: showLiveViewers ?? self.showLiveViewers,
+            showEventInfoButton: showEventInfoButton ?? self.showEventInfoButton,
+            showSeekbar: showSeekbar ?? self.showSeekbar,
+            showFullscreen: showFullscreen ?? self.showFullscreen,
+            showTimers: showTimers ?? self.showTimers,
+            imaAdUnit: imaAdUnit ?? self.imaAdUnit)
     }
 }
 #endif
