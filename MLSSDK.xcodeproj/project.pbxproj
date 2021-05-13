@@ -239,6 +239,8 @@
 		497A034E24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json in Resources */ = {isa = PBXBuildFile; fileRef = 497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */; };
 		497FD2C624C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
 		497FD2C724C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
+		49813CFA264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */; };
+		49813CFB264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */; };
 		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
@@ -696,6 +698,7 @@
 		49813CD2264DC6ED00E8AA17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_Annotations_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49813CEE264DC72D00E8AA17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegrationImpl.swift; sourceTree = "<group>"; };
 		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
@@ -1447,6 +1450,7 @@
 		49813CF4264DC75000E8AA17 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -2035,9 +2039,11 @@
 					};
 					49813CCE264DC6ED00E8AA17 = {
 						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1250;
 					};
 					49813CEA264DC72D00E8AA17 = {
 						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1250;
 					};
 					49AB5B9F25A4F2D4003B336E = {
 						CreatedOnToolsVersion = 12.3;
@@ -2493,6 +2499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49813CFA264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2500,6 +2507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49813CFB264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3119,6 +3127,7 @@
 		49813CE0264DC6EE00E8AA17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -3138,6 +3147,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3146,6 +3156,7 @@
 		49813CE1264DC6EE00E8AA17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -3173,6 +3184,7 @@
 		49813CF1264DC72D00E8AA17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -3192,6 +3204,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 14.5;
@@ -3201,6 +3214,7 @@
 		49813CF2264DC72D00E8AA17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;

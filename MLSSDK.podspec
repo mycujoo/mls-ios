@@ -52,12 +52,10 @@ Pod::Spec.new do |spec|
   end
 
   spec.subspec 'Annotations' do |ss|
-    ss.ios.source_files = 'Sources/IMA/Shared/**/*.swift', 'Sources/IMA/iOS/**/*.swift'
-    ss.tvos.source_files = 'Sources/IMA/Shared/**/*.swift', 'Sources/IMA/tvOS/**/*.swift'
+    ss.ios.source_files = 'Sources/Annotations/Shared/**/*.swift', 'Sources/Annotations/iOS/**/*.swift'
+    ss.tvos.source_files = 'Sources/Annotations/Shared/**/*.swift', 'Sources/Annotations/tvOS/**/*.swift'
     ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
 
     ss.dependency 'MLSSDK/Core'
-    ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
-    ss.tvos.dependency 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
   end
 end
