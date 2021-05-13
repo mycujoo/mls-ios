@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
 ## [1.2.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.1)
-Released on 2021-01-??.
+Released on 2021-05-13.
 
 #### Added
 - A new method on the VideoPlayerDelegate that indicates that the visibility of the control layer was changed.
