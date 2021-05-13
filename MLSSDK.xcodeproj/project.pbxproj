@@ -692,6 +692,10 @@
 		49736E9424A9F59B001F3F48 /* SVGParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGParser.swift; sourceTree = "<group>"; };
 		497A034D24CB054200B200F8 /* testAnnotationService_adjustAndSkipTimers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_adjustAndSkipTimers.json; sourceTree = "<group>"; };
 		497FD2C524C0981F0027E708 /* TOVStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStore.swift; sourceTree = "<group>"; };
+		49813CCF264DC6ED00E8AA17 /* MLSSDK_Annotations_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_Annotations_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49813CD2264DC6ED00E8AA17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_Annotations_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49813CEE264DC72D00E8AA17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
@@ -803,6 +807,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				51832911F35CF401C78E599B /* Pods_MLSSDK_IMA_tvOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CCC264DC6ED00E8AA17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CE8264DC72D00E8AA17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,6 +1434,55 @@
 			path = svg;
 			sourceTree = "<group>";
 		};
+		49813CF3264DC74700E8AA17 /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				49813CF4264DC75000E8AA17 /* Shared */,
+				49813CF5264DC75500E8AA17 /* iOS */,
+				49813CF6264DC75900E8AA17 /* tvOS */,
+			);
+			path = Annotations;
+			sourceTree = "<group>";
+		};
+		49813CF4264DC75000E8AA17 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		49813CF5264DC75500E8AA17 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				49813CF7264DC78A00E8AA17 /* Support Files */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		49813CF6264DC75900E8AA17 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				49813CF8264DC79000E8AA17 /* Support Files */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
+		49813CF7264DC78A00E8AA17 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				49813CD2264DC6ED00E8AA17 /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		49813CF8264DC79000E8AA17 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				49813CEE264DC72D00E8AA17 /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
 		498E490024D07A0F0040502D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1630,6 +1697,8 @@
 				4971F39125A10F8C0075715E /* MLSSDK_IMA.framework */,
 				4971F3AB25A1101E0075715E /* MLSSDK_IMA.framework */,
 				49AB5BA025A4F2D4003B336E /* MLSSDK_Cast.framework */,
+				49813CCF264DC6ED00E8AA17 /* MLSSDK_Annotations_iOS.framework */,
+				49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1660,6 +1729,7 @@
 		64CACD51249A367100CEE111 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				49813CF3264DC74700E8AA17 /* Annotations */,
 				4971F34125A10D900075715E /* Core */,
 				49AB5BB925A4F3C5003B336E /* Cast */,
 				4971F37425A10F0A0075715E /* IMA */,
@@ -1709,6 +1779,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4971F3A625A1101E0075715E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CCA264DC6ED00E8AA17 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CE6264DC72D00E8AA17 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1775,6 +1859,42 @@
 			name = "MLSSDK-IMA-tvOS";
 			productName = "MLSSDK-IMA-tvOS";
 			productReference = 4971F3AB25A1101E0075715E /* MLSSDK_IMA.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		49813CCE264DC6ED00E8AA17 /* MLSSDK-Annotations-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49813CE4264DC6EE00E8AA17 /* Build configuration list for PBXNativeTarget "MLSSDK-Annotations-iOS" */;
+			buildPhases = (
+				49813CCA264DC6ED00E8AA17 /* Headers */,
+				49813CCB264DC6ED00E8AA17 /* Sources */,
+				49813CCC264DC6ED00E8AA17 /* Frameworks */,
+				49813CCD264DC6ED00E8AA17 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MLSSDK-Annotations-iOS";
+			productName = "MLSSDK-Annotations-iOS";
+			productReference = 49813CCF264DC6ED00E8AA17 /* MLSSDK_Annotations_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		49813CEA264DC72D00E8AA17 /* MLSSDK-Annotations-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49813CF0264DC72D00E8AA17 /* Build configuration list for PBXNativeTarget "MLSSDK-Annotations-tvOS" */;
+			buildPhases = (
+				49813CE6264DC72D00E8AA17 /* Headers */,
+				49813CE7264DC72D00E8AA17 /* Sources */,
+				49813CE8264DC72D00E8AA17 /* Frameworks */,
+				49813CE9264DC72D00E8AA17 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MLSSDK-Annotations-tvOS";
+			productName = "MLSSDK-Annotations-tvOS";
+			productReference = 49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		49AB5B9F25A4F2D4003B336E /* MLSSDK-Cast */ = {
@@ -1901,7 +2021,7 @@
 		6477C4312469552A0033435D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = mycujoo;
 				TargetAttributes = {
@@ -1912,6 +2032,12 @@
 					4971F3AA25A1101E0075715E = {
 						CreatedOnToolsVersion = 12.3;
 						LastSwiftMigration = 1230;
+					};
+					49813CCE264DC6ED00E8AA17 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					49813CEA264DC72D00E8AA17 = {
+						CreatedOnToolsVersion = 12.5;
 					};
 					49AB5B9F25A4F2D4003B336E = {
 						CreatedOnToolsVersion = 12.3;
@@ -1960,6 +2086,8 @@
 				4971F39025A10F8C0075715E /* MLSSDK-IMA-iOS */,
 				4971F3AA25A1101E0075715E /* MLSSDK-IMA-tvOS */,
 				49AB5B9F25A4F2D4003B336E /* MLSSDK-Cast */,
+				49813CCE264DC6ED00E8AA17 /* MLSSDK-Annotations-iOS */,
+				49813CEA264DC72D00E8AA17 /* MLSSDK-Annotations-tvOS */,
 				49EA069124C72CE100C7AB10 /* iOSTests */,
 				49EA06A024C72D0E00C7AB10 /* tvOSTests */,
 				49EA06B224C78C5E00C7AB10 /* Tests */,
@@ -1976,6 +2104,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4971F3A925A1101E0075715E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CCD264DC6ED00E8AA17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CE9264DC72D00E8AA17 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2344,6 +2486,20 @@
 				49259BE525A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */,
 				49259BD325A1FE51007658DB /* Encodable+IMA.swift in Sources */,
 				49086D6625A4B7F20082E7F6 /* IMAIntegrationFactory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CCB264DC6ED00E8AA17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49813CE7264DC72D00E8AA17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2960,6 +3116,116 @@
 			};
 			name = Release;
 		};
+		49813CE0264DC6EE00E8AA17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DPDEAB9JHU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "MLSSDK-Annotations-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		49813CE1264DC6EE00E8AA17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DPDEAB9JHU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "MLSSDK-Annotations-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		49813CF1264DC72D00E8AA17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DPDEAB9JHU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "MLSSDK-Annotations-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.5;
+			};
+			name = Debug;
+		};
+		49813CF2264DC72D00E8AA17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DPDEAB9JHU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "MLSSDK-Annotations-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.5;
+			};
+			name = Release;
+		};
 		49AB5BA525A4F2D4003B336E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B388AD61808762CD92D6D0A /* Pods-MLSSDK-Cast.debug.xcconfig */;
@@ -3407,6 +3673,24 @@
 			buildConfigurations = (
 				4971F3B125A1101E0075715E /* Debug */,
 				4971F3B225A1101E0075715E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49813CE4264DC6EE00E8AA17 /* Build configuration list for PBXNativeTarget "MLSSDK-Annotations-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49813CE0264DC6EE00E8AA17 /* Debug */,
+				49813CE1264DC6EE00E8AA17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49813CF0264DC72D00E8AA17 /* Build configuration list for PBXNativeTarget "MLSSDK-Annotations-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49813CF1264DC72D00E8AA17 /* Debug */,
+				49813CF2264DC72D00E8AA17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
