@@ -11,7 +11,7 @@ public struct Stream: Equatable {
             case missingEntitlement
             case internalError
         }
-        let code: ErrorCode?
+        public let code: ErrorCode?
         let message: String?
 
         public init(code: ErrorCode?, message: String?) {

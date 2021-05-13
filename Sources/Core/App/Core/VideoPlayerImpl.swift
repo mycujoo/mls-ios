@@ -193,6 +193,14 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         setInfoViewTo(visible: false)
     }
 
+    func showControlLayer() {
+        self.setControlViewVisibility(visible: true, animated: true, directiveLevel: .userInitiated)
+    }
+
+    func hideControlLayer() {
+        self.setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated)
+    }
+
     // MARK: - Private properties
 
     /// The player that is used specifically for local playback.
@@ -468,6 +476,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         videoAnalyticsService.stop()
 
+        // Destroy the current item.
+        // This makes sure that even if AVPlayer is retained (e.g. by Apple's PiP bug), there is no chance of continued playback.
+        avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
+
         print("Video player was deinitialized.")
     }
 
@@ -530,10 +542,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         if !added {
             // TODO: Show the info layer or the thumbnail view.
-            self.view.setInfoViewVisibility(visible: true, animated: false)
+            self.view.setInfoViewVisibility(visible: true, withAnimationDuration: 0)
         } else {
             // TODO: Remove info layer and thumbnail view.
-            self.view.setInfoViewVisibility(visible: false, animated: false)
+            self.view.setInfoViewVisibility(visible: false, withAnimationDuration: 0)
             self.currentStreamPlayHasBeenCalled = false
         }
 
@@ -880,10 +892,12 @@ extension VideoPlayerImpl {
         controlViewDebouncer.debounce { [weak self] in
             guard let self = self else { return }
             if visible && self.controlViewDirectiveLevel.rawValue <= DirectiveLevel.derived.rawValue {
-                self.view.setControlViewVisibility(visible: false, animated: animated)
+                self.view.setControlViewVisibility(visible: false, withAnimationDuration: animated ? 0.2 : 0)
+                self.delegate?.playerDidUpdateControlVisibility(toVisible: false, withAnimationDuration: animated ? 0.2 : 0, player: self)
             }
         }
-        view.setControlViewVisibility(visible: visible, animated: animated)
+        view.setControlViewVisibility(visible: visible, withAnimationDuration: animated ? 0.2 : 0)
+        delegate?.playerDidUpdateControlVisibility(toVisible: visible, withAnimationDuration: animated ? 0.2 : 0, player: self)
 
         return true
     }
@@ -941,11 +955,11 @@ extension VideoPlayerImpl {
         #if os(tvOS)
         let honored = setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
         if honored {
-            view.setInfoViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
+            view.setInfoViewVisibility(visible: !view.controlViewHasAlpha, withAnimationDuration: 0.2)
         }
         #else
         setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: visible)
-        view.setInfoViewVisibility(visible: visible, animated: true)
+        view.setInfoViewVisibility(visible: visible, withAnimationDuration: 0.2)
         #endif
     }
 
@@ -956,7 +970,7 @@ extension VideoPlayerImpl {
 
         if playerConfig.enableControls {
             if view.infoViewHasAlpha {
-                view.setInfoViewVisibility(visible: false, animated: true)
+                view.setInfoViewVisibility(visible: false, withAnimationDuration: 0.2)
                 setControlViewVisibility(visible: false, animated: true, directiveLevel: .userInitiated, lock: false)
             } else {
                 setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true)
@@ -1086,7 +1100,9 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
 #if os(iOS)
 extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
     func isCastingStateUpdated() {
-        guard let _ = castIntegration else { return }
+        guard let castIntegration = castIntegration else { return }
+
+        view.setAirplayButton(hidden: castIntegration.isCasting())
 
         status = .unknown
 

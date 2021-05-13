@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -924,7 +924,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1237,7 +1237,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2062,7 +2062,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2717,7 +2717,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -3072,31 +3072,31 @@ import UIKit
     
     
     
-     func setControlViewVisibility(visible: Bool, animated: Bool)  {
+     func setControlViewVisibility(visible: Bool, withAnimationDuration: Double)  {
         
-    return cuckoo_manager.call("setControlViewVisibility(visible: Bool, animated: Bool)",
-            parameters: (visible, animated),
-            escapingParameters: (visible, animated),
+    return cuckoo_manager.call("setControlViewVisibility(visible: Bool, withAnimationDuration: Double)",
+            parameters: (visible, withAnimationDuration),
+            escapingParameters: (visible, withAnimationDuration),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.setControlViewVisibility(visible: visible, animated: animated))
+            defaultCall: __defaultImplStub!.setControlViewVisibility(visible: visible, withAnimationDuration: withAnimationDuration))
         
     }
     
     
     
-     func setInfoViewVisibility(visible: Bool, animated: Bool)  {
+     func setInfoViewVisibility(visible: Bool, withAnimationDuration: Double)  {
         
-    return cuckoo_manager.call("setInfoViewVisibility(visible: Bool, animated: Bool)",
-            parameters: (visible, animated),
-            escapingParameters: (visible, animated),
+    return cuckoo_manager.call("setInfoViewVisibility(visible: Bool, withAnimationDuration: Double)",
+            parameters: (visible, withAnimationDuration),
+            escapingParameters: (visible, withAnimationDuration),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.setInfoViewVisibility(visible: visible, animated: animated))
+            defaultCall: __defaultImplStub!.setInfoViewVisibility(visible: visible, withAnimationDuration: withAnimationDuration))
         
     }
     
@@ -3262,6 +3262,21 @@ import UIKit
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
             defaultCall: __defaultImplStub!.setInfoButton(hidden: hidden))
+        
+    }
+    
+    
+    
+     func setAirplayButton(hidden: Bool)  {
+        
+    return cuckoo_manager.call("setAirplayButton(hidden: Bool)",
+            parameters: (hidden),
+            escapingParameters: (hidden),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setAirplayButton(hidden: hidden))
         
     }
     
@@ -3494,14 +3509,14 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setOnTimeSliderRelease(_: @escaping (Double) -> Void)", parameterMatchers: matchers))
 	    }
 	    
-	    func setControlViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, animated: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool, Bool)> where M1.MatchedType == Bool, M2.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Bool)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: animated) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setControlViewVisibility(visible: Bool, animated: Bool)", parameterMatchers: matchers))
+	    func setControlViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, withAnimationDuration: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool, Double)> where M1.MatchedType == Bool, M2.MatchedType == Double {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Double)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: withAnimationDuration) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setControlViewVisibility(visible: Bool, withAnimationDuration: Double)", parameterMatchers: matchers))
 	    }
 	    
-	    func setInfoViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, animated: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool, Bool)> where M1.MatchedType == Bool, M2.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Bool)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: animated) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setInfoViewVisibility(visible: Bool, animated: Bool)", parameterMatchers: matchers))
+	    func setInfoViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, withAnimationDuration: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool, Double)> where M1.MatchedType == Bool, M2.MatchedType == Double {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Double)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: withAnimationDuration) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setInfoViewVisibility(visible: Bool, withAnimationDuration: Double)", parameterMatchers: matchers))
 	    }
 	    
 	    func setPlayButtonTo<M1: Cuckoo.Matchable>(state: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(VideoPlayerPlayButtonState)> where M1.MatchedType == VideoPlayerPlayButtonState {
@@ -3557,6 +3572,11 @@ import UIKit
 	    func setInfoButton<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setInfoButton(hidden: Bool)", parameterMatchers: matchers))
+	    }
+	    
+	    func setAirplayButton<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setAirplayButton(hidden: Bool)", parameterMatchers: matchers))
 	    }
 	    
 	    func setSkipButtons<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Bool)> where M1.MatchedType == Bool {
@@ -3722,15 +3742,15 @@ import UIKit
 	    }
 	    
 	    @discardableResult
-	    func setControlViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, animated: M2) -> Cuckoo.__DoNotUse<(Bool, Bool), Void> where M1.MatchedType == Bool, M2.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Bool)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: animated) { $0.1 }]
-	        return cuckoo_manager.verify("setControlViewVisibility(visible: Bool, animated: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setControlViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, withAnimationDuration: M2) -> Cuckoo.__DoNotUse<(Bool, Double), Void> where M1.MatchedType == Bool, M2.MatchedType == Double {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Double)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: withAnimationDuration) { $0.1 }]
+	        return cuckoo_manager.verify("setControlViewVisibility(visible: Bool, withAnimationDuration: Double)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
-	    func setInfoViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, animated: M2) -> Cuckoo.__DoNotUse<(Bool, Bool), Void> where M1.MatchedType == Bool, M2.MatchedType == Bool {
-	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Bool)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: animated) { $0.1 }]
-	        return cuckoo_manager.verify("setInfoViewVisibility(visible: Bool, animated: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setInfoViewVisibility<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(visible: M1, withAnimationDuration: M2) -> Cuckoo.__DoNotUse<(Bool, Double), Void> where M1.MatchedType == Bool, M2.MatchedType == Double {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool, Double)>] = [wrap(matchable: visible) { $0.0 }, wrap(matchable: withAnimationDuration) { $0.1 }]
+	        return cuckoo_manager.verify("setInfoViewVisibility(visible: Bool, withAnimationDuration: Double)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -3797,6 +3817,12 @@ import UIKit
 	    func setInfoButton<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
 	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
 	        return cuckoo_manager.verify("setInfoButton(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	    @discardableResult
+	    func setAirplayButton<M1: Cuckoo.Matchable>(hidden: M1) -> Cuckoo.__DoNotUse<(Bool), Void> where M1.MatchedType == Bool {
+	        let matchers: [Cuckoo.ParameterMatcher<(Bool)>] = [wrap(matchable: hidden) { $0 }]
+	        return cuckoo_manager.verify("setAirplayButton(hidden: Bool)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -3998,11 +4024,11 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func setControlViewVisibility(visible: Bool, animated: Bool)   {
+     func setControlViewVisibility(visible: Bool, withAnimationDuration: Double)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func setInfoViewVisibility(visible: Bool, animated: Bool)   {
+     func setInfoViewVisibility(visible: Bool, withAnimationDuration: Double)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -4050,6 +4076,10 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+     func setAirplayButton(hidden: Bool)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
      func setSkipButtons(hidden: Bool)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
@@ -4085,7 +4115,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4217,7 +4247,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4349,7 +4379,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4541,7 +4571,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4643,7 +4673,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4805,7 +4835,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4907,7 +4937,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5009,7 +5039,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-14 13:49:58 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-18 12:47:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

@@ -108,10 +108,10 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setOnSkipForwardButtonTapped(any()).thenDoNothing()
                 when(mock).setOnTimeSliderSlide(any()).thenDoNothing()
                 when(mock).setOnTimeSliderRelease(any()).thenDoNothing()
-                when(mock).setControlViewVisibility(visible: any(), animated: any()).then { tuple in
+                when(mock).setControlViewVisibility(visible: any(), withAnimationDuration: any()).then { tuple in
                     controlViewHasAlpha = tuple.0
                 }
-                when(mock).setInfoViewVisibility(visible: any(), animated: any()).then { tuple in
+                when(mock).setInfoViewVisibility(visible: any(), withAnimationDuration: any()).then { tuple in
                     infoViewHasAlpha = tuple.0
                 }
                 when(mock).setPlayButtonTo(state: any()).thenDoNothing()
@@ -119,6 +119,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).setControlView(hidden: any()).thenDoNothing()
                 when(mock).setBufferIcon(hidden: any()).thenDoNothing()
                 when(mock).setInfoButton(hidden: any()).thenDoNothing()
+                when(mock).setAirplayButton(hidden: any()).thenDoNothing()
                 when(mock).setTimeIndicatorLabel(elapsedText: any(), totalText: any()).thenDoNothing()
                 when(mock).setTimelineMarkers(with: any()).thenDoNothing()
                 when(mock).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any()).thenReturn(UIView())
@@ -422,65 +423,65 @@ class VideoPlayerSpec: QuickSpec {
 
         describe("info layer") {
             it("shows the info layer when there is no stream") {
-                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
 
                 self.videoPlayer.event = EntityBuilder.buildEvent(withStream: false, withStreamURL: false)
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
             }
 
             it("shows the info layer when there is no stream url") {
-                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
 
                 self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
             }
 
             it("does not allow info layer dismissal when there is no stream") {
                 self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: false)
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
 
                 controlViewTapped?()
 
                 // Verify the count did not go up.
-                verify(self.mockView, times(0)).setInfoViewVisibility(visible: false, animated: any())
+                verify(self.mockView, times(0)).setInfoViewVisibility(visible: false, withAnimationDuration: any())
             }
 
             it("dismisses info layer on controlview tapped when there is a stream") {
                 self.videoPlayer.event = EntityBuilder.buildEvent(withStream: true, withStreamURL: true)
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, withAnimationDuration: any())
 
                 infoButtonTapped?()
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
 
                 controlViewTapped?()
 
-                verify(self.mockView, times(2)).setInfoViewVisibility(visible: false, animated: any())
+                verify(self.mockView, times(2)).setInfoViewVisibility(visible: false, withAnimationDuration: any())
             }
 
             it("hides the info layer when a stream url appears on a previously loaded event") {
                 self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false)
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
 
                 self.videoPlayer.event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true)
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: false, withAnimationDuration: any())
             }
 
             it("does not show info layer again when the same event/stream is updated") {
                 let event = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: false)
                 self.videoPlayer.event = event
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
 
                 self.videoPlayer.event = event
 
-                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, animated: any())
+                verify(self.mockView, times(1)).setInfoViewVisibility(visible: true, withAnimationDuration: any())
             }
         }
 
@@ -510,11 +511,13 @@ class VideoPlayerSpec: QuickSpec {
 
             it("calls delegate with slider update") {
                 class Delegate: VideoPlayerDelegate {
+
                     var called = false
 
                     func playerDidUpdatePlaying(player: VideoPlayer) {}
                     func playerDidUpdateState(player: VideoPlayer) {}
                     func playerDidUpdateFullscreen(player: VideoPlayer) {}
+                    func playerDidUpdateControlVisibility(toVisible: Bool, withAnimationDuration: Double, player: VideoPlayer) {}
                     func playerDidUpdateTime(player: VideoPlayer) {
                         called = true
                     }
@@ -600,6 +603,7 @@ class VideoPlayerSpec: QuickSpec {
                         verify(self.mockView, times(0)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())
 
                         // The second call should trigger a show overlay, which PLACES an overlay.
+                        // TODO: The tests fail on this point randomly. Rerunning the tests typically helps.
                         updatePeriodicTimeObserver()
                         let _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
                             verify(self.mockView, times(1)).placeOverlay(imageView: any(), size: any(), position: any(), animateType: any(), animateDuration: any())

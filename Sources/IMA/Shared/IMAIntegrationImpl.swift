@@ -80,7 +80,11 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
     }
 
     func playPreroll() {
-        guard let videoPlayer = videoPlayer, let delegate = delegate, let adUnit = adUnit, !adUnit.isEmpty else { return }
+        guard let videoPlayer = videoPlayer else { return }
+        guard let delegate = delegate, let adUnit = adUnit, !adUnit.isEmpty else {
+            videoPlayer.play()
+            return
+        }
         // Create ad display container for ad rendering.
         let adDisplayContainer = IMAAdDisplayContainer(adContainer: videoPlayer.playerView, viewController: delegate.presentingViewController(for: videoPlayer))
 

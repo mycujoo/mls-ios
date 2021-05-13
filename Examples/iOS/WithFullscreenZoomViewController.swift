@@ -100,6 +100,10 @@ class WithFullscreenZoomViewController: UIViewController {
 
 // MARK: - PlayerDelegate
 extension WithFullscreenZoomViewController: VideoPlayerDelegate {
+    func playerDidUpdateControlVisibility(toVisible: Bool, withAnimationDuration: Double, player: VideoPlayer) {
+
+    }
+
     func playerDidUpdatePlaying(player: VideoPlayer) {
 //        print("new status: ", player.status)
     }

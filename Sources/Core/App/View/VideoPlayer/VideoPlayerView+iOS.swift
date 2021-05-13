@@ -679,19 +679,19 @@ extension VideoPlayerView {
         onTimeSliderRelease?(sender.value)
     }
 
-    func setControlViewVisibility(visible: Bool, animated: Bool) {
+    func setControlViewVisibility(visible: Bool, withAnimationDuration: Double) {
         DispatchQueue.main.async {
-            UIView.animate(withDuration: animated ? 0.2 : 0) {
+            UIView.animate(withDuration: withAnimationDuration) {
                 self.controlAlphaView.alpha = visible ? 1 : 0
                 self.controlView.alpha = visible ? 1 : 0
             }
         }
     }
 
-    func setInfoViewVisibility(visible: Bool, animated: Bool) {
+    func setInfoViewVisibility(visible: Bool, withAnimationDuration: Double) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            UIView.animate(withDuration: animated ? 0.2 : 0) {
+            UIView.animate(withDuration: withAnimationDuration) {
                 self.infoView.alpha = visible ? 1 : 0
             }
         }
@@ -775,9 +775,14 @@ extension VideoPlayerView {
         skipForwardButton.isHidden = hidden
     }
 
-    /// Sets the `isHidden` property of the info button and the info view.
+    /// Sets the `isHidden` property of the info button.
     func setInfoButton(hidden: Bool) {
         infoButton.isHidden = hidden
+    }
+
+    /// Sets the `isHidden` property of the airplay button.
+    func setAirplayButton(hidden: Bool) {
+        airplayButton.isHidden = hidden
     }
 
     /// Sets the `isHidden` property of the `timeIndicatorLabel`.

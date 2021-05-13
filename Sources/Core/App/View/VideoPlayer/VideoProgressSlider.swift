@@ -371,7 +371,7 @@ extension VideoProgressSlider {
             let maxPossibleMultiplier: CGFloat = 2
             let centerXOfView: CGFloat = 2
 
-            return min(max(minPossibleMultiplier, centerXOfView * CGFloat(position)), maxPossibleMultiplier)
+            return min(max(minPossibleMultiplier, centerXOfView * CGFloat(mapFromOriginalValue(position))), maxPossibleMultiplier)
         }
 
         // Remove markers that are not relevant anymore.

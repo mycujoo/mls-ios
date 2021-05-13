@@ -84,9 +84,17 @@ public protocol VideoPlayer: class {
     /// - note: The seek tolerance can be configured through the `playerConfig` property on this `VideoPlayer` and is used for all seek operations by this player.
     func seek(to: Double, completionHandler: @escaping (Bool) -> Void)
 
+    /// Programmatically show the information overlay. This request may be denied in certain cases.
     func showEventInfoOverlay()
 
+    /// Programmatically hide the information overlay. This request may be denied in certain cases.
     func hideEventInfoOverlay()
+
+    /// Programmatically show the control layer. This request may be denied in certain cases.
+    func showControlLayer()
+
+    /// Programmatically hide the control layer. This request may be denied in certain cases.
+    func hideControlLayer()
 }
 
 // MARK: - Delegate
@@ -97,6 +105,10 @@ public protocol VideoPlayerDelegate: AnyObject {
     func playerDidUpdateTime(player: VideoPlayer)
     /// The player has updated its state. To access the current state, see `VideoPlayer.state`
     func playerDidUpdateState(player: VideoPlayer)
+    /// The player has updated the visibility of the control layer.
+    /// - parameter toVisible: The new visibility state of the control layer.
+    /// - parameter withAnimationDuration: The duration of the animation to hide/show the control layer
+    func playerDidUpdateControlVisibility(toVisible: Bool, withAnimationDuration: Double, player: VideoPlayer)
     #if os(iOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.

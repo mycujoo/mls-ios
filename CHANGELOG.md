@@ -2,8 +2,23 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.1)
+Released on 2021-01-??.
+
+#### Added
+- A new method on the VideoPlayerDelegate that indicates that the visibility of the control layer was changed.
+- A new method on the VideoPlayer to request a change of visibility of the control layer.
+- A `customPseudoUserId` property on the Configuration.
+
+#### Changed
+- Changed `new()` method to `copy()` method on PlayerConfig, with more options.
+
+#### Fixed
+- Hide the Airplay button while Chromecasting
+- Fixed autoplay if an ad unit was not provided in the PlayerConfig while the IMAIntegration was provided.
+
 ## [1.2.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.0)
-Released on 2020-01-14.
+Released on 2021-01-14.
 
 #### Added
 - Added alpha support for Chromecast

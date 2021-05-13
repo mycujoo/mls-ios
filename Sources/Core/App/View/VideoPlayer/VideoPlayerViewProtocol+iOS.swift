@@ -45,8 +45,8 @@ protocol VideoPlayerViewProtocol: class {
     func setOnSkipForwardButtonTapped(_ action: @escaping () -> Void)
     func setOnTimeSliderSlide(_ action: @escaping (Double) -> Void)
     func setOnTimeSliderRelease(_ action: @escaping (Double) -> Void)
-    func setControlViewVisibility(visible: Bool, animated: Bool)
-    func setInfoViewVisibility(visible: Bool, animated: Bool)
+    func setControlViewVisibility(visible: Bool, withAnimationDuration: Double)
+    func setInfoViewVisibility(visible: Bool, withAnimationDuration: Double)
     func setPlayButtonTo(state: VideoPlayerPlayButtonState)
     func setLiveButtonTo(state: VideoPlayerLiveState)
     /// Shows the number of viewers on the video player. If <= 1 or nil, the element is hidden entirely.
@@ -62,8 +62,10 @@ protocol VideoPlayerViewProtocol: class {
     /// Sets the `isHidden` property of the buffer icon.
     /// - note: This hides/shows the play button to the opposite visibility of the buffer icon.
     func setBufferIcon(hidden: Bool)
-    /// Sets the `isHidden` property of the info button and the info view.
+    /// Sets the `isHidden` property of the info button.
     func setInfoButton(hidden: Bool)
+    /// Sets the `isHidden` property of the airplay button.
+    func setAirplayButton(hidden: Bool)
     /// Sets the `isHidden` property of the skip backwards/forwards buttons.
     func setSkipButtons(hidden: Bool)
     /// Sets the `isHidden` property of the `timeIndicatorLabel`.
