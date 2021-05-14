@@ -5,7 +5,7 @@
 import Foundation
 
 
-protocol DRMRepository {
+public protocol MLSDRMRepository {
     func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ())
     /// - parameter url: The license url
     /// - parameter spcData: The Server Playback Context data. This can be obtained through `loadingRequest.streamingContentKeyRequestData`.

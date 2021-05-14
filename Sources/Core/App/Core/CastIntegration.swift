@@ -8,7 +8,7 @@ import Foundation
 public protocol CastIntegration: class {
     func initialize(_ videoPlayerDelegate: CastIntegrationVideoPlayerDelegate)
 
-    /// Indicates whether this CastIntegration
+    /// Indicates whether this CastIntegration is connected and the device playing through Chromecast.
     func isCasting() -> Bool
 
     /// - returns: A player object. Should only be used while `isCasting()` is true.

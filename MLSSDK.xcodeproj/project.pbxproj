@@ -28,8 +28,8 @@
 		49259BDB25A1FE53007658DB /* String+IMA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259A8125A1FCB6007658DB /* String+IMA.swift */; };
 		49259BE425A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */; };
 		49259BE525A1FEE1007658DB /* IMAAdTagFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */; };
-		4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
-		4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* EventRepository.swift */; };
+		4926CDF124CDE64600419A42 /* MLSEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* MLSEventRepository.swift */; };
+		4926CDF224CDE64600419A42 /* MLSEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF024CDE64600419A42 /* MLSEventRepository.swift */; };
 		4926CDF524CDE6DF00419A42 /* ListEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */; };
 		4926CDF624CDE6DF00419A42 /* ListEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */; };
 		4926CDF924CDE96700419A42 /* GetEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CDF824CDE96700419A42 /* GetEventUseCase.swift */; };
@@ -42,14 +42,12 @@
 		4926CE0324CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */; };
 		4926CE0524CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */; };
 		4926CE0624CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */; };
-		4926CE0824CDEC1300419A42 /* TimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* TimelineRepository.swift */; };
-		4926CE0924CDEC1300419A42 /* TimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* TimelineRepository.swift */; };
-		4926CE0B24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */; };
-		4926CE0C24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */; };
+		4926CE0824CDEC1300419A42 /* MLSTimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* MLSTimelineRepository.swift */; };
+		4926CE0924CDEC1300419A42 /* MLSTimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0724CDEC1300419A42 /* MLSTimelineRepository.swift */; };
+		4926CE0B24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift */; };
+		4926CE0C24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0A24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift */; };
 		4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */; };
 		4926CE0F24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */; };
-		4926CE1124CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1024CDED0000419A42 /* GetTimelineActionsUseCase.swift */; };
-		4926CE1224CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE1024CDED0000419A42 /* GetTimelineActionsUseCase.swift */; };
 		4926CE2724CE046D00419A42 /* DataLayerAnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2224CE046D00419A42 /* DataLayerAnnotationAction.swift */; };
 		4926CE2824CE046D00419A42 /* DataLayerAnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2224CE046D00419A42 /* DataLayerAnnotationAction.swift */; };
 		4926CE2924CE046D00419A42 /* DataLayerPlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4926CE2324CE046D00419A42 /* DataLayerPlayerConfig.swift */; };
@@ -241,6 +239,20 @@
 		497FD2C724C0981F0027E708 /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497FD2C524C0981F0027E708 /* TOVStore.swift */; };
 		49813CFA264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */; };
 		49813CFB264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */; };
+		49836647264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836646264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift */; };
+		49836648264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836646264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift */; };
+		4983664C264E7C3C00DDAEBD /* AnnotationIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836649264E7B8700DDAEBD /* AnnotationIntegration.swift */; };
+		4983664D264E7C3D00DDAEBD /* AnnotationIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836649264E7B8700DDAEBD /* AnnotationIntegration.swift */; };
+		49836650264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983664F264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift */; };
+		49836651264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983664F264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift */; };
+		49836653264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836652264E7F9A00DDAEBD /* GetSVGUseCase.swift */; };
+		49836654264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836652264E7F9A00DDAEBD /* GetSVGUseCase.swift */; };
+		49836656264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836655264E819000DDAEBD /* AnnotationIntegrationDelegate.swift */; };
+		49836657264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836655264E819000DDAEBD /* AnnotationIntegrationDelegate.swift */; };
+		4983665A264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836659264E8B5300DDAEBD /* HLSInspectionService.swift */; };
+		4983665B264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836659264E8B5300DDAEBD /* HLSInspectionService.swift */; };
+		4983665E264E8EF600DDAEBD /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983665D264E8EF600DDAEBD /* String+Subscript.swift */; };
+		4983665F264E8EF600DDAEBD /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983665D264E8EF600DDAEBD /* String+Subscript.swift */; };
 		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
@@ -268,8 +280,8 @@
 		498A7A2A25A5084900B0D6C9 /* CastIntegrationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A7A2925A5084900B0D6C9 /* CastIntegrationDelegate.swift */; };
 		498E48F024D033630040502D /* MLSPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSPlayerProtocol.swift */; };
 		498E48F124D033630040502D /* MLSPlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48EF24D033630040502D /* MLSPlayerProtocol.swift */; };
-		498E48F324D056CC0040502D /* ArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */; };
-		498E48F424D056CC0040502D /* ArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */; };
+		498E48F324D056CC0040502D /* MLSArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* MLSArbitraryDataRepository.swift */; };
+		498E48F424D056CC0040502D /* MLSArbitraryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F224D056CC0040502D /* MLSArbitraryDataRepository.swift */; };
 		498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */; };
 		498E48F724D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */; };
 		498E48F924D057FF0040502D /* GetSVGUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498E48F824D057FF0040502D /* GetSVGUseCase.swift */; };
@@ -435,8 +447,8 @@
 		49E2DF1224A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
 		49E2DF1324A55B5400750C00 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E2DF1124A55B5400750C00 /* Overlay.swift */; };
 		49E37EAE258BC830002C5B6A /* testAnnotationService_reshowOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 49E37EAD258BC830002C5B6A /* testAnnotationService_reshowOverlay.json */; };
-		49E441212538D4A300385890 /* DRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* DRMRepository.swift */; };
-		49E441222538D4A300385890 /* DRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* DRMRepository.swift */; };
+		49E441212538D4A300385890 /* MLSDRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* MLSDRMRepository.swift */; };
+		49E441222538D4A300385890 /* MLSDRMRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441202538D4A300385890 /* MLSDRMRepository.swift */; };
 		49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441282538D50000385890 /* GetLicenseDataUseCase.swift */; };
 		49E4412A2538D50000385890 /* GetLicenseDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441282538D50000385890 /* GetLicenseDataUseCase.swift */; };
 		49E441362538D54B00385890 /* DRMRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E441352538D54B00385890 /* DRMRepositoryImpl.swift */; };
@@ -509,17 +521,16 @@
 		49259A6925A1FCAA007658DB /* Encodable+IMA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+IMA.swift"; sourceTree = "<group>"; };
 		49259A8125A1FCB6007658DB /* String+IMA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IMA.swift"; sourceTree = "<group>"; };
 		49259BE325A1FEE1007658DB /* IMAAdTagFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAAdTagFactory.swift; sourceTree = "<group>"; };
-		4926CDF024CDE64600419A42 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
+		4926CDF024CDE64600419A42 /* MLSEventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSEventRepository.swift; sourceTree = "<group>"; };
 		4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEventsUseCase.swift; sourceTree = "<group>"; };
 		4926CDF824CDE96700419A42 /* GetEventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventUseCase.swift; sourceTree = "<group>"; };
 		4926CDFB24CDEAF000419A42 /* EventRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryImpl.swift; sourceTree = "<group>"; };
 		4926CDFE24CDEB1D00419A42 /* BaseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepositoryImpl.swift; sourceTree = "<group>"; };
 		4926CE0124CDEBFE00419A42 /* TimelineRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRepositoryImpl.swift; sourceTree = "<group>"; };
 		4926CE0424CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfigRepositoryImpl.swift; sourceTree = "<group>"; };
-		4926CE0724CDEC1300419A42 /* TimelineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRepository.swift; sourceTree = "<group>"; };
-		4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfigRepository.swift; sourceTree = "<group>"; };
+		4926CE0724CDEC1300419A42 /* MLSTimelineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSTimelineRepository.swift; sourceTree = "<group>"; };
+		4926CE0A24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerConfigRepository.swift; sourceTree = "<group>"; };
 		4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlayerConfigUseCase.swift; sourceTree = "<group>"; };
-		4926CE1024CDED0000419A42 /* GetTimelineActionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimelineActionsUseCase.swift; sourceTree = "<group>"; };
 		4926CE2224CE046D00419A42 /* DataLayerAnnotationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerAnnotationAction.swift; sourceTree = "<group>"; };
 		4926CE2324CE046D00419A42 /* DataLayerPlayerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayerPlayerConfig.swift; sourceTree = "<group>"; };
 		4926CE2424CE046D00419A42 /* DataLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLayer.swift; sourceTree = "<group>"; };
@@ -699,6 +710,13 @@
 		49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_Annotations_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49813CEE264DC72D00E8AA17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegrationImpl.swift; sourceTree = "<group>"; };
+		49836646264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegrationFactory.swift; sourceTree = "<group>"; };
+		49836649264E7B8700DDAEBD /* AnnotationIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegration.swift; sourceTree = "<group>"; };
+		4983664F264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTimelineActionsUpdatesUseCase.swift; sourceTree = "<group>"; };
+		49836652264E7F9A00DDAEBD /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
+		49836655264E819000DDAEBD /* AnnotationIntegrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegrationDelegate.swift; sourceTree = "<group>"; };
+		49836659264E8B5300DDAEBD /* HLSInspectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionService.swift; sourceTree = "<group>"; };
+		4983665D264E8EF600DDAEBD /* String+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Subscript.swift"; sourceTree = "<group>"; };
 		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
@@ -723,7 +741,7 @@
 		498A7A0F25A5063300B0D6C9 /* CastIntegrationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastIntegrationImpl.swift; sourceTree = "<group>"; };
 		498A7A2925A5084900B0D6C9 /* CastIntegrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastIntegrationDelegate.swift; sourceTree = "<group>"; };
 		498E48EF24D033630040502D /* MLSPlayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerProtocol.swift; sourceTree = "<group>"; };
-		498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepository.swift; sourceTree = "<group>"; };
+		498E48F224D056CC0040502D /* MLSArbitraryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSArbitraryDataRepository.swift; sourceTree = "<group>"; };
 		498E48F524D0570F0040502D /* ArbitraryDataRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbitraryDataRepositoryImpl.swift; sourceTree = "<group>"; };
 		498E48F824D057FF0040502D /* GetSVGUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSVGUseCase.swift; sourceTree = "<group>"; };
 		498E48FB24D062D90040502D /* Thread+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thread+.swift"; sourceTree = "<group>"; };
@@ -751,7 +769,7 @@
 		49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMarker.swift; sourceTree = "<group>"; };
 		49E2DF1124A55B5400750C00 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		49E37EAD258BC830002C5B6A /* testAnnotationService_reshowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_reshowOverlay.json; sourceTree = "<group>"; };
-		49E441202538D4A300385890 /* DRMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRMRepository.swift; sourceTree = "<group>"; };
+		49E441202538D4A300385890 /* MLSDRMRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSDRMRepository.swift; sourceTree = "<group>"; };
 		49E441282538D50000385890 /* GetLicenseDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLicenseDataUseCase.swift; sourceTree = "<group>"; };
 		49E441352538D54B00385890 /* DRMRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRMRepositoryImpl.swift; sourceTree = "<group>"; };
 		49E441732538DCAB00385890 /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
@@ -965,11 +983,11 @@
 		4926CDEF24CDE63300419A42 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				498E48F224D056CC0040502D /* ArbitraryDataRepository.swift */,
-				49E441202538D4A300385890 /* DRMRepository.swift */,
-				4926CDF024CDE64600419A42 /* EventRepository.swift */,
-				4926CE0A24CDEC1E00419A42 /* PlayerConfigRepository.swift */,
-				4926CE0724CDEC1300419A42 /* TimelineRepository.swift */,
+				498E48F224D056CC0040502D /* MLSArbitraryDataRepository.swift */,
+				49E441202538D4A300385890 /* MLSDRMRepository.swift */,
+				4926CDF024CDE64600419A42 /* MLSEventRepository.swift */,
+				4926CE0A24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift */,
+				4926CE0724CDEC1300419A42 /* MLSTimelineRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -983,7 +1001,6 @@
 				49E441282538D50000385890 /* GetLicenseDataUseCase.swift */,
 				4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */,
 				498E48F824D057FF0040502D /* GetSVGUseCase.swift */,
-				4926CE1024CDED0000419A42 /* GetTimelineActionsUseCase.swift */,
 				49CE62672509002800618CCA /* GetTimelineActionsUpdatesUseCase.swift */,
 				4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */,
 			);
@@ -1450,7 +1467,12 @@
 		49813CF4264DC75000E8AA17 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4983665C264E8EE300DDAEBD /* Utils */,
+				49836658264E8B4700DDAEBD /* Services */,
+				4983664E264E7F6500DDAEBD /* UseCases */,
 				49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */,
+				49836646264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift */,
+				49836655264E819000DDAEBD /* AnnotationIntegrationDelegate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1485,6 +1507,31 @@
 				49813CEE264DC72D00E8AA17 /* Info.plist */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		4983664E264E7F6500DDAEBD /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				4983664F264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift */,
+				49836652264E7F9A00DDAEBD /* GetSVGUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		49836658264E8B4700DDAEBD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				49836659264E8B5300DDAEBD /* HLSInspectionService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4983665C264E8EE300DDAEBD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4983665D264E8EF600DDAEBD /* String+Subscript.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		498E490024D07A0F0040502D /* Resources */ = {
@@ -1733,8 +1780,8 @@
 		64CACD51249A367100CEE111 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				49813CF3264DC74700E8AA17 /* Annotations */,
 				4971F34125A10D900075715E /* Core */,
+				49813CF3264DC74700E8AA17 /* Annotations */,
 				49AB5BB925A4F3C5003B336E /* Cast */,
 				4971F37425A10F0A0075715E /* IMA */,
 			);
@@ -1745,6 +1792,7 @@
 			isa = PBXGroup;
 			children = (
 				499CBEEA24B9C3F000EE4D7B /* DataProvider.swift */,
+				49836649264E7B8700DDAEBD /* AnnotationIntegration.swift */,
 				4925998325A1D9F7007658DB /* IMAIntegration.swift */,
 				498A79FD25A503DA00B0D6C9 /* CastIntegration.swift */,
 				6496C3442492308D0099475D /* MLS.swift */,
@@ -2499,7 +2547,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49836656264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				4983665A264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
+				49836650264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */,
+				49836647264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */,
 				49813CFA264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
+				4983665E264E8EF600DDAEBD /* String+Subscript.swift in Sources */,
+				49836653264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2507,7 +2561,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49836657264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				4983665B264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
+				49836651264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */,
+				49836648264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */,
 				49813CFB264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
+				4983665F264E8EF600DDAEBD /* String+Subscript.swift in Sources */,
+				49836654264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2558,7 +2618,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4926CE0224CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
-				498E48F324D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
+				498E48F324D056CC0040502D /* MLSArbitraryDataRepository.swift in Sources */,
 				49736ED324A9F59C001F3F48 /* Touchable.swift in Sources */,
 				4943B96124C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				49736EF524A9F59C001F3F48 /* ShapeInterpolation.swift in Sources */,
@@ -2568,7 +2628,7 @@
 				499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift in Sources */,
 				4943B96924C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
 				49736E9D24A9F59C001F3F48 /* Size.swift in Sources */,
-				4926CE0B24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */,
+				4926CE0B24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
 				49EA06BC24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */,
 				49736F0624A9F59C001F3F48 /* RenderUtils.swift in Sources */,
 				49736EA324A9F59C001F3F48 /* MoveTo.swift in Sources */,
@@ -2589,7 +2649,7 @@
 				4926CE2B24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDF924CDE96700419A42 /* GetEventUseCase.swift in Sources */,
 				49E2DF0F24A55B4900750C00 /* TimelineMarker.swift in Sources */,
-				4926CE0824CDEC1300419A42 /* TimelineRepository.swift in Sources */,
+				4926CE0824CDEC1300419A42 /* MLSTimelineRepository.swift in Sources */,
 				49736EC124A9F59C001F3F48 /* Stop.swift in Sources */,
 				49736ECE24A9F59C001F3F48 /* MDisplayLink_iOS.swift in Sources */,
 				4926CDF524CDE6DF00419A42 /* ListEventsUseCase.swift in Sources */,
@@ -2614,10 +2674,10 @@
 				49736E9E24A9F59C001F3F48 /* Transform.swift in Sources */,
 				49736EB924A9F59C001F3F48 /* ColorMatrixEffect.swift in Sources */,
 				49736EC424A9F59C001F3F48 /* LineCap.swift in Sources */,
-				49E441212538D4A300385890 /* DRMRepository.swift in Sources */,
+				49E441212538D4A300385890 /* MLSDRMRepository.swift in Sources */,
 				49736ED524A9F59C001F3F48 /* MacawView.swift in Sources */,
 				49736ED424A9F59C001F3F48 /* ShapeLayer.swift in Sources */,
-				4926CDF124CDE64600419A42 /* EventRepository.swift in Sources */,
+				4926CDF124CDE64600419A42 /* MLSEventRepository.swift in Sources */,
 				4943B96324C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
 				49736EBA24A9F59C001F3F48 /* Baseline.swift in Sources */,
 				49736EC224A9F59C001F3F48 /* Font.swift in Sources */,
@@ -2641,7 +2701,6 @@
 				49736EC624A9F59C001F3F48 /* AspectRatio.swift in Sources */,
 				49736EB624A9F59C001F3F48 /* ColorMatrix.swift in Sources */,
 				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
-				4926CE1124CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
 				49B2E7322572E5C000AE13F6 /* Localizable.swift in Sources */,
 				49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */,
 				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
@@ -2744,6 +2803,7 @@
 				4943B96724C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
 				49736EEC24A9F59C001F3F48 /* Easing.swift in Sources */,
 				49736E9724A9F59C001F3F48 /* Variable.swift in Sources */,
+				4983664C264E7C3C00DDAEBD /* AnnotationIntegration.swift in Sources */,
 				49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */,
 				49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
 				498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
@@ -2766,7 +2826,7 @@
 			files = (
 				4926CE0324CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
 				49A804AC24AA0E9800E30DA8 /* Arc.swift in Sources */,
-				498E48F424D056CC0040502D /* ArbitraryDataRepository.swift in Sources */,
+				498E48F424D056CC0040502D /* MLSArbitraryDataRepository.swift in Sources */,
 				49A804A224AA0E8D00E30DA8 /* MCAMediaTimingFillMode_iOS.swift in Sources */,
 				4943B96224C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				49A804E824AA0EBB00E30DA8 /* ImageRenderer.swift in Sources */,
@@ -2774,7 +2834,7 @@
 				49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */,
 				4943B96A24C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
 				49A8049924AA0E3400E30DA8 /* Disposable.swift in Sources */,
-				4926CE0C24CDEC1E00419A42 /* PlayerConfigRepository.swift in Sources */,
+				4926CE0C24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
 				49EA06BD24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */,
 				64FDE311249A191400E6510D /* VideoPlayerImpl.swift in Sources */,
 				49A804E324AA0EAC00E30DA8 /* Graphics_iOS.swift in Sources */,
@@ -2795,7 +2855,7 @@
 				4926CE2C24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDFA24CDE96700419A42 /* GetEventUseCase.swift in Sources */,
 				49A804F724AA0ED400E30DA8 /* UIImage2Image.swift in Sources */,
-				4926CE0924CDEC1300419A42 /* TimelineRepository.swift in Sources */,
+				4926CE0924CDEC1300419A42 /* MLSTimelineRepository.swift in Sources */,
 				49A804BD24AA0E9800E30DA8 /* Insets.swift in Sources */,
 				49A8047E24AA0DF000E30DA8 /* CombineAnimation.swift in Sources */,
 				49A804BC24AA0E9800E30DA8 /* Circle.swift in Sources */,
@@ -2817,16 +2877,17 @@
 				4926CE0024CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */,
 				49A804B924AA0E9800E30DA8 /* PathSegment.swift in Sources */,
 				495CB13D249CFFE700998FF4 /* MLSPlayer.swift in Sources */,
+				4983664D264E7C3D00DDAEBD /* AnnotationIntegration.swift in Sources */,
 				49A804AD24AA0E9800E30DA8 /* Ellipse.swift in Sources */,
 				49A804F324AA0ECB00E30DA8 /* SVGParser.swift in Sources */,
 				49A804A124AA0E8A00E30DA8 /* MacawView+PDF.swift in Sources */,
 				49A804FD24AA0ED800E30DA8 /* ShapeLayer.swift in Sources */,
 				49A804EA24AA0EBB00E30DA8 /* RenderUtils.swift in Sources */,
 				49A8048C24AA0E0000E30DA8 /* Easing.swift in Sources */,
-				49E441222538D4A300385890 /* DRMRepository.swift in Sources */,
+				49E441222538D4A300385890 /* MLSDRMRepository.swift in Sources */,
 				499D0E3124D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift in Sources */,
 				49A804B424AA0E9800E30DA8 /* Locus.swift in Sources */,
-				4926CDF224CDE64600419A42 /* EventRepository.swift in Sources */,
+				4926CDF224CDE64600419A42 /* MLSEventRepository.swift in Sources */,
 				4943B96424C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
 				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
 				49A804BE24AA0E9800E30DA8 /* TransformedLocus.swift in Sources */,
@@ -2851,7 +2912,6 @@
 				49A8049524AA0E0B00E30DA8 /* LocusInterpolation.swift in Sources */,
 				4926CE0F24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				49B2E7382572E5C300AE13F6 /* Localizable.swift in Sources */,
-				4926CE1224CDED0000419A42 /* GetTimelineActionsUseCase.swift in Sources */,
 				49A804B724AA0E9800E30DA8 /* PathSegmentType.swift in Sources */,
 				49A8048824AA0DF900E30DA8 /* AnimationCache.swift in Sources */,
 				49E4412A2538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
@@ -3135,7 +3195,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MLSSDK-Annotations-iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Annotations/iOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3164,7 +3224,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MLSSDK-Annotations-iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Annotations/iOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3192,7 +3252,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MLSSDK-Annotations-tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Annotations/tvOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3222,7 +3282,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MLSSDK-Annotations-tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Annotations/tvOS/Support Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

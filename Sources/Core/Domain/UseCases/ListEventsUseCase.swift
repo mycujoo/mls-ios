@@ -5,9 +5,9 @@
 import Foundation
 
 class ListEventsUseCase {
-    private let eventRepository: EventRepository
+    private let eventRepository: MLSEventRepository
 
-    init(eventRepository: EventRepository) {
+    init(eventRepository: MLSEventRepository) {
         self.eventRepository = eventRepository
     }
 

@@ -9,9 +9,12 @@ import AVFoundation
 
 public protocol VideoPlayer: class {
     var delegate: VideoPlayerDelegate? { get set }
-
+    
     /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.
     var imaIntegration: IMAIntegration? { get set }
+    
+    /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/Annotations` extensions.
+    var annotationIntegration: AnnotationIntegration? { get set }
 
     #if os(iOS)
     /// Should be set by the SDK user for Google Chromecast support to work. Such an object can be obtained through the `MLSSDK/Cast` extensions.
@@ -52,11 +55,11 @@ public protocol VideoPlayer: class {
     /// Get or set the `isMuted` property of the underlying AVPlayer.
     var isMuted: Bool { get set }
 
-    /// - returns: The current time (in seconds) of the currentItem.
+    /// - returns: The current time (in milliseconds) of the currentItem.
     var currentTime: Double { get }
-    /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
+    /// - returns: The current time (in milliseconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double { get }
-    /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
+    /// - returns: The duration (in milliseconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double { get }
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
     var controlView: UIView { get }

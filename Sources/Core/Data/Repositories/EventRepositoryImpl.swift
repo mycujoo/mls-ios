@@ -6,7 +6,7 @@ import Foundation
 import Moya
 
 
-class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
+class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     let ws: WebSocketConnection
 
     private var timers: [String: RepeatingTimer] = [:]
@@ -38,7 +38,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, EventRepository {
     }
 
     /// - note: You can only have one listener for eventUpdates per event id.
-    func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ()) {
+    func startEventUpdates(for id: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ()) {
         timers[id] = RepeatingTimer(timeInterval: 10)
 
         var latestEvent: Event? = nil {

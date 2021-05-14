@@ -93,19 +93,19 @@ public class MLS {
         return v
     }()
 
-    private lazy var timelineRepository: TimelineRepository = {
+    private lazy var timelineRepository: MLSTimelineRepository = {
         return TimelineRepositoryImpl(api: api, ws: ws)
     }()
-    private lazy var eventRepository: EventRepository = {
+    private lazy var eventRepository: MLSEventRepository = {
         return EventRepositoryImpl(api: api, ws: ws)
     }()
-    private lazy var playerConfigRepository: PlayerConfigRepository = {
+    private lazy var playerConfigRepository: MLSPlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
     }()
-    private lazy var arbitraryDataRepository: ArbitraryDataRepository = {
+    private lazy var arbitraryDataRepository: MLSArbitraryDataRepository = {
         return ArbitraryDataRepositoryImpl()
     }()
-    private lazy var drmRepository: DRMRepository = {
+    private lazy var drmRepository: MLSDRMRepository = {
         return DRMRepositoryImpl()
     }()
 

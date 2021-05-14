@@ -4127,9 +4127,9 @@ import Cuckoo
 import Foundation
 
 
- class MockArbitraryDataRepository: ArbitraryDataRepository, Cuckoo.ProtocolMock {
+ class MockArbitraryDataRepository: MLSArbitraryDataRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = ArbitraryDataRepository
+     typealias MocksType = MLSArbitraryDataRepository
     
      typealias Stubbing = __StubbingProxy_ArbitraryDataRepository
      typealias Verification = __VerificationProxy_ArbitraryDataRepository
@@ -4137,9 +4137,9 @@ import Foundation
      let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: ArbitraryDataRepository?
+    private var __defaultImplStub: MLSArbitraryDataRepository?
 
-     func enableDefaultImplementation(_ stub: ArbitraryDataRepository) {
+     func enableDefaultImplementation(_ stub: MLSArbitraryDataRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4230,7 +4230,7 @@ import Foundation
 	}
 }
 
- class ArbitraryDataRepositoryStub: ArbitraryDataRepository {
+ class ArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
     
 
     
@@ -4259,9 +4259,9 @@ import Cuckoo
 import Foundation
 
 
- class MockDRMRepository: DRMRepository, Cuckoo.ProtocolMock {
+ class MockDRMRepository: MLSDRMRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = DRMRepository
+     typealias MocksType = MLSDRMRepository
     
      typealias Stubbing = __StubbingProxy_DRMRepository
      typealias Verification = __VerificationProxy_DRMRepository
@@ -4269,9 +4269,9 @@ import Foundation
      let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: DRMRepository?
+    private var __defaultImplStub: MLSDRMRepository?
 
-     func enableDefaultImplementation(_ stub: DRMRepository) {
+     func enableDefaultImplementation(_ stub: MLSDRMRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4362,7 +4362,7 @@ import Foundation
 	}
 }
 
- class DRMRepositoryStub: DRMRepository {
+ class DRMRepositoryStub: MLSDRMRepository {
     
 
     
@@ -4391,9 +4391,9 @@ import Cuckoo
 import Foundation
 
 
- class MockEventRepository: EventRepository, Cuckoo.ProtocolMock {
+ class MockEventRepository: MLSEventRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = EventRepository
+     typealias MocksType = MLSEventRepository
     
      typealias Stubbing = __StubbingProxy_EventRepository
      typealias Verification = __VerificationProxy_EventRepository
@@ -4401,9 +4401,9 @@ import Foundation
      let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: EventRepository?
+    private var __defaultImplStub: MLSEventRepository?
 
-     func enableDefaultImplementation(_ stub: EventRepository) {
+     func enableDefaultImplementation(_ stub: MLSEventRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4446,7 +4446,7 @@ import Foundation
     
     
     
-     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())  {
+     func startEventUpdates(for id: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ())  {
         
     return cuckoo_manager.call("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())",
             parameters: (id, callback),
@@ -4493,7 +4493,7 @@ import Foundation
 	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (MLSEventRepositoryEventUpdate) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
 	    }
@@ -4532,7 +4532,7 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (MLSEventRepositoryEventUpdate) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
 	        return cuckoo_manager.verify("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
@@ -4546,7 +4546,7 @@ import Foundation
 	}
 }
 
- class EventRepositoryStub: EventRepository {
+ class EventRepositoryStub: MLSEventRepository {
     
 
     
@@ -4560,7 +4560,7 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())   {
+     func startEventUpdates(for id: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -4583,9 +4583,9 @@ import Cuckoo
 import Foundation
 
 
- class MockPlayerConfigRepository: PlayerConfigRepository, Cuckoo.ProtocolMock {
+ class MockPlayerConfigRepository: MLSPlayerConfigRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = PlayerConfigRepository
+     typealias MocksType = MLSPlayerConfigRepository
     
      typealias Stubbing = __StubbingProxy_PlayerConfigRepository
      typealias Verification = __VerificationProxy_PlayerConfigRepository
@@ -4593,9 +4593,9 @@ import Foundation
      let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: PlayerConfigRepository?
+    private var __defaultImplStub: MLSPlayerConfigRepository?
 
-     func enableDefaultImplementation(_ stub: PlayerConfigRepository) {
+     func enableDefaultImplementation(_ stub: MLSPlayerConfigRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4660,7 +4660,7 @@ import Foundation
 	}
 }
 
- class PlayerConfigRepositoryStub: PlayerConfigRepository {
+ class PlayerConfigRepositoryStub: MLSPlayerConfigRepository {
     
 
     
@@ -4685,9 +4685,9 @@ import Cuckoo
 import Foundation
 
 
- class MockTimelineRepository: TimelineRepository, Cuckoo.ProtocolMock {
+ class MockTimelineRepository: MLSTimelineRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = TimelineRepository
+     typealias MocksType = MLSTimelineRepository
     
      typealias Stubbing = __StubbingProxy_TimelineRepository
      typealias Verification = __VerificationProxy_TimelineRepository
@@ -4695,9 +4695,9 @@ import Foundation
      let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: TimelineRepository?
+    private var __defaultImplStub: MLSTimelineRepository?
 
-     func enableDefaultImplementation(_ stub: TimelineRepository) {
+     func enableDefaultImplementation(_ stub: MLSTimelineRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4725,7 +4725,7 @@ import Foundation
     
     
     
-     func startTimelineUpdates(for timelineId: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())  {
+     func startTimelineUpdates(for timelineId: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ())  {
         
     return cuckoo_manager.call("startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())",
             parameters: (timelineId, callback),
@@ -4767,7 +4767,7 @@ import Foundation
 	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "fetchAnnotationActions(byTimelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (TimelineRepositoryTimelineUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (TimelineRepositoryTimelineUpdate) -> () {
+	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (TimelineRepositoryTimelineUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (MLSTimelineRepositoryTimelineUpdate) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, (TimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())", parameterMatchers: matchers))
 	    }
@@ -4800,7 +4800,7 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (TimelineRepositoryTimelineUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (TimelineRepositoryTimelineUpdate) -> () {
+	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (TimelineRepositoryTimelineUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (MLSTimelineRepositoryTimelineUpdate) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, (TimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
 	        return cuckoo_manager.verify("startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
@@ -4814,7 +4814,7 @@ import Foundation
 	}
 }
 
- class TimelineRepositoryStub: TimelineRepository {
+ class TimelineRepositoryStub: MLSTimelineRepository {
     
 
     
@@ -4824,7 +4824,7 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func startTimelineUpdates(for timelineId: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())   {
+     func startTimelineUpdates(for timelineId: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     

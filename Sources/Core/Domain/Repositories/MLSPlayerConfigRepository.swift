@@ -5,6 +5,6 @@
 import Foundation
 
 
-protocol PlayerConfigRepository {
+public protocol MLSPlayerConfigRepository {
     func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())
 }
