@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -6,6 +6,214 @@
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+import MLSSDK
+
+
+ class MockAnnotationServicing: AnnotationServicing, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = AnnotationServicing
+    
+     typealias Stubbing = __StubbingProxy_AnnotationServicing
+     typealias Verification = __VerificationProxy_AnnotationServicing
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: AnnotationServicing?
+
+     func enableDefaultImplementation(_ stub: AnnotationServicing) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())  {
+        
+    return cuckoo_manager.call("evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())",
+            parameters: (input, callback),
+            escapingParameters: (input, callback),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.evaluate(input, callback: callback))
+        
+    }
+    
+
+	 struct __StubbingProxy_AnnotationServicing: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func evaluate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ input: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())> where M1.MatchedType == AnnotationService.EvaluationInput, M2.MatchedType == (AnnotationService.EvaluationOutput) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())>] = [wrap(matchable: input) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationServicing.self, method: "evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	 struct __VerificationProxy_AnnotationServicing: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func evaluate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ input: M1, callback: M2) -> Cuckoo.__DoNotUse<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ()), Void> where M1.MatchedType == AnnotationService.EvaluationInput, M2.MatchedType == (AnnotationService.EvaluationOutput) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())>] = [wrap(matchable: input) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+ class AnnotationServicingStub: AnnotationServicing {
+    
+
+    
+
+    
+     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-05-14 20:49:21 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+
+
+ class MockHLSInspectionServicing: HLSInspectionServicing, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = HLSInspectionServicing
+    
+     typealias Stubbing = __StubbingProxy_HLSInspectionServicing
+     typealias Verification = __VerificationProxy_HLSInspectionServicing
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: HLSInspectionServicing?
+
+     func enableDefaultImplementation(_ stub: HLSInspectionServicing) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+     func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?] {
+        
+    return cuckoo_manager.call("map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]",
+            parameters: (hlsPlaylist, absoluteTimes),
+            escapingParameters: (hlsPlaylist, absoluteTimes),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.map(hlsPlaylist: hlsPlaylist, absoluteTimes: absoluteTimes))
+        
+    }
+    
+
+	 struct __StubbingProxy_HLSInspectionServicing: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func map<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable>(hlsPlaylist: M1, absoluteTimes: M2) -> Cuckoo.ProtocolStubFunction<(String?, [Int64]), [Int64: (videoOffset: Int64, inGap: Bool)?]> where M1.OptionalMatchedType == String, M2.MatchedType == [Int64] {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, [Int64])>] = [wrap(matchable: hlsPlaylist) { $0.0 }, wrap(matchable: absoluteTimes) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockHLSInspectionServicing.self, method: "map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	 struct __VerificationProxy_HLSInspectionServicing: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func map<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable>(hlsPlaylist: M1, absoluteTimes: M2) -> Cuckoo.__DoNotUse<(String?, [Int64]), [Int64: (videoOffset: Int64, inGap: Bool)?]> where M1.OptionalMatchedType == String, M2.MatchedType == [Int64] {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, [Int64])>] = [wrap(matchable: hlsPlaylist) { $0.0 }, wrap(matchable: absoluteTimes) { $0.1 }]
+	        return cuckoo_manager.verify("map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+ class HLSInspectionServicingStub: HLSInspectionServicing {
+    
+
+    
+
+    
+     func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]  {
+        return DefaultValueRegistry.defaultValue(for: ([Int64: (videoOffset: Int64, inGap: Bool)?]).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-14 20:49:21 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 import UIKit
@@ -268,7 +476,7 @@ public class AnnotationIntegrationViewStub: AnnotationIntegrationView {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -276,6 +484,7 @@ public class AnnotationIntegrationViewStub: AnnotationIntegrationView {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
@@ -1194,7 +1403,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1202,6 +1411,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -1507,7 +1717,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1515,6 +1725,7 @@ public class IMAIntegrationStub: IMAIntegration {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -2332,7 +2543,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2340,6 +2551,7 @@ import Foundation
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -2987,7 +3199,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2995,6 +3207,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -4327,7 +4540,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4335,6 +4548,7 @@ import UIKit
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
@@ -4459,7 +4673,7 @@ public class MLSArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4467,6 +4681,7 @@ public class MLSArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
@@ -4591,7 +4806,7 @@ public class MLSDRMRepositoryStub: MLSDRMRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4599,6 +4814,7 @@ public class MLSDRMRepositoryStub: MLSDRMRepository {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
@@ -4783,7 +4999,7 @@ public class MLSEventRepositoryStub: MLSEventRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4791,6 +5007,7 @@ public class MLSEventRepositoryStub: MLSEventRepository {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
@@ -4885,7 +5102,7 @@ public class MLSPlayerConfigRepositoryStub: MLSPlayerConfigRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4893,6 +5110,7 @@ public class MLSPlayerConfigRepositoryStub: MLSPlayerConfigRepository {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
@@ -5047,7 +5265,7 @@ public class MLSTimelineRepositoryStub: MLSTimelineRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-14 19:02:53 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-14 20:49:21 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5055,6 +5273,7 @@ public class MLSTimelineRepositoryStub: MLSTimelineRepository {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
