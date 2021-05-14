@@ -8,6 +8,7 @@ import Nimble
 import Cuckoo
 import AVFoundation
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 
 class VideoPlayerSpec: QuickSpec {
