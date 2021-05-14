@@ -6,7 +6,10 @@ import Foundation
 import UIKit
 
 
-public protocol AnnotationIntegration {    
+public protocol AnnotationIntegration {
+    /// Should be set to the timeline id that the annotations are related to.
+    var timelineId: String? { get set }
+    
     /// Should be called whenever there is reason to believe the annotation state has changed, e.g. when the time position has changed (once a second), or new annotations were loaded.
     func evaluate()
 }

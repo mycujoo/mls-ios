@@ -10,7 +10,15 @@ import MLSSDK
 
 class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
     // MARK: Protocol conformance
-    var localAnnotationActions: [AnnotationAction] = []
+    var timelineId: String? {
+        didSet {
+            let new = timelineId != oldValue
+            if new, let oldTimelineId = oldValue {
+                cleanup(oldTimelineId: oldTimelineId)
+            }
+            rebuildTimeline(new: new)
+        }
+    }
     
     // MARK: Internal
     weak var delegate: AnnotationIntegrationDelegate?
@@ -20,7 +28,11 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
     private let getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase
     private let getSVGUseCase: GetSVGUseCase
     
-    private var annotationActions: [AnnotationAction] = []
+    private(set) var annotationActions: [AnnotationAction] = [] {
+        didSet {
+            evaluate()
+        }
+    }
     
     private var tovStore: TOVStore? = nil
     private var activeOverlayIds: Set<String> = Set()
@@ -42,10 +54,28 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
         self.delegate = delegate
     }
     
+    /// This should get called whenever a new Timeline is loaded into the video player.
+    private func rebuildTimeline(new: Bool) {
+        if new, let timelineId = timelineId {
+            tovStore = TOVStore()
+            
+            getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
+                switch update {
+                case .actionsUpdated(let actions):
+                    self?.annotationActions = actions
+                }
+            }
+        }
+    }
+    
+    private func cleanup(oldTimelineId: String) {
+        getTimelineActionsUpdatesUseCase.stop(id: oldTimelineId)
+    }
+    
     func evaluate() {
         guard let delegate = delegate else { return }
         
-        let allAnnotationActions = annotationActions + localAnnotationActions
+        let allAnnotationActions = annotationActions + delegate.localAnnotationActions
         
         // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
         // Because of this, we need to start calculating action offsets against the video ourselves.

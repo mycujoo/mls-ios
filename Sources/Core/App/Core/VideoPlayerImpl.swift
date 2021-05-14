@@ -219,20 +219,14 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     private let getEventUpdatesUseCase: GetEventUpdatesUseCase
-    private let getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase
     private let getPlayerConfigUseCase: GetPlayerConfigUseCase
-    private let getSVGUseCase: GetSVGUseCase
     private let getCertificateDataUseCase: GetCertificateDataUseCase
     private let getLicenseDataUseCase: GetLicenseDataUseCase
-    private let annotationService: AnnotationServicing
     private let videoAnalyticsService: VideoAnalyticsServicing
-    private let hlsInspectionService: HLSInspectionServicing
     private var timeObserver: Any?
 
     private lazy var controlViewDebouncer = Debouncer(minimumDelay: 4.0)
     private lazy var relativeSeekDebouncer = Debouncer(minimumDelay: 0.4)
-
-    private var tovStore: TOVStore? = nil
 
     /// The stream that is currently represented on-screen. Different from the `stream` property because it is used internally for state-keeping.
     private var currentStream: Stream? = nil {
@@ -277,23 +271,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         return .notLive
     }
 
-    // Note: In the future this perhaps should be a Timeline object instead of just an identifier.
-    private var timeline: String? {
-        didSet {
-            let new = timeline != oldValue
-            if new, let oldTimeline = oldValue {
-                cleanup(oldTimeline: oldTimeline)
-            }
-            rebuildTimeline(new: new)
-        }
-    }
-
-    private var activeOverlayIds: Set<String> = Set()
-
-    /// A dictionary of dynamic overlays currently showing within this view. Keys are the overlay identifiers.
-    /// The UIView should be the outer container of the overlay, not the SVGView directly.
-    private var overlays: [String: UIView] = [:]
-
     /// A level that indicates which actions are allowed to overwrite the state of the control view visibility.
     private var controlViewDirectiveLevel: DirectiveLevel = .none
     private var controlViewLocked: Bool = false
@@ -337,18 +314,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }
     }
 
-    private(set) var annotationActions: [AnnotationAction] = [] {
-        didSet {
-            evaluateAnnotations()
-        }
-    }
-
-    var localAnnotationActions: [AnnotationAction] = [] {
-        didSet {
-            evaluateAnnotations()
-        }
-    }
-
     lazy var stateObserverCallback: () -> () = { [weak self] () in
         guard let self = self else { return }
         self.state = self.player.state
@@ -387,7 +352,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             self.delegate?.playerDidUpdateTime(player: self)
 
-            self.evaluateAnnotations()
+            self.annotationIntegration?.evaluate()
         }
     }
 
@@ -401,27 +366,19 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             view: VideoPlayerViewProtocol,
             avPlayer: MLSPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
-            getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
-            getSVGUseCase: GetSVGUseCase,
             getCertificateDataUseCase: GetCertificateDataUseCase,
             getLicenseDataUseCase: GetLicenseDataUseCase,
-            annotationService: AnnotationServicing,
             videoAnalyticsService: VideoAnalyticsServicing,
-            hlsInspectionService: HLSInspectionServicing,
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String,
             publicKey: String) {
         self.avPlayer = avPlayer
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
-        self.getTimelineActionsUpdatesUseCase = getTimelineActionsUpdatesUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
-        self.getSVGUseCase = getSVGUseCase
         self.getCertificateDataUseCase = getCertificateDataUseCase
         self.getLicenseDataUseCase = getLicenseDataUseCase
-        self.annotationService = annotationService
         self.videoAnalyticsService = videoAnalyticsService
-        self.hlsInspectionService = hlsInspectionService
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
         self.publicKey = publicKey
@@ -497,8 +454,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         updateVideoAnalyticsMetadata()
 
         if new {
-            tovStore = TOVStore()
-
             if let event = event, event.isMLS {
                 getEventUpdatesUseCase.start(id: event.id) { [weak self] update in
                     guard let self = self else { return }
@@ -521,19 +476,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             imaIntegration?.setBasicCustomParameters(eventId: event?.id, streamId: currentStream?.id, eventStatus: event?.status)
         }
 
-        timeline = event?.timelineIds.first
-    }
-
-    /// This should get called whenever a new Timeline is loaded into the video player.
-    private func rebuildTimeline(new: Bool) {
-        if new, let timelineId = timeline {
-            getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
-                switch update {
-                case .actionsUpdated(let actions):
-                    self?.annotationActions = actions
-                }
-            }
-        }
+        annotationIntegration?.timelineId = event?.timelineIds.first
     }
 
     /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.
@@ -620,10 +563,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
     private func cleanup(oldStream: Stream) {}
 
-    private func cleanup(oldTimeline: String) {
-        getTimelineActionsUpdatesUseCase.stop(id: oldTimeline)
-    }
-
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
         // TODO: Refactor this method so these UILabels are not directly manipulated from here.
@@ -670,45 +609,6 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         // Note: "currentItemIsLive" is updated elsewhere, since that is a more dynamic property.
     }
-
-    /// This should be called whenever the annotations associated with this videoPlayer should be re-evaluated.
-    private func evaluateAnnotations() {
-        let allAnnotationActions = annotationActions + localAnnotationActions
-
-        // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
-        // Because of this, we need to start calculating action offsets against the video ourselves.
-        let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
-        if Int(currentDuration) + 20 > (currentStream?.dvrWindowSize ?? Int.max) / 1000 {
-            #if os(iOS)
-            if castIntegration?.isCasting() == true {
-                // We can't evaluate annotations at this point, since we do not have access to the raw playlist.
-                return
-            }
-            #endif
-
-            let map = hlsInspectionService.map(hlsPlaylist: avPlayer.rawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
-            offsetMappings = Dictionary(allAnnotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
-        } else {
-            offsetMappings = nil
-        }
-
-        annotationService.evaluate(AnnotationService.EvaluationInput(actions: allAnnotationActions, offsetMappings: offsetMappings, activeOverlayIds: activeOverlayIds, currentTime: optimisticCurrentTime * 1000, currentDuration: currentDuration * 1000)) { [weak self] output in
-
-            self?.activeOverlayIds = output.activeOverlayIds
-
-            self?.tovStore?.new(tovs: output.tovs)
-
-            DispatchQueue.main.async { [weak self] in
-                self?.view.setTimelineMarkers(with: output.showTimelineMarkers)
-                if output.showOverlays.count > 0 {
-                    self?.showOverlays(with: output.showOverlays)
-                }
-                if output.hideOverlays.count > 0 {
-                    self?.hideOverlays(with: output.hideOverlays)
-                }
-            }
-        }
-    }
 }
 
 // MARK: - Methods
@@ -749,71 +649,6 @@ extension VideoPlayerImpl {
 
 // MARK: - Private Methods
 extension VideoPlayerImpl {
-    private func svgParseAndRender(action: MLSUI.ShowOverlayAction, baseSVG: String) {
-        var baseSVG = baseSVG
-        // On every variable/timer change, re-place all variables and timers in the svg again
-        // (because we only have the initial SVG, we don't keep its updated states with the original tokens
-        // included).
-        guard let tovStore = self.tovStore else { return }
-        for variableName in action.variables {
-            // Fallback to the variable name if there is no variable defined.
-            // The reason for this is that certain "variable-like" values might have slipped through,
-            // e.g. prices that start with a dollar sign.
-            let resolved = tovStore.get(by: variableName)?.humanFriendlyValue ?? variableName
-            baseSVG = baseSVG.replacingOccurrences(of: variableName, with: resolved)
-        }
-
-        if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-
-                let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
-                imageView.clipsToBounds = true
-                imageView.backgroundColor = .none
-
-                if let containerView = self.overlays[action.overlayId] {
-                    self.view.replaceOverlay(containerView: containerView, imageView: imageView)
-                } else {
-                    self.overlays[action.overlayId] = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
-                }
-            }
-        }
-    }
-
-    private func showOverlays(with actions: [MLSUI.ShowOverlayAction]) {
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self = self else { return }
-            for action in actions {
-                // TODO: Find out if this is reading from network cache layer.
-                self.getSVGUseCase.execute(url: action.overlay.svgURL) { [weak self] (baseSVG, _) in
-                    guard let self = self else { return }
-
-                    if let baseSVG = baseSVG {
-                        for variableName in action.variables {
-                            self.tovStore?.addObserver(tovName: variableName, callbackId: action.overlayId, callback: { [weak self] val in
-                                // Re-render the entire SVG (including replacing all tokens with their resolved values)
-                                self?.svgParseAndRender(action: action, baseSVG: baseSVG)
-                            })
-                        }
-                        // Do an initial rendering as well
-                        self.svgParseAndRender(action: action, baseSVG: baseSVG)
-                    }
-                }
-            }
-        }
-    }
-
-    private func hideOverlays(with actions: [MLSUI.HideOverlayAction]) {
-        for action in actions {
-            if let v = self.overlays[action.overlayId] {
-                view?.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
-                    self?.overlays[action.overlayId] = nil
-                    self?.tovStore?.removeObservers(callbackId: action.overlayId)
-                }
-            }
-        }
-    }
-
     private func sliderUpdated(with fraction: Double) {
         let currentDuration = self.currentDuration
         guard currentDuration > 0 else { return }

@@ -108,10 +108,6 @@ public class MLS {
     private lazy var drmRepository: MLSDRMRepository = {
         return DRMRepositoryImpl()
     }()
-
-    private lazy var getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase = {
-        return GetTimelineActionsUpdatesUseCase(timelineRepository: timelineRepository)
-    }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
     }()
@@ -124,24 +120,14 @@ public class MLS {
     private lazy var listEventsUseCase: ListEventsUseCase = {
         return ListEventsUseCase(eventRepository: eventRepository)
     }()
-    private lazy var getSVGUseCase: GetSVGUseCase = {
-        return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
-    }()
     private lazy var getCertificateDataUseCase: GetCertificateDataUseCase = {
         return GetCertificateDataUseCase(drmRepository: drmRepository)
     }()
     private lazy var getLicenseDataUseCase: GetLicenseDataUseCase = {
         return GetLicenseDataUseCase(drmRepository: drmRepository)
     }()
-
-    private lazy var annotationService: AnnotationServicing = {
-        return AnnotationService()
-    }()
     private lazy var youboraVideoAnalyticsService: VideoAnalyticsServicing = {
         return YouboraVideoAnalyticsService(pseudoUserId: pseudoUserId)
-    }()
-    private lazy var hlsInspectionService: HLSInspectionServicing = {
-        return HLSInspectionService()
     }()
 
     private lazy var dataProvider_: DataProvider = {
@@ -179,14 +165,10 @@ public class MLS {
             view: VideoPlayerView(),
             avPlayer: MLSPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
-            getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
-            getSVGUseCase: getSVGUseCase,
             getCertificateDataUseCase: getCertificateDataUseCase,
             getLicenseDataUseCase: getLicenseDataUseCase,
-            annotationService: annotationService,
             videoAnalyticsService: youboraVideoAnalyticsService,
-            hlsInspectionService: hlsInspectionService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId,
             publicKey: publicKey)

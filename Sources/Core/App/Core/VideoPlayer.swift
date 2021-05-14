@@ -41,11 +41,6 @@ public protocol VideoPlayer: class {
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     var playerConfig: PlayerConfig! { get set }
 
-    /// This is an advanced feature. This property can be used to introduce additional annotation actions to the VideoPlayer.
-    /// This is in addition to the remote annotation actions that are received through the MCLS annotation system.
-    /// It is advised not to touch this property without advanced knowledge of MCLS annotations.
-    var localAnnotationActions: [AnnotationAction] { get set }
-
     #if os(iOS)
     /// This property changes when the fullscreen button is tapped. SDK implementors can update this state directly, which will update the visual of the button.
     /// Any value change will call the delegate's `playerDidUpdateFullscreen` method.
