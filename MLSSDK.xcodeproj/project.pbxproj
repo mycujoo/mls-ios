@@ -265,6 +265,8 @@
 		49836675264E9C8300DDAEBD /* UIColor+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836673264E9C8300DDAEBD /* UIColor+Init.swift */; };
 		49836677264E9DC700DDAEBD /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836676264E9DC700DDAEBD /* AnnotationAction.swift */; };
 		49836678264E9DC700DDAEBD /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836676264E9DC700DDAEBD /* AnnotationAction.swift */; };
+		49836683264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836680264EAB5C00DDAEBD /* OverlayViewPlacement.swift */; };
+		49836684264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836680264EAB5C00DDAEBD /* OverlayViewPlacement.swift */; };
 		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
@@ -733,6 +735,7 @@
 		49836670264E9C2500DDAEBD /* TOVStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStore.swift; sourceTree = "<group>"; };
 		49836673264E9C8300DDAEBD /* UIColor+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Init.swift"; sourceTree = "<group>"; };
 		49836676264E9DC700DDAEBD /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
+		49836680264EAB5C00DDAEBD /* OverlayViewPlacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewPlacement.swift; sourceTree = "<group>"; };
 		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
@@ -1489,6 +1492,7 @@
 				49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */,
 				49836646264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift */,
 				49836655264E819000DDAEBD /* AnnotationIntegrationDelegate.swift */,
+				49836680264EAB5C00DDAEBD /* OverlayViewPlacement.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -2576,6 +2580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49836656264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				49836683264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */,
 				49836668264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */,
 				4983665A264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
 				49836671264E9C2500DDAEBD /* TOVStore.swift in Sources */,
@@ -2595,6 +2600,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49836657264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				49836684264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */,
 				49836669264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */,
 				4983665B264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
 				49836672264E9C2500DDAEBD /* TOVStore.swift in Sources */,

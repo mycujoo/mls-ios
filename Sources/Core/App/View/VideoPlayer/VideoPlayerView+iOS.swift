@@ -264,7 +264,7 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     }()
 
     /// The view in which all dynamic overlays are rendered.
-    let overlayContainerView: UIView = {
+    public let overlayContainerView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -12,6 +12,9 @@ public protocol AnnotationIntegration {
 }
 
 public protocol AnnotationIntegrationView: UIView {
+    /// The view in which all dynamic overlays should be rendered.
+    var overlayContainerView: UIView { get }
+    
     /// Gets called whenever the entire set of timeline markers needs to be repositioned, e.g. whenever the current position in the video changes.
     /// This is implemented by the standard MCLS VideoPlayer. If you desire to use your own AVPlayer implementation, implement this yourself.
     func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])

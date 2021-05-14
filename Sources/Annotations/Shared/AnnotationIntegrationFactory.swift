@@ -14,10 +14,18 @@ public class AnnotationIntegrationFactory {
         return HLSInspectionService()
     }()
     
-    public static func build(delegate: AnnotationIntegrationDelegate) -> AnnotationIntegration {
+    public static func build(
+        timelineRepository: MLSTimelineRepository,
+        arbitraryDataRepository: MLSArbitraryDataRepository,
+        delegate: AnnotationIntegrationDelegate) -> AnnotationIntegration {
+        let getTimelineActionsUpdatesUseCase = GetTimelineActionsUpdatesUseCase(timelineRepository: timelineRepository)
+        let getSVGUseCase = GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
+        
         return AnnotationIntegrationImpl(
             annotationService: annotationService,
             hlsInspectionService: hlsInspectionService,
+            getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
+            getSVGUseCase: getSVGUseCase,
             delegate: delegate)
     }
 }
