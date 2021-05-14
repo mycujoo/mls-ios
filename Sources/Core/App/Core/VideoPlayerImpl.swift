@@ -107,8 +107,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// The view of the VideoPlayer.
-    var playerView: UIView {
-        if let view = view as? UIView {
+    var playerView: UIView & AnnotationIntegrationView {
+        if let view = view as? (UIView & AnnotationIntegrationView) {
             return view
         }
         fatalError("When running unit tests, this property cannot be accessed. Use `view` directly.")

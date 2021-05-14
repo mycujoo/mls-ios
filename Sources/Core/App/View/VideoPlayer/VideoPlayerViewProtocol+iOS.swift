@@ -76,7 +76,5 @@ protocol VideoPlayerViewProtocol: AnyObject, AnnotationIntegrationView {
     func setTimeIndicatorLabel(elapsedText: String?, totalText: String?)
     /// Set the `isHidden` property of the seekbar.
     func setSeekbar(hidden: Bool)
-
-    func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])
 }
 #endif

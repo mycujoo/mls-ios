@@ -8,7 +8,7 @@ import MLSSDK
 
 public protocol AnnotationIntegrationDelegate: AnyObject {
     /// The view that the annotations should be drawn on. If you are using the MCLS VideoPlayer, you should return that object's `view` property.
-    var view: AnnotationIntegrationView { get }
+    var annotationIntegrationView: AnnotationIntegrationView { get }
     
     /// Should return the duration (in milliseconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double { get }

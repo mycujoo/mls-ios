@@ -57,25 +57,6 @@ protocol VideoPlayerViewProtocol: class, AnnotationIntegrationView {
     /// Set the `isHidden` property of the seekbar.
     func setSeekbar(hidden: Bool)
 
-    func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])
-    /// Places the overlay within a containerView, that is then sized, positioned and animated within the overlayContainerView.
-    func placeOverlay(
-        imageView: UIView,
-        size: AnnotationActionShowOverlay.Size,
-        position: AnnotationActionShowOverlay.Position,
-        animateType: OverlayAnimateinType,
-        animateDuration: Double
-    ) -> UIView
-    /// Places a new imageView within an existing containerView (which was previously generated using `placeOverlay()`
-    func replaceOverlay(containerView: UIView, imageView: UIView)
-    /// Removes an overlay from the overlayContainerView with the proper animations.
-    func removeOverlay(
-        containerView: UIView,
-        animateType: OverlayAnimateoutType,
-        animateDuration: Double,
-        completion: @escaping (() -> Void)
-    )
-
     func setOnSelectPressed(_ action: @escaping () -> Void)
     func setOnLeftArrowTapped(_ action: @escaping () -> Void)
     func setOnRightArrowTapped(_ action: @escaping () -> Void)

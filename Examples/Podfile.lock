@@ -13,18 +13,18 @@ PODS:
   - GoogleAds-IMA-iOS-SDK (3.13.0)
   - GoogleAds-IMA-tvOS-SDK (4.3.2)
   - GTMSessionFetcher/Core (1.5.0)
-  - MLSSDK (1.1.8):
-    - MLSSDK/Core (= 1.1.8)
-  - MLSSDK/Cast (1.1.8):
+  - MLSSDK (1.2.0):
+    - MLSSDK/Core (= 1.2.0)
+  - MLSSDK/Cast (1.2.0):
     - google-cast-sdk (~> 4.5)
     - MLSSDK/Core
-  - MLSSDK/Core (1.1.8):
+  - MLSSDK/Core (1.2.0):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - Starscream (~> 3.1)
     - YouboraAVPlayerAdapter
     - YouboraLib
-  - MLSSDK/IMA (1.1.8):
+  - MLSSDK/IMA (1.2.0):
     - GoogleAds-IMA-iOS-SDK (~> 3.13)
     - GoogleAds-IMA-tvOS-SDK (~> 4.2)
     - MLSSDK/Core
@@ -85,7 +85,7 @@ SPEC CHECKSUMS:
   GoogleAds-IMA-iOS-SDK: b8d3693d370edcbd1440c827897c2b2a0b76673d
   GoogleAds-IMA-tvOS-SDK: 29aeeb24ac8912ca3f52c2a00ce67880586366df
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  MLSSDK: fb576edac251b8716af3c411b5f845409bc1418d
+  MLSSDK: 7d3e02a361b3ed14009f6c5178f389be4b7a623d
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Nimble: 5f8a2fb6fa343a7242dfdd9d42f7267419d464b2
   Protobuf: 0cde852566359049847168e51bd1c690e0f70056
@@ -96,4 +96,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 5cda252e7565c86e0b3494b51e8b56a096193376
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

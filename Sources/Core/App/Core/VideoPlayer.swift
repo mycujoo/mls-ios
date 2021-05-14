@@ -36,7 +36,7 @@ public protocol VideoPlayer: class {
     var status: PlayerStatus { get }
 
     /// The view of the VideoPlayer.
-    var playerView: UIView { get }
+    var playerView: UIView & AnnotationIntegrationView { get }
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     var playerConfig: PlayerConfig! { get set }

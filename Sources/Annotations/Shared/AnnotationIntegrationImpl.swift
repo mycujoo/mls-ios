@@ -102,7 +102,7 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
             self?.tovStore?.new(tovs: output.tovs)
 
             DispatchQueue.main.async { [weak self] in
-                self?.delegate?.view.setTimelineMarkers(with: output.showTimelineMarkers)
+                self?.delegate?.annotationIntegrationView.setTimelineMarkers(with: output.showTimelineMarkers)
                 if output.showOverlays.count > 0 {
                     self?.showOverlays(with: output.showOverlays)
                 }
@@ -136,9 +136,9 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
                 imageView.backgroundColor = .none
 
                 if let containerView = self.overlays[action.overlayId] {
-                    delegate.view.replaceOverlay(containerView: containerView, imageView: imageView)
+                    delegate.annotationIntegrationView.replaceOverlay(containerView: containerView, imageView: imageView)
                 } else {
-                    self.overlays[action.overlayId] = delegate.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                    self.overlays[action.overlayId] = delegate.annotationIntegrationView.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
                 }
             }
         }
@@ -170,7 +170,7 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
     private func hideOverlays(with actions: [MLSUI.HideOverlayAction]) {
         for action in actions {
             if let v = self.overlays[action.overlayId] {
-                self.delegate?.view.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
+                self.delegate?.annotationIntegrationView.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
                     self?.overlays[action.overlayId] = nil
                     self?.tovStore?.removeObservers(callbackId: action.overlayId)
                 }
