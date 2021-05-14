@@ -20,11 +20,11 @@ class VideoPlayerSpec: QuickSpec {
     var mockVideoAnalyticsService: MockVideoAnalyticsServicing!
     var mockHLSInspectionService: MockHLSInspectionServicing!
 
-    var mockTimelineRepository: MockTimelineRepository!
-    var mockArbitraryDataRepository: MockArbitraryDataRepository!
-    var mockEventRepository: MockEventRepository!
-    var mockPlayerConfigRepository: MockPlayerConfigRepository!
-    var mockDRMRepository: MockDRMRepository!
+    var mockTimelineRepository: MockMLSTimelineRepository!
+    var mockArbitraryDataRepository: MockMLSArbitraryDataRepository!
+    var mockEventRepository: MockMLSEventRepository!
+    var mockPlayerConfigRepository: MockMLSPlayerConfigRepository!
+    var mockDRMRepository: MockMLSDRMRepository!
 
     var event: MLSSDK.Event!
 

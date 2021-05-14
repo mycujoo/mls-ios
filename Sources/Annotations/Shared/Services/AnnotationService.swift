@@ -116,7 +116,7 @@ class AnnotationService: AnnotationServicing {
                 case .showTimelineMarker(let data):
                     guard !inGap && offset >= 0 else { continue }
 
-                    let timelineMarker = TimelineMarker(color: UIColor(hex: data.color), label: data.label, seekOffset: data.seekOffset)
+                    let timelineMarker = TimelineMarker(color: UIColor(fromHex: data.color), label: data.label, seekOffset: data.seekOffset)
                     let position = min(1.0, max(0.0, offset / input.currentDuration))
                     let seekPosition = min(1.0, max(0.0, (offset + Double(data.seekOffset)) / input.currentDuration))
 

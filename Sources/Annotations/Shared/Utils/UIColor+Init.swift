@@ -5,7 +5,7 @@
 import UIKit
 
 extension UIColor {
-    convenience init(hex: String) {
+    convenience init(fromHex hex: String) {
         let scanner = Scanner(string: hex)
 
         var fullLengthWithAlpha = 8
