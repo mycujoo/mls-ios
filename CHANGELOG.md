@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
-## [1.2.2](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.2)
+## [1.3.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.0)
 Released on 2021-05-??.
 
-#### Changed
+#### Breaking changes
+- The factory classes for integrations/modules have been changed to take dependencies from the MLS object.
 - Moved annotations into a separate module.
 
 ## [1.2.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.1)

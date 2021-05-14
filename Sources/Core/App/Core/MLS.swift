@@ -178,10 +178,25 @@ public class MLS {
 
         return player
     }
+    
+    /// Prepares a Factory class to work correctly by injecting some general dependencies.
+    public func prepare<T: IntegrationFactoryProtocol>(_ factory: T) -> T {
+        factory.inject(
+            timelineRepository: timelineRepository,
+            eventRepository: eventRepository,
+            playerConfigRepository: playerConfigRepository,
+            arbitraryDataRepository: arbitraryDataRepository,
+            drmRepository: drmRepository)
+        return factory
+    }
 
     /// Provides a DataProvider object that can be used to retrieve data from the MLS API directly.
     public func dataProvider() -> DataProvider {
         return dataProvider_
+    }
+    
+    public func takeObjectThatNeedsTimelineAndArbitraryRepos() -> Bool { // SameObject {
+        return false // todo
     }
 }
 

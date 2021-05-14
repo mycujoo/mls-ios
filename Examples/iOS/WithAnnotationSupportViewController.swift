@@ -14,8 +14,7 @@ class WithAnnotationSupportViewController: UIViewController {
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
-        // TODO
-//        player.annotationIntegration = AnnotationIntegrationFactory.build(timelineRepository: , arbitraryDataRepository: , delegate: self)
+        player.annotationIntegration = mls.prepare(AnnotationIntegrationFactory()).build(delegate: self)
         return player
     }()
 
