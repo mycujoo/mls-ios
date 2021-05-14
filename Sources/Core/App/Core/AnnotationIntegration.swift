@@ -14,7 +14,9 @@ public protocol AnnotationIntegration {
     func evaluate()
 }
 
-public protocol AnnotationIntegrationView: UIView {
+/// An object (e.g. a UIView) that can deal with rendering overlays and timeline markers. This is provided by the `playerView` on MCLS's VideoPlayer,
+/// but you can also provide this yourself if you are not using the MCLS VideoPlayer.
+public protocol AnnotationIntegrationView: AnyObject {
     /// The view in which all dynamic overlays should be rendered.
     var overlayContainerView: UIView { get }
     

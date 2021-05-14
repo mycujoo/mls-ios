@@ -31,7 +31,7 @@ extension AnnotationIntegrationView {
             stackView.axis = axis
             stackView.distribution = .fill
             stackView.alignment = .fill
-            stackView.semanticContentAttribute = semanticContentAttribute
+            stackView.semanticContentAttribute = self.overlayContainerView.semanticContentAttribute
             stackView.clipsToBounds = true
             stackView.translatesAutoresizingMaskIntoConstraints = false
             return stackView
@@ -53,7 +53,7 @@ extension AnnotationIntegrationView {
 
         overlayContainerView.addSubview(vStackView)
 
-        let rtl = UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft
+        let rtl = UIView.userInterfaceLayoutDirection(for: self.overlayContainerView.semanticContentAttribute) == .rightToLeft
 
         // MARK: Positional constraints
 
