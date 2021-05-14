@@ -253,6 +253,18 @@
 		4983665B264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836659264E8B5300DDAEBD /* HLSInspectionService.swift */; };
 		4983665E264E8EF600DDAEBD /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983665D264E8EF600DDAEBD /* String+Subscript.swift */; };
 		4983665F264E8EF600DDAEBD /* String+Subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983665D264E8EF600DDAEBD /* String+Subscript.swift */; };
+		49836661264E9BA300DDAEBD /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836660264E9BA300DDAEBD /* AnnotationService.swift */; };
+		49836662264E9BA300DDAEBD /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836660264E9BA300DDAEBD /* AnnotationService.swift */; };
+		49836668264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836667264E9C0F00DDAEBD /* MLSUIAction.swift */; };
+		49836669264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836667264E9C0F00DDAEBD /* MLSUIAction.swift */; };
+		4983666B264E9C1800DDAEBD /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983666A264E9C1800DDAEBD /* Overlay.swift */; };
+		4983666C264E9C1800DDAEBD /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983666A264E9C1800DDAEBD /* Overlay.swift */; };
+		49836671264E9C2500DDAEBD /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836670264E9C2500DDAEBD /* TOVStore.swift */; };
+		49836672264E9C2500DDAEBD /* TOVStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836670264E9C2500DDAEBD /* TOVStore.swift */; };
+		49836674264E9C8300DDAEBD /* UIColor+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836673264E9C8300DDAEBD /* UIColor+Init.swift */; };
+		49836675264E9C8300DDAEBD /* UIColor+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836673264E9C8300DDAEBD /* UIColor+Init.swift */; };
+		49836677264E9DC700DDAEBD /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836676264E9DC700DDAEBD /* AnnotationAction.swift */; };
+		49836678264E9DC700DDAEBD /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836676264E9DC700DDAEBD /* AnnotationAction.swift */; };
 		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
@@ -460,8 +472,6 @@
 		49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */; };
 		49E59025249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
 		49E59026249BC809001E0C1C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59024249BC809001E0C1C /* API.swift */; };
-		49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59028249BCA5B001E0C1C /* AnnotationAction.swift */; };
-		49E5902A249BCA5B001E0C1C /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E59028249BCA5B001E0C1C /* AnnotationAction.swift */; };
 		49EA069524C72CE100C7AB10 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA069424C72CE100C7AB10 /* iOSTests.swift */; };
 		49EA069724C72CE100C7AB10 /* MLSSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6477C43A2469552A0033435D /* MLSSDK.framework */; platformFilter = ios; };
 		49EA06A424C72D0E00C7AB10 /* tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EA06A324C72D0E00C7AB10 /* tvOSTests.swift */; };
@@ -717,6 +727,12 @@
 		49836655264E819000DDAEBD /* AnnotationIntegrationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegrationDelegate.swift; sourceTree = "<group>"; };
 		49836659264E8B5300DDAEBD /* HLSInspectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionService.swift; sourceTree = "<group>"; };
 		4983665D264E8EF600DDAEBD /* String+Subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Subscript.swift"; sourceTree = "<group>"; };
+		49836660264E9BA300DDAEBD /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
+		49836667264E9C0F00DDAEBD /* MLSUIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSUIAction.swift; sourceTree = "<group>"; };
+		4983666A264E9C1800DDAEBD /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		49836670264E9C2500DDAEBD /* TOVStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOVStore.swift; sourceTree = "<group>"; };
+		49836673264E9C8300DDAEBD /* UIColor+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Init.swift"; sourceTree = "<group>"; };
+		49836676264E9DC700DDAEBD /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
 		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
@@ -776,7 +792,6 @@
 		49E47D8925A79D6B00FA6559 /* CastIntegrationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastIntegrationFactory.swift; sourceTree = "<group>"; };
 		49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		49E59024249BC809001E0C1C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		49E59028249BCA5B001E0C1C /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
 		49EA069224C72CE100C7AB10 /* iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49EA069424C72CE100C7AB10 /* iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTests.swift; sourceTree = "<group>"; };
 		49EA06A124C72D0E00C7AB10 /* tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tvOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1046,9 +1061,12 @@
 		4926CE3124CE076F00419A42 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				4938012B24CE19B0008AFC64 /* MLSUIAction.swift */,
+				49836676264E9DC700DDAEBD /* AnnotationAction.swift */,
 				4966DEFD24B72D7F00BEC403 /* Event.swift */,
 				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 				49DD229124B7788D00A4CFF2 /* Stream.swift */,
+				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1056,10 +1074,7 @@
 		4926CE3224CE077600419A42 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				49E59028249BCA5B001E0C1C /* AnnotationAction.swift */,
-				4938012B24CE19B0008AFC64 /* MLSUIAction.swift */,
 				49E2DF1124A55B5400750C00 /* Overlay.swift */,
-				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 				497FD2C524C0981F0027E708 /* TOVStore.swift */,
 			);
 			path = Internal;
@@ -1467,6 +1482,7 @@
 		49813CF4264DC75000E8AA17 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				49836663264E9BFA00DDAEBD /* Entities */,
 				4983665C264E8EE300DDAEBD /* Utils */,
 				49836658264E8B4700DDAEBD /* Services */,
 				4983664E264E7F6500DDAEBD /* UseCases */,
@@ -1521,6 +1537,7 @@
 		49836658264E8B4700DDAEBD /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				49836660264E9BA300DDAEBD /* AnnotationService.swift */,
 				49836659264E8B5300DDAEBD /* HLSInspectionService.swift */,
 			);
 			path = Services;
@@ -1530,8 +1547,19 @@
 			isa = PBXGroup;
 			children = (
 				4983665D264E8EF600DDAEBD /* String+Subscript.swift */,
+				49836673264E9C8300DDAEBD /* UIColor+Init.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		49836663264E9BFA00DDAEBD /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				49836667264E9C0F00DDAEBD /* MLSUIAction.swift */,
+				4983666A264E9C1800DDAEBD /* Overlay.swift */,
+				49836670264E9C2500DDAEBD /* TOVStore.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		498E490024D07A0F0040502D /* Resources */ = {
@@ -2548,12 +2576,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				49836656264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				49836668264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */,
 				4983665A264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
+				49836671264E9C2500DDAEBD /* TOVStore.swift in Sources */,
 				49836650264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */,
 				49836647264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */,
 				49813CFA264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
+				4983666B264E9C1800DDAEBD /* Overlay.swift in Sources */,
 				4983665E264E8EF600DDAEBD /* String+Subscript.swift in Sources */,
+				49836661264E9BA300DDAEBD /* AnnotationService.swift in Sources */,
 				49836653264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */,
+				49836674264E9C8300DDAEBD /* UIColor+Init.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2562,12 +2595,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				49836657264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				49836669264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */,
 				4983665B264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
+				49836672264E9C2500DDAEBD /* TOVStore.swift in Sources */,
 				49836651264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */,
 				49836648264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */,
 				49813CFB264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
+				4983666C264E9C1800DDAEBD /* Overlay.swift in Sources */,
 				4983665F264E8EF600DDAEBD /* String+Subscript.swift in Sources */,
+				49836662264E9BA300DDAEBD /* AnnotationService.swift in Sources */,
 				49836654264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */,
+				49836675264E9C8300DDAEBD /* UIColor+Init.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2702,7 +2740,6 @@
 				49736EB624A9F59C001F3F48 /* ColorMatrix.swift in Sources */,
 				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				49B2E7322572E5C000AE13F6 /* Localizable.swift in Sources */,
-				49E59029249BCA5B001E0C1C /* AnnotationAction.swift in Sources */,
 				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49736EF324A9F59C001F3F48 /* ContentsInterpolation.swift in Sources */,
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
@@ -2812,6 +2849,7 @@
 				498E48F024D033630040502D /* MLSPlayerProtocol.swift in Sources */,
 				6496C35D249230BF0099475D /* VideoPlayerImpl.swift in Sources */,
 				49736F1824A9F59C001F3F48 /* SVGNodeLayout.swift in Sources */,
+				49836677264E9DC700DDAEBD /* AnnotationAction.swift in Sources */,
 				498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
 				49736F0A24A9F59C001F3F48 /* DescriptionExtensions.swift in Sources */,
 				49A9F52324A15B9200D00143 /* UIView+.swift in Sources */,
@@ -2852,6 +2890,7 @@
 				49A8048124AA0DF500E30DA8 /* TransformGenerator.swift in Sources */,
 				498856A22565A0470093FA66 /* String+.swift in Sources */,
 				49A804EC24AA0ECB00E30DA8 /* CSSParser.swift in Sources */,
+				49836678264E9DC700DDAEBD /* AnnotationAction.swift in Sources */,
 				4926CE2C24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDFA24CDE96700419A42 /* GetEventUseCase.swift in Sources */,
 				49A804F724AA0ED400E30DA8 /* UIImage2Image.swift in Sources */,
@@ -2920,7 +2959,6 @@
 				49A804CF24AA0EA100E30DA8 /* GaussianBlur.swift in Sources */,
 				49A804AE24AA0E9800E30DA8 /* GeomUtils.swift in Sources */,
 				49B25DE724A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
-				49E5902A249BCA5B001E0C1C /* AnnotationAction.swift in Sources */,
 				49A804D924AA0EA100E30DA8 /* AspectRatio.swift in Sources */,
 				49A8047A24AA0DF000E30DA8 /* MorphingAnimation.swift in Sources */,
 				49A8049424AA0E0B00E30DA8 /* ContentsInterpolation.swift in Sources */,
