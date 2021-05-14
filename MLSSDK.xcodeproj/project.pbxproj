@@ -267,6 +267,266 @@
 		49836678264E9DC700DDAEBD /* AnnotationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836676264E9DC700DDAEBD /* AnnotationAction.swift */; };
 		49836683264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836680264EAB5C00DDAEBD /* OverlayViewPlacement.swift */; };
 		49836684264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49836680264EAB5C00DDAEBD /* OverlayViewPlacement.swift */; };
+		49836685264EC15400DDAEBD /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
+		49836686264EC15400DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
+		49836687264EC15400DDAEBD /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
+		49836688264EC15400DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
+		4983668B264EC16000DDAEBD /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
+		4983668C264EC16000DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
+		4983668D264EC16000DDAEBD /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
+		4983668E264EC16000DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
+		4983668F264EC16F00DDAEBD /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4424A9F59A001F3F48 /* ShapeAnimation.swift */; };
+		49836690264EC16F00DDAEBD /* CombineAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4924A9F59A001F3F48 /* CombineAnimation.swift */; };
+		49836691264EC16F00DDAEBD /* ContentsAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4724A9F59A001F3F48 /* ContentsAnimation.swift */; };
+		49836692264EC16F00DDAEBD /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4624A9F59A001F3F48 /* AnimationSequence.swift */; };
+		49836693264EC16F00DDAEBD /* MorphingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4524A9F59A001F3F48 /* MorphingAnimation.swift */; };
+		49836694264EC16F00DDAEBD /* TransformAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4824A9F59A001F3F48 /* TransformAnimation.swift */; };
+		49836695264EC16F00DDAEBD /* OpacityAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4A24A9F59A001F3F48 /* OpacityAnimation.swift */; };
+		49836696264EC16F00DDAEBD /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4424A9F59A001F3F48 /* ShapeAnimation.swift */; };
+		49836697264EC16F00DDAEBD /* CombineAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4924A9F59A001F3F48 /* CombineAnimation.swift */; };
+		49836698264EC16F00DDAEBD /* ContentsAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4724A9F59A001F3F48 /* ContentsAnimation.swift */; };
+		49836699264EC16F00DDAEBD /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4624A9F59A001F3F48 /* AnimationSequence.swift */; };
+		4983669A264EC16F00DDAEBD /* MorphingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4524A9F59A001F3F48 /* MorphingAnimation.swift */; };
+		4983669B264EC16F00DDAEBD /* TransformAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4824A9F59A001F3F48 /* TransformAnimation.swift */; };
+		4983669C264EC16F00DDAEBD /* OpacityAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4A24A9F59A001F3F48 /* OpacityAnimation.swift */; };
+		4983669D264EC17200DDAEBD /* MorphingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4C24A9F59A001F3F48 /* MorphingGenerator.swift */; };
+		4983669E264EC17200DDAEBD /* MorphingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4C24A9F59A001F3F48 /* MorphingGenerator.swift */; };
+		4983669F264EC17700DDAEBD /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5824A9F59A001F3F48 /* AnimationProducer.swift */; };
+		498366A0264EC17700DDAEBD /* AnimationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5024A9F59A001F3F48 /* AnimationCache.swift */; };
+		498366A1264EC17700DDAEBD /* CombinationAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5524A9F59A001F3F48 /* CombinationAnimationGenerator.swift */; };
+		498366A2264EC17700DDAEBD /* ShapeAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5224A9F59A001F3F48 /* ShapeAnimationGenerator.swift */; };
+		498366A3264EC17700DDAEBD /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5124A9F59A001F3F48 /* TransformGenerator.swift */; };
+		498366A4264EC17700DDAEBD /* TransformHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4E24A9F59A001F3F48 /* TransformHashable.swift */; };
+		498366A5264EC17700DDAEBD /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5624A9F59A001F3F48 /* Animation.swift */; };
+		498366A6264EC17700DDAEBD /* NodeHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4F24A9F59A001F3F48 /* NodeHashable.swift */; };
+		498366A7264EC17700DDAEBD /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5724A9F59A001F3F48 /* AnimatableVariable.swift */; };
+		498366A8264EC17700DDAEBD /* OpacityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5324A9F59A001F3F48 /* OpacityGenerator.swift */; };
+		498366A9264EC17700DDAEBD /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5424A9F59A001F3F48 /* TimingFunction.swift */; };
+		498366AA264EC17700DDAEBD /* Easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5924A9F59A001F3F48 /* Easing.swift */; };
+		498366AB264EC17700DDAEBD /* AnimationProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5824A9F59A001F3F48 /* AnimationProducer.swift */; };
+		498366AC264EC17700DDAEBD /* AnimationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5024A9F59A001F3F48 /* AnimationCache.swift */; };
+		498366AD264EC17700DDAEBD /* CombinationAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5524A9F59A001F3F48 /* CombinationAnimationGenerator.swift */; };
+		498366AE264EC17700DDAEBD /* ShapeAnimationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5224A9F59A001F3F48 /* ShapeAnimationGenerator.swift */; };
+		498366AF264EC17700DDAEBD /* TransformGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5124A9F59A001F3F48 /* TransformGenerator.swift */; };
+		498366B0264EC17700DDAEBD /* TransformHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4E24A9F59A001F3F48 /* TransformHashable.swift */; };
+		498366B1264EC17700DDAEBD /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5624A9F59A001F3F48 /* Animation.swift */; };
+		498366B2264EC17700DDAEBD /* NodeHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4F24A9F59A001F3F48 /* NodeHashable.swift */; };
+		498366B3264EC17700DDAEBD /* AnimatableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5724A9F59A001F3F48 /* AnimatableVariable.swift */; };
+		498366B4264EC17700DDAEBD /* OpacityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5324A9F59A001F3F48 /* OpacityGenerator.swift */; };
+		498366B5264EC17700DDAEBD /* TimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5424A9F59A001F3F48 /* TimingFunction.swift */; };
+		498366B6264EC17700DDAEBD /* Easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5924A9F59A001F3F48 /* Easing.swift */; };
+		498366B7264EC17D00DDAEBD /* PathBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5C24A9F59A001F3F48 /* PathBounds.swift */; };
+		498366B8264EC17D00DDAEBD /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5B24A9F59A001F3F48 /* FuncBounds.swift */; };
+		498366B9264EC17E00DDAEBD /* PathBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5C24A9F59A001F3F48 /* PathBounds.swift */; };
+		498366BA264EC17E00DDAEBD /* FuncBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5B24A9F59A001F3F48 /* FuncBounds.swift */; };
+		498366BB264EC18300DDAEBD /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6024A9F59A001F3F48 /* Interpolable.swift */; };
+		498366BC264EC18300DDAEBD /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5E24A9F59A001F3F48 /* DoubleInterpolation.swift */; };
+		498366BD264EC18300DDAEBD /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6224A9F59A001F3F48 /* ContentsInterpolation.swift */; };
+		498366BE264EC18300DDAEBD /* PathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6724A9F59A001F3F48 /* PathFunctions.swift */; };
+		498366BF264EC18300DDAEBD /* LocusInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6324A9F59A001F3F48 /* LocusInterpolation.swift */; };
+		498366C0264EC18300DDAEBD /* AnimOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6624A9F59A001F3F48 /* AnimOperators.swift */; };
+		498366C1264EC18300DDAEBD /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6924A9F59A001F3F48 /* AnimationUtils.swift */; };
+		498366C2264EC18300DDAEBD /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5F24A9F59A001F3F48 /* TransformInterpolation.swift */; };
+		498366C3264EC18300DDAEBD /* ShapeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6424A9F59A001F3F48 /* ShapeInterpolation.swift */; };
+		498366C4264EC18300DDAEBD /* AnimationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6824A9F59A001F3F48 /* AnimationImpl.swift */; };
+		498366C5264EC18300DDAEBD /* Interpolable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6024A9F59A001F3F48 /* Interpolable.swift */; };
+		498366C6264EC18300DDAEBD /* DoubleInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5E24A9F59A001F3F48 /* DoubleInterpolation.swift */; };
+		498366C7264EC18300DDAEBD /* ContentsInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6224A9F59A001F3F48 /* ContentsInterpolation.swift */; };
+		498366C8264EC18300DDAEBD /* PathFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6724A9F59A001F3F48 /* PathFunctions.swift */; };
+		498366C9264EC18300DDAEBD /* LocusInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6324A9F59A001F3F48 /* LocusInterpolation.swift */; };
+		498366CA264EC18300DDAEBD /* AnimOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6624A9F59A001F3F48 /* AnimOperators.swift */; };
+		498366CB264EC18300DDAEBD /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6924A9F59A001F3F48 /* AnimationUtils.swift */; };
+		498366CC264EC18300DDAEBD /* TransformInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E5F24A9F59A001F3F48 /* TransformInterpolation.swift */; };
+		498366CD264EC18300DDAEBD /* ShapeInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6424A9F59A001F3F48 /* ShapeInterpolation.swift */; };
+		498366CE264EC18300DDAEBD /* AnimationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6824A9F59A001F3F48 /* AnimationImpl.swift */; };
+		498366CF264EC18900DDAEBD /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF824A9F599001F3F48 /* Variable.swift */; };
+		498366D0264EC18900DDAEBD /* GroupDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF624A9F599001F3F48 /* GroupDisposable.swift */; };
+		498366D1264EC18900DDAEBD /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF724A9F599001F3F48 /* Disposable.swift */; };
+		498366D2264EC18900DDAEBD /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF824A9F599001F3F48 /* Variable.swift */; };
+		498366D3264EC18900DDAEBD /* GroupDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF624A9F599001F3F48 /* GroupDisposable.swift */; };
+		498366D4264EC18900DDAEBD /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DF724A9F599001F3F48 /* Disposable.swift */; };
+		498366D5264EC19300DDAEBD /* RotateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8324A9F59B001F3F48 /* RotateEvent.swift */; };
+		498366D6264EC19300DDAEBD /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8124A9F59B001F3F48 /* TouchEvent.swift */; };
+		498366D7264EC19300DDAEBD /* MacawEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8224A9F59B001F3F48 /* MacawEvent.swift */; };
+		498366D8264EC19300DDAEBD /* PanEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8024A9F59B001F3F48 /* PanEvent.swift */; };
+		498366D9264EC19300DDAEBD /* TapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8424A9F59B001F3F48 /* TapEvent.swift */; };
+		498366DA264EC19300DDAEBD /* PinchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7F24A9F59B001F3F48 /* PinchEvent.swift */; };
+		498366DB264EC19300DDAEBD /* RotateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8324A9F59B001F3F48 /* RotateEvent.swift */; };
+		498366DC264EC19300DDAEBD /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8124A9F59B001F3F48 /* TouchEvent.swift */; };
+		498366DD264EC19300DDAEBD /* MacawEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8224A9F59B001F3F48 /* MacawEvent.swift */; };
+		498366DE264EC19300DDAEBD /* PanEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8024A9F59B001F3F48 /* PanEvent.swift */; };
+		498366DF264EC19300DDAEBD /* TapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8424A9F59B001F3F48 /* TapEvent.swift */; };
+		498366E0264EC19300DDAEBD /* PinchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7F24A9F59B001F3F48 /* PinchEvent.swift */; };
+		498366E1264EC19600DDAEBD /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8624A9F59B001F3F48 /* MacawView+PDF.swift */; };
+		498366E2264EC19600DDAEBD /* MacawView+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8624A9F59B001F3F48 /* MacawView+PDF.swift */; };
+		498366E3264EC19800DDAEBD /* ContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6B24A9F59A001F3F48 /* ContentLayout.swift */; };
+		498366E4264EC19900DDAEBD /* ContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6B24A9F59A001F3F48 /* ContentLayout.swift */; };
+		498366E5264EC19C00DDAEBD /* MCAShapeLayerLineJoin_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3F24A9F59A001F3F48 /* MCAShapeLayerLineJoin_iOS.swift */; };
+		498366E6264EC19C00DDAEBD /* MCAMediaTimingFillMode_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4024A9F59A001F3F48 /* MCAMediaTimingFillMode_iOS.swift */; };
+		498366E7264EC19C00DDAEBD /* MCAMediaTimingFunctionName_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6F24A9F59B001F3F48 /* MCAMediaTimingFunctionName_iOS.swift */; };
+		498366E8264EC19C00DDAEBD /* MCAShapeLayerLineCap_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6C24A9F59A001F3F48 /* MCAShapeLayerLineCap_iOS.swift */; };
+		498366E9264EC19C00DDAEBD /* MCAShapeLayerLineJoin_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3F24A9F59A001F3F48 /* MCAShapeLayerLineJoin_iOS.swift */; };
+		498366EA264EC19C00DDAEBD /* MCAMediaTimingFillMode_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4024A9F59A001F3F48 /* MCAMediaTimingFillMode_iOS.swift */; };
+		498366EB264EC19C00DDAEBD /* MCAMediaTimingFunctionName_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6F24A9F59B001F3F48 /* MCAMediaTimingFunctionName_iOS.swift */; };
+		498366EC264EC19C00DDAEBD /* MCAShapeLayerLineCap_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E6C24A9F59A001F3F48 /* MCAShapeLayerLineCap_iOS.swift */; };
+		498366ED264EC1B000DDAEBD /* RoundRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFF24A9F599001F3F48 /* RoundRect.swift */; };
+		498366EE264EC1B000DDAEBD /* Locus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0424A9F599001F3F48 /* Locus.swift */; };
+		498366EF264EC1B000DDAEBD /* PathSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0924A9F599001F3F48 /* PathSegment.swift */; };
+		498366F0264EC1B000DDAEBD /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0B24A9F599001F3F48 /* Polygon.swift */; };
+		498366F1264EC1B000DDAEBD /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFB24A9F599001F3F48 /* Rect.swift */; };
+		498366F2264EC1B000DDAEBD /* GeomUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFE24A9F599001F3F48 /* GeomUtils.swift */; };
+		498366F3264EC1B000DDAEBD /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0524A9F599001F3F48 /* PathBuilder.swift */; };
+		498366F4264EC1B000DDAEBD /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0324A9F599001F3F48 /* Path.swift */; };
+		498366F5264EC1B000DDAEBD /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0224A9F599001F3F48 /* Point.swift */; };
+		498366F6264EC1B000DDAEBD /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0024A9F599001F3F48 /* Size.swift */; };
+		498366F7264EC1B000DDAEBD /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0124A9F599001F3F48 /* Transform.swift */; };
+		498366F8264EC1B000DDAEBD /* PathSegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0724A9F599001F3F48 /* PathSegmentType.swift */; };
+		498366F9264EC1B000DDAEBD /* Ellipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFD24A9F599001F3F48 /* Ellipse.swift */; };
+		498366FA264EC1B000DDAEBD /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0824A9F599001F3F48 /* Line.swift */; };
+		498366FB264EC1B000DDAEBD /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0C24A9F599001F3F48 /* Circle.swift */; };
+		498366FC264EC1B000DDAEBD /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0D24A9F599001F3F48 /* Insets.swift */; };
+		498366FD264EC1B000DDAEBD /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFC24A9F599001F3F48 /* Arc.swift */; };
+		498366FE264EC1B000DDAEBD /* MoveTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0624A9F599001F3F48 /* MoveTo.swift */; };
+		498366FF264EC1B000DDAEBD /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0E24A9F599001F3F48 /* TransformedLocus.swift */; };
+		49836700264EC1B000DDAEBD /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0A24A9F599001F3F48 /* Polyline.swift */; };
+		49836701264EC1B100DDAEBD /* RoundRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFF24A9F599001F3F48 /* RoundRect.swift */; };
+		49836702264EC1B100DDAEBD /* Locus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0424A9F599001F3F48 /* Locus.swift */; };
+		49836703264EC1B100DDAEBD /* PathSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0924A9F599001F3F48 /* PathSegment.swift */; };
+		49836704264EC1B100DDAEBD /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0B24A9F599001F3F48 /* Polygon.swift */; };
+		49836705264EC1B100DDAEBD /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFB24A9F599001F3F48 /* Rect.swift */; };
+		49836706264EC1B100DDAEBD /* GeomUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFE24A9F599001F3F48 /* GeomUtils.swift */; };
+		49836707264EC1B100DDAEBD /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0524A9F599001F3F48 /* PathBuilder.swift */; };
+		49836708264EC1B100DDAEBD /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0324A9F599001F3F48 /* Path.swift */; };
+		49836709264EC1B100DDAEBD /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0224A9F599001F3F48 /* Point.swift */; };
+		4983670A264EC1B100DDAEBD /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0024A9F599001F3F48 /* Size.swift */; };
+		4983670B264EC1B100DDAEBD /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0124A9F599001F3F48 /* Transform.swift */; };
+		4983670C264EC1B100DDAEBD /* PathSegmentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0724A9F599001F3F48 /* PathSegmentType.swift */; };
+		4983670D264EC1B100DDAEBD /* Ellipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFD24A9F599001F3F48 /* Ellipse.swift */; };
+		4983670E264EC1B100DDAEBD /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0824A9F599001F3F48 /* Line.swift */; };
+		4983670F264EC1B100DDAEBD /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0C24A9F599001F3F48 /* Circle.swift */; };
+		49836710264EC1B100DDAEBD /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0D24A9F599001F3F48 /* Insets.swift */; };
+		49836711264EC1B100DDAEBD /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736DFC24A9F599001F3F48 /* Arc.swift */; };
+		49836712264EC1B100DDAEBD /* MoveTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0624A9F599001F3F48 /* MoveTo.swift */; };
+		49836713264EC1B100DDAEBD /* TransformedLocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0E24A9F599001F3F48 /* TransformedLocus.swift */; };
+		49836714264EC1B100DDAEBD /* Polyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E0A24A9F599001F3F48 /* Polyline.swift */; };
+		49836715264EC1B500DDAEBD /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1124A9F599001F3F48 /* Image.swift */; };
+		49836716264EC1B500DDAEBD /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1524A9F599001F3F48 /* Node.swift */; };
+		49836717264EC1B500DDAEBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1324A9F599001F3F48 /* Group.swift */; };
+		49836718264EC1B500DDAEBD /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1224A9F599001F3F48 /* Shape.swift */; };
+		49836719264EC1B500DDAEBD /* SceneUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1024A9F599001F3F48 /* SceneUtils.swift */; };
+		4983671A264EC1B500DDAEBD /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1424A9F599001F3F48 /* Text.swift */; };
+		4983671B264EC1B500DDAEBD /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1124A9F599001F3F48 /* Image.swift */; };
+		4983671C264EC1B500DDAEBD /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1524A9F599001F3F48 /* Node.swift */; };
+		4983671D264EC1B500DDAEBD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1324A9F599001F3F48 /* Group.swift */; };
+		4983671E264EC1B500DDAEBD /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1224A9F599001F3F48 /* Shape.swift */; };
+		4983671F264EC1B500DDAEBD /* SceneUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1024A9F599001F3F48 /* SceneUtils.swift */; };
+		49836720264EC1B500DDAEBD /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1424A9F599001F3F48 /* Text.swift */; };
+		49836721264EC1B800DDAEBD /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1E24A9F599001F3F48 /* ColorMatrixEffect.swift */; };
+		49836722264EC1B800DDAEBD /* BlendEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2424A9F599001F3F48 /* BlendEffect.swift */; };
+		49836723264EC1B800DDAEBD /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2224A9F599001F3F48 /* Gradient.swift */; };
+		49836724264EC1B800DDAEBD /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1A24A9F599001F3F48 /* LinearGradient.swift */; };
+		49836725264EC1B800DDAEBD /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1724A9F599001F3F48 /* Fill.swift */; };
+		49836726264EC1B800DDAEBD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2724A9F599001F3F48 /* Font.swift */; };
+		49836727264EC1B800DDAEBD /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2024A9F599001F3F48 /* Effect.swift */; };
+		49836728264EC1B800DDAEBD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2A24A9F599001F3F48 /* Color.swift */; };
+		49836729264EC1B800DDAEBD /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2824A9F599001F3F48 /* Pattern.swift */; };
+		4983672A264EC1B800DDAEBD /* LineCap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2924A9F599001F3F48 /* LineCap.swift */; };
+		4983672B264EC1B800DDAEBD /* AlphaEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1924A9F599001F3F48 /* AlphaEffect.swift */; };
+		4983672C264EC1B800DDAEBD /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2324A9F599001F3F48 /* Drawable.swift */; };
+		4983672D264EC1B800DDAEBD /* OffsetEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2524A9F599001F3F48 /* OffsetEffect.swift */; };
+		4983672E264EC1B800DDAEBD /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2624A9F599001F3F48 /* Stop.swift */; };
+		4983672F264EC1B800DDAEBD /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2C24A9F599001F3F48 /* Stroke.swift */; };
+		49836730264EC1B800DDAEBD /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2B24A9F599001F3F48 /* AspectRatio.swift */; };
+		49836731264EC1B800DDAEBD /* LineJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1C24A9F599001F3F48 /* LineJoin.swift */; };
+		49836732264EC1B800DDAEBD /* ColorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1B24A9F599001F3F48 /* ColorMatrix.swift */; };
+		49836733264EC1B800DDAEBD /* RadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1824A9F599001F3F48 /* RadialGradient.swift */; };
+		49836734264EC1B800DDAEBD /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2124A9F599001F3F48 /* GaussianBlur.swift */; };
+		49836735264EC1B800DDAEBD /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1F24A9F599001F3F48 /* Baseline.swift */; };
+		49836736264EC1B800DDAEBD /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1D24A9F599001F3F48 /* Align.swift */; };
+		49836737264EC1B900DDAEBD /* ColorMatrixEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1E24A9F599001F3F48 /* ColorMatrixEffect.swift */; };
+		49836738264EC1B900DDAEBD /* BlendEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2424A9F599001F3F48 /* BlendEffect.swift */; };
+		49836739264EC1B900DDAEBD /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2224A9F599001F3F48 /* Gradient.swift */; };
+		4983673A264EC1B900DDAEBD /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1A24A9F599001F3F48 /* LinearGradient.swift */; };
+		4983673B264EC1B900DDAEBD /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1724A9F599001F3F48 /* Fill.swift */; };
+		4983673C264EC1B900DDAEBD /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2724A9F599001F3F48 /* Font.swift */; };
+		4983673D264EC1B900DDAEBD /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2024A9F599001F3F48 /* Effect.swift */; };
+		4983673E264EC1B900DDAEBD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2A24A9F599001F3F48 /* Color.swift */; };
+		4983673F264EC1B900DDAEBD /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2824A9F599001F3F48 /* Pattern.swift */; };
+		49836740264EC1B900DDAEBD /* LineCap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2924A9F599001F3F48 /* LineCap.swift */; };
+		49836741264EC1B900DDAEBD /* AlphaEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1924A9F599001F3F48 /* AlphaEffect.swift */; };
+		49836742264EC1B900DDAEBD /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2324A9F599001F3F48 /* Drawable.swift */; };
+		49836743264EC1B900DDAEBD /* OffsetEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2524A9F599001F3F48 /* OffsetEffect.swift */; };
+		49836744264EC1B900DDAEBD /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2624A9F599001F3F48 /* Stop.swift */; };
+		49836745264EC1B900DDAEBD /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2C24A9F599001F3F48 /* Stroke.swift */; };
+		49836746264EC1B900DDAEBD /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2B24A9F599001F3F48 /* AspectRatio.swift */; };
+		49836747264EC1B900DDAEBD /* LineJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1C24A9F599001F3F48 /* LineJoin.swift */; };
+		49836748264EC1B900DDAEBD /* ColorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1B24A9F599001F3F48 /* ColorMatrix.swift */; };
+		49836749264EC1B900DDAEBD /* RadialGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1824A9F599001F3F48 /* RadialGradient.swift */; };
+		4983674A264EC1B900DDAEBD /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E2124A9F599001F3F48 /* GaussianBlur.swift */; };
+		4983674B264EC1B900DDAEBD /* Baseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1F24A9F599001F3F48 /* Baseline.swift */; };
+		4983674C264EC1B900DDAEBD /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E1D24A9F599001F3F48 /* Align.swift */; };
+		4983674D264EC1C100DDAEBD /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3924A9F59A001F3F48 /* MDisplayLink.swift */; };
+		4983674E264EC1C100DDAEBD /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3624A9F59A001F3F48 /* MDisplayLink_iOS.swift */; };
+		4983674F264EC1C100DDAEBD /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3724A9F59A001F3F48 /* Common_iOS.swift */; };
+		49836750264EC1C100DDAEBD /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3524A9F59A001F3F48 /* MView_iOS.swift */; };
+		49836751264EC1C100DDAEBD /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3824A9F59A001F3F48 /* Graphics_iOS.swift */; };
+		49836752264EC1C200DDAEBD /* MDisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3924A9F59A001F3F48 /* MDisplayLink.swift */; };
+		49836753264EC1C200DDAEBD /* MDisplayLink_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3624A9F59A001F3F48 /* MDisplayLink_iOS.swift */; };
+		49836754264EC1C200DDAEBD /* Common_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3724A9F59A001F3F48 /* Common_iOS.swift */; };
+		49836755264EC1C200DDAEBD /* MView_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3524A9F59A001F3F48 /* MView_iOS.swift */; };
+		49836756264EC1C200DDAEBD /* Graphics_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3824A9F59A001F3F48 /* Graphics_iOS.swift */; };
+		49836757264EC1C700DDAEBD /* RenderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7724A9F59B001F3F48 /* RenderUtils.swift */; };
+		49836758264EC1C700DDAEBD /* ShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7224A9F59B001F3F48 /* ShapeRenderer.swift */; };
+		49836759264EC1C700DDAEBD /* NodeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7324A9F59B001F3F48 /* NodeRenderer.swift */; };
+		4983675A264EC1C700DDAEBD /* TextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7124A9F59B001F3F48 /* TextRenderer.swift */; };
+		4983675B264EC1C700DDAEBD /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7424A9F59B001F3F48 /* GroupRenderer.swift */; };
+		4983675C264EC1C700DDAEBD /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7624A9F59B001F3F48 /* RenderContext.swift */; };
+		4983675D264EC1C700DDAEBD /* ImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7524A9F59B001F3F48 /* ImageRenderer.swift */; };
+		4983675E264EC1C700DDAEBD /* RenderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7724A9F59B001F3F48 /* RenderUtils.swift */; };
+		4983675F264EC1C700DDAEBD /* ShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7224A9F59B001F3F48 /* ShapeRenderer.swift */; };
+		49836760264EC1C700DDAEBD /* NodeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7324A9F59B001F3F48 /* NodeRenderer.swift */; };
+		49836761264EC1C700DDAEBD /* TextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7124A9F59B001F3F48 /* TextRenderer.swift */; };
+		49836762264EC1C700DDAEBD /* GroupRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7424A9F59B001F3F48 /* GroupRenderer.swift */; };
+		49836763264EC1C700DDAEBD /* RenderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7624A9F59B001F3F48 /* RenderContext.swift */; };
+		49836764264EC1C700DDAEBD /* ImageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7524A9F59B001F3F48 /* ImageRenderer.swift */; };
+		49836765264EC1CD00DDAEBD /* SVGNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8E24A9F59B001F3F48 /* SVGNodeLayout.swift */; };
+		49836766264EC1CD00DDAEBD /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9124A9F59B001F3F48 /* SVGCanvas.swift */; };
+		49836767264EC1CD00DDAEBD /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8D24A9F59B001F3F48 /* CSSParser.swift */; };
+		49836768264EC1CD00DDAEBD /* SVGParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8F24A9F59B001F3F48 /* SVGParserError.swift */; };
+		49836769264EC1CD00DDAEBD /* SVGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9024A9F59B001F3F48 /* SVGConstants.swift */; };
+		4983676A264EC1CD00DDAEBD /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9224A9F59B001F3F48 /* SVGSerializer.swift */; };
+		4983676B264EC1CD00DDAEBD /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9324A9F59B001F3F48 /* SVGView.swift */; };
+		4983676C264EC1CD00DDAEBD /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9424A9F59B001F3F48 /* SVGParser.swift */; };
+		4983676D264EC1CE00DDAEBD /* SVGNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8E24A9F59B001F3F48 /* SVGNodeLayout.swift */; };
+		4983676E264EC1CE00DDAEBD /* SVGCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9124A9F59B001F3F48 /* SVGCanvas.swift */; };
+		4983676F264EC1CE00DDAEBD /* CSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8D24A9F59B001F3F48 /* CSSParser.swift */; };
+		49836770264EC1CE00DDAEBD /* SVGParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8F24A9F59B001F3F48 /* SVGParserError.swift */; };
+		49836771264EC1CE00DDAEBD /* SVGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9024A9F59B001F3F48 /* SVGConstants.swift */; };
+		49836772264EC1CE00DDAEBD /* SVGSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9224A9F59B001F3F48 /* SVGSerializer.swift */; };
+		49836773264EC1CE00DDAEBD /* SVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9324A9F59B001F3F48 /* SVGView.swift */; };
+		49836774264EC1CE00DDAEBD /* SVGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E9424A9F59B001F3F48 /* SVGParser.swift */; };
+		49836775264EC1D200DDAEBD /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8B24A9F59B001F3F48 /* NSTimer+Closure.swift */; };
+		49836776264EC1D200DDAEBD /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8A24A9F59B001F3F48 /* CAAnimationClosure.swift */; };
+		49836777264EC1D200DDAEBD /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8924A9F59B001F3F48 /* CGFloat+Double.swift */; };
+		49836778264EC1D200DDAEBD /* NSTimer+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8B24A9F59B001F3F48 /* NSTimer+Closure.swift */; };
+		49836779264EC1D200DDAEBD /* CAAnimationClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8A24A9F59B001F3F48 /* CAAnimationClosure.swift */; };
+		4983677A264EC1D200DDAEBD /* CGFloat+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E8924A9F59B001F3F48 /* CGFloat+Double.swift */; };
+		4983677B264EC1D700DDAEBD /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7A24A9F59B001F3F48 /* BoundsUtils.swift */; };
+		4983677C264EC1D700DDAEBD /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7B24A9F59B001F3F48 /* CGMappings.swift */; };
+		4983677D264EC1D700DDAEBD /* DescriptionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7C24A9F59B001F3F48 /* DescriptionExtensions.swift */; };
+		4983677E264EC1D700DDAEBD /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7924A9F59B001F3F48 /* UIImage2Image.swift */; };
+		4983677F264EC1D800DDAEBD /* BoundsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7A24A9F59B001F3F48 /* BoundsUtils.swift */; };
+		49836780264EC1D800DDAEBD /* CGMappings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7B24A9F59B001F3F48 /* CGMappings.swift */; };
+		49836781264EC1D800DDAEBD /* DescriptionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7C24A9F59B001F3F48 /* DescriptionExtensions.swift */; };
+		49836782264EC1D800DDAEBD /* UIImage2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E7924A9F59B001F3F48 /* UIImage2Image.swift */; };
+		49836783264EC1DE00DDAEBD /* MacawZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3B24A9F59A001F3F48 /* MacawZoom.swift */; };
+		49836784264EC1DE00DDAEBD /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3C24A9F59A001F3F48 /* Touchable.swift */; };
+		49836785264EC1DE00DDAEBD /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3D24A9F59A001F3F48 /* ShapeLayer.swift */; };
+		49836786264EC1DE00DDAEBD /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3E24A9F59A001F3F48 /* MacawView.swift */; };
+		49836787264EC1DE00DDAEBD /* MacawZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3B24A9F59A001F3F48 /* MacawZoom.swift */; };
+		49836788264EC1DE00DDAEBD /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3C24A9F59A001F3F48 /* Touchable.swift */; };
+		49836789264EC1DE00DDAEBD /* ShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3D24A9F59A001F3F48 /* ShapeLayer.swift */; };
+		4983678A264EC1DE00DDAEBD /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3E24A9F59A001F3F48 /* MacawView.swift */; };
 		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
@@ -309,10 +569,6 @@
 		499D0E2C24D1898D0021A961 /* scoreboard_and_timer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */; };
 		499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift */; };
 		499D0E3124D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499D0E3024D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift */; };
-		49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
-		49A8047624AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
-		49A8047724AA0DE200E30DA8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */; };
-		49A8047824AA0DE200E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */; };
 		49A8047924AA0DF000E30DA8 /* ShapeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4424A9F59A001F3F48 /* ShapeAnimation.swift */; };
 		49A8047A24AA0DF000E30DA8 /* MorphingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4524A9F59A001F3F48 /* MorphingAnimation.swift */; };
 		49A8047B24AA0DF000E30DA8 /* AnimationSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E4624A9F59A001F3F48 /* AnimationSequence.swift */; };
@@ -1135,8 +1391,6 @@
 		495CB131249CC4F800998FF4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				49A8047224AA0C4000E30DA8 /* SWXMLHash */,
-				49736DF424A9F588001F3F48 /* Macaw */,
 				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
 				498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */,
@@ -1550,6 +1804,8 @@
 		4983665C264E8EE300DDAEBD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				49A8047224AA0C4000E30DA8 /* SWXMLHash */,
+				49736DF424A9F588001F3F48 /* Macaw */,
 				4983665D264E8EF600DDAEBD /* String+Subscript.swift */,
 				49836673264E9C8300DDAEBD /* UIColor+Init.swift */,
 			);
@@ -2579,19 +2835,147 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				498366CB264EC18300DDAEBD /* AnimationUtils.swift in Sources */,
+				498366B6264EC17700DDAEBD /* Easing.swift in Sources */,
+				49836763264EC1C700DDAEBD /* RenderContext.swift in Sources */,
+				498366CE264EC18300DDAEBD /* AnimationImpl.swift in Sources */,
+				4983674C264EC1B900DDAEBD /* Align.swift in Sources */,
+				49836789264EC1DE00DDAEBD /* ShapeLayer.swift in Sources */,
+				49836774264EC1CE00DDAEBD /* SVGParser.swift in Sources */,
+				49836755264EC1C200DDAEBD /* MView_iOS.swift in Sources */,
+				49836749264EC1B900DDAEBD /* RadialGradient.swift in Sources */,
+				498366DB264EC19300DDAEBD /* RotateEvent.swift in Sources */,
+				4983668F264EC16F00DDAEBD /* ShapeAnimation.swift in Sources */,
+				4983673E264EC1B900DDAEBD /* Color.swift in Sources */,
+				4983673D264EC1B900DDAEBD /* Effect.swift in Sources */,
+				49836694264EC16F00DDAEBD /* TransformAnimation.swift in Sources */,
+				49836709264EC1B100DDAEBD /* Point.swift in Sources */,
+				49836754264EC1C200DDAEBD /* Common_iOS.swift in Sources */,
+				498366E9264EC19C00DDAEBD /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
+				498366B4264EC17700DDAEBD /* OpacityGenerator.swift in Sources */,
+				4983674B264EC1B900DDAEBD /* Baseline.swift in Sources */,
+				49836708264EC1B100DDAEBD /* Path.swift in Sources */,
+				49836711264EC1B100DDAEBD /* Arc.swift in Sources */,
+				498366AF264EC17700DDAEBD /* TransformGenerator.swift in Sources */,
+				498366EB264EC19C00DDAEBD /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				49836656264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				49836703264EC1B100DDAEBD /* PathSegment.swift in Sources */,
+				498366CC264EC18300DDAEBD /* TransformInterpolation.swift in Sources */,
+				498366C5264EC18300DDAEBD /* Interpolable.swift in Sources */,
+				49836742264EC1B900DDAEBD /* Drawable.swift in Sources */,
+				498366E2264EC19600DDAEBD /* MacawView+PDF.swift in Sources */,
+				4983671D264EC1B500DDAEBD /* Group.swift in Sources */,
+				49836693264EC16F00DDAEBD /* MorphingAnimation.swift in Sources */,
+				498366B2264EC17700DDAEBD /* NodeHashable.swift in Sources */,
+				4983676E264EC1CE00DDAEBD /* SVGCanvas.swift in Sources */,
 				49836683264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */,
+				49836707264EC1B100DDAEBD /* PathBuilder.swift in Sources */,
+				49836710264EC1B100DDAEBD /* Insets.swift in Sources */,
+				49836746264EC1B900DDAEBD /* AspectRatio.swift in Sources */,
+				49836739264EC1B900DDAEBD /* Gradient.swift in Sources */,
+				4983676D264EC1CE00DDAEBD /* SVGNodeLayout.swift in Sources */,
+				4983677F264EC1D800DDAEBD /* BoundsUtils.swift in Sources */,
+				4983671B264EC1B500DDAEBD /* Image.swift in Sources */,
+				498366E4264EC19900DDAEBD /* ContentLayout.swift in Sources */,
+				49836741264EC1B900DDAEBD /* AlphaEffect.swift in Sources */,
+				498366CA264EC18300DDAEBD /* AnimOperators.swift in Sources */,
+				498366B3264EC17700DDAEBD /* AnimatableVariable.swift in Sources */,
+				49836780264EC1D800DDAEBD /* CGMappings.swift in Sources */,
+				49836771264EC1CE00DDAEBD /* SVGConstants.swift in Sources */,
+				49836779264EC1D200DDAEBD /* CAAnimationClosure.swift in Sources */,
+				4983671C264EC1B500DDAEBD /* Node.swift in Sources */,
+				4983673C264EC1B900DDAEBD /* Font.swift in Sources */,
+				4983674A264EC1B900DDAEBD /* GaussianBlur.swift in Sources */,
+				49836744264EC1B900DDAEBD /* Stop.swift in Sources */,
 				49836668264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */,
+				49836788264EC1DE00DDAEBD /* Touchable.swift in Sources */,
+				498366C8264EC18300DDAEBD /* PathFunctions.swift in Sources */,
+				49836743264EC1B900DDAEBD /* OffsetEffect.swift in Sources */,
+				49836753264EC1C200DDAEBD /* MDisplayLink_iOS.swift in Sources */,
+				49836752264EC1C200DDAEBD /* MDisplayLink.swift in Sources */,
+				498366C7264EC18300DDAEBD /* ContentsInterpolation.swift in Sources */,
+				498366B9264EC17E00DDAEBD /* PathBounds.swift in Sources */,
+				4983670F264EC1B100DDAEBD /* Circle.swift in Sources */,
+				4983670C264EC1B100DDAEBD /* PathSegmentType.swift in Sources */,
+				498366DD264EC19300DDAEBD /* MacawEvent.swift in Sources */,
+				4983677A264EC1D200DDAEBD /* CGFloat+Double.swift in Sources */,
+				49836695264EC16F00DDAEBD /* OpacityAnimation.swift in Sources */,
 				4983665A264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
 				49836671264E9C2500DDAEBD /* TOVStore.swift in Sources */,
+				49836748264EC1B900DDAEBD /* ColorMatrix.swift in Sources */,
 				49836650264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */,
+				498366D3264EC18900DDAEBD /* GroupDisposable.swift in Sources */,
+				49836690264EC16F00DDAEBD /* CombineAnimation.swift in Sources */,
+				49836720264EC1B500DDAEBD /* Text.swift in Sources */,
 				49836647264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */,
+				498366AE264EC17700DDAEBD /* ShapeAnimationGenerator.swift in Sources */,
+				498366EA264EC19C00DDAEBD /* MCAMediaTimingFillMode_iOS.swift in Sources */,
+				498366DC264EC19300DDAEBD /* TouchEvent.swift in Sources */,
+				49836781264EC1D800DDAEBD /* DescriptionExtensions.swift in Sources */,
+				4983676F264EC1CE00DDAEBD /* CSSParser.swift in Sources */,
+				49836714264EC1B100DDAEBD /* Polyline.swift in Sources */,
+				49836761264EC1C700DDAEBD /* TextRenderer.swift in Sources */,
 				49813CFA264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
+				4983670A264EC1B100DDAEBD /* Size.swift in Sources */,
+				4983678A264EC1DE00DDAEBD /* MacawView.swift in Sources */,
+				4983670D264EC1B100DDAEBD /* Ellipse.swift in Sources */,
 				4983666B264E9C1800DDAEBD /* Overlay.swift in Sources */,
+				49836704264EC1B100DDAEBD /* Polygon.swift in Sources */,
+				4983673F264EC1B900DDAEBD /* Pattern.swift in Sources */,
+				49836778264EC1D200DDAEBD /* NSTimer+Closure.swift in Sources */,
+				498366B5264EC17700DDAEBD /* TimingFunction.swift in Sources */,
+				49836762264EC1C700DDAEBD /* GroupRenderer.swift in Sources */,
+				49836712264EC1B100DDAEBD /* MoveTo.swift in Sources */,
+				49836756264EC1C200DDAEBD /* Graphics_iOS.swift in Sources */,
+				49836705264EC1B100DDAEBD /* Rect.swift in Sources */,
+				49836685264EC15400DDAEBD /* SWXMLHash.swift in Sources */,
+				49836740264EC1B900DDAEBD /* LineCap.swift in Sources */,
 				4983665E264E8EF600DDAEBD /* String+Subscript.swift in Sources */,
+				49836706264EC1B100DDAEBD /* GeomUtils.swift in Sources */,
+				498366D2264EC18900DDAEBD /* Variable.swift in Sources */,
+				498366C9264EC18300DDAEBD /* LocusInterpolation.swift in Sources */,
 				49836661264E9BA300DDAEBD /* AnnotationService.swift in Sources */,
+				49836738264EC1B900DDAEBD /* BlendEffect.swift in Sources */,
+				49836745264EC1B900DDAEBD /* Stroke.swift in Sources */,
+				4983675F264EC1C700DDAEBD /* ShapeRenderer.swift in Sources */,
+				4983670E264EC1B100DDAEBD /* Line.swift in Sources */,
+				498366DE264EC19300DDAEBD /* PanEvent.swift in Sources */,
+				49836702264EC1B100DDAEBD /* Locus.swift in Sources */,
+				49836773264EC1CE00DDAEBD /* SVGView.swift in Sources */,
+				498366CD264EC18300DDAEBD /* ShapeInterpolation.swift in Sources */,
+				4983675E264EC1C700DDAEBD /* RenderUtils.swift in Sources */,
+				49836701264EC1B100DDAEBD /* RoundRect.swift in Sources */,
+				498366B0264EC17700DDAEBD /* TransformHashable.swift in Sources */,
+				498366D4264EC18900DDAEBD /* Disposable.swift in Sources */,
+				49836692264EC16F00DDAEBD /* AnimationSequence.swift in Sources */,
+				4983673A264EC1B900DDAEBD /* LinearGradient.swift in Sources */,
+				49836737264EC1B900DDAEBD /* ColorMatrixEffect.swift in Sources */,
+				49836782264EC1D800DDAEBD /* UIImage2Image.swift in Sources */,
+				4983671E264EC1B500DDAEBD /* Shape.swift in Sources */,
+				4983671F264EC1B500DDAEBD /* SceneUtils.swift in Sources */,
+				49836764264EC1C700DDAEBD /* ImageRenderer.swift in Sources */,
+				49836747264EC1B900DDAEBD /* LineJoin.swift in Sources */,
+				49836760264EC1C700DDAEBD /* NodeRenderer.swift in Sources */,
+				49836770264EC1CE00DDAEBD /* SVGParserError.swift in Sources */,
+				49836691264EC16F00DDAEBD /* ContentsAnimation.swift in Sources */,
 				49836653264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */,
+				498366AD264EC17700DDAEBD /* CombinationAnimationGenerator.swift in Sources */,
+				4983673B264EC1B900DDAEBD /* Fill.swift in Sources */,
+				4983670B264EC1B100DDAEBD /* Transform.swift in Sources */,
+				49836686264EC15400DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
+				498366AC264EC17700DDAEBD /* AnimationCache.swift in Sources */,
+				498366DF264EC19300DDAEBD /* TapEvent.swift in Sources */,
+				49836713264EC1B100DDAEBD /* TransformedLocus.swift in Sources */,
+				498366BA264EC17E00DDAEBD /* FuncBounds.swift in Sources */,
+				49836772264EC1CE00DDAEBD /* SVGSerializer.swift in Sources */,
+				4983669D264EC17200DDAEBD /* MorphingGenerator.swift in Sources */,
+				498366AB264EC17700DDAEBD /* AnimationProducer.swift in Sources */,
+				498366B1264EC17700DDAEBD /* Animation.swift in Sources */,
+				498366EC264EC19C00DDAEBD /* MCAShapeLayerLineCap_iOS.swift in Sources */,
+				49836787264EC1DE00DDAEBD /* MacawZoom.swift in Sources */,
 				49836674264E9C8300DDAEBD /* UIColor+Init.swift in Sources */,
+				498366C6264EC18300DDAEBD /* DoubleInterpolation.swift in Sources */,
+				498366E0264EC19300DDAEBD /* PinchEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2599,19 +2983,147 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				498366C1264EC18300DDAEBD /* AnimationUtils.swift in Sources */,
+				498366AA264EC17700DDAEBD /* Easing.swift in Sources */,
+				4983675C264EC1C700DDAEBD /* RenderContext.swift in Sources */,
+				498366C4264EC18300DDAEBD /* AnimationImpl.swift in Sources */,
+				49836736264EC1B800DDAEBD /* Align.swift in Sources */,
+				49836785264EC1DE00DDAEBD /* ShapeLayer.swift in Sources */,
+				4983676C264EC1CD00DDAEBD /* SVGParser.swift in Sources */,
+				49836750264EC1C100DDAEBD /* MView_iOS.swift in Sources */,
+				49836733264EC1B800DDAEBD /* RadialGradient.swift in Sources */,
+				498366D5264EC19300DDAEBD /* RotateEvent.swift in Sources */,
+				49836696264EC16F00DDAEBD /* ShapeAnimation.swift in Sources */,
+				49836728264EC1B800DDAEBD /* Color.swift in Sources */,
+				49836727264EC1B800DDAEBD /* Effect.swift in Sources */,
+				4983669B264EC16F00DDAEBD /* TransformAnimation.swift in Sources */,
+				498366F5264EC1B000DDAEBD /* Point.swift in Sources */,
+				4983674F264EC1C100DDAEBD /* Common_iOS.swift in Sources */,
+				498366E5264EC19C00DDAEBD /* MCAShapeLayerLineJoin_iOS.swift in Sources */,
+				498366A8264EC17700DDAEBD /* OpacityGenerator.swift in Sources */,
+				49836735264EC1B800DDAEBD /* Baseline.swift in Sources */,
+				498366F4264EC1B000DDAEBD /* Path.swift in Sources */,
+				498366FD264EC1B000DDAEBD /* Arc.swift in Sources */,
+				498366A3264EC17700DDAEBD /* TransformGenerator.swift in Sources */,
+				498366E7264EC19C00DDAEBD /* MCAMediaTimingFunctionName_iOS.swift in Sources */,
 				49836657264E819000DDAEBD /* AnnotationIntegrationDelegate.swift in Sources */,
+				498366EF264EC1B000DDAEBD /* PathSegment.swift in Sources */,
+				498366C2264EC18300DDAEBD /* TransformInterpolation.swift in Sources */,
+				498366BB264EC18300DDAEBD /* Interpolable.swift in Sources */,
+				4983672C264EC1B800DDAEBD /* Drawable.swift in Sources */,
+				498366E1264EC19600DDAEBD /* MacawView+PDF.swift in Sources */,
+				49836717264EC1B500DDAEBD /* Group.swift in Sources */,
+				4983669A264EC16F00DDAEBD /* MorphingAnimation.swift in Sources */,
+				498366A6264EC17700DDAEBD /* NodeHashable.swift in Sources */,
+				49836766264EC1CD00DDAEBD /* SVGCanvas.swift in Sources */,
 				49836684264EABEE00DDAEBD /* OverlayViewPlacement.swift in Sources */,
+				498366F3264EC1B000DDAEBD /* PathBuilder.swift in Sources */,
+				498366FC264EC1B000DDAEBD /* Insets.swift in Sources */,
+				49836730264EC1B800DDAEBD /* AspectRatio.swift in Sources */,
+				49836723264EC1B800DDAEBD /* Gradient.swift in Sources */,
+				49836765264EC1CD00DDAEBD /* SVGNodeLayout.swift in Sources */,
+				4983677B264EC1D700DDAEBD /* BoundsUtils.swift in Sources */,
+				49836715264EC1B500DDAEBD /* Image.swift in Sources */,
+				498366E3264EC19800DDAEBD /* ContentLayout.swift in Sources */,
+				4983672B264EC1B800DDAEBD /* AlphaEffect.swift in Sources */,
+				498366C0264EC18300DDAEBD /* AnimOperators.swift in Sources */,
+				498366A7264EC17700DDAEBD /* AnimatableVariable.swift in Sources */,
+				4983677C264EC1D700DDAEBD /* CGMappings.swift in Sources */,
+				49836769264EC1CD00DDAEBD /* SVGConstants.swift in Sources */,
+				49836776264EC1D200DDAEBD /* CAAnimationClosure.swift in Sources */,
+				49836716264EC1B500DDAEBD /* Node.swift in Sources */,
+				49836726264EC1B800DDAEBD /* Font.swift in Sources */,
+				49836734264EC1B800DDAEBD /* GaussianBlur.swift in Sources */,
+				4983672E264EC1B800DDAEBD /* Stop.swift in Sources */,
 				49836669264E9C0F00DDAEBD /* MLSUIAction.swift in Sources */,
+				49836784264EC1DE00DDAEBD /* Touchable.swift in Sources */,
+				498366BE264EC18300DDAEBD /* PathFunctions.swift in Sources */,
+				4983672D264EC1B800DDAEBD /* OffsetEffect.swift in Sources */,
+				4983674E264EC1C100DDAEBD /* MDisplayLink_iOS.swift in Sources */,
+				4983674D264EC1C100DDAEBD /* MDisplayLink.swift in Sources */,
+				498366BD264EC18300DDAEBD /* ContentsInterpolation.swift in Sources */,
+				498366B7264EC17D00DDAEBD /* PathBounds.swift in Sources */,
+				498366FB264EC1B000DDAEBD /* Circle.swift in Sources */,
+				498366F8264EC1B000DDAEBD /* PathSegmentType.swift in Sources */,
+				498366D7264EC19300DDAEBD /* MacawEvent.swift in Sources */,
+				49836777264EC1D200DDAEBD /* CGFloat+Double.swift in Sources */,
+				4983669C264EC16F00DDAEBD /* OpacityAnimation.swift in Sources */,
 				4983665B264E8B5300DDAEBD /* HLSInspectionService.swift in Sources */,
 				49836672264E9C2500DDAEBD /* TOVStore.swift in Sources */,
+				49836732264EC1B800DDAEBD /* ColorMatrix.swift in Sources */,
 				49836651264E7F8E00DDAEBD /* GetTimelineActionsUpdatesUseCase.swift in Sources */,
+				498366D0264EC18900DDAEBD /* GroupDisposable.swift in Sources */,
+				49836697264EC16F00DDAEBD /* CombineAnimation.swift in Sources */,
+				4983671A264EC1B500DDAEBD /* Text.swift in Sources */,
 				49836648264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift in Sources */,
+				498366A2264EC17700DDAEBD /* ShapeAnimationGenerator.swift in Sources */,
+				498366E6264EC19C00DDAEBD /* MCAMediaTimingFillMode_iOS.swift in Sources */,
+				498366D6264EC19300DDAEBD /* TouchEvent.swift in Sources */,
+				4983677D264EC1D700DDAEBD /* DescriptionExtensions.swift in Sources */,
+				49836767264EC1CD00DDAEBD /* CSSParser.swift in Sources */,
+				49836700264EC1B000DDAEBD /* Polyline.swift in Sources */,
+				4983675A264EC1C700DDAEBD /* TextRenderer.swift in Sources */,
 				49813CFB264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift in Sources */,
+				498366F6264EC1B000DDAEBD /* Size.swift in Sources */,
+				49836786264EC1DE00DDAEBD /* MacawView.swift in Sources */,
+				498366F9264EC1B000DDAEBD /* Ellipse.swift in Sources */,
 				4983666C264E9C1800DDAEBD /* Overlay.swift in Sources */,
+				498366F0264EC1B000DDAEBD /* Polygon.swift in Sources */,
+				49836729264EC1B800DDAEBD /* Pattern.swift in Sources */,
+				49836775264EC1D200DDAEBD /* NSTimer+Closure.swift in Sources */,
+				498366A9264EC17700DDAEBD /* TimingFunction.swift in Sources */,
+				4983675B264EC1C700DDAEBD /* GroupRenderer.swift in Sources */,
+				498366FE264EC1B000DDAEBD /* MoveTo.swift in Sources */,
+				49836751264EC1C100DDAEBD /* Graphics_iOS.swift in Sources */,
+				498366F1264EC1B000DDAEBD /* Rect.swift in Sources */,
+				49836687264EC15400DDAEBD /* SWXMLHash.swift in Sources */,
+				4983672A264EC1B800DDAEBD /* LineCap.swift in Sources */,
 				4983665F264E8EF600DDAEBD /* String+Subscript.swift in Sources */,
+				498366F2264EC1B000DDAEBD /* GeomUtils.swift in Sources */,
+				498366CF264EC18900DDAEBD /* Variable.swift in Sources */,
+				498366BF264EC18300DDAEBD /* LocusInterpolation.swift in Sources */,
 				49836662264E9BA300DDAEBD /* AnnotationService.swift in Sources */,
+				49836722264EC1B800DDAEBD /* BlendEffect.swift in Sources */,
+				4983672F264EC1B800DDAEBD /* Stroke.swift in Sources */,
+				49836758264EC1C700DDAEBD /* ShapeRenderer.swift in Sources */,
+				498366FA264EC1B000DDAEBD /* Line.swift in Sources */,
+				498366D8264EC19300DDAEBD /* PanEvent.swift in Sources */,
+				498366EE264EC1B000DDAEBD /* Locus.swift in Sources */,
+				4983676B264EC1CD00DDAEBD /* SVGView.swift in Sources */,
+				498366C3264EC18300DDAEBD /* ShapeInterpolation.swift in Sources */,
+				49836757264EC1C700DDAEBD /* RenderUtils.swift in Sources */,
+				498366ED264EC1B000DDAEBD /* RoundRect.swift in Sources */,
+				498366A4264EC17700DDAEBD /* TransformHashable.swift in Sources */,
+				498366D1264EC18900DDAEBD /* Disposable.swift in Sources */,
+				49836699264EC16F00DDAEBD /* AnimationSequence.swift in Sources */,
+				49836724264EC1B800DDAEBD /* LinearGradient.swift in Sources */,
+				49836721264EC1B800DDAEBD /* ColorMatrixEffect.swift in Sources */,
+				4983677E264EC1D700DDAEBD /* UIImage2Image.swift in Sources */,
+				49836718264EC1B500DDAEBD /* Shape.swift in Sources */,
+				49836719264EC1B500DDAEBD /* SceneUtils.swift in Sources */,
+				4983675D264EC1C700DDAEBD /* ImageRenderer.swift in Sources */,
+				49836731264EC1B800DDAEBD /* LineJoin.swift in Sources */,
+				49836759264EC1C700DDAEBD /* NodeRenderer.swift in Sources */,
+				49836768264EC1CD00DDAEBD /* SVGParserError.swift in Sources */,
+				49836698264EC16F00DDAEBD /* ContentsAnimation.swift in Sources */,
 				49836654264E7F9A00DDAEBD /* GetSVGUseCase.swift in Sources */,
+				498366A1264EC17700DDAEBD /* CombinationAnimationGenerator.swift in Sources */,
+				49836725264EC1B800DDAEBD /* Fill.swift in Sources */,
+				498366F7264EC1B000DDAEBD /* Transform.swift in Sources */,
+				49836688264EC15400DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
+				498366A0264EC17700DDAEBD /* AnimationCache.swift in Sources */,
+				498366D9264EC19300DDAEBD /* TapEvent.swift in Sources */,
+				498366FF264EC1B000DDAEBD /* TransformedLocus.swift in Sources */,
+				498366B8264EC17D00DDAEBD /* FuncBounds.swift in Sources */,
+				4983676A264EC1CD00DDAEBD /* SVGSerializer.swift in Sources */,
+				4983669E264EC17200DDAEBD /* MorphingGenerator.swift in Sources */,
+				4983669F264EC17700DDAEBD /* AnimationProducer.swift in Sources */,
+				498366A5264EC17700DDAEBD /* Animation.swift in Sources */,
+				498366E8264EC19C00DDAEBD /* MCAShapeLayerLineCap_iOS.swift in Sources */,
+				49836783264EC1DE00DDAEBD /* MacawZoom.swift in Sources */,
 				49836675264E9C8300DDAEBD /* UIColor+Init.swift in Sources */,
+				498366BC264EC18300DDAEBD /* DoubleInterpolation.swift in Sources */,
+				498366DA264EC19300DDAEBD /* PinchEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2671,6 +3183,7 @@
 				49736EFB24A9F59C001F3F48 /* ContentLayout.swift in Sources */,
 				499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift in Sources */,
 				4943B96924C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
+				4983668D264EC16000DDAEBD /* SWXMLHash.swift in Sources */,
 				49736E9D24A9F59C001F3F48 /* Size.swift in Sources */,
 				4926CE0B24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
 				49EA06BC24C7912F00C7AB10 /* AnnotationServicing.swift in Sources */,
@@ -2787,7 +3300,6 @@
 				49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				4926CE0524CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */,
 				498E48F924D057FF0040502D /* GetSVGUseCase.swift in Sources */,
-				49A8047624AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
 				49736F0824A9F59C001F3F48 /* BoundsUtils.swift in Sources */,
 				49736ED224A9F59C001F3F48 /* MacawZoom.swift in Sources */,
 				49736EF924A9F59C001F3F48 /* AnimationImpl.swift in Sources */,
@@ -2804,10 +3316,10 @@
 				49736EF724A9F59C001F3F48 /* AnimOperators.swift in Sources */,
 				49736ED724A9F59C001F3F48 /* MCAMediaTimingFillMode_iOS.swift in Sources */,
 				49736EC724A9F59C001F3F48 /* Stroke.swift in Sources */,
+				4983668E264EC16000DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
 				49736EA524A9F59C001F3F48 /* Line.swift in Sources */,
 				49736E9824A9F59C001F3F48 /* Rect.swift in Sources */,
 				49736EE324A9F59C001F3F48 /* AnimationCache.swift in Sources */,
-				49A8047424AA0C5300E30DA8 /* SWXMLHash.swift in Sources */,
 				49736ED924A9F59C001F3F48 /* ShapeAnimation.swift in Sources */,
 				49736EF124A9F59C001F3F48 /* Interpolable.swift in Sources */,
 				49736ECD24A9F59C001F3F48 /* MView_iOS.swift in Sources */,
@@ -2947,10 +3459,10 @@
 				4925998525A1D9F7007658DB /* IMAIntegration.swift in Sources */,
 				4943B96624C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
 				498E48FD24D062D90040502D /* Thread+.swift in Sources */,
+				4983668B264EC16000DDAEBD /* SWXMLHash.swift in Sources */,
 				49A804C724AA0EA100E30DA8 /* AlphaEffect.swift in Sources */,
 				497FD2C724C0981F0027E708 /* TOVStore.swift in Sources */,
 				49A804F024AA0ECB00E30DA8 /* SVGCanvas.swift in Sources */,
-				49A8047724AA0DE200E30DA8 /* SWXMLHash.swift in Sources */,
 				4935B1F824A4DB710073ED96 /* AnnotationService.swift in Sources */,
 				49A8048E24AA0E0300E30DA8 /* AnimationUtils.swift in Sources */,
 				49A804F524AA0ED000E30DA8 /* CAAnimationClosure.swift in Sources */,
@@ -3033,7 +3545,6 @@
 				49A804C424AA0E9D00E30DA8 /* Node.swift in Sources */,
 				49A804EF24AA0ECB00E30DA8 /* SVGConstants.swift in Sources */,
 				49A8048624AA0DF900E30DA8 /* TransformHashable.swift in Sources */,
-				49A8047824AA0DE200E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
 				4961F4A92566B99E003C7372 /* HLSInspectionServicing.swift in Sources */,
 				49A804CD24AA0EA100E30DA8 /* Baseline.swift in Sources */,
 				49A804B024AA0E9800E30DA8 /* Size.swift in Sources */,
@@ -3053,6 +3564,7 @@
 				49A8049024AA0E0700E30DA8 /* PathBounds.swift in Sources */,
 				49E59026249BC809001E0C1C /* API.swift in Sources */,
 				495CB137249CD9FC00998FF4 /* NSLayoutConstraint+.swift in Sources */,
+				4983668C264EC16000DDAEBD /* XMLIndexer+XMLIndexerDeserializable.swift in Sources */,
 				4943B96824C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
 				49A804FA24AA0ED400E30DA8 /* DescriptionExtensions.swift in Sources */,
 				49A804D424AA0EA100E30DA8 /* Stop.swift in Sources */,

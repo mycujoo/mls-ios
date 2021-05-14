@@ -74,11 +74,10 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
             DispatchQueue.main.async { [weak self] in
                 self?.delegate?.view.setTimelineMarkers(with: output.showTimelineMarkers)
                 if output.showOverlays.count > 0 {
-                    
-//                    self?.delegate?.view.showOverlays(with: output.showOverlays)
+                    self?.showOverlays(with: output.showOverlays)
                 }
                 if output.hideOverlays.count > 0 {
-//                    self?.delegate?.view.hideOverlays(with: output.hideOverlays)
+                    self?.hideOverlays(with: output.hideOverlays)
                 }
             }
         }
@@ -100,16 +99,16 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
 
         if let node = try? SVGParser.parse(text: baseSVG), let bounds = node.bounds {
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+                guard let self = self, let delegate = self.delegate else { return }
 
                 let imageView = SVGView(node: node, frame: CGRect(x: 0, y: 0, width: bounds.w, height: bounds.h))
                 imageView.clipsToBounds = true
                 imageView.backgroundColor = .none
 
                 if let containerView = self.overlays[action.overlayId] {
-                    self.view.replaceOverlay(containerView: containerView, imageView: imageView)
+                    delegate.view.replaceOverlay(containerView: containerView, imageView: imageView)
                 } else {
-                    self.overlays[action.overlayId] = self.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
+                    self.overlays[action.overlayId] = delegate.view.placeOverlay(imageView: imageView, size: action.size, position: action.position, animateType: action.animateType, animateDuration: action.animateDuration)
                 }
             }
         }
@@ -141,12 +140,11 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
     private func hideOverlays(with actions: [MLSUI.HideOverlayAction]) {
         for action in actions {
             if let v = self.overlays[action.overlayId] {
-                view?.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
+                self.delegate?.view.removeOverlay(containerView: v, animateType: action.animateType, animateDuration: action.animateDuration) { [weak self] in
                     self?.overlays[action.overlayId] = nil
                     self?.tovStore?.removeObservers(callbackId: action.overlayId)
                 }
             }
         }
     }
-    
 }
