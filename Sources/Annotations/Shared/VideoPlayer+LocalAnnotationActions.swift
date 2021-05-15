@@ -6,7 +6,7 @@ import Foundation
 import MLSSDK
 
 
-extension VideoPlayer {
+public extension VideoPlayer {
     /// A convenience accessor for localAnnotationActions on the annotationIntegration.
     var localAnnotationActions: [AnnotationAction] {
         get {
