@@ -10,7 +10,7 @@ import GoogleCast
 
 /// The SDK user should implement this protocol on the delegate (typically on a UIViewController).
 /// - note: Some methods are optional and have an empty implementation, but can be overwritten for more specialized features (e.g. styling the mini controller).
-public protocol CastIntegrationDelegate: class {
+public protocol CastIntegrationDelegate: AnyObject {
 
     /// Should be implemented by the SDK user. Should return an array of UIViews to which this SDK can add Google Cast buttons (in the desired tint color for each).
     /// At least one should be provided, but more can be added (e.g. if a second one should be added to a UINavigationBar).

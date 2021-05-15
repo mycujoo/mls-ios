@@ -7,7 +7,7 @@ import UIKit
 import AVFoundation
 
 
-public protocol VideoPlayer: class {
+public protocol VideoPlayer: AnyObject {
     var delegate: VideoPlayerDelegate? { get set }
     
     /// Should be set by the SDK user for IMA ads to work. Such an object can be obtained through the `MLSSDK/IMA` extensions.

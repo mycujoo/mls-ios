@@ -6,7 +6,7 @@ import Foundation
 import AVFoundation
 
 
-public protocol PlayerProtocol: class {
+public protocol PlayerProtocol: AnyObject {
     /// Indicates whether the Player is ready to play or not.
     var state: PlayerState { get }
     var isMuted: Bool { get set }

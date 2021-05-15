@@ -7,7 +7,7 @@ import AVFoundation
 import UIKit
 
 #if os(iOS)
-protocol VideoPlayerViewProtocol: AnyObject, AnnotationIntegrationView {
+protocol VideoPlayerViewProtocol: AnnotationIntegrationView {
     var videoSlider: VideoProgressSlider { get }
 
     /// The color that is used throughout various controls and elements of the video player, together with the `secondaryColor`.

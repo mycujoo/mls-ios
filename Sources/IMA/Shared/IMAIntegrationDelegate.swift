@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import MLSSDK
 
-public protocol IMAIntegrationDelegate: class {
+public protocol IMAIntegrationDelegate: AnyObject {
     /// Should be implemented by the SDK user for IMA ads to be displayable.
     /// - returns: The UIViewController that is presenting the `VideoPlayer`.
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController?
