@@ -15,6 +15,8 @@ PODS:
   - GTMSessionFetcher/Core (1.5.0)
   - MLSSDK (1.2.0):
     - MLSSDK/Core (= 1.2.0)
+  - MLSSDK/Annotations (1.2.0):
+    - MLSSDK/Core
   - MLSSDK/Cast (1.2.0):
     - google-cast-sdk (~> 4.5)
     - MLSSDK/Core
@@ -49,6 +51,7 @@ DEPENDENCIES:
   - GoogleAds-IMA-iOS-SDK (~> 3.13)
   - GoogleAds-IMA-tvOS-SDK (~> 4.2)
   - MLSSDK (from `..`)
+  - MLSSDK/Annotations (from `..`)
   - MLSSDK/Cast (from `..`)
   - MLSSDK/IMA (from `..`)
   - Moya (~> 14.0)
@@ -94,6 +97,6 @@ SPEC CHECKSUMS:
   YouboraAVPlayerAdapter: 21a1b40a09711bbf87b97f344e381a38b3ae5893
   YouboraLib: a4617d5ec9e37724f5330531d020a8c35d7e0f0d
 
-PODFILE CHECKSUM: 247dec560642c4a73617337bafafa26318590c94
+PODFILE CHECKSUM: 51d6af2423cbb6d882d47e5e540bacd1372b3dac
 
 COCOAPODS: 1.10.1

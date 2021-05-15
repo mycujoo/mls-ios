@@ -475,6 +475,7 @@
 		49EA06C724C79B7C00C7AB10 /* testAnnotationService_timelineMarkers.json in Resources */ = {isa = PBXBuildFile; fileRef = 49EA06C624C79B7C00C7AB10 /* testAnnotationService_timelineMarkers.json */; };
 		49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EFD24C249E0CC700ED417B /* Bundle+.swift */; };
 		49EFD24E249E0CC700ED417B /* Bundle+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EFD24C249E0CC700ED417B /* Bundle+.swift */; };
+		4BB33C19F30B8374CA368CA3 /* Pods_MLSSDK_Annotations_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E6CB0B308DF410751726A5 /* Pods_MLSSDK_Annotations_tvOS.framework */; };
 		51832911F35CF401C78E599B /* Pods_MLSSDK_IMA_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E8D55165C70577D82E073E /* Pods_MLSSDK_IMA_tvOS.framework */; };
 		5DCC0E6C059137E3F19196CC /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F403CA24167D40EC8DD7C5 /* Pods_iOSTests.framework */; };
 		641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
@@ -486,6 +487,7 @@
 		64FDE311249A191400E6510D /* VideoPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3522492308D0099475D /* VideoPlayerImpl.swift */; };
 		749F623EA3FADF5A4DCC65C5 /* Pods_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6FED60E290A93870CE75EB /* Pods_tvOSTests.framework */; };
 		7FA3B039E7A2755B19932C36 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBD89F11195789238038394 /* Pods_Tests.framework */; };
+		8D8509CCBA8F5B5157D2EC73 /* Pods_MLSSDK_Annotations_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A312F238FD12F5F92E2863 /* Pods_MLSSDK_Annotations_iOS.framework */; };
 		9DBE39528421ABA8D5E45F6C /* Pods_MLSSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EDEF3DF5400D6F472DCFE39 /* Pods_MLSSDK_iOS.framework */; };
 		DCE4CEC9FA18B65267627580 /* Pods_MLSSDK_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */; };
 /* End PBXBuildFile section */
@@ -508,11 +510,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1100C4586E992D050D33824F /* Pods-MLSSDK-Annotations-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-Annotations-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-Annotations-iOS/Pods-MLSSDK-Annotations-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		11B644F54CAEA81C15ED6E9D /* Pods_MLSSDK_IMA_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_IMA_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDD372F0E9EE3C4F60F4EB4 /* Pods-MLSSDK-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-iOS/Pods-MLSSDK-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		1F6FED60E290A93870CE75EB /* Pods_tvOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tvOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E8D55165C70577D82E073E /* Pods_MLSSDK_IMA_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_IMA_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		290CDAEF8950E620C7C0B6F7 /* Pods-MLSSDK-IMA-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-IMA-iOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-IMA-iOS/Pods-MLSSDK-IMA-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		37E6CB0B308DF410751726A5 /* Pods_MLSSDK_Annotations_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_Annotations_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4890C55696297F99AD58AE02 /* Pods-MLSSDK-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		490797CA2590E2D60090F7DD /* RobotoMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Bold.ttf"; sourceTree = "<group>"; };
 		490798462590F5020090F7DD /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
@@ -709,7 +713,7 @@
 		497FEF4A264EF90F0031996C /* HLSInspectionServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSInspectionServicing.swift; sourceTree = "<group>"; };
 		49813CCF264DC6ED00E8AA17 /* MLSSDK_Annotations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_Annotations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49813CD2264DC6ED00E8AA17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_Annotations_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_Annotations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49813CEE264DC72D00E8AA17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49813CF9264DC8A000E8AA17 /* AnnotationIntegrationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegrationImpl.swift; sourceTree = "<group>"; };
 		49836646264E7B2F00DDAEBD /* AnnotationIntegrationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationIntegrationFactory.swift; sourceTree = "<group>"; };
@@ -806,13 +810,17 @@
 		6B388AD61808762CD92D6D0A /* Pods-MLSSDK-Cast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-Cast.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-Cast/Pods-MLSSDK-Cast.debug.xcconfig"; sourceTree = "<group>"; };
 		6DA612AD8658F822CB2EF48E /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		6EDEF3DF5400D6F472DCFE39 /* Pods_MLSSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77A312F238FD12F5F92E2863 /* Pods_MLSSDK_Annotations_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_Annotations_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4D78C6942DD79E546FE228 /* Pods-MLSSDK-IMA-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-IMA-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-IMA-tvOS/Pods-MLSSDK-IMA-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		82A687A40A1C3939A4A7EA65 /* Pods-MLSSDK-IMA-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-IMA-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-IMA-iOS/Pods-MLSSDK-IMA-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		8488653CFA639BCBC661DA60 /* Pods-MLSSDK-Annotations-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-Annotations-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-Annotations-iOS/Pods-MLSSDK-Annotations-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		878BC4F67287D6FF69A15E7F /* Pods-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-tvOSTests/Pods-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8A07C864329100A3994765F7 /* Pods-MLSSDK-Annotations-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-Annotations-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-Annotations-tvOS/Pods-MLSSDK-Annotations-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9971B74869D0DB4E0E130338 /* Pods-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A3F403CA24167D40EC8DD7C5 /* Pods_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8AB27DF91887301D03D88B7 /* Pods-MLSSDK-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-MLSSDK-tvOS/Pods-MLSSDK-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B0377D19E22FBFDAEE8E6A8E /* Pods-MLSSDK-Cast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-Cast.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-Cast/Pods-MLSSDK-Cast.release.xcconfig"; sourceTree = "<group>"; };
+		BC2E087F5379C077276C2093 /* Pods-MLSSDK-Annotations-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-Annotations-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-Annotations-tvOS/Pods-MLSSDK-Annotations-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		D11CB1A7ADB2288F4D10EEDF /* Pods-MLSSDK-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-iOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-iOS/Pods-MLSSDK-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		D8B27674F1C511474901B716 /* Pods-MLSSDK-IMA-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLSSDK-IMA-tvOS.release.xcconfig"; path = "Target Support Files/Pods-MLSSDK-IMA-tvOS/Pods-MLSSDK-IMA-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		F30966501F70B56BFE7F918C /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -840,6 +848,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D8509CCBA8F5B5157D2EC73 /* Pods_MLSSDK_Annotations_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,6 +856,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BB33C19F30B8374CA368CA3 /* Pods_MLSSDK_Annotations_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +932,10 @@
 				D8B27674F1C511474901B716 /* Pods-MLSSDK-IMA-tvOS.release.xcconfig */,
 				6B388AD61808762CD92D6D0A /* Pods-MLSSDK-Cast.debug.xcconfig */,
 				B0377D19E22FBFDAEE8E6A8E /* Pods-MLSSDK-Cast.release.xcconfig */,
+				1100C4586E992D050D33824F /* Pods-MLSSDK-Annotations-iOS.debug.xcconfig */,
+				8488653CFA639BCBC661DA60 /* Pods-MLSSDK-Annotations-iOS.release.xcconfig */,
+				8A07C864329100A3994765F7 /* Pods-MLSSDK-Annotations-tvOS.debug.xcconfig */,
+				BC2E087F5379C077276C2093 /* Pods-MLSSDK-Annotations-tvOS.release.xcconfig */,
 			);
 			name = Pods;
 			path = Examples/Pods;
@@ -1755,7 +1769,7 @@
 				4971F3AB25A1101E0075715E /* MLSSDK_IMA.framework */,
 				49AB5BA025A4F2D4003B336E /* MLSSDK_Cast.framework */,
 				49813CCF264DC6ED00E8AA17 /* MLSSDK_Annotations.framework */,
-				49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */,
+				49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1823,6 +1837,8 @@
 				11B644F54CAEA81C15ED6E9D /* Pods_MLSSDK_IMA_iOS.framework */,
 				20E8D55165C70577D82E073E /* Pods_MLSSDK_IMA_tvOS.framework */,
 				56A00B086CC1A9372022F7D1 /* Pods_MLSSDK_Cast.framework */,
+				77A312F238FD12F5F92E2863 /* Pods_MLSSDK_Annotations_iOS.framework */,
+				37E6CB0B308DF410751726A5 /* Pods_MLSSDK_Annotations_tvOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1924,6 +1940,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49813CE4264DC6EE00E8AA17 /* Build configuration list for PBXNativeTarget "MLSSDK-Annotations-iOS" */;
 			buildPhases = (
+				A7901634AA4669F9D95A14A1 /* [CP] Check Pods Manifest.lock */,
 				49813CCA264DC6ED00E8AA17 /* Headers */,
 				49813CCB264DC6ED00E8AA17 /* Sources */,
 				49813CCC264DC6ED00E8AA17 /* Frameworks */,
@@ -1942,6 +1959,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49813CF0264DC72D00E8AA17 /* Build configuration list for PBXNativeTarget "MLSSDK-Annotations-tvOS" */;
 			buildPhases = (
+				6A88DB6244D9D065C7348DC6 /* [CP] Check Pods Manifest.lock */,
 				49813CE6264DC72D00E8AA17 /* Headers */,
 				49813CE7264DC72D00E8AA17 /* Sources */,
 				49813CE8264DC72D00E8AA17 /* Frameworks */,
@@ -1953,7 +1971,7 @@
 			);
 			name = "MLSSDK-Annotations-tvOS";
 			productName = "MLSSDK-Annotations-tvOS";
-			productReference = 49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations_tvOS.framework */;
+			productReference = 49813CEB264DC72D00E8AA17 /* MLSSDK_Annotations.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		49AB5B9F25A4F2D4003B336E /* MLSSDK-Cast */ = {
@@ -2367,6 +2385,28 @@
 			shellPath = /bin/sh;
 			shellScript = "exit 0 # Remove when wanting to run the script.\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/Tests/Common/Mocks/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/Sources\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"MLSSDK,MLSSDK_Annotations\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Core/App/Core/PlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/MLSPlayerProtocol.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/IMAIntegration.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/CastIntegration.swift\" \\\n\"${INPUT_DIR}/Core/App/Core/AnnotationIntegration.swift\" \\\n\"${INPUT_DIR}/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/MLSTimelineRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/MLSArbitraryDataRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/MLSEventRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/MLSPlayerConfigRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Repositories/MLSDRMRepository.swift\" \\\n\"${INPUT_DIR}/Core/Domain/Services/VideoAnalyticsServicing.swift\" \\\n\"${INPUT_DIR}/Annotations/Shared/Services/AnnotationServicing.swift\" \\\n\"${INPUT_DIR}/Annotations/Shared/Services/HLSInspectionServicing.swift\" \\\n\"${INPUT_DIR}/Annotations/Shared/AnnotationIntegrationDelegate.swift\"  \\\n\"${INPUT_DIR}/Annotations/Shared/OverlayViewPlacement.swift\" \n";
 		};
+		6A88DB6244D9D065C7348DC6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MLSSDK-Annotations-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7C12EC0A01B8C0B1F0A77673 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2405,6 +2445,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7901634AA4669F9D95A14A1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MLSSDK-Annotations-iOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3196,6 +3258,7 @@
 		};
 		49813CE0264DC6EE00E8AA17 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1100C4586E992D050D33824F /* Pods-MLSSDK-Annotations-iOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -3226,6 +3289,7 @@
 		};
 		49813CE1264DC6EE00E8AA17 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8488653CFA639BCBC661DA60 /* Pods-MLSSDK-Annotations-iOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -3255,6 +3319,7 @@
 		};
 		49813CF1264DC72D00E8AA17 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A07C864329100A3994765F7 /* Pods-MLSSDK-Annotations-tvOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -3273,7 +3338,7 @@
 				);
 				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSSDK_Annotations;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3285,6 +3350,7 @@
 		};
 		49813CF2264DC72D00E8AA17 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC2E087F5379C077276C2093 /* Pods-MLSSDK-Annotations-tvOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -3303,7 +3369,7 @@
 				);
 				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = MLSSDK_Annotations;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

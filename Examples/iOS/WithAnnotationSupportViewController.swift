@@ -10,7 +10,7 @@ import MLSSDK_Annotations
 
 class WithAnnotationSupportViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "UPGTQCRI6EDNL38HNB63JQB04P3O8Q17", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
@@ -52,7 +52,7 @@ class WithAnnotationSupportViewController: UIViewController {
         }
 
         mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
-            self?.videoPlayer.event = events?.filter { $0.id == "1qChhkajImF5NzMDKyL7zEKhGKt" }.first
+            self?.videoPlayer.event = events?.first
         })
     }
 }

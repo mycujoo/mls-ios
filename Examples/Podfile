@@ -10,12 +10,14 @@ target 'MLS' do
   pod 'MLSSDK', :path => '..'
   pod 'MLSSDK/IMA', :path => '..'
   pod 'MLSSDK/Cast', :path => '..'
+  pod 'MLSSDK/Annotations', :path => '..'
 end
 
 target 'MLS-tvOS' do
   platform :tvos, '11.0'
   pod 'MLSSDK', :path => '..'
   pod 'MLSSDK/IMA', :path => '..'
+  pod 'MLSSDK/Annotations', :path => '..'
 end
 
 
@@ -59,6 +61,16 @@ target 'MLSSDK-Cast' do
   platform :ios, '11.0'
   project '../MLSSDK.xcodeproj'
   pod 'google-cast-sdk', '~> 4.5'
+end
+
+target 'MLSSDK-Annotations-iOS' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+end
+
+target 'MLSSDK-Annotations-tvOS' do
+  platform :tvos, '11.0'
+  project '../MLSSDK.xcodeproj'
 end
 
 # // MARK: - Tests
