@@ -29,7 +29,7 @@ Pod::Spec.new do |spec|
     ss.dependency 'YouboraAVPlayerAdapter'
     ss.dependency 'Alamofire', '~> 5.0'
     ss.dependency 'Moya', '~> 14.0'
-    ss.dependency 'Starscream', '~> 3.1'
+    ss.dependency 'Starscream', '~> 4.0'
   end
 
   spec.subspec 'IMA' do |ss|
