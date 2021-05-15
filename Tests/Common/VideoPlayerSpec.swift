@@ -16,9 +16,7 @@ class VideoPlayerSpec: QuickSpec {
     var mockView: MockVideoPlayerViewProtocol!
     var mockMLSPlayer: MockMLSPlayerProtocol!
     var mockIMAIntegration: MockIMAIntegration!
-    var mockAnnotationService: MockAnnotationServicing!
     var mockVideoAnalyticsService: MockVideoAnalyticsServicing!
-    var mockHLSInspectionService: MockHLSInspectionServicing!
 
     var mockEventRepository: MockMLSEventRepository!
     var mockPlayerConfigRepository: MockMLSPlayerConfigRepository!
@@ -209,13 +207,6 @@ class VideoPlayerSpec: QuickSpec {
                 }
             }
 
-            self.mockAnnotationService = MockAnnotationServicing()
-            stub(self.mockAnnotationService) { mock in
-                when(mock).evaluate(any(), callback: any()).then { (tuple) in
-                    (tuple.1)(AnnotationService.EvaluationOutput(showTimelineMarkers: [], showOverlays: [], hideOverlays: [], activeOverlayIds: Set(), tovs: [:]))
-                }
-            }
-
             self.mockVideoAnalyticsService = MockVideoAnalyticsServicing()
             stub(self.mockVideoAnalyticsService) { mock in
                 when(mock).create(with: any()).thenDoNothing()
@@ -232,11 +223,6 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).currentItemStreamURL.set(any()).thenDoNothing()
                 when(mock).currentItemIsLive.set(any()).thenDoNothing()
                 when(mock).isNativeMLS.set(any()).thenDoNothing()
-            }
-
-            self.mockHLSInspectionService = MockHLSInspectionServicing()
-            stub(self.mockHLSInspectionService) { mock in
-                when(mock).map(hlsPlaylist: any(), absoluteTimes: any()).thenReturn([:])
             }
 
             self.mockEventRepository = MockMLSEventRepository()
@@ -267,6 +253,7 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).timelineId.set(any()).then { v in
                     timelineId = v
                 }
+                when(mock).evaluate().thenDoNothing()
             }
 
             self.videoPlayer = VideoPlayerImpl(
@@ -382,7 +369,7 @@ class VideoPlayerSpec: QuickSpec {
                 expect(self.annotationIntegration.timelineId).toNot(beNil())
             }
 
-            fit("subscribes to timeline updates when an event is updated to have a timelineId after initially loading without") {
+            it("subscribes to timeline updates when an event is updated to have a timelineId after initially loading without") {
                 verify(self.annotationIntegration, times(0)).timelineId.set(any())
 
                 let eventWithoutTimelineId = EntityBuilder.buildEvent(withRandomId: false, withStream: true, withStreamURL: true, withRandomStreamURL: true, withTimelineId: false)

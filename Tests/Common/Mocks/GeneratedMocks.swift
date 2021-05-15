@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -262,7 +262,21 @@ public class AnnotationIntegrationDelegateStub: AnnotationIntegrationDelegate {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-05-15 10:06:46 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+import MLSSDK
+import UIKit
+
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -366,7 +380,7 @@ import MLSSDK
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -469,7 +483,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -740,7 +754,7 @@ public class AnnotationIntegrationViewStub: AnnotationIntegrationView {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1667,7 +1681,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1981,7 +1995,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2807,7 +2821,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -3463,7 +3477,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4804,7 +4818,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4937,7 +4951,7 @@ public class MLSArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5070,7 +5084,7 @@ public class MLSDRMRepositoryStub: MLSDRMRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5263,7 +5277,7 @@ public class MLSEventRepositoryStub: MLSEventRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5366,7 +5380,7 @@ public class MLSPlayerConfigRepositoryStub: MLSPlayerConfigRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5529,7 +5543,7 @@ public class MLSTimelineRepositoryStub: MLSTimelineRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-15 09:29:21 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-15 10:06:46 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
