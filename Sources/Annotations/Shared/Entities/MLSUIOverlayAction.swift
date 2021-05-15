@@ -2,16 +2,8 @@
 // Copyright © 2020 mycujoo. All rights reserved.
 //
 import Foundation
+import MLSSDK
 
-
-/// This class is used simply to namespace the actions,
-/// so that these actions (which are aimed at manipulating the UI) can be differentiated from the domain actions.
-class MLSUI {}
-
-protocol MLSUIAction {
-    /// The actionId can be used to internally track progress.
-    var actionId: String { get }
-}
 
 protocol MLSUIOverlayAction: MLSUIAction {
     /// The id of the overlay that this action should apply to.
@@ -20,13 +12,6 @@ protocol MLSUIOverlayAction: MLSUIAction {
 }
 
 extension MLSUI {
-    struct ShowTimelineMarkerAction: MLSUIAction {
-        let actionId: String
-        let timelineMarker: TimelineMarker
-        let position: Double
-        let seekPosition: Double
-    }
-
     struct ShowOverlayAction: MLSUIOverlayAction {
         let actionId: String
         let overlay: Overlay

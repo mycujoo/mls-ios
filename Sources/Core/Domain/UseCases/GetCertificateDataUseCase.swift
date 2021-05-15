@@ -6,9 +6,9 @@ import Foundation
 
 
 class GetCertificateDataUseCase {
-    private let drmRepository: DRMRepository
+    private let drmRepository: MLSDRMRepository
 
-    init(drmRepository: DRMRepository) {
+    init(drmRepository: MLSDRMRepository) {
         self.drmRepository = drmRepository
     }
 

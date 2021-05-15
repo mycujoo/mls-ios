@@ -25,7 +25,7 @@ class WithCastSupportViewController: UIViewController {
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
-        player.castIntegration = CastIntegrationFactory.build(delegate: self)
+        player.castIntegration = mls.prepare(CastIntegrationFactory()).build(delegate: self)
         player.topTrailingControlsStackView.insertArrangedSubview(castButtonParentView, at: 0)
         return player
     }()

@@ -6,9 +6,9 @@ import Foundation
 
 
 class GetPlayerConfigUseCase {
-    private let playerConfigRepository: PlayerConfigRepository
+    private let playerConfigRepository: MLSPlayerConfigRepository
 
-    init(playerConfigRepository: PlayerConfigRepository) {
+    init(playerConfigRepository: MLSPlayerConfigRepository) {
         self.playerConfigRepository = playerConfigRepository
     }
 

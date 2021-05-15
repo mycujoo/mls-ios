@@ -10,9 +10,10 @@ This SDK is intended for customers of MyCujoo Live Services. It offers a video p
 pod 'MLSSDK', '~> 1.2'
 ```
 
-And if you want to use the IMA and/or Chromecast extensions:
+And if you want to use the various extensions, use one (or more) of the following:
 
 ```ruby
+pod 'MLSSDK/Annotations', '~> 1.2'
 pod 'MLSSDK/IMA', '~> 1.2'
 pod 'MLSSDK/Cast', '~> 1.2'
 ```

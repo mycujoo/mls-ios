@@ -14,7 +14,7 @@ class WithIMASupportViewController: UIViewController {
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
-        player.imaIntegration = IMAIntegrationFactory.build(videoPlayer: player, delegate: self)
+        player.imaIntegration = mls.prepare(IMAIntegrationFactory()).build(videoPlayer: player, delegate: self)
         return player
     }()
 

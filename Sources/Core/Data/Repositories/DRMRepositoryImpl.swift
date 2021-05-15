@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-class DRMRepositoryImpl: DRMRepository {
+class DRMRepositoryImpl: MLSDRMRepository {
     init() {}
 
     func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ()) {

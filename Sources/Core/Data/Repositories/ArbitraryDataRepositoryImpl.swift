@@ -5,7 +5,7 @@
 import Foundation
 import Alamofire
 
-class ArbitraryDataRepositoryImpl: ArbitraryDataRepository {
+class ArbitraryDataRepositoryImpl: MLSArbitraryDataRepository {
     init() {}
 
     func fetchData(byURL url: URL, callback: @escaping (Data?, Error?) -> ()) {

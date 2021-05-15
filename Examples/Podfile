@@ -10,12 +10,14 @@ target 'MLS' do
   pod 'MLSSDK', :path => '..'
   pod 'MLSSDK/IMA', :path => '..'
   pod 'MLSSDK/Cast', :path => '..'
+  pod 'MLSSDK/Annotations', :path => '..'
 end
 
 target 'MLS-tvOS' do
   platform :tvos, '11.0'
   pod 'MLSSDK', :path => '..'
   pod 'MLSSDK/IMA', :path => '..'
+  pod 'MLSSDK/Annotations', :path => '..'
 end
 
 
@@ -61,6 +63,16 @@ target 'MLSSDK-Cast' do
   pod 'google-cast-sdk', '~> 4.5'
 end
 
+target 'MLSSDK-Annotations-iOS' do
+  platform :ios, '11.0'
+  project '../MLSSDK.xcodeproj'
+end
+
+target 'MLSSDK-Annotations-tvOS' do
+  platform :tvos, '11.0'
+  project '../MLSSDK.xcodeproj'
+end
+
 # // MARK: - Tests
 
 target 'Tests' do
@@ -70,9 +82,9 @@ target 'Tests' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Starscream', '~> 3.1'
-  pod 'Cuckoo', '~> 1.4'
-  pod 'Quick', '~> 3.0'
-  pod 'Nimble', '~> 8.0'
+  pod 'Cuckoo', '~> 1.5'
+  pod 'Quick', '~> 4.0'
+  pod 'Nimble', '~> 9.0'
 end
 
 target 'iOSTests' do
@@ -82,9 +94,9 @@ target 'iOSTests' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Starscream', '~> 3.1'
-  pod 'Cuckoo', '~> 1.4'
-  pod 'Quick', '~> 3.0'
-  pod 'Nimble', '~> 8.0'
+  pod 'Cuckoo', '~> 1.5'
+  pod 'Quick', '~> 4.0'
+  pod 'Nimble', '~> 9.0'
 end
 
 target 'tvOSTests' do
@@ -94,7 +106,7 @@ target 'tvOSTests' do
   pod 'YouboraAVPlayerAdapter'
   pod 'Moya', '~> 14.0'
   pod 'Starscream', '~> 3.1'
-  pod 'Cuckoo', '~> 1.4'
-  pod 'Quick', '~> 3.0'
-  pod 'Nimble', '~> 8.0'
+  pod 'Cuckoo', '~> 1.5'
+  pod 'Quick', '~> 4.0'
+  pod 'Nimble', '~> 9.0'
 end

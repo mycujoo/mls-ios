@@ -39,8 +39,8 @@ class WithEventListViewController: UIViewController {
         #if DEBUG
         player.isMuted = true
         #endif
-        player.castIntegration = CastIntegrationFactory.build(delegate: self)
-        player.imaIntegration = IMAIntegrationFactory.build(videoPlayer: player, delegate: self)
+        player.castIntegration = mls.prepare(CastIntegrationFactory()).build(delegate: self)
+        player.imaIntegration = mls.prepare(IMAIntegrationFactory()).build(videoPlayer: player, delegate: self)
         player.topTrailingControlsStackView.insertArrangedSubview(castButtonParentView, at: 0)
         return player
     }()

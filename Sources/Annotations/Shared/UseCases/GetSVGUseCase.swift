@@ -1,14 +1,15 @@
 //
-// Copyright © 2020 mycujoo. All rights reserved.
+// Copyright © 2021 mycujoo. All rights reserved.
 //
 
 import Foundation
+import MLSSDK
 
 
 class GetSVGUseCase {
-    private let arbitraryDataRepository: ArbitraryDataRepository
+    private let arbitraryDataRepository: MLSArbitraryDataRepository
 
-    init(arbitraryDataRepository: ArbitraryDataRepository) {
+    init(arbitraryDataRepository: MLSArbitraryDataRepository) {
         self.arbitraryDataRepository = arbitraryDataRepository
     }
 
