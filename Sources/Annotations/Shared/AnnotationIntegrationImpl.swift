@@ -20,6 +20,8 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
         }
     }
     
+    var localAnnotationActions: [AnnotationAction] = []
+    
     // MARK: Internal
     weak var delegate: AnnotationIntegrationDelegate?
     
@@ -75,7 +77,7 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
     func evaluate() {
         guard let delegate = delegate else { return }
         
-        let allAnnotationActions = annotationActions + delegate.localAnnotationActions
+        let allAnnotationActions = annotationActions + localAnnotationActions
         
         // If the video is (roughly) as long as the total DVR window, then that means that it is dropping segments.
         // Because of this, we need to start calculating action offsets against the video ourselves.

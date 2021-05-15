@@ -28,11 +28,6 @@ public protocol AnnotationIntegrationDelegate: AnyObject {
     
     /// Indicates whether the device playing through Chromecast. If true, the DVR offset calculations will not work.
     func isCasting() -> Bool
-    
-    /// This is an advanced feature. This property can be used to introduce additional annotation actions to the VideoPlayer.
-    /// This is in addition to the remote annotation actions that are received through the MCLS annotation system.
-    /// It is advised not to touch this property without advanced knowledge of MCLS annotations.
-    var localAnnotationActions: [AnnotationAction] { get }
 }
 
 public extension AnnotationIntegrationDelegate {
@@ -46,9 +41,5 @@ public extension AnnotationIntegrationDelegate {
     
     func isCasting() -> Bool {
         return false
-    }
-    
-    var localAnnotationActions: [AnnotationAction] {
-        return []
     }
 }

@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -101,20 +101,6 @@ public class MockAnnotationIntegrationDelegate: AnnotationIntegrationDelegate, C
         
     }
     
-    
-    
-    public var localAnnotationActions: [AnnotationAction] {
-        get {
-            return cuckoo_manager.getter("localAnnotationActions",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.localAnnotationActions)
-        }
-        
-    }
-    
 
     
 
@@ -168,11 +154,6 @@ public class MockAnnotationIntegrationDelegate: AnnotationIntegrationDelegate, C
 	    }
 	    
 	    
-	    var localAnnotationActions: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, [AnnotationAction]> {
-	        return .init(manager: cuckoo_manager, name: "localAnnotationActions")
-	    }
-	    
-	    
 	    func isCasting() -> Cuckoo.ProtocolStubFunction<(), Bool> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationIntegrationDelegate.self, method: "isCasting() -> Bool", parameterMatchers: matchers))
@@ -215,11 +196,6 @@ public class MockAnnotationIntegrationDelegate: AnnotationIntegrationDelegate, C
 	    
 	    var currentRawSegmentPlaylist: Cuckoo.VerifyReadOnlyProperty<String?> {
 	        return .init(manager: cuckoo_manager, name: "currentRawSegmentPlaylist", callMatcher: callMatcher, sourceLocation: sourceLocation)
-	    }
-	    
-	    
-	    var localAnnotationActions: Cuckoo.VerifyReadOnlyProperty<[AnnotationAction]> {
-	        return .init(manager: cuckoo_manager, name: "localAnnotationActions", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	
@@ -275,14 +251,6 @@ public class AnnotationIntegrationDelegateStub: AnnotationIntegrationDelegate {
         
     }
     
-    
-    public var localAnnotationActions: [AnnotationAction] {
-        get {
-            return DefaultValueRegistry.defaultValue(for: ([AnnotationAction]).self)
-        }
-        
-    }
-    
 
     
 
@@ -294,7 +262,7 @@ public class AnnotationIntegrationDelegateStub: AnnotationIntegrationDelegate {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -308,7 +276,7 @@ import Foundation
 import MLSSDK
 import UIKit
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -412,7 +380,7 @@ import MLSSDK
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -515,7 +483,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -572,6 +540,30 @@ public class MockAnnotationIntegration: AnnotationIntegration, Cuckoo.ProtocolMo
         
     }
     
+    
+    
+    public var localAnnotationActions: [AnnotationAction] {
+        get {
+            return cuckoo_manager.getter("localAnnotationActions",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.localAnnotationActions)
+        }
+        
+        set {
+            cuckoo_manager.setter("localAnnotationActions",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.localAnnotationActions = newValue)
+        }
+        
+    }
+    
 
     
 
@@ -605,6 +597,11 @@ public class MockAnnotationIntegration: AnnotationIntegration, Cuckoo.ProtocolMo
 	    }
 	    
 	    
+	    var localAnnotationActions: Cuckoo.ProtocolToBeStubbedProperty<MockAnnotationIntegration, [AnnotationAction]> {
+	        return .init(manager: cuckoo_manager, name: "localAnnotationActions")
+	    }
+	    
+	    
 	    func evaluate() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationIntegration.self, method: "evaluate()", parameterMatchers: matchers))
@@ -629,6 +626,11 @@ public class MockAnnotationIntegration: AnnotationIntegration, Cuckoo.ProtocolMo
 	        return .init(manager: cuckoo_manager, name: "timelineId", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
+	    
+	    var localAnnotationActions: Cuckoo.VerifyProperty<[AnnotationAction]> {
+	        return .init(manager: cuckoo_manager, name: "localAnnotationActions", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
 	    
 	    @discardableResult
@@ -646,6 +648,16 @@ public class AnnotationIntegrationStub: AnnotationIntegration {
     public var timelineId: String? {
         get {
             return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var localAnnotationActions: [AnnotationAction] {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ([AnnotationAction]).self)
         }
         
         set { }
@@ -786,7 +798,7 @@ public class AnnotationIntegrationViewStub: AnnotationIntegrationView {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1713,7 +1725,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2027,7 +2039,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2853,7 +2865,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -3509,7 +3521,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4850,7 +4862,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4983,7 +4995,7 @@ public class MLSArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5116,7 +5128,7 @@ public class MLSDRMRepositoryStub: MLSDRMRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5309,7 +5321,7 @@ public class MLSEventRepositoryStub: MLSEventRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5412,7 +5424,7 @@ public class MLSPlayerConfigRepositoryStub: MLSPlayerConfigRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5575,7 +5587,7 @@ public class MLSTimelineRepositoryStub: MLSTimelineRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-15 13:14:08 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-15 13:39:11 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

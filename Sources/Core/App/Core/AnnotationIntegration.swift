@@ -10,6 +10,11 @@ public protocol AnnotationIntegration {
     /// Should be set to the timeline id that the annotations are related to.
     var timelineId: String? { get set }
     
+    /// This is an advanced feature. This property can be used to introduce additional annotation actions to the VideoPlayer.
+    /// This is in addition to the remote annotation actions that are received through the MCLS annotation system.
+    /// It is advised not to touch this property without advanced knowledge of MCLS annotations.
+    var localAnnotationActions: [AnnotationAction] { get set }
+    
     /// Should be called whenever there is reason to believe the annotation state has changed, e.g. when the time position has changed (once a second), or new annotations were loaded.
     func evaluate()
 }
