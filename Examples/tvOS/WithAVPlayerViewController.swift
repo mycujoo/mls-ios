@@ -55,7 +55,7 @@ class WithAVPlayerViewController: AVPlayerViewController {
 
 extension WithAVPlayerViewController: IMAIntegrationDelegate {
     func presentingView(for videoPlayer: VideoPlayer) -> UIView {
-        return self.contentOverlayView ?? self.view
+        return self.view
     }
     
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {

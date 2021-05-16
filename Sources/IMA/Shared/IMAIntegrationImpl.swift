@@ -111,6 +111,10 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
     func isShowingAd() -> Bool {
         return isShowingAd_
     }
+    
+    func adIsPaused() -> Bool {
+        return isShowingAd_ && !adsManager.adPlaybackInfo.isPlaying
+    }
 
     func pause() {
         adsManager.pause()
