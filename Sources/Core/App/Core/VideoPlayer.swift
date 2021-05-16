@@ -117,11 +117,15 @@ public protocol VideoPlayerDelegate: AnyObject {
     /// - parameter toVisible: The new visibility state of the control layer.
     /// - parameter withAnimationDuration: The duration of the animation to hide/show the control layer
     func playerDidUpdateControlVisibility(toVisible: Bool, withAnimationDuration: Double, player: VideoPlayer)
+    /// The player has updated the stream object it is currently playing. This may be called repeatedly, whenever one of its properties changes.
+    /// - parameter stream: The new Stream object, or nil if the stream was removed.
+    func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer)
     #if os(iOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
     /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)
     /// This button can be hidden via the Configuration object on the MLS component.
+    /// - note: This is only called when there is a view attached to the VideoPlayer.
     func playerDidUpdateFullscreen(player: VideoPlayer)
     #endif
 }

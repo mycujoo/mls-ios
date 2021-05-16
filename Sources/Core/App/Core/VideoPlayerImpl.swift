@@ -498,6 +498,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         } else {
             annotationIntegration?.timelineId = event?.timelineIds.first
         }
+        
+        delegate?.playerDidUpdateStream(stream: currentStream, player: self)
     }
 
     /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.

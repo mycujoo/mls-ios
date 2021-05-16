@@ -16,6 +16,7 @@ class WithAVPlayerViewController: AVPlayerViewController {
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer(attachView: false)
+        player.delegate = self
         player.imaIntegration = mls.prepare(IMAIntegrationFactory()).build(videoPlayer: player, delegate: self)
         player.annotationIntegration = mls.prepare(AnnotationIntegrationFactory()).build(delegate: self)
         return player
@@ -82,6 +83,36 @@ extension WithAVPlayerViewController: AnnotationIntegrationDelegate {
         return videoPlayer.optimisticCurrentTime
     }
 }
+
+// MARK: - PlayerDelegate
+extension WithAVPlayerViewController: VideoPlayerDelegate {
+    func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer) {
+        if let errorCode = stream?.error?.code {
+            switch errorCode {
+            case .geoblocked:
+                // Show a geoblocked message to your users.
+                break
+            case .missingEntitlement:
+                // Show a missing entitlement message to your users.
+                break
+            default:
+                // Show a general error message.
+                break
+            }
+        }
+    }
+    
+    func playerDidUpdateControlVisibility(toVisible: Bool, withAnimationDuration: Double, player: VideoPlayer) {}
+
+    func playerDidUpdatePlaying(player: VideoPlayer) {}
+
+    func playerDidUpdateTime(player: VideoPlayer) {}
+
+    func playerDidUpdateState(player: VideoPlayer) {}
+
+    func playerDidUpdateFullscreen(player: VideoPlayer) {}
+}
+
 
 class AnnotationIntegrationViewImpl: UIView, AnnotationIntegrationView {
     private var overlayContainerView_: UIView!
