@@ -6,7 +6,7 @@ import Foundation
 import AVFoundation
 
 
-protocol VideoAnalyticsServicing: class {
+protocol VideoAnalyticsServicing: AnyObject {
     /// Call this when creating the AVPlayer.
     func create(with player: MLSPlayerProtocol)
 

@@ -264,7 +264,7 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     }()
 
     /// The view in which all dynamic overlays are rendered.
-    let overlayContainerView: UIView = {
+    public let overlayContainerView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -591,9 +591,9 @@ class VideoPlayerView: UIView, VideoPlayerViewProtocol {
     //MARK: - Methods
 
     func drawPlayer(with player: MLSPlayerProtocol) {
-        if let avPlayer = player as? AVPlayer {
+        if let mlsPlayer = player as? AVPlayer {
             // Only add the playerlayer in real scenarios. When running unit tests with a mocked player, this will not work.
-            let playerLayer = AVPlayerLayer(player: avPlayer)
+            let playerLayer = AVPlayerLayer(player: mlsPlayer)
             playerLayer.videoGravity = .resizeAspect
             playerLayer.needsDisplayOnBoundsChange = true
             self.playerLayer = playerLayer

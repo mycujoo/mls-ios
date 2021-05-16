@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.0)
+Released on 2021-05-??.
+
+#### Added
+- Expose the underlying AVPlayer from the `VideoPlayer`.
+- Allow using the `VideoPlayer` without an associated view. This is useful for hooking it up to AVPlayerViewController.
+
+#### Breaking changes
+- The factory classes for integrations/modules have been changed to take dependencies from the MLS object.
+- Moved annotations into a separate module.
+- Made several view properties on the `VideoPlayer` optional.
+
 ## [1.2.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.2.1)
 Released on 2021-05-13.
 

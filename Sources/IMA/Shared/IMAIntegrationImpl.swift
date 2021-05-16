@@ -86,7 +86,7 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
             return
         }
         // Create ad display container for ad rendering.
-        let adDisplayContainer = IMAAdDisplayContainer(adContainer: videoPlayer.playerView, viewController: delegate.presentingViewController(for: videoPlayer))
+        let adDisplayContainer = IMAAdDisplayContainer(adContainer: delegate.presentingView(for: videoPlayer), viewController: delegate.presentingViewController(for: videoPlayer))
 
         // Merge the basic custom parameters (event_id and stream_id, most likely), and collect any custom parameters desired by the SDK user.
         // We give precedence to the ones provided by the customer.
@@ -110,6 +110,10 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
 
     func isShowingAd() -> Bool {
         return isShowingAd_
+    }
+    
+    func adIsPaused() -> Bool {
+        return isShowingAd_ && !adsManager.adPlaybackInfo.isPlaying
     }
 
     func pause() {

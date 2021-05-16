@@ -7,14 +7,15 @@ This SDK is intended for customers of MyCujoo Live Services. It offers a video p
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate our SDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'MLSSDK', '~> 1.2'
+pod 'MLSSDK', '~> 1.3'
 ```
 
-And if you want to use the IMA and/or Chromecast extensions:
+And if you want to use the various extensions, use one (or more) of the following:
 
 ```ruby
-pod 'MLSSDK/IMA', '~> 1.2'
-pod 'MLSSDK/Cast', '~> 1.2'
+pod 'MLSSDK/Annotations', '~> 1.3'
+pod 'MLSSDK/IMA', '~> 1.3'
+pod 'MLSSDK/Cast', '~> 1.3'
 ```
 
 ### Swift package manager
@@ -24,7 +25,7 @@ If you want to install our SDK via the Xcode UI, go to your Project Settings -> 
 To integrate using Apple's Swift package manager, without Xcode integration, add the following as a dependency to your `Package.swift`:
 
 ```
-.package(url: "https://github.com/MyCujoo/mls-ios.git", .upToNextMajor(from: "1.2"))
+.package(url: "https://github.com/MyCujoo/mls-ios.git", .upToNextMajor(from: "1.3"))
 ```
 
 **Important: unfortunately, by installing MLSSDK via SPM will lead to a reduced feature-set, as not all dependencies are supported through SPM yet. You will miss out on IMA (monetization), Chromecast, and Youbora (video analytics).**
@@ -78,3 +79,5 @@ To use the Chromecast extension, please ensure the following:
 ## Examples
 
 For example code, see the `Examples` folder. The most straightforward example can be found in `SimpleViewController.swift`.
+
+Known issue: in the sample workspace, after running `pod install` and executing the code, the frameworks are being double-linked. This should not impact the examples themselves.

@@ -1,14 +1,14 @@
 //
-// Copyright © 2020 mycujoo. All rights reserved.
+// Copyright © 2021 mycujoo. All rights reserved.
 //
 
 import Foundation
-
+import MLSSDK
 
 class GetTimelineActionsUpdatesUseCase {
-    private let timelineRepository: TimelineRepository
+    private let timelineRepository: MLSTimelineRepository
 
-    init(timelineRepository: TimelineRepository) {
+    init(timelineRepository: MLSTimelineRepository) {
         self.timelineRepository = timelineRepository
     }
 

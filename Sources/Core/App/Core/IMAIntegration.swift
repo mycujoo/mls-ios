@@ -36,5 +36,8 @@ public protocol IMAIntegration {
 
     /// Tells the IMAIntegration to continue playing the currently playing ad. Does nothing if there is no ad playing.
     func resume()
+    
+    /// Indicates whether the ad that is currently loaded is playing. Will return false if there is no loaded ad.
+    func adIsPaused() -> Bool
 }
 

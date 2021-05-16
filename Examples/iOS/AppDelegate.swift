@@ -14,9 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = SimpleViewController()
         //                window?.rootViewController = WithIMASupportViewController()
+        //                window?.rootViewController = WithAnnotationSupportViewController()
         //                window?.rootViewController = WithCastSupportViewController()
         //                window?.rootViewController = WithFullscreenZoomViewController()
         //                window?.rootViewController = WithPictureInPictureViewController()
+        //                window?.rootViewController = WithAVPlayerViewController()
         //                window?.rootViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WithEventList")
         window?.makeKeyAndVisible()
 

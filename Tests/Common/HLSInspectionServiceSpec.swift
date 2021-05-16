@@ -6,6 +6,7 @@ import Foundation
 import Quick
 import Nimble
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 
 class HLSInspectionServiceSpec: QuickSpec {

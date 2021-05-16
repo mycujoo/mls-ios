@@ -6,6 +6,7 @@ import Foundation
 import Quick
 import Nimble
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 
 class TOVStoreSpec: QuickSpec {
@@ -102,7 +103,7 @@ class TOVStoreSpec: QuickSpec {
 
             describe("observer removal") {
                 it("removes single observer") {
-                    waitUntil(timeout: 1.0) { done in
+                    waitUntil(timeout: DispatchTimeInterval.seconds(1)) { done in
                         var wasCalled = false
                         self.tovStore.addObserver(tovName: "tov1", callbackId: "callback1") { _ in
                             wasCalled = true

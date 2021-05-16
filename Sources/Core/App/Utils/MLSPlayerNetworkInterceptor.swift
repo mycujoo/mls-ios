@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol MLSPlayerNetworkInterceptorDelegate: class {
+protocol MLSPlayerNetworkInterceptorDelegate: AnyObject {
     func received(response: String, forRequestURL: URL?)
 }
 

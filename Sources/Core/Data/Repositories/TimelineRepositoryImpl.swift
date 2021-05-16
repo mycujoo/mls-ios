@@ -6,7 +6,7 @@ import Foundation
 import Moya
 
 
-class TimelineRepositoryImpl: BaseRepositoryImpl, TimelineRepository {
+class TimelineRepositoryImpl: BaseRepositoryImpl, MLSTimelineRepository {
     let ws: WebSocketConnection
 
     init(api: MoyaProvider<API>, ws: WebSocketConnection) {
@@ -24,7 +24,7 @@ class TimelineRepositoryImpl: BaseRepositoryImpl, TimelineRepository {
         }
     }
 
-    func startTimelineUpdates(for timelineId: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ()) {
+    func startTimelineUpdates(for timelineId: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ()) {
         fetchAnnotationActions(byTimelineId: timelineId, updateId: nil) { [weak self] (actions, nil) in
             if let actions = actions {
                 callback(.actionsUpdated(actions: actions))

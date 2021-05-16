@@ -93,24 +93,20 @@ public class MLS {
         return v
     }()
 
-    private lazy var timelineRepository: TimelineRepository = {
+    private lazy var timelineRepository: MLSTimelineRepository = {
         return TimelineRepositoryImpl(api: api, ws: ws)
     }()
-    private lazy var eventRepository: EventRepository = {
+    private lazy var eventRepository: MLSEventRepository = {
         return EventRepositoryImpl(api: api, ws: ws)
     }()
-    private lazy var playerConfigRepository: PlayerConfigRepository = {
+    private lazy var playerConfigRepository: MLSPlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
     }()
-    private lazy var arbitraryDataRepository: ArbitraryDataRepository = {
+    private lazy var arbitraryDataRepository: MLSArbitraryDataRepository = {
         return ArbitraryDataRepositoryImpl()
     }()
-    private lazy var drmRepository: DRMRepository = {
+    private lazy var drmRepository: MLSDRMRepository = {
         return DRMRepositoryImpl()
-    }()
-
-    private lazy var getTimelineActionsUpdatesUseCase: GetTimelineActionsUpdatesUseCase = {
-        return GetTimelineActionsUpdatesUseCase(timelineRepository: timelineRepository)
     }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
@@ -124,24 +120,14 @@ public class MLS {
     private lazy var listEventsUseCase: ListEventsUseCase = {
         return ListEventsUseCase(eventRepository: eventRepository)
     }()
-    private lazy var getSVGUseCase: GetSVGUseCase = {
-        return GetSVGUseCase(arbitraryDataRepository: arbitraryDataRepository)
-    }()
     private lazy var getCertificateDataUseCase: GetCertificateDataUseCase = {
         return GetCertificateDataUseCase(drmRepository: drmRepository)
     }()
     private lazy var getLicenseDataUseCase: GetLicenseDataUseCase = {
         return GetLicenseDataUseCase(drmRepository: drmRepository)
     }()
-
-    private lazy var annotationService: AnnotationServicing = {
-        return AnnotationService()
-    }()
     private lazy var youboraVideoAnalyticsService: VideoAnalyticsServicing = {
         return YouboraVideoAnalyticsService(pseudoUserId: pseudoUserId)
-    }()
-    private lazy var hlsInspectionService: HLSInspectionServicing = {
-        return HLSInspectionService()
     }()
 
     private lazy var dataProvider_: DataProvider = {
@@ -174,19 +160,17 @@ public class MLS {
 
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
-    public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
+    /// - parameter attachView: A boolean indicating whether the VideoPlayer should have its own view (default) or not.
+    ///   If not, you should create your own AVPlayerLayer and controls, or use AVPlayerViewController.
+    public func videoPlayer(with event: Event? = nil, attachView: Bool = true) -> VideoPlayer {
         let player = VideoPlayerImpl(
-            view: VideoPlayerView(),
+            view: attachView ? VideoPlayerView() : nil,
             avPlayer: MLSPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
-            getTimelineActionsUpdatesUseCase: getTimelineActionsUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
-            getSVGUseCase: getSVGUseCase,
             getCertificateDataUseCase: getCertificateDataUseCase,
             getLicenseDataUseCase: getLicenseDataUseCase,
-            annotationService: annotationService,
             videoAnalyticsService: youboraVideoAnalyticsService,
-            hlsInspectionService: hlsInspectionService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId,
             publicKey: publicKey)
@@ -196,10 +180,25 @@ public class MLS {
 
         return player
     }
+    
+    /// Prepares a Factory class to work correctly by injecting some general dependencies.
+    public func prepare<T: IntegrationFactoryProtocol>(_ factory: T) -> T {
+        factory.inject(
+            timelineRepository: timelineRepository,
+            eventRepository: eventRepository,
+            playerConfigRepository: playerConfigRepository,
+            arbitraryDataRepository: arbitraryDataRepository,
+            drmRepository: drmRepository)
+        return factory
+    }
 
     /// Provides a DataProvider object that can be used to retrieve data from the MLS API directly.
     public func dataProvider() -> DataProvider {
         return dataProvider_
+    }
+    
+    public func takeObjectThatNeedsTimelineAndArbitraryRepos() -> Bool { // SameObject {
+        return false // todo
     }
 }
 

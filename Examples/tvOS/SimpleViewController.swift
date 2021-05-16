@@ -6,6 +6,8 @@ import Foundation
 import UIKit
 import MLSSDK
 import MLSSDK_IMA
+import MLSSDK_Annotations
+
 
 
 class SimpleViewController: UIViewController {
@@ -13,7 +15,8 @@ class SimpleViewController: UIViewController {
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
-        player.imaIntegration = IMAIntegrationFactory.build(videoPlayer: player, delegate: self)
+        player.imaIntegration = mls.prepare(IMAIntegrationFactory()).build(videoPlayer: player, delegate: self)
+        player.annotationIntegration = mls.prepare(AnnotationIntegrationFactory()).build(delegate: self)
         return player
     }()
 
@@ -31,6 +34,10 @@ class SimpleViewController: UIViewController {
 }
 
 extension SimpleViewController: IMAIntegrationDelegate {
+    func presentingView(for videoPlayer: VideoPlayer) -> UIView {
+        return videoPlayer.playerView!
+    }
+    
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
         return self
     }
@@ -40,4 +47,18 @@ extension SimpleViewController: IMAIntegrationDelegate {
     func imaAdStarted(for videoPlayer: VideoPlayer) {}
 
     func imaAdStopped(for videoPlayer: VideoPlayer) {}
+}
+
+extension SimpleViewController: AnnotationIntegrationDelegate {
+    var annotationIntegrationView: AnnotationIntegrationView {
+        videoPlayer.playerView!
+    }
+    
+    var currentDuration: Double {
+        return videoPlayer.currentDuration
+    }
+    
+    var optimisticCurrentTime: Double {
+        return videoPlayer.optimisticCurrentTime
+    }
 }

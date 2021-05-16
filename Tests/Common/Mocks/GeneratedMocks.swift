@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -6,6 +6,807 @@
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+import MLSSDK
+
+
+public class MockAnnotationIntegrationDelegate: AnnotationIntegrationDelegate, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = AnnotationIntegrationDelegate
+    
+    public typealias Stubbing = __StubbingProxy_AnnotationIntegrationDelegate
+    public typealias Verification = __VerificationProxy_AnnotationIntegrationDelegate
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: AnnotationIntegrationDelegate?
+
+    public func enableDefaultImplementation(_ stub: AnnotationIntegrationDelegate) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+    
+    
+    public var annotationIntegrationView: AnnotationIntegrationView {
+        get {
+            return cuckoo_manager.getter("annotationIntegrationView",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.annotationIntegrationView)
+        }
+        
+    }
+    
+    
+    
+    public var currentDuration: Double {
+        get {
+            return cuckoo_manager.getter("currentDuration",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentDuration)
+        }
+        
+    }
+    
+    
+    
+    public var optimisticCurrentTime: Double {
+        get {
+            return cuckoo_manager.getter("optimisticCurrentTime",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.optimisticCurrentTime)
+        }
+        
+    }
+    
+    
+    
+    public var currentDvrWindowSize: Int? {
+        get {
+            return cuckoo_manager.getter("currentDvrWindowSize",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentDvrWindowSize)
+        }
+        
+    }
+    
+    
+    
+    public var currentRawSegmentPlaylist: String? {
+        get {
+            return cuckoo_manager.getter("currentRawSegmentPlaylist",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentRawSegmentPlaylist)
+        }
+        
+    }
+    
+
+    
+
+    
+    
+    
+    public func isCasting() -> Bool {
+        
+    return cuckoo_manager.call("isCasting() -> Bool",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.isCasting())
+        
+    }
+    
+
+	public struct __StubbingProxy_AnnotationIntegrationDelegate: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    var annotationIntegrationView: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, AnnotationIntegrationView> {
+	        return .init(manager: cuckoo_manager, name: "annotationIntegrationView")
+	    }
+	    
+	    
+	    var currentDuration: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, Double> {
+	        return .init(manager: cuckoo_manager, name: "currentDuration")
+	    }
+	    
+	    
+	    var optimisticCurrentTime: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, Double> {
+	        return .init(manager: cuckoo_manager, name: "optimisticCurrentTime")
+	    }
+	    
+	    
+	    var currentDvrWindowSize: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, Int?> {
+	        return .init(manager: cuckoo_manager, name: "currentDvrWindowSize")
+	    }
+	    
+	    
+	    var currentRawSegmentPlaylist: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, String?> {
+	        return .init(manager: cuckoo_manager, name: "currentRawSegmentPlaylist")
+	    }
+	    
+	    
+	    func isCasting() -> Cuckoo.ProtocolStubFunction<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationIntegrationDelegate.self, method: "isCasting() -> Bool", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_AnnotationIntegrationDelegate: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	    
+	    var annotationIntegrationView: Cuckoo.VerifyReadOnlyProperty<AnnotationIntegrationView> {
+	        return .init(manager: cuckoo_manager, name: "annotationIntegrationView", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentDuration: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "currentDuration", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var optimisticCurrentTime: Cuckoo.VerifyReadOnlyProperty<Double> {
+	        return .init(manager: cuckoo_manager, name: "optimisticCurrentTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentDvrWindowSize: Cuckoo.VerifyReadOnlyProperty<Int?> {
+	        return .init(manager: cuckoo_manager, name: "currentDvrWindowSize", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentRawSegmentPlaylist: Cuckoo.VerifyReadOnlyProperty<String?> {
+	        return .init(manager: cuckoo_manager, name: "currentRawSegmentPlaylist", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	
+	    
+	    @discardableResult
+	    func isCasting() -> Cuckoo.__DoNotUse<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("isCasting() -> Bool", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class AnnotationIntegrationDelegateStub: AnnotationIntegrationDelegate {
+    
+    
+    public var annotationIntegrationView: AnnotationIntegrationView {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (AnnotationIntegrationView).self)
+        }
+        
+    }
+    
+    
+    public var currentDuration: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var optimisticCurrentTime: Double {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Double).self)
+        }
+        
+    }
+    
+    
+    public var currentDvrWindowSize: Int? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Int?).self)
+        }
+        
+    }
+    
+    
+    public var currentRawSegmentPlaylist: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+    }
+    
+
+    
+
+    
+    public func isCasting() -> Bool  {
+        return DefaultValueRegistry.defaultValue(for: (Bool).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-05-16 20:44:55 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+import MLSSDK
+import UIKit
+
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-05-16 20:44:55 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+import MLSSDK
+
+
+ class MockAnnotationServicing: AnnotationServicing, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = AnnotationServicing
+    
+     typealias Stubbing = __StubbingProxy_AnnotationServicing
+     typealias Verification = __VerificationProxy_AnnotationServicing
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: AnnotationServicing?
+
+     func enableDefaultImplementation(_ stub: AnnotationServicing) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())  {
+        
+    return cuckoo_manager.call("evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())",
+            parameters: (input, callback),
+            escapingParameters: (input, callback),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.evaluate(input, callback: callback))
+        
+    }
+    
+
+	 struct __StubbingProxy_AnnotationServicing: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func evaluate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ input: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())> where M1.MatchedType == AnnotationService.EvaluationInput, M2.MatchedType == (AnnotationService.EvaluationOutput) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())>] = [wrap(matchable: input) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationServicing.self, method: "evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	 struct __VerificationProxy_AnnotationServicing: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func evaluate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ input: M1, callback: M2) -> Cuckoo.__DoNotUse<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ()), Void> where M1.MatchedType == AnnotationService.EvaluationInput, M2.MatchedType == (AnnotationService.EvaluationOutput) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())>] = [wrap(matchable: input) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+ class AnnotationServicingStub: AnnotationServicing {
+    
+
+    
+
+    
+     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-05-16 20:44:55 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+
+
+ class MockHLSInspectionServicing: HLSInspectionServicing, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = HLSInspectionServicing
+    
+     typealias Stubbing = __StubbingProxy_HLSInspectionServicing
+     typealias Verification = __VerificationProxy_HLSInspectionServicing
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: HLSInspectionServicing?
+
+     func enableDefaultImplementation(_ stub: HLSInspectionServicing) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+     func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?] {
+        
+    return cuckoo_manager.call("map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]",
+            parameters: (hlsPlaylist, absoluteTimes),
+            escapingParameters: (hlsPlaylist, absoluteTimes),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.map(hlsPlaylist: hlsPlaylist, absoluteTimes: absoluteTimes))
+        
+    }
+    
+
+	 struct __StubbingProxy_HLSInspectionServicing: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	     init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func map<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable>(hlsPlaylist: M1, absoluteTimes: M2) -> Cuckoo.ProtocolStubFunction<(String?, [Int64]), [Int64: (videoOffset: Int64, inGap: Bool)?]> where M1.OptionalMatchedType == String, M2.MatchedType == [Int64] {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, [Int64])>] = [wrap(matchable: hlsPlaylist) { $0.0 }, wrap(matchable: absoluteTimes) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockHLSInspectionServicing.self, method: "map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	 struct __VerificationProxy_HLSInspectionServicing: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func map<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable>(hlsPlaylist: M1, absoluteTimes: M2) -> Cuckoo.__DoNotUse<(String?, [Int64]), [Int64: (videoOffset: Int64, inGap: Bool)?]> where M1.OptionalMatchedType == String, M2.MatchedType == [Int64] {
+	        let matchers: [Cuckoo.ParameterMatcher<(String?, [Int64])>] = [wrap(matchable: hlsPlaylist) { $0.0 }, wrap(matchable: absoluteTimes) { $0.1 }]
+	        return cuckoo_manager.verify("map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+ class HLSInspectionServicingStub: HLSInspectionServicing {
+    
+
+    
+
+    
+     func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]  {
+        return DefaultValueRegistry.defaultValue(for: ([Int64: (videoOffset: Int64, inGap: Bool)?]).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-16 20:44:55 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
+
+import Foundation
+import UIKit
+
+
+public class MockAnnotationIntegration: AnnotationIntegration, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = AnnotationIntegration
+    
+    public typealias Stubbing = __StubbingProxy_AnnotationIntegration
+    public typealias Verification = __VerificationProxy_AnnotationIntegration
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: AnnotationIntegration?
+
+    public func enableDefaultImplementation(_ stub: AnnotationIntegration) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+    
+    
+    public var timelineId: String? {
+        get {
+            return cuckoo_manager.getter("timelineId",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timelineId)
+        }
+        
+        set {
+            cuckoo_manager.setter("timelineId",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.timelineId = newValue)
+        }
+        
+    }
+    
+    
+    
+    public var localAnnotationActions: [AnnotationAction] {
+        get {
+            return cuckoo_manager.getter("localAnnotationActions",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.localAnnotationActions)
+        }
+        
+        set {
+            cuckoo_manager.setter("localAnnotationActions",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.localAnnotationActions = newValue)
+        }
+        
+    }
+    
+
+    
+
+    
+    
+    
+    public func evaluate()  {
+        
+    return cuckoo_manager.call("evaluate()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.evaluate())
+        
+    }
+    
+
+	public struct __StubbingProxy_AnnotationIntegration: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    var timelineId: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockAnnotationIntegration, String> {
+	        return .init(manager: cuckoo_manager, name: "timelineId")
+	    }
+	    
+	    
+	    var localAnnotationActions: Cuckoo.ProtocolToBeStubbedProperty<MockAnnotationIntegration, [AnnotationAction]> {
+	        return .init(manager: cuckoo_manager, name: "localAnnotationActions")
+	    }
+	    
+	    
+	    func evaluate() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationIntegration.self, method: "evaluate()", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_AnnotationIntegration: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	    
+	    var timelineId: Cuckoo.VerifyOptionalProperty<String> {
+	        return .init(manager: cuckoo_manager, name: "timelineId", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var localAnnotationActions: Cuckoo.VerifyProperty<[AnnotationAction]> {
+	        return .init(manager: cuckoo_manager, name: "localAnnotationActions", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	
+	    
+	    @discardableResult
+	    func evaluate() -> Cuckoo.__DoNotUse<(), Void> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("evaluate()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class AnnotationIntegrationStub: AnnotationIntegration {
+    
+    
+    public var timelineId: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var localAnnotationActions: [AnnotationAction] {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ([AnnotationAction]).self)
+        }
+        
+        set { }
+        
+    }
+    
+
+    
+
+    
+    public func evaluate()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+
+public class MockAnnotationIntegrationView: AnnotationIntegrationView, Cuckoo.ProtocolMock {
+    
+    public typealias MocksType = AnnotationIntegrationView
+    
+    public typealias Stubbing = __StubbingProxy_AnnotationIntegrationView
+    public typealias Verification = __VerificationProxy_AnnotationIntegrationView
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: AnnotationIntegrationView?
+
+    public func enableDefaultImplementation(_ stub: AnnotationIntegrationView) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+    
+    
+    public var overlayContainerView: UIView {
+        get {
+            return cuckoo_manager.getter("overlayContainerView",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.overlayContainerView)
+        }
+        
+    }
+    
+
+    
+
+    
+    
+    
+    public func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])  {
+        
+    return cuckoo_manager.call("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])",
+            parameters: (actions),
+            escapingParameters: (actions),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setTimelineMarkers(with: actions))
+        
+    }
+    
+
+	public struct __StubbingProxy_AnnotationIntegrationView: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    var overlayContainerView: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationView, UIView> {
+	        return .init(manager: cuckoo_manager, name: "overlayContainerView")
+	    }
+	    
+	    
+	    func setTimelineMarkers<M1: Cuckoo.Matchable>(with actions: M1) -> Cuckoo.ProtocolStubNoReturnFunction<([MLSUI.ShowTimelineMarkerAction])> where M1.MatchedType == [MLSUI.ShowTimelineMarkerAction] {
+	        let matchers: [Cuckoo.ParameterMatcher<([MLSUI.ShowTimelineMarkerAction])>] = [wrap(matchable: actions) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationIntegrationView.self, method: "setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_AnnotationIntegrationView: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	    
+	    var overlayContainerView: Cuckoo.VerifyReadOnlyProperty<UIView> {
+	        return .init(manager: cuckoo_manager, name: "overlayContainerView", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	
+	    
+	    @discardableResult
+	    func setTimelineMarkers<M1: Cuckoo.Matchable>(with actions: M1) -> Cuckoo.__DoNotUse<([MLSUI.ShowTimelineMarkerAction]), Void> where M1.MatchedType == [MLSUI.ShowTimelineMarkerAction] {
+	        let matchers: [Cuckoo.ParameterMatcher<([MLSUI.ShowTimelineMarkerAction])>] = [wrap(matchable: actions) { $0 }]
+	        return cuckoo_manager.verify("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class AnnotationIntegrationViewStub: AnnotationIntegrationView {
+    
+    
+    public var overlayContainerView: UIView {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (UIView).self)
+        }
+        
+    }
+    
+
+    
+
+    
+    public func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+}
+
+
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-16 20:44:55 +0000
+
+//
+// Copyright © 2021 mycujoo. All rights reserved.
+//
+
+import Cuckoo
+@testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
@@ -479,6 +1280,20 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
         
     }
     
+    
+    
+    public var rate: Float {
+        get {
+            return cuckoo_manager.getter("rate",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.rate)
+        }
+        
+    }
+    
 
     
 
@@ -500,31 +1315,16 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
-    public func play()  {
+    public func setRate(_ rate: Float)  {
         
-    return cuckoo_manager.call("play()",
-            parameters: (),
-            escapingParameters: (),
+    return cuckoo_manager.call("setRate(_: Float)",
+            parameters: (rate),
+            escapingParameters: (rate),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.play())
-        
-    }
-    
-    
-    
-    public func pause()  {
-        
-    return cuckoo_manager.call("pause()",
-            parameters: (),
-            escapingParameters: (),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.pause())
+            defaultCall: __defaultImplStub!.setRate(rate))
         
     }
     
@@ -642,19 +1442,19 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
+	    var rate: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockCastPlayerProtocol, Float> {
+	        return .init(manager: cuckoo_manager, name: "rate")
+	    }
+	    
+	    
 	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4, completionHandler: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream, M5.MatchedType == (Bool) -> Void {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
 	    }
 	    
-	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "play()", parameterMatchers: matchers))
-	    }
-	    
-	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "pause()", parameterMatchers: matchers))
+	    func setRate<M1: Cuckoo.Matchable>(_ rate: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Float)> where M1.MatchedType == Float {
+	        let matchers: [Cuckoo.ParameterMatcher<(Float)>] = [wrap(matchable: rate) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "setRate(_: Float)", parameterMatchers: matchers))
 	    }
 	    
 	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
@@ -746,6 +1546,11 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	        return .init(manager: cuckoo_manager, name: "playObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
+	    
+	    var rate: Cuckoo.VerifyReadOnlyProperty<Float> {
+	        return .init(manager: cuckoo_manager, name: "rate", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
 	    
 	    @discardableResult
@@ -755,15 +1560,9 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    @discardableResult
-	    func play() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("play()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setRate<M1: Cuckoo.Matchable>(_ rate: M1) -> Cuckoo.__DoNotUse<(Float), Void> where M1.MatchedType == Float {
+	        let matchers: [Cuckoo.ParameterMatcher<(Float)>] = [wrap(matchable: rate) { $0 }]
+	        return cuckoo_manager.verify("setRate(_: Float)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -893,6 +1692,14 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
         
     }
     
+    
+    public var rate: Float {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Float).self)
+        }
+        
+    }
+    
 
     
 
@@ -901,11 +1708,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-    public func play()   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-    public func pause()   {
+    public func setRate(_ rate: Float)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -924,7 +1727,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -932,6 +1735,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -1080,6 +1884,21 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
         
     }
     
+    
+    
+    public func adIsPaused() -> Bool {
+        
+    return cuckoo_manager.call("adIsPaused() -> Bool",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.adIsPaused())
+        
+    }
+    
 
 	public struct __StubbingProxy_IMAIntegration: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
@@ -1127,6 +1946,11 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
 	    func resume() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "resume()", parameterMatchers: matchers))
+	    }
+	    
+	    func adIsPaused() -> Cuckoo.ProtocolStubFunction<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockIMAIntegration.self, method: "adIsPaused() -> Bool", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -1193,6 +2017,12 @@ public class MockIMAIntegration: IMAIntegration, Cuckoo.ProtocolMock {
 	        return cuckoo_manager.verify("resume()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
+	    @discardableResult
+	    func adIsPaused() -> Cuckoo.__DoNotUse<(), Bool> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("adIsPaused() -> Bool", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
 	}
 }
 
@@ -1234,10 +2064,14 @@ public class IMAIntegrationStub: IMAIntegration {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
+    public func adIsPaused() -> Bool  {
+        return DefaultValueRegistry.defaultValue(for: (Bool).self)
+    }
+    
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -1245,6 +2079,7 @@ public class IMAIntegrationStub: IMAIntegration {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -1543,6 +2378,20 @@ import Foundation
         
     }
     
+    
+    
+    public var rate: Float {
+        get {
+            return cuckoo_manager.getter("rate",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.rate)
+        }
+        
+    }
+    
 
     
 
@@ -1564,31 +2413,16 @@ import Foundation
     
     
     
-    public func play()  {
+    public func setRate(_ rate: Float)  {
         
-    return cuckoo_manager.call("play()",
-            parameters: (),
-            escapingParameters: (),
+    return cuckoo_manager.call("setRate(_: Float)",
+            parameters: (rate),
+            escapingParameters: (rate),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.play())
-        
-    }
-    
-    
-    
-    public func pause()  {
-        
-    return cuckoo_manager.call("pause()",
-            parameters: (),
-            escapingParameters: (),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.pause())
+            defaultCall: __defaultImplStub!.setRate(rate))
         
     }
     
@@ -1726,19 +2560,19 @@ import Foundation
 	    }
 	    
 	    
+	    var rate: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockMLSPlayerProtocol, Float> {
+	        return .init(manager: cuckoo_manager, name: "rate")
+	    }
+	    
+	    
 	    func replaceCurrentItem<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.Matchable>(with assetUrl: M1, headers: M2, resourceLoaderDelegate: M3, callback: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(URL?, [String: String], AVAssetResourceLoaderDelegate?, (Bool) -> ())> where M1.OptionalMatchedType == URL, M2.MatchedType == [String: String], M3.OptionalMatchedType == AVAssetResourceLoaderDelegate, M4.MatchedType == (Bool) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(URL?, [String: String], AVAssetResourceLoaderDelegate?, (Bool) -> ())>] = [wrap(matchable: assetUrl) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: resourceLoaderDelegate) { $0.2 }, wrap(matchable: callback) { $0.3 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockMLSPlayerProtocol.self, method: "replaceCurrentItem(with: URL?, headers: [String: String], resourceLoaderDelegate: AVAssetResourceLoaderDelegate?, callback: @escaping (Bool) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSPlayerProtocol.self, method: "play()", parameterMatchers: matchers))
-	    }
-	    
-	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockMLSPlayerProtocol.self, method: "pause()", parameterMatchers: matchers))
+	    func setRate<M1: Cuckoo.Matchable>(_ rate: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Float)> where M1.MatchedType == Float {
+	        let matchers: [Cuckoo.ParameterMatcher<(Float)>] = [wrap(matchable: rate) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSPlayerProtocol.self, method: "setRate(_: Float)", parameterMatchers: matchers))
 	    }
 	    
 	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
@@ -1850,6 +2684,11 @@ import Foundation
 	        return .init(manager: cuckoo_manager, name: "playObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
+	    
+	    var rate: Cuckoo.VerifyReadOnlyProperty<Float> {
+	        return .init(manager: cuckoo_manager, name: "rate", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
 	    
 	    @discardableResult
@@ -1859,15 +2698,9 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func play() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("play()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setRate<M1: Cuckoo.Matchable>(_ rate: M1) -> Cuckoo.__DoNotUse<(Float), Void> where M1.MatchedType == Float {
+	        let matchers: [Cuckoo.ParameterMatcher<(Float)>] = [wrap(matchable: rate) { $0 }]
+	        return cuckoo_manager.verify("setRate(_: Float)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -2031,6 +2864,14 @@ import Foundation
         
     }
     
+    
+    public var rate: Float {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Float).self)
+        }
+        
+    }
+    
 
     
 
@@ -2039,11 +2880,7 @@ import Foundation
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-    public func play()   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-    public func pause()   {
+    public func setRate(_ rate: Float)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -2062,7 +2899,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2070,6 +2907,7 @@ import Foundation
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -2302,37 +3140,36 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
         
     }
     
-
-    
-
     
     
-    
-    public func play()  {
-        
-    return cuckoo_manager.call("play()",
-            parameters: (),
-            escapingParameters: (),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.play())
+    public var rate: Float {
+        get {
+            return cuckoo_manager.getter("rate",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.rate)
+        }
         
     }
     
+
+    
+
     
     
-    public func pause()  {
+    
+    public func setRate(_ rate: Float)  {
         
-    return cuckoo_manager.call("pause()",
-            parameters: (),
-            escapingParameters: (),
+    return cuckoo_manager.call("setRate(_: Float)",
+            parameters: (rate),
+            escapingParameters: (rate),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.pause())
+            defaultCall: __defaultImplStub!.setRate(rate))
         
     }
     
@@ -2450,14 +3287,14 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func play() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "play()", parameterMatchers: matchers))
+	    var rate: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockPlayerProtocol, Float> {
+	        return .init(manager: cuckoo_manager, name: "rate")
 	    }
 	    
-	    func pause() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "pause()", parameterMatchers: matchers))
+	    
+	    func setRate<M1: Cuckoo.Matchable>(_ rate: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Float)> where M1.MatchedType == Float {
+	        let matchers: [Cuckoo.ParameterMatcher<(Float)>] = [wrap(matchable: rate) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerProtocol.self, method: "setRate(_: Float)", parameterMatchers: matchers))
 	    }
 	    
 	    func seek<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(to time: M1, toleranceBefore: M2, toleranceAfter: M3, completionHandler: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(CMTime, CMTime, CMTime, (Bool) -> Void)> where M1.MatchedType == CMTime, M2.MatchedType == CMTime, M3.MatchedType == CMTime, M4.MatchedType == (Bool) -> Void {
@@ -2549,18 +3386,17 @@ public class MockPlayerProtocol: PlayerProtocol, Cuckoo.ProtocolMock {
 	        return .init(manager: cuckoo_manager, name: "playObserverCallback", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
+	    
+	    var rate: Cuckoo.VerifyReadOnlyProperty<Float> {
+	        return .init(manager: cuckoo_manager, name: "rate", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
 	    
 	    @discardableResult
-	    func play() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("play()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func pause() -> Cuckoo.__DoNotUse<(), Void> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("pause()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func setRate<M1: Cuckoo.Matchable>(_ rate: M1) -> Cuckoo.__DoNotUse<(Float), Void> where M1.MatchedType == Float {
+	        let matchers: [Cuckoo.ParameterMatcher<(Float)>] = [wrap(matchable: rate) { $0 }]
+	        return cuckoo_manager.verify("setRate(_: Float)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -2690,15 +3526,19 @@ public class PlayerProtocolStub: PlayerProtocol {
         
     }
     
-
     
-
-    
-    public func play()   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    public var rate: Float {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Float).self)
+        }
+        
     }
     
-    public func pause()   {
+
+    
+
+    
+    public func setRate(_ rate: Float)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -2717,7 +3557,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2725,6 +3565,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
@@ -2972,6 +3813,20 @@ import UIKit
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.tapGestureRecognizer)
+        }
+        
+    }
+    
+    
+    
+    public var overlayContainerView: UIView {
+        get {
+            return cuckoo_manager.getter("overlayContainerView",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.overlayContainerView)
         }
         
     }
@@ -3342,7 +4197,7 @@ import UIKit
     
     
     
-     func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])  {
+    public func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])  {
         
     return cuckoo_manager.call("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])",
             parameters: (actions),
@@ -3352,51 +4207,6 @@ import UIKit
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
             defaultCall: __defaultImplStub!.setTimelineMarkers(with: actions))
-        
-    }
-    
-    
-    
-     func placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView {
-        
-    return cuckoo_manager.call("placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView",
-            parameters: (imageView, size, position, animateType, animateDuration),
-            escapingParameters: (imageView, size, position, animateType, animateDuration),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.placeOverlay(imageView: imageView, size: size, position: position, animateType: animateType, animateDuration: animateDuration))
-        
-    }
-    
-    
-    
-     func replaceOverlay(containerView: UIView, imageView: UIView)  {
-        
-    return cuckoo_manager.call("replaceOverlay(containerView: UIView, imageView: UIView)",
-            parameters: (containerView, imageView),
-            escapingParameters: (containerView, imageView),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.replaceOverlay(containerView: containerView, imageView: imageView))
-        
-    }
-    
-    
-    
-     func removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))  {
-        
-    return cuckoo_manager.call("removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))",
-            parameters: (containerView, animateType, animateDuration, completion),
-            escapingParameters: (containerView, animateType, animateDuration, completion),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.removeOverlay(containerView: containerView, animateType: animateType, animateDuration: animateDuration, completion: completion))
         
     }
     
@@ -3476,6 +4286,11 @@ import UIKit
 	    
 	    var tapGestureRecognizer: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockVideoPlayerViewProtocol, UITapGestureRecognizer> {
 	        return .init(manager: cuckoo_manager, name: "tapGestureRecognizer")
+	    }
+	    
+	    
+	    var overlayContainerView: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockVideoPlayerViewProtocol, UIView> {
+	        return .init(manager: cuckoo_manager, name: "overlayContainerView")
 	    }
 	    
 	    
@@ -3604,21 +4419,6 @@ import UIKit
 	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", parameterMatchers: matchers))
 	    }
 	    
-	    func placeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(imageView: M1, size: M2, position: M3, animateType: M4, animateDuration: M5) -> Cuckoo.ProtocolStubFunction<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double), UIView> where M1.MatchedType == UIView, M2.MatchedType == AnnotationActionShowOverlay.Size, M3.MatchedType == AnnotationActionShowOverlay.Position, M4.MatchedType == OverlayAnimateinType, M5.MatchedType == Double {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double)>] = [wrap(matchable: imageView) { $0.0 }, wrap(matchable: size) { $0.1 }, wrap(matchable: position) { $0.2 }, wrap(matchable: animateType) { $0.3 }, wrap(matchable: animateDuration) { $0.4 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView", parameterMatchers: matchers))
-	    }
-	    
-	    func replaceOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(containerView: M1, imageView: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(UIView, UIView)> where M1.MatchedType == UIView, M2.MatchedType == UIView {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, UIView)>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: imageView) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "replaceOverlay(containerView: UIView, imageView: UIView)", parameterMatchers: matchers))
-	    }
-	    
-	    func removeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(containerView: M1, animateType: M2, animateDuration: M3, completion: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(UIView, OverlayAnimateoutType, Double, (() -> Void))> where M1.MatchedType == UIView, M2.MatchedType == OverlayAnimateoutType, M3.MatchedType == Double, M4.MatchedType == (() -> Void) {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, OverlayAnimateoutType, Double, (() -> Void))>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: animateType) { $0.1 }, wrap(matchable: animateDuration) { $0.2 }, wrap(matchable: completion) { $0.3 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockVideoPlayerViewProtocol.self, method: "removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))", parameterMatchers: matchers))
-	    }
-	    
 	}
 
 	 struct __VerificationProxy_VideoPlayerViewProtocol: Cuckoo.VerificationProxy {
@@ -3701,6 +4501,11 @@ import UIKit
 	    
 	    var tapGestureRecognizer: Cuckoo.VerifyReadOnlyProperty<UITapGestureRecognizer> {
 	        return .init(manager: cuckoo_manager, name: "tapGestureRecognizer", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var overlayContainerView: Cuckoo.VerifyReadOnlyProperty<UIView> {
+	        return .init(manager: cuckoo_manager, name: "overlayContainerView", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	
@@ -3855,24 +4660,6 @@ import UIKit
 	        return cuckoo_manager.verify("setTimelineMarkers(with: [MLSUI.ShowTimelineMarkerAction])", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
-	    @discardableResult
-	    func placeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable, M5: Cuckoo.Matchable>(imageView: M1, size: M2, position: M3, animateType: M4, animateDuration: M5) -> Cuckoo.__DoNotUse<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double), UIView> where M1.MatchedType == UIView, M2.MatchedType == AnnotationActionShowOverlay.Size, M3.MatchedType == AnnotationActionShowOverlay.Position, M4.MatchedType == OverlayAnimateinType, M5.MatchedType == Double {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, AnnotationActionShowOverlay.Size, AnnotationActionShowOverlay.Position, OverlayAnimateinType, Double)>] = [wrap(matchable: imageView) { $0.0 }, wrap(matchable: size) { $0.1 }, wrap(matchable: position) { $0.2 }, wrap(matchable: animateType) { $0.3 }, wrap(matchable: animateDuration) { $0.4 }]
-	        return cuckoo_manager.verify("placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func replaceOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(containerView: M1, imageView: M2) -> Cuckoo.__DoNotUse<(UIView, UIView), Void> where M1.MatchedType == UIView, M2.MatchedType == UIView {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, UIView)>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: imageView) { $0.1 }]
-	        return cuckoo_manager.verify("replaceOverlay(containerView: UIView, imageView: UIView)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	    @discardableResult
-	    func removeOverlay<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(containerView: M1, animateType: M2, animateDuration: M3, completion: M4) -> Cuckoo.__DoNotUse<(UIView, OverlayAnimateoutType, Double, (() -> Void)), Void> where M1.MatchedType == UIView, M2.MatchedType == OverlayAnimateoutType, M3.MatchedType == Double, M4.MatchedType == (() -> Void) {
-	        let matchers: [Cuckoo.ParameterMatcher<(UIView, OverlayAnimateoutType, Double, (() -> Void))>] = [wrap(matchable: containerView) { $0.0 }, wrap(matchable: animateType) { $0.1 }, wrap(matchable: animateDuration) { $0.2 }, wrap(matchable: completion) { $0.3 }]
-	        return cuckoo_manager.verify("removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
 	}
 }
 
@@ -3996,6 +4783,14 @@ import UIKit
         
     }
     
+    
+    public var overlayContainerView: UIView {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (UIView).self)
+        }
+        
+    }
+    
 
     
 
@@ -4096,26 +4891,14 @@ import UIKit
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func placeOverlay(imageView: UIView, size: AnnotationActionShowOverlay.Size, position: AnnotationActionShowOverlay.Position, animateType: OverlayAnimateinType, animateDuration: Double) -> UIView  {
-        return DefaultValueRegistry.defaultValue(for: (UIView).self)
-    }
-    
-     func replaceOverlay(containerView: UIView, imageView: UIView)   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-     func removeOverlay(containerView: UIView, animateType: OverlayAnimateoutType, animateDuration: Double, completion: @escaping (() -> Void))   {
+    public func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction])   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/ArbitraryDataRepository.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4123,23 +4906,24 @@ import UIKit
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
 
- class MockArbitraryDataRepository: ArbitraryDataRepository, Cuckoo.ProtocolMock {
+public class MockMLSArbitraryDataRepository: MLSArbitraryDataRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = ArbitraryDataRepository
+    public typealias MocksType = MLSArbitraryDataRepository
     
-     typealias Stubbing = __StubbingProxy_ArbitraryDataRepository
-     typealias Verification = __VerificationProxy_ArbitraryDataRepository
+    public typealias Stubbing = __StubbingProxy_MLSArbitraryDataRepository
+    public typealias Verification = __VerificationProxy_MLSArbitraryDataRepository
 
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: ArbitraryDataRepository?
+    private var __defaultImplStub: MLSArbitraryDataRepository?
 
-     func enableDefaultImplementation(_ stub: ArbitraryDataRepository) {
+    public func enableDefaultImplementation(_ stub: MLSArbitraryDataRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4152,7 +4936,7 @@ import Foundation
     
     
     
-     func fetchData(byURL url: URL, callback: @escaping (Data?, Error?) -> ())  {
+    public func fetchData(byURL url: URL, callback: @escaping (Data?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchData(byURL: URL, callback: @escaping (Data?, Error?) -> ())",
             parameters: (url, callback),
@@ -4167,7 +4951,7 @@ import Foundation
     
     
     
-     func fetchDataAsString(byURL url: URL, callback: @escaping (String?, Error?) -> ())  {
+    public func fetchDataAsString(byURL url: URL, callback: @escaping (String?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchDataAsString(byURL: URL, callback: @escaping (String?, Error?) -> ())",
             parameters: (url, callback),
@@ -4181,32 +4965,32 @@ import Foundation
     }
     
 
-	 struct __StubbingProxy_ArbitraryDataRepository: Cuckoo.StubbingProxy {
+	public struct __StubbingProxy_MLSArbitraryDataRepository: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	
-	     init(manager: Cuckoo.MockManager) {
+	    public init(manager: Cuckoo.MockManager) {
 	        self.cuckoo_manager = manager
 	    }
 	    
 	    
 	    func fetchData<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byURL url: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, (Data?, Error?) -> ())> where M1.MatchedType == URL, M2.MatchedType == (Data?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(URL, (Data?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockArbitraryDataRepository.self, method: "fetchData(byURL: URL, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSArbitraryDataRepository.self, method: "fetchData(byURL: URL, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func fetchDataAsString<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byURL url: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, (String?, Error?) -> ())> where M1.MatchedType == URL, M2.MatchedType == (String?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(URL, (String?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockArbitraryDataRepository.self, method: "fetchDataAsString(byURL: URL, callback: @escaping (String?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSArbitraryDataRepository.self, method: "fetchDataAsString(byURL: URL, callback: @escaping (String?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	}
 
-	 struct __VerificationProxy_ArbitraryDataRepository: Cuckoo.VerificationProxy {
+	public struct __VerificationProxy_MLSArbitraryDataRepository: Cuckoo.VerificationProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	    private let callMatcher: Cuckoo.CallMatcher
 	    private let sourceLocation: Cuckoo.SourceLocation
 	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
 	        self.cuckoo_manager = manager
 	        self.callMatcher = callMatcher
 	        self.sourceLocation = sourceLocation
@@ -4230,24 +5014,24 @@ import Foundation
 	}
 }
 
- class ArbitraryDataRepositoryStub: ArbitraryDataRepository {
+public class MLSArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
     
 
     
 
     
-     func fetchData(byURL url: URL, callback: @escaping (Data?, Error?) -> ())   {
+    public func fetchData(byURL url: URL, callback: @escaping (Data?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func fetchDataAsString(byURL url: URL, callback: @escaping (String?, Error?) -> ())   {
+    public func fetchDataAsString(byURL url: URL, callback: @escaping (String?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/DRMRepository.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4255,23 +5039,24 @@ import Foundation
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
 
- class MockDRMRepository: DRMRepository, Cuckoo.ProtocolMock {
+public class MockMLSDRMRepository: MLSDRMRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = DRMRepository
+    public typealias MocksType = MLSDRMRepository
     
-     typealias Stubbing = __StubbingProxy_DRMRepository
-     typealias Verification = __VerificationProxy_DRMRepository
+    public typealias Stubbing = __StubbingProxy_MLSDRMRepository
+    public typealias Verification = __VerificationProxy_MLSDRMRepository
 
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: DRMRepository?
+    private var __defaultImplStub: MLSDRMRepository?
 
-     func enableDefaultImplementation(_ stub: DRMRepository) {
+    public func enableDefaultImplementation(_ stub: MLSDRMRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4284,7 +5069,7 @@ import Foundation
     
     
     
-     func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ())  {
+    public func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchCertificate(byURL: URL, callback: @escaping (Data?, Error?) -> ())",
             parameters: (url, callback),
@@ -4299,7 +5084,7 @@ import Foundation
     
     
     
-     func fetchLicense(byURL url: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())  {
+    public func fetchLicense(byURL url: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchLicense(byURL: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())",
             parameters: (url, spcData, callback),
@@ -4313,32 +5098,32 @@ import Foundation
     }
     
 
-	 struct __StubbingProxy_DRMRepository: Cuckoo.StubbingProxy {
+	public struct __StubbingProxy_MLSDRMRepository: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	
-	     init(manager: Cuckoo.MockManager) {
+	    public init(manager: Cuckoo.MockManager) {
 	        self.cuckoo_manager = manager
 	    }
 	    
 	    
 	    func fetchCertificate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(byURL url: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, (Data?, Error?) -> ())> where M1.MatchedType == URL, M2.MatchedType == (Data?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(URL, (Data?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockDRMRepository.self, method: "fetchCertificate(byURL: URL, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSDRMRepository.self, method: "fetchCertificate(byURL: URL, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func fetchLicense<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(byURL url: M1, spcData: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(URL, Data, (Data?, Error?) -> ())> where M1.MatchedType == URL, M2.MatchedType == Data, M3.MatchedType == (Data?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(URL, Data, (Data?, Error?) -> ())>] = [wrap(matchable: url) { $0.0 }, wrap(matchable: spcData) { $0.1 }, wrap(matchable: callback) { $0.2 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockDRMRepository.self, method: "fetchLicense(byURL: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSDRMRepository.self, method: "fetchLicense(byURL: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	}
 
-	 struct __VerificationProxy_DRMRepository: Cuckoo.VerificationProxy {
+	public struct __VerificationProxy_MLSDRMRepository: Cuckoo.VerificationProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	    private let callMatcher: Cuckoo.CallMatcher
 	    private let sourceLocation: Cuckoo.SourceLocation
 	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
 	        self.cuckoo_manager = manager
 	        self.callMatcher = callMatcher
 	        self.sourceLocation = sourceLocation
@@ -4362,24 +5147,24 @@ import Foundation
 	}
 }
 
- class DRMRepositoryStub: DRMRepository {
+public class MLSDRMRepositoryStub: MLSDRMRepository {
     
 
     
 
     
-     func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ())   {
+    public func fetchCertificate(byURL url: URL, callback: @escaping (Data?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func fetchLicense(byURL url: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())   {
+    public func fetchLicense(byURL url: URL, spcData: Data, callback: @escaping (Data?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/EventRepository.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4387,23 +5172,24 @@ import Foundation
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
 
- class MockEventRepository: EventRepository, Cuckoo.ProtocolMock {
+public class MockMLSEventRepository: MLSEventRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = EventRepository
+    public typealias MocksType = MLSEventRepository
     
-     typealias Stubbing = __StubbingProxy_EventRepository
-     typealias Verification = __VerificationProxy_EventRepository
+    public typealias Stubbing = __StubbingProxy_MLSEventRepository
+    public typealias Verification = __VerificationProxy_MLSEventRepository
 
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: EventRepository?
+    private var __defaultImplStub: MLSEventRepository?
 
-     func enableDefaultImplementation(_ stub: EventRepository) {
+    public func enableDefaultImplementation(_ stub: MLSEventRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4416,7 +5202,7 @@ import Foundation
     
     
     
-     func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())  {
+    public func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchEvent(byId: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())",
             parameters: (id, updateId, callback),
@@ -4431,7 +5217,7 @@ import Foundation
     
     
     
-     func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())  {
+    public func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())",
             parameters: (pageSize, pageToken, status, orderBy, callback),
@@ -4446,9 +5232,9 @@ import Foundation
     
     
     
-     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())  {
+    public func startEventUpdates(for id: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ())  {
         
-    return cuckoo_manager.call("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())",
+    return cuckoo_manager.call("startEventUpdates(for: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ())",
             parameters: (id, callback),
             escapingParameters: (id, callback),
             superclassCall:
@@ -4461,7 +5247,7 @@ import Foundation
     
     
     
-     func stopEventUpdates(for id: String)  {
+    public func stopEventUpdates(for id: String)  {
         
     return cuckoo_manager.call("stopEventUpdates(for: String)",
             parameters: (id),
@@ -4475,42 +5261,42 @@ import Foundation
     }
     
 
-	 struct __StubbingProxy_EventRepository: Cuckoo.StubbingProxy {
+	public struct __StubbingProxy_MLSEventRepository: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	
-	     init(manager: Cuckoo.MockManager) {
+	    public init(manager: Cuckoo.MockManager) {
 	        self.cuckoo_manager = manager
 	    }
 	    
 	    
 	    func fetchEvent<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(byId id: M1, updateId: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String?, (Event?, Error?) -> ())> where M1.MatchedType == String, M2.OptionalMatchedType == String, M3.MatchedType == (Event?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, String?, (Event?, Error?) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: updateId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvent(byId: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSEventRepository.self, method: "fetchEvent(byId: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func fetchEvents<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(pageSize: M1, pageToken: M2, status: M3, orderBy: M4, callback: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(Int?, String?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, String?, String?, Error?) -> ())> where M1.OptionalMatchedType == Int, M2.OptionalMatchedType == String, M3.OptionalMatchedType == [ParamEventStatus], M4.OptionalMatchedType == ParamEventOrder, M5.MatchedType == ([Event]?, String?, String?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(Int?, String?, [ParamEventStatus]?, ParamEventOrder?, ([Event]?, String?, String?, Error?) -> ())>] = [wrap(matchable: pageSize) { $0.0 }, wrap(matchable: pageToken) { $0.1 }, wrap(matchable: status) { $0.2 }, wrap(matchable: orderBy) { $0.3 }, wrap(matchable: callback) { $0.4 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSEventRepository.self, method: "fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (EventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (MLSEventRepositoryEventUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (MLSEventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (MLSEventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSEventRepository.self, method: "startEventUpdates(for: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func stopEventUpdates<M1: Cuckoo.Matchable>(for id: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
 	        let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: id) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockEventRepository.self, method: "stopEventUpdates(for: String)", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSEventRepository.self, method: "stopEventUpdates(for: String)", parameterMatchers: matchers))
 	    }
 	    
 	}
 
-	 struct __VerificationProxy_EventRepository: Cuckoo.VerificationProxy {
+	public struct __VerificationProxy_MLSEventRepository: Cuckoo.VerificationProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	    private let callMatcher: Cuckoo.CallMatcher
 	    private let sourceLocation: Cuckoo.SourceLocation
 	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
 	        self.cuckoo_manager = manager
 	        self.callMatcher = callMatcher
 	        self.sourceLocation = sourceLocation
@@ -4532,9 +5318,9 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (EventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (EventRepositoryEventUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (EventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("startEventUpdates(for: String, callback: @escaping (EventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func startEventUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for id: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (MLSEventRepositoryEventUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (MLSEventRepositoryEventUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (MLSEventRepositoryEventUpdate) -> ())>] = [wrap(matchable: id) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("startEventUpdates(for: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -4546,32 +5332,32 @@ import Foundation
 	}
 }
 
- class EventRepositoryStub: EventRepository {
+public class MLSEventRepositoryStub: MLSEventRepository {
     
 
     
 
     
-     func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())   {
+    public func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())   {
+    public func fetchEvents(pageSize: Int?, pageToken: String?, status: [ParamEventStatus]?, orderBy: ParamEventOrder?, callback: @escaping ([Event]?, String?, String?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func startEventUpdates(for id: String, callback: @escaping (EventRepositoryEventUpdate) -> ())   {
+    public func startEventUpdates(for id: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func stopEventUpdates(for id: String)   {
+    public func stopEventUpdates(for id: String)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/PlayerConfigRepository.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4579,23 +5365,24 @@ import Foundation
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
 
- class MockPlayerConfigRepository: PlayerConfigRepository, Cuckoo.ProtocolMock {
+public class MockMLSPlayerConfigRepository: MLSPlayerConfigRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = PlayerConfigRepository
+    public typealias MocksType = MLSPlayerConfigRepository
     
-     typealias Stubbing = __StubbingProxy_PlayerConfigRepository
-     typealias Verification = __VerificationProxy_PlayerConfigRepository
+    public typealias Stubbing = __StubbingProxy_MLSPlayerConfigRepository
+    public typealias Verification = __VerificationProxy_MLSPlayerConfigRepository
 
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: PlayerConfigRepository?
+    private var __defaultImplStub: MLSPlayerConfigRepository?
 
-     func enableDefaultImplementation(_ stub: PlayerConfigRepository) {
+    public func enableDefaultImplementation(_ stub: MLSPlayerConfigRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4608,7 +5395,7 @@ import Foundation
     
     
     
-     func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())  {
+    public func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())",
             parameters: (callback),
@@ -4622,27 +5409,27 @@ import Foundation
     }
     
 
-	 struct __StubbingProxy_PlayerConfigRepository: Cuckoo.StubbingProxy {
+	public struct __StubbingProxy_MLSPlayerConfigRepository: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	
-	     init(manager: Cuckoo.MockManager) {
+	    public init(manager: Cuckoo.MockManager) {
 	        self.cuckoo_manager = manager
 	    }
 	    
 	    
 	    func fetchPlayerConfig<M1: Cuckoo.Matchable>(callback: M1) -> Cuckoo.ProtocolStubNoReturnFunction<((PlayerConfig?, Error?) -> ())> where M1.MatchedType == (PlayerConfig?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<((PlayerConfig?, Error?) -> ())>] = [wrap(matchable: callback) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockPlayerConfigRepository.self, method: "fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSPlayerConfigRepository.self, method: "fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	}
 
-	 struct __VerificationProxy_PlayerConfigRepository: Cuckoo.VerificationProxy {
+	public struct __VerificationProxy_MLSPlayerConfigRepository: Cuckoo.VerificationProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	    private let callMatcher: Cuckoo.CallMatcher
 	    private let sourceLocation: Cuckoo.SourceLocation
 	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
 	        self.cuckoo_manager = manager
 	        self.callMatcher = callMatcher
 	        self.sourceLocation = sourceLocation
@@ -4660,20 +5447,20 @@ import Foundation
 	}
 }
 
- class PlayerConfigRepositoryStub: PlayerConfigRepository {
+public class MLSPlayerConfigRepositoryStub: MLSPlayerConfigRepository {
     
 
     
 
     
-     func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())   {
+    public func fetchPlayerConfig(callback: @escaping (PlayerConfig?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/TimelineRepository.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4681,23 +5468,24 @@ import Foundation
 
 import Cuckoo
 @testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import Foundation
 
 
- class MockTimelineRepository: TimelineRepository, Cuckoo.ProtocolMock {
+public class MockMLSTimelineRepository: MLSTimelineRepository, Cuckoo.ProtocolMock {
     
-     typealias MocksType = TimelineRepository
+    public typealias MocksType = MLSTimelineRepository
     
-     typealias Stubbing = __StubbingProxy_TimelineRepository
-     typealias Verification = __VerificationProxy_TimelineRepository
+    public typealias Stubbing = __StubbingProxy_MLSTimelineRepository
+    public typealias Verification = __VerificationProxy_MLSTimelineRepository
 
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
 
     
-    private var __defaultImplStub: TimelineRepository?
+    private var __defaultImplStub: MLSTimelineRepository?
 
-     func enableDefaultImplementation(_ stub: TimelineRepository) {
+    public func enableDefaultImplementation(_ stub: MLSTimelineRepository) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
@@ -4710,7 +5498,7 @@ import Foundation
     
     
     
-     func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())  {
+    public func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())  {
         
     return cuckoo_manager.call("fetchAnnotationActions(byTimelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())",
             parameters: (timelineId, updateId, callback),
@@ -4725,9 +5513,9 @@ import Foundation
     
     
     
-     func startTimelineUpdates(for timelineId: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())  {
+    public func startTimelineUpdates(for timelineId: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ())  {
         
-    return cuckoo_manager.call("startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())",
+    return cuckoo_manager.call("startTimelineUpdates(for: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ())",
             parameters: (timelineId, callback),
             escapingParameters: (timelineId, callback),
             superclassCall:
@@ -4740,7 +5528,7 @@ import Foundation
     
     
     
-     func stopTimelineUpdates(for timelineId: String)  {
+    public func stopTimelineUpdates(for timelineId: String)  {
         
     return cuckoo_manager.call("stopTimelineUpdates(for: String)",
             parameters: (timelineId),
@@ -4754,37 +5542,37 @@ import Foundation
     }
     
 
-	 struct __StubbingProxy_TimelineRepository: Cuckoo.StubbingProxy {
+	public struct __StubbingProxy_MLSTimelineRepository: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	
-	     init(manager: Cuckoo.MockManager) {
+	    public init(manager: Cuckoo.MockManager) {
 	        self.cuckoo_manager = manager
 	    }
 	    
 	    
 	    func fetchAnnotationActions<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable, M3: Cuckoo.Matchable>(byTimelineId timelineId: M1, updateId: M2, callback: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String?, ([AnnotationAction]?, Error?) -> ())> where M1.MatchedType == String, M2.OptionalMatchedType == String, M3.MatchedType == ([AnnotationAction]?, Error?) -> () {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, String?, ([AnnotationAction]?, Error?) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: updateId) { $0.1 }, wrap(matchable: callback) { $0.2 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "fetchAnnotationActions(byTimelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSTimelineRepository.self, method: "fetchAnnotationActions(byTimelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())", parameterMatchers: matchers))
 	    }
 	    
-	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (TimelineRepositoryTimelineUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (TimelineRepositoryTimelineUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (TimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())", parameterMatchers: matchers))
+	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(String, (MLSTimelineRepositoryTimelineUpdate) -> ())> where M1.MatchedType == String, M2.MatchedType == (MLSTimelineRepositoryTimelineUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (MLSTimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSTimelineRepository.self, method: "startTimelineUpdates(for: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ())", parameterMatchers: matchers))
 	    }
 	    
 	    func stopTimelineUpdates<M1: Cuckoo.Matchable>(for timelineId: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
 	        let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: timelineId) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockTimelineRepository.self, method: "stopTimelineUpdates(for: String)", parameterMatchers: matchers))
+	        return .init(stub: cuckoo_manager.createStub(for: MockMLSTimelineRepository.self, method: "stopTimelineUpdates(for: String)", parameterMatchers: matchers))
 	    }
 	    
 	}
 
-	 struct __VerificationProxy_TimelineRepository: Cuckoo.VerificationProxy {
+	public struct __VerificationProxy_MLSTimelineRepository: Cuckoo.VerificationProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
 	    private let callMatcher: Cuckoo.CallMatcher
 	    private let sourceLocation: Cuckoo.SourceLocation
 	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
 	        self.cuckoo_manager = manager
 	        self.callMatcher = callMatcher
 	        self.sourceLocation = sourceLocation
@@ -4800,9 +5588,9 @@ import Foundation
 	    }
 	    
 	    @discardableResult
-	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (TimelineRepositoryTimelineUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (TimelineRepositoryTimelineUpdate) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, (TimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("startTimelineUpdates(for: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func startTimelineUpdates<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(for timelineId: M1, callback: M2) -> Cuckoo.__DoNotUse<(String, (MLSTimelineRepositoryTimelineUpdate) -> ()), Void> where M1.MatchedType == String, M2.MatchedType == (MLSTimelineRepositoryTimelineUpdate) -> () {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, (MLSTimelineRepositoryTimelineUpdate) -> ())>] = [wrap(matchable: timelineId) { $0.0 }, wrap(matchable: callback) { $0.1 }]
+	        return cuckoo_manager.verify("startTimelineUpdates(for: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -4814,28 +5602,28 @@ import Foundation
 	}
 }
 
- class TimelineRepositoryStub: TimelineRepository {
+public class MLSTimelineRepositoryStub: MLSTimelineRepository {
     
 
     
 
     
-     func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())   {
+    public func fetchAnnotationActions(byTimelineId timelineId: String, updateId: String?, callback: @escaping ([AnnotationAction]?, Error?) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func startTimelineUpdates(for timelineId: String, callback: @escaping (TimelineRepositoryTimelineUpdate) -> ())   {
+    public func startTimelineUpdates(for timelineId: String, callback: @escaping (MLSTimelineRepositoryTimelineUpdate) -> ())   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
-     func stopTimelineUpdates(for timelineId: String)   {
+    public func stopTimelineUpdates(for timelineId: String)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/AnnotationServicing.swift at 2021-01-18 12:47:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-16 20:44:55 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4843,210 +5631,7 @@ import Foundation
 
 import Cuckoo
 @testable import MLSSDK
-
-import Foundation
-
-
- class MockAnnotationServicing: AnnotationServicing, Cuckoo.ProtocolMock {
-    
-     typealias MocksType = AnnotationServicing
-    
-     typealias Stubbing = __StubbingProxy_AnnotationServicing
-     typealias Verification = __VerificationProxy_AnnotationServicing
-
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
-
-    
-    private var __defaultImplStub: AnnotationServicing?
-
-     func enableDefaultImplementation(_ stub: AnnotationServicing) {
-        __defaultImplStub = stub
-        cuckoo_manager.enableDefaultStubImplementation()
-    }
-    
-
-    
-
-    
-
-    
-    
-    
-     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())  {
-        
-    return cuckoo_manager.call("evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())",
-            parameters: (input, callback),
-            escapingParameters: (input, callback),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.evaluate(input, callback: callback))
-        
-    }
-    
-
-	 struct __StubbingProxy_AnnotationServicing: Cuckoo.StubbingProxy {
-	    private let cuckoo_manager: Cuckoo.MockManager
-	
-	     init(manager: Cuckoo.MockManager) {
-	        self.cuckoo_manager = manager
-	    }
-	    
-	    
-	    func evaluate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ input: M1, callback: M2) -> Cuckoo.ProtocolStubNoReturnFunction<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())> where M1.MatchedType == AnnotationService.EvaluationInput, M2.MatchedType == (AnnotationService.EvaluationOutput) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())>] = [wrap(matchable: input) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationServicing.self, method: "evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())", parameterMatchers: matchers))
-	    }
-	    
-	}
-
-	 struct __VerificationProxy_AnnotationServicing: Cuckoo.VerificationProxy {
-	    private let cuckoo_manager: Cuckoo.MockManager
-	    private let callMatcher: Cuckoo.CallMatcher
-	    private let sourceLocation: Cuckoo.SourceLocation
-	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
-	        self.cuckoo_manager = manager
-	        self.callMatcher = callMatcher
-	        self.sourceLocation = sourceLocation
-	    }
-	
-	    
-	
-	    
-	    @discardableResult
-	    func evaluate<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ input: M1, callback: M2) -> Cuckoo.__DoNotUse<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ()), Void> where M1.MatchedType == AnnotationService.EvaluationInput, M2.MatchedType == (AnnotationService.EvaluationOutput) -> () {
-	        let matchers: [Cuckoo.ParameterMatcher<(AnnotationService.EvaluationInput, (AnnotationService.EvaluationOutput) -> ())>] = [wrap(matchable: input) { $0.0 }, wrap(matchable: callback) { $0.1 }]
-	        return cuckoo_manager.verify("evaluate(_: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	}
-}
-
- class AnnotationServicingStub: AnnotationServicing {
-    
-
-    
-
-    
-     func evaluate(_ input: AnnotationService.EvaluationInput, callback: @escaping (AnnotationService.EvaluationOutput) -> ())   {
-        return DefaultValueRegistry.defaultValue(for: (Void).self)
-    }
-    
-}
-
-
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/HLSInspectionServicing.swift at 2021-01-18 12:47:55 +0000
-
-//
-// Copyright © 2020 mycujoo. All rights reserved.
-//
-
-import Cuckoo
-@testable import MLSSDK
-
-import Foundation
-
-
- class MockHLSInspectionServicing: HLSInspectionServicing, Cuckoo.ProtocolMock {
-    
-     typealias MocksType = HLSInspectionServicing
-    
-     typealias Stubbing = __StubbingProxy_HLSInspectionServicing
-     typealias Verification = __VerificationProxy_HLSInspectionServicing
-
-     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
-
-    
-    private var __defaultImplStub: HLSInspectionServicing?
-
-     func enableDefaultImplementation(_ stub: HLSInspectionServicing) {
-        __defaultImplStub = stub
-        cuckoo_manager.enableDefaultStubImplementation()
-    }
-    
-
-    
-
-    
-
-    
-    
-    
-     func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?] {
-        
-    return cuckoo_manager.call("map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]",
-            parameters: (hlsPlaylist, absoluteTimes),
-            escapingParameters: (hlsPlaylist, absoluteTimes),
-            superclassCall:
-                
-                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                ,
-            defaultCall: __defaultImplStub!.map(hlsPlaylist: hlsPlaylist, absoluteTimes: absoluteTimes))
-        
-    }
-    
-
-	 struct __StubbingProxy_HLSInspectionServicing: Cuckoo.StubbingProxy {
-	    private let cuckoo_manager: Cuckoo.MockManager
-	
-	     init(manager: Cuckoo.MockManager) {
-	        self.cuckoo_manager = manager
-	    }
-	    
-	    
-	    func map<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable>(hlsPlaylist: M1, absoluteTimes: M2) -> Cuckoo.ProtocolStubFunction<(String?, [Int64]), [Int64: (videoOffset: Int64, inGap: Bool)?]> where M1.OptionalMatchedType == String, M2.MatchedType == [Int64] {
-	        let matchers: [Cuckoo.ParameterMatcher<(String?, [Int64])>] = [wrap(matchable: hlsPlaylist) { $0.0 }, wrap(matchable: absoluteTimes) { $0.1 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockHLSInspectionServicing.self, method: "map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]", parameterMatchers: matchers))
-	    }
-	    
-	}
-
-	 struct __VerificationProxy_HLSInspectionServicing: Cuckoo.VerificationProxy {
-	    private let cuckoo_manager: Cuckoo.MockManager
-	    private let callMatcher: Cuckoo.CallMatcher
-	    private let sourceLocation: Cuckoo.SourceLocation
-	
-	     init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
-	        self.cuckoo_manager = manager
-	        self.callMatcher = callMatcher
-	        self.sourceLocation = sourceLocation
-	    }
-	
-	    
-	
-	    
-	    @discardableResult
-	    func map<M1: Cuckoo.OptionalMatchable, M2: Cuckoo.Matchable>(hlsPlaylist: M1, absoluteTimes: M2) -> Cuckoo.__DoNotUse<(String?, [Int64]), [Int64: (videoOffset: Int64, inGap: Bool)?]> where M1.OptionalMatchedType == String, M2.MatchedType == [Int64] {
-	        let matchers: [Cuckoo.ParameterMatcher<(String?, [Int64])>] = [wrap(matchable: hlsPlaylist) { $0.0 }, wrap(matchable: absoluteTimes) { $0.1 }]
-	        return cuckoo_manager.verify("map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
-	    }
-	    
-	}
-}
-
- class HLSInspectionServicingStub: HLSInspectionServicing {
-    
-
-    
-
-    
-     func map(hlsPlaylist: String?, absoluteTimes: [Int64]) -> [Int64: (videoOffset: Int64, inGap: Bool)?]  {
-        return DefaultValueRegistry.defaultValue(for: ([Int64: (videoOffset: Int64, inGap: Bool)?]).self)
-    }
-    
-}
-
-
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-01-18 12:47:55 +0000
-
-//
-// Copyright © 2020 mycujoo. All rights reserved.
-//
-
-import Cuckoo
-@testable import MLSSDK
+@testable import MLSSDK_Annotations
 
 import AVFoundation
 import Foundation
