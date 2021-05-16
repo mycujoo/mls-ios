@@ -28,6 +28,7 @@
 		49720D9F2651972500D7D5F8 /* MLSSDK_Annotations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49720D9C2651972500D7D5F8 /* MLSSDK_Annotations.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		49720DA02651972500D7D5F8 /* MLSSDK_IMA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49720D9D2651972500D7D5F8 /* MLSSDK_IMA.framework */; };
 		49720DA12651972500D7D5F8 /* MLSSDK_IMA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 49720D9D2651972500D7D5F8 /* MLSSDK_IMA.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		49720DA3265197F900D7D5F8 /* WithAVPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49720DA2265197F900D7D5F8 /* WithAVPlayerViewController.swift */; };
 		497C62F3265141D800507BB1 /* WithAVPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497C62F12651403500507BB1 /* WithAVPlayerViewController.swift */; };
 		4983678C264ECA0900DDAEBD /* WithAnnotationSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4983678B264ECA0900DDAEBD /* WithAnnotationSupportViewController.swift */; };
 		498A7A6125A50D6900B0D6C9 /* WithCastSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A7A6025A50D6900B0D6C9 /* WithCastSupportViewController.swift */; };
@@ -101,6 +102,7 @@
 		49720D8B2651959800D7D5F8 /* MLSSDK_IMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSSDK_IMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49720D9C2651972500D7D5F8 /* MLSSDK_Annotations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSSDK_Annotations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49720D9D2651972500D7D5F8 /* MLSSDK_IMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSSDK_IMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49720DA2265197F900D7D5F8 /* WithAVPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithAVPlayerViewController.swift; sourceTree = "<group>"; };
 		497C62F12651403500507BB1 /* WithAVPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithAVPlayerViewController.swift; sourceTree = "<group>"; };
 		4983678B264ECA0900DDAEBD /* WithAnnotationSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithAnnotationSupportViewController.swift; sourceTree = "<group>"; };
 		498A79FA25A5030900B0D6C9 /* MLS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MLS.entitlements; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				49A9F52024A1549F00D00143 /* WithPictureInPictureViewController.swift */,
 				6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */,
 				491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */,
+				49720DA2265197F900D7D5F8 /* WithAVPlayerViewController.swift */,
 				6418F6E4246951060013A9EE /* LaunchScreen.storyboard */,
 				491C8CEC24D5C3CD008A7B9D /* Main.storyboard */,
 				491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */,
@@ -491,6 +494,7 @@
 				4925AA8D24C6FF8600F13832 /* AppDelegate.swift in Sources */,
 				4925AA8E24C6FF8600F13832 /* SimpleViewController.swift in Sources */,
 				4925AA8F24C6FF8600F13832 /* WithPictureInPictureViewController.swift in Sources */,
+				49720DA3265197F900D7D5F8 /* WithAVPlayerViewController.swift in Sources */,
 				498A7A6125A50D6900B0D6C9 /* WithCastSupportViewController.swift in Sources */,
 				491C8CEB24D5C33A008A7B9D /* WithEventListViewController.swift in Sources */,
 				49AF3F1625AB3C76005DDFB5 /* WithIMASupportViewController.swift in Sources */,
