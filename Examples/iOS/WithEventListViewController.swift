@@ -166,6 +166,10 @@ extension WithEventListViewController: CastIntegrationDelegate {
 }
 
 extension WithEventListViewController: IMAIntegrationDelegate {
+    func presentingView(for videoPlayer: VideoPlayer) -> UIView {
+        return videoPlayer.playerView
+    }
+    
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
         return self
     }

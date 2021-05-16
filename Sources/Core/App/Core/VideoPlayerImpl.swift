@@ -12,7 +12,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     var imaIntegration: IMAIntegration? {
         didSet {
-            guard let avPlayer = self.avPlayer as? AVPlayer else { return }
+            guard let avPlayer = self.mlsPlayer as? AVPlayer else { return }
             imaIntegration?.setAVPlayer(avPlayer)
         }
     }
@@ -159,6 +159,14 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     var controlView: UIView {
         return view.controlView
     }
+    
+    var avPlayer: AVPlayer {
+        if let v = mlsPlayer as? AVPlayer {
+            return v
+        }
+        fatalError("When running unit tests, this property cannot be accessed. Use `mlsPlayer` directly.")
+    }
+    
     /// The AVPlayerLayer of the associated AVPlayer
     var playerLayer: AVPlayerLayer? {
         return view.playerLayer
@@ -208,13 +216,13 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// The player that is used specifically for local playback.
     /// - important: Only use this property for specific local interactions. Otherwise, use `player`, which abstracts away remote playback.
-    private let avPlayer: MLSPlayerProtocol
+    private let mlsPlayer: MLSPlayerProtocol
 
     private var player: PlayerProtocol {
         #if os(iOS)
-        return castIntegration?.isCasting() == true ? castIntegration?.player() ?? avPlayer : avPlayer
+        return castIntegration?.isCasting() == true ? castIntegration?.player() ?? mlsPlayer : mlsPlayer
         #else
-        return avPlayer
+        return mlsPlayer
         #endif
     }
 
@@ -373,7 +381,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String,
             publicKey: String) {
-        self.avPlayer = avPlayer
+        self.mlsPlayer = avPlayer
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
         self.getCertificateDataUseCase = getCertificateDataUseCase
@@ -438,7 +446,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         // Destroy the current item.
         // This makes sure that even if AVPlayer is retained (e.g. by Apple's PiP bug), there is no chance of continued playback.
-        avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
+        mlsPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
 
         print("Video player was deinitialized.")
     }
@@ -509,7 +517,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             guard let self = self else { return }
 
             let headerFields: [String: String] = ["user-agent": "tv.mycujoo.mls.ios-sdk"]
-            self.avPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
+            self.mlsPlayer.replaceCurrentItem(with: url, headers: headerFields, resourceLoaderDelegate: self) { [weak self] completed in
                 guard let self = self else { return }
                 self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: !added)
 
@@ -530,7 +538,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         let doRemote = { [weak self] () in
             guard let self = self else { return }
 
-            self.avPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
+            self.mlsPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
 
             self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }

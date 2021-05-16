@@ -58,6 +58,9 @@ public protocol VideoPlayer: AnyObject {
     var currentDuration: Double { get }
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
     var controlView: UIView { get }
+    
+    /// The associated AVPlayer.
+    var avPlayer: AVPlayer { get }
     /// The AVPlayerLayer of the associated AVPlayer
     var playerLayer: AVPlayerLayer? { get }
 
