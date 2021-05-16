@@ -50,6 +50,8 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     var playObserverCallback: ((Bool) -> Void)? = nil // TODO: call this at the appropriate times
 
     private(set) var isSeeking = false
+    
+    private var isPlaying = false
 
     private static let encoder = JSONEncoder()
 
@@ -71,17 +73,23 @@ class CastPlayer: NSObject, CastPlayerProtocol {
     func initialize() {
         self.updateMediaStatus(GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus)
     }
-
-    func play() {
-        if let mediaStatus = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus, let _ = mediaStatus.currentQueueItem {
-            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.play()
+    
+    var rate: Float {
+        get {
+            return isPlaying ? 1 : 0
         }
     }
-
-    func pause() {
-        GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.pause()
+    
+    func setRate(_ rate: Float) {
+        if rate > 0 {
+            if let mediaStatus = GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.mediaStatus, let _ = mediaStatus.currentQueueItem {
+                GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.play()
+            }
+        } else {
+            GCKCastContext.sharedInstance().sessionManager.currentSession?.remoteMediaClient?.pause()
+        }
     }
-
+    
     private func startUpdatingTime() {
         isFirstTimerStateUpdate = true
 
@@ -253,8 +261,10 @@ class CastPlayer: NSObject, CastPlayerProtocol {
             self.isBuffering = true
         case .playing:
             self.isBuffering = false
+            self.isPlaying = true
             playObserverCallback?(true)
         case .paused:
+            self.isPlaying = false
             self.isBuffering = false
             playObserverCallback?(false)
         default:

@@ -8,6 +8,10 @@ import MLSSDK
 
 public protocol IMAIntegrationDelegate: AnyObject {
     /// Should be implemented by the SDK user for IMA ads to be displayable.
+    /// - returns: The UIView that should present the ad itself. If you are using the MCLS VideoPlayer's view, use `videoPlayer.playerView`
+    func presentingView(for videoPlayer: VideoPlayer) -> UIView
+    
+    /// Should be implemented by the SDK user for IMA ads to be displayable.
     /// - returns: The UIViewController that is presenting the `VideoPlayer`.
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController?
 

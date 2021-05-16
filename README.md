@@ -79,3 +79,5 @@ To use the Chromecast extension, please ensure the following:
 ## Examples
 
 For example code, see the `Examples` folder. The most straightforward example can be found in `SimpleViewController.swift`.
+
+Known issue: in the sample workspace, after running `pod install` and executing the code, the frameworks are being double-linked. This should not impact the examples themselves.

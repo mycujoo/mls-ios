@@ -36,7 +36,8 @@ public protocol VideoPlayer: AnyObject {
     var status: PlayerStatus { get }
 
     /// The view of the VideoPlayer.
-    var playerView: UIView & AnnotationIntegrationView { get }
+    /// This is only available if the VideoPlayer's view is attached during initialization.
+    var playerView: (UIView & AnnotationIntegrationView)? { get }
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     var playerConfig: PlayerConfig! { get set }
@@ -50,24 +51,30 @@ public protocol VideoPlayer: AnyObject {
     /// Get or set the `isMuted` property of the underlying AVPlayer.
     var isMuted: Bool { get set }
 
-    /// - returns: The current time (in milliseconds) of the currentItem.
+    /// - returns: The current time (in seconds) of the currentItem.
     var currentTime: Double { get }
-    /// - returns: The current time (in milliseconds) that is expected after all pending seek operations are done on the currentItem.
+    /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double { get }
-    /// - returns: The duration (in milliseconds) of the currentItem. If unknown, returns 0.
+    /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double { get }
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    var controlView: UIView { get }
-    /// The AVPlayerLayer of the associated AVPlayer
+    var controlView: UIView? { get }
+    
+    /// The associated AVPlayer.
+    var avPlayer: AVPlayer { get }
+    /// The AVPlayerLayer of the associated AVPlayer. This is only available if the VideoPlayer's view is attached.
     var playerLayer: AVPlayerLayer? { get }
 
     #if os(iOS)
     /// A horizontal UIStackView at the top-leading corner. Can be used to add more custom UIButtons to (e.g. PiP).
-    var topLeadingControlsStackView: UIStackView { get }
+    /// This is only available if the VideoPlayer's view is attached.
+    var topLeadingControlsStackView: UIStackView? { get }
     /// A horizontal UIStackView at the top-trailing corner. Can be used to add more custom UIButtons to (e.g. PiP).
-    var topTrailingControlsStackView: UIStackView { get }
+    /// This is only available if the VideoPlayer's view is attached.
+    var topTrailingControlsStackView: UIStackView? { get }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
-    var tapGestureRecognizer: UITapGestureRecognizer { get }
+    /// This is only available if the VideoPlayer's view is attached.
+    var tapGestureRecognizer: UITapGestureRecognizer? { get }
     #endif
 
     /// Start or continue playback of the loaded stream.
@@ -75,6 +82,9 @@ public protocol VideoPlayer: AnyObject {
 
     /// Pause playback of the loaded stream.
     func pause()
+    
+    /// The playback rate of the current item.
+    var rate: Float { get set }
 
     /// Seek to a position within the currentItem.
     /// - parameter to: The number of seconds within the currentItem to seek to.
@@ -107,11 +117,15 @@ public protocol VideoPlayerDelegate: AnyObject {
     /// - parameter toVisible: The new visibility state of the control layer.
     /// - parameter withAnimationDuration: The duration of the animation to hide/show the control layer
     func playerDidUpdateControlVisibility(toVisible: Bool, withAnimationDuration: Double, player: VideoPlayer)
+    /// The player has updated the stream object it is currently playing. This may be called repeatedly, whenever one of its properties changes.
+    /// - parameter stream: The new Stream object, or nil if the stream was removed.
+    func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer)
     #if os(iOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.
     /// To manually override this state, set the desired value on `VideoPlayer.isFullscreen` (which will call the delegate again!)
     /// This button can be hidden via the Configuration object on the MLS component.
+    /// - note: This is only called when there is a view attached to the VideoPlayer.
     func playerDidUpdateFullscreen(player: VideoPlayer)
     #endif
 }

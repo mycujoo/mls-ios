@@ -34,6 +34,10 @@ class SimpleViewController: UIViewController {
 }
 
 extension SimpleViewController: IMAIntegrationDelegate {
+    func presentingView(for videoPlayer: VideoPlayer) -> UIView {
+        return videoPlayer.playerView!
+    }
+    
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
         return self
     }
@@ -47,7 +51,7 @@ extension SimpleViewController: IMAIntegrationDelegate {
 
 extension SimpleViewController: AnnotationIntegrationDelegate {
     var annotationIntegrationView: AnnotationIntegrationView {
-        videoPlayer.playerView
+        videoPlayer.playerView!
     }
     
     var currentDuration: Double {

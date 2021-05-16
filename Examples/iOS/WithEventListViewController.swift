@@ -41,7 +41,7 @@ class WithEventListViewController: UIViewController {
         #endif
         player.castIntegration = mls.prepare(CastIntegrationFactory()).build(delegate: self)
         player.imaIntegration = mls.prepare(IMAIntegrationFactory()).build(videoPlayer: player, delegate: self)
-        player.topTrailingControlsStackView.insertArrangedSubview(castButtonParentView, at: 0)
+        player.topTrailingControlsStackView?.insertArrangedSubview(castButtonParentView, at: 0)
         return player
     }()
 
@@ -87,18 +87,18 @@ class WithEventListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didLayoutPlayerView {
+        if !didLayoutPlayerView, let playerView = videoPlayer.playerView {
             didLayoutPlayerView = true
 
-            playerContainerView.addSubview(videoPlayer.playerView)
-            videoPlayer.playerView.isHidden = true
-            videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
+            playerContainerView.addSubview(playerView)
+            playerView.isHidden = true
+            playerView.translatesAutoresizingMaskIntoConstraints = false
 
             let playerConstraints = [
-                videoPlayer.playerView.topAnchor.constraint(equalTo: playerContainerView.topAnchor),
-                videoPlayer.playerView.leftAnchor.constraint(equalTo: playerContainerView.leftAnchor),
-                videoPlayer.playerView.rightAnchor.constraint(equalTo: playerContainerView.rightAnchor),
-                videoPlayer.playerView.bottomAnchor.constraint(equalTo: playerContainerView.bottomAnchor)
+                playerView.topAnchor.constraint(equalTo: playerContainerView.topAnchor),
+                playerView.leftAnchor.constraint(equalTo: playerContainerView.leftAnchor),
+                playerView.rightAnchor.constraint(equalTo: playerContainerView.rightAnchor),
+                playerView.bottomAnchor.constraint(equalTo: playerContainerView.bottomAnchor)
             ]
 
             NSLayoutConstraint.activate(playerConstraints)
@@ -146,7 +146,7 @@ extension WithEventListViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.row < events.count else { return }
 
-        videoPlayer.playerView.isHidden = false
+        videoPlayer.playerView?.isHidden = false
         videoPlayer.event = events[indexPath.row]
     }
 }
@@ -166,6 +166,10 @@ extension WithEventListViewController: CastIntegrationDelegate {
 }
 
 extension WithEventListViewController: IMAIntegrationDelegate {
+    func presentingView(for videoPlayer: VideoPlayer) -> UIView {
+        return videoPlayer.playerView!
+    }
+    
     func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
         return self
     }

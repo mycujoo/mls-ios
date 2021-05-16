@@ -6,6 +6,7 @@ import Foundation
 import AVFoundation
 
 
+/// This is the protocol that should be implemented by any player that is associated with VideoPlayer, e.g. MLSPlayer or CastPlayer.
 public protocol PlayerProtocol: AnyObject {
     /// Indicates whether the Player is ready to play or not.
     var state: PlayerState { get }
@@ -32,8 +33,11 @@ public protocol PlayerProtocol: AnyObject {
     /// True indicates it is playing, false that it's paused. Should be set by the owner of the player.
     var playObserverCallback: ((Bool) -> Void)? { get set }
 
-    func play()
-    func pause()
+    /// The playback rate. Setting should be done through `setRate(:)`
+    var rate: Float { get }
+    
+    /// A setter for AVPlayer's `rate` property. This bypasses the loopback to VideoPlayer, so VideoPlayer should use this to prevent an infinite loop.
+    func setRate(_ rate: Float)
 
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)

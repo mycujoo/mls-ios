@@ -164,8 +164,8 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).isSeeking.get.thenReturn(false)
                 when(mock).isMuted.get.thenReturn(true)
                 when(mock).isMuted.set(any()).thenDoNothing()
-                when(mock).play().thenDoNothing()
-                when(mock).pause().thenDoNothing()
+                when(mock).rate.get.thenReturn(1.0)
+                when(mock).setRate(any()).thenDoNothing()
                 when(mock).replaceCurrentItem(with: any(), headers: any(), resourceLoaderDelegate: any(), callback: any()).then { (tuple) in
                     (tuple.3)(true)
                 }
