@@ -61,17 +61,23 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
         if new, let timelineId = timelineId {
             tovStore = TOVStore()
             
-            getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
-                switch update {
-                case .actionsUpdated(let actions):
-                    self?.annotationActions = actions
+            if !timelineId.contains("NonNativeMLS") {
+                // For Events with isMLS=true, the timeline id should be an arbitrary value that does not correspond
+                // to any resource in MCLS. Therefore, it should not connect to the websocket in those cases.
+                getTimelineActionsUpdatesUseCase.start(id: timelineId) { [weak self] update in
+                    switch update {
+                    case .actionsUpdated(let actions):
+                        self?.annotationActions = actions
+                    }
                 }
             }
         }
     }
     
     private func cleanup(oldTimelineId: String) {
-        getTimelineActionsUpdatesUseCase.stop(id: oldTimelineId)
+        if !oldTimelineId.contains("NonNativeMLS") {
+            getTimelineActionsUpdatesUseCase.stop(id: oldTimelineId)
+        }
     }
     
     func evaluate() {

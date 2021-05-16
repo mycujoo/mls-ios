@@ -475,8 +475,14 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             }
             imaIntegration?.setBasicCustomParameters(eventId: event?.id, streamId: currentStream?.id, eventStatus: event?.status)
         }
-
-        annotationIntegration?.timelineId = event?.timelineIds.first
+        
+        if event?.isMLS == true, let timelineId = event?.timelineIds.first {
+            // For Events with isMLS=true, the timeline id should indicate that this is not a recognized MCLS resource.
+            // The annotation integration can then handle this accordingly.
+            annotationIntegration?.timelineId = "NonNativeMLS_\(timelineId)"
+        } else {
+            annotationIntegration?.timelineId = event?.timelineIds.first
+        }
     }
 
     /// This method should not be called except when absolutely sure that the `currentStream` should be reloaded into the VideoPlayer.
