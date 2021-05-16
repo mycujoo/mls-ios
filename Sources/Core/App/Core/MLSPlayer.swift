@@ -104,7 +104,7 @@ class MLSPlayer: AVPlayer, MLSPlayerProtocol {
 
     private var timeObserver: Any?
     
-    private var videoPlayer: VideoPlayer?
+    private weak var videoPlayer: VideoPlayer?
 
     override init() {
         super.init()
