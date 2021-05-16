@@ -41,20 +41,20 @@ class WithPictureInPictureViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !didLayoutPlayerView {
+        if !didLayoutPlayerView, let playerView = videoPlayer.playerView, let controlView = videoPlayer.controlView {
             didLayoutPlayerView = true
 
-            view.addSubview(videoPlayer.playerView)
-            videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(playerView)
+            playerView.translatesAutoresizingMaskIntoConstraints = false
 
             let playerConstraints = [
-                videoPlayer.playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                 // Note that this heightAnchor approach will not look good on some devices in landscape.
                 // For a more complete solution, see `WithFullscreenZoomViewController.swift`
-                videoPlayer.playerView.heightAnchor.constraint(equalTo: videoPlayer.playerView.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+                playerView.heightAnchor.constraint(equalTo: playerView.widthAnchor, multiplier: 9 / 16),
+                playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
             NSLayoutConstraint.activate(playerConstraints)
@@ -70,11 +70,11 @@ class WithPictureInPictureViewController: UIViewController {
                 // Fallback on earlier versions
             }
 
-            videoPlayer.controlView.addSubview(pipButton)
+            videoPlayer.controlView?.addSubview(pipButton)
             NSLayoutConstraint.activate(
                 [
-                    pipButton.topAnchor.constraint(equalTo: videoPlayer.controlView.topAnchor, constant: 12),
-                    pipButton.rightAnchor.constraint(equalTo: videoPlayer.controlView.rightAnchor, constant: -12),
+                    pipButton.topAnchor.constraint(equalTo: controlView.topAnchor, constant: 12),
+                    pipButton.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -12),
                     pipButton.heightAnchor.constraint(equalToConstant: 40),
                     pipButton.widthAnchor.constraint(equalToConstant: 40)
                 ]

@@ -36,6 +36,7 @@ public protocol VideoPlayer: AnyObject {
     var status: PlayerStatus { get }
 
     /// The view of the VideoPlayer.
+    /// This is only available if the VideoPlayer's view is attached during initialization.
     var playerView: (UIView & AnnotationIntegrationView)? { get }
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.

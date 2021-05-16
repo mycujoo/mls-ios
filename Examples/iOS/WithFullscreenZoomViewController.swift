@@ -35,8 +35,8 @@ class WithFullscreenZoomViewController: UIViewController {
             default:
                 break
             }
-            videoPlayer.playerView.setNeedsLayout()
-            videoPlayer.playerView.layoutIfNeeded()
+            videoPlayer.playerView?.setNeedsLayout()
+            videoPlayer.playerView?.layoutIfNeeded()
         }
     }
 
@@ -59,25 +59,25 @@ class WithFullscreenZoomViewController: UIViewController {
         super.viewDidAppear(animated)
 
         let isLandscape = UIDevice.current.orientation.isLandscape
-        if videoPlayer.delegate == nil {
+        if videoPlayer.delegate == nil, let playerView = videoPlayer.playerView {
             videoPlayer.delegate = self
 
-            view.addSubview(videoPlayer.playerView)
-            videoPlayer.playerView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(playerView)
+            playerView.translatesAutoresizingMaskIntoConstraints = false
 
             portraitPlayerConstraints = [
-                videoPlayer.playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                videoPlayer.playerView.heightAnchor.constraint(equalTo: videoPlayer.playerView.widthAnchor, multiplier: 9 / 16),
-                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+                playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                playerView.heightAnchor.constraint(equalTo: playerView.widthAnchor, multiplier: 9 / 16),
+                playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                playerView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
             ]
 
             landscapePlayerConstraints = [
-                videoPlayer.playerView.topAnchor.constraint(equalTo: view.topAnchor),
-                videoPlayer.playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                videoPlayer.playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                videoPlayer.playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                playerView.topAnchor.constraint(equalTo: view.topAnchor),
+                playerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                playerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
 
             for constraint in (portraitPlayerConstraints + landscapePlayerConstraints) {
@@ -87,7 +87,7 @@ class WithFullscreenZoomViewController: UIViewController {
             doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(playerViewDoubleTapped))
             doubleTapGestureRecognizer!.numberOfTapsRequired = 2
             doubleTapGestureRecognizer!.delegate = self
-            videoPlayer.playerView.addGestureRecognizer(doubleTapGestureRecognizer!)
+            playerView.addGestureRecognizer(doubleTapGestureRecognizer!)
         }
 
         updateIsFullscreen(to: isLandscape)
