@@ -483,9 +483,9 @@ class VideoPlayerSpec: QuickSpec {
 
             it("calls delegate with slider update") {
                 class Delegate: VideoPlayerDelegate {
-
                     var called = false
-
+                    
+                    func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer) {}
                     func playerDidUpdatePlaying(player: VideoPlayer) {}
                     func playerDidUpdateState(player: VideoPlayer) {}
                     func playerDidUpdateFullscreen(player: VideoPlayer) {}
