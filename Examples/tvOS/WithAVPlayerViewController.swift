@@ -29,6 +29,7 @@ class WithAVPlayerViewController: AVPlayerViewController {
         
         if let contentOverlayView = self.contentOverlayView {
             let v = AnnotationIntegrationViewImpl()
+            v.delegate = self
             v.translatesAutoresizingMaskIntoConstraints = false
             contentOverlayView.addSubview(v)
             
@@ -113,8 +114,16 @@ extension WithAVPlayerViewController: VideoPlayerDelegate {
     func playerDidUpdateFullscreen(player: VideoPlayer) {}
 }
 
+extension WithAVPlayerViewController {
+    func showAVNavigationMarkersGroup(group: AVNavigationMarkersGroup) {
+        self.player?.currentItem?.navigationMarkerGroups = [group]
+    }
+}
+
 
 class AnnotationIntegrationViewImpl: UIView, AnnotationIntegrationView {
+    weak var delegate: WithAVPlayerViewController?
+    
     private var overlayContainerView_: UIView!
     
     override init(frame: CGRect) {
@@ -148,6 +157,34 @@ class AnnotationIntegrationViewImpl: UIView, AnnotationIntegrationView {
     }
      
     func setTimelineMarkers(with actions: [MLSUI.ShowTimelineMarkerAction]) {
-        // Not implemented.
+        guard let videoPlayer = delegate?.videoPlayer else { return }
+
+        func mapToMetadataGroup(action: MLSUI.ShowTimelineMarkerAction) -> [AVMetadataItem] {
+            let itemTitle = AVMutableMetadataItem()
+            itemTitle.identifier = .commonIdentifierTitle
+            itemTitle.value = action.timelineMarker.label as NSCopying & NSObjectProtocol
+            itemTitle.extendedLanguageTag = "und"
+            
+            // If desired, artwork can be associated. This is not currently a part of MCLS's timeline marker action.
+            
+            return [itemTitle]
+        }
+        
+        func mapToTimeRange(action: MLSUI.ShowTimelineMarkerAction) -> CMTimeRange {
+            let range = CMTimeRange(
+                start: CMTime(seconds: max(0, action.seekPosition * videoPlayer.currentDuration), preferredTimescale: 1),
+                duration: CMTime(seconds: 30, preferredTimescale: 1))
+            return range
+        }
+        
+        func mapToTimedMetadataGroup(action: MLSUI.ShowTimelineMarkerAction) -> AVTimedMetadataGroup {
+            let metadataGroup = mapToMetadataGroup(action: action)
+            let timeRange = mapToTimeRange(action: action)
+            return AVTimedMetadataGroup(items: metadataGroup, timeRange: timeRange)
+        }
+        
+        let group = AVNavigationMarkersGroup(title: nil, timedNavigationMarkers: actions.map(mapToTimedMetadataGroup))
+        
+        delegate?.showAVNavigationMarkersGroup(group: group)
     }
 }

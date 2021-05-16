@@ -17,9 +17,9 @@ public extension MLSUI {
     struct ShowTimelineMarkerAction: MLSUIAction {
         public let actionId: String
         public let timelineMarker: TimelineMarker
-        /// The position in milliseconds where this marker should be placed.
+        /// The position where this marker should be placed. Expressed as a float between 0.0 (start of stream) and 1.0 (end of stream).
         public let position: Double
-        /// The position in milliseconds the user should seek to when navigating to this marker.
+        /// The position to which the user should seek when navigating to this marker. Expressed as a float between 0.0 (start of stream) and 1.0 (end of stream).
         public let seekPosition: Double
         
         public init(actionId: String, timelineMarker: TimelineMarker, position: Double, seekPosition: Double) {

@@ -51,11 +51,11 @@ public protocol VideoPlayer: AnyObject {
     /// Get or set the `isMuted` property of the underlying AVPlayer.
     var isMuted: Bool { get set }
 
-    /// - returns: The current time (in milliseconds) of the currentItem.
+    /// - returns: The current time (in seconds) of the currentItem.
     var currentTime: Double { get }
-    /// - returns: The current time (in milliseconds) that is expected after all pending seek operations are done on the currentItem.
+    /// - returns: The current time (in seconds) that is expected after all pending seek operations are done on the currentItem.
     var optimisticCurrentTime: Double { get }
-    /// - returns: The duration (in milliseconds) of the currentItem. If unknown, returns 0.
+    /// - returns: The duration (in seconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double { get }
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
     var controlView: UIView? { get }
