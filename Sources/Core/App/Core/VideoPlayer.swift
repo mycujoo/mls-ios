@@ -36,7 +36,7 @@ public protocol VideoPlayer: AnyObject {
     var status: PlayerStatus { get }
 
     /// The view of the VideoPlayer.
-    var playerView: UIView & AnnotationIntegrationView { get }
+    var playerView: (UIView & AnnotationIntegrationView)? { get }
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     var playerConfig: PlayerConfig! { get set }
@@ -57,20 +57,23 @@ public protocol VideoPlayer: AnyObject {
     /// - returns: The duration (in milliseconds) of the currentItem. If unknown, returns 0.
     var currentDuration: Double { get }
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    var controlView: UIView { get }
+    var controlView: UIView? { get }
     
     /// The associated AVPlayer.
     var avPlayer: AVPlayer { get }
-    /// The AVPlayerLayer of the associated AVPlayer
+    /// The AVPlayerLayer of the associated AVPlayer. This is only available if the VideoPlayer's view is attached.
     var playerLayer: AVPlayerLayer? { get }
 
     #if os(iOS)
     /// A horizontal UIStackView at the top-leading corner. Can be used to add more custom UIButtons to (e.g. PiP).
-    var topLeadingControlsStackView: UIStackView { get }
+    /// This is only available if the VideoPlayer's view is attached.
+    var topLeadingControlsStackView: UIStackView? { get }
     /// A horizontal UIStackView at the top-trailing corner. Can be used to add more custom UIButtons to (e.g. PiP).
-    var topTrailingControlsStackView: UIStackView { get }
+    /// This is only available if the VideoPlayer's view is attached.
+    var topTrailingControlsStackView: UIStackView? { get }
     /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
-    var tapGestureRecognizer: UITapGestureRecognizer { get }
+    /// This is only available if the VideoPlayer's view is attached.
+    var tapGestureRecognizer: UITapGestureRecognizer? { get }
     #endif
 
     /// Start or continue playback of the loaded stream.

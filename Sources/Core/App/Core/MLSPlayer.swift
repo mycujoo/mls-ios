@@ -242,6 +242,9 @@ class MLSPlayer: AVPlayer, MLSPlayerProtocol {
             return super.rate
         }
         set {
+            // The setter should be looped through the VideoPlayer, so that playback commands are always run through
+            // VideoPlayer. This is needed e.g. in case AVPlayerViewController is used on tvOS, which has a play/pause
+            // button that ties directly into AVPlayer. These commands should still land on VideoPlayer.
             if let videoPlayer = videoPlayer, !loopingRateThroughVideoPlayer {
                 loopingRateThroughVideoPlayer = true
                 videoPlayer.rate = newValue

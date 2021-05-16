@@ -6,6 +6,7 @@ import Foundation
 import AVFoundation
 
 
+/// This is the protocol that should be implemented by any player that is associated with VideoPlayer, e.g. MLSPlayer or CastPlayer.
 public protocol PlayerProtocol: AnyObject {
     /// Indicates whether the Player is ready to play or not.
     var state: PlayerState { get }

@@ -94,9 +94,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 #if os(iOS)
-                self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? buttonState : .none)
+                self.view?.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? buttonState : .none)
                 #else
-                self.view.setPlayButtonTo(state: buttonState)
+                self.view?.setPlayButtonTo(state: buttonState)
                 #endif
             }
 
@@ -107,7 +107,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// The view of the VideoPlayer.
-    var playerView: UIView & AnnotationIntegrationView {
+    var playerView: (UIView & AnnotationIntegrationView)? {
         if let view = view as? (UIView & AnnotationIntegrationView) {
             return view
         }
@@ -122,7 +122,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             if isFullscreen != oldValue {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.view.setFullscreenButtonTo(fullscreen: self.isFullscreen)
+                    self.view?.setFullscreenButtonTo(fullscreen: self.isFullscreen)
                 }
                 delegate?.playerDidUpdateFullscreen(player: self)
             }
@@ -156,8 +156,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     }
 
     /// The view in which all player controls are rendered. SDK implementers can add more controls to this view, if desired.
-    var controlView: UIView {
-        return view.controlView
+    var controlView: UIView? {
+        return view?.controlView
     }
     
     var avPlayer: AVPlayer {
@@ -169,21 +169,20 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     
     /// The AVPlayerLayer of the associated AVPlayer
     var playerLayer: AVPlayerLayer? {
-        return view.playerLayer
+        return view?.playerLayer
     }
 
     #if os(iOS)
-    var topLeadingControlsStackView: UIStackView {
-        return view.topLeadingControlsStackView
+    var topLeadingControlsStackView: UIStackView? {
+        return view?.topLeadingControlsStackView
     }
 
-    var topTrailingControlsStackView: UIStackView {
-        return view.topTrailingControlsStackView
+    var topTrailingControlsStackView: UIStackView? {
+        return view?.topTrailingControlsStackView
     }
 
-    /// The UITapGestureRecognizer that is listening to taps on the VideoPlayer's view.
-    var tapGestureRecognizer: UITapGestureRecognizer {
-        return view.tapGestureRecognizer
+    var tapGestureRecognizer: UITapGestureRecognizer? {
+        return view?.tapGestureRecognizer
     }
     #endif
 
@@ -297,22 +296,22 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     // MARK: - Internal properties
 
-    var view: VideoPlayerViewProtocol!
+    var view: VideoPlayerViewProtocol?
 
     /// Setting the playerConfig will automatically updates the associated views and behavior.
     var playerConfig: PlayerConfig! {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
-                self.view.setControlView(hidden: !self.playerConfig.enableControls)
-                self.view.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
-                self.view.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
-                self.view.setSeekbar(hidden: !self.playerConfig.showSeekbar)
-                self.view.setTimeIndicatorLabel(hidden: !self.playerConfig.showTimers)
+                self.view?.setControlView(hidden: !self.playerConfig.enableControls)
+                self.view?.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
+                self.view?.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)
+                self.view?.setSeekbar(hidden: !self.playerConfig.showSeekbar)
+                self.view?.setTimeIndicatorLabel(hidden: !self.playerConfig.showTimers)
                 #if os(iOS)
-                self.view.fullscreenButtonIsHidden = !self.playerConfig.showFullscreen
-                self.view.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
-                self.view.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
+                self.view?.fullscreenButtonIsHidden = !self.playerConfig.showFullscreen
+                self.view?.setSkipButtons(hidden: !self.playerConfig.showBackForwardsButtons)
+                self.view?.setInfoButton(hidden: !self.playerConfig.showEventInfoButton)
 
                 // To reset the state of the play/pause button, trigger a new didSet on the player status.
                 // This could be more elegant...
@@ -335,7 +334,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            self.view.setBufferIcon(hidden: !self.player.isBuffering)
+            self.view?.setBufferIcon(hidden: !self.player.isBuffering)
 
             // Do not process this while the player is seeking. It especially conflicts with the slider being dragged.
             guard !self.player.isSeeking else { return }
@@ -343,19 +342,19 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             let currentDuration = self.currentDuration
             let optimisticCurrentTime = self.optimisticCurrentTime
 
-            if !self.view.videoSlider.isTracking {
+            if let view = self.view, !view.videoSlider.isTracking {
                 self.updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
 
                 if currentDuration > 0 {
-                    self.view.videoSlider.value = max(0, min(1, optimisticCurrentTime / currentDuration))
+                    self.view?.videoSlider.value = max(0, min(1, optimisticCurrentTime / currentDuration))
                 }
             }
 
             if self.player.currentItemEnded {
                 #if os(iOS)
-                self.view.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
+                self.view?.setPlayButtonTo(state: self.playerConfig.showPlayAndPause ? .replay : .none)
                 #else
-                self.view.setPlayButtonTo(state: .replay)
+                self.view?.setPlayButtonTo(state: .replay)
                 #endif
             }
 
@@ -374,7 +373,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     // MARK: - Methods
 
     init(
-            view: VideoPlayerViewProtocol,
+            view: VideoPlayerViewProtocol?,
             avPlayer: MLSPlayerProtocol,
             getEventUpdatesUseCase: GetEventUpdatesUseCase,
             getPlayerConfigUseCase: GetPlayerConfigUseCase,
@@ -399,6 +398,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
 
         func initPlayerView() {
+            guard let view = view else { return }
             self.view = view
             view.setOnTimeSliderSlide({ [weak self] fraction in self?.sliderUpdated(with: fraction) })
             view.setOnTimeSliderRelease({ [weak self] fraction in self?.sliderReleased(with: fraction) })
@@ -475,9 +475,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     switch update {
                     case .eventLiveViewers(let amount):
                         if !self.playerConfig.showLiveViewers || !self.player.isLivestream || amount < 2 {
-                            self.view.setNumberOfViewersTo(amount: nil)
+                            self.view?.setNumberOfViewersTo(amount: nil)
                         } else {
-                            self.view.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
+                            self.view?.setNumberOfViewersTo(amount: self.formatLiveViewers(amount))
                         }
                     case .eventUpdate(let updatedEvent):
                         if updatedEvent.id == self.event?.id {
@@ -486,7 +486,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                     }
                 }
             } else {
-                view.setNumberOfViewersTo(amount: nil)
+                view?.setNumberOfViewersTo(amount: nil)
             }
             imaIntegration?.setBasicCustomParameters(eventId: event?.id, streamId: currentStream?.id, eventStatus: event?.status)
         }
@@ -509,15 +509,15 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
         if !added {
             // TODO: Show the info layer or the thumbnail view.
-            self.view.setInfoViewVisibility(visible: true, withAnimationDuration: 0)
+            self.view?.setInfoViewVisibility(visible: true, withAnimationDuration: 0)
         } else {
             // TODO: Remove info layer and thumbnail view.
-            self.view.setInfoViewVisibility(visible: false, withAnimationDuration: 0)
+            self.view?.setInfoViewVisibility(visible: false, withAnimationDuration: 0)
             self.currentStreamPlayHasBeenCalled = false
         }
 
         self.setControlViewVisibility(visible: false, animated: false, directiveLevel: .systemInitiated, lock: true)
-        self.view.setBufferIcon(hidden: !added)
+        self.view?.setBufferIcon(hidden: !added)
 
         // A block that defines what to when the local player (AVPlayer) should be utilized.
         let doLocal = { [weak self] () in
@@ -586,6 +586,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
+        guard let view = self.view else { return }
         // TODO: Refactor this method so these UILabels are not directly manipulated from here.
 
         view.infoTitleLabel.text = event?.title
@@ -732,14 +733,14 @@ extension VideoPlayerImpl {
             guard let self = self else { return }
 
             if liveState == .liveAndLatest {
-                self.view.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
-                self.view.setLiveButtonTo(state: .liveAndLatest)
+                self.view?.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
+                self.view?.setLiveButtonTo(state: .liveAndLatest)
             } else if elapsedSeconds.isNaN {
-                self.view.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
-                self.view.setLiveButtonTo(state: .notLive)
+                self.view?.setTimeIndicatorLabel(elapsedText: nil, totalText: nil)
+                self.view?.setLiveButtonTo(state: .notLive)
             } else {
-                self.view.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
-                self.view.setLiveButtonTo(state: liveState)
+                self.view?.setTimeIndicatorLabel(elapsedText: self.formatSeconds(elapsedSeconds), totalText: self.formatSeconds(totalSeconds))
+                self.view?.setLiveButtonTo(state: liveState)
             }
         }
     }
@@ -775,6 +776,7 @@ extension VideoPlayerImpl {
     /// - returns: Whether this request is honored (true) or not (false).
     @discardableResult
     private func setControlViewVisibility(visible: Bool, animated: Bool, directiveLevel: DirectiveLevel = .derived, lock: Bool = false) -> Bool {
+        guard let view = view else { return false }
         if directiveLevel.rawValue < controlViewDirectiveLevel.rawValue {
             return false
         }
@@ -783,7 +785,7 @@ extension VideoPlayerImpl {
         controlViewDebouncer.debounce { [weak self] in
             guard let self = self else { return }
             if visible && self.controlViewDirectiveLevel.rawValue <= DirectiveLevel.derived.rawValue {
-                self.view.setControlViewVisibility(visible: false, withAnimationDuration: animated ? 0.2 : 0)
+                self.view?.setControlViewVisibility(visible: false, withAnimationDuration: animated ? 0.2 : 0)
                 self.delegate?.playerDidUpdateControlVisibility(toVisible: false, withAnimationDuration: animated ? 0.2 : 0, player: self)
             }
         }
@@ -817,9 +819,11 @@ extension VideoPlayerImpl {
         player.seek(by: amount, toleranceBefore: .zero, toleranceAfter: .zero, debounceSeconds: 0.4, completionHandler: { _ in })
 
         let optimisticCurrentTime = self.optimisticCurrentTime
-
-        view.videoSlider.value = optimisticCurrentTime / currentDuration
-        updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
+        
+        if let view = self.view {
+            view.videoSlider.value = optimisticCurrentTime / currentDuration
+            updatePlaytimeIndicators(optimisticCurrentTime, totalSeconds: currentDuration, liveState: self.liveState)
+        }
     }
 
     private func skipBackButtonTapped() {
@@ -843,6 +847,7 @@ extension VideoPlayerImpl {
     }
 
     private func setInfoViewTo(visible: Bool) {
+        guard let view = self.view else { return }
         #if os(tvOS)
         let honored = setControlViewVisibility(visible: !view.controlViewHasAlpha, animated: true, directiveLevel: .userInitiated, lock: !view.controlViewHasAlpha)
         if honored {
@@ -856,6 +861,7 @@ extension VideoPlayerImpl {
 
     #if os(iOS)
     private func controlViewTapped() {
+        guard let view = self.view else { return }
         // Do not register taps on the control view when there is no stream url.
         guard currentStream?.url != nil else { return }
 
@@ -870,6 +876,8 @@ extension VideoPlayerImpl {
     }
 
     private func liveButtonTapped() {
+        guard let view = self.view else { return }
+        
         let currentDuration = self.currentDuration
         guard currentDuration > 0, self.liveState != .liveAndLatest else { return }
 
@@ -899,6 +907,7 @@ extension VideoPlayerImpl {
     }
 
     private func infoButtonTapped() {
+        guard let view = self.view else { return }
         let visible = !view.infoViewHasAlpha
         setInfoViewTo(visible: visible)
     }
@@ -906,6 +915,7 @@ extension VideoPlayerImpl {
 
     #if os(tvOS)
     private func selectPressed() {
+        guard let view = self.view else { return }
         let visible = !view.controlViewHasAlpha
         setInfoViewTo(visible: visible)
     }
@@ -993,7 +1003,7 @@ extension VideoPlayerImpl: CastIntegrationVideoPlayerDelegate {
     func isCastingStateUpdated() {
         guard let castIntegration = castIntegration else { return }
 
-        view.setAirplayButton(hidden: castIntegration.isCasting())
+        view?.setAirplayButton(hidden: castIntegration.isCasting())
 
         status = .unknown
 

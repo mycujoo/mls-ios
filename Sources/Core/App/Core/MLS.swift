@@ -160,9 +160,11 @@ public class MLS {
 
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
-    public func videoPlayer(with event: Event? = nil) -> VideoPlayer {
+    /// - parameter attachView: A boolean indicating whether the VideoPlayer should have its own view (default) or not.
+    ///   If not, you should create your own AVPlayerLayer and controls, or use AVPlayerViewController.
+    public func videoPlayer(with event: Event? = nil, attachView: Bool = true) -> VideoPlayer {
         let player = VideoPlayerImpl(
-            view: VideoPlayerView(),
+            view: attachView ? VideoPlayerView() : nil,
             avPlayer: MLSPlayer(),
             getEventUpdatesUseCase: getEventUpdatesUseCase,
             getPlayerConfigUseCase: getPlayerConfigUseCase,
