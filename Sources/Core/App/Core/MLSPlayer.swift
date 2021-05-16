@@ -103,6 +103,8 @@ class MLSPlayer: AVPlayer, MLSPlayerProtocol {
     private let seekDebouncer = Debouncer()
 
     private var timeObserver: Any?
+    
+    private var videoPlayer: VideoPlayer?
 
     override init() {
         super.init()
@@ -111,7 +113,13 @@ class MLSPlayer: AVPlayer, MLSPlayerProtocol {
         addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         timeObserver = trackTime(with: self)
     }
-
+    
+    /// This should be called by the VideoPlayer init method. This can be used to loop certain AVPlayer controls (e.g. play and pause) through the VideoPlayer.
+    /// This is needed to make AVPlayerViewController work with our own VideoPlayer.
+    func inject(_ videoPlayer: VideoPlayer) {
+        self.videoPlayer = videoPlayer
+    }
+    
     override func seek(to time: CMTime) {
         self.seek(to: time, toleranceBefore: CMTime.positiveInfinity, toleranceAfter: CMTime.positiveInfinity, debounceSeconds: 0.0, completionHandler: { _ in })
     }
@@ -226,6 +234,26 @@ class MLSPlayer: AVPlayer, MLSPlayerProtocol {
     /// Helper to avoid error: Using 'super' in a closure where 'self' is explicitly captured is not yet supported
     private func super_seek(to date: Date, completionHandler: @escaping (Bool) -> Void) {
         super.seek(to: date, completionHandler: completionHandler)
+    }
+    
+    private var loopingRateThroughVideoPlayer = false
+    override var rate: Float {
+        get {
+            return super.rate
+        }
+        set {
+            if let videoPlayer = videoPlayer, !loopingRateThroughVideoPlayer {
+                loopingRateThroughVideoPlayer = true
+                videoPlayer.rate = newValue
+            } else {
+                setRate(newValue)
+            }
+        }
+    }
+    
+    func setRate(_ rate: Float) {
+        loopingRateThroughVideoPlayer = false
+        super.rate = rate
     }
 
     /// Replace a current item with another AVPlayerItem that is asynchronously built from a URL.

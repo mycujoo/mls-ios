@@ -76,13 +76,13 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                 buttonState = .pause
                 if oldValue != .play {
                     // Prevent an endless loop, since some players may update the status again after play is called.
-                    player.play()
+                    player.setRate(preferredPlaybackRate)
                 }
             case .pause:
                 buttonState = .play
                 if oldValue != .pause && oldValue != .unknown {
                     // Prevent an endless loop, since some players may update the status again after pause is called.
-                    player.pause()
+                    player.setRate(0.0)
                 }
             case .unknown:
                 buttonState = .pause
@@ -259,6 +259,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// A helper to indicate whether play has been called already since the `currentStream` was first loaded into the video player through `placeCurrentStream()`
     /// This can be used to determine if a call to `play()` should first call the imaIntegration for a preroll ad.
     private var currentStreamPlayHasBeenCalled = false
+    
+    /// The playback rate that should be used.
+    private var preferredPlaybackRate: Float = 1.0
 
     private lazy var humanFriendlyDateFormatter: DateFormatter = {
         let df =  DateFormatter()
@@ -430,6 +433,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         avPlayer.playObserverCallback = self.playObserverCallback
 
         videoAnalyticsService.create(with: avPlayer)
+        
+        if let mlsPlayer_ = self.mlsPlayer as? MLSPlayer {
+            mlsPlayer_.inject(self)
+        }
     }
 
     deinit {
@@ -657,6 +664,38 @@ extension VideoPlayerImpl {
             imaIntegration?.pause()
         } else {
             status = .pause
+        }
+    }
+    
+    var rate: Float {
+        get {
+            player.rate
+        }
+        set {
+            if imaIntegration?.isShowingAd() == true {
+                // The rate cannot be used to determine what should happen to the ima ad.
+                // Simply interpret this as a toggle(), since that's what best suits e.g. AVPlayerViewController
+                // when you press the play/pause button through the tv remote.
+                if imaIntegration?.adIsPaused() == true {
+                    play()
+                } else {
+                    pause()
+                }
+                // Since we need to notify AVPlayer that we're done looping, set the rate to the same value as now.
+                player.setRate(rate)
+            } else {
+                if newValue > 0 {
+                    preferredPlaybackRate = newValue
+                }
+                
+                if (rate <= 0 && newValue > 0) {
+                    play()
+                } else if (rate > 0 && newValue <= 0) {
+                    pause()
+                } else {
+                    player.setRate(newValue)
+                }
+            }
         }
     }
 }

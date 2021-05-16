@@ -32,8 +32,11 @@ public protocol PlayerProtocol: AnyObject {
     /// True indicates it is playing, false that it's paused. Should be set by the owner of the player.
     var playObserverCallback: ((Bool) -> Void)? { get set }
 
-    func play()
-    func pause()
+    /// The playback rate. Setting should be done through `setRate(:)`
+    var rate: Float { get }
+    
+    /// A setter for AVPlayer's `rate` property. This bypasses the loopback to VideoPlayer, so VideoPlayer should use this to prevent an infinite loop.
+    func setRate(_ rate: Float)
 
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void)
     func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, debounceSeconds: Double, completionHandler: @escaping (Bool) -> Void)

@@ -78,6 +78,9 @@ public protocol VideoPlayer: AnyObject {
 
     /// Pause playback of the loaded stream.
     func pause()
+    
+    /// The playback rate of the current item.
+    var rate: Float { get set }
 
     /// Seek to a position within the currentItem.
     /// - parameter to: The number of seconds within the currentItem to seek to.
