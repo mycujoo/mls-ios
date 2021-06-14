@@ -2,8 +2,14 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.1)
+Released on 2021-06-14.
+
+#### Changed
+- Remove Starscream as a Cocoapods dependency, to instead include it directly in the project. Avoids SPM double linking issues.
+
 ## [1.3.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.0)
-Released on 2021-05-??.
+Released on 2021-05-16.
 
 #### Added
 - Expose the underlying AVPlayer from the `VideoPlayer`.
