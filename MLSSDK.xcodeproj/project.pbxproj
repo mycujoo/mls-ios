@@ -449,6 +449,46 @@
 		49C12D5924A35204002CCDF5 /* PlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5724A35204002CCDF5 /* PlayerConfig.swift */; };
 		49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
 		49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */; };
+		49CD1BE52677A8C1004CCDE8 /* FoundationTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BDC2677A8B4004CCDE8 /* FoundationTransport.swift */; };
+		49CD1BE62677A8C1004CCDE8 /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BAA2677A889004CCDE8 /* Compression.swift */; };
+		49CD1BE72677A8C1004CCDE8 /* HTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BC02677A89E004CCDE8 /* HTTPHandler.swift */; };
+		49CD1BE82677A8C1004CCDE8 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BB22677A890004CCDE8 /* Engine.swift */; };
+		49CD1BE92677A8C1004CCDE8 /* Framer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBD2677A89E004CCDE8 /* Framer.swift */; };
+		49CD1BEA2677A8C1004CCDE8 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BDE2677A8B4004CCDE8 /* Transport.swift */; };
+		49CD1BEB2677A8C1004CCDE8 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BCE2677A8A5004CCDE8 /* Security.swift */; };
+		49CD1BEC2677A8C1004CCDE8 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD92677A8AC004CCDE8 /* WebSocket.swift */; };
+		49CD1BED2677A8C1004CCDE8 /* NativeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BB42677A890004CCDE8 /* NativeEngine.swift */; };
+		49CD1BEE2677A8C1004CCDE8 /* TCPTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BDD2677A8B4004CCDE8 /* TCPTransport.swift */; };
+		49CD1BEF2677A8C1004CCDE8 /* FoundationSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BCD2677A8A5004CCDE8 /* FoundationSecurity.swift */; };
+		49CD1BF02677A8C1004CCDE8 /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD42677A8AA004CCDE8 /* WebSocketServer.swift */; };
+		49CD1BF12677A8C1004CCDE8 /* WSCompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BA92677A888004CCDE8 /* WSCompression.swift */; };
+		49CD1BF22677A8C1004CCDE8 /* FoundationHTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBF2677A89E004CCDE8 /* FoundationHTTPHandler.swift */; };
+		49CD1BF32677A8C1004CCDE8 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BAF2677A88D004CCDE8 /* Data+Extensions.swift */; };
+		49CD1BF42677A8C1004CCDE8 /* FrameCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBE2677A89E004CCDE8 /* FrameCollector.swift */; };
+		49CD1BF52677A8C1004CCDE8 /* WSEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BB32677A890004CCDE8 /* WSEngine.swift */; };
+		49CD1BF62677A8C1004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBC2677A89E004CCDE8 /* FoundationHTTPServerHandler.swift */; };
+		49CD1BF72677A8C1004CCDE8 /* StringHTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBB2677A89E004CCDE8 /* StringHTTPHandler.swift */; };
+		49CD1BF82677A8C1004CCDE8 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD32677A8AA004CCDE8 /* Server.swift */; };
+		49CD1BF92677A8C2004CCDE8 /* FoundationTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BDC2677A8B4004CCDE8 /* FoundationTransport.swift */; };
+		49CD1BFA2677A8C2004CCDE8 /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BAA2677A889004CCDE8 /* Compression.swift */; };
+		49CD1BFB2677A8C2004CCDE8 /* HTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BC02677A89E004CCDE8 /* HTTPHandler.swift */; };
+		49CD1BFC2677A8C2004CCDE8 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BB22677A890004CCDE8 /* Engine.swift */; };
+		49CD1BFD2677A8C2004CCDE8 /* Framer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBD2677A89E004CCDE8 /* Framer.swift */; };
+		49CD1BFE2677A8C2004CCDE8 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BDE2677A8B4004CCDE8 /* Transport.swift */; };
+		49CD1BFF2677A8C2004CCDE8 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BCE2677A8A5004CCDE8 /* Security.swift */; };
+		49CD1C002677A8C2004CCDE8 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD92677A8AC004CCDE8 /* WebSocket.swift */; };
+		49CD1C012677A8C2004CCDE8 /* NativeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BB42677A890004CCDE8 /* NativeEngine.swift */; };
+		49CD1C022677A8C2004CCDE8 /* TCPTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BDD2677A8B4004CCDE8 /* TCPTransport.swift */; };
+		49CD1C032677A8C2004CCDE8 /* FoundationSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BCD2677A8A5004CCDE8 /* FoundationSecurity.swift */; };
+		49CD1C042677A8C2004CCDE8 /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD42677A8AA004CCDE8 /* WebSocketServer.swift */; };
+		49CD1C052677A8C2004CCDE8 /* WSCompression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BA92677A888004CCDE8 /* WSCompression.swift */; };
+		49CD1C062677A8C2004CCDE8 /* FoundationHTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBF2677A89E004CCDE8 /* FoundationHTTPHandler.swift */; };
+		49CD1C072677A8C2004CCDE8 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BAF2677A88D004CCDE8 /* Data+Extensions.swift */; };
+		49CD1C082677A8C2004CCDE8 /* FrameCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBE2677A89E004CCDE8 /* FrameCollector.swift */; };
+		49CD1C092677A8C2004CCDE8 /* WSEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BB32677A890004CCDE8 /* WSEngine.swift */; };
+		49CD1C0A2677A8C2004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBC2677A89E004CCDE8 /* FoundationHTTPServerHandler.swift */; };
+		49CD1C0B2677A8C2004CCDE8 /* StringHTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBB2677A89E004CCDE8 /* StringHTTPHandler.swift */; };
+		49CD1C0C2677A8C2004CCDE8 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD32677A8AA004CCDE8 /* Server.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -777,6 +817,26 @@
 		49B2E7312572E5C000AE13F6 /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		49C12D5724A35204002CCDF5 /* PlayerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConfig.swift; sourceTree = "<group>"; };
 		49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		49CD1BA92677A888004CCDE8 /* WSCompression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCompression.swift; sourceTree = "<group>"; };
+		49CD1BAA2677A889004CCDE8 /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
+		49CD1BAF2677A88D004CCDE8 /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
+		49CD1BB22677A890004CCDE8 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
+		49CD1BB32677A890004CCDE8 /* WSEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSEngine.swift; sourceTree = "<group>"; };
+		49CD1BB42677A890004CCDE8 /* NativeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEngine.swift; sourceTree = "<group>"; };
+		49CD1BBB2677A89E004CCDE8 /* StringHTTPHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHTTPHandler.swift; sourceTree = "<group>"; };
+		49CD1BBC2677A89E004CCDE8 /* FoundationHTTPServerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationHTTPServerHandler.swift; sourceTree = "<group>"; };
+		49CD1BBD2677A89E004CCDE8 /* Framer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Framer.swift; sourceTree = "<group>"; };
+		49CD1BBE2677A89E004CCDE8 /* FrameCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCollector.swift; sourceTree = "<group>"; };
+		49CD1BBF2677A89E004CCDE8 /* FoundationHTTPHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationHTTPHandler.swift; sourceTree = "<group>"; };
+		49CD1BC02677A89E004CCDE8 /* HTTPHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHandler.swift; sourceTree = "<group>"; };
+		49CD1BCD2677A8A5004CCDE8 /* FoundationSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationSecurity.swift; sourceTree = "<group>"; };
+		49CD1BCE2677A8A5004CCDE8 /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
+		49CD1BD32677A8AA004CCDE8 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		49CD1BD42677A8AA004CCDE8 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
+		49CD1BD92677A8AC004CCDE8 /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		49CD1BDC2677A8B4004CCDE8 /* FoundationTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationTransport.swift; sourceTree = "<group>"; };
+		49CD1BDD2677A8B4004CCDE8 /* TCPTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPTransport.swift; sourceTree = "<group>"; };
+		49CD1BDE2677A8B4004CCDE8 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
 		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
@@ -974,6 +1034,7 @@
 				4926CE1624CE03E200419A42 /* Entities */,
 				4926CE2124CE03E600419A42 /* Repositories */,
 				49317CEE253F0E3200675EB6 /* Services */,
+				49CD1B902677A6CE004CCDE8 /* Starscream */,
 				49E4F462251A08C800FDECD9 /* Utils */,
 			);
 			path = Data;
@@ -1635,6 +1696,33 @@
 				49C12D5E24A3B115002CCDF5 /* PaddingLabel.swift */,
 			);
 			path = General;
+			sourceTree = "<group>";
+		};
+		49CD1B902677A6CE004CCDE8 /* Starscream */ = {
+			isa = PBXGroup;
+			children = (
+				49CD1BAA2677A889004CCDE8 /* Compression.swift */,
+				49CD1BA92677A888004CCDE8 /* WSCompression.swift */,
+				49CD1BAF2677A88D004CCDE8 /* Data+Extensions.swift */,
+				49CD1BB22677A890004CCDE8 /* Engine.swift */,
+				49CD1BB42677A890004CCDE8 /* NativeEngine.swift */,
+				49CD1BB32677A890004CCDE8 /* WSEngine.swift */,
+				49CD1BBF2677A89E004CCDE8 /* FoundationHTTPHandler.swift */,
+				49CD1BBC2677A89E004CCDE8 /* FoundationHTTPServerHandler.swift */,
+				49CD1BBE2677A89E004CCDE8 /* FrameCollector.swift */,
+				49CD1BBD2677A89E004CCDE8 /* Framer.swift */,
+				49CD1BC02677A89E004CCDE8 /* HTTPHandler.swift */,
+				49CD1BBB2677A89E004CCDE8 /* StringHTTPHandler.swift */,
+				49CD1BCD2677A8A5004CCDE8 /* FoundationSecurity.swift */,
+				49CD1BCE2677A8A5004CCDE8 /* Security.swift */,
+				49CD1BD32677A8AA004CCDE8 /* Server.swift */,
+				49CD1BD42677A8AA004CCDE8 /* WebSocketServer.swift */,
+				49CD1BD92677A8AC004CCDE8 /* WebSocket.swift */,
+				49CD1BDC2677A8B4004CCDE8 /* FoundationTransport.swift */,
+				49CD1BDD2677A8B4004CCDE8 /* TCPTransport.swift */,
+				49CD1BDE2677A8B4004CCDE8 /* Transport.swift */,
+			);
+			path = Starscream;
 			sourceTree = "<group>";
 		};
 		49CFDF9724C7A9A8003F16B1 /* Common */ = {
@@ -2967,6 +3055,7 @@
 			files = (
 				4926CE0224CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
 				498E48F324D056CC0040502D /* MLSArbitraryDataRepository.swift in Sources */,
+				49CD1BFD2677A8C2004CCDE8 /* Framer.swift in Sources */,
 				4943B96124C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift in Sources */,
 				4943B96924C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
@@ -2982,53 +3071,72 @@
 				4926CDF524CDE6DF00419A42 /* ListEventsUseCase.swift in Sources */,
 				497FEF45264EF0640031996C /* IntegrationFactoryProtocol.swift in Sources */,
 				6496C3552492308D0099475D /* MLS.swift in Sources */,
+				49CD1C082677A8C2004CCDE8 /* FrameCollector.swift in Sources */,
+				49CD1BFE2677A8C2004CCDE8 /* Transport.swift in Sources */,
 				4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				495CB139249CF98600998FF4 /* Throttler.swift in Sources */,
 				49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */,
 				495CB13C249CFFE700998FF4 /* MLSPlayer.swift in Sources */,
 				4926CDFF24CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */,
+				49CD1C002677A8C2004CCDE8 /* WebSocket.swift in Sources */,
 				49E441212538D4A300385890 /* MLSDRMRepository.swift in Sources */,
 				4926CDF124CDE64600419A42 /* MLSEventRepository.swift in Sources */,
+				49CD1C0A2677A8C2004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */,
 				4943B96324C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
 				4926CE2F24CE046D00419A42 /* DataLayerStream.swift in Sources */,
 				49317CF0253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */,
 				498E48FC24D062D90040502D /* Thread+.swift in Sources */,
 				4925998425A1D9F7007658DB /* IMAIntegration.swift in Sources */,
+				49CD1C092677A8C2004CCDE8 /* WSEngine.swift in Sources */,
 				4943B96524C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
 				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
+				49CD1C032677A8C2004CCDE8 /* FoundationSecurity.swift in Sources */,
 				49B2E7322572E5C000AE13F6 /* Localizable.swift in Sources */,
 				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4931A88725A77665006CC9A4 /* PlayerProtocol.swift in Sources */,
+				49CD1C012677A8C2004CCDE8 /* NativeEngine.swift in Sources */,
 				4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */,
 				4926CE2D24CE046D00419A42 /* DataLayerEvent.swift in Sources */,
 				4926CE2724CE046D00419A42 /* DataLayerAnnotationAction.swift in Sources */,
 				49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */,
+				49CD1BFF2677A8C2004CCDE8 /* Security.swift in Sources */,
 				4930181324D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */,
 				498A79FE25A503DA00B0D6C9 /* CastIntegration.swift in Sources */,
+				49CD1BFA2677A8C2004CCDE8 /* Compression.swift in Sources */,
+				49CD1C0B2677A8C2004CCDE8 /* StringHTTPHandler.swift in Sources */,
 				49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				4926CE0524CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */,
 				495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49E441362538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
+				49CD1BFC2677A8C2004CCDE8 /* Engine.swift in Sources */,
 				4926CE2924CE046D00419A42 /* DataLayerPlayerConfig.swift in Sources */,
+				49CD1C022677A8C2004CCDE8 /* TCPTransport.swift in Sources */,
 				49317CE2253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */,
 				6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */,
+				49CD1BF92677A8C2004CCDE8 /* FoundationTransport.swift in Sources */,
 				4926CDFC24CDEAF000419A42 /* EventRepositoryImpl.swift in Sources */,
 				49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */,
 				6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */,
+				49CD1C0C2677A8C2004CCDE8 /* Server.swift in Sources */,
 				499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */,
 				4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */,
 				49E59025249BC809001E0C1C /* API.swift in Sources */,
 				4943B96724C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
+				49CD1C062677A8C2004CCDE8 /* FoundationHTTPHandler.swift in Sources */,
 				4983664C264E7C3C00DDAEBD /* AnnotationIntegration.swift in Sources */,
 				49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */,
 				49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
+				49CD1C072677A8C2004CCDE8 /* Data+Extensions.swift in Sources */,
 				498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
 				495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				498E48F024D033630040502D /* MLSPlayerProtocol.swift in Sources */,
 				6496C35D249230BF0099475D /* VideoPlayerImpl.swift in Sources */,
+				49CD1C052677A8C2004CCDE8 /* WSCompression.swift in Sources */,
 				49836677264E9DC700DDAEBD /* AnnotationAction.swift in Sources */,
 				498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
+				49CD1BFB2677A8C2004CCDE8 /* HTTPHandler.swift in Sources */,
+				49CD1C042677A8C2004CCDE8 /* WebSocketServer.swift in Sources */,
 				49A9F52324A15B9200D00143 /* UIView+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3038,6 +3146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4926CE0324CDEBFE00419A42 /* TimelineRepositoryImpl.swift in Sources */,
+				49CD1BF42677A8C1004CCDE8 /* FrameCollector.swift in Sources */,
 				498E48F424D056CC0040502D /* MLSArbitraryDataRepository.swift in Sources */,
 				4943B96224C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */,
@@ -3047,9 +3156,12 @@
 				49E441752538DCAB00385890 /* VideoPlayer.swift in Sources */,
 				4920CA562538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */,
 				497FEF46264EF0640031996C /* IntegrationFactoryProtocol.swift in Sources */,
+				49CD1BF12677A8C1004CCDE8 /* WSCompression.swift in Sources */,
+				49CD1BF02677A8C1004CCDE8 /* WebSocketServer.swift in Sources */,
 				4943B96C24C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
 				498856A22565A0470093FA66 /* String+.swift in Sources */,
+				49CD1BEE2677A8C1004CCDE8 /* TCPTransport.swift in Sources */,
 				49836678264E9DC700DDAEBD /* AnnotationAction.swift in Sources */,
 				4926CE2C24CE046D00419A42 /* DataLayer.swift in Sources */,
 				4926CDFA24CDE96700419A42 /* GetEventUseCase.swift in Sources */,
@@ -3062,11 +3174,14 @@
 				495CB13D249CFFE700998FF4 /* MLSPlayer.swift in Sources */,
 				4983664D264E7C3D00DDAEBD /* AnnotationIntegration.swift in Sources */,
 				49E441222538D4A300385890 /* MLSDRMRepository.swift in Sources */,
+				49CD1BEC2677A8C1004CCDE8 /* WebSocket.swift in Sources */,
 				499D0E3124D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift in Sources */,
 				4926CDF224CDE64600419A42 /* MLSEventRepository.swift in Sources */,
+				49CD1BEF2677A8C1004CCDE8 /* FoundationSecurity.swift in Sources */,
 				4943B96424C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
 				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
 				4926CE3024CE046D00419A42 /* DataLayerStream.swift in Sources */,
+				49CD1BF22677A8C1004CCDE8 /* FoundationHTTPHandler.swift in Sources */,
 				49317CF1253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */,
 				49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4925998525A1D9F7007658DB /* IMAIntegration.swift in Sources */,
@@ -3078,19 +3193,31 @@
 				49B25DE724A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
+				49CD1BED2677A8C1004CCDE8 /* NativeEngine.swift in Sources */,
+				49CD1BE92677A8C1004CCDE8 /* Framer.swift in Sources */,
+				49CD1BF62677A8C1004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */,
+				49CD1BE82677A8C1004CCDE8 /* Engine.swift in Sources */,
 				4926CE2E24CE046D00419A42 /* DataLayerEvent.swift in Sources */,
 				49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */,
 				4926CE2824CE046D00419A42 /* DataLayerAnnotationAction.swift in Sources */,
 				4930181424D4D680009312B0 /* GetEventUpdatesUseCase.swift in Sources */,
 				4926CE0624CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */,
 				49E441372538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
+				49CD1BF32677A8C1004CCDE8 /* Data+Extensions.swift in Sources */,
 				49DDEABC24A29E6900C89DFF /* UIFont+.swift in Sources */,
+				49CD1BE72677A8C1004CCDE8 /* HTTPHandler.swift in Sources */,
+				49CD1BE52677A8C1004CCDE8 /* FoundationTransport.swift in Sources */,
 				4926CE2A24CE046D00419A42 /* DataLayerPlayerConfig.swift in Sources */,
 				49317CE3253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */,
 				4926CDFD24CDEAF000419A42 /* EventRepositoryImpl.swift in Sources */,
 				4989B1EE249D39E8006CBB47 /* VideoPlayerView+tvOS.swift in Sources */,
+				49CD1BEB2677A8C1004CCDE8 /* Security.swift in Sources */,
 				64FDE310249A191400E6510D /* MLS.swift in Sources */,
+				49CD1BEA2677A8C1004CCDE8 /* Transport.swift in Sources */,
+				49CD1BE62677A8C1004CCDE8 /* Compression.swift in Sources */,
+				49CD1BF82677A8C1004CCDE8 /* Server.swift in Sources */,
 				499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */,
+				49CD1BF52677A8C1004CCDE8 /* WSEngine.swift in Sources */,
 				4938012D24CE19B0008AFC64 /* MLSUIAction.swift in Sources */,
 				49EFD24E249E0CC700ED417B /* Bundle+.swift in Sources */,
 				49E59026249BC809001E0C1C /* API.swift in Sources */,
@@ -3098,6 +3225,7 @@
 				4943B96824C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
 				4988571A2565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
 				49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
+				49CD1BF72677A8C1004CCDE8 /* StringHTTPHandler.swift in Sources */,
 				49A9F52424A15B9700D00143 /* UIView+.swift in Sources */,
 				498E48F124D033630040502D /* MLSPlayerProtocol.swift in Sources */,
 				498E48F724D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
@@ -3160,7 +3288,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SKIP_INSTALL = YES;
@@ -3191,7 +3319,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SKIP_INSTALL = YES;
@@ -3220,7 +3348,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA-tvOS";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SDKROOT = appletvos;
@@ -3251,7 +3379,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA-tvOS";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SDKROOT = appletvos;
@@ -3282,7 +3410,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SKIP_INSTALL = YES;
@@ -3313,7 +3441,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SKIP_INSTALL = YES;
@@ -3342,7 +3470,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SDKROOT = appletvos;
@@ -3373,7 +3501,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SDKROOT = appletvos;
@@ -3404,7 +3532,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-Cast";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
@@ -3438,7 +3566,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-Cast";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
@@ -3717,7 +3845,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -3747,7 +3875,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -3774,7 +3902,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
@@ -3803,7 +3931,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
 				SDKROOT = appletvos;

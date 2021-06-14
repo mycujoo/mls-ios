@@ -14,13 +14,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.0.0")),
-        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "14.0.0")),
-        .package(url: "https://github.com/daltoniam/Starscream.git", .upToNextMinor(from: "4.0.0"))
+        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "14.0.0"))
     ],
     targets: [
         .target(
             name: "MLSSDK",
-            dependencies: ["Alamofire", "Moya", "Starscream"],
+            dependencies: ["Alamofire", "Moya"],
             path: "Sources/Core",
             exclude: ["Core/App/Support Files/Info.plist"],
             resources: [
