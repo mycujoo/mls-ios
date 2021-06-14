@@ -2,7 +2,6 @@
 // Copyright © 2020 mycujoo. All rights reserved.
 //
 
-import Starscream
 import Foundation
 
 
@@ -24,6 +23,7 @@ class WebSocketConnection {
     }
 
     private let sessionId: String
+    
     private let socket = WebSocket(request: URLRequest(url: Constants.url))
 
     init(sessionId: String, printToConsole: Bool) {
