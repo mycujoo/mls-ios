@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.2](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.2)
+Released on 2021-06-14.
+
+#### Fixed
+- When the DVR window is set to zero, annotations will no longer show up.
+
 ## [1.3.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.1)
 Released on 2021-06-14.
 
