@@ -21,6 +21,8 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
     }
     
     var localAnnotationActions: [AnnotationAction] = []
+    var currentDvrWindowSize: Int? = nil
+    var currentRawSegmentPlaylist: String? = nil
     
     // MARK: Internal
     weak var delegate: AnnotationIntegrationDelegate?
@@ -89,7 +91,7 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
         // Because of this, we need to start calculating action offsets against the video ourselves.
         let offsetMappings: [String: (videoOffset: Int64, inGap: Bool)?]?
         
-        if Int(delegate.currentDuration) + 20 > (delegate.currentDvrWindowSize ?? Int.max) / 1000 {
+        if Int(delegate.currentDuration) + 20 > (currentDvrWindowSize ?? Int.max) / 1000 {
             #if os(iOS)
             if delegate.isCasting() == true {
                 // We can't evaluate annotations at this point, since we do not have access to the raw playlist.
@@ -97,7 +99,7 @@ class AnnotationIntegrationImpl: NSObject, AnnotationIntegration {
             }
             #endif
 
-            let map = hlsInspectionService.map(hlsPlaylist: delegate.currentRawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
+            let map = hlsInspectionService.map(hlsPlaylist: currentRawSegmentPlaylist, absoluteTimes: allAnnotationActions.map { $0.timestamp })
             offsetMappings = Dictionary(allAnnotationActions.map { (k: $0.id, v: map[$0.timestamp] ?? nil) }) { _, last in last }
         } else {
             offsetMappings = nil

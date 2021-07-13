@@ -15,6 +15,16 @@ public protocol AnnotationIntegration {
     /// It is advised not to touch this property without advanced knowledge of MCLS annotations.
     var localAnnotationActions: [AnnotationAction] { get set }
     
+    /// Advanced feature. Should contain the size of the DVR window.
+    /// This will be used in combination with `currentRawSegmentPlaylist` to do offset calculations based on the HLS playlist.
+    /// It is advised not to touch this property without advanced knowledge of MCLS annotations.
+    var currentDvrWindowSize: Int? { get set }
+    
+    /// Advanced feature. Should contain the HLS playlist of a specific quality, so that all segments are defined.
+    /// This will be used in combination with `currentDvrWindowSize` to do offset calculations based on the HLS playlist.
+    /// It is advised not to touch this property without advanced knowledge of MCLS annotations. 
+    var currentRawSegmentPlaylist: String? { get set }
+    
     /// Should be called whenever there is reason to believe the annotation state has changed, e.g. when the time position has changed (once a second), or new annotations were loaded.
     func evaluate()
 }
