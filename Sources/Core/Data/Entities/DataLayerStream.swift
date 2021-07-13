@@ -44,8 +44,7 @@ extension DataLayer.Stream {
         let drm: DRM? = try? container.decode(DRM.self, forKey: .drm)
         let dvrWindowSize: Int?
         if let dvrWindowSizeAsStr = try? container.decode(String.self, forKey: .dvrWindowSize),
-           let dvrWindowSizeAsInt = Int(dvrWindowSizeAsStr),
-           dvrWindowSizeAsInt > 0 {
+           let dvrWindowSizeAsInt = Int(dvrWindowSizeAsStr) {
             dvrWindowSize = dvrWindowSizeAsInt
         } else {
             dvrWindowSize = nil

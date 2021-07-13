@@ -362,6 +362,13 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             self.delegate?.playerDidUpdateTime(player: self)
 
+            // Update the annotation integration and reevaluate.
+            if self.mlsPlayer.rawSegmentPlaylist != self.annotationIntegration?.currentRawSegmentPlaylist {
+                self.annotationIntegration?.currentRawSegmentPlaylist = self.mlsPlayer.rawSegmentPlaylist
+            }
+            if self.currentStream?.dvrWindowSize != self.annotationIntegration?.currentDvrWindowSize {
+                self.annotationIntegration?.currentDvrWindowSize = self.currentStream?.dvrWindowSize
+            }
             self.annotationIntegration?.evaluate()
         }
     }
