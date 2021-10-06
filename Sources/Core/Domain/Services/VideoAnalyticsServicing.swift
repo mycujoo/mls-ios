@@ -12,6 +12,9 @@ protocol VideoAnalyticsServicing: AnyObject {
 
     /// Call this when destroying the video player.
     func stop()
+    
+    /// The current user id in your system. Can be any string.
+    var userId: String? { get set }
 
     var currentItemTitle: String? { get set }
     var currentItemEventId: String? { get set }

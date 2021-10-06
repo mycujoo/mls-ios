@@ -157,6 +157,11 @@ public class MLS {
         self.publicKey = publicKey
         self.configuration = configuration
     }
+    
+    /// Set the user id that your systems use to identify this individual. This user id will be logged to the video analytics service that is used (if any).
+    public func setUserId(userId: String?) {
+        self.youboraVideoAnalyticsService.userId = userId
+    }
 
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
