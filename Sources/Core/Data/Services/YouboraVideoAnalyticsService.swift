@@ -17,6 +17,12 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
     init(pseudoUserId: String) {
         self.pseudoUserId = pseudoUserId
     }
+    
+    var userId: String? = nil {
+        didSet {
+            plugin?.options.contentCustomDimension12 = userId ?? pseudoUserId
+        }
+    }
 
     func create(with player: MLSPlayerProtocol) {
         // Only add the adapter in real scenarios. When running unit tests with a mocked player, there will not be a youbora plugin.
@@ -81,6 +87,8 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
     init(pseudoUserId: String) {
         self.pseudoUserId = pseudoUserId
     }
+    
+    var userId: String? = nil
 
     func create(with player: MLSPlayerProtocol) {
     }
