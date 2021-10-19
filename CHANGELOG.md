@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.4](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.4)
+Released on 2021-10-19.
+
+#### Fixed
+- Fix an issue with tracking the userId on Youbora.
+
 ## [1.3.3](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.3)
 Released on 2021-10-06.
 
