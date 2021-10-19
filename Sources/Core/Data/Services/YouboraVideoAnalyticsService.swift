@@ -16,6 +16,12 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
 
     init(pseudoUserId: String) {
         self.pseudoUserId = pseudoUserId
+        
+        let options = YBOptions()
+        options.accountCode = "mycujoo"
+        options.username = pseudoUserId
+        options.contentCustomDimension12 = pseudoUserId // default
+        self.plugin = YBPlugin(options: options)
     }
     
     var userId: String? = nil {
@@ -28,10 +34,6 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
         // Only add the adapter in real scenarios. When running unit tests with a mocked player, there will not be a youbora plugin.
         guard let mlsPlayer = player as? AVPlayer else { return }
 
-        let options = YBOptions()
-        options.accountCode = "mycujoo"
-        options.username = pseudoUserId
-        plugin = YBPlugin(options: options)
         plugin?.adapter = YBAVPlayerAdapterSwiftTranformer.transform(from: YBAVPlayerAdapter(player: mlsPlayer))
         
         isNativeMLS = true
