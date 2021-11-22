@@ -303,6 +303,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
+                
+                self.videoAnalyticsService.analyticsAccount = self.playerConfig.analyticsAccount
+                
                 self.view?.setControlView(hidden: !self.playerConfig.enableControls)
                 self.view?.primaryColor = UIColor(hex: self.playerConfig.primaryColor)
                 self.view?.secondaryColor = UIColor(hex: self.playerConfig.secondaryColor)

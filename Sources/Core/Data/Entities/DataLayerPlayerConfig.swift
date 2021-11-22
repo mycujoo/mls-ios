@@ -14,6 +14,7 @@ extension DataLayer {
         let showSeekbar: Bool
         let showTimers: Bool
         let imaAdUnit: String?
+        let analyticsAccount: String?
         #if os(iOS)
         let showEventInfoButton: Bool
         let showFullscreen: Bool
@@ -31,6 +32,7 @@ extension DataLayer.PlayerConfig {
         case showSeekbar = "seekbar"
         case showTimers = "timers"
         case imaAdUnit = "ima_ad_unit"
+        case analyticsAccount = "analytics_account"
         #if os(iOS)
         case showEventInfoButton = "event_info_button"
         case showFullscreen = "fullscreen"
@@ -47,14 +49,15 @@ extension DataLayer.PlayerConfig {
         let showSeekbar: Bool = (try? container.decode(Bool.self, forKey: .showSeekbar)) ?? true
         let showTimers: Bool = (try? container.decode(Bool.self, forKey: .showTimers)) ?? true
         let imaAdUnit: String? = try? container.decode(String.self, forKey: .imaAdUnit)
+        let analyticsAccount: String? = try? container.decode(String.self, forKey: .analyticsAccount)
 
         #if os(tvOS)
-        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, imaAdUnit: imaAdUnit)
+        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, imaAdUnit: imaAdUnit, analyticsAccount: analyticsAccount)
         #else
         let showEventInfoButton: Bool = (try? container.decode(Bool.self, forKey: .showEventInfoButton)) ?? true
         let showFullscreen: Bool = (try? container.decode(Bool.self, forKey: .showFullscreen)) ?? false
 
-        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, imaAdUnit: imaAdUnit, showEventInfoButton: showEventInfoButton, showFullscreen: showFullscreen)
+        self.init(primaryColor: primaryColor, secondaryColor: secondaryColor, autoplay: autoplay, showBackForwardsButtons: showBackForwardsButtons, showLiveViewers: showLiveViewers, showSeekbar: showSeekbar, showTimers: showTimers, imaAdUnit: imaAdUnit, analyticsAccount: analyticsAccount, showEventInfoButton: showEventInfoButton, showFullscreen: showFullscreen)
         #endif
     }
 }

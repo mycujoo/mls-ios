@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49111284274BE93D000A5E6A /* WithCustomAnalyticsAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49111283274BE93D000A5E6A /* WithCustomAnalyticsAccountViewController.swift */; };
 		491C8CEB24D5C33A008A7B9D /* WithEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */; };
 		491C8CED24D5C3CD008A7B9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 491C8CEC24D5C3CD008A7B9D /* Main.storyboard */; };
 		491C8CEF24D5D1BF008A7B9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		49111283274BE93D000A5E6A /* WithCustomAnalyticsAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithCustomAnalyticsAccountViewController.swift; sourceTree = "<group>"; };
 		491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithEventListViewController.swift; sourceTree = "<group>"; };
 		491C8CEC24D5C3CD008A7B9D /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */,
 				491C8CEA24D5C33A008A7B9D /* WithEventListViewController.swift */,
 				49720DA2265197F900D7D5F8 /* WithAVPlayerViewController.swift */,
+				49111283274BE93D000A5E6A /* WithCustomAnalyticsAccountViewController.swift */,
 				6418F6E4246951060013A9EE /* LaunchScreen.storyboard */,
 				491C8CEC24D5C3CD008A7B9D /* Main.storyboard */,
 				491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */,
@@ -497,6 +500,7 @@
 				49720DA3265197F900D7D5F8 /* WithAVPlayerViewController.swift in Sources */,
 				498A7A6125A50D6900B0D6C9 /* WithCastSupportViewController.swift in Sources */,
 				491C8CEB24D5C33A008A7B9D /* WithEventListViewController.swift in Sources */,
+				49111284274BE93D000A5E6A /* WithCustomAnalyticsAccountViewController.swift in Sources */,
 				49AF3F1625AB3C76005DDFB5 /* WithIMASupportViewController.swift in Sources */,
 				4925AA9024C6FF8600F13832 /* WithFullscreenZoomViewController.swift in Sources */,
 				4983678C264ECA0900DDAEBD /* WithAnnotationSupportViewController.swift in Sources */,

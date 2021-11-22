@@ -12,13 +12,14 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
     private let pseudoUserId: String
     private var plugin: YBPlugin?
 
+    private let defaultAnalyticsAccount = "mycujoo"
     private let NA = "N/A"
 
     init(pseudoUserId: String) {
         self.pseudoUserId = pseudoUserId
         
         let options = YBOptions()
-        options.accountCode = "mycujoo"
+        options.accountCode = defaultAnalyticsAccount
         options.username = pseudoUserId
         options.contentCustomDimension12 = pseudoUserId // default
         self.plugin = YBPlugin(options: options)
@@ -27,6 +28,15 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
     var userId: String? = nil {
         didSet {
             plugin?.options.contentCustomDimension12 = userId ?? pseudoUserId
+        }
+    }
+    
+    var analyticsAccount: String? {
+        get {
+            return plugin?.options.accountCode
+        }
+        set {
+            plugin?.options.accountCode = newValue ?? defaultAnalyticsAccount
         }
     }
 
