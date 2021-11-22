@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.5](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.4)
+Released on 2021-11-22.
+
+#### Added
+- Added the possibility of customizing the video analytics account used by the video player.
+
 ## [1.3.4](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.4)
 Released on 2021-10-19.
 

@@ -7,18 +7,18 @@ This SDK is intended for customers of MyCujoo Live Services. It offers a video p
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate our SDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'MLSSDK', '~> 1.3'
+pod 'MLSSDK', :git => 'https://github.com/Mycujoo/mls-ios.git', :branch => 'master'
 ```
 
 And if you want to use the various extensions, use one (or more) of the following:
 
 ```ruby
-pod 'MLSSDK/Annotations', '~> 1.3'
-pod 'MLSSDK/IMA', '~> 1.3'
-pod 'MLSSDK/Cast', '~> 1.3'
+pod 'MLSSDK/Annotations', :git => 'https://github.com/Mycujoo/mls-ios.git', :branch => 'master'
+pod 'MLSSDK/IMA', :git => 'https://github.com/Mycujoo/mls-ios.git', :branch => 'master'
+pod 'MLSSDK/Cast', :git => 'https://github.com/Mycujoo/mls-ios.git', :branch => 'master'
 ```
 
-### Swift package manager
+### Swift package manager (experimental, not feature-complete!)
 
 If you want to install our SDK via the Xcode UI, go to your Project Settings -> Swift Packages and add MLSSDK from there.
 
