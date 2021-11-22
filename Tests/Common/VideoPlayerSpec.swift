@@ -190,6 +190,8 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).playObserverCallback.set(any()).then { obj in
                     playObserverCallback = obj
                 }
+                
+                when(mock).rawSegmentPlaylist.get.thenReturn(nil)
             }
 
             self.mockIMAIntegration = MockIMAIntegration()
@@ -223,6 +225,11 @@ class VideoPlayerSpec: QuickSpec {
                 when(mock).currentItemStreamURL.set(any()).thenDoNothing()
                 when(mock).currentItemIsLive.set(any()).thenDoNothing()
                 when(mock).isNativeMLS.set(any()).thenDoNothing()
+                
+                when(mock).analyticsAccount.set(any()).thenDoNothing()
+                when(mock).analyticsAccount.get.thenReturn("mycujoo")
+                when(mock).userId.set(any()).thenDoNothing()
+                when(mock).userId.get.thenReturn("user_1234")
             }
 
             self.mockEventRepository = MockMLSEventRepository()
@@ -254,6 +261,11 @@ class VideoPlayerSpec: QuickSpec {
                     timelineId = v
                 }
                 when(mock).evaluate().thenDoNothing()
+                when(mock).currentDvrWindowSize.get.thenReturn(7200)
+                when(mock).currentDvrWindowSize.set(any()).thenDoNothing()
+                
+                when(mock).currentRawSegmentPlaylist.get.thenReturn(nil)
+                when(mock).currentRawSegmentPlaylist.set(any()).thenDoNothing()   
             }
 
             self.videoPlayer = VideoPlayerImpl(
