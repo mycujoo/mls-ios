@@ -26,6 +26,8 @@ public struct PlayerConfig {
     public let showTimers: Bool
     /// The ad unit to use in IMA-related ad requests. Only needed when the MLSSDK/IMA extension is included.
     public let imaAdUnit: String?
+    /// The Youbora account to send video analytics data into. Defaults to the standard MCLS one, so it is recommended to leave this to nil.
+    public let analyticsAccount: String?
 
     public init(
             primaryColor: String = "#FFFFFF",
@@ -36,7 +38,8 @@ public struct PlayerConfig {
             showLiveViewers: Bool = true,
             showSeekbar: Bool = true,
             showTimers: Bool = true,
-            imaAdUnit: String? = nil
+            imaAdUnit: String? = nil,
+            analyticsAccount: String? = nil
     ) {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
@@ -47,6 +50,7 @@ public struct PlayerConfig {
         self.showSeekbar = showSeekbar
         self.showTimers = showTimers
         self.imaAdUnit = imaAdUnit
+        self.analyticsAccount = analyticsAccount
     }
 
     /// A convenience method to rebuild a PlayerConfig based on this one.
@@ -59,7 +63,8 @@ public struct PlayerConfig {
         showLiveViewers: Bool? = nil,
         showSeekbar: Bool? = nil,
         showTimers: Bool? = nil,
-        imaAdUnit: String? = nil) -> PlayerConfig {
+        imaAdUnit: String? = nil,
+        analyticsAccount: String? = nil) -> PlayerConfig {
         return PlayerConfig(
             primaryColor: primaryColor ?? self.primaryColor,
             secondaryColor: secondaryColor ?? self.secondaryColor,
@@ -69,7 +74,8 @@ public struct PlayerConfig {
             showLiveViewers: showLiveViewers ?? self.showLiveViewers,
             showSeekbar: showSeekbar ?? self.showSeekbar,
             showTimers: showTimers ?? self.showTimers,
-            imaAdUnit: imaAdUnit ?? self.imaAdUnit)
+            imaAdUnit: imaAdUnit ?? self.imaAdUnit,
+            analyticsAccount: analyticsAccount ?? self.analyticsAccount)
     }
 }
 #else
@@ -100,6 +106,8 @@ public struct PlayerConfig {
     public let showTimers: Bool
     /// The ad unit to use in IMA-related ad requests. Only needed when the MLSSDK/IMA extension is included.
     public let imaAdUnit: String?
+    /// The Youbora account to send video analytics data into. Defaults to the standard MCLS one, so it is recommended to leave this to nil.
+    public let analyticsAccount: String?
 
     public init(
             primaryColor: String = "#FFFFFF",
@@ -113,7 +121,8 @@ public struct PlayerConfig {
             showSeekbar: Bool = true,
             showFullscreen: Bool = false,
             showTimers: Bool = true,
-            imaAdUnit: String? = nil
+            imaAdUnit: String? = nil,
+            analyticsAccount: String? = nil
     ) {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
@@ -127,6 +136,7 @@ public struct PlayerConfig {
         self.showFullscreen = showFullscreen
         self.showTimers = showTimers
         self.imaAdUnit = imaAdUnit
+        self.analyticsAccount = analyticsAccount
     }
 
     /// A convenience method to rebuild a PlayerConfig based on an existing one.
@@ -142,7 +152,8 @@ public struct PlayerConfig {
         showSeekbar: Bool? = nil,
         showFullscreen: Bool? = nil,
         showTimers: Bool? = nil,
-        imaAdUnit: String? = nil) -> PlayerConfig {
+        imaAdUnit: String? = nil,
+        analyticsAccount: String? = nil) -> PlayerConfig {
         return PlayerConfig(
             primaryColor: primaryColor ?? self.primaryColor,
             secondaryColor: secondaryColor ?? self.secondaryColor,
@@ -155,7 +166,8 @@ public struct PlayerConfig {
             showSeekbar: showSeekbar ?? self.showSeekbar,
             showFullscreen: showFullscreen ?? self.showFullscreen,
             showTimers: showTimers ?? self.showTimers,
-            imaAdUnit: imaAdUnit ?? self.imaAdUnit)
+            imaAdUnit: imaAdUnit ?? self.imaAdUnit,
+            analyticsAccount: analyticsAccount ?? self.analyticsAccount)
     }
 }
 #endif

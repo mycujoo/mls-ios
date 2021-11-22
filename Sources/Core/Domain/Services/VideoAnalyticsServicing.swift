@@ -13,6 +13,9 @@ protocol VideoAnalyticsServicing: AnyObject {
     /// Call this when destroying the video player.
     func stop()
     
+    /// The account code to use for video analytics. If not provided, this will rely on the default (Youbora) account code.
+    var analyticsAccount: String? { get set }
+    
     /// The current user id in your system. Can be any string.
     var userId: String? { get set }
 
