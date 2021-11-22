@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -73,34 +73,6 @@ public class MockAnnotationIntegrationDelegate: AnnotationIntegrationDelegate, C
         
     }
     
-    
-    
-    public var currentDvrWindowSize: Int? {
-        get {
-            return cuckoo_manager.getter("currentDvrWindowSize",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.currentDvrWindowSize)
-        }
-        
-    }
-    
-    
-    
-    public var currentRawSegmentPlaylist: String? {
-        get {
-            return cuckoo_manager.getter("currentRawSegmentPlaylist",
-                superclassCall:
-                    
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.currentRawSegmentPlaylist)
-        }
-        
-    }
-    
 
     
 
@@ -144,16 +116,6 @@ public class MockAnnotationIntegrationDelegate: AnnotationIntegrationDelegate, C
 	    }
 	    
 	    
-	    var currentDvrWindowSize: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, Int?> {
-	        return .init(manager: cuckoo_manager, name: "currentDvrWindowSize")
-	    }
-	    
-	    
-	    var currentRawSegmentPlaylist: Cuckoo.ProtocolToBeStubbedReadOnlyProperty<MockAnnotationIntegrationDelegate, String?> {
-	        return .init(manager: cuckoo_manager, name: "currentRawSegmentPlaylist")
-	    }
-	    
-	    
 	    func isCasting() -> Cuckoo.ProtocolStubFunction<(), Bool> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationIntegrationDelegate.self, method: "isCasting() -> Bool", parameterMatchers: matchers))
@@ -186,16 +148,6 @@ public class MockAnnotationIntegrationDelegate: AnnotationIntegrationDelegate, C
 	    
 	    var optimisticCurrentTime: Cuckoo.VerifyReadOnlyProperty<Double> {
 	        return .init(manager: cuckoo_manager, name: "optimisticCurrentTime", callMatcher: callMatcher, sourceLocation: sourceLocation)
-	    }
-	    
-	    
-	    var currentDvrWindowSize: Cuckoo.VerifyReadOnlyProperty<Int?> {
-	        return .init(manager: cuckoo_manager, name: "currentDvrWindowSize", callMatcher: callMatcher, sourceLocation: sourceLocation)
-	    }
-	    
-	    
-	    var currentRawSegmentPlaylist: Cuckoo.VerifyReadOnlyProperty<String?> {
-	        return .init(manager: cuckoo_manager, name: "currentRawSegmentPlaylist", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
 	
@@ -235,22 +187,6 @@ public class AnnotationIntegrationDelegateStub: AnnotationIntegrationDelegate {
         
     }
     
-    
-    public var currentDvrWindowSize: Int? {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (Int?).self)
-        }
-        
-    }
-    
-    
-    public var currentRawSegmentPlaylist: String? {
-        get {
-            return DefaultValueRegistry.defaultValue(for: (String?).self)
-        }
-        
-    }
-    
 
     
 
@@ -262,7 +198,7 @@ public class AnnotationIntegrationDelegateStub: AnnotationIntegrationDelegate {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -276,7 +212,7 @@ import Foundation
 import MLSSDK
 import UIKit
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -380,7 +316,7 @@ import MLSSDK
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -483,7 +419,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -564,6 +500,54 @@ public class MockAnnotationIntegration: AnnotationIntegration, Cuckoo.ProtocolMo
         
     }
     
+    
+    
+    public var currentDvrWindowSize: Int? {
+        get {
+            return cuckoo_manager.getter("currentDvrWindowSize",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentDvrWindowSize)
+        }
+        
+        set {
+            cuckoo_manager.setter("currentDvrWindowSize",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentDvrWindowSize = newValue)
+        }
+        
+    }
+    
+    
+    
+    public var currentRawSegmentPlaylist: String? {
+        get {
+            return cuckoo_manager.getter("currentRawSegmentPlaylist",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentRawSegmentPlaylist)
+        }
+        
+        set {
+            cuckoo_manager.setter("currentRawSegmentPlaylist",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.currentRawSegmentPlaylist = newValue)
+        }
+        
+    }
+    
 
     
 
@@ -602,6 +586,16 @@ public class MockAnnotationIntegration: AnnotationIntegration, Cuckoo.ProtocolMo
 	    }
 	    
 	    
+	    var currentDvrWindowSize: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockAnnotationIntegration, Int> {
+	        return .init(manager: cuckoo_manager, name: "currentDvrWindowSize")
+	    }
+	    
+	    
+	    var currentRawSegmentPlaylist: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockAnnotationIntegration, String> {
+	        return .init(manager: cuckoo_manager, name: "currentRawSegmentPlaylist")
+	    }
+	    
+	    
 	    func evaluate() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return .init(stub: cuckoo_manager.createStub(for: MockAnnotationIntegration.self, method: "evaluate()", parameterMatchers: matchers))
@@ -631,6 +625,16 @@ public class MockAnnotationIntegration: AnnotationIntegration, Cuckoo.ProtocolMo
 	        return .init(manager: cuckoo_manager, name: "localAnnotationActions", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
 	    
+	    
+	    var currentDvrWindowSize: Cuckoo.VerifyOptionalProperty<Int> {
+	        return .init(manager: cuckoo_manager, name: "currentDvrWindowSize", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var currentRawSegmentPlaylist: Cuckoo.VerifyOptionalProperty<String> {
+	        return .init(manager: cuckoo_manager, name: "currentRawSegmentPlaylist", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
 	    
 	    @discardableResult
@@ -658,6 +662,26 @@ public class AnnotationIntegrationStub: AnnotationIntegration {
     public var localAnnotationActions: [AnnotationAction] {
         get {
             return DefaultValueRegistry.defaultValue(for: ([AnnotationAction]).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var currentDvrWindowSize: Int? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (Int?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+    public var currentRawSegmentPlaylist: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
         }
         
         set { }
@@ -798,7 +822,7 @@ public class AnnotationIntegrationViewStub: AnnotationIntegrationView {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1727,7 +1751,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2071,7 +2095,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2899,7 +2923,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -3557,7 +3581,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4898,7 +4922,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5031,7 +5055,7 @@ public class MLSArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5164,7 +5188,7 @@ public class MLSDRMRepositoryStub: MLSDRMRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5357,7 +5381,7 @@ public class MLSEventRepositoryStub: MLSEventRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5460,7 +5484,7 @@ public class MLSPlayerConfigRepositoryStub: MLSPlayerConfigRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5623,7 +5647,7 @@ public class MLSTimelineRepositoryStub: MLSTimelineRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-05-16 20:44:55 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-11-22 15:39:39 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5655,6 +5679,54 @@ import Foundation
     }
     
 
+    
+    
+    
+     var analyticsAccount: String? {
+        get {
+            return cuckoo_manager.getter("analyticsAccount",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.analyticsAccount)
+        }
+        
+        set {
+            cuckoo_manager.setter("analyticsAccount",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.analyticsAccount = newValue)
+        }
+        
+    }
+    
+    
+    
+     var userId: String? {
+        get {
+            return cuckoo_manager.getter("userId",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.userId)
+        }
+        
+        set {
+            cuckoo_manager.setter("userId",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.userId = newValue)
+        }
+        
+    }
     
     
     
@@ -5843,6 +5915,16 @@ import Foundation
 	    }
 	    
 	    
+	    var analyticsAccount: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, String> {
+	        return .init(manager: cuckoo_manager, name: "analyticsAccount")
+	    }
+	    
+	    
+	    var userId: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, String> {
+	        return .init(manager: cuckoo_manager, name: "userId")
+	    }
+	    
+	    
 	    var currentItemTitle: Cuckoo.ProtocolToBeStubbedOptionalProperty<MockVideoAnalyticsServicing, String> {
 	        return .init(manager: cuckoo_manager, name: "currentItemTitle")
 	    }
@@ -5898,6 +5980,16 @@ import Foundation
 	
 	    
 	    
+	    var analyticsAccount: Cuckoo.VerifyOptionalProperty<String> {
+	        return .init(manager: cuckoo_manager, name: "analyticsAccount", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
+	    var userId: Cuckoo.VerifyOptionalProperty<String> {
+	        return .init(manager: cuckoo_manager, name: "userId", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
+	    
 	    var currentItemTitle: Cuckoo.VerifyOptionalProperty<String> {
 	        return .init(manager: cuckoo_manager, name: "currentItemTitle", callMatcher: callMatcher, sourceLocation: sourceLocation)
 	    }
@@ -5945,6 +6037,26 @@ import Foundation
 }
 
  class VideoAnalyticsServicingStub: VideoAnalyticsServicing {
+    
+    
+     var analyticsAccount: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+        set { }
+        
+    }
+    
+    
+     var userId: String? {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (String?).self)
+        }
+        
+        set { }
+        
+    }
     
     
      var currentItemTitle: String? {
