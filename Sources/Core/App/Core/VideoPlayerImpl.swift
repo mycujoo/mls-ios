@@ -292,7 +292,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private let pseudoUserId: String
 
     /// A identifier that is used in requests to the MCLS api that represents this organization.
-    private let publicKey: String
+    private let publicKey: () -> String?
+    
+    /// A closure that returns an identity token that uniquely identifies this user in the MCLS backend environment.
+    private let identityToken: () -> String?
 
     // MARK: - Internal properties
 
@@ -392,7 +395,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
             videoAnalyticsService: VideoAnalyticsServicing,
             seekTolerance: CMTime = .positiveInfinity,
             pseudoUserId: String,
-            publicKey: String) {
+            publicKey: @escaping () -> String?,
+            identityToken: @escaping () -> String?) {
         self.mlsPlayer = avPlayer
         self.getEventUpdatesUseCase = getEventUpdatesUseCase
         self.getPlayerConfigUseCase = getPlayerConfigUseCase
@@ -402,7 +406,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         self.seekTolerance = seekTolerance
         self.pseudoUserId = pseudoUserId
         self.publicKey = publicKey
-
+        self.identityToken = identityToken
+                
         super.init()
 
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
@@ -559,7 +564,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
             self.mlsPlayer.replaceCurrentItem(with: nil, headers: [:], resourceLoaderDelegate: nil, callback: { _ in })
 
-            self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
+            self.castIntegration?.player().replaceCurrentItem(publicKey: self.publicKey, identityToken: self.identityToken, pseudoUserId: self.pseudoUserId, event: self.event, stream: self.currentStream) { [weak self] completed in
                 guard let self = self else { return }
 
                 // Effectively do not hide the controls automatically, unless the user taps it.

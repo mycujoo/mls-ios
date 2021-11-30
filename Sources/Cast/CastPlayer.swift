@@ -8,7 +8,7 @@ import GoogleCast
 import AVFoundation
 
 
-class CastPlayer: NSObject, CastPlayerProtocol {
+class CastPlayer: NSObject, CastPlayerProtocol {    
     var state: PlayerState = .unknown {
         didSet {
             stateObserverCallback?()
@@ -116,9 +116,10 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         updateTimeTimer = nil
     }
 
-    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void) {
+    func replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void) {
         struct ReceiverCustomData: Codable {
             var publicKey: String
+            var identityToken: String? = nil
             var pseudoUserId: String
             var eventId: String
             var licenseUrl: String? = nil
@@ -140,7 +141,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         mediaInfoBuilder.metadata = metadata
 
         if let eventId = event?.id,
-           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey, pseudoUserId: pseudoUserId, eventId: eventId))),
+           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey() ?? "", identityToken: identityToken() ?? "", pseudoUserId: pseudoUserId, eventId: eventId))),
            let json = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) {
             mediaInfoBuilder.customData = json
         }
