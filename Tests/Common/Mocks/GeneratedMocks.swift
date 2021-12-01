@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/AnnotationIntegrationDelegate.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -198,7 +198,7 @@ public class AnnotationIntegrationDelegateStub: AnnotationIntegrationDelegate {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/OverlayViewPlacement.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -212,7 +212,7 @@ import Foundation
 import MLSSDK
 import UIKit
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/AnnotationServicing.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -316,7 +316,7 @@ import MLSSDK
 }
 
 
-// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Annotations/Shared/Services/HLSInspectionServicing.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -419,7 +419,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/AnnotationIntegration.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -822,7 +822,7 @@ public class AnnotationIntegrationViewStub: AnnotationIntegrationView {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/CastIntegration.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -1324,16 +1324,16 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
     
     
     
-    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)  {
+    public func replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)  {
         
-    return cuckoo_manager.call("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)",
-            parameters: (publicKey, pseudoUserId, event, stream, completionHandler),
-            escapingParameters: (publicKey, pseudoUserId, event, stream, completionHandler),
+    return cuckoo_manager.call("replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)",
+            parameters: (publicKey, identityToken, pseudoUserId, event, stream, completionHandler),
+            escapingParameters: (publicKey, identityToken, pseudoUserId, event, stream, completionHandler),
             superclassCall:
                 
                 Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                 ,
-            defaultCall: __defaultImplStub!.replaceCurrentItem(publicKey: publicKey, pseudoUserId: pseudoUserId, event: event, stream: stream, completionHandler: completionHandler))
+            defaultCall: __defaultImplStub!.replaceCurrentItem(publicKey: publicKey, identityToken: identityToken, pseudoUserId: pseudoUserId, event: event, stream: stream, completionHandler: completionHandler))
         
     }
     
@@ -1471,9 +1471,9 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4, completionHandler: M5) -> Cuckoo.ProtocolStubNoReturnFunction<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream, M5.MatchedType == (Bool) -> Void {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.OptionalMatchable, M6: Cuckoo.Matchable>(publicKey: M1, identityToken: M2, pseudoUserId: M3, event: M4, stream: M5, completionHandler: M6) -> Cuckoo.ProtocolStubNoReturnFunction<(() -> String?, () -> String?, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)> where M1.MatchedType == () -> String?, M2.MatchedType == () -> String?, M3.MatchedType == String, M4.OptionalMatchedType == MLSSDK.Event, M5.OptionalMatchedType == MLSSDK.Stream, M6.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(() -> String?, () -> String?, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: identityToken) { $0.1 }, wrap(matchable: pseudoUserId) { $0.2 }, wrap(matchable: event) { $0.3 }, wrap(matchable: stream) { $0.4 }, wrap(matchable: completionHandler) { $0.5 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockCastPlayerProtocol.self, method: "replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)", parameterMatchers: matchers))
 	    }
 	    
 	    func setRate<M1: Cuckoo.Matchable>(_ rate: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(Float)> where M1.MatchedType == Float {
@@ -1578,9 +1578,9 @@ public class MockCastPlayerProtocol: CastPlayerProtocol, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.OptionalMatchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.Matchable>(publicKey: M1, pseudoUserId: M2, event: M3, stream: M4, completionHandler: M5) -> Cuckoo.__DoNotUse<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void), Void> where M1.MatchedType == String, M2.MatchedType == String, M3.OptionalMatchedType == MLSSDK.Event, M4.OptionalMatchedType == MLSSDK.Stream, M5.MatchedType == (Bool) -> Void {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: pseudoUserId) { $0.1 }, wrap(matchable: event) { $0.2 }, wrap(matchable: stream) { $0.3 }, wrap(matchable: completionHandler) { $0.4 }]
-	        return cuckoo_manager.verify("replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func replaceCurrentItem<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.OptionalMatchable, M5: Cuckoo.OptionalMatchable, M6: Cuckoo.Matchable>(publicKey: M1, identityToken: M2, pseudoUserId: M3, event: M4, stream: M5, completionHandler: M6) -> Cuckoo.__DoNotUse<(() -> String?, () -> String?, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void), Void> where M1.MatchedType == () -> String?, M2.MatchedType == () -> String?, M3.MatchedType == String, M4.OptionalMatchedType == MLSSDK.Event, M5.OptionalMatchedType == MLSSDK.Stream, M6.MatchedType == (Bool) -> Void {
+	        let matchers: [Cuckoo.ParameterMatcher<(() -> String?, () -> String?, String, MLSSDK.Event?, MLSSDK.Stream?, (Bool) -> Void)>] = [wrap(matchable: publicKey) { $0.0 }, wrap(matchable: identityToken) { $0.1 }, wrap(matchable: pseudoUserId) { $0.2 }, wrap(matchable: event) { $0.3 }, wrap(matchable: stream) { $0.4 }, wrap(matchable: completionHandler) { $0.5 }]
+	        return cuckoo_manager.verify("replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -1728,7 +1728,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
     
 
     
-    public func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)   {
+    public func replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)   {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
     
@@ -1751,7 +1751,7 @@ public class CastPlayerProtocolStub: CastPlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/IMAIntegration.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -2095,7 +2095,7 @@ public class IMAIntegrationStub: IMAIntegration {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/MLSPlayerProtocol.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -2923,7 +2923,7 @@ import Foundation
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/Core/PlayerProtocol.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2021 mycujoo. All rights reserved.
@@ -3581,7 +3581,7 @@ public class PlayerProtocolStub: PlayerProtocol {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/App/View/VideoPlayer/VideoPlayerViewProtocol+iOS.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -4922,7 +4922,7 @@ import UIKit
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSArbitraryDataRepository.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5055,7 +5055,7 @@ public class MLSArbitraryDataRepositoryStub: MLSArbitraryDataRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSDRMRepository.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5188,7 +5188,7 @@ public class MLSDRMRepositoryStub: MLSDRMRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSEventRepository.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5381,7 +5381,7 @@ public class MLSEventRepositoryStub: MLSEventRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSPlayerConfigRepository.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5484,7 +5484,7 @@ public class MLSPlayerConfigRepositoryStub: MLSPlayerConfigRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Repositories/MLSTimelineRepository.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.
@@ -5647,7 +5647,7 @@ public class MLSTimelineRepositoryStub: MLSTimelineRepository {
 }
 
 
-// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-11-22 15:39:39 +0000
+// MARK: - Mocks generated from file: Sources/Core/Domain/Services/VideoAnalyticsServicing.swift at 2021-12-01 11:37:14 +0000
 
 //
 // Copyright © 2020 mycujoo. All rights reserved.

@@ -54,13 +54,17 @@ public struct Configuration {
 /// - note: Make sure to retain an instance of this class as long as you use any of its components.
 public class MLS {
     public var publicKey: String
+    /// A MCLS identity token that uniquely identifies the user.
+    /// This token can be obtained by calling the MCLS API from a trusted environment (e.g. a backend).
+    /// This is needed for working with MCLS entitlements. If entitlements are not needed to work, this can be left to nil.
+    public var identityToken: String?
     public let configuration: Configuration
 
     // TODO: Inject this dependency graph, rather than building it here.
 
     private lazy var api: MoyaProvider<API> = {
         let authPlugin = AccessTokenPlugin(tokenClosure: { [weak self] _ in
-            return self?.publicKey ?? ""
+            return [self?.publicKey, self?.identityToken].compactMap { $0 }.joined(separator: ",")
         })
 
         switch configuration.logLevel {
@@ -162,7 +166,7 @@ public class MLS {
     public func setUserId(userId: String?) {
         self.youboraVideoAnalyticsService.userId = userId
     }
-
+    
     /// Provides a VideoPlayer object.
     /// - parameter event: An optional MLS Event object. If provided, the associated stream on that object will be loaded into the player.
     /// - parameter attachView: A boolean indicating whether the VideoPlayer should have its own view (default) or not.
@@ -178,7 +182,8 @@ public class MLS {
             videoAnalyticsService: youboraVideoAnalyticsService,
             seekTolerance: configuration.seekTolerance,
             pseudoUserId: pseudoUserId,
-            publicKey: publicKey)
+            publicKey: { [weak self] in return self?.publicKey },
+            identityToken: { [weak self] in return self?.identityToken })
 
         player.playerConfig = configuration.playerConfig
         player.event = event

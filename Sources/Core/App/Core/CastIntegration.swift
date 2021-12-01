@@ -21,5 +21,5 @@ public protocol CastIntegrationVideoPlayerDelegate: AnyObject {
 }
 
 public protocol CastPlayerProtocol: PlayerProtocol {
-    func replaceCurrentItem(publicKey: String, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)
+    func replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void)
 }
