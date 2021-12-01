@@ -277,7 +277,8 @@ class VideoPlayerSpec: QuickSpec {
                 getLicenseDataUseCase: GetLicenseDataUseCase(drmRepository: self.mockDRMRepository),
                 videoAnalyticsService: self.mockVideoAnalyticsService,
                 pseudoUserId: "test_account",
-                publicKey: "123")
+                publicKey: { "123" },
+                identityToken: { "mcls_identity_token" })
             
             self.videoPlayer.playerConfig = PlayerConfig.standard()
             self.videoPlayer.annotationIntegration = self.annotationIntegration
