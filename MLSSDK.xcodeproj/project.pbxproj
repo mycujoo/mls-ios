@@ -438,6 +438,8 @@
 		499D0E2C24D1898D0021A961 /* scoreboard_and_timer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */; };
 		499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift */; };
 		499D0E3124D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499D0E3024D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift */; };
+		49A75DF9276DF38D00B26866 /* VideoAnalyticsCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A75DF8276DF38D00B26866 /* VideoAnalyticsCustomData.swift */; };
+		49A75DFA276DF38D00B26866 /* VideoAnalyticsCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A75DF8276DF38D00B26866 /* VideoAnalyticsCustomData.swift */; };
 		49A86A7E25A4BBB700B63E29 /* IMAIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49086D6E25A4B84C0082E7F6 /* IMAIntegrationImpl.swift */; };
 		49A9F52324A15B9200D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
 		49A9F52424A15B9700D00143 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9F52224A15B9200D00143 /* UIView+.swift */; };
@@ -808,6 +810,7 @@
 		499D0E2B24D1898D0021A961 /* scoreboard_and_timer.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = scoreboard_and_timer.svg; sourceTree = "<group>"; };
 		499D0E2D24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerViewProtocol+iOS.swift"; sourceTree = "<group>"; };
 		499D0E3024D1E0560021A961 /* VideoPlayerViewProtocol+tvOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerViewProtocol+tvOS.swift"; sourceTree = "<group>"; };
+		49A75DF8276DF38D00B26866 /* VideoAnalyticsCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnalyticsCustomData.swift; sourceTree = "<group>"; };
 		49A8047324AA0C5300E30DA8 /* SWXMLHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
 		49A8047524AA0C7000E30DA8 /* XMLIndexer+XMLIndexerDeserializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XMLIndexer+XMLIndexerDeserializable.swift"; sourceTree = "<group>"; };
 		49A9F52224A15B9200D00143 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -1130,6 +1133,7 @@
 				49C12D5724A35204002CCDF5 /* PlayerConfig.swift */,
 				49DD229124B7788D00A4CFF2 /* Stream.swift */,
 				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
+				49A75DF8276DF38D00B26866 /* VideoAnalyticsCustomData.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -3062,6 +3066,7 @@
 				4926CE0B24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
 				49E441742538DCAB00385890 /* VideoPlayer.swift in Sources */,
 				4920CA552538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */,
+				49A75DF9276DF38D00B26866 /* VideoAnalyticsCustomData.swift in Sources */,
 				4943B96B24C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				498856A12565A0470093FA66 /* String+.swift in Sources */,
 				4926CE2B24CE046D00419A42 /* DataLayer.swift in Sources */,
@@ -3197,6 +3202,7 @@
 				49CD1BE92677A8C1004CCDE8 /* Framer.swift in Sources */,
 				49CD1BF62677A8C1004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */,
 				49CD1BE82677A8C1004CCDE8 /* Engine.swift in Sources */,
+				49A75DFA276DF38D00B26866 /* VideoAnalyticsCustomData.swift in Sources */,
 				4926CE2E24CE046D00419A42 /* DataLayerEvent.swift in Sources */,
 				49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */,
 				4926CE2824CE046D00419A42 /* DataLayerAnnotationAction.swift in Sources */,
@@ -3288,7 +3294,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SKIP_INSTALL = YES;
@@ -3319,7 +3325,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SKIP_INSTALL = YES;
@@ -3349,7 +3355,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA-tvOS";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SDKROOT = appletvos;
@@ -3381,7 +3387,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-IMA-tvOS";
 				PRODUCT_NAME = MLSSDK_IMA;
 				SDKROOT = appletvos;
@@ -3412,7 +3418,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SKIP_INSTALL = YES;
@@ -3443,7 +3449,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SKIP_INSTALL = YES;
@@ -3472,7 +3478,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SDKROOT = appletvos;
@@ -3503,7 +3509,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "tv.mycujoo.MLSSDK-Annotations-tvOS";
 				PRODUCT_NAME = MLSSDK_Annotations;
 				SDKROOT = appletvos;
@@ -3534,7 +3540,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-Cast";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
@@ -3568,7 +3574,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-Cast";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
@@ -3847,7 +3853,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -3877,7 +3883,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = mycujoo.MLSSDK;
 				PRODUCT_NAME = MLSSDK;
 				SKIP_INSTALL = YES;
@@ -3904,7 +3910,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
@@ -3933,7 +3939,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "mycujoo.MLSSDK-tvOS";
 				PRODUCT_NAME = MLSSDK;
 				SDKROOT = appletvos;

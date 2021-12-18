@@ -100,6 +100,7 @@ class WithFullscreenZoomViewController: UIViewController {
 
 // MARK: - PlayerDelegate
 extension WithFullscreenZoomViewController: VideoPlayerDelegate {
+
     func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer) {
         
     }
@@ -124,6 +125,10 @@ extension WithFullscreenZoomViewController: VideoPlayerDelegate {
 //        print("fullscreen mode: ", player.isFullscreen)
 
         updateIsFullscreen(to: player.isFullscreen)
+    }
+
+    func playerRequestsVideoAnalyticsCustomData() -> VideoAnalyticsCustomData? {
+        return nil
     }
 }
 
