@@ -24,6 +24,8 @@ let package = Package(
             exclude: ["Core/App/Support Files/Info.plist"],
             resources: [
                 .copy("Core/Resources/fonts/RobotoMono-Regular.ttf"),
-                .copy("Core/Resources/fonts/RobotoMono-Bold.ttf")])
+                .copy("Core/Resources/fonts/RobotoMono-Bold.ttf"),
+                .copy("Core/Resources/fonts/NotoSansMono_ExtraCondensed-Regular.ttf")])
+        
     ]
 )

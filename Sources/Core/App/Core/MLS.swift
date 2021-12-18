@@ -148,7 +148,7 @@ public class MLS {
 
         // TODO: Move this font array elsewhere.
         if let bundle = Bundle.mlsResourceBundle {
-            UIFont.loadFonts(names: ["RobotoMono-Regular.ttf", "RobotoMono-Bold.ttf"], forBundle: bundle)
+            UIFont.loadFonts(names: ["RobotoMono-Regular.ttf", "RobotoMono-Bold.ttf", "NotoSansMono_ExtraCondensed-Regular.ttf"], forBundle: bundle)
         }
     }
 
