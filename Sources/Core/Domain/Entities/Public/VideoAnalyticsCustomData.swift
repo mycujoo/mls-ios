@@ -18,9 +18,39 @@ public struct VideoAnalyticsCustomData {
         var contentCustomDimension10: String?
         var contentCustomDimension11: String?
         var contentCustomDimension13: String?
+        
+        public init(
+            contentCustomDimension1: String?,
+            contentCustomDimension3: String?,
+            contentCustomDimension4: String?,
+            contentCustomDimension5: String?,
+            contentCustomDimension6: String?,
+            contentCustomDimension7: String?,
+            contentCustomDimension8: String?,
+            contentCustomDimension9: String?,
+            contentCustomDimension10: String?,
+            contentCustomDimension11: String?,
+            contentCustomDimension13: String?
+        ) {
+            self.contentCustomDimension1 = contentCustomDimension1
+            self.contentCustomDimension3 = contentCustomDimension3
+            self.contentCustomDimension4 = contentCustomDimension4
+            self.contentCustomDimension5 = contentCustomDimension5
+            self.contentCustomDimension6 = contentCustomDimension6
+            self.contentCustomDimension7 = contentCustomDimension7
+            self.contentCustomDimension8 = contentCustomDimension8
+            self.contentCustomDimension9 = contentCustomDimension9
+            self.contentCustomDimension10 = contentCustomDimension10
+            self.contentCustomDimension11 = contentCustomDimension11
+            self.contentCustomDimension13 = contentCustomDimension13
+        }
     }
     
     let youboraData: YouboraData?
+    
+    public init(youboraData: YouboraData?) {
+        self.youboraData = youboraData
+    }
 }
 
 
