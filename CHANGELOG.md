@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.8](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.8)
+Released on 2021-12-18.
+
+#### Added
+- Added the NotoSans Mono Extra-Condensed font.
+
 ## [1.3.7](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.7)
 Released on 2021-12-18.
 
