@@ -9,6 +9,7 @@ import YouboraAVPlayerAdapter
 import YouboraLib
 
 class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
+    
     private let pseudoUserId: String
     private var plugin: YBPlugin?
 
@@ -88,6 +89,22 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
     var isNativeMLS: Bool? {
         didSet {
             plugin?.options.contentCustomDimension14 = (isNativeMLS ?? true) ? "MLS" : "NonNativeMLS"
+        }
+    }
+    
+    var customData: VideoAnalyticsCustomData? = nil {
+        didSet {
+            plugin?.options.contentCustomDimension1 = customData?.youboraData?.contentCustomDimension1 ?? NA
+            plugin?.options.contentCustomDimension3 = customData?.youboraData?.contentCustomDimension3 ?? NA
+            plugin?.options.contentCustomDimension4 = customData?.youboraData?.contentCustomDimension4 ?? NA
+            plugin?.options.contentCustomDimension5 = customData?.youboraData?.contentCustomDimension5 ?? NA
+            plugin?.options.contentCustomDimension6 = customData?.youboraData?.contentCustomDimension6 ?? NA
+            plugin?.options.contentCustomDimension7 = customData?.youboraData?.contentCustomDimension7 ?? NA
+            plugin?.options.contentCustomDimension8 = customData?.youboraData?.contentCustomDimension8 ?? NA
+            plugin?.options.contentCustomDimension9 = customData?.youboraData?.contentCustomDimension9 ?? NA
+            plugin?.options.contentCustomDimension10 = customData?.youboraData?.contentCustomDimension10 ?? NA
+            plugin?.options.contentCustomDimension11 = customData?.youboraData?.contentCustomDimension11 ?? NA
+            plugin?.options.contentCustomDimension13 = customData?.youboraData?.contentCustomDimension13 ?? NA
         }
     }
 }

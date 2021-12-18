@@ -26,4 +26,6 @@ protocol VideoAnalyticsServicing: AnyObject {
     var currentItemIsLive: Bool? { get set }
     /// Indicates whether the resource that is being played exists as an object on MLS (or whether it is a custom resource outside of the platform).
     var isNativeMLS: Bool? { get set }
+    
+    var customData: VideoAnalyticsCustomData? { get set }
 }
