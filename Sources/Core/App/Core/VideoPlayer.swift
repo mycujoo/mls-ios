@@ -120,6 +120,9 @@ public protocol VideoPlayerDelegate: AnyObject {
     /// The player has updated the stream object it is currently playing. This may be called repeatedly, whenever one of its properties changes.
     /// - parameter stream: The new Stream object, or nil if the stream was removed.
     func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer)
+    /// The player wants to update the custom data in the video analytics service. Standard parameters (event title, event id, stream id) do not have to be included.
+    func playerRequestsVideoAnalyticsCustomData() -> VideoAnalyticsCustomData?
+    
     #if os(iOS)
     /// Gets called when the user enters or exits full-screen mode. There is no associated behavior with this other than the button-image changing;
     /// SDK implementers are responsible for any other visual or behavioral changes on the player.

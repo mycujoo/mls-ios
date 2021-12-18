@@ -112,6 +112,10 @@ extension WithAVPlayerViewController: VideoPlayerDelegate {
     func playerDidUpdateState(player: VideoPlayer) {}
 
     func playerDidUpdateFullscreen(player: VideoPlayer) {}
+    
+    func playerRequestsVideoAnalyticsCustomData() -> VideoAnalyticsCustomData? {
+        return nil
+    }
 }
 
 extension WithAVPlayerViewController {

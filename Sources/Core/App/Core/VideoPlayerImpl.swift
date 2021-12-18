@@ -645,6 +645,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         videoAnalyticsService.currentItemStreamId = currentStream?.id
         videoAnalyticsService.currentItemStreamURL = currentStream?.url
         videoAnalyticsService.isNativeMLS = event?.isMLS ?? true
+        videoAnalyticsService.customData = delegate?.playerRequestsVideoAnalyticsCustomData()
 
         // Note: "currentItemIsLive" is updated elsewhere, since that is a more dynamic property.
     }
