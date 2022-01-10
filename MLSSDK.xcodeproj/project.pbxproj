@@ -397,8 +397,6 @@
 		4983678A264EC1DE00DDAEBD /* MacawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49736E3E24A9F59A001F3F48 /* MacawView.swift */; };
 		498856A12565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
 		498856A22565A0470093FA66 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498856A02565A0470093FA66 /* String+.swift */; };
-		498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
-		4988571A2565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */; };
 		4988B9B424C846D000352529 /* testAnnotationService_basicShowOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */; };
 		4988B9B824C846FB00352529 /* testAnnotationService_basicHideOverlay.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */; };
 		4988B9BA24C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 4988B9B924C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json */; };
@@ -775,7 +773,6 @@
 		49836676264E9DC700DDAEBD /* AnnotationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationAction.swift; sourceTree = "<group>"; };
 		49836680264EAB5C00DDAEBD /* OverlayViewPlacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewPlacement.swift; sourceTree = "<group>"; };
 		498856A02565A0470093FA66 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPlayerNetworkInterceptor.swift; sourceTree = "<group>"; };
 		4988B9B324C846D000352529 /* testAnnotationService_basicShowOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicShowOverlay.json; sourceTree = "<group>"; };
 		4988B9B724C846FB00352529 /* testAnnotationService_basicHideOverlay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_basicHideOverlay.json; sourceTree = "<group>"; };
 		4988B9B924C8471E00352529 /* testAnnotationService_showOverlayCorrectlyWithoutAnimation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testAnnotationService_showOverlayCorrectlyWithoutAnimation.json; sourceTree = "<group>"; };
@@ -1191,7 +1188,6 @@
 			children = (
 				49EFD24C249E0CC700ED417B /* Bundle+.swift */,
 				495CB135249CD9FA00998FF4 /* NSLayoutConstraint+.swift */,
-				498857182565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift */,
 				498856A02565A0470093FA66 /* String+.swift */,
 				498E48FB24D062D90040502D /* Thread+.swift */,
 				495CB138249CF98600998FF4 /* Throttler.swift */,
@@ -3133,7 +3129,6 @@
 				49EFD24D249E0CC700ED417B /* Bundle+.swift in Sources */,
 				49E4F464251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
 				49CD1C072677A8C2004CCDE8 /* Data+Extensions.swift in Sources */,
-				498857192565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
 				495CB136249CD9FA00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				498E48F024D033630040502D /* MLSPlayerProtocol.swift in Sources */,
 				6496C35D249230BF0099475D /* VideoPlayerImpl.swift in Sources */,
@@ -3229,7 +3224,6 @@
 				49E59026249BC809001E0C1C /* API.swift in Sources */,
 				495CB137249CD9FC00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				4943B96824C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
-				4988571A2565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
 				49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
 				49CD1BF72677A8C1004CCDE8 /* StringHTTPHandler.swift in Sources */,
 				49A9F52424A15B9700D00143 /* UIView+.swift in Sources */,

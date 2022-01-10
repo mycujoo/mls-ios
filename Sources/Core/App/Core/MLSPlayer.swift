@@ -277,9 +277,7 @@ class MLSPlayer: AVPlayer, MLSPlayerProtocol {
         stateObserverCallback?()
         playObserverCallback?(false)
 
-        MLSPlayerNetworkInterceptor.register(withDelegate: self)
-
-        let asset = AVURLAsset(url: MLSPlayerNetworkInterceptor.prepare(assetUrl), options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
+        let asset = AVURLAsset(url: assetUrl, options: ["AVURLAssetHTTPHeaderFieldsKey": headers, "AVURLAssetPreferPreciseDurationAndTimingKey": true])
         asset.resourceLoader.setDelegate(resourceLoaderDelegate, queue: resourceLoaderQueue)
         
         asset.loadValuesAsynchronously(forKeys: ["playable"]) { [weak self] in
@@ -350,12 +348,5 @@ class MLSPlayer: AVPlayer, MLSPlayerProtocol {
         if let timeObserver = timeObserver { removeTimeObserver(timeObserver) }
         removeObserver(self, forKeyPath: "status")
         removeObserver(self, forKeyPath: "timeControlStatus")
-    }
-}
-
-extension MLSPlayer: MLSPlayerNetworkInterceptorDelegate {
-    func received(response: String, forRequestURL: URL?) {
-        guard let lastPathComponent = forRequestURL?.lastPathComponent, lastPathComponent != "master.m3u8" else { return }
-        self.rawSegmentPlaylist = response
     }
 }

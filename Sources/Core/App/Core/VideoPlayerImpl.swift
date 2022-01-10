@@ -953,22 +953,7 @@ extension VideoPlayerImpl: AVAssetResourceLoaderDelegate {
         guard let requestUrl = loadingRequest.request.url else {
             return false
         }
-
-        if !["http", "https", "skd"].contains(requestUrl.scheme?.lowercased()) {
-            // This is likely because of the `MLSPlayerNetworkInterceptor`. We always want to return false for that.
-            // See that class for more information.
-            if requestUrl.pathExtension == "ts" {
-                // This triggers only when the m3u8 playlist internally defines relative paths, rather than absolute ones (which it only does for the legacy streaming platform). The way to handle this is inspired by: https://developer.apple.com/forums/thread/113063
-                let redirect = URLRequest(url: MLSPlayerNetworkInterceptor.unprepare(requestUrl))
-                loadingRequest.redirect = redirect
-                loadingRequest.response = HTTPURLResponse(url: redirect.url!, statusCode: 302, httpVersion: nil, headerFields: nil)
-                loadingRequest.finishLoading()
-                return true
-            } else {
-                return false
-            }
-        }
-
+        
         guard let _ = currentStream?.url,
               let licenseUrl = currentStream?.fairplay?.licenseUrl,
               let certificateUrl = currentStream?.fairplay?.certificateUrl else {
