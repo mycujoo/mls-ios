@@ -118,30 +118,29 @@ class CastPlayer: NSObject, CastPlayerProtocol {
 
     func replaceCurrentItem(publicKey: @escaping () -> String?, identityToken: @escaping () -> String?, pseudoUserId: String, event: MLSSDK.Event?, stream: MLSSDK.Stream?, completionHandler: @escaping (Bool) -> Void) {
         struct ReceiverCustomData: Codable {
-            var publicKey: String
+            var publicKey: String? = nil
             var identityToken: String? = nil
-            var pseudoUserId: String
-            var eventId: String
-            var licenseUrl: String? = nil
-            var protectionSystem: String? = nil
+            var pseudoUserId: String? = nil
+            var eventId: String? = nil
+            // This should only be sent when there is no known eventId (i.e. when non-MCLS based content is being played)
+            var customPlaylistUrl: String? = nil
         }
 
         // The player must have a stream url. If not, it moves into a failed state and blocks the player altogether.
-        guard let url = stream?.url else { return }
+        guard let stream = stream, let url = stream.url else { return }
 
         let metadata = GCKMediaMetadata()
         metadata.setString(event?.title ?? "", forKey: kGCKMetadataKeyTitle)
         metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeySubtitle)
 
         let mediaInfoBuilder = GCKMediaInformationBuilder()
-        // TODO: If we introduce Widevine, the streamUrl will need to be provided differently, since this uses Fairplay by default.
         mediaInfoBuilder.contentURL = url
         mediaInfoBuilder.streamType = .none
         mediaInfoBuilder.contentType = "video/m3u"
         mediaInfoBuilder.metadata = metadata
 
         if let eventId = event?.id,
-           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey() ?? "", identityToken: identityToken() ?? "", pseudoUserId: pseudoUserId, eventId: eventId))),
+           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey(), identityToken: identityToken(), pseudoUserId: pseudoUserId, eventId: eventId, customPlaylistUrl: stream.isNativeMLS ? nil : url))),
            let json = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) {
             mediaInfoBuilder.customData = json
         }
