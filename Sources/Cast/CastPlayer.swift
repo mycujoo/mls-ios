@@ -140,7 +140,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         mediaInfoBuilder.metadata = metadata
 
         if let eventId = event?.id,
-           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey(), identityToken: identityToken(), pseudoUserId: pseudoUserId, eventId: eventId, customPlaylistUrl: stream.isNativeMLS ? nil : url))),
+           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey(), identityToken: identityToken(), pseudoUserId: pseudoUserId, eventId: eventId, customPlaylistUrl: stream.isNativeMLS ? nil : url.absoluteString))),
            let json = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) {
             mediaInfoBuilder.customData = json
         }
