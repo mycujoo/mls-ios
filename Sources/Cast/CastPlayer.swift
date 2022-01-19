@@ -134,7 +134,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         metadata.setString(event?.descriptionText ?? "", forKey: kGCKMetadataKeySubtitle)
 
         let mediaInfoBuilder = GCKMediaInformationBuilder()
-        mediaInfoBuilder.contentURL = url
+        mediaInfoBuilder.contentURL = nil
         mediaInfoBuilder.streamType = .none
         mediaInfoBuilder.contentType = "video/m3u"
         mediaInfoBuilder.metadata = metadata
