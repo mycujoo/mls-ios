@@ -15,7 +15,7 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
     weak var delegate: IMAIntegrationDelegate?
 
     var adsManager: IMAAdsManager!
-    var adsLoader: IMAAdsLoader
+    var adsLoader: IMAAdsLoader?
 
     var adTagBaseURL: URL
     var adUnit: String?
@@ -32,11 +32,11 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
         self.adTagBaseURL = adTagBaseURL
 
         // The adsLoader should be initialized as soon as it can, since it takes 1-2 seconds initialization time.
-        adsLoader = IMAAdsLoader(settings: nil)!
+        adsLoader = IMAAdsLoader(settings: nil)
 
         super.init()
 
-        adsLoader.delegate = self
+        adsLoader?.delegate = self
     }
 
     func setAVPlayer(_ avPlayer: AVPlayer) {
@@ -101,11 +101,11 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
             contentPlayhead: contentPlayhead,
             userContext: nil)
 
-        adsLoader.requestAds(with: request)
+        adsLoader?.requestAds(with: request)
     }
 
     func playPostroll() {
-        adsLoader.contentComplete()
+        adsLoader?.contentComplete()
     }
 
     func isShowingAd() -> Bool {
@@ -125,7 +125,7 @@ class IMAIntegrationImpl: NSObject, IMAIntegration {
     }
 
     lazy var contentPlayhead: IMAAVPlayerContentPlayhead? = {
-        return IMAAVPlayerContentPlayhead(avPlayer: avPlayer)
+        return IMAAVPlayerContentPlayhead(avPlayer: avPlayer ?? AVPlayer())
     }()
 
 }
@@ -138,7 +138,7 @@ extension IMAIntegrationImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
     }
 
     func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
-        print("AdsManager error: " + error.message)
+        print("AdsManager error: " + (error.message ?? ""))
 
         isShowingAd_ = false
 
@@ -170,7 +170,7 @@ extension IMAIntegrationImpl: IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
     }
 
     func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
-        print("Error loading ads: " + adErrorData.adError.message)
+        print("Error loading ads: " + (adErrorData.adError.message ?? ""))
 
         isShowingAd_ = false
 
