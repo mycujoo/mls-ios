@@ -46,7 +46,7 @@ end
 target 'MLSSDK-IMA-iOS' do
   platform :ios, '11.0'
   project '../MLSSDK.xcodeproj'
-  pod 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
+  pod 'GoogleAds-IMA-iOS-SDK', '~> 3.14'
 end
 
 target 'MLSSDK-IMA-tvOS' do

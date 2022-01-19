@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = 'MLSSDK'
-  spec.version      = '1.3.8'
+  spec.version      = '1.3.9'
   spec.summary      = 'An SDK for MyCujoo Live Services to help build an amazing video experience'
   spec.description  = 'This SDK is intended for customers of MyCujoo Live Services. It offers a video player, overlays, analytics and more. It has an extension for IMA as well.'
   spec.homepage     = 'https://mls.mycujoo.tv'
@@ -37,7 +37,7 @@ Pod::Spec.new do |spec|
     ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
 
     ss.dependency 'MLSSDK/Core'
-    ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
+    ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.14'
     ss.tvos.dependency 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
   end
 
