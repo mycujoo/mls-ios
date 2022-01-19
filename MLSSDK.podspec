@@ -37,7 +37,7 @@ Pod::Spec.new do |spec|
     ss.frameworks = 'Foundation', 'AVFoundation', 'UIKit'
 
     ss.dependency 'MLSSDK/Core'
-    ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.13'
+    ss.ios.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.14'
     ss.tvos.dependency 'GoogleAds-IMA-tvOS-SDK', '~> 4.2'
   end
 
