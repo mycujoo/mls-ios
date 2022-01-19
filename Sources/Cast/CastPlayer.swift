@@ -127,7 +127,7 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         }
 
         // The player must have a stream url. If not, it moves into a failed state and blocks the player altogether.
-        guard let stream = stream, let url = stream.url else { return }
+        guard let url = stream?.url else { return }
 
         let metadata = GCKMediaMetadata()
         metadata.setString(event?.title ?? "", forKey: kGCKMetadataKeyTitle)
@@ -139,8 +139,8 @@ class CastPlayer: NSObject, CastPlayerProtocol {
         mediaInfoBuilder.contentType = "video/m3u"
         mediaInfoBuilder.metadata = metadata
 
-        if let eventId = event?.id,
-           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey(), identityToken: identityToken(), pseudoUserId: pseudoUserId, eventId: eventId, customPlaylistUrl: stream.isNativeMLS ? nil : url.absoluteString))),
+        if let event = event,
+           let data = try? (CastPlayer.encoder.encode(ReceiverCustomData(publicKey: publicKey(), identityToken: identityToken(), pseudoUserId: pseudoUserId, eventId: event.id, customPlaylistUrl: event.isMLS ? nil : url.absoluteString))),
            let json = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) {
             mediaInfoBuilder.customData = json
         }
