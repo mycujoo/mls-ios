@@ -8,12 +8,14 @@ import Moya
 
 class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     let ws: WebSocketConnection
-
+    let fws: FeaturedWebsocketConnection
+    
     private var timers: [String: RepeatingTimer] = [:]
 
-    init(api: MoyaProvider<API>, ws: WebSocketConnection) {
+    init(api: MoyaProvider<API>, ws: WebSocketConnection, fws: FeaturedWebsocketConnection) {
         self.ws = ws
-
+        self.fws = fws
+        
         super.init(api: api)
     }
 
@@ -84,12 +86,23 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                     break
                 }
             }
+            
+            // if the event is live or finished then proceed, otherwise don't connect to this websocket server
+            if [.started, .finished].contains(initialEvent?.status) {
+                self?.fws.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
+                    switch update {
+                    case .concurrencyLimitExceeded(let eventId, let limit):
+                        guard id == eventId else { return }
+                        callback(.concurrencyLimitExceeded(limit: limit))
+                    }
+                }
+            }
         }
     }
     
     func stopEventUpdates(for id: String) {
         ws.unsubscribe(room: WebSocketConnection.Room(id: id, type: .event))
-        
+        fws.unsubscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event))
         timers[id] = nil
     }
 }

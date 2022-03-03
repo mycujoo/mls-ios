@@ -111,6 +111,8 @@ public protocol VideoPlayerDelegate: AnyObject {
     func playerDidUpdatePlaying(player: VideoPlayer)
     /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`
     func playerDidUpdateTime(player: VideoPlayer)
+    /// The concurrency limit has exceeded
+    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer)
     /// The player has updated its state. To access the current state, see `VideoPlayer.state`
     func playerDidUpdateState(player: VideoPlayer)
     /// The player has updated the visibility of the control layer.

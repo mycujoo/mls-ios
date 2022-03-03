@@ -84,6 +84,10 @@ public class MLS {
         return WebSocketConnection(sessionId: pseudoUserId, printToConsole: configuration.logLevel == .verbose)
     }()
 
+    private lazy var fws: FeaturedWebsocketConnection = {
+        return FeaturedWebsocketConnection(sessionId: pseudoUserId)
+    }()
+    
     private var pseudoUserId: String {
         return configuration.customPseudoUserId ?? mlsPseudoUserId
     }
@@ -101,7 +105,7 @@ public class MLS {
         return TimelineRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var eventRepository: MLSEventRepository = {
-        return EventRepositoryImpl(api: api, ws: ws)
+        return EventRepositoryImpl(api: api, ws: ws, fws: fws)
     }()
     private lazy var playerConfigRepository: MLSPlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
