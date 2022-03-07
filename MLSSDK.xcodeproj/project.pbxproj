@@ -522,6 +522,8 @@
 		4BB33C19F30B8374CA368CA3 /* Pods_MLSSDK_Annotations_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E6CB0B308DF410751726A5 /* Pods_MLSSDK_Annotations_tvOS.framework */; };
 		51832911F35CF401C78E599B /* Pods_MLSSDK_IMA_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E8D55165C70577D82E073E /* Pods_MLSSDK_IMA_tvOS.framework */; };
 		5DCC0E6C059137E3F19196CC /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F403CA24167D40EC8DD7C5 /* Pods_iOSTests.framework */; };
+		5FA15C0C27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
+		5FA15C0D27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
 		641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */; };
@@ -865,6 +867,7 @@
 		4EBD89F11195789238038394 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A00B086CC1A9372022F7D1 /* Pods_MLSSDK_Cast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_Cast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedWebsocketConnection.swift; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+iOS.swift"; sourceTree = "<group>"; };
@@ -1033,6 +1036,7 @@
 			isa = PBXGroup;
 			children = (
 				49E59024249BC809001E0C1C /* API.swift */,
+				5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */,
 				4930180F24D494AE009312B0 /* WebsocketConnection.swift */,
 				4926CE1624CE03E200419A42 /* Entities */,
 				4926CE2124CE03E600419A42 /* Repositories */,
@@ -3081,6 +3085,7 @@
 				4930181024D494AE009312B0 /* WebsocketConnection.swift in Sources */,
 				495CB139249CF98600998FF4 /* Throttler.swift in Sources */,
 				49C12D5824A35204002CCDF5 /* PlayerConfig.swift in Sources */,
+				5FA15C0C27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */,
 				495CB13C249CFFE700998FF4 /* MLSPlayer.swift in Sources */,
 				4926CDFF24CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */,
 				49CD1C002677A8C2004CCDE8 /* WebSocket.swift in Sources */,
@@ -3197,6 +3202,7 @@
 				49E4412A2538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49B25DE724A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
 				4966DEFF24B72D7F00BEC403 /* Event.swift in Sources */,
+				5FA15C0D27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49CD1BED2677A8C1004CCDE8 /* NativeEngine.swift in Sources */,
 				49CD1BE92677A8C1004CCDE8 /* Framer.swift in Sources */,

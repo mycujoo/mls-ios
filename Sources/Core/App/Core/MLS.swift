@@ -57,7 +57,11 @@ public class MLS {
     /// A MCLS identity token that uniquely identifies the user.
     /// This token can be obtained by calling the MCLS API from a trusted environment (e.g. a backend).
     /// This is needed for working with MCLS entitlements. If entitlements are not needed to work, this can be left to nil.
-    public var identityToken: String?
+    public var identityToken: String? {
+        didSet {
+            fws.identityChange(newIdentity: identityToken)
+        }
+    }
     public let configuration: Configuration
 
     // TODO: Inject this dependency graph, rather than building it here.
@@ -85,7 +89,7 @@ public class MLS {
     }()
 
     private lazy var fws: FeaturedWebsocketConnection = {
-        return FeaturedWebsocketConnection(sessionId: pseudoUserId)
+        return FeaturedWebsocketConnection(sessionId: pseudoUserId, identityToken: self.identityToken )
     }()
     
     private var pseudoUserId: String {

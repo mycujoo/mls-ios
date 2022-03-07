@@ -25,11 +25,14 @@ class FeaturedWebsocketConnection {
     }
     
     private let sessionId: String
+    private var identityToken: String?
     
     private let socket = WebSocket(request: URLRequest(url: Constants.url))
     
-    init(sessionId: String) {
+    init(sessionId: String,
+         identityToken: String?) {
         self.sessionId = sessionId
+        self.identityToken = identityToken
         self.socket.onEvent = { [weak self] (event: WebSocketEvent) in
             guard let self = self else { return }
             switch event {
@@ -98,7 +101,7 @@ class FeaturedWebsocketConnection {
     private func joinRooms() {
         if isConnected {
             self.socket.write(string: Constants.welcome(with: sessionId))
-            
+            if let identityToken = identityToken, !identityToken.isEmpty { self.socket.write(string: Constants.identityTokenMessage(with: identityToken)) }
             for room in observers.keys {
                 switch room.type {
                 case .event:
@@ -106,6 +109,12 @@ class FeaturedWebsocketConnection {
                 }
             }
         }
+    }
+    
+    func identityChange(newIdentity identityToken: String?) {
+        self.identityToken = identityToken ?? ""
+        self.socket.onEvent = nil
+        self.socket.disconnect()
     }
     
     deinit {
@@ -116,7 +125,7 @@ class FeaturedWebsocketConnection {
 private extension FeaturedWebsocketConnection {
     enum Constants {
         static func welcome(with sessionId: String) -> String { "sessionId;" + sessionId }
-        
+        static func identityTokenMessage(with identityToken: String) -> String { "identityToken;" + identityToken }
         static func joinEventMessage(with eventId: String) -> String { "joinEvent;" + eventId }
         static func leaveEventMessage(with eventId: String) -> String { "leaveEvent;" + eventId }
 

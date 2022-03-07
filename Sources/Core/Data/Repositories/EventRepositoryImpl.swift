@@ -86,15 +86,12 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                     break
                 }
             }
-            
-            // if the event is live or finished then proceed, otherwise don't connect to this websocket server
-            if [.started, .finished].contains(initialEvent?.status) {
-                self?.fws.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
-                    switch update {
-                    case .concurrencyLimitExceeded(let eventId, let limit):
-                        guard id == eventId else { return }
-                        callback(.concurrencyLimitExceeded(limit: limit))
-                    }
+                        
+            self?.fws.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
+                switch update {
+                case .concurrencyLimitExceeded(let eventId, let limit):
+                    guard id == eventId else { return }
+                    callback(.concurrencyLimitExceeded(limit: limit))
                 }
             }
         }
