@@ -37,7 +37,8 @@ class FeaturedWebsocketConnection {
             guard let self = self else { return }
             switch event {
             case .connected(_):
-                break
+                self.isConnected = true
+                self.joinRooms()
             case .text(let text):
                 let components = text.components(separatedBy: Constants.messageSeparator)
                 guard components.count >= 2 else { return }
@@ -101,7 +102,9 @@ class FeaturedWebsocketConnection {
     private func joinRooms() {
         if isConnected {
             self.socket.write(string: Constants.welcome(with: sessionId))
-            if let identityToken = identityToken, !identityToken.isEmpty { self.socket.write(string: Constants.identityTokenMessage(with: identityToken)) }
+            if let identityToken = identityToken, !identityToken.isEmpty {
+                self.socket.write(string: Constants.identityTokenMessage(with: identityToken))
+            }
             for room in observers.keys {
                 switch room.type {
                 case .event:
@@ -111,9 +114,11 @@ class FeaturedWebsocketConnection {
         }
     }
     
-    func identityChange(newIdentity identityToken: String?) {
+    /// for every times the token changes (user logs out, and log in with same/another account) we need to send the new token to the server.
+    /// For now, by calling `disconnect`, the web socket will trigger the `disconnected` state of the event, and eventually try to reconnect.
+    /// If server side support sending multiple `identityToken`s over time, we need to just call `socket.write` with the new `identityToken`
+    func setIdentityToken(newIdentityToken identityToken: String?) {
         self.identityToken = identityToken ?? ""
-        self.socket.onEvent = nil
         self.socket.disconnect()
     }
     

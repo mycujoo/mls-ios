@@ -59,7 +59,7 @@ public class MLS {
     /// This is needed for working with MCLS entitlements. If entitlements are not needed to work, this can be left to nil.
     public var identityToken: String? {
         didSet {
-            fws.identityChange(newIdentity: identityToken)
+            fws.setIdentityToken(newIdentityToken: identityToken)
         }
     }
     public let configuration: Configuration
@@ -89,7 +89,7 @@ public class MLS {
     }()
 
     private lazy var fws: FeaturedWebsocketConnection = {
-        return FeaturedWebsocketConnection(sessionId: pseudoUserId, identityToken: self.identityToken )
+        return FeaturedWebsocketConnection(sessionId: pseudoUserId, identityToken: identityToken )
     }()
     
     private var pseudoUserId: String {

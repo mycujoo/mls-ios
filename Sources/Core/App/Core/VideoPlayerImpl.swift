@@ -605,7 +605,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
 
     /// Should get called when VideoPlayer concurrency exceed it's limit. Ensures that video is tear down and gets no update from websocket, then returns a message to user
     private func concurrencyExceedCleanup(eventId: String, limit: Int) {
-        
+        delegate?.playerConcurrencyLimitExceeded(eventId: eventId, limit: limit, player: self)
         event = nil
         
     }
