@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Mohammad on 03/03/2022.
 //
@@ -23,14 +23,16 @@ class FeaturedWebsocketConnection {
         case concurrencyLimitExceeded(eventId: String, limit: Int)
     }
     
+    private let eventId: String
     private let sessionId: String
     private var identityToken: String?
     
-    private let socket = WebSocket(request: URLRequest(url: Constants.url))
+    private lazy var socket = WebSocket(request: URLRequest(url: Constants.url(with: eventId)))
     
     init(eventId: String,
          sessionId: String,
          identityToken: String?) {
+        self.eventId = eventId
         self.sessionId = sessionId
         self.identityToken = identityToken
         self.socket.onEvent = { [weak self] (event: WebSocketEvent) in
@@ -94,7 +96,9 @@ class FeaturedWebsocketConnection {
         } else {
             switch room.type {
             case .event:
-                self.socket.write(string: Constants.leaveEventMessage(with: room.id))
+                // Not needed for now.
+                //                self.socket.write(string: Constants.leaveEventMessage(with: room.id))
+                break
             }
         }
     }
@@ -108,7 +112,9 @@ class FeaturedWebsocketConnection {
             for room in observers.keys {
                 switch room.type {
                 case .event:
-                    self.socket.write(string: Constants.joinEventMessage(with: room.id))
+                    // Not needed for now.
+                    //                    self.socket.write(string: Constants.joinEventMessage(with: room.id))
+                    break
                 }
             }
         }
@@ -126,7 +132,9 @@ private extension FeaturedWebsocketConnection {
         static func joinEventMessage(with eventId: String) -> String { "joinEvent;" + eventId }
         static func leaveEventMessage(with eventId: String) -> String { "leaveEvent;" + eventId }
 
-        static let url = URL(string: "wss://bff-rt.mycujoo.tv")!
+        static func url(with eventId: String) -> URL {
+            return URL(string: "wss://bff-rt.mycujoo.tv/event/" + eventId)!
+        }
         static let messageSeparator = ";"
     }
 }
