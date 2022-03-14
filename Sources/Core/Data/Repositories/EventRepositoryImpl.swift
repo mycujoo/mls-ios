@@ -8,13 +8,14 @@ import Moya
 
 class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     let ws: WebSocketConnection
-    let fws: FeaturedWebsocketConnection
+    let fwsFactory: (_ eventId: String) -> FeaturedWebsocketConnection
     
+    private var fws: [String: FeaturedWebsocketConnection] = [:]
     private var timers: [String: RepeatingTimer] = [:]
 
-    init(api: MoyaProvider<API>, ws: WebSocketConnection, fws: FeaturedWebsocketConnection) {
+    init(api: MoyaProvider<API>, ws: WebSocketConnection, fwsFactory: @escaping (_ eventId: String) -> FeaturedWebsocketConnection) {
         self.ws = ws
-        self.fws = fws
+        self.fwsFactory = fwsFactory
         
         super.init(api: api)
     }
@@ -42,6 +43,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     /// - note: You can only have one listener for eventUpdates per event id.
     func startEventUpdates(for id: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ()) {
         timers[id] = RepeatingTimer(timeInterval: 10)
+        fws[id] = fwsFactory(id)
 
         var latestEvent: Event? = nil {
             didSet {
@@ -86,12 +88,14 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                     break
                 }
             }
-                        
-            self?.fws.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
-                switch update {
-                case .concurrencyLimitExceeded(let eventId, let limit):
-                    guard id == eventId else { return }
-                    callback(.concurrencyLimitExceeded(limit: limit))
+            
+            if latestEvent?.isProtected ?? false {
+                self?.fws[id]?.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
+                    switch update {
+                    case .concurrencyLimitExceeded(let eventId, let limit):
+                        guard id == eventId else { return }
+                        callback(.concurrencyLimitExceeded(limit: limit))
+                    }
                 }
             }
         }
@@ -99,7 +103,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     
     func stopEventUpdates(for id: String) {
         ws.unsubscribe(room: WebSocketConnection.Room(id: id, type: .event))
-        fws.unsubscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event))
+        fws[id]?.unsubscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event))
         timers[id] = nil
     }
 }

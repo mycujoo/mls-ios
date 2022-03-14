@@ -57,11 +57,7 @@ public class MLS {
     /// A MCLS identity token that uniquely identifies the user.
     /// This token can be obtained by calling the MCLS API from a trusted environment (e.g. a backend).
     /// This is needed for working with MCLS entitlements. If entitlements are not needed to work, this can be left to nil.
-    public var identityToken: String? {
-        didSet {
-            fws.setIdentityToken(newIdentityToken: identityToken)
-        }
-    }
+    public var identityToken: String?
     public let configuration: Configuration
 
     // TODO: Inject this dependency graph, rather than building it here.
@@ -88,8 +84,10 @@ public class MLS {
         return WebSocketConnection(sessionId: pseudoUserId, printToConsole: configuration.logLevel == .verbose)
     }()
 
-    private lazy var fws: FeaturedWebsocketConnection = {
-        return FeaturedWebsocketConnection(sessionId: pseudoUserId, identityToken: identityToken )
+    private lazy var fwsFactory: (_ eventId: String) -> FeaturedWebsocketConnection = {
+        return { [weak self] eventId in
+            FeaturedWebsocketConnection(eventId: eventId, sessionId: self?.pseudoUserId ?? "", identityToken: self?.identityToken )
+        }
     }()
     
     private var pseudoUserId: String {
@@ -109,7 +107,7 @@ public class MLS {
         return TimelineRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var eventRepository: MLSEventRepository = {
-        return EventRepositoryImpl(api: api, ws: ws, fws: fws)
+        return EventRepositoryImpl(api: api, ws: ws, fwsFactory: fwsFactory)
     }()
     private lazy var playerConfigRepository: MLSPlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)

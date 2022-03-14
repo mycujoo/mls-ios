@@ -10,7 +10,6 @@ import Foundation
 
 /// Represents a single connection with MLS websocket service for features such as Concurrency
 class FeaturedWebsocketConnection {
-    
     struct Room: Hashable {
         let id: String
         let type: RoomType
@@ -29,7 +28,8 @@ class FeaturedWebsocketConnection {
     
     private let socket = WebSocket(request: URLRequest(url: Constants.url))
     
-    init(sessionId: String,
+    init(eventId: String,
+         sessionId: String,
          identityToken: String?) {
         self.sessionId = sessionId
         self.identityToken = identityToken
@@ -112,14 +112,6 @@ class FeaturedWebsocketConnection {
                 }
             }
         }
-    }
-    
-    /// for every times the token changes (user logs out, and log in with same/another account) we need to send the new token to the server.
-    /// For now, by calling `disconnect`, the web socket will trigger the `disconnected` state of the event, and eventually try to reconnect.
-    /// If server side support sending multiple `identityToken`s over time, we need to just call `socket.write` with the new `identityToken`
-    func setIdentityToken(newIdentityToken identityToken: String?) {
-        self.identityToken = identityToken ?? ""
-        self.socket.disconnect()
     }
     
     deinit {
