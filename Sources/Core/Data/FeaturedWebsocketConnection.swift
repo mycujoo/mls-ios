@@ -133,7 +133,7 @@ private extension FeaturedWebsocketConnection {
         static func leaveEventMessage(with eventId: String) -> String { "leaveEvent;" + eventId }
 
         static func url(with eventId: String) -> URL {
-            return URL(string: "wss://bff-rt.mycujoo.tv/event/" + eventId)!
+            return URL(string: "wss://bff-rt.mycujoo.tv/events/" + eventId)!
         }
         static let messageSeparator = ";"
     }
