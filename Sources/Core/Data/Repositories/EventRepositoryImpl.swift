@@ -89,6 +89,8 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                 }
             }
             
+            // For now, only connect to this websocket if it requires entitlement.
+            // Later on, we can also do this for non-protected events, when the websockets support more features.
             if latestEvent?.isProtected ?? false {
                 self?.fws[id]?.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
                     switch update {
@@ -105,5 +107,6 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
         ws.unsubscribe(room: WebSocketConnection.Room(id: id, type: .event))
         fws[id]?.unsubscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event))
         timers[id] = nil
+        fws[id] = nil
     }
 }
