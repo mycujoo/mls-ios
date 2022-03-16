@@ -100,6 +100,14 @@ class WithFullscreenZoomViewController: UIViewController {
 
 // MARK: - PlayerDelegate
 extension WithFullscreenZoomViewController: VideoPlayerDelegate {
+    func playerNoEntitlement(player: VideoPlayer) {
+        
+    }
+    
+    func playerAuthenticationFailed(player: VideoPlayer) {
+        
+    }
+    
     func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer) {
         
     }

@@ -23,6 +23,10 @@ class GetEventUpdatesUseCase {
                 completionHandler(.eventUpdate(event: updatedEvent))
             case .concurrencyLimitExceeded(let limit):
                 completionHandler(.concurrencyLimitExceeded(limit: limit))
+            case .errorAuthFailed:
+                completionHandler(.errorAuthFailed)
+            case .errorNotEntitled:
+                completionHandler(.errorNotEntitled)
             }
         }
     }
@@ -37,5 +41,7 @@ extension GetEventUpdatesUseCase {
         case eventLiveViewers(amount: Int)
         case eventUpdate(event: Event)
         case concurrencyLimitExceeded(limit: Int)
+        case errorAuthFailed
+        case errorNotEntitled
     }
 }

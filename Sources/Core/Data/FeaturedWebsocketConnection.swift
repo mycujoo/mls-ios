@@ -21,6 +21,8 @@ class FeaturedWebsocketConnection {
     
     enum UpdateMessage {
         case concurrencyLimitExceeded(eventId: String, limit: Int)
+        case errorAuthFailed
+        case errorNotEntitled
     }
     
     private let eventId: String
@@ -41,6 +43,7 @@ class FeaturedWebsocketConnection {
             case .connected(_):
                 self.isConnected = true
                 self.joinRooms()
+                self.retryAttempt = .zero
             case .text(let text):
                 let components = text.components(separatedBy: Constants.messageSeparator)
                 guard components.count >= 2 else { return }
@@ -56,6 +59,37 @@ class FeaturedWebsocketConnection {
                             obs(update)
                         }
                     }
+                case "err":
+                    guard components.count > 2 else { return }
+                    switch components[1] {
+                        
+                    case "badRequest": // should not be retried
+                        /// `badRequest` error means that something in the `SDK` is not right and should file a bug for it.
+                        self.socket.onEvent = nil
+                        self.socket.disconnect()
+                        
+                    case "forbidden":    // should be handled in our side
+                        self.socket.disconnect()
+                        let update: UpdateMessage = .errorAuthFailed
+                        if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
+                            for obs in roomObservers {
+                                obs(update)
+                            }
+                        }
+                    case "precondition": // should not be retried without first taking additional action
+                        self.socket.disconnect()
+                        let update: UpdateMessage = .errorNotEntitled
+                        if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
+                            for observer in roomObservers {
+                                observer(update)
+                            }
+                        }
+                    case "internal":    // should be retried (with backoff strategy in place)
+                        self.retry(delay: .exponential(initial: 5, multiplier: 2), retry: 5, closure: { self.socket.disconnect() })
+                        break
+                    default:
+                        return
+                    }
                 default: return
                 }
                 
@@ -68,6 +102,8 @@ class FeaturedWebsocketConnection {
             }
         }
     }
+    
+    private var retryAttempt: Int = .zero
     
     private var isConnected = false
     
@@ -119,7 +155,19 @@ class FeaturedWebsocketConnection {
             }
         }
     }
-    
+
+    func retry(delay: DelayOptions, retry: Int, closure: @escaping () -> Void) {
+        if retryAttempt < retry {
+            DispatchQueue.main.asyncAfter(
+                deadline: DispatchTime.now() + .seconds(delay.make(retryAttempt)),
+                execute: {
+                    DispatchQueue.main.async(execute: closure)
+                    self.retryAttempt += 1
+                    self.retry(delay: delay, retry: retry, closure: closure)
+                })
+        }
+    }
+
     deinit {
         self.socket.onEvent = nil
         self.socket.disconnect()
@@ -136,5 +184,26 @@ private extension FeaturedWebsocketConnection {
             return URL(string: "wss://bff-rt.mycujoo.tv/events/" + eventId)!
         }
         static let messageSeparator = ";"
+    }
+}
+
+enum DelayOptions {
+    case immediate
+    case constant(time: Int)
+    case exponential(initial: Int, multiplier: Double, maxDelay: Int = 5000)
+    case custom(closure: (Int) -> Int)
+}
+
+extension DelayOptions {
+    func make(_ attempt: Int) -> Int {
+        switch self {
+        case .immediate: return 0
+        case .constant(let time): return time
+        case .exponential(let initial, let multiplier, let maxDelay):
+            // if it's first attempt, simply use initial delay, otherwise calculate delay
+            let delay = attempt == 1 ? initial : initial * Int(pow(multiplier, Double(attempt - 1)))
+            return min(maxDelay, delay)
+        case .custom(let closure): return closure(attempt)
+        }
     }
 }

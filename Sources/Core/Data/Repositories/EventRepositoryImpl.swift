@@ -97,6 +97,10 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                     case .concurrencyLimitExceeded(let eventId, let limit):
                         guard id == eventId else { return }
                         callback(.concurrencyLimitExceeded(limit: limit))
+                    case .errorAuthFailed:
+                        callback(.errorAuthFailed)
+                    case .errorNotEntitled:
+                        callback(.errorNotEntitled)
                     }
                 }
             }

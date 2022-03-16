@@ -500,6 +500,10 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                         }
                     case .concurrencyLimitExceeded(let limit):
                         self.concurrencyExceedCleanup(eventId: event.id, limit: limit)
+                    case .errorAuthFailed:
+                        self.delegate?.playerAuthenticationFailed(player: self)
+                    case .errorNotEntitled:
+                        self.delegate?.playerNoEntitlement(player: self)
                     }
                 }
             } else {
