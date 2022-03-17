@@ -28,7 +28,7 @@ class FeaturedWebsocketConnection {
     private let eventId: String
     private let sessionId: String
     private var identityToken: String?
-    
+    private var canReconnect: Bool = true
     private lazy var socket = WebSocket(request: URLRequest(url: Constants.url(with: eventId)))
     
     init(eventId: String,
@@ -49,12 +49,12 @@ class FeaturedWebsocketConnection {
                 guard components.count >= 2 else { return }
                 let updateType = components[0]
                 switch updateType {
-                case "concurrencyLimitExceeded":
-                    guard components.count >= 3 else { return }
-                    let targetEventId = components[1]
-                    let limitNumber = components[2]
-                    if let roomObservers = self.observers[Room(id: targetEventId, type: .event)] {
-                        let update: UpdateMessage = .concurrencyLimitExceeded(eventId: targetEventId, limit: Int(limitNumber) ?? 0)
+                case "concurrencyLimitReached":
+                    self.canReconnect = false
+                    guard components.count >= 2 else { return }
+                    let limitNumber = components[1]
+                    if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
+                        let update: UpdateMessage = .concurrencyLimitExceeded(eventId: eventId, limit: Int(limitNumber) ?? 3)
                         for obs in roomObservers {
                             obs(update)
                         }
@@ -66,9 +66,11 @@ class FeaturedWebsocketConnection {
                     case "badRequest": // should not be retried
                         /// `badRequest` error means that something in the `SDK` is not right and should file a bug for it.
                         self.socket.onEvent = nil
+                        self.canReconnect = false
                         self.socket.disconnect()
                         
                     case "forbidden":    // should be handled in our side
+                        self.canReconnect = false
                         self.socket.disconnect()
                         let update: UpdateMessage = .errorAuthFailed
                         if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
@@ -94,6 +96,7 @@ class FeaturedWebsocketConnection {
                 }
                 
             case .disconnected:
+                guard self.canReconnect else { return }
                 self.isConnected = false
                 self.socket.connect()
             case .reconnectSuggested:
