@@ -20,9 +20,7 @@ class FeaturedWebsocketConnection {
     }
     
     enum UpdateMessage {
-        case concurrencyLimitExceeded(eventId: String, limit: Int)
-        case errorAuthFailed
-        case errorNotEntitled
+        case concurrencyLimitReached(eventId: String, limit: Int)
     }
     
     private let eventId: String
@@ -54,41 +52,36 @@ class FeaturedWebsocketConnection {
                     guard components.count >= 2 else { return }
                     let limitNumber = components[1]
                     if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
-                        let update: UpdateMessage = .concurrencyLimitExceeded(eventId: eventId, limit: Int(limitNumber) ?? 3)
+                        let update: UpdateMessage = .concurrencyLimitReached(eventId: eventId, limit: Int(limitNumber) ?? 3)
                         for obs in roomObservers {
                             obs(update)
                         }
                     }
+                    /// The only error that can be retried (with a backoff strategy)  is `internal`.
                 case "err":
                     guard components.count > 2 else { return }
                     switch components[1] {
                         
-                    case "badRequest": // should not be retried
+                    case "badRequest":
                         /// `badRequest` error means that something in the `SDK` is not right and should file a bug for it.
                         self.socket.onEvent = nil
                         self.canReconnect = false
                         self.socket.disconnect()
+                        debugPrint("### Websocket `badRequest` error: \(text)")
                         
-                    case "forbidden":    // should be handled in our side
+                    case "forbidden":
                         self.canReconnect = false
                         self.socket.disconnect()
-                        let update: UpdateMessage = .errorAuthFailed
-                        if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
-                            for obs in roomObservers {
-                                obs(update)
-                            }
-                        }
-                    case "precondition": // should not be retried without first taking additional action
+                        debugPrint("### Websocket `forbidden` error: \(text)")
+                        
+                    case "precondition":
                         self.socket.disconnect()
-                        let update: UpdateMessage = .errorNotEntitled
-                        if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
-                            for observer in roomObservers {
-                                observer(update)
-                            }
-                        }
-                    case "internal":    // should be retried (with backoff strategy in place)
+                        debugPrint("### Websocket `precondition` error: \(text)")
+                        
+                    case "internal":
+                        self.canReconnect = true
                         self.retry(delay: .exponential(initial: 5, multiplier: 2), retry: 5, closure: { self.socket.disconnect() })
-                        break
+                        
                     default:
                         return
                     }

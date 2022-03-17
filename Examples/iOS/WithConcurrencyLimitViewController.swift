@@ -58,43 +58,8 @@ class WithConcurrencyLimitViewController: UIViewController {
 }
 
 extension WithConcurrencyLimitViewController: VideoPlayerDelegate {
-    func playerNoEntitlement(player: VideoPlayer) {
-        let limitExceedView: UIView = {
-            let screenSize: CGRect = UIScreen.main.bounds
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width - 10, height: screenSize.height * 0.3))
-            let label = UILabel()
-            label.frame = CGRect(x: 10, y: 10, width: screenSize.width - 20, height: screenSize.height * 0.2)
-            label.backgroundColor = .black
-            label.textAlignment = NSTextAlignment.center
-            label.textColor = .white
-            label.text = "You don't have access to watch this event"
-            label.minimumScaleFactor = 0.5
-            view.addSubview(label)
-            return view
-        }()
-        
-        self.view = limitExceedView
-    }
     
-    func playerAuthenticationFailed(player: VideoPlayer) {
-        let limitExceedView: UIView = {
-            let screenSize: CGRect = UIScreen.main.bounds
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width - 10, height: screenSize.height * 0.3))
-            let label = UILabel()
-            label.frame = CGRect(x: 10, y: 10, width: screenSize.width - 20, height: screenSize.height * 0.2)
-            label.backgroundColor = .black
-            label.textAlignment = NSTextAlignment.center
-            label.textColor = .white
-            label.text = "Authentication Failed. Please Relogin"
-            label.minimumScaleFactor = 0.5
-            view.addSubview(label)
-            return view
-        }()
-        
-        self.view = limitExceedView
-    }
-    
-    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer) {
+    func playerConcurrencyLimitReached(eventId: String, limit: Int, player: VideoPlayer) {
         let limitExceedView: UIView = {
             let screenSize: CGRect = UIScreen.main.bounds
             let view = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width - 10, height: screenSize.height * 0.3))

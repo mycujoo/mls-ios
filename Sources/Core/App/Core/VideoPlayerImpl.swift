@@ -498,12 +498,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                         if updatedEvent.id == self.event?.id {
                             self.event = updatedEvent
                         }
-                    case .concurrencyLimitExceeded(let limit):
-                        self.concurrencyExceedCleanup(eventId: event.id, limit: limit)
-                    case .errorAuthFailed:
-                        self.delegate?.playerAuthenticationFailed(player: self)
-                    case .errorNotEntitled:
-                        self.delegate?.playerNoEntitlement(player: self)
+                    case .concurrencyLimitReached(let limit):
+                        self.concurrencyLimitReachedCleanup(eventId: event.id, limit: limit)
                     }
                 }
             } else {
@@ -608,8 +604,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private func cleanup(oldStream: Stream) {}
 
     /// Should get called when VideoPlayer concurrency exceed it's limit. Ensures that video is tear down and gets no update from websocket, then returns a message to user
-    private func concurrencyExceedCleanup(eventId: String, limit: Int) {
-        delegate?.playerConcurrencyLimitExceeded(eventId: eventId, limit: limit, player: self)
+    private func concurrencyLimitReachedCleanup(eventId: String, limit: Int) {
+        delegate?.playerConcurrencyLimitReached(eventId: eventId, limit: limit, player: self)
         event = nil
         
     }

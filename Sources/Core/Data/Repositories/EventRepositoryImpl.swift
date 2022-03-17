@@ -91,16 +91,14 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
             
             // For now, only connect to this websocket if it requires entitlement.
             // Later on, we can also do this for non-protected events, when the websockets support more features.
-            if latestEvent?.isProtected ?? false {
+            if (latestEvent?.isProtected ?? false) &&
+                (latestEvent?.streams.first?.error == nil) &&
+                (latestEvent?.isMLS != false) {
                 self?.fws[id]?.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
                     switch update {
-                    case .concurrencyLimitExceeded(let eventId, let limit):
+                    case .concurrencyLimitReached(let eventId, let limit):
                         guard id == eventId else { return }
-                        callback(.concurrencyLimitExceeded(limit: limit))
-                    case .errorAuthFailed:
-                        callback(.errorAuthFailed)
-                    case .errorNotEntitled:
-                        callback(.errorNotEntitled)
+                        callback(.concurrencyLimitReached(limit: limit))
                     }
                 }
             }

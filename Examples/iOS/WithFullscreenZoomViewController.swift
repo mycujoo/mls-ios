@@ -100,13 +100,6 @@ class WithFullscreenZoomViewController: UIViewController {
 
 // MARK: - PlayerDelegate
 extension WithFullscreenZoomViewController: VideoPlayerDelegate {
-    func playerNoEntitlement(player: VideoPlayer) {
-        
-    }
-    
-    func playerAuthenticationFailed(player: VideoPlayer) {
-        
-    }
     
     func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer) {
         
@@ -138,7 +131,7 @@ extension WithFullscreenZoomViewController: VideoPlayerDelegate {
         return nil
     }
     
-    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer) {
+    func playerConcurrencyLimitReached(eventId: String, limit: Int, player: VideoPlayer) {
         
     }
 }

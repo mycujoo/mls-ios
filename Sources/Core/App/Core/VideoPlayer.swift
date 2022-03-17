@@ -112,11 +112,7 @@ public protocol VideoPlayerDelegate: AnyObject {
     /// The player has updated the elapsed time of the player. To access the current time, see `VideoPlayer.currentTime`
     func playerDidUpdateTime(player: VideoPlayer)
     /// The concurrency limit has exceeded
-    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer)
-    /// The authentication (username/pass) of the user is not valid
-    func playerAuthenticationFailed(player: VideoPlayer)
-    /// The player doesn't have entitlement to watch the event
-    func playerNoEntitlement(player: VideoPlayer)
+    func playerConcurrencyLimitReached(eventId: String, limit: Int, player: VideoPlayer)
     /// The player has updated its state. To access the current state, see `VideoPlayer.state`
     func playerDidUpdateState(player: VideoPlayer)
     /// The player has updated the visibility of the control layer.

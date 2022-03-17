@@ -17,7 +17,5 @@ public protocol MLSEventRepository {
 public enum MLSEventRepositoryEventUpdate {
     case eventLiveViewers(amount: Int)
     case eventUpdate(event: Event)
-    case concurrencyLimitExceeded(limit: Int)
-    case errorAuthFailed
-    case errorNotEntitled
+    case concurrencyLimitReached(limit: Int)
 }
