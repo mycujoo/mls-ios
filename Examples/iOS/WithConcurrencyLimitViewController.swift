@@ -10,7 +10,7 @@ import MLSSDK
 
 
 class WithConcurrencyLimitViewController: UIViewController {
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(logLevel: .verbose), useFeaturedWebsocket: true)
     
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
@@ -59,7 +59,7 @@ class WithConcurrencyLimitViewController: UIViewController {
 
 extension WithConcurrencyLimitViewController: VideoPlayerDelegate {
     
-    func playerConcurrencyLimitReached(eventId: String, limit: Int, player: VideoPlayer) {
+    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer) {
         let limitExceedView: UIView = {
             let screenSize: CGRect = UIScreen.main.bounds
             let view = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width - 10, height: screenSize.height * 0.3))

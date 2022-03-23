@@ -20,7 +20,7 @@ class FeaturedWebsocketConnection {
     }
     
     enum UpdateMessage {
-        case concurrencyLimitReached(eventId: String, limit: Int)
+        case concurrencyLimitExceeded(eventId: String, limit: Int)
     }
     
     private let eventId: String
@@ -31,7 +31,8 @@ class FeaturedWebsocketConnection {
     
     init(eventId: String,
          sessionId: String,
-         identityToken: String?) {
+         identityToken: String?,
+         printToConsole: Bool) {
         self.eventId = eventId
         self.sessionId = sessionId
         self.identityToken = identityToken
@@ -43,20 +44,26 @@ class FeaturedWebsocketConnection {
                 self.joinRooms()
                 self.retryAttempt = .zero
             case .text(let text):
+                if printToConsole {
+                    print("### Websocket message received. Raw:", text)
+                }
                 let components = text.components(separatedBy: Constants.messageSeparator)
                 guard components.count >= 2 else { return }
                 let updateType = components[0]
                 switch updateType {
-                case "concurrencyLimitReached":
+                case "concurrencyLimitExceeded":
                     self.canReconnect = false
                     guard components.count >= 2 else { return }
                     let limitNumber = components[1]
                     if let roomObservers = self.observers[Room(id: eventId, type: .event)] {
-                        let update: UpdateMessage = .concurrencyLimitReached(eventId: eventId, limit: Int(limitNumber) ?? 3)
+                        let update: UpdateMessage = .concurrencyLimitExceeded(eventId: eventId, limit: Int(limitNumber) ?? 3)
                         for obs in roomObservers {
                             obs(update)
                         }
                     }
+                    self.socket.onEvent = nil
+                    self.unsubscribe(room: Room(id: eventId, type: .event))
+                    
                     /// The only error that can be retried (with a backoff strategy)  is `internal`.
                 case "err":
                     guard components.count > 2 else { return }
@@ -67,16 +74,22 @@ class FeaturedWebsocketConnection {
                         self.socket.onEvent = nil
                         self.canReconnect = false
                         self.socket.disconnect()
-                        debugPrint("### Websocket `badRequest` error: \(text)")
+                        if printToConsole {
+                            debugPrint("### Websocket `badRequest` error: \(text)")
+                        }
                         
                     case "forbidden":
                         self.canReconnect = false
                         self.socket.disconnect()
-                        debugPrint("### Websocket `forbidden` error: \(text)")
+                        if printToConsole {
+                            debugPrint("### Websocket `forbidden` error: \(text)")
+                        }
                         
                     case "precondition":
                         self.socket.disconnect()
-                        debugPrint("### Websocket `precondition` error: \(text)")
+                        if printToConsole {
+                            debugPrint("### Websocket `precondition` error: \(text)")
+                        }
                         
                     case "internal":
                         self.canReconnect = true

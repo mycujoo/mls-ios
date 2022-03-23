@@ -22,7 +22,8 @@ class WithEventListViewController: UIViewController {
             playerConfig: PlayerConfig(
                 primaryColor: "#de6e1f",
                 secondaryColor: "#000000",
-                imaAdUnit: "/124319096/external/single_ad_samples")))
+                imaAdUnit: "/124319096/external/single_ad_samples")),
+        useFeaturedWebsocket: false)
 
     lazy var castButtonParentView: UIView = {
         let view = UIView()

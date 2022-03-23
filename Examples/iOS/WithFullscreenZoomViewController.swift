@@ -7,7 +7,7 @@ import MLSSDK
 
 
 class WithFullscreenZoomViewController: UIViewController {
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(), useFeaturedWebsocket: false)
 
     private var doubleTapGestureRecognizer: UITapGestureRecognizer? = nil
 
@@ -131,7 +131,7 @@ extension WithFullscreenZoomViewController: VideoPlayerDelegate {
         return nil
     }
     
-    func playerConcurrencyLimitReached(eventId: String, limit: Int, player: VideoPlayer) {
+    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer) {
         
     }
 }

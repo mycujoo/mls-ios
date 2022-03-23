@@ -11,7 +11,7 @@ import MLSSDK_Cast
 
 class WithCastSupportViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(), useFeaturedWebsocket: false)
 
     lazy var castButtonParentView: UIView = {
         let view = UIView()

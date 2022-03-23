@@ -8,7 +8,7 @@ import AVKit
 
 class WithPictureInPictureViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(), useFeaturedWebsocket: false)
 
     private var pictureInPictureController: AVPictureInPictureController? = nil
 

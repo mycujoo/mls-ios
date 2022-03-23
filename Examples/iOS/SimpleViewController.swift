@@ -10,7 +10,7 @@ import MLSSDK_IMA
 
 class SimpleViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration())
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(), useFeaturedWebsocket: false)
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
