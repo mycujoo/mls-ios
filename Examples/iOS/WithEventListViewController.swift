@@ -23,7 +23,7 @@ class WithEventListViewController: UIViewController {
                 primaryColor: "#de6e1f",
                 secondaryColor: "#000000",
                 imaAdUnit: "/124319096/external/single_ad_samples")),
-        useFeaturedWebsocket: false)
+        useConcurrencyControl: false)
 
     lazy var castButtonParentView: UIView = {
         let view = UIView()

@@ -606,8 +606,22 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// Should get called when VideoPlayer concurrency exceed it's limit. Ensures that video is tear down and gets no update from websocket, then returns a message to user
     private func concurrencyLimitReachedCleanup(eventId: String, limit: Int) {
         delegate?.playerConcurrencyLimitExceeded(eventId: eventId, limit: limit, player: self)
-        event = nil
+        let limitExceedView: UIView = {
+            let screenSize: CGRect = UIScreen.main.bounds
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width - 10, height: screenSize.height * 0.3))
+            let label = UILabel()
+            label.frame = CGRect(x: 10, y: 10, width: screenSize.width - 20, height: screenSize.height * 0.2)
+            label.backgroundColor = .black
+            label.textAlignment = NSTextAlignment.center
+            label.textColor = .white
+            label.text = "Concurrency limit of \(limit) exceeded"
+            label.minimumScaleFactor = 0.5
+            view.addSubview(label)
+            return view
+        }()
         
+        event = nil
+        self.playerView?.addSubview(limitExceedView)
     }
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
