@@ -61,7 +61,6 @@ class FeaturedWebsocketConnection {
                             obs(update)
                         }
                     }
-                    self.socket.onEvent = nil
                     self.unsubscribe(room: Room(id: eventId, type: .event))
                     
                     /// The only error that can be retried (with a backoff strategy)  is `internal`.
@@ -71,7 +70,6 @@ class FeaturedWebsocketConnection {
                         
                     case "badRequest":
                         /// `badRequest` error means that something in the `SDK` is not right and should file a bug for it.
-                        self.socket.onEvent = nil
                         self.canReconnect = false
                         self.socket.disconnect()
                         if printToConsole {

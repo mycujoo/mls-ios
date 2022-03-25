@@ -9,14 +9,15 @@ import Moya
 class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     let ws: WebSocketConnection
     let fwsFactory: (_ eventId: String) -> FeaturedWebsocketConnection
-    let useFeaturedWebsocket: Bool
+    let useConcurrencyControl: Bool
+    
     private var fws: [String: FeaturedWebsocketConnection] = [:]
     private var timers: [String: RepeatingTimer] = [:]
 
-    init(api: MoyaProvider<API>, ws: WebSocketConnection, fwsFactory: @escaping (_ eventId: String) -> FeaturedWebsocketConnection, useFeaturedWebsocket: Bool) {
+    init(api: MoyaProvider<API>, ws: WebSocketConnection, fwsFactory: @escaping (_ eventId: String) -> FeaturedWebsocketConnection, useConcurrencyControl: Bool) {
         self.ws = ws
         self.fwsFactory = fwsFactory
-        self.useFeaturedWebsocket = useFeaturedWebsocket
+        self.useConcurrencyControl = useConcurrencyControl
         super.init(api: api)
     }
 
@@ -89,18 +90,22 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                 }
             }
             
-            // For now, only connect to this websocket if it requires entitlement.
-            // Later on, we can also do this for non-protected events, when the websockets support more features.
-            if (latestEvent?.isProtected ?? false) &&
-                (latestEvent?.streams.first?.error == nil) &&
-                (latestEvent?.isMLS != false) &&
-                self!.useFeaturedWebsocket {
-                self?.fws[id]?.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
-                    switch update {
-                    case .concurrencyLimitExceeded(let eventId, let limit):
-                        guard id == eventId else { return }
-                        self?.stopEventUpdates(for: eventId)
-                        callback(.concurrencyLimitExceeded(limit: limit))
+            /// Feature toggle is available for `FeaturedWebsocket`, therefore sdk's user should define wether to use it or not when calling the `MLS` sdk.
+            if let useConcurrency = self?.useConcurrencyControl, useConcurrency {
+                
+                // For now, only connect to this websocket if it requires entitlement.
+                // Later on, we can also do this for non-protected events, when the websockets support more features.
+                
+                if (latestEvent?.isProtected ?? false) &&
+                    (latestEvent?.streams.first?.error == nil) &&
+                    (latestEvent?.isMLS != false) {
+                    self?.fws[id]?.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
+                        switch update {
+                        case .concurrencyLimitExceeded(let eventId, let limit):
+                            guard id == eventId else { return }
+                            self?.stopEventUpdates(for: eventId)
+                            callback(.concurrencyLimitExceeded(limit: limit))
+                        }
                     }
                 }
             }
