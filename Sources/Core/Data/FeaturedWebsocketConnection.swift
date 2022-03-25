@@ -182,7 +182,7 @@ class FeaturedWebsocketConnection {
 }
 private extension FeaturedWebsocketConnection {
     enum Constants {
-        static func welcome(with sessionId: String) -> String { "sessionId;" + sessionId }
+        static func welcome(with sessionId: String) -> String { "deviceId;" + sessionId }
         static func identityTokenMessage(with identityToken: String) -> String { "identityToken;" + identityToken }
         static func joinEventMessage(with eventId: String) -> String { "joinEvent;" + eventId }
         static func leaveEventMessage(with eventId: String) -> String { "leaveEvent;" + eventId }
