@@ -621,7 +621,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         }()
         
         event = nil
+        #if os(iOS)
         self.playerView?.addSubview(limitExceedView)
+        #endif
     }
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
