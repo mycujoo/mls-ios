@@ -36,6 +36,7 @@
 		49AF3F1625AB3C76005DDFB5 /* WithIMASupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AF3F1525AB3C76005DDFB5 /* WithIMASupportViewController.swift */; };
 		49DD558C24D763850080E105 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD558B24D763850080E105 /* SimpleViewController.swift */; };
 		5F2692C727D0DA4800F02895 /* WithConcurrencyLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2692C627D0DA4800F02895 /* WithConcurrencyLimitViewController.swift */; };
+		5FC55FF627F7071C00848FD8 /* WithConcurrencyLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC55FF527F7071C00848FD8 /* WithConcurrencyLimitViewController.swift */; };
 		6152A68AF3297CCCB28925B1 /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA668A93448550743957481 /* Pods_MLS.framework */; };
 		6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E4246951060013A9EE /* LaunchScreen.storyboard */; };
 		643B5EBA247BE93900A46A77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643B5EB9247BE93900A46A77 /* AppDelegate.swift */; };
@@ -116,6 +117,7 @@
 		49DD558B24D763850080E105 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		540AA58F6F1AA8227F49EDC9 /* Pods_MLS_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F2692C627D0DA4800F02895 /* WithConcurrencyLimitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithConcurrencyLimitViewController.swift; sourceTree = "<group>"; };
+		5FC55FF527F7071C00848FD8 /* WithConcurrencyLimitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithConcurrencyLimitViewController.swift; sourceTree = "<group>"; };
 		6418F6D6246951050013A9EE /* MLS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6418F6D9246951050013A9EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6418F6DD246951050013A9EE /* WithFullscreenZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithFullscreenZoomViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				643B5EB9247BE93900A46A77 /* AppDelegate.swift */,
 				49DD558B24D763850080E105 /* SimpleViewController.swift */,
 				497C62F12651403500507BB1 /* WithAVPlayerViewController.swift */,
+				5FC55FF527F7071C00848FD8 /* WithConcurrencyLimitViewController.swift */,
 				643B5EBD247BE93B00A46A77 /* Assets.xcassets */,
 				643B5EC2247BE93B00A46A77 /* LaunchScreen.storyboard */,
 				643B5EC5247BE93B00A46A77 /* Info.plist */,
@@ -515,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FC55FF627F7071C00848FD8 /* WithConcurrencyLimitViewController.swift in Sources */,
 				497C62F3265141D800507BB1 /* WithAVPlayerViewController.swift in Sources */,
 				49DD558C24D763850080E105 /* SimpleViewController.swift in Sources */,
 				643B5EBA247BE93900A46A77 /* AppDelegate.swift in Sources */,

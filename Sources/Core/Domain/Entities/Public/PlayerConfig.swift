@@ -29,6 +29,7 @@ public struct PlayerConfig {
     /// The Youbora account to send video analytics data into. Defaults to the standard MCLS one, so it is recommended to leave this to nil.
     public let analyticsAccount: String?
 
+    public let enableConcurrencyControl: Bool
     public init(
             primaryColor: String = "#FFFFFF",
             secondaryColor: String = "#FF0000",
@@ -39,7 +40,8 @@ public struct PlayerConfig {
             showSeekbar: Bool = true,
             showTimers: Bool = true,
             imaAdUnit: String? = nil,
-            analyticsAccount: String? = nil
+            analyticsAccount: String? = nil,
+            enableConcurrencyControl: Bool = false
     ) {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
@@ -51,6 +53,7 @@ public struct PlayerConfig {
         self.showTimers = showTimers
         self.imaAdUnit = imaAdUnit
         self.analyticsAccount = analyticsAccount
+        self.enableConcurrencyControl = enableConcurrencyControl
     }
 
     /// A convenience method to rebuild a PlayerConfig based on this one.
@@ -109,6 +112,8 @@ public struct PlayerConfig {
     /// The Youbora account to send video analytics data into. Defaults to the standard MCLS one, so it is recommended to leave this to nil.
     public let analyticsAccount: String?
 
+    public let enableConcurrencyControl: Bool
+    
     public init(
             primaryColor: String = "#FFFFFF",
             secondaryColor: String = "#FF0000",
@@ -122,7 +127,8 @@ public struct PlayerConfig {
             showFullscreen: Bool = false,
             showTimers: Bool = true,
             imaAdUnit: String? = nil,
-            analyticsAccount: String? = nil
+            analyticsAccount: String? = nil,
+            enableConcurrencyControl: Bool = false
     ) {
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
@@ -137,6 +143,7 @@ public struct PlayerConfig {
         self.showTimers = showTimers
         self.imaAdUnit = imaAdUnit
         self.analyticsAccount = analyticsAccount
+        self.enableConcurrencyControl = enableConcurrencyControl
     }
 
     /// A convenience method to rebuild a PlayerConfig based on an existing one.

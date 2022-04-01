@@ -59,7 +59,7 @@ public class MLS {
     /// This is needed for working with MCLS entitlements. If entitlements are not needed to work, this can be left to nil.
     public var identityToken: String?
     public let configuration: Configuration
-    public let useConcurrencyControl: Bool
+    public let enableConcurrencyControl: Bool
     // TODO: Inject this dependency graph, rather than building it here.
 
     private lazy var api: MoyaProvider<API> = {
@@ -107,7 +107,7 @@ public class MLS {
         return TimelineRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var eventRepository: MLSEventRepository = {
-        return EventRepositoryImpl(api: api, ws: ws, fwsFactory: fwsFactory, useConcurrencyControl: useConcurrencyControl)
+        return EventRepositoryImpl(api: api, ws: ws, fwsFactory: fwsFactory, enableConcurrencyControl: enableConcurrencyControl)
     }()
     private lazy var playerConfigRepository: MLSPlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)
@@ -158,7 +158,7 @@ public class MLS {
         }
     }
 
-    public init(publicKey: String, configuration: Configuration, useConcurrencyControl: Bool) {
+    public init(publicKey: String, configuration: Configuration) {
         if publicKey.isEmpty {
             fatalError("Please insert your publicKey in the MLS component. You can obtain one through https://mls.mycujoo.tv")
         }
@@ -166,7 +166,7 @@ public class MLS {
 
         self.publicKey = publicKey
         self.configuration = configuration
-        self.useConcurrencyControl = useConcurrencyControl
+        self.enableConcurrencyControl = configuration.playerConfig.enableConcurrencyControl
     }
     
     /// Set the user id that your systems use to identify this individual. This user id will be logged to the video analytics service that is used (if any).

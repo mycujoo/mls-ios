@@ -9,7 +9,7 @@ import MLSSDK
 
 class WithCustomAnalyticsAccountViewController: UIViewController {
 
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration(playerConfig: PlayerConfig(analyticsAccount:"YOUR_ANALYTICS_ACCOUNT_HERE")), useConcurrencyControl: false)
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(playerConfig: PlayerConfig(analyticsAccount:"YOUR_ANALYTICS_ACCOUNT_HERE")))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()

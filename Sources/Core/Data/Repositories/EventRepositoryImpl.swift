@@ -9,15 +9,15 @@ import Moya
 class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     let ws: WebSocketConnection
     let fwsFactory: (_ eventId: String) -> FeaturedWebsocketConnection
-    let useConcurrencyControl: Bool
+    let enableConcurrencyControl: Bool
     
     private var fws: [String: FeaturedWebsocketConnection] = [:]
     private var timers: [String: RepeatingTimer] = [:]
 
-    init(api: MoyaProvider<API>, ws: WebSocketConnection, fwsFactory: @escaping (_ eventId: String) -> FeaturedWebsocketConnection, useConcurrencyControl: Bool) {
+    init(api: MoyaProvider<API>, ws: WebSocketConnection, fwsFactory: @escaping (_ eventId: String) -> FeaturedWebsocketConnection, enableConcurrencyControl: Bool) {
         self.ws = ws
         self.fwsFactory = fwsFactory
-        self.useConcurrencyControl = useConcurrencyControl
+        self.enableConcurrencyControl = enableConcurrencyControl
         super.init(api: api)
     }
 
@@ -91,7 +91,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
             }
             
             /// Feature toggle is available for `FeaturedWebsocket`, therefore sdk's user should define wether to use it or not when calling the `MLS` sdk.
-            if let useConcurrency = self?.useConcurrencyControl, useConcurrency {
+            if let enableConcurrencyControl = self?.enableConcurrencyControl, enableConcurrencyControl {
                 
                 // For now, only connect to this websocket if it requires entitlement.
                 // Later on, we can also do this for non-protected events, when the websockets support more features.
@@ -103,7 +103,6 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                         switch update {
                         case .concurrencyLimitExceeded(let eventId, let limit):
                             guard id == eventId else { return }
-                            self?.stopEventUpdates(for: eventId)
                             callback(.concurrencyLimitExceeded(limit: limit))
                         }
                     }

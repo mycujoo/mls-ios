@@ -12,7 +12,7 @@ import MLSSDK_Annotations
 
 
 class WithAVPlayerViewController: AVPlayerViewController {
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration(seekTolerance: .zero, playerConfig: PlayerConfig(imaAdUnit: "/124319096/external/single_ad_samples")), useConcurrencyControl: false)
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(seekTolerance: .zero, playerConfig: PlayerConfig(imaAdUnit: "/124319096/external/single_ad_samples")))
 
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer(attachView: false)

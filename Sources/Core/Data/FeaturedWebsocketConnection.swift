@@ -84,6 +84,7 @@ class FeaturedWebsocketConnection {
                         }
                         
                     case "precondition":
+                        self.canReconnect = false
                         self.socket.disconnect()
                         if printToConsole {
                             debugPrint("### Websocket `precondition` error: \(text)")
@@ -100,8 +101,8 @@ class FeaturedWebsocketConnection {
                 }
                 
             case .disconnected:
-                guard self.canReconnect else { return }
                 self.isConnected = false
+                guard self.canReconnect else { return }
                 self.socket.connect()
             case .reconnectSuggested:
                 self.socket.connect()
@@ -164,11 +165,12 @@ class FeaturedWebsocketConnection {
     }
 
     func retry(delay: DelayOptions, retry: Int, closure: @escaping () -> Void) {
+        guard !isConnected else { return }
         if retryAttempt < retry {
-            DispatchQueue.main.asyncAfter(
+            DispatchQueue.global(qos: .background).asyncAfter(
                 deadline: DispatchTime.now() + .seconds(delay.make(retryAttempt)),
                 execute: {
-                    DispatchQueue.main.async(execute: closure)
+                    DispatchQueue.global(qos: .background).async(execute: closure)
                     self.retryAttempt += 1
                     self.retry(delay: delay, retry: retry, closure: closure)
                 })

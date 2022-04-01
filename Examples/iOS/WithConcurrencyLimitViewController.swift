@@ -10,7 +10,7 @@ import MLSSDK
 
 
 class WithConcurrencyLimitViewController: UIViewController {
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration(logLevel: .verbose), useConcurrencyControl: true)
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(logLevel: .verbose, playerConfig: PlayerConfig(enableConcurrencyControl: true)))
     
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()

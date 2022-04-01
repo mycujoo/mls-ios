@@ -1,43 +1,34 @@
 //
-// Copyright © 2021 mycujoo. All rights reserved.
+// Copyright © 2022 mycujoo. All rights reserved.
 //
 
 import UIKit
 import MLSSDK
-import MLSSDK_IMA
 
 
-
-class WithIMASupportViewController: UIViewController {
-
-    private lazy var mls = MLS(publicKey: "", configuration: Configuration(playerConfig: PlayerConfig(imaAdUnit: "/124319096/external/single_ad_samples")))
-
+class WithConcurrencyLimitViewController: UIViewController {
+    private lazy var mls = MLS(publicKey: "", configuration: Configuration(logLevel: .verbose, playerConfig: PlayerConfig(enableConcurrencyControl: true)))
+    
     lazy var videoPlayer: VideoPlayer = {
         let player = mls.videoPlayer()
-        player.imaIntegration = mls.prepare(IMAIntegrationFactory()).build(videoPlayer: player, delegate: self)
         return player
     }()
-
-    override var prefersHomeIndicatorAutoHidden: Bool {
-        return true
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .black
     }
-
+    
     private var didLayoutPlayerView = false
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         if !didLayoutPlayerView, let playerView = videoPlayer.playerView {
             didLayoutPlayerView = true
-
+            videoPlayer.delegate = self
             view.addSubview(playerView)
             playerView.translatesAutoresizingMaskIntoConstraints = false
-
+            
             let playerConstraints = [
                 playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                 // Note that this heightAnchor approach will not look good on some devices in landscape.
@@ -50,25 +41,45 @@ class WithIMASupportViewController: UIViewController {
 
             NSLayoutConstraint.activate(playerConstraints)
         }
-
-        mls.dataProvider().eventList(completionHandler: { [weak self] (events, _, _) in
+        
+        mls.dataProvider().eventList { [weak self] (events, _, _) in
             self?.videoPlayer.event = events?.first
-        })
+        }
     }
 }
 
-extension WithIMASupportViewController: IMAIntegrationDelegate {
-    func presentingView(for videoPlayer: VideoPlayer) -> UIView {
-        return videoPlayer.playerView!
+extension WithConcurrencyLimitViewController: VideoPlayerDelegate {
+    
+    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer) {
+        // TODO: Add your custom error message here
+    }
+    func playerDidUpdatePlaying(player: VideoPlayer) {
+        
     }
     
-    func presentingViewController(for videoPlayer: VideoPlayer) -> UIViewController? {
-        return self
+    func playerDidUpdateTime(player: VideoPlayer) {
+        
     }
-    func getCustomParameters(forItemIn videoPlayer: VideoPlayer) -> [String : String] {
-        return [:]
-    }
-    func imaAdStarted(for videoPlayer: VideoPlayer) {}
 
-    func imaAdStopped(for videoPlayer: VideoPlayer) {}
+    
+    func playerDidUpdateState(player: VideoPlayer) {
+        
+    }
+    
+    func playerDidUpdateControlVisibility(toVisible: Bool, withAnimationDuration: Double, player: VideoPlayer) {
+        
+    }
+    
+    func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer) {
+        
+    }
+    
+    func playerRequestsVideoAnalyticsCustomData() -> VideoAnalyticsCustomData? {
+        return nil
+    }
+    
+    func playerDidUpdateFullscreen(player: VideoPlayer) {
+        
+    }
 }
+
