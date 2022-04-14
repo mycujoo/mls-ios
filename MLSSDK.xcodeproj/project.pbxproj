@@ -522,6 +522,10 @@
 		4BB33C19F30B8374CA368CA3 /* Pods_MLSSDK_Annotations_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E6CB0B308DF410751726A5 /* Pods_MLSSDK_Annotations_tvOS.framework */; };
 		51832911F35CF401C78E599B /* Pods_MLSSDK_IMA_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20E8D55165C70577D82E073E /* Pods_MLSSDK_IMA_tvOS.framework */; };
 		5DCC0E6C059137E3F19196CC /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F403CA24167D40EC8DD7C5 /* Pods_iOSTests.framework */; };
+		5F4180D128084D1D001D2EE3 /* UserAgentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */; };
+		5F4180D228084D1D001D2EE3 /* UserAgentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */; };
+		5F4180D428084D89001D2EE3 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D328084D89001D2EE3 /* UIDevice+.swift */; };
+		5F4180D528084D89001D2EE3 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D328084D89001D2EE3 /* UIDevice+.swift */; };
 		5FA15C0C27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
 		5FA15C0D27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
 		641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
@@ -867,6 +871,8 @@
 		4EBD89F11195789238038394 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A00B086CC1A9372022F7D1 /* Pods_MLSSDK_Cast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_Cast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentHeader.swift; sourceTree = "<group>"; };
+		5F4180D328084D89001D2EE3 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
 		5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedWebsocketConnection.swift; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
@@ -1038,6 +1044,7 @@
 				49E59024249BC809001E0C1C /* API.swift */,
 				5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */,
 				4930180F24D494AE009312B0 /* WebsocketConnection.swift */,
+				5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */,
 				4926CE1624CE03E200419A42 /* Entities */,
 				4926CE2124CE03E600419A42 /* Repositories */,
 				49317CEE253F0E3200675EB6 /* Services */,
@@ -1202,6 +1209,7 @@
 				495CB132249CC50E00998FF4 /* UIColor+.swift */,
 				49DDEABA24A29E6900C89DFF /* UIFont+.swift */,
 				49A9F52224A15B9200D00143 /* UIView+.swift */,
+				5F4180D328084D89001D2EE3 /* UIDevice+.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3130,6 +3138,7 @@
 				6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */,
 				49CD1C0C2677A8C2004CCDE8 /* Server.swift in Sources */,
 				499CBEEB24B9C3F000EE4D7B /* DataProvider.swift in Sources */,
+				5F4180D428084D89001D2EE3 /* UIDevice+.swift in Sources */,
 				4938012C24CE19B0008AFC64 /* MLSUIAction.swift in Sources */,
 				49E59025249BC809001E0C1C /* API.swift in Sources */,
 				4943B96724C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
@@ -3148,6 +3157,7 @@
 				49CD1BFB2677A8C2004CCDE8 /* HTTPHandler.swift in Sources */,
 				49CD1C042677A8C2004CCDE8 /* WebSocketServer.swift in Sources */,
 				49A9F52324A15B9200D00143 /* UIView+.swift in Sources */,
+				5F4180D128084D1D001D2EE3 /* UserAgentHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3190,6 +3200,7 @@
 				49CD1BEF2677A8C1004CCDE8 /* FoundationSecurity.swift in Sources */,
 				4943B96424C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
 				641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */,
+				5F4180D528084D89001D2EE3 /* UIDevice+.swift in Sources */,
 				4926CE3024CE046D00419A42 /* DataLayerStream.swift in Sources */,
 				49CD1BF22677A8C1004CCDE8 /* FoundationHTTPHandler.swift in Sources */,
 				49317CF1253F0E4C00675EB6 /* YouboraVideoAnalyticsService.swift in Sources */,
@@ -3236,6 +3247,7 @@
 				495CB137249CD9FC00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				4943B96824C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
 				4988571A2565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
+				5F4180D228084D1D001D2EE3 /* UserAgentHeader.swift in Sources */,
 				49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,
 				49CD1BF72677A8C1004CCDE8 /* StringHTTPHandler.swift in Sources */,
 				49A9F52424A15B9700D00143 /* UIView+.swift in Sources */,
