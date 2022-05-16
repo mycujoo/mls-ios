@@ -114,10 +114,9 @@ class WebSocket: WebSocketClient, EngineDelegate {
     private let writeQueue = DispatchQueue(label: "com.vluxe.starscream.writequeue")
     private var canSend = false
     private let mutex = DispatchSemaphore(value: 1)
-    private let header = UserAgentHeader().getDeviceInfo()
+    
     init(request: URLRequest, engine: Engine) {
         self.request = request
-        self.request.addValue(header, forHTTPHeaderField: "User-Agent")
         self.engine = engine
     }
     

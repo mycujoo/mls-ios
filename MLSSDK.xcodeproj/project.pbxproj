@@ -528,6 +528,10 @@
 		5F4180D528084D89001D2EE3 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D328084D89001D2EE3 /* UIDevice+.swift */; };
 		5FA15C0C27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
 		5FA15C0D27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
+		5FD648A128324B14000883FC /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5FD648A028324B14000883FC /* Localizable.stringsdict */; };
+		5FD648A228324B14000883FC /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5FD648A028324B14000883FC /* Localizable.stringsdict */; };
+		5FD648A428324D9A000883FC /* Websocket+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */; };
+		5FD648A528324D9A000883FC /* Websocket+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */; };
 		641C9181249A1C22000E4E63 /* VideoProgressSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3532492308D0099475D /* VideoProgressSlider.swift */; };
 		6496C3552492308D0099475D /* MLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3442492308D0099475D /* MLS.swift */; };
 		6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */; };
@@ -874,6 +878,8 @@
 		5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentHeader.swift; sourceTree = "<group>"; };
 		5F4180D328084D89001D2EE3 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
 		5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedWebsocketConnection.swift; sourceTree = "<group>"; };
+		5FD648A028324B14000883FC /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Websocket+UserAgent.swift"; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6496C3442492308D0099475D /* MLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLS.swift; sourceTree = "<group>"; };
 		6496C3512492308D0099475D /* VideoPlayerView+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoPlayerView+iOS.swift"; sourceTree = "<group>"; };
@@ -1160,6 +1166,7 @@
 		49317F64253F5FCB00675EB6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5FD648A028324B14000883FC /* Localizable.stringsdict */,
 				490797AB2590E2B10090F7DD /* fonts */,
 				49317F65253F5FCB00675EB6 /* Localizable.strings */,
 				49317F68253F5FCB00675EB6 /* ios.xcassets */,
@@ -1800,6 +1807,7 @@
 			isa = PBXGroup;
 			children = (
 				49E4F463251A08DA00FDECD9 /* RepeatingTimer.swift */,
+				5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2367,6 +2375,7 @@
 				49317F71253F5FCB00675EB6 /* Localizable.strings in Resources */,
 				49317F73253F5FCB00675EB6 /* ios.xcassets in Resources */,
 				490798472590F5410090F7DD /* RobotoMono-Regular.ttf in Resources */,
+				5FD648A128324B14000883FC /* Localizable.stringsdict in Resources */,
 				490797E32590E2D70090F7DD /* RobotoMono-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2378,6 +2387,7 @@
 				49317F72253F5FCB00675EB6 /* Localizable.strings in Resources */,
 				49317F76253F5FCB00675EB6 /* tvos.xcassets in Resources */,
 				490798522590F5580090F7DD /* RobotoMono-Regular.ttf in Resources */,
+				5FD648A228324B14000883FC /* Localizable.stringsdict in Resources */,
 				490797E42590E2D70090F7DD /* RobotoMono-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3133,6 +3143,7 @@
 				49317CE2253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */,
 				6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */,
 				49CD1BF92677A8C2004CCDE8 /* FoundationTransport.swift in Sources */,
+				5FD648A428324D9A000883FC /* Websocket+UserAgent.swift in Sources */,
 				4926CDFC24CDEAF000419A42 /* EventRepositoryImpl.swift in Sources */,
 				49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */,
 				6496C35C249230BF0099475D /* VideoPlayerView+iOS.swift in Sources */,
@@ -3246,6 +3257,7 @@
 				49E59026249BC809001E0C1C /* API.swift in Sources */,
 				495CB137249CD9FC00998FF4 /* NSLayoutConstraint+.swift in Sources */,
 				4943B96824C6F08A0006F81C /* NVActivityIndicatorShape.swift in Sources */,
+				5FD648A528324D9A000883FC /* Websocket+UserAgent.swift in Sources */,
 				4988571A2565AB670093FA66 /* MLSPlayerNetworkInterceptor.swift in Sources */,
 				5F4180D228084D1D001D2EE3 /* UserAgentHeader.swift in Sources */,
 				49E4F465251A08DA00FDECD9 /* RepeatingTimer.swift in Sources */,

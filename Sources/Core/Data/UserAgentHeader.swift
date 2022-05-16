@@ -5,9 +5,9 @@
 import Foundation
 import UIKit
 
-public struct UserAgentHeader {
+internal struct UserAgentHeader {
     
-    public func getDeviceInfo() -> String {
+    internal func getDeviceInfo() -> String {
         let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String
         let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         let build = Bundle.main.infoDictionary!["CFBundleVersion"] as! String

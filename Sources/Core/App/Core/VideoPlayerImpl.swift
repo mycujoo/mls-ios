@@ -607,9 +607,9 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     private func concurrencyLimitExceededCleanup(eventId: String, limit: Int) {
         event = nil
         delegate?.playerConcurrencyLimitExceeded(eventId: eventId, limit: limit, player: self)
-        view?.infoTitleLabel.text = "Concurrency limit exceeded"
+        view?.infoTitleLabel.text = L10n.Localizable.concurrencyLimitExceededTitle
         view?.infoTitleLabel.textColor = .white
-        view?.infoDescriptionLabel.text = "Concurrency limit of \(limit) has exceeded"
+        view?.infoDescriptionLabel.text = L10n.Localizable.concurrencyLimitExceededError(limit)
         view?.infoDescriptionLabel.textColor = .red
         
     }
