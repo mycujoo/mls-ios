@@ -40,6 +40,7 @@ class FeaturedWebsocketConnection {
             guard let self = self else { return }
             switch event {
             case .connected(_):
+                self.workItem.cancel()
                 self.isConnected = true
                 self.joinRooms()
                 self.retryAttempt = .zero
@@ -92,7 +93,11 @@ class FeaturedWebsocketConnection {
                         
                     case "internal":
                         self.canReconnect = true
-                        self.retry(delay: .exponential(initial: 5, multiplier: 2), retry: 5, closure: { self.socket.disconnect() })
+                        self.socket.disconnect()
+                        self.isConnected = false
+                        self.retry(delay: .exponential(initial: 5, multiplier: 2)) {
+                            self.socket.connect()
+                        }
                         
                     default:
                         return
@@ -164,16 +169,19 @@ class FeaturedWebsocketConnection {
         }
     }
 
-    func retry(delay: DelayOptions, retry: Int, closure: @escaping () -> Void) {
-        guard !isConnected else { return }
-        if retryAttempt < retry {
-            DispatchQueue.global(qos: .background).asyncAfter(
-                deadline: DispatchTime.now() + .seconds(delay.make(retryAttempt)),
-                execute: {
-                    DispatchQueue.global(qos: .background).async(execute: closure)
-                    self.retryAttempt += 1
-                    self.retry(delay: delay, retry: retry, closure: closure)
-                })
+    private let queue = DispatchQueue(label: "com.retry")
+    private var workItem: DispatchWorkItem = DispatchWorkItem(block: { })
+    
+    func retry(delay: DelayOptions, _ operation: @escaping () -> Void) {
+        // Cancel any existing work item if it has not yet executed
+        workItem.cancel()
+        guard !self.isConnected && canReconnect else { return }
+        if retryAttempt < 5 {
+            workItem = DispatchWorkItem() {
+                operation()
+            }
+            queue.asyncAfter(deadline: .now() + Double(delay.make(retryAttempt)), execute: workItem)
+            retryAttempt += 1
         }
     }
 
