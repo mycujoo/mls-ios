@@ -498,6 +498,8 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
                         if updatedEvent.id == self.event?.id {
                             self.event = updatedEvent
                         }
+                    case .concurrencyLimitExceeded(let limit):
+                        self.concurrencyLimitExceededCleanup(eventId: event.id, limit: limit)
                     }
                 }
             } else {
@@ -601,6 +603,16 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
     private func cleanup(oldStream: Stream) {}
 
+    /// Should get called when VideoPlayer concurrency exceed it's limit. Ensures that video is tear down and gets no update from websocket, then returns a message to user
+    private func concurrencyLimitExceededCleanup(eventId: String, limit: Int) {
+        event = nil
+        delegate?.playerConcurrencyLimitExceeded(eventId: eventId, limit: limit, player: self)
+        view?.infoTitleLabel.text = L10n.Localizable.concurrencyLimitExceededTitle
+        view?.infoTitleLabel.textColor = .white
+        view?.infoDescriptionLabel.text = L10n.Localizable.concurrencyLimitExceededError(limit)
+        view?.infoDescriptionLabel.textColor = .red
+        
+    }
     /// Sets the correct labels on the info layer.
     private func updateInfo() {
         guard let view = self.view else { return }

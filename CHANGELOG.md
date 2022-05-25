@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.0](https://github.com/MyCujoo/mls-ios/releases/tag/1.4.0)
+Released on 2022-5-25.
+
+#### Added
+- Added concurrency feature
+
 ## [1.3.9](https://github.com/MyCujoo/mls-ios/releases/tag/1.3.9)
 Released on 2022-01-19.
 

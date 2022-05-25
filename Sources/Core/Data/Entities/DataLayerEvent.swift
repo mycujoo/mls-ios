@@ -26,6 +26,7 @@ extension DataLayer {
         let timezone: String?
         let startTime: Date?
         let status: EventStatus
+        let isProtected: Bool
         let streams: [Stream]
         let timelineIds: [String]
     }
@@ -86,6 +87,7 @@ extension DataLayer.Event {
         case timezone
         case startTime = "start_time"
         case status
+        case isProtected = "is_protected"
         case streams
         case timelineIds = "timeline_ids"
     }
@@ -106,10 +108,11 @@ extension DataLayer.Event {
             startTime = nil
         }
         let status: DataLayer.EventStatus = DataLayer.EventStatus(rawValue: try? container.decode(String.self, forKey: .status))
+        let isProtected: Bool = (try? container.decode(Bool.self, forKey: .isProtected)) ?? false
         let streams: [DataLayer.Stream] = (try? container.decode([DataLayer.Stream].self, forKey: .streams)) ?? []
         let timelineIds: [String] = (try? container.decode([String].self, forKey: .timelineIds)) ?? []
 
-        self.init(id: id, title: title, descriptionText: descriptionText, posterUrl: posterUrl, thumbnailUrl: thumbnailUrl, organiser: organiser, timezone: timezone, startTime: startTime, status: status, streams: streams, timelineIds: timelineIds)
+        self.init(id: id, title: title, descriptionText: descriptionText, posterUrl: posterUrl, thumbnailUrl: thumbnailUrl, organiser: organiser, timezone: timezone, startTime: startTime, status: status, isProtected: isProtected, streams: streams, timelineIds: timelineIds)
     }
 }
 
@@ -144,7 +147,7 @@ extension DataLayer.EventStatus {
 
 extension DataLayer.Event {
     var toDomain: MLSSDK.Event {
-        return MLSSDK.Event(id: self.id, title: self.title, descriptionText: self.descriptionText, posterUrl: self.posterUrl, thumbnailUrl: self.thumbnailUrl, organiser: self.organiser, timezone: self.timezone, startTime: self.startTime, status: self.status.toDomain, streams: self.streams.map { $0.toDomain }, timelineIds: self.timelineIds, isMLS: true)
+        return MLSSDK.Event(id: self.id, title: self.title, descriptionText: self.descriptionText, posterUrl: self.posterUrl, thumbnailUrl: self.thumbnailUrl, organiser: self.organiser, timezone: self.timezone, startTime: self.startTime, status: self.status.toDomain, isProtected: self.isProtected, streams: self.streams.map { $0.toDomain }, timelineIds: self.timelineIds, isMLS: true)
     }
 }
 

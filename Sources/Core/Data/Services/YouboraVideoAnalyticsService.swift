@@ -111,6 +111,10 @@ class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
 #else
 /* If Youbora cannot be imported, fallback to a non-functional, empty service. */
 class YouboraVideoAnalyticsService: VideoAnalyticsServicing {
+    var analyticsAccount: String?
+    
+    var customData: VideoAnalyticsCustomData?
+    
     private let pseudoUserId: String
 
     init(pseudoUserId: String) {

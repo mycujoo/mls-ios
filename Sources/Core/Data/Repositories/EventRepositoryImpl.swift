@@ -8,12 +8,16 @@ import Moya
 
 class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     let ws: WebSocketConnection
-
+    let fwsFactory: (_ eventId: String) -> FeaturedWebsocketConnection
+    let enableConcurrencyControl: Bool
+    
+    private var fws: [String: FeaturedWebsocketConnection] = [:]
     private var timers: [String: RepeatingTimer] = [:]
 
-    init(api: MoyaProvider<API>, ws: WebSocketConnection) {
+    init(api: MoyaProvider<API>, ws: WebSocketConnection, fwsFactory: @escaping (_ eventId: String) -> FeaturedWebsocketConnection, enableConcurrencyControl: Bool) {
         self.ws = ws
-
+        self.fwsFactory = fwsFactory
+        self.enableConcurrencyControl = enableConcurrencyControl
         super.init(api: api)
     }
 
@@ -40,6 +44,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     /// - note: You can only have one listener for eventUpdates per event id.
     func startEventUpdates(for id: String, callback: @escaping (MLSEventRepositoryEventUpdate) -> ()) {
         timers[id] = RepeatingTimer(timeInterval: 10)
+        fws[id] = fwsFactory(id)
 
         var latestEvent: Event? = nil {
             didSet {
@@ -84,12 +89,32 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                     break
                 }
             }
+            
+            /// Feature toggle is available for `FeaturedWebsocket`, therefore sdk's user should define wether to use it or not when calling the `MLS` sdk.
+            if let enableConcurrencyControl = self?.enableConcurrencyControl, enableConcurrencyControl {
+                
+                // For now, only connect to this websocket if it requires entitlement.
+                // Later on, we can also do this for non-protected events, when the websockets support more features.
+                
+                if (latestEvent?.isProtected ?? false) &&
+                    (latestEvent?.streams.first?.error == nil) &&
+                    (latestEvent?.isMLS != false) {
+                    self?.fws[id]?.subscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event)) { update in
+                        switch update {
+                        case .concurrencyLimitExceeded(let eventId, let limit):
+                            guard id == eventId else { return }
+                            callback(.concurrencyLimitExceeded(limit: limit))
+                        }
+                    }
+                }
+            }
         }
     }
     
     func stopEventUpdates(for id: String) {
         ws.unsubscribe(room: WebSocketConnection.Room(id: id, type: .event))
-        
+        fws[id]?.unsubscribe(room: FeaturedWebsocketConnection.Room(id: id, type: .event))
         timers[id] = nil
+        fws[id] = nil
     }
 }

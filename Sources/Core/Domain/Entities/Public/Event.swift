@@ -16,6 +16,7 @@ public struct Event: Equatable {
     public let timezone: String?
     public let startTime: Date?
     public let status: EventStatus
+    public let isProtected: Bool
     public let streams: [Stream]
     public let timelineIds: [String]
     /// Indicates whether this Event exists on MLS (true) or whether it was custom-built (false) by the SDK user for non-MLS content.
@@ -32,6 +33,7 @@ public struct Event: Equatable {
             timezone: String?,
             startTime: Date?,
             status: EventStatus,
+            isProtected: Bool,
             streams: [Stream],
             timelineIds: [String],
             isMLS: Bool
@@ -45,6 +47,7 @@ public struct Event: Equatable {
         self.timezone = timezone
         self.startTime = startTime
         self.status = status
+        self.isProtected = isProtected
         self.streams = streams
         self.timelineIds = timelineIds
         self.isMLS = isMLS
