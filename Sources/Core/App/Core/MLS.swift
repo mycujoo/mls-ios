@@ -59,7 +59,6 @@ public class MLS {
     /// This is needed for working with MCLS entitlements. If entitlements are not needed to work, this can be left to nil.
     public var identityToken: String?
     public let configuration: Configuration
-
     // TODO: Inject this dependency graph, rather than building it here.
 
     private lazy var api: MoyaProvider<API> = {
@@ -84,6 +83,12 @@ public class MLS {
         return WebSocketConnection(sessionId: pseudoUserId, printToConsole: configuration.logLevel == .verbose)
     }()
 
+    private lazy var fwsFactory: (_ eventId: String) -> FeaturedWebsocketConnection = {
+        return { [weak self] eventId in
+            FeaturedWebsocketConnection(eventId: eventId, sessionId: self?.pseudoUserId ?? "", identityToken: self?.identityToken, printToConsole: self?.configuration.logLevel == .verbose)
+        }
+    }()
+    
     private var pseudoUserId: String {
         return configuration.customPseudoUserId ?? mlsPseudoUserId
     }
@@ -101,7 +106,7 @@ public class MLS {
         return TimelineRepositoryImpl(api: api, ws: ws)
     }()
     private lazy var eventRepository: MLSEventRepository = {
-        return EventRepositoryImpl(api: api, ws: ws)
+        return EventRepositoryImpl(api: api, ws: ws, fwsFactory: fwsFactory, enableConcurrencyControl: configuration.playerConfig.enableConcurrencyControl)
     }()
     private lazy var playerConfigRepository: MLSPlayerConfigRepository = {
         return PlayerConfigRepositoryImpl(api: api)

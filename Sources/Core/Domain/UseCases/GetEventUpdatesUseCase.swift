@@ -21,6 +21,8 @@ class GetEventUpdatesUseCase {
                 // TODO: Compare the updatedEvent with some properties of the current event (which may have to be an input param of this method).
                 // That way, we don't do an update callback on every property change.
                 completionHandler(.eventUpdate(event: updatedEvent))
+            case .concurrencyLimitExceeded(let limit):
+                completionHandler(.concurrencyLimitExceeded(limit: limit))
             }
         }
     }
@@ -34,5 +36,6 @@ extension GetEventUpdatesUseCase {
     enum EventUpdate {
         case eventLiveViewers(amount: Int)
         case eventUpdate(event: Event)
+        case concurrencyLimitExceeded(limit: Int)
     }
 }

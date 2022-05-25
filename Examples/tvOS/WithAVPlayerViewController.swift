@@ -87,6 +87,10 @@ extension WithAVPlayerViewController: AnnotationIntegrationDelegate {
 
 // MARK: - PlayerDelegate
 extension WithAVPlayerViewController: VideoPlayerDelegate {
+    func playerConcurrencyLimitExceeded(eventId: String, limit: Int, player: VideoPlayer) {
+        // TODO: Add your custom error message here
+    }
+    
     func playerDidUpdateStream(stream: MLSSDK.Stream?, player: VideoPlayer) {
         if let errorCode = stream?.error?.code {
             switch errorCode {

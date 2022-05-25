@@ -16,6 +16,24 @@ enum L10n {
         static let missingEntitlementError = makeNSLocalizedString("MISSING_ENTITLEMENT_ERROR", tableName: "Localizable", bundles: bundles, value: "Access to this stream is restricted.", comment: "")
 
         static let internalError = makeNSLocalizedString("INTERNAL_ERROR", tableName: "Localizable", bundles: bundles, value: "An error occurred. Please try again later.", comment: "")
+        
+        static let concurrencyLimitExceededTitle = makeNSLocalizedString("CONCURRENCY_LIMIT_TITLE", bundles: bundles,value: "Concurrency limit exceeded", comment: "Title for the concurrency limit exceeded error")
+        
+        static let concurrencyLimitExceededRawText = makeNSLocalizedString("CONCURRENCY_LIMIT_ERROR", bundles: bundles, value: "Concurrency limit of %@ has exceeded", comment: "Error for the concurrency limit exceed")
+        
+        static func numberOfLimitDevices(_ p1: Int) -> String {
+            let format = NSLocalizedString(
+                "number_of_limit_devices",
+                bundle: Bundle.main,
+                value: "number_of_limit_devices",
+                comment: "DOES NOT NEED TO BE TRANSLATED.")
+            
+            return with(format, p1)
+        }
+        
+        static func concurrencyLimitExceededError(_ p1: Int) -> String {
+            return with(concurrencyLimitExceededRawText, numberOfLimitDevices(p1))
+        }
     }
 }
 
@@ -38,5 +56,13 @@ private extension L10n.Localizable {
         }
         // Return the value, because that is either the value we are looking for, or the fallback value when nothing else was found.
         return value
+    }
+}
+
+extension L10n.Localizable {
+    // In swift you cannot pass a variadic list to another variadic function.
+    // https://bugs.swift.org/browse/SR-128
+    static func with(_ localizedWithFormat: String, _ arg1: CVarArg) -> String {
+        return String.localizedStringWithFormat(localizedWithFormat, arg1)
     }
 }
