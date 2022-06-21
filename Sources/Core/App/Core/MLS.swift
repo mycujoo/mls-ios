@@ -68,13 +68,13 @@ public class MLS {
 
         switch configuration.logLevel {
         case .info:
-            return MoyaProvider<API>(
+            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub,
                 plugins: [authPlugin, NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(logOptions:.`default`))])
         case .verbose:
-            return MoyaProvider<API>(
+            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub,
                 plugins: [authPlugin, NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(logOptions:.verbose))])
         case .minimal:
-            return MoyaProvider<API>(plugins: [authPlugin])
+            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub, plugins: [authPlugin])
         }
 
     }()
@@ -116,6 +116,9 @@ public class MLS {
     }()
     private lazy var drmRepository: MLSDRMRepository = {
         return DRMRepositoryImpl()
+    }()
+    private lazy var paymentRepository: MLSPaymentRepository = {
+        return MLSPaymentRepositoryImpl(api: api)
     }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
@@ -203,7 +206,8 @@ public class MLS {
             eventRepository: eventRepository,
             playerConfigRepository: playerConfigRepository,
             arbitraryDataRepository: arbitraryDataRepository,
-            drmRepository: drmRepository)
+            drmRepository: drmRepository,
+            paymentRepository: paymentRepository)
         return factory
     }
 

@@ -13,7 +13,7 @@ public class CastIntegrationFactory: IntegrationFactoryProtocol {
     private var playerConfigRepository: MLSPlayerConfigRepository!
     private var arbitraryDataRepository: MLSArbitraryDataRepository!
     private var drmRepository: MLSDRMRepository!
-    
+    private var paymentRepository: MLSPaymentRepository!
     public init() {}
     
     /// Should not be called directly, but via the `MLS`'s `prepare` method.
@@ -22,12 +22,14 @@ public class CastIntegrationFactory: IntegrationFactoryProtocol {
         eventRepository: MLSEventRepository,
         playerConfigRepository: MLSPlayerConfigRepository,
         arbitraryDataRepository: MLSArbitraryDataRepository,
-        drmRepository: MLSDRMRepository) {
+        drmRepository: MLSDRMRepository,
+        paymentRepository:MLSPaymentRepository) {
         self.timelineRepository = timelineRepository
         self.eventRepository = eventRepository
         self.playerConfigRepository = playerConfigRepository
         self.arbitraryDataRepository = arbitraryDataRepository
         self.drmRepository = drmRepository
+        self.paymentRepository = paymentRepository
     }
     
     /// - parameter delegate: The delegate that should be used for this CastIntegration.

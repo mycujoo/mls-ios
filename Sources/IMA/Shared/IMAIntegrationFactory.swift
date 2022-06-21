@@ -12,6 +12,7 @@ public class IMAIntegrationFactory: IntegrationFactoryProtocol {
     private var playerConfigRepository: MLSPlayerConfigRepository!
     private var arbitraryDataRepository: MLSArbitraryDataRepository!
     private var drmRepository: MLSDRMRepository!
+    private var paymentRepository: MLSPaymentRepository!
     
     public init() {}
     
@@ -21,12 +22,14 @@ public class IMAIntegrationFactory: IntegrationFactoryProtocol {
         eventRepository: MLSEventRepository,
         playerConfigRepository: MLSPlayerConfigRepository,
         arbitraryDataRepository: MLSArbitraryDataRepository,
-        drmRepository: MLSDRMRepository) {
+        drmRepository: MLSDRMRepository,
+        paymentRepository: MLSPaymentRepository) {
         self.timelineRepository = timelineRepository
         self.eventRepository = eventRepository
         self.playerConfigRepository = playerConfigRepository
         self.arbitraryDataRepository = arbitraryDataRepository
         self.drmRepository = drmRepository
+        self.paymentRepository = paymentRepository
     }
     
     public func build(videoPlayer: VideoPlayer, delegate: IMAIntegrationDelegate, adTagBaseURL: URL = URL(string: "https://pubads.g.doubleclick.net/gampad/ads")!) -> IMAIntegration {

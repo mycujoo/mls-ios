@@ -11,6 +11,7 @@ target 'MLS' do
   pod 'MLSSDK/IMA', :path => '..'
   pod 'MLSSDK/Cast', :path => '..'
   pod 'MLSSDK/Annotations', :path => '..'
+  pod 'MLSSDK/IAP', :path => '..'
 end
 
 target 'MLS-tvOS' do
@@ -68,6 +69,11 @@ end
 
 target 'MLSSDK-Annotations-tvOS' do
   platform :tvos, '11.0'
+  project '../MLSSDK.xcodeproj'
+end
+
+target 'MLSSDK-IAP' do
+  platform :ios, '15.0'
   project '../MLSSDK.xcodeproj'
 end
 
