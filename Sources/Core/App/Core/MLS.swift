@@ -68,13 +68,13 @@ public class MLS {
 
         switch configuration.logLevel {
         case .info:
-            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub,
+            return MoyaProvider<API>(
                 plugins: [authPlugin, NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(logOptions:.`default`))])
         case .verbose:
-            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub,
+            return MoyaProvider<API>(
                 plugins: [authPlugin, NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(logOptions:.verbose))])
         case .minimal:
-            return MoyaProvider<API>(stubClosure: MoyaProvider.immediatelyStub, plugins: [authPlugin])
+            return MoyaProvider<API>(plugins: [authPlugin])
         }
 
     }()

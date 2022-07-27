@@ -13,5 +13,5 @@ public protocol IAPIntegration: AnyObject {
     func listProducts(_ eventId: String, completion: @escaping ([IAPProduct], Error?) -> Void)
 
     @available(iOS 15.0, *)
-    func purchaseProduct(_ product: IAPProduct, completion: @escaping (PaymentResult?, Error?) -> Void)
+    func purchaseProduct(_ productId: String, completion: @escaping (PaymentResult) -> Void)
 }

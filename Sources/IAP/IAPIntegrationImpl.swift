@@ -51,12 +51,12 @@ extension IAPIntegratoinImpl {
         }
     }
     
-    func purchaseProduct(_ product: IAPProduct, completion: @escaping (PaymentResult?, Error?) -> Void) {
+    func purchaseProduct(_ productId: String, completion: @escaping (PaymentResult) -> Void) {
         
         paymentRepository.createOrder { order, error in
             if order != nil {
                 Task { [weak self] in
-                    if let appleProduct = try await StoreKit.Product.products(for: [product.id]).first {
+                    if let appleProduct = try await StoreKit.Product.products(for: [productId]).first {
                         //Begin a purchase
                         let result = try await appleProduct.purchase()
                         switch result {
@@ -68,18 +68,20 @@ extension IAPIntegratoinImpl {
                             
                             await transaction?.finish()
                             
-                            completion(.success, nil)
+                            completion(.success)
                         case .userCancelled:
-                            completion(.failure, nil)
+                            completion(.failure(.userCancelled))
                         case .pending:
-                            completion(.pending, nil)
+                            completion(.pending)
                         @unknown default:
-                            completion(nil, nil)
+                            completion(.failure(.unknownError))
                         }
+                    } else {
+                        completion(.failure(.productError))
                     }
-                    completion(nil, error)
                 }
-                completion(nil, error)
+            } else {
+                completion(.failure(.orderError))
             }
             
         }

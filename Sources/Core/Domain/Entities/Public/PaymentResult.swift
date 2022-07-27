@@ -6,10 +6,14 @@ import Foundation
 
 public enum StoreError: Error {
     case failedVerification
+    case userCancelled
+    case unknownError
+    case productError
+    case orderError
 }
 
 public enum PaymentResult {
     case success
-    case failure
+    case failure(StoreError)
     case pending
 }

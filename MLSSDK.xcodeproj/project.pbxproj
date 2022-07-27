@@ -543,8 +543,6 @@
 		5FB937FF285CAC2000524DE4 /* IAPIntegrationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB937FE285CAC2000524DE4 /* IAPIntegrationImpl.swift */; };
 		5FB93801285CAD6200524DE4 /* IAPIntegrationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB93800285CAD6200524DE4 /* IAPIntegrationFactory.swift */; };
 		5FB9380A285CB9C900524DE4 /* AppleProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB93809285CB9C900524DE4 /* AppleProductMapper.swift */; };
-		5FB9380B285CC09600524DE4 /* IAPIntegrationFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB93806285CB8BD00524DE4 /* IAPIntegrationFactoryProtocol.swift */; };
-		5FB9380C285CC09600524DE4 /* IAPIntegrationFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB93806285CB8BD00524DE4 /* IAPIntegrationFactoryProtocol.swift */; };
 		5FD648A128324B14000883FC /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5FD648A028324B14000883FC /* Localizable.stringsdict */; };
 		5FD648A228324B14000883FC /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5FD648A028324B14000883FC /* Localizable.stringsdict */; };
 		5FD648A428324D9A000883FC /* Websocket+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */; };
@@ -908,7 +906,6 @@
 		5FB937F6285C954D00524DE4 /* IAPIntegrataion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPIntegrataion.swift; sourceTree = "<group>"; };
 		5FB937FE285CAC2000524DE4 /* IAPIntegrationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPIntegrationImpl.swift; sourceTree = "<group>"; };
 		5FB93800285CAD6200524DE4 /* IAPIntegrationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPIntegrationFactory.swift; sourceTree = "<group>"; };
-		5FB93806285CB8BD00524DE4 /* IAPIntegrationFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPIntegrationFactoryProtocol.swift; sourceTree = "<group>"; };
 		5FB93809285CB9C900524DE4 /* AppleProductMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleProductMapper.swift; sourceTree = "<group>"; };
 		5FD648A028324B14000883FC /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Websocket+UserAgent.swift"; sourceTree = "<group>"; };
@@ -2014,7 +2011,6 @@
 				49E441732538DCAB00385890 /* VideoPlayer.swift */,
 				6496C3522492308D0099475D /* VideoPlayerImpl.swift */,
 				5FB937F6285C954D00524DE4 /* IAPIntegrataion.swift */,
-				5FB93806285CB8BD00524DE4 /* IAPIntegrationFactoryProtocol.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -3286,7 +3282,6 @@
 				49CD1BFA2677A8C2004CCDE8 /* Compression.swift in Sources */,
 				49CD1C0B2677A8C2004CCDE8 /* StringHTTPHandler.swift in Sources */,
 				49B25DE624A5FE7B00CCB14D /* VideoPlayerView.swift in Sources */,
-				5FB9380B285CC09600524DE4 /* IAPIntegrationFactoryProtocol.swift in Sources */,
 				4926CE0524CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */,
 				495CB133249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49E441362538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
@@ -3387,7 +3382,6 @@
 				5FA15C0D27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49CD1BED2677A8C1004CCDE8 /* NativeEngine.swift in Sources */,
-				5FB9380C285CC09600524DE4 /* IAPIntegrationFactoryProtocol.swift in Sources */,
 				49CD1BE92677A8C1004CCDE8 /* Framer.swift in Sources */,
 				49CD1BF62677A8C1004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */,
 				5FB937E9285B6C1800524DE4 /* MLSPaymentRepository.swift in Sources */,
