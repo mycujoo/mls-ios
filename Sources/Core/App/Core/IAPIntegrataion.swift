@@ -10,8 +10,8 @@ public protocol IAPIntegration: AnyObject {
 
     
     @available(iOS 15.0, *)
-    func listProducts(_ eventId: String, completion: @escaping ([IAPProduct], Error?) -> Void)
+    func listProducts(_ eventId: String) async throws -> [IAPProduct]
 
     @available(iOS 15.0, *)
-    func purchaseProduct(_ productId: String, completion: @escaping (PaymentResult) -> Void)
+    func purchaseProduct(productId: String) async -> PaymentResult
 }

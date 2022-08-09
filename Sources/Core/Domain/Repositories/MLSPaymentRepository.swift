@@ -6,6 +6,8 @@ import Foundation
 
 
 public protocol MLSPaymentRepository {
-    func createOrder(callback: @escaping (Order?, Error?) -> Void)
-    func finishTransaction(jwsToken: String)
+    @available(iOS 13.0.0, *)
+    func createOrder(packageId: String) async throws -> Order
+    @available(iOS 13.0.0, *)
+    func finishTransaction(jwsToken: String, orderId: String) async throws -> PaymentVerification
 }

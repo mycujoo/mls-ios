@@ -13,6 +13,7 @@ class IAPIntegratoinImpl: NSObject, IAPIntegration {
     
     private var _updateListenerTask: Any? = nil
     private var paymentRepository: MLSPaymentRepository
+    private var orderId: String = ""
     @available(iOS 15.0, *)
     private var updateListenerTask: Task<Void, Error>? {
         if _updateListenerTask == nil {
@@ -37,6 +38,7 @@ class IAPIntegratoinImpl: NSObject, IAPIntegration {
             // Fallback on earlier versions
             _updateListenerTask = nil
         }
+        orderId = ""
     }
     
     
@@ -44,46 +46,39 @@ class IAPIntegratoinImpl: NSObject, IAPIntegration {
 @available(iOS 15.0, *)
 extension IAPIntegratoinImpl {
 
-    func listProducts(_ eventId: String, completion: @escaping ([IAPProduct], Error?) -> Void) {
-        
-        Task {
-            completion(try await Product.products(for: ["testsub29YzWXKPMi6yBF63tRoCasuCu6Q"]).map { $0.toDomain }, nil)
-        }
+    func listProducts(_ eventId: String) async throws -> [IAPProduct] {
+        //TODO: Impl getting productIds for the `event` from server
+        let productIds = ["testsub29YzWXKPMi6yBF63tRoCasuCu6Q"]
+        return try await Product.products(for: productIds).map { $0.toDomain }
     }
     
-    func purchaseProduct(_ productId: String, completion: @escaping (PaymentResult) -> Void) {
-        
-        paymentRepository.createOrder { order, error in
-            if order != nil {
-                Task { [weak self] in
-                    if let appleProduct = try await StoreKit.Product.products(for: [productId]).first {
-                        //Begin a purchase
-                        let result = try await appleProduct.purchase()
-                        switch result {
-                        case .success(let verification):
-                            
-                            let transaction = try self?.verifyTransaction(verification)
-                            
-                            self?.paymentRepository.finishTransaction(jwsToken: verification.jwsRepresentation)
-                            
-                            await transaction?.finish()
-                            
-                            completion(.success)
-                        case .userCancelled:
-                            completion(.failure(.userCancelled))
-                        case .pending:
-                            completion(.pending)
-                        @unknown default:
-                            completion(.failure(.unknownError))
-                        }
-                    } else {
-                        completion(.failure(.productError))
+    func purchaseProduct(productId: String) async -> PaymentResult {
+        do {
+            let order = try await paymentRepository.createOrder(packageId: productId)
+            if let appleProductToPurchase = try await StoreKit.Product.products(for: [order.appleProductId]).first {
+                let purchaseResult = try await appleProductToPurchase.purchase(options: [.appAccountToken(UUID(uuidString: order.appleAppAccountToken)!) ])
+                switch purchaseResult {
+                case .success(let verification):
+                    let transaction = try self.verifyTransaction(verification)
+                    self.orderId = order.id
+                    let jwsverification = try await self.paymentRepository.finishTransaction(jwsToken: verification.jwsRepresentation, orderId: order.id)
+                    if jwsverification.id.isEmpty {
+                        return .failure(.productError)
                     }
+                    await transaction.finish()
+                    return .success
+                case .userCancelled:
+                    return .failure(.userCancelled)
+                case .pending:
+                    return .pending
+                @unknown default:
+                    return .failure(.unknownError)
                 }
             } else {
-                completion(.failure(.orderError))
+                return .failure(.productError)
             }
-            
+        } catch {
+            return (.failure(.orderError))
         }
     }
     
@@ -93,11 +88,7 @@ extension IAPIntegratoinImpl {
             for await result in Transaction.updates {
                 do {
                     let transaction = try self.verifyTransaction(result)
-                    
-                    //TODO: send jws
-                    
-                    self.paymentRepository.finishTransaction(jwsToken: result.jwsRepresentation)
-                    
+                                        
                     // finish transaction
                     await transaction.finish()
                     

@@ -78,11 +78,8 @@ extension WithInAppPurchaseAvailableViewController {
     
     func getSubscriptionList() {
         guard let eventId = eventId else { return }
-        paymentAPI.listProducts(eventId) { products, error in
-            guard error == nil else {
-                return
-            }
-            self.productList = products
+        Task.init {
+            self.productList = try await paymentAPI.listProducts(eventId)
         }
     }
     
@@ -121,17 +118,14 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let product = productList[indexPath.row]
+        let testPackageId = "2CwES7iIx5aoDp27K1qdKqlWpDX"
         if #available(iOS 15.0, *) {
-                paymentAPI.purchaseProduct(product) { result, error in
-                    guard let result = result else {
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        tableView.reloadData()
-                    }
-                    
+            Task.init {
+                let paymentResult = await paymentAPI.purchaseProduct(productId: testPackageId)
+                DispatchQueue.main.async {
+                    tableView.reloadData()
                 }
+            }
             
         } else {
             // Fallback on earlier versions
