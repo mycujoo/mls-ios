@@ -75,7 +75,7 @@ extension WithInAppPurchaseAvailableViewController {
     func getSubscriptionList() {
         guard let eventId = eventId else { return }
         Task.init {
-            self.productList = try await paymentAPI.listProducts(eventId)
+            self.productList = try await paymentAPI.listProducts(eventId: eventId)
         }
     }
     
@@ -117,7 +117,16 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
         if #available(iOS 15.0, *) {
             Task.init {
                 do {
-                    let paymentResult = try await paymentAPI.purchaseProduct(productId: product.id)
+                    let paymentResult = try await paymentAPI.purchaseProduct(product.id)
+                    
+                    switch paymentResult {
+                    case .success:
+                        print("Payment successful!")
+                    case .failure(let storeError):
+                        print("Payment failed: \(storeError)")
+                    case .pending:
+                        print("Payment pending for user action")
+                    }
                 } catch {
                     print(error)
                 }
