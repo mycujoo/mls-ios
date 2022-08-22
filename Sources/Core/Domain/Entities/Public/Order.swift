@@ -20,11 +20,3 @@ public struct Order: Decodable {
         case appleAppAccountToken = "apple_app_account_token"
     }
 }
-
-public struct PaymentVerification: Decodable {
-    public var id: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "payment_id"
-    }
-}

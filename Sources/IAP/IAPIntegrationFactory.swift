@@ -6,6 +6,7 @@ import Foundation
 import MLSSDK
 
 
+@available(iOS 15.0, *)
 public class IAPIntegrationFactory:
     IntegrationFactoryProtocol {
         private var timelineRepository: MLSTimelineRepository!

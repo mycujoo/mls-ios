@@ -121,7 +121,12 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
         let testPackageId = "2CwES7iIx5aoDp27K1qdKqlWpDX"
         if #available(iOS 15.0, *) {
             Task.init {
-                let paymentResult = await paymentAPI.purchaseProduct(productId: testPackageId)
+                do {
+                    _ = try await paymentAPI.purchaseProduct(productId: testPackageId)
+                } catch {
+                    
+                }
+                
                 DispatchQueue.main.async {
                     tableView.reloadData()
                 }

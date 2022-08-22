@@ -13,5 +13,5 @@ public protocol IAPIntegration: AnyObject {
     func listProducts(_ eventId: String) async throws -> [IAPProduct]
 
     @available(iOS 15.0, *)
-    func purchaseProduct(productId: String) async -> PaymentResult
+    func purchaseProduct(productId: String) async throws -> PaymentResult
 }

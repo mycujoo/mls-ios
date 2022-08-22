@@ -12,6 +12,21 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
     }
     
     @available(iOS 13.0.0, *)
+    func listProductIds(eventId: String) async throws -> [String] {
+        return try await withCheckedThrowingContinuation { continuation in
+            _fetch(.listProductIds(eventId: eventId), type: EventPackages.self) { eventPackages, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    if let eventPackages = eventPackages {
+                        continuation.resume(returning: [eventPackages.appleProductId])
+                    }
+                }
+            }
+        }
+    }
+    
+    @available(iOS 13.0.0, *)
     func createOrder(packageId: String) async throws -> Order {
         return try await withCheckedThrowingContinuation { continuation in
             _fetch(.createOrder(packageId: packageId), type: Order.self) { order, error in
