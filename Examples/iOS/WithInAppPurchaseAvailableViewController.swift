@@ -47,10 +47,6 @@ class WithInAppPurchaseAvailableViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if #available(iOS 15, *) {
-            getSubscriptionList()
-        }
     }
     
     func setupTableView() {
@@ -118,13 +114,12 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let product = productList[indexPath.row]
-        let testPackageId = "2CwES7iIx5aoDp27K1qdKqlWpDX"
         if #available(iOS 15.0, *) {
             Task.init {
                 do {
-                    _ = try await paymentAPI.purchaseProduct(productId: testPackageId)
+                    let paymentResult = try await paymentAPI.purchaseProduct(productId: product.id)
                 } catch {
-                    
+                    print(error)
                 }
                 
                 DispatchQueue.main.async {
