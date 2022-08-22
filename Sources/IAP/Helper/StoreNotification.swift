@@ -13,7 +13,7 @@ public enum StoreException: Error, Equatable {
     case purchaseInProgressException
     case jwsVerificationException
     case transactionVerificationFailed
-    
+    case unhandledEventException
     
     public func shortDescription() -> String {
         switch self {
@@ -24,6 +24,7 @@ public enum StoreException: Error, Equatable {
             case .purchaseInProgressException:          return "Exception. You can't start another purchase yet, one is already in progress"
             case .jwsVerificationException:             return "Exception. jwsRepresentation verification failed"
             case .transactionVerificationFailed:        return "Exception. A transaction failed StoreKit's automatic verification"
+            case .unhandledEventException:              return "Exception. An unhandled event happened!"
         }
     }
 }
