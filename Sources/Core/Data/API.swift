@@ -371,85 +371,19 @@ extension API: TargetType {
         case .createOrder:
             return Data("""
                 {
-                  "amount": {
-                    "currency_code": "string",
-                    "nanos": 0,
-                    "units": "string"
-                  },
-                  "apple_app_account_token": "string",
-                  "apple_app_store_product_id": "string",
-                  "content_reference": {
-                    "id": "string",
-                    "type": "string"
-                  },
-                  "discount_amount": {
-                    "currency_code": "string",
-                    "nanos": 0,
-                    "units": "string"
-                  },
-                  "discount_fraction": 0,
-                  "final_amount": {
-                    "currency_code": "string",
-                    "nanos": 0,
-                    "units": "string"
-                  },
-                  "google_play_sku": "string",
-                  "id": "string",
-                  "identity_id": "string",
-                  "product_description": "string",
-                  "product_name": "string",
-                  "promo_code": {
-                    "code": "string",
-                    "description": "string",
-                    "title": "string"
-                  },
-                  "redirect_url": "string"
+                  "apple_app_account_token": "sampleToken123",
+                  "apple_app_store_product_id": "test123",
+                  "id": "1",
+                  "product_name": "test subscription"
                 }
                 """.utf8)
         case .listProductIds:
             return Data("""
             {
-              "next_page_token": "string",
               "packages": [
                 {
-                  "apple_app_store_product_id": "string",
-                  "content_references": [
-                    {
-                      "id": "string",
-                      "type": "string"
-                    }
-                  ],
-                  "description": "string",
-                  "end_time": "2019-08-24T14:15:22Z",
-                  "google_play_sku": "string",
-                  "hero_image_asset_id": "string",
-                  "id": "string",
-                  "is_geoblocked": true,
-                  "logo_asset_id": "string",
-                  "name": "string",
-                  "price": {
-                    "currency_code": "string",
-                    "nanos": 0,
-                    "units": "string"
-                  },
-                  "price_msrp": {
-                    "currency_code": "string",
-                    "nanos": 0,
-                    "units": "string"
-                  },
-                  "price_per_item": {
-                    "currency_code": "string",
-                    "nanos": 0,
-                    "units": "string"
-                  },
-                  "priority": 0,
-                  "short_name": "string",
-                  "start_time": "2019-08-24T14:15:22Z",
-                  "term": {
-                    "factor": 0,
-                    "period": "CALENDAR_PERIOD_UNSPECIFIED"
-                  },
-                  "type": "PACKAGE_TYPE_UNSPECIFIED"
+                  "apple_app_store_product_id": "test123",
+                  "id": "1"
                 }
               ]
             }

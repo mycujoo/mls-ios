@@ -10,8 +10,12 @@ public protocol IAPIntegration: AnyObject {
 
     
     @available(iOS 15.0, *)
-    func listProducts(_ eventId: String) async throws -> [IAPProduct]
+    /// - Parameters:
+    ///   - eventId:    The id of the related event to retreive the Products(Subscriptions) based on that id from Apple
+    func listProducts(eventId: String) async throws -> [IAPProduct]
 
     @available(iOS 15.0, *)
-    func purchaseProduct(productId: String) async throws -> PaymentResult
+    /// - Parameters:
+    /// - productId: The productId of the Product that comes from the `listProducts` method.
+    func purchaseProduct(_ productId: String) async throws -> PaymentResult
 }
