@@ -532,6 +532,15 @@
 		5F4571BE28B374BC0013EAC1 /* EventPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BA28B36DB40013EAC1 /* EventPackages.swift */; };
 		5F4571C028B375070013EAC1 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BF28B375070013EAC1 /* PaymentVerification.swift */; };
 		5F4571C128B375070013EAC1 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BF28B375070013EAC1 /* PaymentVerification.swift */; };
+		5F4571C628B391F70013EAC1 /* ListProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */; };
+		5F4571CA28B393D00013EAC1 /* CreateOrderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */; };
+		5F4571CE28B396130013EAC1 /* VerifyJWSUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571CB28B396130013EAC1 /* VerifyJWSUseCase.swift */; };
+		5F4571D028B3C4C90013EAC1 /* ListProductIdsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571CF28B3C4C90013EAC1 /* ListProductIdsUseCase.swift */; };
+		5F4571D128B3C4C90013EAC1 /* ListProductIdsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571CF28B3C4C90013EAC1 /* ListProductIdsUseCase.swift */; };
+		5F4571D328B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571D228B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift */; };
+		5F4571D428B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571D228B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift */; };
+		5F4571D628B3C69D0013EAC1 /* FinishTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571D528B3C69D0013EAC1 /* FinishTransactionUseCase.swift */; };
+		5F4571D728B3C69D0013EAC1 /* FinishTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571D528B3C69D0013EAC1 /* FinishTransactionUseCase.swift */; };
 		5F69116428619F3500FD9FCA /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F69116328619F3500FD9FCA /* IAPProduct.swift */; };
 		5F69116528619F3500FD9FCA /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F69116328619F3500FD9FCA /* IAPProduct.swift */; };
 		5FA15C0C27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
@@ -905,6 +914,12 @@
 		5F4180D328084D89001D2EE3 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
 		5F4571BA28B36DB40013EAC1 /* EventPackages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPackages.swift; sourceTree = "<group>"; };
 		5F4571BF28B375070013EAC1 /* PaymentVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVerification.swift; sourceTree = "<group>"; };
+		5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductsUseCase.swift; sourceTree = "<group>"; };
+		5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderUseCase.swift; sourceTree = "<group>"; };
+		5F4571CB28B396130013EAC1 /* VerifyJWSUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyJWSUseCase.swift; sourceTree = "<group>"; };
+		5F4571CF28B3C4C90013EAC1 /* ListProductIdsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductIdsUseCase.swift; sourceTree = "<group>"; };
+		5F4571D228B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePurchaseOrderUseCase.swift; sourceTree = "<group>"; };
+		5F4571D528B3C69D0013EAC1 /* FinishTransactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTransactionUseCase.swift; sourceTree = "<group>"; };
 		5F69116328619F3500FD9FCA /* IAPProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProduct.swift; sourceTree = "<group>"; };
 		5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedWebsocketConnection.swift; sourceTree = "<group>"; };
 		5FB937DE285B52A200524DE4 /* MLSSDK_IAP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IAP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1154,6 +1169,9 @@
 				49E441282538D50000385890 /* GetLicenseDataUseCase.swift */,
 				4926CE0D24CDECEA00419A42 /* GetPlayerConfigUseCase.swift */,
 				4926CDF424CDE6DF00419A42 /* ListEventsUseCase.swift */,
+				5F4571CF28B3C4C90013EAC1 /* ListProductIdsUseCase.swift */,
+				5F4571D228B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift */,
+				5F4571D528B3C69D0013EAC1 /* FinishTransactionUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1915,23 +1933,26 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		5F4571C228B3904E0013EAC1 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */,
+				5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */,
+				5F4571CB28B396130013EAC1 /* VerifyJWSUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 		5FB937E6285B6A1F00524DE4 /* IAP */ = {
 			isa = PBXGroup;
 			children = (
+				5F4571C228B3904E0013EAC1 /* UseCases */,
 				5FC6485A28A54131006B98FD /* Helper */,
 				5FB93808285CB9AD00524DE4 /* Mapper */,
-				5FB937FD285CAC0B00524DE4 /* UseCases */,
 				5FB937FE285CAC2000524DE4 /* IAPIntegrationImpl.swift */,
 				5FB93800285CAD6200524DE4 /* IAPIntegrationFactory.swift */,
 			);
 			path = IAP;
-			sourceTree = "<group>";
-		};
-		5FB937FD285CAC0B00524DE4 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UseCases;
 			sourceTree = "<group>";
 		};
 		5FB93808285CB9AD00524DE4 /* Mapper */ = {
@@ -3236,10 +3257,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FC6485C28A54172006B98FD /* StoreLog.swift in Sources */,
+				5F4571CA28B393D00013EAC1 /* CreateOrderUseCase.swift in Sources */,
 				5FB93801285CAD6200524DE4 /* IAPIntegrationFactory.swift in Sources */,
+				5F4571CE28B396130013EAC1 /* VerifyJWSUseCase.swift in Sources */,
 				5FB9380A285CB9C900524DE4 /* AppleProductMapper.swift in Sources */,
 				5FC6485E28A64C6E006B98FD /* StoreNotification.swift in Sources */,
 				5FB937FF285CAC2000524DE4 /* IAPIntegrationImpl.swift in Sources */,
+				5F4571C628B391F70013EAC1 /* ListProductsUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3252,6 +3276,7 @@
 				49CD1BFD2677A8C2004CCDE8 /* Framer.swift in Sources */,
 				4943B96124C6F08A0006F81C /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
 				499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift in Sources */,
+				5F4571D028B3C4C90013EAC1 /* ListProductIdsUseCase.swift in Sources */,
 				4943B96924C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
 				4926CE0B24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
 				5F4571C028B375070013EAC1 /* PaymentVerification.swift in Sources */,
@@ -3298,6 +3323,7 @@
 				49CD1C012677A8C2004CCDE8 /* NativeEngine.swift in Sources */,
 				5FB937F7285C954D00524DE4 /* IAPIntegrataion.swift in Sources */,
 				5F1896962860788300BDDB2D /* Order.swift in Sources */,
+				5F4571D328B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift in Sources */,
 				4966DEFE24B72D7F00BEC403 /* Event.swift in Sources */,
 				4926CE2D24CE046D00419A42 /* DataLayerEvent.swift in Sources */,
 				4926CE2724CE046D00419A42 /* DataLayerAnnotationAction.swift in Sources */,
@@ -3317,6 +3343,7 @@
 				49317CE2253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */,
 				6496C35E249230BF0099475D /* VideoProgressSlider.swift in Sources */,
 				49CD1BF92677A8C2004CCDE8 /* FoundationTransport.swift in Sources */,
+				5F4571D628B3C69D0013EAC1 /* FinishTransactionUseCase.swift in Sources */,
 				5FD648A428324D9A000883FC /* Websocket+UserAgent.swift in Sources */,
 				5FB937EB285B6CCF00524DE4 /* MLSPaymentRepositoryImpl.swift in Sources */,
 				4926CDFC24CDEAF000419A42 /* EventRepositoryImpl.swift in Sources */,
@@ -3382,6 +3409,7 @@
 				4931A88825A77665006CC9A4 /* PlayerProtocol.swift in Sources */,
 				4926CE0024CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */,
 				495CB13D249CFFE700998FF4 /* MLSPlayer.swift in Sources */,
+				5F4571D128B3C4C90013EAC1 /* ListProductIdsUseCase.swift in Sources */,
 				4983664D264E7C3D00DDAEBD /* AnnotationIntegration.swift in Sources */,
 				49E441222538D4A300385890 /* MLSDRMRepository.swift in Sources */,
 				49CD1BEC2677A8C1004CCDE8 /* WebSocket.swift in Sources */,
@@ -3409,6 +3437,7 @@
 				5FA15C0D27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */,
 				495CB134249CC50E00998FF4 /* UIColor+.swift in Sources */,
 				49CD1BED2677A8C1004CCDE8 /* NativeEngine.swift in Sources */,
+				5F4571D428B3C4F90013EAC1 /* CreatePurchaseOrderUseCase.swift in Sources */,
 				49CD1BE92677A8C1004CCDE8 /* Framer.swift in Sources */,
 				49CD1BF62677A8C1004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */,
 				5FB937E9285B6C1800524DE4 /* MLSPaymentRepository.swift in Sources */,
@@ -3423,6 +3452,7 @@
 				49CD1BF32677A8C1004CCDE8 /* Data+Extensions.swift in Sources */,
 				49DDEABC24A29E6900C89DFF /* UIFont+.swift in Sources */,
 				49CD1BE72677A8C1004CCDE8 /* HTTPHandler.swift in Sources */,
+				5F4571D728B3C69D0013EAC1 /* FinishTransactionUseCase.swift in Sources */,
 				49CD1BE52677A8C1004CCDE8 /* FoundationTransport.swift in Sources */,
 				4926CE2A24CE046D00419A42 /* DataLayerPlayerConfig.swift in Sources */,
 				49317CE3253F0A4D00675EB6 /* VideoAnalyticsServicing.swift in Sources */,

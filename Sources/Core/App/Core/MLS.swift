@@ -117,8 +117,18 @@ public class MLS {
     private lazy var drmRepository: MLSDRMRepository = {
         return DRMRepositoryImpl()
     }()
+    private lazy var listProductIdsUseCase: ListProductIdsUseCase = {
+       return ListProductIdsUseCase(api: api)
+    }()
+    private lazy var createOrderUseCase: CreatePurchaseOrderUseCase = {
+        return CreatePurchaseOrderUseCase(api: api)
+    }()
+    private lazy var finishTransactionUseCase: FinishTransactionUseCase = {
+        return FinishTransactionUseCase(api: api)
+    }()
+    
     private lazy var paymentRepository: MLSPaymentRepository = {
-        return MLSPaymentRepositoryImpl(api: api)
+        return MLSPaymentRepositoryImpl(listProdictIdsUseCase: listProductIdsUseCase, createOrderUseCase: createOrderUseCase, finishTransactionUseCase: finishTransactionUseCase)
     }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)

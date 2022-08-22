@@ -34,8 +34,16 @@ public class IAPIntegrationFactory:
             self.paymentRepository = paymentRepository
         }
         
-        public func build() -> IAPIntegration {
-            return IAPIntegratoinImpl(paymentRepository: paymentRepository)
+    public func build(logLevel: Configuration.LogLevel = .info) -> IAPIntegration {
+            let listProductsUseCase = ListProductsUseCase(paymentRepository: paymentRepository)
+            let createOrderUseCase = CreateOrderUseCase(paymentRepository: paymentRepository)
+            let verifyJWSUseCase = VerifyJWSUseCase(paymentRepository: paymentRepository)
+            
+            return IAPIntegrationImpl(
+                listProductsUseCase: listProductsUseCase,
+                createOrderUseCase: createOrderUseCase,
+                verifyJWSUseCase: verifyJWSUseCase,
+                logLevel: logLevel)
         }
     }
 
