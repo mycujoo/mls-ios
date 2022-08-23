@@ -16,12 +16,12 @@ class ListProductsUseCase {
     
     func execute(eventId: String) async throws -> [IAPProduct] {
         
-        guard let productIdsList = try? await paymentRepository.listProductIds(eventId: eventId) else {
+        guard let productsList = try? await paymentRepository.listProducts(eventId: eventId) else {
             throw StoreException.fetchProductIdsListException
         }
         
         
-        guard let products = try? await Product.products(for: productIdsList) else {
+        guard let products = try? await Product.products(for: [productsList.appleProductId]) else {
             return []
         }
         

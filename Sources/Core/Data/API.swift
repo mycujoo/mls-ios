@@ -10,7 +10,7 @@ enum API {
     case events(pageSize: Int?, pageToken: String?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
     case timelineActions(id: String, updateId: String?)
     case playerConfig
-    case listProductIds(eventId: String)
+    case listEventProducts(eventId: String)
     case createOrder(packageId: String)
     case paymentVerification(jws: String, orderId: String)
     /// A dateformatter that can be used on Event objects on this API.
@@ -35,7 +35,7 @@ extension API: TargetType {
             return "/bff/timeline/v1beta1/\(timelineId)"
         case .playerConfig:
             return "/bff/player_config"
-        case .listProductIds(_):
+        case .listEventProducts(_):
             return "/bff/payments/v1/event_packages"
         case .createOrder:
             return "/bff/payments/v1/orders"
@@ -46,7 +46,7 @@ extension API: TargetType {
 
     var method: Moya.Method {
         switch self {
-        case .eventById, .events, .timelineActions, .playerConfig, .listProductIds:
+        case .eventById, .events, .timelineActions, .playerConfig, .listEventProducts:
             return .get
         case .createOrder, .paymentVerification:
             return .post
@@ -377,7 +377,7 @@ extension API: TargetType {
                   "product_name": "test subscription"
                 }
                 """.utf8)
-        case .listProductIds:
+        case .listEventProducts:
             return Data("""
             {
               "packages": [
@@ -424,7 +424,7 @@ extension API: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .playerConfig:
            return .requestPlain
-        case .listProductIds(let eventId):
+        case .listEventProducts(let eventId):
             var params: [String: Any] = [:]
             params["event_id"] = eventId
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
