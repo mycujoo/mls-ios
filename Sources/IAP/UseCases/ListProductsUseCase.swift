@@ -26,8 +26,8 @@ class ListProductsUseCase {
             return []
         }
         var result: [(String, IAPProduct)] = []
-        for list in productsList {
-            result.append((packagesList.packages.filter { $0.appleProductId == list.id }.first!.id, list.toDomain))
+        for product in productsList {
+            result.append((packagesList.packages.filter { $0.appleProductId == product.id }.first!.id, product.toDomain))
         }
         return result
     }
