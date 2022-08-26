@@ -57,6 +57,7 @@ extension IAPIntegrationImpl {
             throw StoreException.orderException
         }
         
+        self.orderId = order.id
         guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.exception(.requestProductException, productId: order.appleProductId)
@@ -82,7 +83,7 @@ extension IAPIntegrationImpl {
                 throw StoreException.transactionVerificationFailed
             }
             
-            guard (try? await verifyJWS(verification)) != nil else {
+            guard (try? await verifyJWS(verification, orderId: order.id)) != nil else {
                 throw StoreException.jwsVerificationException
             }
             
@@ -112,7 +113,7 @@ extension IAPIntegrationImpl {
                     throw StoreException.transactionVerificationFailed
                 }
                 
-                guard (try? await verifyJWS(verificationResult)) != nil else {
+                guard (try? await verifyJWS(verificationResult, orderId: self.orderId)) != nil else {
                     if logLevel == .verbose {
                         StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
                     }
@@ -124,9 +125,9 @@ extension IAPIntegrationImpl {
         }
     }
     
-    private func verifyJWS(_ verification: VerificationResult<Transaction>) async throws -> Bool {
+    private func verifyJWS(_ verification: VerificationResult<Transaction>, orderId: String) async throws -> Bool {
         
-        return try await verifyJWSUseCase.execute(verification, orderId: self.orderId)
+        return try await verifyJWSUseCase.execute(verification, orderId: orderId)
     }
     
     /// Check if StoreKit was able to automatically verify a transaction by inspecting the verification result.
