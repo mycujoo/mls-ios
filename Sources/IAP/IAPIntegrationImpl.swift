@@ -11,8 +11,7 @@ import StoreKit
 @available(iOS 15.0, *)
 class IAPIntegrationImpl: NSObject, IAPIntegration {
     
-    /// Handle for App Store transactions.
-    private var transactionListener: Task<Void, Error>? = nil
+    private var transactionListeners: [String: Task<Void, Error>] = [:]
     
     private var logLevel: Configuration.LogLevel
     
@@ -32,14 +31,15 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     }
     
     deinit {
-        transactionListener?.cancel()
+        for (_, listener) in transactionListeners {
+            listener.cancel()
+        }
     }
 }
 @available(iOS 15.0, *)
 extension IAPIntegrationImpl {
 
     func listProducts(eventId: String) async throws -> [(packageId: String, product: IAPProduct)] {
-        
         return try await listProductsUseCase.execute(eventId: eventId)
     }
     
@@ -51,9 +51,9 @@ extension IAPIntegrationImpl {
             throw StoreException.orderException
         }
         
-        // Only start listening for transaction updates when there is an order created.
-        transactionListener?.cancel()
-        transactionListener = listenForTransaction(orderId: order.id)
+        transactionListeners[order.appleAppAccountToken]?.cancel()
+        let transactionListener = listenForTransaction(orderId: order.id, appAccountToken: order.appleAppAccountToken)
+        transactionListeners[order.appleAppAccountToken] = transactionListener
         
         guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
             if [.verbose, .info].contains(logLevel) {
@@ -71,10 +71,10 @@ extension IAPIntegrationImpl {
         
         switch purchaseResult {
         case .success(let verification):
-            try await handleTransactionResult(verification, orderId: order.id)
+            try await handleTransactionResult(verification, orderId: order.id, appAccountToken: order.appleAppAccountToken)
             return .success
         case .userCancelled:
-            transactionListener?.cancel()
+            transactionListeners[order.appleAppAccountToken]?.cancel()
             return .failure(.userCancelled)
         case .pending:
             return .pending
@@ -83,22 +83,33 @@ extension IAPIntegrationImpl {
         }
     }
     
-    private func listenForTransaction(orderId: String) -> Task<Void, Error> {
-        return Task.detached { [self] in
+    private func listenForTransaction(orderId: String, appAccountToken: String) -> Task<Void, Error> {
+        return Task.detached { [weak self] in
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
             for await verificationResult in Transaction.updates {
-                try await handleTransactionResult(verificationResult, orderId: orderId)
+                try await self?.handleTransactionResult(verificationResult, orderId: orderId, appAccountToken: appAccountToken)
             }
         }
     }
     
-    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, orderId: String) async throws -> Void {
+    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, orderId: String, appAccountToken: String) async throws -> Void {
         let result = self.checkVerificationResult(result: verificationResult)
+        
+        if result.transaction.appAccountToken?.uuidString != appAccountToken {
+            // This is a Transaction that does not belong to the current purchase.
+            // We can leave it open briefly in case a separate process still cares about it,
+            // but finish it automatically if it is too old.
+            if Int(result.transaction.signedDate.timeIntervalSinceNow.rounded()) > 3600 * 24 {
+                await result.transaction.finish()
+            }
+            return
+        }
         
         if !result.verified {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.transactionValidationFailure, productId: result.transaction.productID)
             }
+            await result.transaction.finish()
             throw StoreException.transactionVerificationFailed
         }
         
@@ -106,6 +117,7 @@ extension IAPIntegrationImpl {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
             }
+            await result.transaction.finish()
             throw StoreException.finishTransactionException
         }
 
