@@ -17,7 +17,7 @@ class FinishTransactionUseCase {
     
     func execute(_ jwsToken: String, orderId: String) async throws -> Bool {
         
-        guard let paymentVerification = try? await paymentRepository.finishTransaction(jwsToken: jwsToken, orderId: orderId), paymentVerification.id.isEmpty else {
+        guard let paymentVerification = try? await paymentRepository.finishTransaction(jwsToken: jwsToken, orderId: orderId), !paymentVerification.id.isEmpty else {
             
             throw StoreException.finishTransactionException
         }
