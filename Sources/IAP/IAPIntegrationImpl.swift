@@ -97,12 +97,15 @@ extension IAPIntegrationImpl {
         
         guard let transactionAppAccountToken = result.transaction.appAccountToken?.uuidString,
               transactionAppAccountToken.lowercased() == appAccountToken.lowercased() else {
-            // This is a Transaction that does not belong to the current purchase.
-            // We can leave it open briefly in case a separate process still cares about it,
-            // but finish it automatically if it is too old.
-            if Int(result.transaction.purchaseDate.timeIntervalSinceNow.rounded()) < -(3600 * 24) {
-                await result.transaction.finish()
-            }
+            // The issue here is if a purchase was already done in a previous iteration recently,
+            // but then the process got closed prematurely.
+            // The appAccountToken (and orderId) will be different this time around, but the transaction's
+            // productID will be the same. So Apple will not create a new Transaction because it recognizes this
+            // product was already purchased recently, but we cannot send the server this information because
+            // we lost the original orderId.
+            // The server should've received this information from Apple already (through webhook), but that means
+            // we somehow have to handle this scenario. For now, we close the transaction and assume it was successful.
+            await result.transaction.finish()
             return
         }
         
