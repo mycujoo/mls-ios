@@ -99,7 +99,7 @@ extension IAPIntegrationImpl {
             // This is a Transaction that does not belong to the current purchase.
             // We can leave it open briefly in case a separate process still cares about it,
             // but finish it automatically if it is too old.
-            if Int(result.transaction.signedDate.timeIntervalSinceNow.rounded()) > 3600 * 24 {
+            if Int(result.transaction.purchaseDate.timeIntervalSinceNow.rounded()) > 3600 * 24 {
                 await result.transaction.finish()
             }
             return
