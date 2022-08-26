@@ -13,7 +13,7 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
     }
     
     @available(iOS 13.0, *)
-    func listProducts(eventId: String) async throws -> EventPackages {
+    func listPackages(eventId: String) async throws -> EventPackages {
         return try await withCheckedThrowingContinuation { continuation in
             _fetch(.listEventProducts(eventId: eventId), type: EventPackages.self) { eventPackages, error in
                 if let error = error {

@@ -7,7 +7,7 @@ import Foundation
 
 public protocol MLSPaymentRepository {
     @available(iOS 13.0.0, *)
-    func listProducts(eventId: String) async throws -> EventPackages
+    func listPackages(eventId: String) async throws -> EventPackages
     @available(iOS 13.0.0, *)
     func createOrder(packageId: String) async throws -> Order
     @available(iOS 13.0.0, *)
