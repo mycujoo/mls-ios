@@ -14,17 +14,21 @@ class ListProductsUseCase {
         self.paymentRepository = paymentRepository
     }
     
-    func execute(eventId: String) async throws -> [IAPProduct] {
+    func execute(eventId: String) async throws -> [(packageId: String, product: IAPProduct)] {
         
-        guard let productsList = try? await paymentRepository.listProducts(eventId: eventId) else {
+        guard let packagesList = try? await paymentRepository.listProducts(eventId: eventId) else {
             throw StoreException.fetchProductIdsListException
         }
         
+        let iapProductsList = try await Product.products(for: packagesList.packages.map { $0.appleProductId })
         
-        guard let products = try? await Product.products(for: [productsList.appleProductId]) else {
+        guard iapProductsList.count > 0 else {
             return []
         }
-        
-        return products.map { $0.toDomain }
+        var result: [(String, IAPProduct)] = []
+        for list in iapProductsList {
+            result.append((packagesList.packages.filter { $0.appleProductId == list.id }.first!.id, list.toDomain))
+        }
+        return result
     }
 }

@@ -427,7 +427,7 @@ extension API: TargetType {
         case .listEventProducts(let eventId):
             var params: [String: Any] = [:]
             params["event_id"] = eventId
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .createOrder(let packageId):
             var params: [String: Any] = [:]
             params["content_reference"] = ["type": "package", "id": packageId]

@@ -524,12 +524,12 @@
 		5DCC0E6C059137E3F19196CC /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3F403CA24167D40EC8DD7C5 /* Pods_iOSTests.framework */; };
 		5F1896962860788300BDDB2D /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1896952860788300BDDB2D /* Order.swift */; };
 		5F1896972860788300BDDB2D /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1896952860788300BDDB2D /* Order.swift */; };
+		5F24DAB728B7A78D00947F64 /* EventPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24DAB628B7A78D00947F64 /* EventPackages.swift */; };
+		5F24DAB828B7A78D00947F64 /* EventPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24DAB628B7A78D00947F64 /* EventPackages.swift */; };
 		5F4180D128084D1D001D2EE3 /* UserAgentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */; };
 		5F4180D228084D1D001D2EE3 /* UserAgentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */; };
 		5F4180D428084D89001D2EE3 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D328084D89001D2EE3 /* UIDevice+.swift */; };
 		5F4180D528084D89001D2EE3 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D328084D89001D2EE3 /* UIDevice+.swift */; };
-		5F4571BD28B374BC0013EAC1 /* EventPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BA28B36DB40013EAC1 /* EventPackages.swift */; };
-		5F4571BE28B374BC0013EAC1 /* EventPackages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BA28B36DB40013EAC1 /* EventPackages.swift */; };
 		5F4571C028B375070013EAC1 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BF28B375070013EAC1 /* PaymentVerification.swift */; };
 		5F4571C128B375070013EAC1 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BF28B375070013EAC1 /* PaymentVerification.swift */; };
 		5F4571C628B391F70013EAC1 /* ListProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */; };
@@ -904,9 +904,9 @@
 		56A00B086CC1A9372022F7D1 /* Pods_MLSSDK_Cast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_Cast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58021D79F506878A0B0FE0AC /* Pods_MLSSDK_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLSSDK_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1896952860788300BDDB2D /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		5F24DAB628B7A78D00947F64 /* EventPackages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPackages.swift; sourceTree = "<group>"; };
 		5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentHeader.swift; sourceTree = "<group>"; };
 		5F4180D328084D89001D2EE3 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
-		5F4571BA28B36DB40013EAC1 /* EventPackages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPackages.swift; sourceTree = "<group>"; };
 		5F4571BF28B375070013EAC1 /* PaymentVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVerification.swift; sourceTree = "<group>"; };
 		5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductsUseCase.swift; sourceTree = "<group>"; };
 		5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderUseCase.swift; sourceTree = "<group>"; };
@@ -1210,8 +1210,8 @@
 				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 				49A75DF8276DF38D00B26866 /* VideoAnalyticsCustomData.swift */,
 				5FB937F0285C6BE000524DE4 /* PaymentResult.swift */,
+				5F24DAB628B7A78D00947F64 /* EventPackages.swift */,
 				5F1896952860788300BDDB2D /* Order.swift */,
-				5F4571BA28B36DB40013EAC1 /* EventPackages.swift */,
 				5F4571BF28B375070013EAC1 /* PaymentVerification.swift */,
 			);
 			path = Public;
@@ -3291,7 +3291,6 @@
 				4926CDFF24CDEB1D00419A42 /* BaseRepositoryImpl.swift in Sources */,
 				49CD1C002677A8C2004CCDE8 /* WebSocket.swift in Sources */,
 				49E441212538D4A300385890 /* MLSDRMRepository.swift in Sources */,
-				5F4571BD28B374BC0013EAC1 /* EventPackages.swift in Sources */,
 				4926CDF124CDE64600419A42 /* MLSEventRepository.swift in Sources */,
 				49CD1C0A2677A8C2004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */,
 				4943B96324C6F08A0006F81C /* NVActivityIndicatorPresenter.swift in Sources */,
@@ -3301,6 +3300,7 @@
 				4925998425A1D9F7007658DB /* IMAIntegration.swift in Sources */,
 				49CD1C092677A8C2004CCDE8 /* WSEngine.swift in Sources */,
 				4943B96524C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
+				5F24DAB728B7A78D00947F64 /* EventPackages.swift in Sources */,
 				4926CE0E24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,
 				49CD1C032677A8C2004CCDE8 /* FoundationSecurity.swift in Sources */,
 				49B2E7322572E5C000AE13F6 /* Localizable.swift in Sources */,
@@ -3433,6 +3433,7 @@
 				4926CE0624CDEC0700419A42 /* PlayerConfigRepositoryImpl.swift in Sources */,
 				49E441372538D54B00385890 /* DRMRepositoryImpl.swift in Sources */,
 				49CD1BF32677A8C1004CCDE8 /* Data+Extensions.swift in Sources */,
+				5F24DAB828B7A78D00947F64 /* EventPackages.swift in Sources */,
 				49DDEABC24A29E6900C89DFF /* UIFont+.swift in Sources */,
 				49CD1BE72677A8C1004CCDE8 /* HTTPHandler.swift in Sources */,
 				49CD1BE52677A8C1004CCDE8 /* FoundationTransport.swift in Sources */,
@@ -3444,7 +3445,6 @@
 				64FDE310249A191400E6510D /* MLS.swift in Sources */,
 				49CD1BEA2677A8C1004CCDE8 /* Transport.swift in Sources */,
 				49CD1BE62677A8C1004CCDE8 /* Compression.swift in Sources */,
-				5F4571BE28B374BC0013EAC1 /* EventPackages.swift in Sources */,
 				49CD1BF82677A8C1004CCDE8 /* Server.swift in Sources */,
 				499CBEEC24B9C3F000EE4D7B /* DataProvider.swift in Sources */,
 				49CD1BF52677A8C1004CCDE8 /* WSEngine.swift in Sources */,

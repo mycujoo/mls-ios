@@ -22,7 +22,7 @@ class WithInAppPurchaseAvailableViewController: UIViewController {
         }
     }
     private var products: [Product] = []
-    private var productList: [IAPProduct] = [] {
+    private var productList: [(String, IAPProduct)] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.reloadData()
@@ -106,8 +106,8 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = productList[indexPath.row].displayName
-        cell.detailTextLabel?.text = productList[indexPath.row].displayPrice
+        cell.textLabel?.text = productList[indexPath.row].1.displayName
+        cell.detailTextLabel?.text = productList[indexPath.row].1.displayPrice
             return cell
     }
     
@@ -117,7 +117,7 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
         if #available(iOS 15.0, *) {
             Task.init {
                 do {
-                    let paymentResult = try await paymentAPI.purchaseProduct(product.id)
+                    let paymentResult = try await paymentAPI.purchaseProduct(product.1.id, packageId: product.0)
                     
                     switch paymentResult {
                     case .success:

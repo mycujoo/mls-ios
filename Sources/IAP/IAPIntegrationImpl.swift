@@ -18,9 +18,9 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     
     private var logLevel: Configuration.LogLevel
     
-    private var listProductsUseCase: ListProductsUseCase
-    private var createOrderUseCase: CreateOrderUseCase
-    private var verifyJWSUseCase: VerifyJWSUseCase
+    private let listProductsUseCase: ListProductsUseCase
+    private let createOrderUseCase: CreateOrderUseCase
+    private let verifyJWSUseCase: VerifyJWSUseCase
     
     init(listProductsUseCase: ListProductsUseCase,
          createOrderUseCase: CreateOrderUseCase,
@@ -43,29 +43,29 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
 @available(iOS 15.0, *)
 extension IAPIntegrationImpl {
 
-    func listProducts(eventId: String) async throws -> [IAPProduct] {
+    func listProducts(eventId: String) async throws -> [(packageId: String, product: IAPProduct)] {
         
         return try await listProductsUseCase.execute(eventId: eventId)
     }
     
-    func purchaseProduct(_ productId: String) async throws -> PaymentResult {
-        
-        guard let order = try? await createOrderUseCase.execute(productId) else {
-            if logLevel == .verbose {
+    func purchaseProduct(_ productId: String, packageId: String) async throws -> PaymentResult {
+
+        guard let order = try? await createOrderUseCase.execute(packageId) else {
+            if [.verbose].contains(logLevel) {
                 StoreLog.exception(.orderException, productId: productId)
             }
             throw StoreException.orderException
         }
         
         guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
-            if logLevel == .verbose {
+            if [.verbose, .info].contains(logLevel) {
                 StoreLog.exception(.requestProductException, productId: order.appleProductId)
             }
             throw StoreException.requestProductException
         }
         
         guard let purchaseResult = try? await appleProductToPurchase.purchase(options: [.appAccountToken(UUID(uuidString: order.appleAppAccountToken)!) ]) else {
-            if logLevel == .verbose {
+            if [.verbose, .info].contains(logLevel) {
                 StoreLog.exception(.purchaseException, productId: appleProductToPurchase.id)
             }
             throw StoreException.purchaseException
@@ -76,13 +76,13 @@ extension IAPIntegrationImpl {
             let result = checkVerificationResult(result: verification)
             
             if !result.verified {
-                if logLevel == .verbose {
+                if [.verbose, .info].contains(logLevel) {
                     StoreLog.transaction(.transactionValidationFailure, productId: result.transaction.productID)
                 }
                 throw StoreException.transactionVerificationFailed
             }
             
-            guard let success = try? await verifyJWS(verification) else {
+            guard (try? await verifyJWS(verification)) != nil else {
                 throw StoreException.jwsVerificationException
             }
             
@@ -112,7 +112,10 @@ extension IAPIntegrationImpl {
                     throw StoreException.transactionVerificationFailed
                 }
                 
-                guard let success = try? await verifyJWS(verificationResult) else {
+                guard (try? await verifyJWS(verificationResult)) != nil else {
+                    if logLevel == .verbose {
+                        StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
+                    }
                     throw StoreException.jwsVerificationException
                 }
 
