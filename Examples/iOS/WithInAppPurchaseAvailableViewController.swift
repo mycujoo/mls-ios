@@ -116,7 +116,7 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
         if #available(iOS 15.0, *) {
             Task.init {
                 do {
-                    let paymentResult = try await paymentAPI.purchaseProduct(entry.product.id, packageId: entry.packageId)
+                    let paymentResult = try await paymentAPI.purchaseProduct(packageId: entry.packageId)
                     
                     switch paymentResult {
                     case .success:

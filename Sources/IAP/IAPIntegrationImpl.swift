@@ -43,10 +43,10 @@ extension IAPIntegrationImpl {
         return try await listProductsUseCase.execute(eventId: eventId)
     }
     
-    func purchaseProduct(_ productId: String, packageId: String) async throws -> PaymentResult {
+    func purchaseProduct(packageId: String) async throws -> PaymentResult {
         guard let order = try? await createOrderUseCase.execute(packageId) else {
             if [.verbose].contains(logLevel) {
-                StoreLog.exception(.orderException, productId: productId)
+                StoreLog.exception(.orderException, productId: "Unknown. MCLS packageId: " + packageId)
             }
             throw StoreException.orderException
         }
