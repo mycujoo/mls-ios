@@ -95,7 +95,8 @@ extension IAPIntegrationImpl {
     private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, orderId: String, appAccountToken: String) async throws -> Void {
         let result = self.checkVerificationResult(result: verificationResult)
         
-        if result.transaction.appAccountToken?.uuidString != appAccountToken {
+        guard let transactionAppAccountToken = result.transaction.appAccountToken?.uuidString,
+              transactionAppAccountToken.lowercased() == appAccountToken.lowercased() else {
             // This is a Transaction that does not belong to the current purchase.
             // We can leave it open briefly in case a separate process still cares about it,
             // but finish it automatically if it is too old.
