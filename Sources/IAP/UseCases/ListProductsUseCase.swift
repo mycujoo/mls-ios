@@ -15,20 +15,16 @@ class ListProductsUseCase {
     }
     
     func execute(eventId: String) async throws -> [(packageId: String, product: IAPProduct)] {
-        
-        guard let packagesList = try? await paymentRepository.listPackages(eventId: eventId) else {
-            throw StoreException.fetchProductIdsListException
+        guard let packages = try? await paymentRepository.listPackages(eventId: eventId).packages else {
+            throw StoreException.fetchPackagesListException
         }
         
-        let productsList = try await Product.products(for: packagesList.packages.map { $0.appleProductId })
-        
-        guard productsList.count > 0 else {
-            return []
-        }
-        var result: [(String, IAPProduct)] = []
-        for product in productsList {
-            result.append((packagesList.packages.filter { $0.appleProductId == product.id }.first!.id, product.toDomain))
-        }
-        return result
+        return try await Product
+            .products(for: packages.map { $0.appleProductId })
+            .map { product in
+                (packages.filter { $0.appleProductId == product.id }.first?.id, product.toDomain)
+            }
+            .filter { $0.0 != nil }
+            .map { (packageId: $0.0!, product: $0.1) }
     }
 }

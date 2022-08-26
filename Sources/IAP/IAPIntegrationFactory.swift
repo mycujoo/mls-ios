@@ -37,12 +37,12 @@ public class IAPIntegrationFactory:
     public func build(logLevel: Configuration.LogLevel = .info) -> IAPIntegration {
             let listProductsUseCase = ListProductsUseCase(paymentRepository: paymentRepository)
             let createOrderUseCase = CreateOrderUseCase(paymentRepository: paymentRepository)
-            let verifyJWSUseCase = VerifyJWSUseCase(paymentRepository: paymentRepository)
+            let finishTransactionUseCase = FinishTransactionUseCase(paymentRepository: paymentRepository)
             
             return IAPIntegrationImpl(
                 listProductsUseCase: listProductsUseCase,
                 createOrderUseCase: createOrderUseCase,
-                verifyJWSUseCase: verifyJWSUseCase,
+                finishTransactionUseCase: finishTransactionUseCase,
                 logLevel: logLevel)
         }
     }

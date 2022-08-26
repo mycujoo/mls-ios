@@ -7,8 +7,6 @@ import Foundation
 
 
 public protocol IAPIntegration: AnyObject {
-
-    
     @available(iOS 15.0, *)
     /// - Parameters:
     ///   - eventId:    The id of the related event to retreive the Products(Subscriptions) based on that id from Apple

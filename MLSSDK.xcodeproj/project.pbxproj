@@ -534,7 +534,7 @@
 		5F4571C128B375070013EAC1 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BF28B375070013EAC1 /* PaymentVerification.swift */; };
 		5F4571C628B391F70013EAC1 /* ListProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */; };
 		5F4571CA28B393D00013EAC1 /* CreateOrderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */; };
-		5F4571CE28B396130013EAC1 /* VerifyJWSUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571CB28B396130013EAC1 /* VerifyJWSUseCase.swift */; };
+		5F4571CE28B396130013EAC1 /* FinishTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */; };
 		5F69116428619F3500FD9FCA /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F69116328619F3500FD9FCA /* IAPProduct.swift */; };
 		5F69116528619F3500FD9FCA /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F69116328619F3500FD9FCA /* IAPProduct.swift */; };
 		5FA15C0C27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
@@ -910,7 +910,7 @@
 		5F4571BF28B375070013EAC1 /* PaymentVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVerification.swift; sourceTree = "<group>"; };
 		5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductsUseCase.swift; sourceTree = "<group>"; };
 		5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderUseCase.swift; sourceTree = "<group>"; };
-		5F4571CB28B396130013EAC1 /* VerifyJWSUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyJWSUseCase.swift; sourceTree = "<group>"; };
+		5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTransactionUseCase.swift; sourceTree = "<group>"; };
 		5F69116328619F3500FD9FCA /* IAPProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProduct.swift; sourceTree = "<group>"; };
 		5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedWebsocketConnection.swift; sourceTree = "<group>"; };
 		5FB937DE285B52A200524DE4 /* MLSSDK_IAP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IAP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1926,7 +1926,7 @@
 			children = (
 				5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */,
 				5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */,
-				5F4571CB28B396130013EAC1 /* VerifyJWSUseCase.swift */,
+				5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -3247,7 +3247,7 @@
 				5FC6485C28A54172006B98FD /* StoreLog.swift in Sources */,
 				5F4571CA28B393D00013EAC1 /* CreateOrderUseCase.swift in Sources */,
 				5FB93801285CAD6200524DE4 /* IAPIntegrationFactory.swift in Sources */,
-				5F4571CE28B396130013EAC1 /* VerifyJWSUseCase.swift in Sources */,
+				5F4571CE28B396130013EAC1 /* FinishTransactionUseCase.swift in Sources */,
 				5FB9380A285CB9C900524DE4 /* AppleProductMapper.swift in Sources */,
 				5FC6485E28A64C6E006B98FD /* StoreNotification.swift in Sources */,
 				5FB937FF285CAC2000524DE4 /* IAPIntegrationImpl.swift in Sources */,

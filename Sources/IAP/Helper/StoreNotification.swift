@@ -6,25 +6,25 @@ import Foundation
 
 /// StoreHelper exceptions
 public enum StoreException: Error, Equatable {
-    case fetchProductIdsListException
+    case fetchPackagesListException
     case orderException
     case requestProductException
     case purchaseException
     case purchaseInProgressException
-    case jwsVerificationException
+    case finishTransactionException
     case transactionVerificationFailed
     case unhandledEventException
     
     public func shortDescription() -> String {
         switch self {
-            case .fetchProductIdsListException:         return "Exception. Fetching productIdsList failed!"
+            case .fetchPackagesListException:           return "Exception. Fetching packages failed"
             case .orderException:                       return "Exception. Creating order failed"
-            case .requestProductException:              return "Exception. Storekit throw an exception while requesting for a product"
-            case .purchaseException:                    return "Exception. StoreKit throw an exception while processing a purchase"
+            case .requestProductException:              return "Exception. Storekit threw an exception while requesting for a product"
+            case .purchaseException:                    return "Exception. StoreKit threw an exception while processing a purchase"
             case .purchaseInProgressException:          return "Exception. You can't start another purchase yet, one is already in progress"
-            case .jwsVerificationException:             return "Exception. jwsRepresentation verification failed"
+            case .finishTransactionException:           return "Exception. jwsRepresentation verification failed"
             case .transactionVerificationFailed:        return "Exception. A transaction failed StoreKit's automatic verification"
-            case .unhandledEventException:              return "Exception. An unhandled event happened!"
+            case .unhandledEventException:              return "Exception. An unhandled event happened"
         }
     }
 }
