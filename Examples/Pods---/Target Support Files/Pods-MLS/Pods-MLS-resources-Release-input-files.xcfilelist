@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/MLSSDK.common-Cast-IAP/MLSResources.bundle
+${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.6.1_static/GoogleCast.framework/GoogleCastCoreResources.bundle
+${PODS_ROOT}/google-cast-sdk/GoogleCastSDK-ios-4.6.1_static/GoogleCast.framework/GoogleCastUIResources.bundle

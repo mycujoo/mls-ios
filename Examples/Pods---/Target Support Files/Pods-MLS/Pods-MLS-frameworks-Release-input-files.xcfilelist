@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-MLS/Pods-MLS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework
+${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework
+${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework
+${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework
+${BUILT_PRODUCTS_DIR}/YouboraAVPlayerAdapter-iOS/YouboraAVPlayerAdapter.framework
+${BUILT_PRODUCTS_DIR}/YouboraLib-iOS/YouboraLib.framework

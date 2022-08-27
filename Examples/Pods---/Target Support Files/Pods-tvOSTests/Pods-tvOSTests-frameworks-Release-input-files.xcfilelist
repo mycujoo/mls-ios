@@ -1,0 +1,8 @@
+${PODS_ROOT}/Target Support Files/Pods-tvOSTests/Pods-tvOSTests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Moya-tvOS/Moya.framework
+${BUILT_PRODUCTS_DIR}/YouboraAVPlayerAdapter-tvOS/YouboraAVPlayerAdapter.framework
+${BUILT_PRODUCTS_DIR}/YouboraLib-tvOS/YouboraLib.framework
+${BUILT_PRODUCTS_DIR}/Cuckoo-tvOS/Cuckoo.framework
+${BUILT_PRODUCTS_DIR}/Nimble-tvOS/Nimble.framework
+${BUILT_PRODUCTS_DIR}/Quick-tvOS/Quick.framework

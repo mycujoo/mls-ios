@@ -1,0 +1,6 @@
+${PODS_ROOT}/Target Support Files/Pods-MLS-tvOS/Pods-MLS-tvOS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Moya-tvOS/Moya.framework
+${BUILT_PRODUCTS_DIR}/YouboraAVPlayerAdapter-tvOS/YouboraAVPlayerAdapter.framework
+${BUILT_PRODUCTS_DIR}/YouboraLib-tvOS/YouboraLib.framework
+${PODS_ROOT}/GoogleAds-IMA-tvOS-SDK/GoogleInteractiveMediaAds.framework

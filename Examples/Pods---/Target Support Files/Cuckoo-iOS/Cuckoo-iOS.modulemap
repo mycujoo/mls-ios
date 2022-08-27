@@ -1,0 +1,6 @@
+framework module Cuckoo {
+  umbrella header "Cuckoo-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

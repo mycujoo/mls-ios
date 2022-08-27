@@ -1,0 +1,8 @@
+${PODS_ROOT}/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework
+${BUILT_PRODUCTS_DIR}/YouboraAVPlayerAdapter-iOS/YouboraAVPlayerAdapter.framework
+${BUILT_PRODUCTS_DIR}/YouboraLib-iOS/YouboraLib.framework
+${BUILT_PRODUCTS_DIR}/Cuckoo-iOS/Cuckoo.framework
+${BUILT_PRODUCTS_DIR}/Nimble-iOS/Nimble.framework
+${BUILT_PRODUCTS_DIR}/Quick-iOS/Quick.framework

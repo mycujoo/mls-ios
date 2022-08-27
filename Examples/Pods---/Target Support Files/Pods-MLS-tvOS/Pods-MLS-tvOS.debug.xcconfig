@@ -1,0 +1,17 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
+EXCLUDED_ARCHS[sdk=appletvsimulator*] = arm64
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-tvOS" "${PODS_CONFIGURATION_BUILD_DIR}/MLSSDK.common" "${PODS_CONFIGURATION_BUILD_DIR}/Moya-tvOS" "${PODS_CONFIGURATION_BUILD_DIR}/YouboraAVPlayerAdapter-tvOS" "${PODS_CONFIGURATION_BUILD_DIR}/YouboraLib-tvOS" "${PODS_ROOT}/GoogleAds-IMA-tvOS-SDK"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-tvOS/Alamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MLSSDK.common/MLSSDK.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Moya-tvOS/Moya.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/YouboraAVPlayerAdapter-tvOS/YouboraAVPlayerAdapter.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/YouboraLib-tvOS/YouboraLib.framework/Headers"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/Frameworks' '@loader_path/Frameworks'
+LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-tvOS/Alamofire.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/MLSSDK.common/MLSSDK.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/Moya-tvOS/Moya.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/YouboraAVPlayerAdapter-tvOS/YouboraAVPlayerAdapter.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/YouboraLib-tvOS/YouboraLib.framework/Headers" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-tvOS" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/MLSSDK.common" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/Moya-tvOS" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/YouboraAVPlayerAdapter-tvOS" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/YouboraLib-tvOS" -iframework "${PODS_ROOT}/GoogleAds-IMA-tvOS-SDK"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "AVFoundation" -framework "AdSupport" -framework "Alamofire" -framework "AudioToolbox" -framework "CFNetwork" -framework "CoreFoundation" -framework "CoreGraphics" -framework "CoreMedia" -framework "Foundation" -framework "GoogleInteractiveMediaAds" -framework "JavaScriptCore" -framework "MLSSDK" -framework "Moya" -framework "QuartzCore" -framework "SystemConfiguration" -framework "UIKit" -framework "YouboraAVPlayerAdapter" -framework "YouboraLib"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
+PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

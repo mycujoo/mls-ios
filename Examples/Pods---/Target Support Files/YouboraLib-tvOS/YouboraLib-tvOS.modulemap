@@ -1,0 +1,6 @@
+framework module YouboraLib {
+  umbrella header "YouboraLib-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
