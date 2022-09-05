@@ -11,7 +11,7 @@ import StoreKit
 @available(iOS 15.0, *)
 class IAPIntegrationImpl: NSObject, IAPIntegration {
     
-    private var transactionListeners: [String: Task<Void, Error>] = [:]
+    private var transactionListener: Task<Void, Error>? = nil
     
     private var logLevel: Configuration.LogLevel
     
@@ -31,9 +31,7 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     }
     
     deinit {
-        for (_, listener) in transactionListeners {
-            listener.cancel()
-        }
+        transactionListener?.cancel()
     }
 }
 @available(iOS 15.0, *)
@@ -51,9 +49,8 @@ extension IAPIntegrationImpl {
             throw StoreException.orderException
         }
         
-        transactionListeners[order.appleAppAccountToken]?.cancel()
-        let transactionListener = listenForTransaction(orderId: order.id, appAccountToken: order.appleAppAccountToken, appleProductId: order.appleProductId)
-        transactionListeners[order.appleAppAccountToken] = transactionListener
+        transactionListener?.cancel()
+        transactionListener = listenForTransaction(orderId: order.id)
         
         guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
             if [.verbose, .info].contains(logLevel) {
@@ -71,10 +68,10 @@ extension IAPIntegrationImpl {
         
         switch purchaseResult {
         case .success(let verification):
-            try await handleTransactionResult(verification, orderId: order.id, appAccountToken: order.appleAppAccountToken, appleProductId: order.appleProductId)
+            _ = try await handleTransactionResult(verification, orderId: order.id)
             return .success
         case .userCancelled:
-            transactionListeners[order.appleAppAccountToken]?.cancel()
+            transactionListener?.cancel()
             return .failure(.userCancelled)
         case .pending:
             return .pending
@@ -83,44 +80,23 @@ extension IAPIntegrationImpl {
         }
     }
     
-    private func listenForTransaction(orderId: String, appAccountToken: String, appleProductId: String) -> Task<Void, Error> {
+    private func listenForTransaction(orderId: String) -> Task<Void, Error> {
         return Task.detached { [weak self] in
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
+            // We don't need this listener, therefore it's empty here and do nothing, to silence Apple's warning.
             for await verificationResult in Transaction.updates {
-                if let success = try await self?.handleTransactionResult(verificationResult, orderId: orderId, appAccountToken: appAccountToken, appleProductId: appleProductId), success {
-                    // TODO: Trigger some callback to indicate that a Transaction was handled for the appleProductId we are interested in.
-                    // Note that this can also have happened in an earlier purchase attempt of the user. Apple does not trigger a new Transaction
-                    // if an existing one already covers a non-consumable product.
-                }
+                guard let result = self?.checkVerificationResult(result: verificationResult) else { return }
+                await result.transaction.finish()
             }
         }
     }
     
     /// - parameter verificationResult: The result containing the Transaction
     /// - parameter orderId: The order to which the Transaction is intended to belong
-    /// - parameter appAccountToken: The appAccountToken to which the Transaction is intended to belong.
-    ///   This can be used to match against an appAccountToken already stored on a Transaction, to make sure we do not use an unrelated Transaction to confirm this order with.
-    /// - parameter appleProductId: The Apple product ID being purchased.
-    ///   Similar to appAccountToken, this is used to determine whether the Transaction being handled is relevant to what is currently being purchased by the user
-    ///   (as there may be unrelated Transactions being triggered by the listener).
     /// - returns: A boolean indicating whether the transaction was processed successfully AND it belongs to the product being purchased.
     ///   This is important because a transaction might be marked as finished, but it may be for an unrelated product.
-    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, orderId: String, appAccountToken: String, appleProductId: String) async throws -> Bool {
+    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, orderId: String) async throws -> Bool {
         let result = self.checkVerificationResult(result: verificationResult)
-        
-        guard let transactionAppAccountToken = result.transaction.appAccountToken?.uuidString,
-              transactionAppAccountToken.lowercased() == appAccountToken.lowercased() else {
-            // The issue here is if a purchase was already done in a previous iteration recently,
-            // but then the process got closed prematurely.
-            // The appAccountToken (and orderId) will be different this time around, but the transaction's
-            // productID will be the same. So Apple will not create a new Transaction because it recognizes this
-            // product was already purchased recently, but we cannot send the server this information because
-            // we lost the original orderId.
-            // The server should've received this information from Apple already (through webhook), but that means
-            // we somehow have to handle this scenario. For now, we close the transaction and assume it was successful.
-            await result.transaction.finish()
-            return result.transaction.productID == appleProductId
-        }
         
         if !result.verified {
             if [.verbose, .info].contains(logLevel) {
