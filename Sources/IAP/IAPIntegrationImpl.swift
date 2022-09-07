@@ -13,6 +13,7 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     
     
     private let queue = DispatchQueue(label: "purcahse.fulfillment.retry")
+    private let maxRetry: Int = 6
     private var retryAttempt: Int = .zero
     private var workItem: DispatchWorkItem = DispatchWorkItem(block: { })
     private var purchaseFulfilled: Bool = false
@@ -146,10 +147,20 @@ extension IAPIntegrationImpl {
             let fulfillmentResult = await fetchPurchaseFulfilledUseCase.execute(order: order)
             switch fulfillmentResult {
             case .failure(_):
+                if [.verbose].contains(logLevel) {
+                    print("### Calling fulfillment failed! retrying... \(retryAttempt)")
+                }
+                guard retryAttempt < maxRetry else {
+                    callback(false)
+                    return
+                }
                 self.retry(delay: .exponential(initial: 3, multiplier: 2), maxRetry: 5) { [self] in
                     checkPurchaseFulfilment(order: order, callback: callback)
                 }
             case .success(let isFulfilled):
+                if [.verbose].contains(logLevel) {
+                    print("### Calling fulfillment succeed! Returning result.")
+                }
                 if isFulfilled {
                     workItem.cancel()
                     purchaseFulfilled = isFulfilled
@@ -167,13 +178,11 @@ extension IAPIntegrationImpl {
         workItem.cancel()
         guard !self.purchaseFulfilled else { return }
         
-        if retryAttempt < maxRetry {
-            workItem = DispatchWorkItem() {
-                operation()
-            }
-            queue.asyncAfter(deadline: .now() + Double(delay.make(retryAttempt)), execute: workItem)
-            retryAttempt += 1
+        workItem = DispatchWorkItem() {
+            operation()
         }
+        queue.asyncAfter(deadline: .now() + Double(delay.make(retryAttempt)), execute: workItem)
+        retryAttempt += 1
     }
     
     /// Check if StoreKit was able to automatically verify a transaction by inspecting the verification result.
