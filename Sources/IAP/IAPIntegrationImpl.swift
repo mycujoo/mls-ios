@@ -11,6 +11,11 @@ import StoreKit
 @available(iOS 15.0, *)
 class IAPIntegrationImpl: NSObject, IAPIntegration {
     
+    
+    private let queue = DispatchQueue(label: "purcahse.fulfillment.retry")
+    private var retryAttempt: Int = .zero
+    private var workItem: DispatchWorkItem = DispatchWorkItem(block: { })
+    private var purchaseFulfilled: Bool = false
     private var transactionListener: Task<Void, Error>? = nil
     
     private var logLevel: Configuration.LogLevel
@@ -18,20 +23,25 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     private let listProductsUseCase: ListProductsUseCase
     private let createOrderUseCase: CreateOrderUseCase
     private let finishTransactionUseCase: FinishTransactionUseCase
-    
+    private let fetchPurchaseFulfilledUseCase: FetchPurchaseFulfilledUseCase
     init(listProductsUseCase: ListProductsUseCase,
          createOrderUseCase: CreateOrderUseCase,
          finishTransactionUseCase: FinishTransactionUseCase,
+         fetchPurchaseFulfilledUseCase: FetchPurchaseFulfilledUseCase,
          logLevel: Configuration.LogLevel) {
         self.listProductsUseCase = listProductsUseCase
         self.createOrderUseCase = createOrderUseCase
         self.finishTransactionUseCase = finishTransactionUseCase
+        self.fetchPurchaseFulfilledUseCase = fetchPurchaseFulfilledUseCase
         self.logLevel = logLevel
         super.init()
     }
     
     deinit {
         transactionListener?.cancel()
+        workItem.cancel()
+        retryAttempt = .zero
+        purchaseFulfilled = false
     }
 }
 @available(iOS 15.0, *)
@@ -68,8 +78,8 @@ extension IAPIntegrationImpl {
         
         switch purchaseResult {
         case .success(let verification):
-            _ = try await handleTransactionResult(verification, orderId: order.id)
-            return .success
+            let transactionResult = try await handleTransactionResult(verification, order: order)
+            return transactionResult ? .success : .failure(StoreError.purchaseNotFulfilled)
         case .userCancelled:
             transactionListener?.cancel()
             return .failure(.userCancelled)
@@ -95,7 +105,7 @@ extension IAPIntegrationImpl {
     /// - parameter orderId: The order to which the Transaction is intended to belong
     /// - returns: A boolean indicating whether the transaction was processed successfully AND it belongs to the product being purchased.
     ///   This is important because a transaction might be marked as finished, but it may be for an unrelated product.
-    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, orderId: String) async throws -> Bool {
+    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order) async throws -> Bool {
         let result = self.checkVerificationResult(result: verificationResult)
         
         if !result.verified {
@@ -111,7 +121,7 @@ extension IAPIntegrationImpl {
         print(verificationResult.jwsRepresentation)
         #endif
         
-        guard (try? await finishTransactionUseCase.execute(verificationResult.jwsRepresentation, orderId: orderId)) != nil else {
+        guard (try? await finishTransactionUseCase.execute(verificationResult.jwsRepresentation, orderId: order.id)) != nil else {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
             }
@@ -120,7 +130,50 @@ extension IAPIntegrationImpl {
         }
 
         await result.transaction.finish()
-        return true
+        return await withCheckedContinuation { continuation in
+            checkPurchaseFulfilment(order: order) { isFinished in
+                continuation.resume(returning: isFinished)
+            }
+        }
+        
+    }
+    
+    /// Call the usecase to check purchase fulfillment,
+    /// reutrn `true` only when get the response that purchase if fulfilled!
+    private func checkPurchaseFulfilment(order: Order, callback: @escaping (Bool) -> Void) {
+        
+        Task {
+            let fulfillmentResult = await fetchPurchaseFulfilledUseCase.execute(order: order)
+            switch fulfillmentResult {
+            case .failure(_):
+                self.retry(delay: .exponential(initial: 3, multiplier: 2), maxRetry: 5) { [self] in
+                    checkPurchaseFulfilment(order: order, callback: callback)
+                }
+            case .success(let isFulfilled):
+                if isFulfilled {
+                    workItem.cancel()
+                    purchaseFulfilled = isFulfilled
+                    callback(isFulfilled)
+                }
+            }
+        }
+    }
+    
+    /// A retry method with exponential back-off policy.
+    /// - parameter delay: an option to choose the type of delay
+    /// - parameter maxRetry: the maximum times we want this method to retry
+    /// - parameter operation: a callback to pass in the action we want to retry
+    func retry(delay: DelayOptions, maxRetry: Int, _ operation: @escaping () -> Void) {
+        workItem.cancel()
+        guard !self.purchaseFulfilled else { return }
+        
+        if retryAttempt < maxRetry {
+            workItem = DispatchWorkItem() {
+                operation()
+            }
+            queue.asyncAfter(deadline: .now() + Double(delay.make(retryAttempt)), execute: workItem)
+            retryAttempt += 1
+        }
     }
     
     /// Check if StoreKit was able to automatically verify a transaction by inspecting the verification result.

@@ -38,11 +38,12 @@ public class IAPIntegrationFactory:
             let listProductsUseCase = ListProductsUseCase(paymentRepository: paymentRepository)
             let createOrderUseCase = CreateOrderUseCase(paymentRepository: paymentRepository)
             let finishTransactionUseCase = FinishTransactionUseCase(paymentRepository: paymentRepository)
-            
+        let fetchPurchaseFulfilledUseCase = FetchPurchaseFulfilledUseCase(paymentRepository: paymentRepository)
             return IAPIntegrationImpl(
                 listProductsUseCase: listProductsUseCase,
                 createOrderUseCase: createOrderUseCase,
                 finishTransactionUseCase: finishTransactionUseCase,
+                fetchPurchaseFulfilledUseCase: fetchPurchaseFulfilledUseCase,
                 logLevel: logLevel)
         }
     }

@@ -10,6 +10,7 @@ public enum StoreError: Error {
     case unknownError
     case productError
     case orderError
+    case purchaseNotFulfilled
 }
 
 public enum PaymentResult {
