@@ -116,15 +116,16 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
         if #available(iOS 15.0, *) {
             Task.init {
                 do {
-                    let paymentResult = try await paymentAPI.purchaseProduct(packageId: entry.packageId)
+                    try paymentAPI.purchaseProduct(packageId: entry.packageId) { paymentResult in
                     
-                    switch paymentResult {
-                    case .success:
-                        print("Payment successful!")
-                    case .failure(let storeError):
-                        print("Payment failed: \(storeError)")
-                    case .pending:
-                        print("Payment pending for user action")
+                        switch paymentResult {
+                        case .success:
+                            print("Payment successful!")
+                        case .failure(let storeError):
+                            print("Payment failed: \(storeError)")
+                        case .pending:
+                            print("Payment pending for user action")
+                        }
                     }
                 } catch {
                     print(error)
