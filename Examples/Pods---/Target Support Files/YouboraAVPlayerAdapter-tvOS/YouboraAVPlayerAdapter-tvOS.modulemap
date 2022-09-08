@@ -1,6 +1,0 @@
-framework module YouboraAVPlayerAdapter {
-  umbrella header "YouboraAVPlayerAdapter-tvOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

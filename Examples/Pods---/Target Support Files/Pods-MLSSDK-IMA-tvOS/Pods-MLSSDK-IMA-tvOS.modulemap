@@ -1,6 +1,0 @@
-framework module Pods_MLSSDK_IMA_tvOS {
-  umbrella header "Pods-MLSSDK-IMA-tvOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

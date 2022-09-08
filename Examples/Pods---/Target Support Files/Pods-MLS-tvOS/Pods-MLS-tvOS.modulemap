@@ -1,6 +1,0 @@
-framework module Pods_MLS_tvOS {
-  umbrella header "Pods-MLS-tvOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

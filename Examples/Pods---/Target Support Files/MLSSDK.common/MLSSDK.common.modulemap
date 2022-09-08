@@ -1,6 +1,0 @@
-framework module MLSSDK {
-  umbrella header "MLSSDK.common-umbrella.h"
-
-  export *
-  module * { export * }
-}

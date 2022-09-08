@@ -117,6 +117,7 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
             Task.init {
                 do {
                     try paymentAPI.purchaseProduct(packageId: entry.packageId) { paymentResult in
+                    
                         switch paymentResult {
                         case .success:
                             print("Payment successful!")
