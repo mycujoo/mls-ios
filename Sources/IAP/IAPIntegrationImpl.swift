@@ -113,28 +113,6 @@ extension IAPIntegrationImpl {
     private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order) async throws -> Bool {
         let result = self.checkVerificationResult(result: verificationResult)
         
-        guard let transactionAppAccountToken = result.transaction.appAccountToken?.uuidString, transactionAppAccountToken.lowercased() == order.appleAppAccountToken.lowercased() else {
-            // The issue here is if a purchase was already done in a previous iteration recently,
-            // but then the process gets closed prematurely. In that case,
-            // the `appAccountToken` (and orderId) will be different this time round, but the transaction's
-            // productId will be the same. So Apple will not create a new Transaction because it recognizes this
-            // product was already purchased recently, but we cannot send the server this information because
-            // we lost the original orderId
-            // The server should've received this information from Apple already (through a webhook), but that means
-            //  we somehow have to handle this scenario.
-            await result.transaction.finish()
-            if result.transaction.productID == order.appleProductId {
-                guard let expirationDate = result.transaction.expirationDate else {
-                    // There is no expiration date, so this is always valid
-                    return true
-                }
-                // Check if expiration is in future, because then this product purchase is still valid
-                return Int(expirationDate.timeIntervalSinceNow.rounded()) > 0
-            } else {
-                // This transaction is for a different product.
-                return false
-            }
-        }
         if !result.verified {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.transactionValidationFailure, productId: result.transaction.productID)
