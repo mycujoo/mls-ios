@@ -11,9 +11,10 @@ import StoreKit
 @available(iOS 15.0, *)
 class IAPIntegrationImpl: NSObject, IAPIntegration {
     private let queue = DispatchQueue(label: "check_entitlement.retry")
-    private var retryAttempt: Int = .zero
-    private var workItem: DispatchWorkItem = DispatchWorkItem(block: { })
-    private var hasEntitlement: Bool = false
+    /// A dictionary from orderId to DispatchWorkItem (used for entitlement checking)
+    private var workItems: [String: DispatchWorkItem] = [:]
+    /// A dictionary from orderId to known entitlements
+    private var entitlements: [String: Bool] = [:]
     private var transactionListener: Task<Void, Error>? = nil
     
     private var logLevel: Configuration.LogLevel
@@ -33,13 +34,16 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
         self.checkEntitlementUseCase = checkEntitlementUseCase
         self.logLevel = logLevel
         super.init()
+        
+        self.transactionListener = listenForTransaction()
     }
     
     deinit {
         transactionListener?.cancel()
-        workItem.cancel()
-        retryAttempt = .zero
-        hasEntitlement = false
+        for (_, v) in workItems {
+            v.cancel()
+        }
+        workItems = [:]
     }
 }
 @available(iOS 15.0, *)
@@ -58,9 +62,6 @@ extension IAPIntegrationImpl {
                 }
                 throw StoreException.orderException
             }
-            
-            self.transactionListener?.cancel()
-            self.transactionListener = self.listenForTransaction(orderId: order.id)
             
             guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
                 if [.verbose, .info].contains(logLevel) {
@@ -92,13 +93,13 @@ extension IAPIntegrationImpl {
     }
     
     /// - parameter completionHandler: A closure that should be called when a Transaction was completed for the relevant Apple product. This can also be triggered from an earlier purchase!
-    private func listenForTransaction(orderId: String) -> Task<Void, Error> {
+    private func listenForTransaction() -> Task<Void, Error> {
         return Task.detached { [weak self] in
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
             // We don't need this listener, therefore it's empty here and do nothing, to silence Apple's warning.
             for await verificationResult in Transaction.updates {
-                guard let result = self?.checkVerificationResult(result: verificationResult) else { return }
-                await result.transaction.finish()
+                // TODO: For any order being purchased right now, this will cause a race condition. Add logic to prevent that.
+                _ = try? await self?.handleTransactionResult(verificationResult)
             }
         }
     }
@@ -107,14 +108,14 @@ extension IAPIntegrationImpl {
     /// - parameter orderId: The order to which the Transaction is intended to belong
     /// - returns: A boolean indicating whether the transaction was processed successfully AND it belongs to the product being purchased.
     ///   This returns `false` if this transaction mismatches the appleProductId being passed, or the transaction has since expired.
-    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order?) async throws -> Bool {
+    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order? = nil) async throws -> Bool {
         let result = self.checkVerificationResult(result: verificationResult)
         
         if !result.verified {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.transactionValidationFailure, productId: result.transaction.productID)
             }
-            await result.transaction.finish()
+            // Do not finish the transaction, because we have not delivered on this transaction yet.
             throw StoreException.transactionVerificationFailed
         }
         
@@ -127,14 +128,14 @@ extension IAPIntegrationImpl {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
             }
-            await result.transaction.finish()
+            // Do not finish the transaction, because we have not delivered on this transaction yet.
             throw StoreException.finishTransactionException
         }
 
         await result.transaction.finish()
         if let order = order {
-            return await withCheckedContinuation { continuation in
-                checkEntitlement(order: order) { isFinished in
+            return await withCheckedContinuation { [weak self] continuation in
+                self?.checkEntitlement(order: order) { isFinished in
                     continuation.resume(returning: isFinished)
                 }
             }
@@ -144,45 +145,50 @@ extension IAPIntegrationImpl {
         }
     }
     
+    /// - parameter attempt: The nth amount of time this function is being retried. Leave this to 1 upon the initial call.
     /// - parameter callback: A closure that gets called with `true` only when get the response there is an entitlement belonging to this Order.
-    private func checkEntitlement(order: Order, callback: @escaping (Bool) -> Void) {
+    private func checkEntitlement(order: Order, attempt: Int = 1, callback: @escaping (Bool) -> Void) {
         Task { [weak self] in
+            guard let `self` = self else { return }
             let result = await checkEntitlementUseCase.execute(contentType: order.contentReference.type, contentId: order.contentReference.id)
             switch result {
             case .failure(_):
+                if attempt > 10 {
+                    if [.verbose].contains(logLevel) {
+                        print("Calling checkEntitlement failed! Reached max retry attempts.")
+                    }
+                    
+                    self.workItems[order.id]?.cancel()
+                    self.entitlements[order.id] = true
+                    callback(false)
+                }
+                
                 if [.verbose].contains(logLevel) {
-                    print("Calling checkEntitlement failed! retrying... \(retryAttempt)")
+                    print("Calling checkEntitlement failed! retrying...")
                 }
-                self?.retry(delay: .exponential(initial: 3, multiplier: 2, maxDelay: 60000)) { [weak self] in
-                    self?.checkEntitlement(order: order, callback: callback)
+                
+                self.workItems[order.id]?.cancel()
+                let workItem = DispatchWorkItem() { [weak self] in
+                    guard let `self` = self else { return }
+                    if let hasEntitlement = self.entitlements[order.id], hasEntitlement {
+                        // Do not call callback() here, because we can assume it's already been called previously,
+                        // and it should only be called once.
+                        return
+                    }
+                    self.checkEntitlement(order: order, attempt: attempt + 1, callback: callback)
                 }
-            case .success(let hasEntitlement):
+                
+                self.workItems[order.id] = workItem
+                self.queue.asyncAfter(deadline: .now() + Double(DelayOptions.exponential(initial: 2, multiplier: 2, maxDelay: 60).make(attempt)), execute: workItem)
+            case .success(_):
                 if [.verbose].contains(logLevel) {
                     print("Calling checkEntitlement succeed! Returning result.")
                 }
-                if hasEntitlement {
-                    workItem.cancel()
-                    self?.hasEntitlement = hasEntitlement
-                    callback(hasEntitlement)
-                }
+                self.workItems[order.id]?.cancel()
+                self.entitlements[order.id] = true
+                callback(false)
             }
         }
-    }
-    
-    /// A retry method with exponential back-off policy.
-    /// - parameter delay: an option to choose the type of delay
-    /// - parameter maxRetry: the maximum times we want this method to retry
-    /// - parameter operation: a callback to pass in the action we want to retry
-    func retry(delay: DelayOptions, _ operation: @escaping () -> Void) {
-        workItem.cancel()
-        guard !self.hasEntitlement else { return }
-        
-        workItem = DispatchWorkItem() {
-            operation()
-        }
-        retryAttempt += 1
-        queue.asyncAfter(deadline: .now() + Double(delay.make(retryAttempt)), execute: workItem)
-        
     }
     
     /// Check if StoreKit was able to automatically verify a transaction by inspecting the verification result.
@@ -201,8 +207,6 @@ extension IAPIntegrationImpl {
                 return UnwrappedVerificationResult(transaction: verifiedTransaction, verified: true, verificationError: nil)
         }
     }
-
-    
 }
 
 @available(iOS 15.0, *)

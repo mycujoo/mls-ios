@@ -19,11 +19,11 @@ class CheckEntitlementUseCase {
         self.paymentRepository = paymentRepository
     }
     
-    func execute(contentType: String, contentId: String) async -> Result<Bool, Error> {
+    func execute(contentType: String, contentId: String) async -> Result<Void, Error> {
         do {
             let result =  try await paymentRepository.checkEntitlement(contentType: contentType, contentId: contentId)
             if result {
-                return .success(result)
+                return .success(())
             } else {
                 return .failure(UseCaseError.missingEntitlement)
             }
