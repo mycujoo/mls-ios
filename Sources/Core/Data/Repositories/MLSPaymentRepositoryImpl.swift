@@ -48,9 +48,9 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
     }
     
     @available(iOS 13.0.0, *)
-    func finishTransaction(jwsToken: String, orderId: String) async throws -> PaymentVerification {
+    func finishTransaction(jwsToken: String) async throws -> PaymentVerification {
         return try await withCheckedThrowingContinuation { continuation in
-            _mutate(.paymentVerification(jws: jwsToken, orderId: orderId), type: PaymentVerification.self) { result, error in
+            _mutate(.paymentVerification(jws: jwsToken), type: PaymentVerification.self) { result, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {
@@ -65,9 +65,17 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
     }
     
     @available(iOS 13.0.0, *)
-    func checkEntitlement(order: Order) async throws -> Bool {
+    func checkEntitlement(contentType: String, contentId: String) async throws -> Bool {
+        struct Resp: Decodable {
+            public var isEntitled: Bool
+            
+            enum CodingKeys: String, CodingKey {
+                case isEntitled = "is_entitled"
+            }
+        }
+
         return try await withCheckedThrowingContinuation { continuation in
-            _fetch(.checkEntitlement(contentType: order.contentReference.type, contentId: order.contentReference.id), type: PaymentFulfillment.self) { result, error in
+            _fetch(.checkEntitlement(contentType: contentType, contentId: contentId), type: Resp.self) { result, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {

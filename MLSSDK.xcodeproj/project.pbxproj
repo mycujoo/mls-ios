@@ -491,6 +491,8 @@
 		49CD1C0A2677A8C2004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBC2677A89E004CCDE8 /* FoundationHTTPServerHandler.swift */; };
 		49CD1C0B2677A8C2004CCDE8 /* StringHTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBB2677A89E004CCDE8 /* StringHTTPHandler.swift */; };
 		49CD1C0C2677A8C2004CCDE8 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD32677A8AA004CCDE8 /* Server.swift */; };
+		49CD81AD28CA887D00D79EB4 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */; };
+		49CD81AE28CA887D00D79EB4 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -530,12 +532,8 @@
 		5F4180D228084D1D001D2EE3 /* UserAgentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */; };
 		5F4180D428084D89001D2EE3 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D328084D89001D2EE3 /* UIDevice+.swift */; };
 		5F4180D528084D89001D2EE3 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4180D328084D89001D2EE3 /* UIDevice+.swift */; };
-		5F4470CC28C84B060055F0AA /* PaymentFulfillment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4470CB28C84B060055F0AA /* PaymentFulfillment.swift */; };
-		5F4470CD28C84B060055F0AA /* PaymentFulfillment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4470CB28C84B060055F0AA /* PaymentFulfillment.swift */; };
 		5F4470CF28C84BC40055F0AA /* DelayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4470CE28C84BC40055F0AA /* DelayOptions.swift */; };
 		5F4470D028C84BC40055F0AA /* DelayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4470CE28C84BC40055F0AA /* DelayOptions.swift */; };
-		5F4571C028B375070013EAC1 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BF28B375070013EAC1 /* PaymentVerification.swift */; };
-		5F4571C128B375070013EAC1 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571BF28B375070013EAC1 /* PaymentVerification.swift */; };
 		5F4571C628B391F70013EAC1 /* ListProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */; };
 		5F4571CA28B393D00013EAC1 /* CreateOrderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */; };
 		5F4571CE28B396130013EAC1 /* FinishTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */; };
@@ -883,6 +881,7 @@
 		49CD1BDC2677A8B4004CCDE8 /* FoundationTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationTransport.swift; sourceTree = "<group>"; };
 		49CD1BDD2677A8B4004CCDE8 /* TCPTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPTransport.swift; sourceTree = "<group>"; };
 		49CD1BDE2677A8B4004CCDE8 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentVerification.swift; sourceTree = "<group>"; };
 		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
@@ -912,9 +911,7 @@
 		5F24DAB628B7A78D00947F64 /* EventPackages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPackages.swift; sourceTree = "<group>"; };
 		5F4180D028084D1D001D2EE3 /* UserAgentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentHeader.swift; sourceTree = "<group>"; };
 		5F4180D328084D89001D2EE3 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
-		5F4470CB28C84B060055F0AA /* PaymentFulfillment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentFulfillment.swift; sourceTree = "<group>"; };
 		5F4470CE28C84BC40055F0AA /* DelayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayOptions.swift; sourceTree = "<group>"; };
-		5F4571BF28B375070013EAC1 /* PaymentVerification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVerification.swift; sourceTree = "<group>"; };
 		5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductsUseCase.swift; sourceTree = "<group>"; };
 		5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderUseCase.swift; sourceTree = "<group>"; };
 		5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTransactionUseCase.swift; sourceTree = "<group>"; };
@@ -1218,10 +1215,9 @@
 				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 				49A75DF8276DF38D00B26866 /* VideoAnalyticsCustomData.swift */,
 				5FB937F0285C6BE000524DE4 /* PaymentResult.swift */,
+				49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */,
 				5F24DAB628B7A78D00947F64 /* EventPackages.swift */,
 				5F1896952860788300BDDB2D /* Order.swift */,
-				5F4571BF28B375070013EAC1 /* PaymentVerification.swift */,
-				5F4470CB28C84B060055F0AA /* PaymentFulfillment.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -3278,7 +3274,6 @@
 				499D0E2E24D1C6FC0021A961 /* VideoPlayerViewProtocol+iOS.swift in Sources */,
 				4943B96924C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
 				4926CE0B24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
-				5F4571C028B375070013EAC1 /* PaymentVerification.swift in Sources */,
 				5FB937F1285C6BE100524DE4 /* PaymentResult.swift in Sources */,
 				49E441742538DCAB00385890 /* VideoPlayer.swift in Sources */,
 				4920CA552538C64C00737D91 /* GetCertificateDataUseCase.swift in Sources */,
@@ -3319,6 +3314,7 @@
 				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4931A88725A77665006CC9A4 /* PlayerProtocol.swift in Sources */,
+				49CD81AD28CA887D00D79EB4 /* PaymentVerification.swift in Sources */,
 				49CD1C012677A8C2004CCDE8 /* NativeEngine.swift in Sources */,
 				5FB937F7285C954D00524DE4 /* IAPIntegration.swift in Sources */,
 				5F1896962860788300BDDB2D /* Order.swift in Sources */,
@@ -3366,7 +3362,6 @@
 				49CD1C052677A8C2004CCDE8 /* WSCompression.swift in Sources */,
 				49836677264E9DC700DDAEBD /* AnnotationAction.swift in Sources */,
 				498E48F624D0570F0040502D /* ArbitraryDataRepositoryImpl.swift in Sources */,
-				5F4470CC28C84B060055F0AA /* PaymentFulfillment.swift in Sources */,
 				49CD1BFB2677A8C2004CCDE8 /* HTTPHandler.swift in Sources */,
 				49CD1C042677A8C2004CCDE8 /* WebSocketServer.swift in Sources */,
 				49A9F52324A15B9200D00143 /* UIView+.swift in Sources */,
@@ -3385,6 +3380,7 @@
 				49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */,
 				5F1896972860788300BDDB2D /* Order.swift in Sources */,
 				5F69116528619F3500FD9FCA /* IAPProduct.swift in Sources */,
+				49CD81AE28CA887D00D79EB4 /* PaymentVerification.swift in Sources */,
 				4943B96A24C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
 				4926CE0C24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
 				64FDE311249A191400E6510D /* VideoPlayerImpl.swift in Sources */,
@@ -3395,7 +3391,6 @@
 				49CD1BF02677A8C1004CCDE8 /* WebSocketServer.swift in Sources */,
 				4943B96C24C6F08A0006F81C /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */,
 				495CB13A249CF98600998FF4 /* Throttler.swift in Sources */,
-				5F4470CD28C84B060055F0AA /* PaymentFulfillment.swift in Sources */,
 				498856A22565A0470093FA66 /* String+.swift in Sources */,
 				49CD1BEE2677A8C1004CCDE8 /* TCPTransport.swift in Sources */,
 				49836678264E9DC700DDAEBD /* AnnotationAction.swift in Sources */,
@@ -3425,7 +3420,6 @@
 				49C12D6024A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4925998525A1D9F7007658DB /* IMAIntegration.swift in Sources */,
 				4943B96624C6F08A0006F81C /* NVActivityIndicatorViewable.swift in Sources */,
-				5F4571C128B375070013EAC1 /* PaymentVerification.swift in Sources */,
 				5FB937F2285C6BE100524DE4 /* PaymentResult.swift in Sources */,
 				498E48FD24D062D90040502D /* Thread+.swift in Sources */,
 				4926CE0F24CDECEA00419A42 /* GetPlayerConfigUseCase.swift in Sources */,

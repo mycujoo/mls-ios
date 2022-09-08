@@ -12,7 +12,7 @@ enum API {
     case playerConfig
     case listEventPackages(eventId: String)
     case createOrder(packageId: String)
-    case paymentVerification(jws: String, orderId: String)
+    case paymentVerification(jws: String)
     case checkEntitlement(contentType: String, contentId: String)
     /// A dateformatter that can be used on Event objects on this API.
     static var eventDateTimeFormatter: DateFormatter = {
@@ -40,8 +40,8 @@ extension API: TargetType {
             return "/bff/payments/v1/event_packages"
         case .createOrder:
             return "/bff/payments/v1/orders"
-        case .paymentVerification(_, let orderId):
-            return "/bff/payments/v1/orders/\(orderId)/app_store/payments"
+        case .paymentVerification(_):
+            return "/bff/payments/v1/app_store/payments"
         case .checkEntitlement(let contentType, let contentId):
             return "/bff/entitlements/v1/\(contentType)/\(contentId)"
         }
@@ -435,11 +435,9 @@ extension API: TargetType {
             var params: [String: Any] = [:]
             params["content_reference"] = ["type": "package", "id": packageId]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
-            
-        case .paymentVerification(let jws, let orderId):
+        case .paymentVerification(let jws):
             var params: [String: Any] = [:]
             params["jws_representation"] = jws
-            params["order_id"] = orderId
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .checkEntitlement(_, _):
             return .requestPlain

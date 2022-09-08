@@ -10,13 +10,10 @@ import StoreKit
 
 @available(iOS 15.0, *)
 class IAPIntegrationImpl: NSObject, IAPIntegration {
-    
-    
-    private let queue = DispatchQueue(label: "purcahse.fulfillment.retry")
-    private let maxRetry: Int = 6
+    private let queue = DispatchQueue(label: "check_entitlement.retry")
     private var retryAttempt: Int = .zero
     private var workItem: DispatchWorkItem = DispatchWorkItem(block: { })
-    private var purchaseFulfilled: Bool = false
+    private var hasEntitlement: Bool = false
     private var transactionListener: Task<Void, Error>? = nil
     
     private var logLevel: Configuration.LogLevel
@@ -42,7 +39,7 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
         transactionListener?.cancel()
         workItem.cancel()
         retryAttempt = .zero
-        purchaseFulfilled = false
+        hasEntitlement = false
     }
 }
 @available(iOS 15.0, *)
@@ -62,8 +59,8 @@ extension IAPIntegrationImpl {
                 throw StoreException.orderException
             }
             
-            transactionListener?.cancel()
-            transactionListener = listenForTransaction(orderId: order.id)
+            self.transactionListener?.cancel()
+            self.transactionListener = self.listenForTransaction(orderId: order.id)
             
             guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
                 if [.verbose, .info].contains(logLevel) {
@@ -81,10 +78,10 @@ extension IAPIntegrationImpl {
             
             switch purchaseResult {
             case .success(let verification):
-                let transactionResult = try await handleTransactionResult(verification, order: order)
-                callback(transactionResult ? .success : .failure(StoreError.purchaseNotFulfilled))
+                let transactionResult = try await self.handleTransactionResult(verification, order: order)
+                callback(transactionResult ? .success : .failure(StoreError.unknownError))
             case .userCancelled:
-                transactionListener?.cancel()
+                self.transactionListener?.cancel()
                 callback(.failure(.userCancelled))
             case .pending:
                 callback(.pending)
@@ -110,7 +107,7 @@ extension IAPIntegrationImpl {
     /// - parameter orderId: The order to which the Transaction is intended to belong
     /// - returns: A boolean indicating whether the transaction was processed successfully AND it belongs to the product being purchased.
     ///   This returns `false` if this transaction mismatches the appleProductId being passed, or the transaction has since expired.
-    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order) async throws -> Bool {
+    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order?) async throws -> Bool {
         let result = self.checkVerificationResult(result: verificationResult)
         
         if !result.verified {
@@ -126,7 +123,7 @@ extension IAPIntegrationImpl {
         print(verificationResult.jwsRepresentation)
         #endif
         
-        guard (try? await finishTransactionUseCase.execute(verificationResult.jwsRepresentation, orderId: order.id)) != nil else {
+        guard (try? await finishTransactionUseCase.execute(verificationResult.jwsRepresentation)) != nil else {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
             }
@@ -135,40 +132,38 @@ extension IAPIntegrationImpl {
         }
 
         await result.transaction.finish()
-        return await withCheckedContinuation { continuation in
-            checkPurchaseFulfilment(order: order) { isFinished in
-                continuation.resume(returning: isFinished)
+        if let order = order {
+            return await withCheckedContinuation { continuation in
+                checkEntitlement(order: order) { isFinished in
+                    continuation.resume(returning: isFinished)
+                }
             }
+        } else {
+            // The order is not available when the payment is being processed asynchronously, in which case this function optimistically assumes success.
+            return true
         }
-        
     }
     
-    /// Call the usecase to check purchase fulfillment,
-    /// reutrn `true` only when get the response that purchase if fulfilled!
-    private func checkPurchaseFulfilment(order: Order, callback: @escaping (Bool) -> Void) {
-        
-        Task {
-            let fulfillmentResult = await checkEntitlementUseCase.execute(order: order)
-            switch fulfillmentResult {
+    /// - parameter callback: A closure that gets called with `true` only when get the response there is an entitlement belonging to this Order.
+    private func checkEntitlement(order: Order, callback: @escaping (Bool) -> Void) {
+        Task { [weak self] in
+            let result = await checkEntitlementUseCase.execute(contentType: order.contentReference.type, contentId: order.contentReference.id)
+            switch result {
             case .failure(_):
                 if [.verbose].contains(logLevel) {
-                    print("### Calling fulfillment failed! retrying... \(retryAttempt)")
+                    print("Calling checkEntitlement failed! retrying... \(retryAttempt)")
                 }
-                guard retryAttempt < maxRetry else {
-                    callback(false)
-                    return
+                self?.retry(delay: .exponential(initial: 3, multiplier: 2, maxDelay: 60000)) { [weak self] in
+                    self?.checkEntitlement(order: order, callback: callback)
                 }
-                self.retry(delay: .exponential(initial: 3, multiplier: 2)) { [self] in
-                    checkPurchaseFulfilment(order: order, callback: callback)
-                }
-            case .success(let isFulfilled):
+            case .success(let hasEntitlement):
                 if [.verbose].contains(logLevel) {
-                    print("### Calling fulfillment succeed! Returning result.")
+                    print("Calling checkEntitlement succeed! Returning result.")
                 }
-                if isFulfilled {
+                if hasEntitlement {
                     workItem.cancel()
-                    purchaseFulfilled = isFulfilled
-                    callback(isFulfilled)
+                    self?.hasEntitlement = hasEntitlement
+                    callback(hasEntitlement)
                 }
             }
         }
@@ -180,7 +175,7 @@ extension IAPIntegrationImpl {
     /// - parameter operation: a callback to pass in the action we want to retry
     func retry(delay: DelayOptions, _ operation: @escaping () -> Void) {
         workItem.cancel()
-        guard !self.purchaseFulfilled else { return }
+        guard !self.hasEntitlement else { return }
         
         workItem = DispatchWorkItem() {
             operation()

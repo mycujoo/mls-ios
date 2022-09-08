@@ -9,19 +9,23 @@ import Combine
 
 @available(iOS 13.0, *)
 class CheckEntitlementUseCase {
+    public enum UseCaseError: Error {
+        case missingEntitlement
+    }
+    
     private let paymentRepository: MLSPaymentRepository
     
     init(paymentRepository: MLSPaymentRepository) {
         self.paymentRepository = paymentRepository
     }
     
-    func execute(order: Order) async -> Result<Bool, Error> {
+    func execute(contentType: String, contentId: String) async -> Result<Bool, Error> {
         do {
-            let result =  try await paymentRepository.checkEntitlement(order: order)
+            let result =  try await paymentRepository.checkEntitlement(contentType: contentType, contentId: contentId)
             if result {
                 return .success(result)
             } else {
-                return .failure(StoreError.purchaseNotFulfilled)
+                return .failure(UseCaseError.missingEntitlement)
             }
         } catch {
             return .failure(error)
