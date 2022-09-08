@@ -13,5 +13,5 @@ public protocol MLSPaymentRepository {
     @available(iOS 13.0.0, *)
     func finishTransaction(jwsToken: String, orderId: String) async throws -> PaymentVerification
     @available(iOS 13.0, *)
-    func fetchPurchaseFulfilled(order: Order) async throws -> Bool
+    func checkEntitlement(order: Order) async throws -> Bool
 }

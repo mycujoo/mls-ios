@@ -65,9 +65,9 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
     }
     
     @available(iOS 13.0.0, *)
-    func fetchPurchaseFulfilled(order: Order) async throws -> Bool {
+    func checkEntitlement(order: Order) async throws -> Bool {
         return try await withCheckedThrowingContinuation { continuation in
-            _fetch(.paymentFulfillment(contentType: order.contentReference.type, contentId: order.contentReference.id), type: PaymentFulfillment.self) { result, error in
+            _fetch(.checkEntitlement(contentType: order.contentReference.type, contentId: order.contentReference.id), type: PaymentFulfillment.self) { result, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {

@@ -8,7 +8,7 @@ import Combine
 
 
 @available(iOS 13.0, *)
-class FetchPurchaseFulfilledUseCase {
+class CheckEntitlementUseCase {
     private let paymentRepository: MLSPaymentRepository
     
     init(paymentRepository: MLSPaymentRepository) {
@@ -17,7 +17,7 @@ class FetchPurchaseFulfilledUseCase {
     
     func execute(order: Order) async -> Result<Bool, Error> {
         do {
-            let result =  try await paymentRepository.fetchPurchaseFulfilled(order: order)
+            let result =  try await paymentRepository.checkEntitlement(order: order)
             if result {
                 return .success(result)
             } else {

@@ -24,16 +24,16 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     private let listProductsUseCase: ListProductsUseCase
     private let createOrderUseCase: CreateOrderUseCase
     private let finishTransactionUseCase: FinishTransactionUseCase
-    private let fetchPurchaseFulfilledUseCase: FetchPurchaseFulfilledUseCase
+    private let checkEntitlementUseCase: CheckEntitlementUseCase
     init(listProductsUseCase: ListProductsUseCase,
          createOrderUseCase: CreateOrderUseCase,
          finishTransactionUseCase: FinishTransactionUseCase,
-         fetchPurchaseFulfilledUseCase: FetchPurchaseFulfilledUseCase,
+         checkEntitlementUseCase: CheckEntitlementUseCase,
          logLevel: Configuration.LogLevel) {
         self.listProductsUseCase = listProductsUseCase
         self.createOrderUseCase = createOrderUseCase
         self.finishTransactionUseCase = finishTransactionUseCase
-        self.fetchPurchaseFulfilledUseCase = fetchPurchaseFulfilledUseCase
+        self.checkEntitlementUseCase = checkEntitlementUseCase
         self.logLevel = logLevel
         super.init()
     }
@@ -171,7 +171,7 @@ extension IAPIntegrationImpl {
     private func checkPurchaseFulfilment(order: Order, callback: @escaping (Bool) -> Void) {
         
         Task {
-            let fulfillmentResult = await fetchPurchaseFulfilledUseCase.execute(order: order)
+            let fulfillmentResult = await checkEntitlementUseCase.execute(order: order)
             switch fulfillmentResult {
             case .failure(_):
                 if [.verbose].contains(logLevel) {

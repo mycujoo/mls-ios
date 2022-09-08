@@ -541,6 +541,7 @@
 		5F4571CE28B396130013EAC1 /* FinishTransactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */; };
 		5F69116428619F3500FD9FCA /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F69116328619F3500FD9FCA /* IAPProduct.swift */; };
 		5F69116528619F3500FD9FCA /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F69116328619F3500FD9FCA /* IAPProduct.swift */; };
+		5F91A3F028CA0E7800E230A1 /* CheckEntitlementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F91A3EF28CA0E7800E230A1 /* CheckEntitlementUseCase.swift */; };
 		5FA15C0C27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
 		5FA15C0D27D6083A00D56654 /* FeaturedWebsocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */; };
 		5FB937E8285B6C1800524DE4 /* MLSPaymentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB937E7285B6C1800524DE4 /* MLSPaymentRepository.swift */; };
@@ -556,7 +557,6 @@
 		5FB9380A285CB9C900524DE4 /* AppleProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB93809285CB9C900524DE4 /* AppleProductMapper.swift */; };
 		5FC6485C28A54172006B98FD /* StoreLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC6485B28A54172006B98FD /* StoreLog.swift */; };
 		5FC6485E28A64C6E006B98FD /* StoreNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC6485D28A64C6E006B98FD /* StoreNotification.swift */; };
-		5FCF8CC928C629BC00DFB9B6 /* FetchPurchaseFulfilledUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF8CC828C629BC00DFB9B6 /* FetchPurchaseFulfilledUseCase.swift */; };
 		5FD648A128324B14000883FC /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5FD648A028324B14000883FC /* Localizable.stringsdict */; };
 		5FD648A228324B14000883FC /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5FD648A028324B14000883FC /* Localizable.stringsdict */; };
 		5FD648A428324D9A000883FC /* Websocket+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */; };
@@ -919,6 +919,7 @@
 		5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrderUseCase.swift; sourceTree = "<group>"; };
 		5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTransactionUseCase.swift; sourceTree = "<group>"; };
 		5F69116328619F3500FD9FCA /* IAPProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProduct.swift; sourceTree = "<group>"; };
+		5F91A3EF28CA0E7800E230A1 /* CheckEntitlementUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckEntitlementUseCase.swift; sourceTree = "<group>"; };
 		5FA15C0B27D6083A00D56654 /* FeaturedWebsocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedWebsocketConnection.swift; sourceTree = "<group>"; };
 		5FB937DE285B52A200524DE4 /* MLSSDK_IAP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK_IAP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB937E7285B6C1800524DE4 /* MLSPaymentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLSPaymentRepository.swift; sourceTree = "<group>"; };
@@ -930,7 +931,6 @@
 		5FB93809285CB9C900524DE4 /* AppleProductMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleProductMapper.swift; sourceTree = "<group>"; };
 		5FC6485B28A54172006B98FD /* StoreLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreLog.swift; sourceTree = "<group>"; };
 		5FC6485D28A64C6E006B98FD /* StoreNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreNotification.swift; sourceTree = "<group>"; };
-		5FCF8CC828C629BC00DFB9B6 /* FetchPurchaseFulfilledUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPurchaseFulfilledUseCase.swift; sourceTree = "<group>"; };
 		5FD648A028324B14000883FC /* Localizable.stringsdict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		5FD648A328324D9A000883FC /* Websocket+UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Websocket+UserAgent.swift"; sourceTree = "<group>"; };
 		6477C43A2469552A0033435D /* MLSSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MLSSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1937,7 +1937,7 @@
 				5F4571C328B391F70013EAC1 /* ListProductsUseCase.swift */,
 				5F4571C728B393D00013EAC1 /* CreateOrderUseCase.swift */,
 				5F4571CB28B396130013EAC1 /* FinishTransactionUseCase.swift */,
-				5FCF8CC828C629BC00DFB9B6 /* FetchPurchaseFulfilledUseCase.swift */,
+				5F91A3EF28CA0E7800E230A1 /* CheckEntitlementUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -3257,13 +3257,13 @@
 			files = (
 				5FC6485C28A54172006B98FD /* StoreLog.swift in Sources */,
 				5F4571CA28B393D00013EAC1 /* CreateOrderUseCase.swift in Sources */,
-				5FCF8CC928C629BC00DFB9B6 /* FetchPurchaseFulfilledUseCase.swift in Sources */,
 				5FB93801285CAD6200524DE4 /* IAPIntegrationFactory.swift in Sources */,
 				5F4571CE28B396130013EAC1 /* FinishTransactionUseCase.swift in Sources */,
 				5FB9380A285CB9C900524DE4 /* AppleProductMapper.swift in Sources */,
 				5FC6485E28A64C6E006B98FD /* StoreNotification.swift in Sources */,
 				5FB937FF285CAC2000524DE4 /* IAPIntegrationImpl.swift in Sources */,
 				5F4571C628B391F70013EAC1 /* ListProductsUseCase.swift in Sources */,
+				5F91A3F028CA0E7800E230A1 /* CheckEntitlementUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

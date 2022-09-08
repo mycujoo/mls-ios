@@ -13,7 +13,7 @@ enum API {
     case listEventPackages(eventId: String)
     case createOrder(packageId: String)
     case paymentVerification(jws: String, orderId: String)
-    case paymentFulfillment(contentType: String, contentId: String)
+    case checkEntitlement(contentType: String, contentId: String)
     /// A dateformatter that can be used on Event objects on this API.
     static var eventDateTimeFormatter: DateFormatter = {
         var formatter = DateFormatter()
@@ -42,14 +42,14 @@ extension API: TargetType {
             return "/bff/payments/v1/orders"
         case .paymentVerification(_, let orderId):
             return "/bff/payments/v1/orders/\(orderId)/app_store/payments"
-        case .paymentFulfillment(let contentType, let contentId):
+        case .checkEntitlement(let contentType, let contentId):
             return "/bff/entitlements/v1/\(contentType)/\(contentId)"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .eventById, .events, .timelineActions, .playerConfig, .listEventPackages, .paymentFulfillment:
+        case .eventById, .events, .timelineActions, .playerConfig, .listEventPackages, .checkEntitlement:
             return .get
         case .createOrder, .paymentVerification:
             return .post
@@ -441,7 +441,7 @@ extension API: TargetType {
             params["jws_representation"] = jws
             params["order_id"] = orderId
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
-        case .paymentFulfillment(_, _):
+        case .checkEntitlement(_, _):
             return .requestPlain
        }
     }
