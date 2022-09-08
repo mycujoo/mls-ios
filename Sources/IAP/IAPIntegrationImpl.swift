@@ -158,7 +158,7 @@ extension IAPIntegrationImpl {
                     callback(false)
                     return
                 }
-                self.retry(delay: .exponential(initial: 3, multiplier: 2), maxRetry: 5) { [self] in
+                self.retry(delay: .exponential(initial: 3, multiplier: 2)) { [self] in
                     checkPurchaseFulfilment(order: order, callback: callback)
                 }
             case .success(let isFulfilled):
@@ -178,15 +178,16 @@ extension IAPIntegrationImpl {
     /// - parameter delay: an option to choose the type of delay
     /// - parameter maxRetry: the maximum times we want this method to retry
     /// - parameter operation: a callback to pass in the action we want to retry
-    func retry(delay: DelayOptions, maxRetry: Int, _ operation: @escaping () -> Void) {
+    func retry(delay: DelayOptions, _ operation: @escaping () -> Void) {
         workItem.cancel()
         guard !self.purchaseFulfilled else { return }
         
         workItem = DispatchWorkItem() {
             operation()
         }
-        queue.asyncAfter(deadline: .now() + Double(delay.make(retryAttempt)), execute: workItem)
         retryAttempt += 1
+        queue.asyncAfter(deadline: .now() + Double(delay.make(retryAttempt)), execute: workItem)
+        
     }
     
     /// Check if StoreKit was able to automatically verify a transaction by inspecting the verification result.
