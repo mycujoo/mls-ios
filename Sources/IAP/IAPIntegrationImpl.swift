@@ -63,7 +63,7 @@ extension IAPIntegrationImpl {
             }
             
             transactionListener?.cancel()
-            transactionListener = listenForTransaction(orderId: order.id, completionHandler: { callback(.success) })
+            transactionListener = listenForTransaction(orderId: order.id)
             
             guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
                 if [.verbose, .info].contains(logLevel) {
@@ -95,14 +95,13 @@ extension IAPIntegrationImpl {
     }
     
     /// - parameter completionHandler: A closure that should be called when a Transaction was completed for the relevant Apple product. This can also be triggered from an earlier purchase!
-    private func listenForTransaction(orderId: String, completionHandler: @escaping () -> ()) -> Task<Void, Error> {
+    private func listenForTransaction(orderId: String) -> Task<Void, Error> {
         return Task.detached { [weak self] in
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
             // We don't need this listener, therefore it's empty here and do nothing, to silence Apple's warning.
             for await verificationResult in Transaction.updates {
                 guard let result = self?.checkVerificationResult(result: verificationResult) else { return }
                 await result.transaction.finish()
-                completionHandler()
             }
         }
     }
