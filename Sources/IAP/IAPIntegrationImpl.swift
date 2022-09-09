@@ -97,11 +97,7 @@ extension IAPIntegrationImpl {
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
             for await verificationResult in Transaction.updates {
                 // TODO: For any order being purchased right now, this will cause a race condition. Add logic to prevent that.
-                let result = self?.checkVerificationResult(result: verificationResult)
-                _ = try? await self?.finishTransactionUseCase.execute(verificationResult.jwsRepresentation)
-                await result?.transaction.finish()
-                
-                
+                _ = try? await self?.handleTransactionResult(verificationResult)
             }
         }
     }
@@ -110,7 +106,7 @@ extension IAPIntegrationImpl {
     /// - parameter orderId: The order to which the Transaction is intended to belong
     /// - returns: A boolean indicating whether the transaction was processed successfully AND it belongs to the product being purchased.
     ///   This returns `false` if this transaction mismatches the appleProductId being passed, or the transaction has since expired.
-    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order) async throws -> Bool {
+    private func handleTransactionResult(_ verificationResult: VerificationResult<Transaction>, order: Order? = nil) async throws -> Bool {
         let result = self.checkVerificationResult(result: verificationResult)
         
         if !result.verified {
@@ -135,10 +131,15 @@ extension IAPIntegrationImpl {
         }
 
         await result.transaction.finish()
-        return await withCheckedContinuation { [weak self] continuation in
-            self?.checkEntitlement(order: order) { isFinished in
-                continuation.resume(returning: isFinished)
+        if let order = order {
+            return await withCheckedContinuation { [weak self] continuation in
+                self?.checkEntitlement(order: order) { isFinished in
+                    continuation.resume(returning: isFinished)
+                }
             }
+        } else {
+            // The order is not available when the payment is being processed asynchronously, in which case this function optimistically assumes success.
+            return true
         }
     }
     
