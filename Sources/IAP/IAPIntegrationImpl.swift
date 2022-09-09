@@ -39,12 +39,11 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     }
     
     deinit {
-        transactionListener = nil
+        transactionListener?.cancel()
         for (_, v) in workItems {
             v.cancel()
         }
         workItems = [:]
-        entitlements = [:]
     }
 }
 @available(iOS 15.0, *)
@@ -93,11 +92,9 @@ extension IAPIntegrationImpl {
         }
     }
     
-    /// - parameter completionHandler: A closure that should be called when a Transaction was completed for the relevant Apple product. This can also be triggered from an earlier purchase!
     private func listenForTransaction() -> Task<Void, Error> {
         return Task.detached { [weak self] in
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
-            // We don't need this listener, therefore it's empty here and do nothing, to silence Apple's warning.
             for await verificationResult in Transaction.updates {
                 // TODO: For any order being purchased right now, this will cause a race condition. Add logic to prevent that.
                 _ = try? await self?.handleTransactionResult(verificationResult)
