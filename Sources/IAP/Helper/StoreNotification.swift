@@ -13,6 +13,7 @@ public enum StoreException: Error, Equatable {
     case purchaseInProgressException
     case finishTransactionException
     case transactionVerificationFailed
+    case missingAppAccountToken
     case unhandledEventException
     
     public func shortDescription() -> String {
@@ -24,6 +25,7 @@ public enum StoreException: Error, Equatable {
             case .purchaseInProgressException:          return "Exception. You can't start another purchase yet, one is already in progress"
             case .finishTransactionException:           return "Exception. jwsRepresentation verification failed"
             case .transactionVerificationFailed:        return "Exception. A transaction failed StoreKit's automatic verification"
+            case .missingAppAccountToken:               return "Exception. This transaction does not have an associated appAccountToken"
             case .unhandledEventException:              return "Exception. An unhandled event happened"
         }
     }

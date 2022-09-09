@@ -113,8 +113,16 @@ extension IAPIntegrationImpl {
             if [.verbose, .info].contains(logLevel) {
                 StoreLog.transaction(.transactionValidationFailure, productId: result.transaction.productID)
             }
+            
             // Do not finish the transaction, because we have not delivered on this transaction yet.
             throw StoreException.transactionVerificationFailed
+        }
+        
+        guard let _ = result.transaction.appAccountToken else {
+            // We can never successfully handle this transaction, so it can be closed.
+            // This should not happen in production.
+            await result.transaction.finish()
+            throw StoreException.missingAppAccountToken
         }
         
         #if DEBUG
