@@ -97,9 +97,6 @@ extension IAPIntegrationImpl {
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
             for await verificationResult in Transaction.updates {
                 // TODO: (1) For any order being purchased right now, this will cause a race condition. Add logic to prevent that.
-                // TODO: (2) Add local memory to keep track of which transactions were already finished,
-                // because Apple does not seem to remove transactions from the queue, so we end up reprocessing a lot of them on every startup.
-                // Be mindful to use a combination of transactionId+purchaseDate, to avoid ignoring new transactions accidentally.
                 _ = try? await self?.handleTransactionResult(verificationResult)
             }
         }
@@ -128,17 +125,26 @@ extension IAPIntegrationImpl {
             throw StoreException.missingAppAccountToken
         }
         
-        #if DEBUG
-        print("jwsRepresentation")
-        print(verificationResult.jwsRepresentation)
-        #endif
-        
-        guard (try? await finishTransactionUseCase.execute(verificationResult.jwsRepresentation)) != nil else {
-            if [.verbose, .info].contains(logLevel) {
-                StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
+        let localStorageKey = "mcls_iap_transaction_finished_\(result.transaction.id)"
+        if UserDefaults.standard.bool(forKey: localStorageKey) == false {
+            // Since Apple does not clear transactions from Transaction.updates even after .finish() is called,
+            // We need to check whether transaction was handled previously, and only act on unfinished ones.
+            #if DEBUG
+            print("jwsRepresentation")
+            print(verificationResult.jwsRepresentation)
+            #endif
+            
+            guard (try? await finishTransactionUseCase.execute(verificationResult.jwsRepresentation)) != nil else {
+                if [.verbose, .info].contains(logLevel) {
+                    StoreLog.transaction(.jwsVerificationFailed, productId: result.transaction.productID)
+                }
+                // Do not finish the transaction, because we have not delivered on this transaction yet.
+                throw StoreException.finishTransactionException
             }
-            // Do not finish the transaction, because we have not delivered on this transaction yet.
-            throw StoreException.finishTransactionException
+
+            await result.transaction.finish()
+            
+            UserDefaults.standard.set(true, forKey: localStorageKey)
         }
 
         await result.transaction.finish()
