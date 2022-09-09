@@ -146,7 +146,6 @@ extension IAPIntegrationImpl {
             UserDefaults.standard.set(true, forKey: localStorageKey)
         }
 
-        await result.transaction.finish()
         if let order = order {
             return await withCheckedContinuation { [weak self] continuation in
                 self?.checkEntitlement(order: order) { isFinished in
