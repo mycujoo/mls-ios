@@ -10,7 +10,7 @@ import StoreKit
 
 @available(iOS 15.0, *)
 class IAPIntegrationImpl: NSObject, IAPIntegration {
-    private let queue = DispatchQueue(label: "check_entitlement.retry")
+    private let entitlementQueue = DispatchQueue(label: "mcls.check_entitlement.retry", qos: .utility)
     /// A dictionary from orderId to DispatchWorkItem (used for entitlement checking)
     private var workItems: [String: DispatchWorkItem] = [:]
     /// A dictionary from orderId to known entitlements
@@ -96,7 +96,6 @@ extension IAPIntegrationImpl {
         return Task.detached { [weak self] in
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
             for await verificationResult in Transaction.updates {
-                // TODO: (1) For any order being purchased right now, this will cause a race condition. Add logic to prevent that.
                 _ = try? await self?.handleTransactionResult(verificationResult)
             }
         }
@@ -194,7 +193,7 @@ extension IAPIntegrationImpl {
                 }
                 
                 self.workItems[order.id] = workItem
-                self.queue.asyncAfter(deadline: .now() + Double(DelayOptions.exponential(initial: 2, multiplier: 2, maxDelay: 60).make(attempt)), execute: workItem)
+                self.entitlementQueue.asyncAfter(deadline: .now() + Double(DelayOptions.exponential(initial: 2, multiplier: 2, maxDelay: 60).make(attempt)), execute: workItem)
             case .success(_):
                 if [.verbose].contains(logLevel) {
                     print("Calling checkEntitlement succeed! Returning result.")
