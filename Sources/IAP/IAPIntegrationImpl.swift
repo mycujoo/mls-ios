@@ -96,7 +96,10 @@ extension IAPIntegrationImpl {
         return Task.detached { [weak self] in
             //Iterate through any transactions which didn't come from a direct call to `purchase()`
             for await verificationResult in Transaction.updates {
-                // TODO: For any order being purchased right now, this will cause a race condition. Add logic to prevent that.
+                // TODO: (1) For any order being purchased right now, this will cause a race condition. Add logic to prevent that.
+                // TODO: (2) Add local memory to keep track of which transactions were already finished,
+                // because Apple does not seem to remove transactions from the queue, so we end up reprocessing a lot of them on every startup.
+                // Be mindful to use a combination of transactionId+purchaseDate, to avoid ignoring new transactions accidentally.
                 _ = try? await self?.handleTransactionResult(verificationResult)
             }
         }
