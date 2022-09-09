@@ -39,11 +39,12 @@ class IAPIntegrationImpl: NSObject, IAPIntegration {
     }
     
     deinit {
-        transactionListener?.cancel()
+        transactionListener = nil
         for (_, v) in workItems {
             v.cancel()
         }
         workItems = [:]
+        entitlements = [:]
     }
 }
 @available(iOS 15.0, *)
@@ -159,7 +160,7 @@ extension IAPIntegrationImpl {
                     }
                     
                     self.workItems[order.id]?.cancel()
-                    self.entitlements[order.id] = true
+                    self.entitlements[order.id] = false
                     callback(false)
                 }
                 
@@ -186,7 +187,7 @@ extension IAPIntegrationImpl {
                 }
                 self.workItems[order.id]?.cancel()
                 self.entitlements[order.id] = true
-                callback(false)
+                callback(true)
             }
         }
     }
