@@ -82,7 +82,6 @@ extension IAPIntegrationImpl {
                 let transactionResult = try await self.handleTransactionResult(verification, order: order)
                 callback(transactionResult ? .success : .failure(StoreError.unknownError))
             case .userCancelled:
-                self.transactionListener?.cancel()
                 callback(.failure(.userCancelled))
             case .pending:
                 callback(.pending)
