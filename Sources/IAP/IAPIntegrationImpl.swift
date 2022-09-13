@@ -53,7 +53,7 @@ extension IAPIntegrationImpl {
         return try await listProductsUseCase.execute(eventId: eventId)
     }
     
-    func purchaseProduct(packageId: String, callback: @escaping (PaymentResult) -> ()) throws -> Void {
+    func purchaseProduct(packageId: String, callback: @escaping (PaymentResult) -> ()) {
         Task { [weak self] in
             do {
                 guard let `self` = self else { return }
@@ -90,7 +90,7 @@ extension IAPIntegrationImpl {
                     throw StoreException.unhandledEventException
                 }
             } catch let err as StoreException {
-                callback(.failure(err ))
+                callback(.failure(err))
             }
         }
     }

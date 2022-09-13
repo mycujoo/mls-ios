@@ -12,6 +12,7 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
         super.init(api: api)
     }
     
+    @available(tvOS 13.0, *)
     @available(iOS 13.0, *)
     func listPackages(eventId: String) async throws -> EventPackages {
         return try await withCheckedThrowingContinuation { continuation in
@@ -31,7 +32,8 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
         
     }
     
-    @available(iOS 13.0.0, *)
+    @available(tvOS 13.0, *)
+    @available(iOS 13.0, *)
     func createOrder(packageId: String) async throws -> Order {
         return try await withCheckedThrowingContinuation { continuation in
             _mutate(.createOrder(packageId: packageId), type: Order.self) { order, error in
@@ -47,7 +49,8 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
         }
     }
     
-    @available(iOS 13.0.0, *)
+    @available(tvOS 13.0, *)
+    @available(iOS 13.0, *)
     func finishTransaction(jwsToken: String) async throws -> PaymentVerification {
         return try await withCheckedThrowingContinuation { continuation in
             _mutate(.paymentVerification(jws: jwsToken), type: PaymentVerification.self) { result, error in
@@ -64,7 +67,8 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
         }
     }
     
-    @available(iOS 13.0.0, *)
+    @available(tvOS 13.0, *)
+    @available(iOS 13.0, *)
     func checkEntitlement(contentType: String, contentId: String) async throws -> Bool {
         struct Resp: Decodable {
             public var isEntitled: Bool
