@@ -21,7 +21,7 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
                     continuation.resume(throwing: error)
                 } else {
                     guard let eventPackages = eventPackages else {
-                        continuation.resume(throwing: StoreError.productError)
+                        continuation.resume(throwing: StoreException.requestProductException)
                         return
                     }
                     continuation.resume(returning: eventPackages)
@@ -39,7 +39,7 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
                     continuation.resume(throwing: error)
                 } else {
                     guard let order = order else {
-                        return continuation.resume(throwing: StoreError.orderError)
+                        return continuation.resume(throwing: StoreException.orderException)
                     }
                     continuation.resume(returning: order)
                 }
@@ -55,7 +55,7 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
                     continuation.resume(throwing: error)
                 } else {
                     guard let result = result else {
-                        continuation.resume(throwing: StoreError.failedVerification)
+                        continuation.resume(throwing: StoreException.transactionVerificationFailed)
                         return
                     }
                     continuation.resume(returning: result)
@@ -80,7 +80,7 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
                     continuation.resume(throwing: error)
                 } else {
                     guard let result = result else {
-                        continuation.resume(throwing: StoreError.failedVerification)
+                        continuation.resume(throwing: StoreException.finishTransactionException)
                         return
                     }
                     continuation.resume(returning: result.isEntitled)
