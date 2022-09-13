@@ -120,13 +120,6 @@ extension IAPIntegrationImpl {
             throw StoreException.transactionVerificationFailed
         }
         
-        guard let _ = result.transaction.appAccountToken else {
-            // We can never successfully handle this transaction, so it can be closed.
-            // This should not happen in production.
-            await result.transaction.finish()
-            throw StoreException.missingAppAccountToken
-        }
-        
         let localStorageKey = "mcls_iap_transaction_finished_\(result.transaction.id)"
         if UserDefaults.standard.bool(forKey: localStorageKey) == false {
             // Since Apple does not clear transactions from Transaction.updates even after .finish() is called,
