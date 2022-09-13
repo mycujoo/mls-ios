@@ -4,16 +4,22 @@
 
 import Foundation
 
-public enum StoreError: Error {
-    case failedVerification
+public enum StoreException: Error, Equatable {
+    case fetchPackagesListException
+    case orderException
+    case requestProductException
+    case purchaseException
+    case purchaseInProgressException
+    case finishTransactionException
+    case finishPurchaseException
+    case transactionVerificationFailed
+    case missingAppAccountToken
+    case unhandledEventException
     case userCancelled
-    case unknownError
-    case productError
-    case orderError
 }
 
 public enum PaymentResult {
     case success
-    case failure(StoreError)
+    case failure(StoreException)
     case pending
 }

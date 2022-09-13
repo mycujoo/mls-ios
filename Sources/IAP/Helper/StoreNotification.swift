@@ -3,18 +3,9 @@
 //
 
 import Foundation
-
+import MLSSDK
 /// StoreHelper exceptions
-public enum StoreException: Error, Equatable {
-    case fetchPackagesListException
-    case orderException
-    case requestProductException
-    case purchaseException
-    case purchaseInProgressException
-    case finishTransactionException
-    case transactionVerificationFailed
-    case missingAppAccountToken
-    case unhandledEventException
+extension StoreException {
     
     public func shortDescription() -> String {
         switch self {
@@ -27,6 +18,8 @@ public enum StoreException: Error, Equatable {
             case .transactionVerificationFailed:        return "Exception. A transaction failed StoreKit's automatic verification"
             case .missingAppAccountToken:               return "Exception. This transaction does not have an associated appAccountToken"
             case .unhandledEventException:              return "Exception. An unhandled event happened"
+            case .userCancelled:                        return "User cancelled the purchase."
+            case .finishPurchaseException:              return "Exception. Finishing purchase threw an exception."
         }
     }
 }
