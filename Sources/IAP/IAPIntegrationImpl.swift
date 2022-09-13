@@ -55,38 +55,42 @@ extension IAPIntegrationImpl {
     
     func purchaseProduct(packageId: String, callback: @escaping (PaymentResult) -> ()) throws -> Void {
         Task { [weak self] in
-            guard let `self` = self else { return }
-            guard let order = try? await createOrderUseCase.execute(packageId) else {
-                if [.verbose].contains(logLevel) {
-                    StoreLog.exception(.orderException, productId: "Unknown. MCLS packageId: " + packageId)
+            do {
+                guard let `self` = self else { return }
+                guard let order = try? await createOrderUseCase.execute(packageId) else {
+                    if [.verbose].contains(logLevel) {
+                        StoreLog.exception(.orderException, productId: "Unknown. MCLS packageId: " + packageId)
+                    }
+                    throw StoreException.orderException
                 }
-                throw StoreException.orderException
-            }
-            
-            guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
-                if [.verbose, .info].contains(logLevel) {
-                    StoreLog.exception(.requestProductException, productId: order.appleProductId)
+                
+                guard let appleProductToPurchase = try? await StoreKit.Product.products(for: [order.appleProductId]).first else {
+                    if [.verbose, .info].contains(logLevel) {
+                        StoreLog.exception(.requestProductException, productId: order.appleProductId)
+                    }
+                    throw StoreException.requestProductException
                 }
-                throw StoreException.requestProductException
-            }
-            
-            guard let uuid = UUID(uuidString: order.appleAppAccountToken), let purchaseResult = try? await appleProductToPurchase.purchase(options: [.appAccountToken(uuid)]) else {
-                if [.verbose, .info].contains(logLevel) {
-                    StoreLog.exception(.purchaseException, productId: appleProductToPurchase.id)
+                
+                guard let uuid = UUID(uuidString: order.appleAppAccountToken), let purchaseResult = try? await appleProductToPurchase.purchase(options: [.appAccountToken(uuid)]) else {
+                    if [.verbose, .info].contains(logLevel) {
+                        StoreLog.exception(.purchaseException, productId: appleProductToPurchase.id)
+                    }
+                    throw StoreException.purchaseException
                 }
-                throw StoreException.purchaseException
-            }
-            
-            switch purchaseResult {
-            case .success(let verification):
-                let transactionResult = try await self.handleTransactionResult(verification, order: order)
-                callback(transactionResult ? .success : .failure(StoreError.unknownError))
-            case .userCancelled:
-                callback(.failure(.userCancelled))
-            case .pending:
-                callback(.pending)
-            @unknown default:
-                throw StoreException.unhandledEventException
+                
+                switch purchaseResult {
+                case .success(let verification):
+                    let transactionResult = try await self.handleTransactionResult(verification, order: order)
+                    callback(transactionResult ? .success : .failure(StoreException.finishPurchaseException))
+                case .userCancelled:
+                    callback(.failure(.userCancelled))
+                case .pending:
+                    callback(.pending)
+                @unknown default:
+                    throw StoreException.unhandledEventException
+                }
+            } catch let err as StoreException {
+                callback(.failure(err ))
             }
         }
     }
