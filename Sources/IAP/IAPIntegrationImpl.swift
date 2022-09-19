@@ -168,6 +168,9 @@ extension IAPIntegrationImpl {
                     }
                     
                     self.workItems[order.id]?.cancel()
+                    // Adding this check to be sure that we are not calling Callback(false) two times
+                    // As it cause a fatal error on `withCheckedContinuation`
+                    guard self.entitlements[order.id] == nil else { return }
                     self.entitlements[order.id] = false
                     callback(false)
                 }
