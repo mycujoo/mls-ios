@@ -491,8 +491,6 @@
 		49CD1C0A2677A8C2004CCDE8 /* FoundationHTTPServerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBC2677A89E004CCDE8 /* FoundationHTTPServerHandler.swift */; };
 		49CD1C0B2677A8C2004CCDE8 /* StringHTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BBB2677A89E004CCDE8 /* StringHTTPHandler.swift */; };
 		49CD1C0C2677A8C2004CCDE8 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD1BD32677A8AA004CCDE8 /* Server.swift */; };
-		49CD81AD28CA887D00D79EB4 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */; };
-		49CD81AE28CA887D00D79EB4 /* PaymentVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */; };
 		49DD229224B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DD229324B7788D00A4CFF2 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD229124B7788D00A4CFF2 /* Stream.swift */; };
 		49DDEABB24A29E6900C89DFF /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DDEABA24A29E6900C89DFF /* UIFont+.swift */; };
@@ -881,7 +879,6 @@
 		49CD1BDC2677A8B4004CCDE8 /* FoundationTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationTransport.swift; sourceTree = "<group>"; };
 		49CD1BDD2677A8B4004CCDE8 /* TCPTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPTransport.swift; sourceTree = "<group>"; };
 		49CD1BDE2677A8B4004CCDE8 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
-		49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentVerification.swift; sourceTree = "<group>"; };
 		49D29FFF25A117FB00C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D2A00C25A1181900C12650 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49DD229124B7788D00A4CFF2 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
@@ -1215,7 +1212,6 @@
 				49E2DF0E24A55B4900750C00 /* TimelineMarker.swift */,
 				49A75DF8276DF38D00B26866 /* VideoAnalyticsCustomData.swift */,
 				5FB937F0285C6BE000524DE4 /* PaymentResult.swift */,
-				49CD81AC28CA887D00D79EB4 /* PaymentVerification.swift */,
 				5F24DAB628B7A78D00947F64 /* EventPackages.swift */,
 				5F1896952860788300BDDB2D /* Order.swift */,
 			);
@@ -3314,7 +3310,6 @@
 				49E441292538D50000385890 /* GetLicenseDataUseCase.swift in Sources */,
 				49C12D5F24A3B115002CCDF5 /* PaddingLabel.swift in Sources */,
 				4931A88725A77665006CC9A4 /* PlayerProtocol.swift in Sources */,
-				49CD81AD28CA887D00D79EB4 /* PaymentVerification.swift in Sources */,
 				49CD1C012677A8C2004CCDE8 /* NativeEngine.swift in Sources */,
 				5FB937F7285C954D00524DE4 /* IAPIntegration.swift in Sources */,
 				5F1896962860788300BDDB2D /* Order.swift in Sources */,
@@ -3380,7 +3375,6 @@
 				49E2DF1024A55B4900750C00 /* TimelineMarker.swift in Sources */,
 				5F1896972860788300BDDB2D /* Order.swift in Sources */,
 				5F69116528619F3500FD9FCA /* IAPProduct.swift in Sources */,
-				49CD81AE28CA887D00D79EB4 /* PaymentVerification.swift in Sources */,
 				4943B96A24C6F08A0006F81C /* NVActivityIndicatorView.swift in Sources */,
 				4926CE0C24CDEC1E00419A42 /* MLSPlayerConfigRepository.swift in Sources */,
 				64FDE311249A191400E6510D /* VideoPlayerImpl.swift in Sources */,

@@ -14,7 +14,7 @@ public protocol MLSPaymentRepository {
     func createOrder(packageId: String) async throws -> Order
     @available(tvOS 13.0, *)
     @available(iOS 13.0.0, *)
-    func finishTransaction(jwsToken: String) async throws -> PaymentVerification
+    func finishTransaction(jwsToken: String) async throws -> Void
     @available(tvOS 13.0, *)
     @available(iOS 13.0, *)
     func checkEntitlement(contentType: String, contentId: String) async throws -> Bool

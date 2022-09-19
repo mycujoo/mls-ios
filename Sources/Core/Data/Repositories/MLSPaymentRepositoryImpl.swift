@@ -51,9 +51,9 @@ class MLSPaymentRepositoryImpl: BaseRepositoryImpl, MLSPaymentRepository {
     
     @available(tvOS 13.0, *)
     @available(iOS 13.0, *)
-    func finishTransaction(jwsToken: String) async throws -> PaymentVerification {
+    func finishTransaction(jwsToken: String) async throws -> Void {
         return try await withCheckedThrowingContinuation { continuation in
-            _mutate(.paymentVerification(jws: jwsToken), type: PaymentVerification.self) { result, error in
+            _mutateToVoid(.paymentVerification(jws: jwsToken)) { result, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {
