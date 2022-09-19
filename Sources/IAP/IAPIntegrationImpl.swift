@@ -162,7 +162,7 @@ extension IAPIntegrationImpl {
             let result = await checkEntitlementUseCase.execute(contentType: order.contentReference.type, contentId: order.contentReference.id)
             switch result {
             case .failure(_):
-                if attempt > 10 {
+                if attempt > 20 {
                     if [.verbose].contains(logLevel) {
                         print("Calling checkEntitlement failed! Reached max retry attempts.")
                     }
