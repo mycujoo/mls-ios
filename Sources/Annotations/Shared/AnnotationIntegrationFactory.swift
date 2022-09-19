@@ -23,7 +23,8 @@ public class AnnotationIntegrationFactory: IntegrationFactoryProtocol {
         playerConfigRepository: MLSPlayerConfigRepository,
         arbitraryDataRepository: MLSArbitraryDataRepository,
         drmRepository: MLSDRMRepository,
-        paymentRepository: MLSPaymentRepository) {
+        paymentRepository: MLSPaymentRepository,
+        logLevel: Configuration.LogLevel) {
         self.timelineRepository = timelineRepository
         self.eventRepository = eventRepository
         self.playerConfigRepository = playerConfigRepository

@@ -207,7 +207,8 @@ public class MLS {
             playerConfigRepository: playerConfigRepository,
             arbitraryDataRepository: arbitraryDataRepository,
             drmRepository: drmRepository,
-            paymentRepository: paymentRepository)
+            paymentRepository: paymentRepository,
+            logLevel: self.configuration.logLevel)
         return factory
     }
 

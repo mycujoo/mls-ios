@@ -15,7 +15,7 @@ public class IAPIntegrationFactory:
         private var arbitraryDataRepository: MLSArbitraryDataRepository!
         private var drmRepository: MLSDRMRepository!
         private var paymentRepository: MLSPaymentRepository!
-        
+        private var logLevel: Configuration.LogLevel!
         public init() {}
         
         /// Should not be called directly, but via the `MLS`'s `prepare` method.
@@ -25,16 +25,18 @@ public class IAPIntegrationFactory:
             playerConfigRepository: MLSPlayerConfigRepository,
             arbitraryDataRepository: MLSArbitraryDataRepository,
             drmRepository: MLSDRMRepository,
-            paymentRepository: MLSPaymentRepository) {
+            paymentRepository: MLSPaymentRepository,
+            logLevel: Configuration.LogLevel) {
             self.timelineRepository = timelineRepository
             self.eventRepository = eventRepository
             self.playerConfigRepository = playerConfigRepository
             self.arbitraryDataRepository = arbitraryDataRepository
             self.drmRepository = drmRepository
             self.paymentRepository = paymentRepository
+            self.logLevel = logLevel
         }
         
-    public func build(logLevel: Configuration.LogLevel = .info) -> IAPIntegration {
+    public func build() -> IAPIntegration {
             let listProductsUseCase = ListProductsUseCase(paymentRepository: paymentRepository)
             let createOrderUseCase = CreateOrderUseCase(paymentRepository: paymentRepository)
             let finishTransactionUseCase = FinishTransactionUseCase(paymentRepository: paymentRepository)
