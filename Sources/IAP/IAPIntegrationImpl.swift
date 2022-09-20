@@ -80,7 +80,7 @@ extension IAPIntegrationImpl {
                 
                 switch purchaseResult {
                 case .success(let verification):
-                    callback(.finilising)
+                    callback(.finalising)
                     let transactionResult = try await self.handleTransactionResult(verification, order: order)
                     callback(transactionResult ? .success : .failure(StoreException.finishPurchaseException))
                 case .userCancelled:
