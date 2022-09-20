@@ -143,6 +143,10 @@ extension IAPIntegrationImpl {
         }
 
         if let order = order {
+            // Adding a 5 sec delay for the initial call to entitlement API, as our back-end needs it
+            // using `Task.sleep()` because it does not block the underlying thread
+            // Calling Task.sleep() automatically checks for cancellation, meaning that if a sleeping task is cancelled, it will be woken and throw a CancellationError.
+            try await Task.sleep(nanoseconds: 7_000_000_000)
             return await withCheckedContinuation { [weak self] continuation in
                 self?.checkEntitlement(order: order) { isFinished in
                     continuation.resume(returning: isFinished)
