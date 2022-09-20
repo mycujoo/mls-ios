@@ -20,6 +20,7 @@ public enum StoreException: Error, Equatable {
 
 public enum PaymentResult {
     case success
+    case finilising
     case failure(StoreException)
     case pending
 }

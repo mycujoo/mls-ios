@@ -120,6 +120,8 @@ extension WithInAppPurchaseAvailableViewController: UITableViewDataSource, UITab
                     switch paymentResult {
                     case .success:
                         print("Payment successful!")
+                    case .finilising:
+                        print("Please wait while your payment is being processed.")
                     case .failure(let storeError):
                         print("Payment failed: \(storeError)")
                     case .pending:
