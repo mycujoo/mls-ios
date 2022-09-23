@@ -10,7 +10,10 @@ enum API {
     case events(pageSize: Int?, pageToken: String?, status: [DataLayer.ParamEventStatus]?, orderBy: DataLayer.ParamEventOrder?)
     case timelineActions(id: String, updateId: String?)
     case playerConfig
-
+    case listEventPackages(eventId: String)
+    case createOrder(packageId: String)
+    case paymentVerification(jws: String)
+    case checkEntitlement(contentType: String, contentId: String)
     /// A dateformatter that can be used on Event objects on this API.
     static var eventDateTimeFormatter: DateFormatter = {
         var formatter = DateFormatter()
@@ -33,13 +36,23 @@ extension API: TargetType {
             return "/bff/timeline/v1beta1/\(timelineId)"
         case .playerConfig:
             return "/bff/player_config"
+        case .listEventPackages(_):
+            return "/bff/payments/v1/event_packages"
+        case .createOrder:
+            return "/bff/payments/v1/orders"
+        case .paymentVerification(_):
+            return "/bff/payments/v1/app_store/payments"
+        case .checkEntitlement(let contentType, let contentId):
+            return "/bff/entitlements/v1/\(contentType)/\(contentId)"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .eventById, .events, .timelineActions, .playerConfig:
+        case .eventById, .events, .timelineActions, .playerConfig, .listEventPackages, .checkEntitlement:
             return .get
+        case .createOrder, .paymentVerification:
+            return .post
         }
     }
 
@@ -358,6 +371,27 @@ extension API: TargetType {
             return Data("""
                 {"primary_color":"#ffffff","secondary_color":"#de4f1f","autoplay":true,"default_volume":80.0,"back_forward_buttons":true,"live_viewers":true,"event_info_button":true}
                 """.utf8)
+        case .createOrder:
+            return Data("""
+                {
+                  "apple_app_account_token": "sampleToken123",
+                  "apple_app_store_product_id": "test123",
+                  "id": "1",
+                  "product_name": "test subscription"
+                }
+                """.utf8)
+        case .listEventPackages:
+            return Data("""
+            {
+              "packages": [
+                {
+                  "apple_app_store_product_id": "test123",
+                  "id": "1"
+                }
+              ]
+            }
+            """.utf8)
+        default: return Data("".utf8)
         }
     }
 
@@ -393,6 +427,20 @@ extension API: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .playerConfig:
            return .requestPlain
+        case .listEventPackages(let eventId):
+            var params: [String: Any] = [:]
+            params["event_id"] = eventId
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .createOrder(let packageId):
+            var params: [String: Any] = [:]
+            params["content_reference"] = ["type": "package", "id": packageId]
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+        case .paymentVerification(let jws):
+            var params: [String: Any] = [:]
+            params["jws_representation"] = jws
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+        case .checkEntitlement(_, _):
+            return .requestPlain
        }
     }
 

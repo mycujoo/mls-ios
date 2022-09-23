@@ -57,4 +57,10 @@ Pod::Spec.new do |spec|
 
     ss.dependency 'MLSSDK/Core'
   end
+
+  spec.subspec 'IAP' do |ss|
+    ss.ios.source_files = 'Sources/IAP/**/*.swift'
+    ss.frameworks = 'Foundation', 'StoreKit', 'UIKit'
+    ss.dependency 'MLSSDK/Core'
+  end
 end

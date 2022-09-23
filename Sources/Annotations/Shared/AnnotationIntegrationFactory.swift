@@ -12,6 +12,7 @@ public class AnnotationIntegrationFactory: IntegrationFactoryProtocol {
     private var playerConfigRepository: MLSPlayerConfigRepository!
     private var arbitraryDataRepository: MLSArbitraryDataRepository!
     private var drmRepository: MLSDRMRepository!
+    private var paymentRepository: MLSPaymentRepository!
     
     public init() {}
     
@@ -21,12 +22,15 @@ public class AnnotationIntegrationFactory: IntegrationFactoryProtocol {
         eventRepository: MLSEventRepository,
         playerConfigRepository: MLSPlayerConfigRepository,
         arbitraryDataRepository: MLSArbitraryDataRepository,
-        drmRepository: MLSDRMRepository) {
+        drmRepository: MLSDRMRepository,
+        paymentRepository: MLSPaymentRepository,
+        logLevel: Configuration.LogLevel) {
         self.timelineRepository = timelineRepository
         self.eventRepository = eventRepository
         self.playerConfigRepository = playerConfigRepository
         self.arbitraryDataRepository = arbitraryDataRepository
         self.drmRepository = drmRepository
+        self.paymentRepository = paymentRepository
     }
     
     private lazy var annotationService: AnnotationServicing = {

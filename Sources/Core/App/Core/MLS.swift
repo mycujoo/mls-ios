@@ -117,6 +117,9 @@ public class MLS {
     private lazy var drmRepository: MLSDRMRepository = {
         return DRMRepositoryImpl()
     }()
+    private lazy var paymentRepository: MLSPaymentRepository = {
+        return MLSPaymentRepositoryImpl(api: api)
+    }()
     private lazy var getEventUseCase: GetEventUseCase = {
         return GetEventUseCase(eventRepository: eventRepository)
     }()
@@ -203,7 +206,9 @@ public class MLS {
             eventRepository: eventRepository,
             playerConfigRepository: playerConfigRepository,
             arbitraryDataRepository: arbitraryDataRepository,
-            drmRepository: drmRepository)
+            drmRepository: drmRepository,
+            paymentRepository: paymentRepository,
+            logLevel: self.configuration.logLevel)
         return factory
     }
 

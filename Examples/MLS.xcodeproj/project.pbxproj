@@ -35,7 +35,14 @@
 		498A7A6125A50D6900B0D6C9 /* WithCastSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498A7A6025A50D6900B0D6C9 /* WithCastSupportViewController.swift */; };
 		49AF3F1625AB3C76005DDFB5 /* WithIMASupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AF3F1525AB3C76005DDFB5 /* WithIMASupportViewController.swift */; };
 		49DD558C24D763850080E105 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD558B24D763850080E105 /* SimpleViewController.swift */; };
+		5F1896992860802400BDDB2D /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 5F1896982860802400BDDB2D /* Configuration.storekit */; };
 		5F2692C727D0DA4800F02895 /* WithConcurrencyLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2692C627D0DA4800F02895 /* WithConcurrencyLimitViewController.swift */; };
+		5F7957752860678D00F38495 /* MLSSDK_IAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7957742860678D00F38495 /* MLSSDK_IAP.framework */; };
+		5F7957762860678D00F38495 /* MLSSDK_IAP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7957742860678D00F38495 /* MLSSDK_IAP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5F7957782860679400F38495 /* MLSSDK_IAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7957772860679400F38495 /* MLSSDK_IAP.framework */; };
+		5F7957792860679400F38495 /* MLSSDK_IAP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7957772860679400F38495 /* MLSSDK_IAP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5FB937FA285C964000524DE4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB937F9285C964000524DE4 /* MainViewController.swift */; };
+		5FB937FC285C96AF00524DE4 /* WithInAppPurchaseAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB937FB285C96AF00524DE4 /* WithInAppPurchaseAvailableViewController.swift */; };
 		5FC55FF627F7071C00848FD8 /* WithConcurrencyLimitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC55FF527F7071C00848FD8 /* WithConcurrencyLimitViewController.swift */; };
 		6152A68AF3297CCCB28925B1 /* Pods_MLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA668A93448550743957481 /* Pods_MLS.framework */; };
 		6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6418F6E4246951060013A9EE /* LaunchScreen.storyboard */; };
@@ -56,6 +63,7 @@
 				49720D872651957200D7D5F8 /* MLSSDK.framework in Embed Frameworks */,
 				49720DA12651972500D7D5F8 /* MLSSDK_IMA.framework in Embed Frameworks */,
 				49720D9F2651972500D7D5F8 /* MLSSDK_Annotations.framework in Embed Frameworks */,
+				5F7957792860679400F38495 /* MLSSDK_IAP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +78,7 @@
 				49720D99265195CD00D7D5F8 /* MLSSDK_Cast.framework in Embed Frameworks */,
 				49720D94265195CB00D7D5F8 /* MLSSDK.framework in Embed Frameworks */,
 				49720D9B265195CE00D7D5F8 /* MLSSDK_Annotations.framework in Embed Frameworks */,
+				5F7957762860678D00F38495 /* MLSSDK_IAP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,7 +125,12 @@
 		49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		49DD558B24D763850080E105 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		540AA58F6F1AA8227F49EDC9 /* Pods_MLS_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MLS_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F1896982860802400BDDB2D /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		5F2692C627D0DA4800F02895 /* WithConcurrencyLimitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithConcurrencyLimitViewController.swift; sourceTree = "<group>"; };
+		5F7957742860678D00F38495 /* MLSSDK_IAP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSSDK_IAP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F7957772860679400F38495 /* MLSSDK_IAP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MLSSDK_IAP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FB937F9285C964000524DE4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5FB937FB285C96AF00524DE4 /* WithInAppPurchaseAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithInAppPurchaseAvailableViewController.swift; sourceTree = "<group>"; };
 		5FC55FF527F7071C00848FD8 /* WithConcurrencyLimitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithConcurrencyLimitViewController.swift; sourceTree = "<group>"; };
 		6418F6D6246951050013A9EE /* MLS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6418F6D9246951050013A9EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +159,7 @@
 				49720D98265195CD00D7D5F8 /* MLSSDK_Cast.framework in Frameworks */,
 				49720D93265195CB00D7D5F8 /* MLSSDK.framework in Frameworks */,
 				49720D9A265195CE00D7D5F8 /* MLSSDK_Annotations.framework in Frameworks */,
+				5F7957752860678D00F38495 /* MLSSDK_IAP.framework in Frameworks */,
 				49720D96265195CC00D7D5F8 /* MLSSDK_IMA.framework in Frameworks */,
 				6152A68AF3297CCCB28925B1 /* Pods_MLS.framework in Frameworks */,
 			);
@@ -158,6 +173,7 @@
 				49720D9E2651972500D7D5F8 /* MLSSDK_Annotations.framework in Frameworks */,
 				49720D862651957200D7D5F8 /* MLSSDK.framework in Frameworks */,
 				C2069710BBE16F07FAACC073 /* Pods_MLS_tvOS.framework in Frameworks */,
+				5F7957782860679400F38495 /* MLSSDK_IAP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				6418F6D9246951050013A9EE /* AppDelegate.swift */,
+				5FB937F9285C964000524DE4 /* MainViewController.swift */,
 				49B3B65424A0E3C8000E02AB /* SimpleViewController.swift */,
 				4983678B264ECA0900DDAEBD /* WithAnnotationSupportViewController.swift */,
 				49AF3F1525AB3C76005DDFB5 /* WithIMASupportViewController.swift */,
@@ -178,10 +195,12 @@
 				5F2692C627D0DA4800F02895 /* WithConcurrencyLimitViewController.swift */,
 				49720DA2265197F900D7D5F8 /* WithAVPlayerViewController.swift */,
 				49111283274BE93D000A5E6A /* WithCustomAnalyticsAccountViewController.swift */,
+				5FB937FB285C96AF00524DE4 /* WithInAppPurchaseAvailableViewController.swift */,
 				6418F6E4246951060013A9EE /* LaunchScreen.storyboard */,
 				491C8CEC24D5C3CD008A7B9D /* Main.storyboard */,
 				491C8CEE24D5D1BF008A7B9D /* Assets.xcassets */,
 				6418F6E7246951060013A9EE /* Info.plist */,
+				5F1896982860802400BDDB2D /* Configuration.storekit */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -241,6 +260,8 @@
 		64A54E43246955C700D365FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F7957772860679400F38495 /* MLSSDK_IAP.framework */,
+				5F7957742860678D00F38495 /* MLSSDK_IAP.framework */,
 				49720D9C2651972500D7D5F8 /* MLSSDK_Annotations.framework */,
 				49720D9D2651972500D7D5F8 /* MLSSDK_IMA.framework */,
 				49720D892651959800D7D5F8 /* MLSSDK_Annotations.framework */,
@@ -363,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6418F6E6246951060013A9EE /* LaunchScreen.storyboard in Resources */,
+				5F1896992860802400BDDB2D /* Configuration.storekit in Resources */,
 				491C8CEF24D5D1BF008A7B9D /* Assets.xcassets in Resources */,
 				491C8CED24D5C3CD008A7B9D /* Main.storyboard in Resources */,
 			);
@@ -503,9 +525,11 @@
 				4925AA8D24C6FF8600F13832 /* AppDelegate.swift in Sources */,
 				4925AA8E24C6FF8600F13832 /* SimpleViewController.swift in Sources */,
 				4925AA8F24C6FF8600F13832 /* WithPictureInPictureViewController.swift in Sources */,
+				5FB937FA285C964000524DE4 /* MainViewController.swift in Sources */,
 				49720DA3265197F900D7D5F8 /* WithAVPlayerViewController.swift in Sources */,
 				498A7A6125A50D6900B0D6C9 /* WithCastSupportViewController.swift in Sources */,
 				491C8CEB24D5C33A008A7B9D /* WithEventListViewController.swift in Sources */,
+				5FB937FC285C96AF00524DE4 /* WithInAppPurchaseAvailableViewController.swift in Sources */,
 				49111284274BE93D000A5E6A /* WithCustomAnalyticsAccountViewController.swift in Sources */,
 				49AF3F1625AB3C76005DDFB5 /* WithIMASupportViewController.swift in Sources */,
 				5F2692C727D0DA4800F02895 /* WithConcurrencyLimitViewController.swift in Sources */,
@@ -688,7 +712,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57ZCK5ERE3;
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -710,7 +734,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 57ZCK5ERE3;
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
