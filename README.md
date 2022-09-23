@@ -75,6 +75,29 @@ To use the Chromecast extension, please ensure the following:
 - Add the "Access WiFi information" capability to your application. 
 - Set the `castIntegration` property on the VideoPlayer (before using it), and provide a delegate. See Examples.
 
+### IAP (in-app purchases)
+
+#### How to use
+To use the IAP extension, three sets of steps need to be taken:
+
+**In App Store Connect**
+- Accept all the relevant banking and tax agreements
+- Under the "Subscriptions" feature tab, you have two options. If you want to create a recurring subscription, create a Subscription Group with a Subscription inside. If you want to create a one-off purchase, create a Non-Renewing Subscription. The identifier you create will be needed later.
+- Under the "App Information" general tab, configure the Production Server URL to `https://mcls-payments.mycujoo.tv/apple`
+
+**In your app**
+- Turn on the In-App Purchase capability for your app target
+- Include the `MLSSDK/IAP` pod in your Podfile (see Installation).
+- Create an `IAPIntegration` object, and call `listProducts` with an MCLS event ID, and consequently call `purchaseProduct` (see Examples)
+
+**With the MCLS API**
+- On the MCLS events that you wish to sell through in-app purchases, create "labels" using the API here: https://mcls.mycujoo.tv/api-docs/#create-event. An example of a good label in the case of a football match is the competition identifier belonging to this event. The label key would be `competition_id`, the value would be `rzigDNAnp3wKPMsG` (replace with an actual identifier, of course). Of course, these labels can be anything you'd like, depending on the context of your content.
+- Create an MCLS package using the MCLS API as documented here: https://mcls.mycujoo.tv/api-docs/#create-package. This package represents the object that can be bought by a user, and defines which MCLS events are a part of this package. The `apple_app_store_product_id` should be the identifier you chose in the App Store Connect subscription you created earlier. The `contents` array should contain the labels created in the previous step. In our example, it would be an array of one element, where the id would be `rzigDNAnp3wKPMsG` and the `type` would be `competition_id`. The priority can be left to 0. The `price` that you configure here is not used for in-app purchases (as it is coming from Apple instead).
+- (Optional) Create geoblocking rules to limit the purchasing of certain packages to limited countries only. Use this API: https://mcls.mycujoo.tv/api-docs/#mls-api-geofenceservice.
+
+#### Limitations
+- For now, the MCLS API does not support upgrading and downgrading within a Subscription Group. Therefore you should only have a single Subscription within each Subscription Group.
+- You should not remove an `apple_app_store_product_id` from the MCLS package while there are active subscribers on the associated Apple product.
 
 ## Examples
 

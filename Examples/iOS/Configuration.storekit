@@ -1,0 +1,52 @@
+{
+  "identifier" : "CA210E6F",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "6BED751D",
+      "localizations" : [
+
+      ],
+      "name" : "ELEVEN SPORTS",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "0.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "A409583B",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "",
+              "displayName" : "",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "testsub29YzWXKPMi6yBF63tRoCasuCu6Q",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Test Subscription",
+          "subscriptionGroupID" : "6BED751D",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 2
+  }
+}

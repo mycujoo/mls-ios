@@ -12,5 +12,7 @@ public protocol IntegrationFactoryProtocol {
         eventRepository: MLSEventRepository,
         playerConfigRepository: MLSPlayerConfigRepository,
         arbitraryDataRepository: MLSArbitraryDataRepository,
-        drmRepository: MLSDRMRepository)
+        drmRepository: MLSDRMRepository,
+        paymentRepository: MLSPaymentRepository,
+        logLevel: Configuration.LogLevel)
 }
