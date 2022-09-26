@@ -91,7 +91,8 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
             }
             
             /// Feature toggle is available for `FeaturedWebsocket`, therefore sdk's user should define wether to use it or not when calling the `MLS` sdk.
-            if let enableConcurrencyControl = self?.enableConcurrencyControl, enableConcurrencyControl {
+            /// And also only connecting to this websocket if the event is not `Scheduled`.
+            if let enableConcurrencyControl = self?.enableConcurrencyControl, enableConcurrencyControl, latestEvent?.status != .scheduled {
                 
                 // For now, only connect to this websocket if it requires entitlement.
                 // Later on, we can also do this for non-protected events, when the websockets support more features.
