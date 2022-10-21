@@ -608,7 +608,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
         event = nil
         delegate?.playerConcurrencyLimitExceeded(eventId: eventId, limit: limit, player: self)
         if imaIntegration?.isShowingAd() == true {
-            imaIntegration = nil
+            imaIntegration?.pause()
         }
         view?.infoTitleLabel.text = L10n.Localizable.concurrencyLimitExceededTitle
         view?.infoTitleLabel.textColor = .white
