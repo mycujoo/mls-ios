@@ -596,6 +596,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
     /// - parameter oldEvent: The Event that was previously associated with the VideoPlayer.
     private func cleanup(oldEvent: Event) {
+        annotationIntegration?.timelineId = nil
         getEventUpdatesUseCase.stop(id: oldEvent.id)
     }
 
