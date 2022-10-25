@@ -128,7 +128,6 @@ class WebSocket: WebSocketClient, EngineDelegate {
         } else {
             self.init(request: request, engine: WSEngine(transport: FoundationTransport(), certPinner: certPinner, compressionHandler: compressionHandler))
         }
-        self.request.addValue(UserAgentHeader().getDeviceInfo(), forHTTPHeaderField: "User-Agent")
     }
     
     func connect() {
