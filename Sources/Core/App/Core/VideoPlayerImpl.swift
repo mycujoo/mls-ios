@@ -596,6 +596,7 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// Should get called when the VideoPlayer switches to a different Event or Stream. Ensures that all resources are being cleaned up and networking is halted.
     /// - parameter oldEvent: The Event that was previously associated with the VideoPlayer.
     private func cleanup(oldEvent: Event) {
+        annotationIntegration?.timelineId = nil
         getEventUpdatesUseCase.stop(id: oldEvent.id)
     }
 
@@ -603,10 +604,13 @@ internal class VideoPlayerImpl: NSObject, VideoPlayer {
     /// - parameter oldStream: The Stream that was previously associated with the VideoPlayer.
     private func cleanup(oldStream: Stream) {}
 
-    /// Should get called when VideoPlayer concurrency exceed it's limit. Ensures that video is tear down and gets no update from websocket, then returns a message to user
+    /// Should get called when VideoPlayer concurrency exceed it's limit. Ensures that video is tear down and gets no update from websocket, set the ima ad to nil if playing, then returns a message to user
     private func concurrencyLimitExceededCleanup(eventId: String, limit: Int) {
         event = nil
         delegate?.playerConcurrencyLimitExceeded(eventId: eventId, limit: limit, player: self)
+        if imaIntegration?.isShowingAd() == true {
+            imaIntegration?.pause()
+        }
         view?.infoTitleLabel.text = L10n.Localizable.concurrencyLimitExceededTitle
         view?.infoTitleLabel.textColor = .white
         view?.infoDescriptionLabel.text = L10n.Localizable.concurrencyLimitExceededError(limit)
