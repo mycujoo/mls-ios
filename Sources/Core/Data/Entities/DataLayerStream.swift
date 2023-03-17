@@ -31,9 +31,9 @@ extension DataLayer {
 extension DataLayer.Stream {
     enum CodingKeys: String, CodingKey {
         case id
-        case fullUrl = "full_url"
+        case fullUrl
         case drm
-        case dvrWindowSize = "dvr_window_size"
+        case dvrWindowSize
         case error
     }
 
@@ -95,9 +95,9 @@ extension DataLayer.Stream.DRM {
 
 extension DataLayer.Stream.DRM.FairplayStream {
     enum CodingKeys: String, CodingKey {
-        case fullUrl = "full_url"
-        case licenseUrl = "license_url"
-        case certificateUrl = "certificate_url"
+        case fullUrl
+        case licenseUrl
+        case certificateUrl
     }
 
     init(from decoder: Decoder) throws {

@@ -25,13 +25,20 @@ enum API {
 }
 
 extension API: TargetType {
-    var baseURL: URL { return URL(string: "https://mcls-api.mycujoo.tv")! }
+    var baseURL: URL {
+        switch self {
+        case .eventById, .events:
+            return URL(string: "https://cda.mycujoo.tv")!
+        default:
+            return URL(string: "https://mcls-api.mycujoo.tv")!
+        }
+    }
     var path: String {
         switch self {
-        case .eventById(let eventId, _):
-            return "/bff/events/v1beta1/\(eventId)"
+        case .eventById:
+            return "/mcls.cda.events.v1.EventsService/Get"
         case .events:
-            return "/bff/events/v1beta1"
+            return "/mcls.cda.events.v1.EventsService/List"
         case .timelineActions(let timelineId, _):
             return "/bff/timeline/v1beta1/\(timelineId)"
         case .playerConfig:
@@ -49,7 +56,9 @@ extension API: TargetType {
 
     var method: Moya.Method {
         switch self {
-        case .eventById, .events, .timelineActions, .playerConfig, .listEventPackages, .checkEntitlement:
+        case .eventById, .events:
+            return .post
+        case .timelineActions, .playerConfig, .listEventPackages, .checkEntitlement:
             return .get
         case .createOrder, .paymentVerification:
             return .post
@@ -397,8 +406,16 @@ extension API: TargetType {
 
     var task: Moya.Task {
         switch self {
+        case .eventById(let eventId, let updateId):
+            var params: [String: Any] = [:]
+            params["id"] = eventId
+            if let updateId = updateId {
+                params["update_id"] = updateId
+            }
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .events(let pageSize, let pageToken, let status, let orderBy):
             var params: [String : Any] = [:]
+            var filterArgs: [String] = []
             if let pageSize = pageSize {
                 params["page_size"] = pageSize
             }
@@ -406,25 +423,21 @@ extension API: TargetType {
                 params["page_token"] = pageToken
             }
             if let status = status {
-                params["status"] = status.map { $0.rawValue }
+                var filter = status.map { $0.rawValue }.joined(separator: "OR")
+                if status.count > 1 {
+                    filter = "(" + filter + ")"
+                }
+                filterArgs.append("status:" + filter)
             }
             if let orderBy = orderBy {
                 params["order_by"] = orderBy.rawValue
             }
-
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        case .eventById(_, let updateId):
-            var params: [String : Any] = [:]
-            if let updateId = updateId {
-                params["update_id"] = updateId
+            if filterArgs.count > 0 {
+                params["filter"] = filterArgs.joined(separator: " ")
             }
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        case .timelineActions(_, let updateId):
-            var params: [String : Any] = [:]
-            if let updateId = updateId {
-                params["update_id"] = updateId
-            }
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+        case .timelineActions:
+            return .requestPlain
         case .playerConfig:
            return .requestPlain
         case .listEventPackages(let eventId):
@@ -445,6 +458,14 @@ extension API: TargetType {
     }
 
     var headers: [String : String]? {
+        switch self {
+        case .timelineActions(_, let updateId):
+            if let updateId = updateId {
+                return ["x-update-id": updateId]
+            }
+        default:
+            break
+        }
         return [:]
     }
 }

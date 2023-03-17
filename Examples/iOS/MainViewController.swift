@@ -9,7 +9,7 @@ class MainViewController: UIViewController {
     
     private let tableView = UITableView()
     
-    private lazy var viewControllers: [UIViewController] = [SimpleViewController(), WithAnnotationSupportViewController(), WithIMASupportViewController(), WithCastSupportViewController(), WithPictureInPictureViewController(), WithFullscreenZoomViewController(), WithEventListViewController(), WithConcurrencyLimitViewController(), WithAVPlayerViewController(), WithCustomAnalyticsAccountViewController(), WithInAppPurchaseAvailableViewController()]
+    private lazy var viewControllers: [UIViewController] = [SimpleViewController(), WithAnnotationSupportViewController(), WithIMASupportViewController(), WithCastSupportViewController(), WithPictureInPictureViewController(), WithFullscreenZoomViewController(), UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WithEventList"), WithConcurrencyLimitViewController(), WithAVPlayerViewController(), WithCustomAnalyticsAccountViewController(), WithInAppPurchaseAvailableViewController()]
     
     private let viewNames: [String] = ["Simple", "With Annotation", "With IMA Support", "With Cast Support", "With PiP", "With Fullscreen zoom", "With event list", "With Concurrency", "With AV Player", "With Custom Analytics", "With InApp Purchase"]
     override func viewDidLoad() {

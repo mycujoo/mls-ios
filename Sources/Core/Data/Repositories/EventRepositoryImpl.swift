@@ -22,8 +22,8 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
     }
 
     func fetchEvent(byId id: String, updateId: String?, callback: @escaping (Event?, Error?) -> ()) {
-        _fetch(.eventById(id: id, updateId: updateId), type: DataLayer.Event.self) { (event, err) in
-            callback(event?.toDomain, err)
+        _fetch(.eventById(id: id, updateId: updateId), type: DataLayer.EventByIdWrapper.self) { (wrapper, err) in
+            callback(wrapper?.event.toDomain, err)
         }
     }
     
@@ -34,7 +34,7 @@ class EventRepositoryImpl: BaseRepositoryImpl, MLSEventRepository {
                     pageToken: pageToken,
                     status: status?.map { DataLayer.ParamEventStatus.fromDomain($0) },
                     orderBy: orderBy != nil ? DataLayer.ParamEventOrder.fromDomain(orderBy!) : nil),
-                type: DataLayer.EventWrapper.self
+                type: DataLayer.EventListWrapper.self
         ) { (wrapper, err) in
             // TODO: Return the pagination tokens as well
             callback(wrapper?.events.map { $0.toDomain }, wrapper?.nextPageToken, wrapper?.previousPageToken, err)
