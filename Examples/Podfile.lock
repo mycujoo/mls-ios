@@ -10,21 +10,21 @@ PODS:
     - Protobuf (~> 3.13)
   - GoogleAds-IMA-iOS-SDK (3.14.5)
   - GoogleAds-IMA-tvOS-SDK (4.4.2)
-  - MLSSDK (1.5.1):
-    - MLSSDK/Core (= 1.5.1)
-  - MLSSDK/Annotations (1.5.1):
+  - MLSSDK (1.5.2):
+    - MLSSDK/Core (= 1.5.2)
+  - MLSSDK/Annotations (1.5.2):
     - MLSSDK/Core
-  - MLSSDK/Cast (1.5.1):
+  - MLSSDK/Cast (1.5.2):
     - google-cast-sdk (~> 4.5)
     - MLSSDK/Core
-  - MLSSDK/Core (1.5.1):
+  - MLSSDK/Core (1.5.2):
     - Alamofire (~> 5.0)
     - Moya (~> 14.0)
     - YouboraAVPlayerAdapter
     - YouboraLib
-  - MLSSDK/IAP (1.5.1):
+  - MLSSDK/IAP (1.5.2):
     - MLSSDK/Core
-  - MLSSDK/IMA (1.5.1):
+  - MLSSDK/IMA (1.5.2):
     - GoogleAds-IMA-iOS-SDK (~> 3.14)
     - GoogleAds-IMA-tvOS-SDK (~> 4.2)
     - MLSSDK/Core
@@ -82,7 +82,7 @@ SPEC CHECKSUMS:
   google-cast-sdk: 9fc76175641bc24ef2515e0263344bd2c5c4e75c
   GoogleAds-IMA-iOS-SDK: b088674002266c5638e73d10696c8b13872ee15e
   GoogleAds-IMA-tvOS-SDK: ab4419ba59b75c77b329e86ce408cb81ac117fe4
-  MLSSDK: ace38c301d56df9986031ab5ccc6d2d20b46c213
+  MLSSDK: 689d288068f91e1d74c8a2b696361bd639b28215
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
   Protobuf: 235750e4696ff59fb07d949a9dbbc92b3c0700fe

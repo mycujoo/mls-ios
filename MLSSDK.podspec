@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = 'MLSSDK'
-  spec.version      = '1.5.1'
+  spec.version      = '1.5.2'
   spec.summary      = 'An SDK for MyCujoo Live Services to help build an amazing video experience'
   spec.description  = 'This SDK is intended for customers of MyCujoo Live Services. It offers a video player, overlays, analytics and more. It has an extension for IMA as well.'
   spec.homepage     = 'https://mls.mycujoo.tv'
