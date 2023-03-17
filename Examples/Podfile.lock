@@ -1,0 +1,95 @@
+PODS:
+  - Alamofire (5.6.4)
+  - Cuckoo (1.9.1):
+    - Cuckoo/Swift (= 1.9.1)
+  - Cuckoo/Swift (1.9.1)
+  - google-cast-sdk (4.6.1):
+    - google-cast-sdk/Core (= 4.6.1)
+    - Protobuf (~> 3.13)
+  - google-cast-sdk/Core (4.6.1):
+    - Protobuf (~> 3.13)
+  - GoogleAds-IMA-iOS-SDK (3.14.5)
+  - GoogleAds-IMA-tvOS-SDK (4.4.2)
+  - MLSSDK (1.5.2):
+    - MLSSDK/Core (= 1.5.2)
+  - MLSSDK/Annotations (1.5.2):
+    - MLSSDK/Core
+  - MLSSDK/Cast (1.5.2):
+    - google-cast-sdk (~> 4.5)
+    - MLSSDK/Core
+  - MLSSDK/Core (1.5.2):
+    - Alamofire (~> 5.0)
+    - Moya (~> 14.0)
+    - YouboraAVPlayerAdapter
+    - YouboraLib
+  - MLSSDK/IAP (1.5.2):
+    - MLSSDK/Core
+  - MLSSDK/IMA (1.5.2):
+    - GoogleAds-IMA-iOS-SDK (~> 3.14)
+    - GoogleAds-IMA-tvOS-SDK (~> 4.2)
+    - MLSSDK/Core
+  - Moya (14.0.0):
+    - Moya/Core (= 14.0.0)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - Nimble (9.2.1)
+  - Protobuf (3.22.1)
+  - Quick (4.0.0)
+  - YouboraAVPlayerAdapter (6.7.0):
+    - YouboraAVPlayerAdapter/Default (= 6.7.0)
+    - YouboraLib (~> 6.5)
+  - YouboraAVPlayerAdapter/Default (6.7.0):
+    - YouboraLib (~> 6.5)
+  - YouboraLib (6.7.3)
+
+DEPENDENCIES:
+  - Cuckoo (~> 1.5)
+  - google-cast-sdk (~> 4.5)
+  - GoogleAds-IMA-iOS-SDK (~> 3.14)
+  - GoogleAds-IMA-tvOS-SDK (~> 4.2)
+  - MLSSDK (from `..`)
+  - MLSSDK/Annotations (from `..`)
+  - MLSSDK/Cast (from `..`)
+  - MLSSDK/IAP (from `..`)
+  - MLSSDK/IMA (from `..`)
+  - Moya (~> 14.0)
+  - Nimble (~> 9.0)
+  - Quick (~> 4.0)
+  - YouboraAVPlayerAdapter
+  - YouboraLib
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Cuckoo
+    - google-cast-sdk
+    - GoogleAds-IMA-iOS-SDK
+    - GoogleAds-IMA-tvOS-SDK
+    - Moya
+    - Nimble
+    - Protobuf
+    - Quick
+    - YouboraAVPlayerAdapter
+    - YouboraLib
+
+EXTERNAL SOURCES:
+  MLSSDK:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  Cuckoo: 1b6793fe60fac29af50b0a5915bc309a4a1ac673
+  google-cast-sdk: 9fc76175641bc24ef2515e0263344bd2c5c4e75c
+  GoogleAds-IMA-iOS-SDK: b088674002266c5638e73d10696c8b13872ee15e
+  GoogleAds-IMA-tvOS-SDK: ab4419ba59b75c77b329e86ce408cb81ac117fe4
+  MLSSDK: 689d288068f91e1d74c8a2b696361bd639b28215
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
+  Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
+  Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
+  YouboraAVPlayerAdapter: f48516d2e5862e3f6b183471993be165cc8e8c77
+  YouboraLib: 5690046271a44cf3b03b09dfc61aad44e38d3b4d
+
+PODFILE CHECKSUM: 2ac777be6f9455de9181cdbd6a6a42548a408fad
+
+COCOAPODS: 1.12.0
