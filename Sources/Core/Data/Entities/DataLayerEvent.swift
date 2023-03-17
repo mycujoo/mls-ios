@@ -9,10 +9,14 @@ extension DataLayer {
 
     // MARK: Decodables
 
-    struct EventWrapper: Decodable {
+    struct EventListWrapper: Decodable {
         let events: [Event]
         let nextPageToken: String?
         let previousPageToken: String?
+    }
+    
+    struct EventByIdWrapper: Decodable {
+        let event: Event
     }
 
     struct Event: Decodable {
@@ -59,7 +63,7 @@ extension DataLayer {
 
 }
 
-extension DataLayer.EventWrapper {
+extension DataLayer.EventListWrapper {
     enum CodingKeys: String, CodingKey {
         case events
         case nextPageToken = "next_page_token"
@@ -76,20 +80,33 @@ extension DataLayer.EventWrapper {
     }
 }
 
+extension DataLayer.EventByIdWrapper {
+    enum CodingKeys: String, CodingKey {
+        case event
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let event: DataLayer.Event = try container.decode(DataLayer.Event.self, forKey: .event)
+
+        self.init(event: event)
+    }
+}
+
 extension DataLayer.Event {
     enum CodingKeys: String, CodingKey {
         case id
         case title
         case description
-        case posterUrl = "poster_url"
-        case thumbnailUrl = "thumbnail_url"
+        case posterUrl
+        case thumbnailUrl
         case organiser
         case timezone
-        case startTime = "start_time"
+        case startTime
         case status
-        case isProtected = "is_protected"
+        case isProtected
         case streams
-        case timelineIds = "timeline_ids"
+        case timelineIds
     }
 
     init(from decoder: Decoder) throws {
