@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 `MLSSDK` adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.5.2](https://github.com/MyCujoo/mls-ios/releases/tag/1.5.2)
+Released on 2023-03-17.
+
+#### Updated
+- Changed to a new CDA API 
+
 ## [1.5.1](https://github.com/MyCujoo/mls-ios/releases/tag/1.5.1)
 Released on 2022-10-25.
 
