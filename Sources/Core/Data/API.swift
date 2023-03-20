@@ -406,12 +406,9 @@ extension API: TargetType {
 
     var task: Moya.Task {
         switch self {
-        case .eventById(let eventId, let updateId):
+        case .eventById(let eventId, _):
             var params: [String: Any] = [:]
             params["id"] = eventId
-            if let updateId = updateId {
-                params["update_id"] = updateId
-            }
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .events(let pageSize, let pageToken, let status, let orderBy):
             var params: [String : Any] = [:]
@@ -436,8 +433,12 @@ extension API: TargetType {
                 params["filter"] = filterArgs.joined(separator: " ")
             }
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
-        case .timelineActions:
-            return .requestPlain
+        case .timelineActions(_, let updateId):
+            var params: [String : Any] = [:]
+            if let updateId = updateId {
+                params["update_id"] = updateId
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .playerConfig:
            return .requestPlain
         case .listEventPackages(let eventId):
@@ -459,7 +460,7 @@ extension API: TargetType {
 
     var headers: [String : String]? {
         switch self {
-        case .timelineActions(_, let updateId):
+        case .eventById(_, let updateId):
             if let updateId = updateId {
                 return ["x-update-id": updateId]
             }
